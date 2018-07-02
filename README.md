@@ -1,2 +1,2 @@
-# vanilla-resource-pack
-Minecraft Java/Bedrock Edition Vanilla Resource Pack
+# Minecraft Vanilla Resource Pack
+Info Coming Soon...
