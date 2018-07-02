@@ -1,0 +1,179 @@
+/********************************************************
++*   (c) Mojang. All rights reserved                       *
++*   (c) Microsoft. All rights reserved.                   *
++*********************************************************/
+
+{
+  "namespace": "xbl_console_signin",
+
+  "banner_fill": {
+    "type": "image",
+    "texture": "textures/ui/Banners"
+  },
+
+  "main_panel": {
+    "type": "stack_panel",
+    "size": [ "100% - 4px", "100%c" ],
+    "controls": [
+      {
+        "padding_0": {
+          "type": "panel",
+          "size": [ "100%", 2 ]
+        }
+      },
+      {
+        "message_label_panel": {
+          "type": "panel",
+          "size": [ "100%", "100%c" ],
+          "controls": [
+            {
+              "message_label": {
+                "type": "label",
+                "size": [ "100%", "default" ],
+                "text": "xbox.signin.message",
+                "anchor_from": "center",
+                "anchor_to": "center",
+                "layer": 2,
+                "text_alignment": "center",
+                "color": "$xbl_signin_text_color",
+                "font_type": "smooth"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "padding_1": {
+          "type": "panel",
+          "size": [ "100%", 4 ]
+        }
+      },
+      {
+        "website_message_label": {
+          "type": "label",
+          "size": [ "100%", "default" ],
+          "text": "xbox.signin.website",
+          "layer": 2,
+          "text_alignment": "center",
+          "color": "$xbl_signin_text_color",
+          "font_type": "smooth"
+        }
+      },
+      {
+        "banner_1@xbl_console_signin.banner_fill": {
+          "size": [ "100%", "100%c + 6px" ],
+          "layer": 1,
+          "controls": [
+            {
+              "url_label": {
+                "type": "label",
+                "size": [ "100%", "default" ],
+                "text": "#url",
+                "layer": 2,
+                "text_alignment": "center",
+                "color": "$xbl_signin_text_color",
+                "font_type": "smooth",
+                "font_scale_factor": 2,
+                "bindings": [
+                  {
+                    "binding_name": "#url"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "padding_2": {
+          "type": "panel",
+          "size": [ "100%", 4 ]
+        }
+      },
+      {
+        "code_message_label": {
+          "type": "label",
+          "size": [ "100%", "default" ],
+          "text": "xbox.signin.enterCode",
+          "layer": 2,
+          "text_alignment": "center",
+          "color": "$xbl_signin_text_color",
+          "font_type": "smooth"
+        }
+      },
+      {
+        "banner_2@xbl_console_signin.banner_fill": {
+          "size": [ "100%", "100%c + 6px" ],
+          "layer": 1,
+          "controls": [
+            {
+              "code_label": {
+                "type": "label",
+                "size": [ "100%", "default" ],
+                "text": "#code",
+                "layer": 2,
+                "text_alignment": "center",
+                "color": "$xbl_signin_text_color",
+                "font_type": "smooth",
+                "font_scale_factor": 2,
+                "bindings": [
+                  {
+                    "binding_name": "#code"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "gamepad_helpers": {
+    "type": "panel",
+    "layer": 2,
+    "controls": [
+      {
+        "gamepad_helper_b@common.gamepad_helper_b": {
+          "anchor_from": "bottom_middle",
+          "anchor_to": "bottom_middle",
+          "offset": [ 0, "-10%" ]
+        }
+      }
+    ]
+  },
+
+  // -----------------------------------------------
+  //
+  //    screen
+  //
+  // -----------------------------------------------
+  "xbl_console_signin@common.base_screen": {
+    "button_mappings": [
+      {
+        "from_button_id": "button.menu_cancel",
+        "to_button_id": "button.menu_exit",
+        "mapping_type": "global"
+      }
+    ],
+    "$screen_content": "xbl_console_signin.xbl_console_signin_screen_content"
+  },
+
+  "xbl_console_signin_screen_content": {
+    "type": "panel",
+    "controls": [
+      { "gamepad_helpers@xbl_console_signin.gamepad_helpers": {} },
+      {
+        "dialog@xbl_console_signin.dialog": {
+          "layer": 1
+        }
+      }
+    ]
+  },
+
+  "dialog@common_dialogs.form_fitting_main_panel_no_buttons": {
+    "size": "$xbl_console_signin_screen_size",
+    "$child_control": "xbl_console_signin.main_panel",
+    "$text_name": "xbox.signin"
+  }
+}

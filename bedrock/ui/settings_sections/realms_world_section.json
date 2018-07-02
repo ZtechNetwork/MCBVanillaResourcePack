@@ -1,0 +1,169 @@
+/********************************************************
++*   (c) Mojang. All rights reserved                       *
++*   (c) Microsoft. All rights reserved.                   *
++*********************************************************/
+
+{
+  "namespace": "realms_world_section",
+
+  "realm_name_edit@settings_common.option_text_edit": {
+    "$option_label": "realmsSettingsScreen.realmNameLabel",
+    "$option_binding_name": "#realm_name",
+    "$option_enabled_binding_name": "#realm_name_enabled",
+    "$option_place_holder_text": "realmsSettingsScreen.realmNameEditPlaceholder",
+    "$text_box_name": "realm_name_text_box",
+    "$allow_data_binding": true,
+    "$max_text_edit_length": 64
+  },
+
+  "club_description_edit@settings_common.option_text_edit": {
+    "$option_label": "feed.clubdescription",
+    "$option_binding_name": "#club_description",
+    "$option_enabled_binding_name": "#realm_name_enabled",
+    "$option_place_holder_text": "realmsSettingsScreen.realmDescriptionEditPlaceholder",
+    "$text_box_name": "club_description_text_box",
+    "$allow_data_binding": true,
+    "$max_text_edit_length": 499,
+    "bindings": [
+      {
+        "binding_name": "#club_description_enabled",
+        "binding_name_override": "#enabled"
+      },
+      {
+        "binding_name": "#club_description_visible",
+        "binding_name_override": "#visible"
+      }
+    ]
+  },
+
+
+  "download_world_button@settings_common.action_button": {
+    "anchor_from": "left_middle",
+    "anchor_to": "left_middle",
+    "$button_text": "realmsSettingsScreen.downloadWorldButton",
+    "$pressed_button_name": "menu_download_world",
+    "ignored": "(not $is_pregame or $apple_tv)"
+  },
+
+  "upload_world_button@settings_common.action_button": {
+    "anchor_from": "left_middle",
+    "anchor_to": "left_middle",
+    "$button_text": "realmsSettingsScreen.uploadWorldButton",
+    "$pressed_button_name": "menu_upload_world",
+    "ignored": "(not $is_pregame or $apple_tv)",
+    "bindings": [
+      {
+        "binding_name": "#upload_button_enabled",
+        "binding_name_override": "#enabled"
+      }
+    ]
+  },
+
+  "reset_world_button@settings_common.action_button": {
+    "anchor_from": "left_middle",
+    "anchor_to": "left_middle",
+    "$button_text": "realmsSettingsScreen.resetWorldButton",
+    "$pressed_button_name": "menu_reset_world",
+    "bindings": [
+      {
+        "binding_name": "#reset_button_enabled",
+        "binding_name_override": "#enabled"
+      },
+      {
+        "binding_name": "#reset_button_visible",
+        "binding_name_override": "#visible"
+      }
+    ]
+  },
+
+  "manage_feed_button@settings_common.action_button": {
+    "anchor_from": "left_middle",
+    "anchor_to": "left_middle",
+    "$button_text": "feed.manage_feed",
+    "$pressed_button_name": "menu_manage_feed",
+    "bindings": [
+      {
+        "binding_name": "#manage_feed_button_enabled",
+        "binding_name_override": "#enabled"
+      },
+      {
+        "binding_name": "#manage_feed_button_visible",
+        "binding_name_override": "#visible"
+      }
+    ]
+  },
+
+  "club_info_label@settings_common.option_info_label": {
+    "$container_text_binding_name": "#club_infotext",
+    "$show_option_label": false,
+    "bindings": [
+      {
+        "binding_name": "#club_infotext_visible",
+        "binding_name_override": "#visible"
+      }
+    ]
+  },
+
+
+  "difficulty_dropdown@settings_common.option_dropdown": {
+    "$option_label": "options.difficulty",
+    "$dropdown_content": "world_section.world_difficulty_dropdown_content",
+    "$dropdown_area": "realms_world_section.panel_content",
+    "$dropdown_name": "realms_difficulty",
+    "$options_dropdown_toggle_label_binding": "#difficulty_option_label",
+    "$option_enabled_binding_name": "#realms_difficulty_dropdown_enabled",
+    "$dropdown_scroll_content_size": [ "100%", "260%" ]
+  },
+
+  "game_mode_dropdown@settings_common.option_dropdown": {
+    "$option_label": "createWorldScreen.gameMode",
+    "$dropdown_content": "world_section.world_game_mode_dropdown_content",
+    "$dropdown_area": "realms_world_section.panel_content",
+    "$dropdown_name": "realms_gamemode",
+    "$options_dropdown_toggle_label_binding": "#gameMode_option_label",
+    "$option_enabled_binding_name": "#realms_game_mode_dropdown_enabled",
+    "$dropdown_scroll_content_size": [ "100%", "200%" ],
+    "$enabled": "$is_pregame"
+  },
+
+  "panel_content": {
+    "type": "stack_panel",
+    "controls": [
+      { "realm_name_edit@realms_world_section.realm_name_edit": {} },
+      { "club_description_edit@realms_world_section.club_description_edit": {} },
+      { "difficulty_dropdown@realms_world_section.difficulty_dropdown": {} },
+      { "game_mode_dropdown@realms_world_section.game_mode_dropdown": {} },
+      {
+        "allow_cheats_toggle@settings_common.option_toggle": {
+          "$option_label": "selectWorld.cheats",
+          "$option_binding_name": "#allow_cheats",
+          "$option_enabled_binding_name": "#allow_cheats_enabled",
+          "$toggle_name": "allow_cheats"
+        }
+      },
+      { "download_world_button@realms_world_section.download_world_button": {} },
+      {
+        "padding_0": {
+          "type": "panel",
+          "size": [ "100%", 4 ]
+        }
+      },
+      { "upload_world_button@realms_world_section.upload_world_button": {} },
+      {
+        "padding_1": {
+          "type": "panel",
+          "size": [ "100%", 4 ]
+        }
+      },
+      { "reset_world_button@realms_world_section.reset_world_button": {} },
+      {
+        "padding_2": {
+          "type": "panel",
+          "size": [ "100%", 16 ]
+        }
+      },
+      { "club_info_label@realms_world_section.club_info_label": {} },
+      { "manage_feed_button@realms_world_section.manage_feed_button": {} }
+    ]
+  }
+}

@@ -1,0 +1,428 @@
+{
+  "namespace": "store_inventory",
+
+  "no_xbl_and_local_content_warning_panel": {
+    "type": "panel",
+    "size": [ "100% - 2px", "100%c" ],
+    "bindings": [
+      {
+        "binding_name": "#show_no_xbl_and_local_content_warning",
+        "binding_name_override": "#visible"
+      }
+    ],
+    "controls": [
+      {
+        "padding_content_padding_stack": {
+          "type": "stack_panel",
+          "orientation": "vertical",
+          "size": [ "100%", "100%c" ],
+          "controls": [
+            {
+              "background_and_content_panel@common_store.banner_fill": {
+                "size": [ "100%", "100%c" ],
+                "controls": [
+                  {
+                    "content_panel": {
+                      "type": "stack_panel",
+                      "orientation": "vertical",
+                      "size": [ "100%", "100%c" ],
+                      "controls": [
+                        {
+                          "top_padding": {
+                            "type": "panel",
+                            "size": [ "100%", 4 ]
+                          }
+                        },
+                        {
+                          "horizontal_stack": {
+                            "type": "stack_panel",
+                            "orientation": "horizontal",
+                            "size": [ "100%", "100%cm" ],
+                            "layer": 2,
+                            "controls": [
+                              {
+                                "left_padding": {
+                                  "type": "panel",
+                                  "size": [ 4, 0 ]
+                                }
+                              },
+                              {
+                                "no_xbl_icon": {
+                                  "type": "image",
+                                  "size": [ 13, 20 ],
+                                  "texture": "textures/ui/ErrorGlyph"
+                                }
+                              },
+                              {
+                                "icon_padding_warning": {
+                                  "type": "panel",
+                                  "size": [ 4, 0 ]
+                                }
+                              },
+                              {
+                                "warning_and_sign_in_stack": {
+                                  "type": "stack_panel",
+                                  "orientation": "vertical",
+                                  "size": [ "fill", "100%c" ],
+                                  "controls": [
+                                    {
+                                      "warning_label": {
+                                        "type": "label",
+                                        "max_size": [ "100%", "100%c" ],
+                                        "text": "store.sign_in_warning.no_xbl_and_local_content",
+                                        "font_type": "smooth",
+                                        "color": "$body_text_color"
+                                      }
+                                    },
+                                    {
+                                      "label_padding_button": {
+                                        "type": "panel",
+                                        "size": [ "100%", 4 ]
+                                      }
+                                    },
+                                    {
+                                      "sign_in_button_panel": {
+                                        "type": "panel",
+                                        "size": [ "100%", 16 ],
+                                        "controls": [
+                                          {
+                                            "sign_in_button@common_store.sign_in_button": {
+                                              "anchor_from": "top_right",
+                                              "anchor_to": "top_right",
+                                              "focus_enabled": true,
+                                              "$new_ui_label_offset": [ 0, 0 ],
+                                              "$text_alignment": "center",
+                                              "$anchor": "center",
+                                              "bindings": []
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "warning_padding_edge": {
+                                  "type": "panel",
+                                  // this is the icon_padding_warning size + no_xbl_icon size
+                                  "size": [ 17, 0 ]
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "bottom_padding": {
+                            "type": "panel",
+                            "size": [ "100%", 4 ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "bottom_padding": {
+                "type": "panel",
+                "size": [ "100%", 4 ]
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "no_xbl_and_no_local_conent_warning_panel": {
+    "type": "stack_panel",
+    "orientation": "vertical",
+    "size": [ "100% - 2px", "100%c" ],
+    "bindings": [
+      {
+        "binding_name": "#show_no_xbl_and_no_local_content_warning",
+        "binding_name_override": "#visible"
+      }
+    ],
+    "controls": [
+      {
+        "image_and_description_bg_panel@common_store.banner_fill": {
+          "size": [ "100%", "100%c" ],
+          "controls": [
+            {
+              "image_and_description_panel": {
+                "type": "panel",
+                "size": [ "100% - 8px", "100%c" ],
+                "controls": [
+                  {
+                    "image_and_description_stack": {
+                      "type": "stack_panel",
+                      "orientation": "vertical",
+                      "size": [ "100%", "100%c" ],
+                      "layer": 2,
+                      "controls": [
+                        {
+                          "top_padding": {
+                            "type": "panel",
+                            "size": [ "100%", 4 ]
+                          }
+                        },
+                        {
+                          "warning_image_and_label_1": {
+                            "type": "stack_panel",
+                            "orientation": "horizontal",
+                            "size": [ "100%", "100%cm" ],
+                            "controls": [
+                              {
+                                "xbl_image_center_panel": {
+                                  "type": "panel",
+                                  "size": [ "100%c", 160 ],
+                                  "inherit_max_sibling_height": true,
+                                  "controls": [
+                                    {
+                                      "xbl_sign_in_image": {
+                                        "type": "image",
+                                        "size": [ "59%y", 160 ],
+                                        "texture": "textures/ui/inventory_warning_xbox"
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "xbl_image_padding_warning": {
+                                  "type": "panel",
+                                  "size": [ 8, 0 ]
+                                }
+                              },
+                              {
+                                "warning_label_centering_panel": {
+                                  "type": "panel",
+                                  "size": [ "fill", "100%c" ],
+                                  "inherit_max_sibling_height": true,
+                                  "controls": [
+                                    {
+                                      "warning_label_stack": {
+                                        "type": "stack_panel",
+                                        "orientation": "vertical",
+                                        "size": [ "100%", "100%c" ],
+                                        "controls": [
+                                          {
+                                            "top_padding": {
+                                              "type": "panel",
+                                              "size": [ "100%", 4 ]
+                                            }
+                                          },
+                                          {
+                                            "warning_label_line_1": {
+                                              "type": "label",
+                                              "max_size": [ "90%", "default" ],
+                                              "text": "store.sign_in_warning.no_xbl_and_no_local_content.line1",
+                                              "font_type": "smooth",
+                                              "color": "$body_text_color"
+                                            }
+                                          },
+                                          {
+                                            "line_1_padding_line_2": {
+                                              "type": "panel",
+                                              "size": [ "100%", 4 ]
+                                            }
+                                          },
+                                          {
+                                            "warning_label_line_2": {
+                                              "type": "label",
+                                              "max_size": [ "90%", "default" ],
+                                              "text": "store.sign_in_warning.no_xbl_and_no_local_content.line2",
+                                              "font_type": "smooth",
+                                              "color": "$body_text_color"
+                                            }
+                                          },
+                                          {
+                                            "line_2_padding_line_3": {
+                                              "type": "panel",
+                                              "size": [ "100%", 4 ]
+                                            }
+                                          },
+                                          {
+                                            "warning_label_line_3": {
+                                              "type": "label",
+                                              "max_size": [ "90%", "100%c" ],
+                                              "text": "store.sign_in_warning.no_xbl_and_no_local_content.line3",
+                                              "font_type": "smooth",
+                                              "color": "$body_text_color"
+                                            }
+                                          },
+                                          {
+                                            "line_3_padding_line_4": {
+                                              "type": "panel",
+                                              "size": [ "100%", 4 ]
+                                            }
+                                          },
+                                          {
+                                            "warning_label_line_4": {
+                                              "type": "label",
+                                              "max_size": [ "90%", "100%c" ],
+                                              "text": "store.sign_in_warning.no_xbl_and_no_local_content.line4",
+                                              "font_type": "smooth",
+                                              "color": "$body_text_color"
+                                            }
+                                          },
+                                          {
+                                            "xbl_image_padding_warning": {
+                                              "type": "panel",
+                                              "size": [ "100%", 4 ]
+                                            }
+                                          },
+                                          {
+                                            "sign_in_button_centering_panel": {
+                                              "type": "panel",
+                                              "size": [ "90%", "100%c" ],
+                                              "controls": [
+                                                {
+                                                  "sigh_in_button@common_store.sign_in_button": {
+                                                    "size": [ "70%", "100%c" ],
+                                                    "min_size": [ "70%", 30 ],
+                                                    "focus_enabled": true,
+                                                    "$button_text": "store.xbl.signinOrSignUp",
+                                                    "$button_state_panel": "common_buttons.new_ui_height_fitting_button_panel",
+                                                    "$button_type_panel": "common_buttons.height_fitting_button_content_panel",
+                                                    "$button_content": "common_buttons.new_ui_binding_button_label",
+                                                    "$button_text_max_size": [ "100%", "100%c" ],
+                                                    "$button_size_override": [ "100%", "100%c" ],
+                                                    "$button_min_size_override": [ "100%", 30 ],
+                                                    "$button_border_min_size_override": [ "100%", 30 ],
+                                                    "$button_image_min_size_override": [ "100% - 2px", 28 ],
+                                                    "$button_offset": [ 0, 0 ],
+                                                    "$text_alignment": "center",
+                                                    "$anchor": "center",
+                                                    "bindings": []
+                                                  }
+                                                }
+                                              ]
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "bottom_padding": {
+                            "type": "panel",
+                            "size": [ "100%", 4 ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "bottom_padding": {
+          "type": "panel",
+          "size": [ "100%", 4 ]
+        }
+      }
+    ]
+  },
+
+  "inventory_sign_in_panel": {
+    "type": "panel",
+    "size": [ "100%", "100%c" ],
+    "$button_focus_precedence": 10,
+    "controls": [
+      {
+        "no_xbl_and_local_content_warning_panel@store_inventory.no_xbl_and_local_content_warning_panel": {}
+      },
+      {
+        "no_xbl_and_no_local_conent_warning_panel@store_inventory.no_xbl_and_no_local_conent_warning_panel": {}
+      }
+    ]
+  },
+
+  //--------------------------------------------------------------------------------
+  // Screen
+  //--------------------------------------------------------------------------------
+
+  "main_panel": {
+    "type": "input_panel",
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "controls": [
+      {
+        "seach_object@common_store.search_object": {
+          "$has_section_above_search_panel": true,
+          "$upper_section_conent": "store_inventory.inventory_sign_in_panel"
+        }
+      },
+      {
+        "progress_loading@common_store.progress_loading": {
+          "layer": 15,
+          "bindings": [
+            {
+              "binding_name": "#page_loading_visible",
+              "binding_name_override": "#visible"
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "store_search_screen_content": {
+    "type": "panel",
+    "alpha": "@common_store.screen_fade_in_alpha_anim",
+    "propagate_alpha": true,
+    "disable_anim_fast_forward": true,
+    "controls": [
+      {
+        "main_panel@common_store.store_header_with_coins": {
+          "$child_control": "store_inventory.main_panel",
+          "$button_text": "store.title"
+        }
+      },
+      {
+        "popup_dialog_factory": {
+          "type": "factory",
+          "control_ids": {
+            "no_store_connection": "@common_store.popup_dialog__no_store_connection",
+            "restore_popup": "@common_store.popup_dialog__restore_popup",
+            "restore_failed": "@common_store.popup_dialog__restore_failed"
+          }
+        }
+      }
+    ]
+  },
+
+  "store_inventory_screen@common_store.store_base_screen": {
+    "button_mappings": [
+      {
+        "from_button_id": "button.menu_cancel",
+        "to_button_id": "button.menu_exit",
+        "mapping_type": "global"
+      },
+      {
+        "from_button_id": "button.controller_secondary_select",
+        "to_button_id": "button.coin_wallet",
+        "mapping_type": "global"
+      }
+    ],
+    "$default_text_color": [ 0.3, 0.3, 0.3 ],
+    "$screen_content": "store_inventory.store_search_screen_content",
+    "$header_safezone_control": "common_store.store_top_bar_filler",
+    "$header_bar_control": "common_store.store_top_bar",
+    "$screen_background_control": "common_store.store_background",
+    "$is_full_screen_layout": true
+  }
+
+}

@@ -1,0 +1,161 @@
+{
+  "sun_moon": {
+    "states": [
+      "DisableDepthWrite",
+      "DisableAlphaWrite",
+      "Blending"
+    ],
+
+    "blendSrc": "SourceAlpha",
+    "blendDst": "One",
+
+		"vertexShader" : "shaders/uv.vertex",
+		"vrGeometryShader": "shaders/uv.geometry",
+		"fragmentShader" : "shaders/texture_ccolor.fragment",
+    "vertexFields": [
+      { "field": "Position" },
+      { "field": "UV0" }
+    ],
+
+    "samplerStates": [
+      {
+        "samplerIndex": 0,
+        "textureFilter": "Point"
+      }
+    ],
+
+    "msaaSupport": "Both"
+  },
+
+  "sun_moon_below_water:sun_moon": {
+    "states": [ "EnableStencilTest" ],
+
+    "frontFace": {
+      "stencilFunc": "Equal"
+    },
+
+    "backFace": {
+      "stencilFunc": "Equal"
+    },
+
+    "stencilRef": 2,
+    "stencilReadMask": 255
+  },
+
+  "stars": {
+    "states": [
+      "DisableDepthWrite",
+      "DisableAlphaWrite",
+      "Blending"
+    ],
+
+    "blendSrc": "OneMinusDestColor",
+    "blendDst": "One",
+
+		"vertexShader" : "shaders/color.vertex",
+		"vrGeometryShader" :  "shaders/color.geometry",
+		"fragmentShader" : "shaders/stars.fragment",
+    "vertexFields": [
+      { "field": "Position" },
+      { "field": "Color" }
+    ],
+
+    "samplerStates": [
+      {
+        "samplerIndex": 0,
+        "textureFilter": "Point"
+      }
+    ],
+
+    "msaaSupport": "Both"
+  },
+
+  "cubemap": {
+    "states": [
+      "Blending"
+    ],
+
+    "blendSrc": "SourceAlpha",
+    "blendDst": "OneMinusSrcAlpha",
+
+    "vertexShader": "shaders/uv.vertex",
+    "vrGeometryShader": "shaders/uv.geometry",
+    "fragmentShader": "shaders/texture_ccolor.fragment",
+    "samplerStates": [
+      {
+        "samplerIndex": 0,
+        "textureFilter": "Bilinear"
+      }
+    ],
+    "vertexFields": [
+      { "field": "Position" },
+      { "field": "UV0" }
+    ],
+
+    "msaaSupport": "Both"
+
+  },
+
+  "stars_below_water:stars": {
+    "states": [ "EnableStencilTest" ],
+
+    "frontFace": {
+      "stencilFunc": "Equal"
+    },
+
+    "backFace": {
+      "stencilFunc": "Equal"
+    },
+
+    "stencilRef": 2,
+    "stencilReadMask": 255
+  },
+
+  "skyplane": {
+    "states": [ "DisableDepthWrite", "DisableAlphaWrite" ],
+
+		"vertexShader" : "shaders/sky.vertex",
+		"vrGeometryShader" : "shaders/sky.geometry",
+		"fragmentShader" : "shaders/color.fragment",
+    "vertexFields": [
+      { "field": "Position" },
+      { "field": "Color" }
+    ],
+    "msaaSupport": "Both"
+  },
+
+  "skyplane_below_water:skyplane": {
+    "states": [ "EnableStencilTest" ],
+ 
+     "frontFace": {
+       "stencilFunc": "NotEqual"
+     },
+ 
+     "backFace": {
+       "stencilFunc": "NotEqual"
+     },
+ 
+     "stencilRef": 2,
+     "stencilReadMask": 255
+  },
+
+  "end_sky": { 
+    "states":[ "DisableDepthWrite", "DisableAlphaWrite" ],
+
+    "msaaSupport": "Both",
+
+    "vertexShader" : "shaders/uv_repeat.vertex" ,
+    "vrGeometryShader": "shaders/uv.geometry",
+    "fragmentShader" : "shaders/texture_ccolor.fragment",
+
+    "vertexFields": [
+      { "field": "Position" },
+      { "field": "Color" },
+      { "field": "UV0" }
+    ],
+
+    "samplerStates": [ 
+      { "samplerIndex": 0, "textureWrap": "Repeat" } 
+    ]
+  }
+}

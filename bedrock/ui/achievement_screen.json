@@ -1,0 +1,1138 @@
+/********************************************************
++*   (c) Mojang. All rights reserved                       *
++*   (c) Microsoft. All rights reserved.                   *
++*********************************************************/
+
+{
+  "namespace": "achievement",
+
+
+  // -----------------------------------------------
+  //
+  //    Screen Window and Border
+  //
+  // -----------------------------------------------
+
+  "main_content_panel": {
+    "type": "panel",
+    "size": [ "100%", "100%" ],
+    "anchor_to": "top_left",
+    "anchor_from": "top_left",
+    "controls": [
+      {
+        "loading_achievement_panel@achievement.main_banner": {
+          "anchor_to": "top_left",
+          "anchor_from": "top_left",
+          "size": [ "100%", 58 ],
+          "controls": [
+            {
+              "loading_achievement_label@play.loading_label": {
+                "$message_binding_name": "#achievement_loading_display_message"
+              }
+            },
+            {
+              "progress_loading_bars@play.progress_loading_bars": {
+                "offset": [ 0, 0 ],
+                "anchor_from": "center",
+                "anchor_to": "center",
+                "$visible_binding_name": "#loading_achievement_data"
+              }
+            }
+          ],
+          "bindings": [
+            {
+              "binding_name": "#loading_achievement_panel_visible",
+              "binding_name_override": "#visible"
+            }
+          ]
+        }
+      },
+      {
+        "scrolling_panel@common.scrolling_panel": {
+          "anchor_to": "top_left",
+          "anchor_from": "top_left",
+          "$show_background": false,
+          "size": [ "100%", "100%" ],
+          "$scrolling_content": "achievement.inside_header_panel",
+          "$scroll_size": [ 5, "100% - 4px" ],
+          "$scrolling_pane_size": [ "100% - 4px", "100%" ],
+          "$scrolling_pane_offset": [ 2, 0 ],
+          "$scroll_bar_right_padding_size": [ 0, 0 ],
+          "bindings": [
+            {
+              "binding_name": "(not #loading_achievement_panel_visible)",
+              "binding_name_override": "#visible"
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "inside_header_panel": {
+    "type": "stack_panel",
+    "size": [ "100%", "100%c" ],
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "controls": [
+      {
+        "padding_indent2_0": {
+          "type": "panel",
+          "size": [ "100%", 2 ]
+        }
+      },
+      {
+        "player_stat_panel": {
+          "type": "panel",
+          "size": [ "100%", 58 ], // (Y - 10) must be divisible by 3 or the spacing between Gamerscore, Achievements, and Time Played will not be texel perfect
+          "controls": [
+            {
+              "player_stats@player_stats": {
+                "layer": 1
+              }
+            },
+            {
+              "focus@focus_border_button": { }
+            }
+          ]
+        }
+      },
+      {
+        "padding_indent2_1": {
+          "type": "panel",
+          "size": [ "100%", 1 ]
+        }
+      },
+      {
+        "achievement_grid@achievement_list_grid": {
+          "layer": 2
+        }
+      },
+      {
+        "padding_indent2_2": {
+          "type": "panel",
+          "size": [ "100%", 1 ]
+        }
+      }
+    ]
+  },
+
+
+  // -----------------------------------------------
+  //
+  //    Player Stats Main Banner
+  //
+  // -----------------------------------------------
+
+  "player_stats@main_banner": {
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "size": [ "100%", "100%" ],
+    "controls": [
+      {
+        "panel_indent@panel_indent": {
+          "controls": [
+            {
+              "trophy_progress_bar_icon@trophy_progress_bar_icon": {
+                "layer": 2,
+                "offset": [ 14, 0 ]
+              }
+            },
+            {
+              "scores@player_scores_banner": {
+                "offset": [ "-1px", 0 ],
+                "layer": 1
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },  
+
+  "player_scores_banner@panel_indent": {
+    "type": "panel",
+    "size": "$control_size",
+    "anchor_from": "right_middle",
+    "anchor_to": "right_middle",
+    "$control_size|default": [ "100% - 70px", "100% - 2px" ],
+    "variables": [
+      {
+        "requires": "$pocket_edition",
+        "$control_size": [ "100% - 80px", "100% - 2px" ]
+      },
+      {
+        "requires": "$desktop_screen",
+        "$control_size": [ "100% - 70px", "100% - 2px" ]
+      }
+    ],
+    "controls": [
+      {
+        "gamer_score_banner@gamer_score_banner": { }
+      },
+      {
+        "achievements_banner@achievements_banner": { }
+      },
+      {
+        "time_played_banner@time_played_banner": { }
+      }
+    ]
+  },
+
+  // -----------------------------------------------
+  //
+  //    Gamer Score Grey Banner
+  //
+  // -----------------------------------------------
+
+  "gamer_score_banner@grey_banner": {
+    "size": [ "100%", "33.33333% - 0.6667px" ],
+    "anchor_from": "top_right",
+    "anchor_to": "top_right",
+    "layer": 1,
+    "controls": [
+      {
+        "gamerscore_banner_icon@gamer_score_icon": {
+          "anchor_from": "left_middle",
+          "anchor_to": "left_middle",
+          "size": [ 11, 11 ],
+          "offset": [ "2px", 0 ],
+          "layer": 1
+        }
+      },
+      {
+        "label_panel": {
+          "type": "stack_panel",
+          "orientation": "horizontal",
+          "offset": [ "16px", "0px" ],
+          "size": [ "100% - 16px", 10 ],
+          "anchor_from": "left_middle",
+          "anchor_to": "left_middle",
+          "controls": [
+            {
+              "gamerscore_label@gamerscore_label": {
+                "layer": 2
+              }
+            },
+            {
+              "padding_0": {
+                "type": "panel",
+                "size": [ "fill", "100%"]
+              }
+            },
+            {
+              "gamer_score_value_label@gamer_score_value_label": {
+                "layer": 3
+              }
+            },
+            {
+              "padding_1": {
+                "type": "panel",
+                "size": [ 2, "100%"]
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+
+  // -----------------------------------------------
+  //
+  //    Achievements Grey Banner
+  //
+  // -----------------------------------------------
+
+  "achievements_banner@grey_banner": {
+    "anchor_from": "right_middle",
+    "anchor_to": "right_middle",
+    "size": [ "100%", "33.33333% - 0.6667px" ],
+    "layer": 1,
+    "controls": [
+      {
+        "trophy_banner_icon@trophy_icon": {
+          "size": [ 11, 14 ],
+          "anchor_from": "left_middle",
+          "anchor_to": "left_middle",
+          "offset": [ "2px", 0 ],
+          "layer": 1
+        }
+      },
+      {
+        "label_panel": {
+          "type": "stack_panel",
+          "orientation": "horizontal",
+          "offset": [ "16px", "0px" ],
+          "size": [ "100% - 16px", 10 ],
+          "anchor_from": "left_middle",
+          "anchor_to": "left_middle",
+          "controls": [
+            {
+              "achievement_label@achievement_label": {
+                "layer": 2
+              }
+            },
+            {
+              "padding_0": {
+                "type": "panel",
+                "size": [ "fill", "100%"]
+              }
+            },
+            {
+              "achievement_value_label@achievement_value_label": {
+                "layer": 3
+              }
+            },
+            {
+              "padding_1": {
+                "type": "panel",
+                "size": [ 2, "100%"]
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  // -----------------------------------------------
+  //
+  //    Time Played Grey Banner
+  //
+  // -----------------------------------------------
+
+  "time_played_banner@grey_banner": {
+    "anchor_from": "bottom_right",
+    "anchor_to": "bottom_right",
+    "size": [ "100%", "33.33333% - 0.6667px" ],
+    "layer": 1,
+    "controls": [
+      {
+        "clock_banner_icon@clock_icon": {
+          "size": [ 11, 11 ],
+          "anchor_from": "left_middle",
+          "anchor_to": "left_middle",
+          "offset": [ "2px", 0 ],
+          "layer": 1
+        }
+      },
+      {
+        "label_panel": {
+          "type": "stack_panel",
+          "orientation": "horizontal",
+          "offset": [ "16px", "0px" ],
+          "size": [ "100% - 16px", 10 ],
+          "anchor_from": "left_middle",
+          "anchor_to": "left_middle",
+          "controls": [
+            {
+              "time_played_label@time_played_label": {
+                "layer": 2
+              }
+            },
+            {
+              "padding_0": {
+                "type": "panel",
+                "size": [ "fill", "100%"]
+              }
+            },
+            {
+              "time_played_value_label@time_played_value_label": {
+                "layer": 3
+              }
+            },
+            {
+              "padding_1": {
+                "type": "panel",
+                "size": [ 2, "100%"]
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  // -----------------------------------------------
+  //
+  //    Player Header Text
+  //
+  // -----------------------------------------------
+
+  "gamerscore_label": {
+    "type": "label",
+    "size": [ "default", 10 ],
+    "text": "achievementScreen.gamerscore:",
+    "color": "$achievement_text_color",
+    "shadow": false
+  },
+
+  "gamer_score_value_label": {
+    "type": "label",
+    "size": [ "default", 10 ],
+    "text": "#gamerscore_value",
+    "color": "$achievement_text_color",
+    "shadow": false,
+    "bindings": [
+      {
+        "binding_name": "#gamerscore_value"
+      }
+    ]
+  },
+
+  "achievement_label": {
+    "type": "label",
+    "size": [ "default", 10 ],
+    "text": "achievementScreen.achievements:",
+    "color": "$achievement_text_color",
+    "shadow": false
+  },
+
+  "achievement_value_label": {
+    "type": "label",
+    "size": [ "default", 10 ],
+    "text": "#achievements_value",
+    "color": "$achievement_text_color",
+    "shadow": false,
+    "bindings": [
+      {
+        "binding_name": "#achievements_value"
+      }
+    ]
+  },
+
+  "time_played_label": {
+    "type": "label",
+    "size": [ "default", 10 ],
+    "text": "achievementScreen.timeplayed:",
+    "color": "$achievement_text_color",
+    "shadow": false
+  },
+
+  "time_played_value_label": {
+    "type": "label",
+    "size": [ "default", 10 ],
+    "text": "#time_played_value",
+    "color": "$achievement_text_color",
+    "shadow": false,
+    "bindings": [
+      {
+        "binding_name": "#time_played_value"
+      }
+    ]
+  },
+
+  "percentage_label": {
+    "type": "label",
+    "color": "$achievement_text_color",
+    "font_size": "normal",
+    "text": "#achievement_percentage",
+    "shadow": false,
+    "bindings": [
+      {
+        "binding_name": "#achievement_percentage",
+        "binding_type": "global"
+      }
+    ]
+  },
+
+  // -----------------------------------------------
+  //
+  //    Grids
+  //
+  // -----------------------------------------------
+
+  "achievement_list_grid": {
+    "type": "grid",
+    "grid_item_template": "achievement.achievement_grid_item",
+    "grid_dimension_binding": "#achievement_grid_dimension",
+    "collection_name": "achievement_list",
+    "anchor_to": "top_left",
+    "anchor_from": "top_left",
+    "size": [ "100%", "default" ],
+    "$grid_size|default": [ "100%", 54 ],
+    "bindings": [
+      {
+        "binding_name": "#achievement_grid_dimension",
+        "binding_type": "global"
+      }
+    ]
+  },
+
+  "achievement_grid_item": {
+    "type": "panel",
+    "anchor_from": "top_middle",
+    "anchor_to": "top_middle",
+    "size": "$grid_size",
+    "controls": [
+      {
+        "achievement_grid@achievement_grid": { }
+      },
+      {
+        "ach_grid@focus_border_button": {
+          "size": [ "100%", "100% - 2px" ]
+        }
+      }
+    ]
+  },
+
+  "focus_border_button@common.button": {
+    "size": [ "100%", "100%" ],
+    "sound_volume": 0.0,
+    "$pressed_button_name": "button.achievement_focus_filler",
+    "controls": [
+      { "default@achievement.filler_panel": {  } },
+      { "hover@achievement.is_focused": {  } },
+      { "pressed@achievement.is_focused": {  } }
+    ]
+  },
+
+  "achievement_grid": {
+    "type": "panel",
+    "offset": [ 0, 0 ],
+    "size": [ "100%", "100% - 2px" ],
+    "controls": [
+      {
+        "main_banner@main_banner": {
+          "size": [ "100%", "100%" ],
+          "layer": 1
+        }
+      },
+      {
+        "achievement_data_unlocked@achievement_data_unlocked": {
+          "layer": 2
+        }
+      },
+      {
+        "achievement_data_locked@achievement_data_locked": {
+          "layer": 2
+        }
+      }
+    ]
+  },
+
+  "is_focused@focus_border": {
+    "size": [ "100%", "100%" ],
+    "layer": 3
+  },
+
+  "filler_panel": {
+    "type": "panel",
+    "layer": 1
+  },
+
+
+  "achievement_grid_focused": {
+    "type": "panel",
+    "offset": [ 0, 0 ],
+    "size": [ "100%", "100% - 2px" ],
+    "controls": [
+      {
+        "main_banner@main_banner": {
+          "size": ["100%", "100%" ],
+          "layer": 1,
+          "controls": [
+            {
+              
+            }
+          ]
+        }
+      },
+      {
+        "achievement_data_unlocked@achievement_data_unlocked": {
+          "layer": 2
+        }
+      },
+      {
+        "achievement_data_locked@achievement_data_locked": {
+          "layer": 2
+        }
+      }
+    ]
+  },
+
+
+  // -----------------------------------------------
+  //
+  //    Achievement Locked vs Unlocked
+  //
+  // -----------------------------------------------
+
+  "achievement_data_unlocked": {
+    "type": "panel",
+    "visible": "#is_unlocked",
+    "bindings": [
+      {
+        "binding_name": "#is_unlocked",
+        "binding_name_override": "#visible",
+        "binding_type": "collection",
+        "binding_collection_name": "achievement_list"
+      }
+    ],
+    "controls": [
+      {
+        "ach_data_layout@achievement_data_layout": { }
+      }
+    ]
+  },
+
+  "achievement_data_locked": {
+    "type": "panel",
+    "visible": "#is_locked",
+    "bindings": [
+      {
+        "binding_name": "#is_locked",
+        "binding_name_override": "#visible",
+        "binding_type": "collection",
+        "binding_collection_name": "achievement_list"
+      }
+    ],
+    "controls": [
+      {
+        "ach_data_layout@achievement_data_layout": { }
+      }
+    ]
+  },
+
+  "achievement_data_layout": {
+    "type": "stack_panel",
+    "orientation": "horizontal",
+    "size": [ "100% - 6px", "100% - 4px" ],
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "layer": 1,
+    "$ach_score_offset|default": [ "-2px", "1px" ],
+    "variables": [
+      {
+        "requires": "$desktop_screen",
+        "$ach_score_offset": [ "-2px", "1px" ]
+      },
+      {
+        "requires": "$pocket_edition",
+        "$ach_score_offset": [ "-2px", "7px" ]
+      }
+    ],
+    "controls": [
+      {
+        "achiev_icon": {
+          "type": "panel",
+          "size": [ "100%c", "100%" ],
+          "controls": [
+            {
+              "achiev_icon@achievement_icon": {
+                "size": [ "177.778%y", "100% - 2px" ],
+                "layer": 1
+              }
+            }
+          ]
+        }
+      },
+      {
+        "padding": {
+          "type": "panel",
+          "size": [ 2, "100%" ]
+        }
+      },
+      {
+        "achiev_desc": {
+          "type": "panel",
+          "size": [ "fill", "100%" ],
+          "controls": [
+            {
+              "text_content": {
+                "type": "stack_panel",
+                "anchor_from": "top_left",
+                "anchor_to": "top_left",
+                "orientation": "vertical",
+                "size": [ "100% - 28px", "100%-5px" ],
+                "offset": [ 1, 0 ],
+                "controls": [
+                  {
+                    "achiev_title@achievement_title_switch": {
+                      "size": [ "100%", 12 ],
+                      "layer": 3
+                    }
+                  },
+                  {
+                    "achiev_desc@achievement_desc": {
+                      "size": [ "100%", "fill" ],
+                      "layer": 2
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "achiev_score@achievement_score_panel": {
+                "offset": "$ach_score_offset"
+              }
+            },
+            {
+              "achiev_progress@progress_bar_icon": {
+                "size": [ "100%", 5 ],
+                "layer": 5
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "achievement_title_switch": {
+    "type": "panel",
+    "controls": [
+      {
+        "achievement_locked_title@achievement_locked_title": { }
+      },
+      {
+        "achievement_unlocked_title@achievement_unlocked_title": { }
+      }
+    ]
+  },
+
+  "achievement_locked_title": {
+    "type": "panel",
+    "visible": "#is_locked",
+    "bindings": [
+      {
+        "binding_name": "#is_locked",
+        "binding_name_override": "#visible",
+        "binding_type": "collection",
+        "binding_collection_name": "achievement_list"
+      }
+    ],
+    "controls": [
+      {
+        "achievement_locked_icon@achievement_locked_icon": {
+          "offset": [ 0, "1px" ],
+          "layer": 2
+        }
+      },
+      {
+        "achievement_title@achievement_title": {
+          "offset": [ "9px", "1px" ],          
+          "layer": 3
+        }
+      }
+    ]
+  },
+
+  "achievement_unlocked_title": {
+    "type": "panel",
+    "visible": "#is_unlocked",
+    "bindings": [
+      {
+        "binding_name": "#is_unlocked",
+        "binding_name_override": "#visible",
+        "binding_type": "collection",
+        "binding_collection_name": "achievement_list"
+      }            
+    ],
+    "controls": [
+      {
+        "achievement_title@achievement_title": {
+          "offset": [ 0, "1px" ],          
+          "layer": 3
+        }
+      }
+    ]
+  },
+
+  // -----------------------------------------------
+  //
+  //    Achievement Content
+  //
+  // -----------------------------------------------
+
+  "achievement_title": {
+    "type": "label",
+    "font_size": "normal",
+    "size": [ "default", 10 ],
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "text": "#achievement_name",
+    "color": "$achievement_text_color",
+    "shadow": false,
+    "layer": 1,
+    "bindings": [
+      {
+        "binding_name": "#achievement_name",
+        "binding_type": "collection",
+        "binding_collection_name": "achievement_list"
+      }
+    ]
+  },
+
+  "achievement_icon": {
+    "type": "image",
+    "bindings": [
+      {
+        "binding_name": "#texture_name",
+        "binding_name_override": "#texture",
+        "binding_type": "collection",
+        "binding_collection_name": "achievement_list"
+      },
+      {
+        "binding_name": "#grayscale_texture",
+        "binding_name_override": "#grayscale",
+        "binding_type": "collection",
+        "binding_collection_name": "achievement_list"
+      },
+      {
+        "binding_name": "#texture_locationtype",
+        "binding_name_override": "#texture_file_system",
+        "binding_type": "collection",
+        "binding_collection_name": "achievement_list"
+      }
+    ]
+  },
+
+  "achievement_desc": {
+    "type": "label",
+    "color": "$achievement_text_color",
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "font_size": "normal",
+    "text": "#achievement_description",
+    "shadow": false,
+    "layer": 1,
+    "bindings": [
+      {
+        "binding_name": "#achievement_description",
+        "binding_type": "collection",
+        "binding_collection_name": "achievement_list"
+      }
+    ]
+  },
+
+  "achievement_gamer_score_value": {
+    "type": "label",
+    "text": "#achievement_gamer_score",
+    "color": "$achievement_text_color",
+    "font_size": "normal",
+    "shadow": false,
+    "bindings": [
+      {
+        "binding_name": "#achievement_gamer_score",
+        "binding_type": "collection",
+        "binding_collection_name": "achievement_list"
+      }
+    ]
+  },
+
+  "achievement_world_score_value": {
+    "type": "label",
+    "text": "#achievement_world_score",
+    "color": "$achievement_text_color",
+    "font_size": "normal",
+    "shadow": false,
+    "bindings": [
+      {
+        "binding_name": "#achievement_world_score",
+        "binding_type": "collection",
+        "binding_collection_name": "achievement_list"
+      }
+    ]
+  },
+
+  "achievement_score_panel": {
+    "type": "panel",
+    "anchor_from": "top_right",
+    "anchor_to": "top_right",
+    "controls": [
+      {
+        "gamer_score_icon@gamer_score_icon": {
+          "anchor_from": "top_right",
+          "anchor_to": "top_right",
+          "offset": [ "-12px", "3px" ],
+          "size": [ 11, 11 ],
+          "layer": 2,
+          "controls": [
+            {
+              "achievement_gamer_score_value@achievement_gamer_score_value": {
+                "anchor_from": "bottom_right",
+                "anchor_to": "bottom_right",
+                "offset": [ "100%+3px", 0 ],
+                "layer": 2
+                // Worlds icons and scores that are not implemented yet. Since they are formatted, keeping this here until we implement the feature
+                //      "controls": [
+                //        {
+                //          "achievement_world_score_value@achievement_world_score_value": {
+                //            "anchor_from": "bottom_right",
+                //            "anchor_to": "bottom_right",
+                //            "offset": [ 0, "100% + 2px" ],
+                //            "layer": 1
+                //          }
+                //        }
+                //      ]
+                //    }
+                //  },
+                //  {
+                //    "worlds_toggle_icon@worlds_toggle_icon": {
+                //      "anchor_from": "bottom_middle",
+                //      "anchor_to": "bottom_middle",
+                //      "offset": [ 0, "14px" ]
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  // -----------------------------------------------
+  //
+  //    Toggles and Progress Bars
+  //
+  // -----------------------------------------------
+
+  "progress_bar_icon": {
+    "type": "panel",
+    "anchor_from": "bottom_right",
+    "anchor_to": "bottom_right",
+    "controls": [
+      {
+        "full_progress_bar_icon@achievement.full_progress_bar_icon": {
+          "layer": 2
+        }
+      },
+      {
+        "empty_progress_bar_icon@achievement.empty_progress_bar_icon": {
+          "layer": 1
+        }
+      },
+      {
+        "progress_bar_nub@achievement.progress_bar_nub": {
+          "size": [ "100% - 10px", 5 ],
+          "layer": 4
+        }
+      }
+    ]
+  },
+
+  "trophy_progress_bar_icon": {
+    "type": "panel",
+    "anchor_from": "left_middle",
+    "anchor_to": "left_middle",
+    "size": [ 33, 42 ],
+    "controls": [
+      {
+        "trophy_icon_0@trophy_icon": {
+          "layer": 3,
+          "size": [ "78.571428571%y", "100%" ], // scales off of the size of the panel maintaining aspect ratio, x = 11/14y
+          "color": [ 0.545, 0.745, 0.384 ],
+          "clip_direction": "down",
+          "controls": [
+
+          ],
+          "bindings": [
+            {
+              "binding_name": "#trophy_progress_percentage",
+              "binding_name_override": "#clip_ratio"
+            }
+          ]
+        }
+      },
+      {
+        "trophy_icon_1@trophy_icon": {
+          "layer": 2,
+          "size": [ "78.5714285%y", "100%" ], // scales off of the size of the panel maintaining aspect ratio, x = 11/14y
+          "color": [ 1.0, 1.0, 1.0 ]
+        }
+      },
+      {
+        "percentage_label@percentage_label": {
+          "anchor_from": "bottom_right",
+          "anchor_to": "bottom_left",
+          "offset": [ -1, 2 ],
+          "layer": 4
+        }
+      }
+    ]
+  },
+
+  // UI call disabled until worlds content will be implemented
+  //"worlds_toggle_icon": {
+  //  "type": "panel",
+  //  "controls": [
+  //    {
+  //      "worlds_icon@worlds_icon": {
+  //        "visible": "#world_status_visible",
+  //        "bindings": [
+  //          {
+  //            "binding_name": "#world_status_visible",
+  //            "binding_name_override": "#visible",
+  //            "binding_type": "collection",
+  //            "binding_collection_name": "achievement_list"
+  //          }
+  //        ]
+  //      }
+  //    },
+  //    {
+  //      "worlds_greyed_icon@worlds_greyed_icon": {
+  //        "visible": "#grey_world_status_visible",
+  //        "bindings": [
+  //          {
+  //            "binding_name": "#grey_world_status_visible",
+  //            "binding_name_override": "#visible",
+  //            "binding_type": "collection",
+  //            "binding_collection_name": "achievement_list"
+  //          }
+  //        ]
+  //      }
+  //    }
+  //  ]
+  //},
+
+
+  // -----------------------------------------------
+  //
+  //    Icons, Assets and Borders
+  //
+  // -----------------------------------------------
+
+  "header_background": {
+    "type": "image",
+    "texture": "textures/ui/achievements_dialog"
+  },
+
+  "grey_alpha_background": {
+    "type": "image",
+    "texture": "textures/ui/solidtransparency",
+    "alpha": 0.7
+  },
+
+  "panel_indent": {
+    "type": "panel",
+    "size": [ "100% - 4px", "100% - 4px" ],
+    "anchor_from": "center",
+    "anchor_to": "center"
+  },
+
+  "normal_thin_button": {
+    "type": "image",
+    "texture": "textures/ui/NormalButtonThinNewBevel"
+  },
+
+  "trophy_icon": {
+    "type": "image",
+    "texture": "textures/ui/trophy_banner_icon"
+  },
+
+  "gamer_score_icon": {
+    "type": "image",
+    "texture": "textures/ui/gamerscore"
+  },
+
+  "clock_icon": {
+    "type": "image",
+    "texture": "textures/ui/clock"
+  },
+
+  "main_banner": {
+    "type": "image",
+    "texture": "textures/ui/mainbanners"
+  },
+
+  "grey_banner": {
+    "type": "image",
+    "texture": "textures/ui/lightgreybars"
+  },
+
+  "achievement_locked_icon": {
+    "type": "image",
+    "texture": "textures/ui/achievement_locked_icon",
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "size": [ 7, 7 ]
+  },
+
+  "empty_progress_bar_icon": {
+    "type": "image",
+    "texture": "textures/ui/experiencebarempty"
+  },
+
+  "full_progress_bar_icon_base": {
+    "type": "image",
+    "texture": "textures/ui/experiencebarfull",
+    "clip_direction": "left",
+    "clip_pixelperfect": false
+  },
+  
+  "full_progress_bar_icon@achievement.full_progress_bar_icon_base": {  
+    "bindings": [
+      {
+        "binding_name": "#progress_percentage",
+        "binding_name_override": "#clip_ratio",
+        "binding_type": "collection",
+        "binding_collection_name": "achievement_list"
+      }
+    ]
+  },
+
+  "progress_bar_nub": {
+    "type": "image",
+    "texture": "textures/ui/experiencenub",
+    "tiled": true
+  },
+
+  "worlds_icon": {
+    "type": "image",
+    "texture": "textures/ui/World"
+  },
+
+  "worlds_greyed_icon": {
+    "type": "image",
+    "texture": "textures/ui/World",
+    "grayscale": true
+  },
+
+  "focus_border": {
+    "type": "image",
+    "texture": "textures/ui/square_image_border_white",
+    "color": [ 0.7, 0.7, 0.7 ]
+  },
+
+  // -----------------------------------------------
+  //
+  //    screen
+  //
+  // -----------------------------------------------
+  "achievement_screen@common.base_screen": {
+    "button_mappings": [
+      {
+        "from_button_id": "button.menu_cancel",
+        "to_button_id": "button.menu_exit",
+        "mapping_type": "global"
+      }
+    ],
+    "$screen_content": "achievement.achievement_screen_content",
+    "$header_safezone_control": "common_store.store_top_bar_filler",
+    "$header_bar_control": "common_store.store_top_bar",    
+    "$is_full_screen_layout": true
+  },
+
+  "achievement_screen_content": {
+    "type": "panel",    
+    "controls": [
+      {
+        "root_panel": {
+          "type": "panel",
+          "anchor_from": "top_left",
+          "anchor_to": "top_left",
+          "controls": [
+            {
+              "main_panel@common.fullscreen_header": {
+                "$back_button_has_title": true,
+                "$button_text": "gui.achievements",
+                "$child_control": "achievement.main_content_panel"
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

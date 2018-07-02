@@ -1,0 +1,671 @@
+/********************************************************
++*   (c) Mojang. All rights reserved                       *
++*   (c) Microsoft. All rights reserved.                   *
++*********************************************************/
+
+{
+  "namespace": "invite",
+
+  //Black bordered box is used for the grid item and around the gamerpic
+  "black_border": {
+    "type": "image",
+    "texture": "textures/ui/mainbanners"
+  },
+
+  "black_border_hover@black_border": {
+    "texture": "textures/ui/MainBannersHover"
+  },
+
+  //Gamerpic uses the black border and an image that will come from XBL
+  "gamerpic": {
+    "type": "image",
+    "texture": "#texture",
+    "texture_file_system": "#texture_file_system",
+    "bindings": [
+      {
+        "binding_name": "#texture",
+        "binding_type": "collection",
+        "binding_collection_name": "$collection_name"
+      },
+      {
+        "binding_name": "#texture_file_system",
+        "binding_type": "collection",
+        "binding_collection_name": "$collection_name"
+      }
+
+    ]
+  },
+
+  "gamerpic_panel": {
+    "type": "panel",
+    "size": [ 20, 20 ],
+    "anchor_to": "left_middle",
+    "anchor_from": "left_middle",
+    "offset": [ 20, 0 ],
+    "controls": [
+      { "black_border@black_border": { } },
+      {
+        "gamerpic@gamerpic": {
+          "layer": 1,
+          "size": [ "100%-2px", "100%-2px" ]
+        }
+      }
+    ]
+  },
+
+  //Status image - 2 images with flipped visibility
+  "status_image": {
+    "type": "image",
+    "size": [ 8, 8 ]
+  },
+
+  "online_image@status_image": {
+    "texture": "textures/ui/online",
+    "bindings": [
+      {
+        "binding_name": "#online_visible",
+        "binding_name_override": "#visible",
+        "binding_type": "collection",
+        "binding_collection_name": "$collection_name"
+      }
+    ]
+  },
+
+  "offline_image@status_image": {
+    "texture": "textures/ui/offline",
+    "bindings": [
+      {
+        "binding_name": "#offline_visible",
+        "binding_name_override": "#visible",
+        "binding_type": "collection",
+        "binding_collection_name": "$collection_name"
+      }
+    ]
+  },
+
+  "online_indicator": {
+    "type": "panel",
+    "anchor_to": "right_middle",
+    "anchor_from": "right_middle",
+    "offset": [ -6, 0 ],
+    "size": [ 9, 9 ],
+    "controls": [
+      {
+        "online_image@online_image": { }
+      },
+      {
+        "offline_image@offline_image": { }
+      }
+    ]
+  },
+
+  //The selected indicator - a check box - 4 images for checked/hover
+  "checkbox_panel": {
+    "type": "panel",
+    "size": ["100%c", "100%c"],
+    "anchor_to": "left_middle",
+    "anchor_from": "left_middle",
+    "layer": 2,
+    "offset": [ 6, 0 ]
+  },
+
+  "checked_panel@invite.checkbox_panel": {
+    "controls": [
+      { "checked_image@common.checked_image": { } }
+    ]
+  },
+
+  "unchecked_panel@checkbox_panel": {
+    "controls": [
+      { "unchecked_image@common.unchecked_image": { } }
+    ]
+  },
+
+  "checked_hover_panel@invite.checkbox_panel": {
+    "controls": [
+      { "checked_hover_image@common.checked_hover_image": { } }
+    ]
+  },
+
+  "unchecked_hover_panel@invite.checkbox_panel": {
+    "controls": [
+      { "unchecked_hover_image@common.unchecked_hover_image": { } }
+    ]
+  },
+
+
+
+  //labels that indicate the information about the game
+  //Since there's no flow panel we use the color switch codes to build up the string from multiple inputs
+  "friend_label": {
+    "type": "label",
+    "color": "$body_text_color",
+    "size": [ "100%-60px", "50%" ]
+  },
+
+  "friend_grid_label_line1@friend_label": {
+    "text": "#label_line1",
+    "anchor_to": "top_left",
+    "anchor_from": "top_left",
+    "offset": [ 42, 5 ],
+    "bindings": [
+      {
+        "binding_name": "#label_line1",
+        "binding_type": "collection",
+        "binding_collection_name": "$collection_name"
+      }
+    ]
+  },
+
+  "friend_grid_label_line2@friend_label": {
+    "text": "#label_line2",
+    "anchor_to": "bottom_left",
+    "anchor_from": "bottom_left",
+    "offset": [ 42, 0 ],
+    "bindings": [
+      {
+        "binding_name": "#label_line2",
+        "binding_type": "collection",
+        "binding_collection_name": "$collection_name"
+      }
+    ]
+  },
+
+  "friend_background@black_border": {
+    "size": [ "100%-2px", "100%-2px" ]
+  },
+
+  "friend_background_hover@black_border_hover": {
+    "size": [ "100%-2px", "100%-2px" ]
+  },
+
+  "hover_friend_button": {
+    "type": "panel",
+    "controls": [
+      { "friend_button_layout@friend_button_layout": { } },
+      {
+        "hover_text@common.hover_text": {
+          "layer": 30,
+          "bindings": [
+            {
+              "binding_name": "#hover_text",
+              "binding_type": "collection",
+              "binding_collection_name": "$collection_name"
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "friend_button_layout": {
+    "type": "panel",
+    "layer": 1, //Without this the background disappeared on certain layout changes.
+    "controls": [
+      { "friend_grid_label_line1@friend_grid_label_line1": { "layer": 1 } },
+      { "friend_grid_label_line2@friend_grid_label_line2": { "layer": 1 } },
+      { "online_indicator@online_indicator": { "layer": 1 } },
+      { "pp@gamerpic_panel": { "layer": 1 } }
+    ]
+  },
+
+  "unchecked_friend_button_layout": {
+    "type": "panel",
+    "controls": [
+      { "friend_background@invite.friend_background": { "layer": 0 } },
+      { "friend_button_layout@invite.friend_button_layout": { "layer": 1 } },
+      { "unchecked@invite.unchecked_panel": {}}
+    ]
+  },
+
+  "checked_friend_button_layout": {
+    "type": "panel",
+    "controls": [
+      { "friend_background@invite.friend_background": { "layer": 0 } },
+      { "friend_button_layout@invite.friend_button_layout": { "layer": 1 } },
+      { "checked@invite.checked_panel": {}}
+    ]
+  },
+
+  "unchecked_hover_friend_button_layout": {
+    "type": "panel",
+    "controls": [
+      { "friend_background_hover@invite.friend_background_hover": { "layer": 0 } },
+      { "friend_button_layout@invite.friend_button_layout": { "layer": 1 } },
+      { "unchecked_hover@invite.unchecked_hover_panel": {}},
+      { "hover_friend_button@invite.hover_friend_button": { } }
+    ]
+  },
+
+  "checked_hover_friend_button_layout": {
+    "type": "panel",
+    "controls": [
+      { "friend_background_hover@invite.friend_background_hover": { "layer": 0 } },
+      { "friend_button_layout@invite.friend_button_layout": { "layer": 1 } },
+      { "checked_hover@invite.checked_hover_panel": {}},
+      { "hover_friend_button@invite.hover_friend_button": { } }
+    ]
+  },
+
+  "friend_button@common.checkbox": {
+    "$pressed_button_name": "button.menu_friend_select",
+    "size": [ "100%", "100%" ],
+    "controls": [
+      {
+        "checked@checked_friend_button_layout": { }
+      },
+      {
+        "unchecked@unchecked_friend_button_layout": { }
+      },
+      {
+        "checked_hover@checked_hover_friend_button_layout": { }
+      },
+      {
+        "unchecked_hover@unchecked_hover_friend_button_layout": { }
+      },
+      {
+        "checked_locked@checked_friend_button_layout": { } //unused on this screen
+      },
+      {
+        "unchecked_locked@unchecked_friend_button_layout": { } //unused on this screen
+      },
+      {
+        "checked_locked_hover@checked_friend_button_layout": { } //unused on this screen
+      },
+      {
+        "unchecked_locked_hover@unchecked_friend_button_layout": { } //unused on this screen
+      }
+    ],
+    "$toggle_grid_collection_name": "$collection_name",
+    "$toggle_name": "$toggle_invite_name",
+    "$toggle_binding_type": "collection",
+    "$toggle_state_binding_name": "#toggle_invite_state"
+  },
+
+  "friend_grid_item_template": {
+    "type": "panel",
+    "size": [ "100% - 7px", 30 ],
+    "controls": [
+      {
+        "friend_button@friend_button": { }
+      }
+    ]
+  },
+
+  "online_friend_grid_item@friend_grid_item_template": {
+    "type": "panel",
+    "$collection_name": "online_friends"
+  },
+
+  "offline_friend_grid_item@friend_grid_item_template": {
+    "type": "panel",
+    "$collection_name": "offline_friends"
+  },
+
+  "online_friend_list_grid": {
+    "type": "grid",
+    "grid_item_template": "online_friend_grid_item",
+    "grid_dimension_binding": "#online_friend_grid_dimension",
+    "collection_name": "online_friends",
+    "$toggle_invite_name": "toggle_invite_online",
+    "anchor_to": "top_left",
+    "anchor_from": "top_left",
+    "layer": 2,
+    "size": [ "100%", "default" ],
+    "offset": [ 3, 0 ],
+    "bindings": [
+      {
+        "binding_name": "#online_friend_grid_dimension",
+        "binding_type": "global"
+      }
+    ]
+  },
+
+  "offline_friend_list_grid": {
+    "type": "grid",
+    "grid_item_template": "offline_friend_grid_item",
+    "grid_dimension_binding": "#offline_friend_grid_dimension",
+    "collection_name": "offline_friends",
+    "$toggle_invite_name": "toggle_invite_offline",
+    "anchor_to": "top_left",
+    "anchor_from": "top_left",
+    "layer": 2,
+    "size": [ "100%", "default" ],
+    "offset": [ 3, 0 ],
+    "bindings": [
+      {
+        "binding_name": "#offline_friend_grid_dimension",
+        "binding_type": "global"
+      }
+    ]
+  },
+
+  "frame_label@label": {
+    "type": "label",
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "size": [ "default", 10 ],
+    "offset": [ 1, 2 ],
+    "layer": 3,
+    "color": "$body_text_color"
+  },
+
+  "friend_panel": {
+    "type": "panel",
+    "size": [ "100%", "100%" ]
+  },
+
+  "scrolling_content_stack": {
+    "type": "stack_panel",
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "size": [ "100% + 6px", "100%c + 1px" ],
+    "controls": [
+      {
+        "message@friend_panel": {
+          "size": [ "100%", "100%c" ],
+          "ignored": "$hide_err_message",
+          "controls": [
+            {
+              "frame_label@frame_label": {
+                "text": "$err_message_text",
+                "color": "$error_text_color"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "online@friend_panel": {
+          "size": [ "100%", 10 ],
+          "controls": [
+            {
+              "frame_label@frame_label": {
+                "text": "invite.OnlineFriends"
+              }
+            }
+          ],
+          "bindings": [
+            {
+              "binding_name": "#online_friends_visible",
+              "binding_name_override": "#visible",
+              "binding_type": "global"
+            }
+          ]
+        }
+      },
+      {
+        "vertical_padding_0": {
+          "type": "panel",
+          "size": [ 0, 1 ]
+        }
+      },
+      {
+        "online_friend_list_grid@online_friend_list_grid": { }
+      },
+      {
+        "offline@friend_panel": {
+          "size": [ "100%", 10 ],
+          "controls": [
+            {
+              "frame_label@frame_label": {
+                "text": "invite.OfflineFriends"
+              }
+            }
+          ],
+          "bindings": [
+            {
+              "binding_name": "#offline_friends_visible",
+              "binding_name_override": "#visible",
+              "binding_type": "global"
+            }
+          ]
+        }
+      },
+      {
+        "vertical_padding_1": {
+          "type": "panel",
+          "size": [ 0, 1 ]
+        }
+      },
+      {
+        "offline_friend_list_grid@offline_friend_list_grid": { }
+      },
+      {
+        "no_friends@friend_panel": {
+          "size": [ "100%", 30 ],
+          "controls": [
+            {
+              "frame_label@frame_label": {
+                "size": [ "default", 30 ],
+                "max_size": [ "100% - 14px", 30 ],
+                "text": "invite.noFriends",
+                "anchor_from": "bottom_middle",
+                "anchor_to": "bottom_middle"
+              }
+            }
+          ],
+          "bindings": [
+            {
+              "binding_name": "#no_friends_visible",
+              "binding_name_override": "#visible",
+              "binding_type": "global"
+            }
+          ]
+        }
+      }
+      //{
+      //  "suggested@friend_panel": {
+      //    "size": [ "100%", 10 ],
+      //    "controls": [
+      //      {
+      //        "frame_label@frame_label": {
+      //          "text": "invite.SuggestedFriends"
+      //        }
+      //      }
+      //    ]
+      //  }
+      //}
+    ]
+  },
+
+  "invite_panel@common_dialogs.main_panel_one_button": {
+    "size": "$large_screen_size",
+    "$button_panel": "invite.button_stack_panel",
+    "$child_control": "invite.scrolling_area",
+    "$text_name": "invite.title"
+  },
+
+  "scrolling_area@common.scrolling_panel": {
+    "anchor_to": "top_left",
+    "anchor_from": "top_left",
+    "$scrolling_pane_size": [ "100% - 2px", "100%" ],
+    "$scrolling_pane_offset": [ 1, 0 ],
+    "$scroll_bar_right_padding_size": [ 1, 0 ],
+    "$scroll_bar_left_padding_size": [ 0, 0 ],
+    "$scroll_size": [ 5, "100% - 4px" ],
+    "$scrolling_content": "invite.scrolling_content_stack",
+    "$show_background": false
+  },
+
+  "invite_button_content": {
+    "type": "panel",
+    "size": [ "100%", "100%" ],
+    "layer": 2,
+    "controls": [
+      {
+        "gameplay_helper@$gamepad_helper": {
+          "$gamepad_helper_size": [ "100%", "100%" ],
+          "$description_panel_size": [ "fill", "100%" ],
+          "$gamepad_description_size": [ "100%", "default" ],
+          "$gamepad_description_max_size": [ "100%", "100%" ],
+          "$icon_description_bind": "$button_text",
+          "$gamepad_helper_icon_description_text_color": "$light_button_default_text_color",
+          "$gamepad_helper_icon_description_shadow": false,
+          "$icon_description_bind_condition": "none"
+        }
+      },
+      {
+        "button_label": {
+          "type": "label",
+          "text": "$button_text",
+          "layer": 3,
+          "color": "$light_button_default_text_color",
+          "text_alignment": "center",
+          "$invite_label_binding_type|default": "none",
+          "bindings": [
+            {
+              "binding_name": "(not #gamepad_helper_visible)",
+              "binding_name_override": "#visible"
+            },
+            {
+              "binding_name": "$button_text",
+              "binding_type": "$invite_label_binding_type"
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "button_stack_panel": {
+    "type": "stack_panel",
+    "orientation": "horizontal",
+    "$button_size|default": [ "50% - 1px", 30 ],
+    "$add_button_mappings": [
+      {
+        "from_button_id": "button.controller_secondary_select",
+        "to_button_id": "$pressed_button_name",
+        "mapping_type": "global"
+      },
+      {
+        "from_button_id": "button.menu_select",
+        "to_button_id": "$pressed_button_name",
+        "mapping_type": "pressed"
+      },
+      {
+        "from_button_id": "button.menu_ok",
+        "to_button_id": "$pressed_button_name",
+        "mapping_type": "focused"
+      }
+    ],
+    "variables": [
+      {
+        "requires": "($is_inviting_to_realm and not $is_realm_owner)",
+        "$button_size": [ "100%", 30 ]
+      }
+    ],
+    "controls": [
+      {
+        "add_friend_button@common_buttons.light_content_button": {
+          "ignored": "($is_inviting_to_realm or (not $supports_add_friend))",
+          "focus_enabled": false,
+          "$pressed_button_name": "button.add_friend",
+          "$button_content": "invite.invite_button_content",
+          "$button_text|default": "networkWorld.add_friend",
+          "$icon_description_bind_type": "none",
+          "$gamepad_helper": "common.gamepad_helper_y",
+          "$focus_override_down": "FOCUS_OVERRIDE_STOP",
+          "size": "$button_size",
+          "layer": 2,
+          "button_mappings": "$add_button_mappings"
+        }
+      },
+      {
+        "add_member_button@common_buttons.light_content_button": {
+          "ignored": "(not $is_realm_owner)",
+          "focus_enabled": false,
+          "$pressed_button_name": "button.add_member",
+          "$button_content": "invite.invite_button_content",
+          "$button_text": "invite.realm.add_member",
+          "$icon_description_bind_type": "none",
+          "$gamepad_helper": "common.gamepad_helper_y",
+          "$focus_override_down": "FOCUS_OVERRIDE_STOP",
+          "size": "$button_size",
+          "anchor_from": "bottom_left",
+          "anchor_to": "bottom_left",
+          "layer": 2,
+          "button_mappings": "$add_button_mappings"
+        }
+      },
+      {
+        "padding": {
+          "type": "panel",
+          "size": [ 2, 0 ],
+          "visible": "(not $is_inviting_to_realm or $is_realm_owner)"
+        }
+      },
+      {
+        "send_button@common_buttons.light_content_button": {
+          "$pressed_button_name": "button.send_invites",
+          "focus_enabled": false,
+          "$button_content": "invite.invite_button_content",
+          "$button_text": "#send_button",
+          "$invite_label_binding_type": "global",
+          "$gamepad_helper": "common.gamepad_helper_x",
+          "$focus_override_down": "FOCUS_OVERRIDE_STOP",
+          "size": [ "fill", 30 ],
+          "layer": 2,
+          "button_mappings": [
+            {
+              "from_button_id": "button.controller_select",
+              "to_button_id": "$pressed_button_name",
+              "mapping_type": "global"
+            },
+            {
+              "from_button_id": "button.menu_select",
+              "to_button_id": "$pressed_button_name",
+              "mapping_type": "pressed"
+            },
+            {
+              "from_button_id": "button.menu_ok",
+              "to_button_id": "$pressed_button_name",
+              "mapping_type": "focused"
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "gamepad_helpers": {
+    "type": "panel",
+    "layer": 2,
+    "controls": [
+      {
+        "gamepad_helper_a@common.gamepad_helper_a": {
+          "anchor_from": "bottom_right",
+          "anchor_to": "bottom_right"
+        }
+      }
+    ]
+  },
+
+  // -----------------------------------------------
+  //
+  //    screen
+  //
+  // -----------------------------------------------
+  "invite_screen@common.base_screen": {
+    "type": "screen",
+    "button_mappings": [
+      {
+        "from_button_id": "button.menu_cancel",
+        "to_button_id": "button.menu_exit",
+        "mapping_type": "global"
+      }
+    ],
+    "$screen_content": "invite.invite_screen_content"
+  },
+
+  "invite_screen_content": {
+    "type": "panel",
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "controls": [
+      { "gamepad_helpers@gamepad_helpers": { } },
+      { "invite_panel@invite_panel": { "layer": 1 } }
+    ]
+  }
+
+}

@@ -1,0 +1,644 @@
+/********************************************************
++*   (c) Mojang. All rights reserved                     *
++*   (c) Microsoft. All rights reserved.                 *
++*********************************************************/
+
+{
+  "namespace": "remix_preview",
+
+  "common_text_label": {
+    "type": "label",
+    "color": "$main_header_text_color",
+    "layer": 1
+  },
+
+  "text_edit_control@common.text_edit_box": {
+    "property_bag": {
+      "#property_field": "#item_name"
+    },
+    "$place_holder_text": "",
+    "$text_edit_box_label_size": [ "default", 10 ]
+  },
+
+  "multiline_text_edit_control@common.multiline_text_edit_box": {
+    "property_bag": {
+      "#property_field": "#item_name"
+    },
+    "$place_holder_text": "",
+    "$text_edit_box_label_size": [ "100%", "default" ],
+    "button_mappings": [
+      {
+        "from_button_id": "button.menu_select",
+        "to_button_id": "button.menu_select",
+        "handle_select": true,
+        "handle_deselect": true,
+        "mapping_type": "pressed"
+      },
+      {
+        "from_button_id": "button.menu_ok",
+        "to_button_id": "button.menu_select",
+        "handle_select": true,
+        "handle_deselect": true,
+        "mapping_type": "focused"
+      },
+      {
+        "from_button_id": "button.menu_cancel",
+        "to_button_id": "button.menu_cancel",
+        "handle_select": false,
+        "handle_deselect": true,
+        "mapping_type": "global"
+      }
+    ]
+  },
+
+  "structure_name_panel": {
+    "type": "panel",
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "size": [ "100%", "100%c" ],
+    "controls": [
+      {
+        "remix_name@remix_preview.text_edit_control": {
+          "anchor_from": "top_left",
+          "anchor_to": "top_left",
+          "size": [ "100%", 30 ],
+          "$text_edit_box_label_min_size": [ 0, 0 ],
+          "max_length": 30,
+          "$text_edit_box_label_anchor_point": "left_middle",
+          "$text_edit_box_content_binding_type": "global",
+          "$text_edit_box_content_binding_name": "#remix_name_content_binding_name",
+          "$text_box_name": "#remix_name",
+          "$place_holder_text": "structure_block.structure_name"
+        }
+      }
+    ]
+  },
+
+  "structure_description_panel": {
+    "type": "panel",
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "size": [ "100%", 90 ],
+    "controls": [
+      {
+        "remix_description@remix_preview.multiline_text_edit_control": {
+          "anchor_from": "top_left",
+          "anchor_to": "top_left",
+          "$text_edit_box_label_min_size": [ "100%", "100%" ],
+          "max_length": 500,
+          "$text_edit_box_label_anchor_point": "bottom_left",
+          "$text_edit_box_content_binding_type": "global",
+          "$text_edit_box_content_binding_name": "#remix_description_content_binding_name",
+          "$text_box_name": "#remix_description",
+          "$place_holder_text": "remix_export.description"
+        }
+      }
+    ]
+  },
+
+  "tag_item_button_panel": {
+    "type": "panel",
+    "layer": 1,
+    "size": [ "100%c", "100%c" ],
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "controls": [
+      {
+        "tag_background": {
+          "type": "image",
+          "anchor_from": "top_left",
+          "anchor_to": "top_left",
+          "layer": 1,
+          "texture": "textures/ui/button_borderless_light",
+          "size": [ "100%c + 6px", 17 ],
+          "offset": [ 1, 1 ],
+          "controls": [
+            {
+              "tag_text@remix_preview.common_text_label": {
+                "size": [ "default", 10 ],
+                "$text_edit_box_label_min_size": [ 30, 10 ],
+                "text": "#text",
+                "color": "$light_button_default_text_color",
+                "offset": [ 3, 3 ],
+                "layer": 1,
+                "anchor_from": "top_left",
+                "anchor_to": "top_left",
+                "$tag_text_binding_type|default": "collection",
+                "$tag_text_binding_name|default": "#tag_text_binding",
+                "bindings": [
+                  {
+                    "binding_type": "collection_details",
+                    "binding_collection_name": "tag_factory_collection",
+                    "binding_condition": "once"
+                  },
+                  {
+                    "binding_type": "$tag_text_binding_type",
+                    "binding_name": "$tag_text_binding_name",
+                    "binding_name_override": "#text",
+                    "binding_collection_name": "tag_factory_collection",
+                    "binding_condition": "visible"
+                  }
+                ]
+              }
+            },
+            {
+              "x_button@common.close_button_panel": {
+                "ignored": "$ignore_close",
+                "size": [ 15, 15 ],
+                "offset": [ -1, 1 ],
+                "layer": 1,
+                "anchor_from": "top_right",
+                "anchor_to": "top_right"
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "tag_item_button": {
+    "type": "button",
+    "size": [ "100%", "100%c" ],
+    "layer": 1,
+    "anchor_from": "top_right",
+    "anchor_to": "top_right",
+    "locked_control": "",
+    "default_control": "default",
+    "hover_control": "hover",
+    "pressed_control": "pressed",
+    "focus_enabled": true,
+    "$close_button_panel_size": [ 15, 15 ],
+    "$close_button_uv": [ 0, 0 ],
+    "$close_button_uv_size": [ 15, 15 ],
+    "$close_button_to_button_id": "button.remix_tag",
+    "button_mappings": [
+      {
+        "from_button_id": "button.menu_select",
+        "to_button_id": "$close_button_to_button_id",
+        "mapping_type": "pressed"
+      },
+      {
+        "from_button_id": "button.menu_ok",
+        "to_button_id": "$close_button_to_button_id",
+        "mapping_type": "focused"
+      }
+    ],
+    "controls": [
+      {
+        "default@remix_preview.tag_item_button_panel": {
+          "$close_button_texture": "textures/gui/newgui/X"
+        }
+      },
+      {
+        "hover@remix_preview.tag_item_button_panel": {
+          "$close_button_texture": "textures/gui/newgui/XHover"
+        }
+      },
+      {
+        "pressed@remix_preview.tag_item_button_panel": {
+          "$close_button_texture": "textures/gui/newgui/XPress"
+        }
+      }
+    ],
+    "bindings": [
+      {
+        "binding_type": "collection_details",
+        "binding_collection_name": "tag_factory_collection",
+        "binding_condition": "once"
+      }
+    ]
+  },
+
+  "tag_item": {
+    "type": "panel",
+    "layer": 1,
+    "size": [ "100% + 2px", "100%c + 2px" ],
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "$ignore_close|default": false,
+    "controls": [
+      {
+        "button@remix_preview.tag_item_button": {}
+      }
+    ]
+  },
+
+  "tag_panel": {
+    "type": "stack_panel",
+    "orientation": "vertical",
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "size": [ "100%", "100%c" ],
+    "controls": [
+      {
+        "new_tag_wrapper": {
+          "type": "panel",
+          "size": [ "100%", "100%c" ],
+          "controls": [
+            {
+              "new_tag@remix_preview.text_edit_control": {
+                "anchor_from": "top_left",
+                "anchor_to": "top_left",
+                "size": [ "100%", 15 ],
+                "$text_edit_box_label_min_size": [ 60, 10 ],
+                "max_length": 32,
+                "$text_edit_box_label_anchor_point": "left_middle",
+                "$text_edit_box_content_binding_type": "global",
+                "$text_edit_box_content_binding_name": "#remix_tag_content_binding_name",
+                "$text_box_name": "#remix_tag",
+                "$place_holder_text": "remix_export.tag.title"
+              }
+            }
+          ],
+          "bindings": [
+            {
+              "binding_name": "#new_tag_visible",
+              "binding_name_override": "#visible"
+            }
+          ]
+        }
+      },
+      {
+        "minecraft_tag_item@remix_preview.tag_item_button_panel": {
+          "size": [ "100% + 2px", "100%c + 2px" ],
+          "$ignore_close": true,
+          "$tag_text_binding_type": "global",
+          "$tag_text_binding_name": "#minecraft_tag_text_binding"
+        }
+      },
+      {
+        "remix_tag_factory": {
+          "type": "stack_panel",
+          "anchor_from": "bottom_left",
+          "anchor_to": "bottom_left",
+          "collection_name": "tag_factory_collection",
+          "bindings": [
+            {
+              "binding_name": "#tag_factory_length",
+              "binding_name_override": "#collection_length"
+            }
+          ],
+          "factory": {
+            "name": "remix_tag_factory",
+            "max_children_size": 15,
+            "insert_location": "front",
+            "control_name": "@remix_preview.tag_item"
+          }
+        }
+      },
+      {
+        "offset_0": {
+          "type": "panel",
+          "size": [ "100%", 2 ]
+        }
+      }
+    ]
+  },
+
+  "common_checkbox_state": {
+    "type": "stack_panel",
+    "orientation": "horizontal",
+    "size": [ "100%", "100%" ],
+    "controls": [
+      {
+        "toggle_wrapper": {
+          "type": "panel",
+          "size": [ "100%c", "100%" ],
+          "controls": [
+            {
+              "toggle_icon@common.checkbox_image": {
+                "texture": "$toggle_icon_texture"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "offset": {
+          "type": "panel",
+          "size": [ 4, "100%" ]
+        }
+      },
+      {
+        "label_wrapper": {
+          "type": "panel",
+          "size": [ "100%c", "100%" ],
+          "controls": [
+            {
+              "toggle_label@remix_preview.common_text_label": {
+                "size": [ "default", 10 ],
+                "text": "remix_export.local_copy"
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "checkbox_unchecked_state@remix_preview.common_checkbox_state": {
+    "$toggle_icon_texture": "textures/ui/checkbox_space"
+  },
+
+  "checkbox_checked_state@remix_preview.common_checkbox_state": {
+    "$toggle_icon_texture": "textures/ui/checkbox_check"
+  },
+
+  "checkbox_unchecked_hover_state@remix_preview.common_checkbox_state": {
+    "$toggle_icon_texture": "textures/ui/checkbox_spaceHover"
+  },
+
+  "checkbox_checked_hover_state@remix_preview.common_checkbox_state": {
+    "$toggle_icon_texture": "textures/ui/checkbox_checkHover"
+  },
+
+  "cancel_button@common_buttons.light_text_button": {
+    "$pressed_button_name": "button.remix_preview_cancel",
+    "$button_text": "gui.cancel"
+  },
+
+  "upload_button": {
+    "type": "panel",
+    "controls": [
+      {
+        "button@common_buttons.light_text_button": {
+          "size": [ "100%", "100%" ],
+          "$pressed_button_name": "button.remix_preview_upload",
+          "$button_text": "remix_export.upload"
+        }
+      }
+    ],
+    "bindings": [
+      {
+        "binding_type": "global",
+        "binding_condition": "visible",
+        "binding_name": "#upload_button_enabled",
+        "binding_name_override": "#enabled"
+      }
+    ]
+  },
+
+  "button_panel": {
+    "type": "stack_panel",
+    "orientation": "horizontal",
+    "size": [ "100%", 30 ],
+    "controls": [
+      {
+        "cancel@remix_preview.cancel_button": {
+          "size": [ "50% - 1px", "100%" ]
+        }
+      },
+      {
+        "offset_0": {
+          "type": "panel",
+          "size": [ 2, "100%" ]
+        }
+      },
+      {
+        "upload@remix_preview.upload_button": {
+          "size": [ "50% - 1px", "100%" ]
+        }
+      }
+    ]
+  },
+
+  "scroll_content": {
+    "type": "panel",
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "size": [ "100%-4px", "100%c" ],
+    "offset": [ 2, 0 ],
+    "controls": [
+      {
+        "content_stack_panel": {
+          "type": "stack_panel",
+          "orientation": "vertical",
+          "size": [ "100%", "100%c" ],
+          "controls": [
+            {
+              "offset_0": {
+                "type": "panel",
+                "size": [ "100%", 2 ]
+              }
+            },
+            {
+              "structure_name@remix_preview.structure_name_panel": {
+
+              }
+            },
+            {
+              "offset_1": {
+                "type": "panel",
+                "size": [ "100%", 2 ]
+              }
+            },
+            {
+              "structure_description@remix_preview.structure_description_panel": {
+
+              }
+            },
+            {
+              "offset_2": {
+                "type": "panel",
+                "size": [ "100%", 2 ]
+              }
+            },
+            {
+              "tag_panel@remix_preview.tag_panel": {
+
+              }
+            },
+            {
+              "button@remix_preview.button_panel": {
+
+              }
+            },
+            {
+              "offset_5": {
+                "type": "panel",
+                "size": [ "100%", 2 ]
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "scrolling_panel@common.scrolling_panel": {
+    "layer": 1,
+    "$scrolling_pane_size": [ "100%", "100%" ],
+    "$scrolling_content": "remix_preview.scroll_content",
+    "$scroll_size": [ 5, "100% - 4px" ],
+    "$show_background": false,
+    "anchor_from": "top_right",
+    "anchor_to": "top_right"
+  },
+
+  "remix_preview_content": {
+    "type": "panel",
+    "size": [ "100% - 16px", "100% - 31 px" ],
+    "offset": [ 8, 23 ],
+    "controls": [
+      {
+        "scroll_content@remix_preview.scrolling_panel": {
+
+        }
+      }
+    ]
+  },
+
+  "eula_label_text": {
+    "type": "stack_panel",
+    "size": [ "100% - 4px", "100%c" ],
+    "anchor_to": "top_middle",
+    "anchor_from": "top_middle",
+    "controls": [
+      {
+        "padding": {
+          "type": "panel",
+          "layer": 2,
+          "size": [ 0, 2 ]
+        }
+      },
+      {
+        "text": {
+          "type": "label",
+          "size": [ "100%", "default" ],
+          "anchor_to": "top_middle",
+          "anchor_from": "top_middle",
+          "layer": 2,
+          "text": "remix_export.EULA.content",
+          "color": "$body_text_color"
+        }
+      }
+    ]
+  },
+
+  "eula_popup_panel@popup_dialog.modal_input_panel": {
+    "$modal_screen_size": [ 334, 200 ],
+    "$show_close_button": true,
+    "$close_button_to_button_id": "button.eula_close",
+    "$popup_dialog_escape_button_name": "button.eula_close",
+    "$popup_dialog_left_button_name": "button.eula_agree",
+    "$popup_dialog_rightcancel_button_name": "button.eula_view_terms",
+    "controls": [
+      {
+        "eula_two_button_dialog@popup_dialog.modal_dialog_with_buttons": {
+          "$visibility_source_control_name": "eula_two_button_dialog",
+          "property_bag": {
+            "name": "eula_popup",
+            "#modal_title_text": "remix_export.EULA.title",
+            "#modal_label_text": "remix_export.EULA.content",
+            "#buttons_visible": true,
+            "#no_buttons_visible": false,
+            "#single_button_visible": false,
+            "#two_buttons_visible": true
+          },
+          "controls": [
+            {
+              "background_with_buttons@common.common_panel": {
+                "$dialog_background": "dialog_background_hollow_2",
+                "$fill_alpha": 1
+              }
+            },
+            { "title@popup_dialog.modal_title_text": {} },
+            {
+              "text_with_buttons@popup_dialog.modal_label_panel": {
+                "size": [ "100% - 16px", "100% - 65px" ]
+              }
+            },
+            {
+              "two_buttons@popup_dialog.two_buttons_panel": {
+                "controls": [
+                  {
+                    "left@popup_dialog.modal_left_button": {
+                      "$button_text": "remix_export.EULA.agree"
+                    }
+                  },
+                  {
+                    "right@popup_dialog.modal_rightcancel_button": {
+                      "default_focus_precedence": 1,
+                      "$button_text": "remix_export.EULA.view_terms"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "bindings": [
+      {
+        "binding_name": "#eula_visible",
+        "binding_name_override": "#visible",
+        "binding_condition": "always",
+        "binding_type": "global"
+      }
+    ]
+  },
+
+  "remix_preview_screen_content": {
+    "type": "panel",
+    "size": "$extra_large_screen_size",
+    "controls": [
+      {
+        "background_divider@common.common_panel": {
+          "$dialog_background": "common.dialog_background_hollow_3",
+          "$show_divider": false
+        }
+      },
+      {
+        "title@remix_preview.common_text_label": {
+          "anchor_from": "top_middle",
+          "anchor_to": "top_middle",
+          "offset": [ 0, 8 ],
+          "layer": 4,
+          "text": "remix_export.title",
+          "color": "$title_text_color"
+        }
+      },
+      {
+        "content@remix_preview.remix_preview_content": {
+          "layer": 4,
+          "anchor_from": "top_left",
+          "anchor_to": "top_left"
+        }
+      },
+      {
+        "eula_popup@remix_preview.eula_popup_panel": {
+        }
+      }
+    ]
+  },
+
+  "remix_preview_screen@common.base_screen": {
+    "button_mappings": [
+      {
+        "from_button_id": "button.menu_cancel",
+        "to_button_id": "button.menu_exit",
+        "mapping_type": "global"
+      },
+      {
+        "from_button_id": "button.menu_inventory_cancel",
+        "to_button_id": "button.menu_exit",
+        "mapping_type": "global"
+      },      
+      {
+        "from_button_id": "button.menu_tab_left",
+        "to_button_id": "button.menu_tab_left",
+        "mapping_type": "global",
+        "scope": "view"
+      },
+      {
+        "from_button_id": "button.menu_tab_right",
+        "to_button_id": "button.menu_tab_right",
+        "mapping_type": "global",
+        "scope": "view"
+      }
+    ],
+    "$screen_content": "remix_preview.remix_preview_screen_content"
+  }
+}

@@ -1,0 +1,1035 @@
+/********************************************************
++*   (c) Mojang. All rights reserved                       *
++*   (c) Microsoft. All rights reserved.                   *
++*********************************************************/
+
+{
+  "namespace": "common_buttons",
+
+  /////////////////////////////////
+  //
+  //  BUTTON CONTROLS
+  //
+  /////////////////////////////////
+
+  "button_image": {
+    "type": "image",
+    "layer": 1,
+    "texture": "$new_ui_button_texture",
+    "$button_alpha|default": "$content_alpha",
+    "alpha": "$button_alpha"
+  },
+
+  "background_button_image": {
+    "type": "image",
+    "layer": 1,
+    "texture": "textures/ui/button_borderless_imagelesshoverbg",
+    "alpha": "$content_alpha"
+  },
+
+  "locked_button_image": {
+    "type": "image",
+    "layer": 1,
+    "texture": "$new_ui_button_texture",
+    "alpha": "$content_alpha"
+  },
+
+  "light_button_assets@common.button": {
+    "$default_button_texture|default": "textures/ui/button_borderless_light",
+    "$default_content_alpha|default": 1,
+    "$hover_content_alpha|default": 1,
+    "$hover_button_texture|default": "textures/ui/button_borderless_lighthover",
+    "$pressed_button_texture|default": "textures/ui/button_borderless_lightpressed",
+    "$locked_button_texture|default": "textures/ui/disabledButtonNoBorder",
+
+    "locked_control": "locked",
+
+    "$default_font|default": "default",
+    "$font_type": "$default_font",
+    "$locked_alpha": 1
+  },
+
+  "dark_button_assets@common.button": {
+    "$default_button_texture|default": "textures/ui/button_borderless_dark",
+    "$hover_button_texture|default": "textures/ui/button_borderless_darkhover",
+    "$pressed_button_texture|default": "textures/ui/button_borderless_darkpressed",
+    "$locked_button_texture|default": "textures/ui/disabledButtonNoBorder",
+
+    "locked_control": "locked",
+
+    "$locked_alpha": 1
+  },
+
+  "focus_border": {
+    "type": "image",
+    "texture": "textures/ui/focus_border_white"
+  },
+
+  "new_ui_button_panel": {
+    "type": "panel",
+    "$button_alpha|default": 1,
+    "layer": 1,
+    "$button_size_override|default": [ "100%", "100%" ],
+    "size": "$button_size_override",
+    "$content_alpha|default": 1,
+    "$button_image|default": "common_buttons.button_image",
+    "$button_image_visible|default": true,
+    "$button_image_size|default": [ "100% - 2px", "100% - 2px" ],
+    "$image_anchor|default": "center",
+    "$image_offset|default": [ 0, 0 ],
+    "$border_visible|default": true,
+    "$border_alpha|default": 1,
+    "controls": [
+      {
+        "$button_image@$button_image": {
+          "ignored": "(not $button_image_visible)",
+          "size": "$button_image_size",
+          "offset": "$image_offset",
+          "anchor_from": "$image_anchor",
+          "anchor_to": "$image_anchor",
+          "layer": 1
+        }
+      },
+      {
+        "button_content": {
+          "type": "panel",
+          "$button_content_size|default": [ "100% - 6px", "100% - 6px" ],
+          "size": "$button_content_size",
+
+          "controls": [
+            {
+              "$button_type_panel@$button_type_panel": {
+                "layer": 3
+              }
+            }
+          ]
+        }
+      },
+      {
+        "border@common_buttons.focus_border": {
+          "color": "$border_color",
+          "layer": "$border_layer",
+          "alpha": "$border_alpha",
+          "ignored": "(not $border_visible)"
+        }
+      }
+    ]
+  },
+
+  "new_ui_form_fitting_button_panel": {
+    "type": "panel",
+    "layer": 1,
+    "$button_size_override|default": [ "100%c", "100%c" ],
+    "size": "$button_size_override",
+
+    "$content_alpha|default": 1,
+    "anchor_from": "$anchor",
+    "anchor_to": "$anchor",
+    "controls": [
+      {
+        "border@common_buttons.focus_border": {
+          "color": "$border_color",
+          "layer": "$border_layer",
+          "size": [ "100%c + 2px", "100%c + 2px" ],
+          "$button_image|default": "common_buttons.button_image",
+          "controls": [
+            {
+              "$button_image@$button_image": {
+                "size": [ "100%c + 2px", "100%c + 2px" ],
+                "$form_fitting_min_size|default": [ 0, 0 ],
+                "min_size": "$form_fitting_min_size",
+                "layer": 1,
+                "controls": [
+                  {
+                    "button_content": {
+                      "type": "panel",
+                      "size": [ "100%c + 6px", "100%c + 6px" ],
+                      "controls": [
+                        {
+                          "$button_type_panel@$button_type_panel": {
+                            "layer": 3
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "new_ui_width_fitting_button_panel": {
+    "type": "panel",
+    "layer": 1,
+    "$button_size_override|default": [ "100%c", "100%" ],
+    "size": "$button_size_override",
+    "$content_alpha|default": 1,
+    "anchor_from": "$anchor",
+    "anchor_to": "$anchor",
+    "controls": [
+      {
+        "border@common_buttons.focus_border": {
+          "color": "$border_color",
+          "layer": "$border_layer",
+          "size": [ "100%c + 2px", "100%" ],
+          "$button_image|default": "common_buttons.button_image",
+          "controls": [
+            {
+              "$button_image@$button_image": {
+                "size": [ "100%c + 2px", "100% - 2px" ],
+                "layer": 1,
+                "controls": [
+                  {
+                    "button_content": {
+                      "type": "panel",
+                      "size": [ "100%c + 6px", "100% - 6px" ],
+                      "controls": [
+                        {
+                          "$button_type_panel@$button_type_panel": {
+                            "layer": 3
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "new_ui_height_fitting_button_panel": {
+    "type": "panel",
+    "layer": 1,
+    "$button_size_override|default": [ "100%", "100%c" ],
+    "size": "$button_size_override",
+    "$button_min_size_override|default": [ "100%", "100%c" ],
+    "min_size": "$button_min_size_override",
+    "$content_alpha|default": 1,
+    "anchor_from": "$anchor",
+    "anchor_to": "$anchor",
+    "controls": [
+      {
+        "border@common_buttons.focus_border": {
+          "color": "$border_color",
+          "layer": "$border_layer",
+          "size": [ "100%", "100%c + 2px" ],
+          "$button_border_min_size_override|default": [ "100%", "100%c + 2px" ],
+          "min_size": "$button_border_min_size_override",
+          "$button_image|default": "common_buttons.button_image",
+          "controls": [
+            {
+              "$button_image@$button_image": {
+                "size": [ "100% - 2px", "100%c + 2px" ],
+                "$button_image_min_size_override|default": [ "100%", "100%c + 2px" ],
+                "min_size": "$button_image_min_size_override",
+                "layer": 1,
+                "controls": [
+                  {
+                    "button_content": {
+                      "type": "panel",
+                      "size": [ "100% - 6px", "100%c + 6px" ],
+                      "controls": [
+                        {
+                          "$button_type_panel@$button_type_panel": {
+                            "layer": 3
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "borderless_form_fitting_button_panel": {
+    "type": "panel",
+    "layer": 1,
+    "$button_size_override|default": [ "100%c", "100%c" ],
+    "$button_image|default": "common_buttons.button_image",
+    "size": "$button_size_override",
+    "$button_panel_offset|default": [ 0, 0 ],
+    "offset": "$button_panel_offset",
+    "$content_alpha|default": 1,
+    "anchor_from": "$anchor",
+    "anchor_to": "$anchor",
+    "controls": [
+      {
+        "$button_image@$button_image": {
+          "size": [ "100%c + 4px", "100%c" ],
+          "layer": 1,
+          "controls": [
+            {
+              "button_content": {
+                "type": "panel",
+                "size": [ "100%c", "100%c" ],
+                "controls": [
+                  {
+                    "$button_type_panel@$button_type_panel": {
+                      "layer": 3
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  /////////////////////////////////
+  //
+  //  TEXT BUTTON
+  //
+  /////////////////////////////////
+
+  // This needs you to define the button mapping and the size of the button
+  "light_text_button@light_button_assets": {
+    "$button_offset|default": [ 0, 0 ],
+    "$button_pressed_offset|default": [ 0, 1 ],
+    "$button_text|default": "",
+    "$button_font_size|default": "normal",
+    "$pressed_alpha|default": 1,
+    "$default_button_alpha|default": 1,
+    "$default_hover_alpha|default": 1,
+    "$default_pressed_alpha|default": 1,
+    "$default_button_pressed_offset|default": [ 0, 1 ],
+
+    // For text bindings
+    "$button_text_binding_type|default": "none",
+    "$button_binding_condition|default": "none",
+    "$button_text_grid_collection_name|default": "",
+
+    "$button_type_panel": "common_buttons.new_ui_binding_button_label",
+    "$button_state_panel|default": "common_buttons.new_ui_button_panel",
+
+    // These states are for passing the button state to the button content - do not set these in a parent!
+    "$default_state|default": false,
+    "$hover_state|default": false,
+    "$pressed_state|default": false,
+    "$locked_state|default": false,
+
+    "controls": [
+      {
+        "default@$button_state_panel": {
+          "$new_ui_button_texture": "$default_button_texture",
+          "$text_color": "$light_button_default_text_color",
+          "$secondary_text_color": "$light_button_secondary_default_text_color",
+          "$content_alpha": "$default_content_alpha",
+          "$border_color": "$light_border_default_color",
+          "$border_layer": 2,
+          "$default_state": true,
+          "$button_alpha": "$default_button_alpha",
+          "layer": 1
+        }
+      },
+      {
+        "hover@$button_state_panel": {
+          "$new_ui_button_texture": "$hover_button_texture",
+          "$text_color": "$light_button_hover_text_color",
+          "$secondary_text_color": "$light_button_secondary_hover_text_color",
+          "$content_alpha": 1,
+          "$border_color": "$light_border_hover_color",
+          "$border_layer": 4,
+          "$hover_state": true,
+          "$button_alpha": "$default_hover_alpha",
+          "layer": 4 // This is several layers higher than default in case two buttons share a border and that shared border needs to turn with with either button hover/press state
+        }
+      },
+      {
+        "pressed@$button_state_panel": {
+          "$new_ui_button_texture": "$pressed_button_texture",
+          "$text_color": "$light_button_pressed_text_color",
+          "$secondary_text_color": "$light_button_secondary_pressed_text_color",
+          "$button_offset|default": "$button_pressed_offset",
+          "$content_alpha": "$pressed_alpha",
+          "$border_color": "$light_border_pressed_color",
+          "$border_layer": 5,
+          "$pressed_state": true,
+          "$button_alpha": "$default_pressed_alpha",
+          "layer": 5
+        }
+      },
+      {
+        "locked@$button_state_panel": {
+          "$new_ui_button_texture": "$locked_button_texture",
+          "$text_color": "$light_button_locked_text_color",
+          "$secondary_text_color": "$light_button_secondary_locked_text_color",
+          "$content_alpha": "$locked_alpha",
+          "$border_color": "$light_border_locked_color",
+          "$button_image": "common_buttons.locked_button_image",
+          "$border_layer": 1,
+          "$locked_state": true,
+          "layer": 1
+        }
+      }
+    ]
+  },
+
+  "dark_text_button@dark_button_assets": {
+    "$button_offset|default": [ 0, 0 ],
+    "$button_pressed_offset|default": [ 0, 1 ],
+    "$button_text|default": "",
+    "$pressed_alpha|default": 1,
+
+    // For text bindings
+    "$button_text_binding_type|default": "none",
+    "$button_binding_condition|default": "none",
+    "$button_text_grid_collection_name|default": "",
+
+    "$button_type_panel": "common_buttons.new_ui_binding_button_label",
+    "$button_state_panel|default": "common_buttons.new_ui_button_panel",
+
+    // These states are for passing the button state to the button content - do not set these in a parent!
+    "$default_state|default": false,
+    "$hover_state|default": false,
+    "$pressed_state|default": false,
+    "$locked_state|default": false,
+
+    "controls": [
+      {
+        "default@$button_state_panel": {
+          "$new_ui_button_texture": "$default_button_texture",
+          "$text_color": "$dark_button_default_text_color",
+          "$secondary_text_color": "$dark_button_secondary_default_text_color",
+          "$content_alpha": 1,
+          "$border_color": "$dark_border_default_color",
+          "$border_layer": 2,
+          "$default_state": true,
+          "layer": 1
+        }
+      },
+      {
+        "hover@$button_state_panel": {
+          "$new_ui_button_texture": "$hover_button_texture",
+          "$text_color": "$dark_button_hover_text_color",
+          "$secondary_text_color": "$dark_button_secondary_hover_text_color",
+          "$content_alpha": 1,
+          "$border_color": "$dark_border_hover_color",
+          "$border_layer": 4,
+          "$hover_state": true,
+          "layer": 4 // This is several layers higher than default in case two buttons share a border and that shared border needs to turn with with either button hover/press state
+
+        }
+      },
+      {
+        "pressed@$button_state_panel": {
+          "$new_ui_button_texture": "$pressed_button_texture",
+          "$text_color": "$dark_button_pressed_text_color",
+          "$secondary_text_color": "$dark_button_secondary_pressed_text_color",
+          "$button_offset|default": "$button_pressed_offset",
+          "$content_alpha": "$pressed_alpha",
+          "$border_color": "$dark_border_pressed_color",
+          "$border_layer": 5,
+          "$pressed_state": true,
+          "layer": 5
+        }
+      },
+      {
+        "locked@$button_state_panel": {
+          "$new_ui_button_texture": "$locked_button_texture",
+          "$text_color": "$dark_button_locked_text_color",
+          "$secondary_text_color": "$dark_button_secondary_locked_text_color",
+          "$content_alpha": "$locked_alpha",
+          "$border_color": "$dark_border_locked_color",
+          "$button_image": "common_buttons.locked_button_image",
+          "$border_layer": 1,
+          "$locked_state": true,
+          "layer": 1
+        }
+      }
+    ]
+  },
+
+  "new_ui_binding_button_label": {
+    "type": "label",
+    "layer": 2,
+    "text": "$button_text",
+    "color": "$text_color",
+    "$font_type|default": "default",
+    "font_type": "$font_type",
+    "font_size": "$button_font_size",
+    "$button_font_size|default": "normal",
+    "$new_ui_label_offset|default": "$button_offset",
+    "offset": "$new_ui_label_offset",
+    "$anchor|default": "center",
+    "anchor_from": "$anchor",
+    "anchor_to": "$anchor",
+    "shadow": false,
+    "$button_text_size|default": [ "default", "default" ],
+    "size": "$button_text_size",
+    "$button_text_max_size|default": [ "100%", 10 ], // Per design buttons are single line text only
+    "max_size": "$button_text_max_size",
+    "$text_alignment|default": "center",
+    "text_alignment": "$text_alignment",
+    "bindings": [
+      {
+        "binding_type": "$button_text_binding_type",
+        "binding_condition": "$button_binding_condition",
+        "binding_collection_name": "$button_text_grid_collection_name",
+        "binding_name": "$button_text",
+        "binding_name_override": "$button_text"
+      }
+    ]
+  },
+
+  /////////////////////////////////
+  //
+  //  FORM FITTING TEXT BUTTON
+  //
+  /////////////////////////////////
+
+  // Max size will be the size specified for the button, otherwise will shrink the width to fit the text, also only single line
+  // The default height of the button will be 20 texels which is the minimum required for touch target size
+  "light_text_form_fitting_button@common_buttons.light_text_button": {
+    "size": [ "100%c", "100%c" ],
+    "$button_state_panel|default": "common_buttons.new_ui_form_fitting_button_panel",
+    "$anchor": "top_left", // Cannot override this or will cause unsolvable layout!
+    "$button_offset|default": [ 3, 3 ],
+    "$button_pressed_offset|default": [ 3, 4 ],
+    "$button_text_max_size": [ "100%c", 10 ]
+  },
+
+  "dark_text_form_fitting_button@common_buttons.dark_text_button": {
+    "size": [ "100%c", "100%c" ],
+    "$button_state_panel|default": "common_buttons.new_ui_form_fitting_button_panel",
+    "$anchor": "top_left", // Cannot override this or will cause unsolvable layout!
+    "$button_offset|default": [ 3, 3 ],
+    "$button_pressed_offset|default": [ 3, 4 ],
+    "$button_text_max_size": [ "100%c", 10 ]
+  },
+
+  /////////////////////////////////
+  //
+  //  GENERIC CONTENT BUTTON
+  //
+  /////////////////////////////////
+
+  "transparent_content_button@common_buttons.light_content_button": {
+    "anchor_from": "bottom_right",
+    "anchor_to": "bottom_right",
+    "layer": 2,
+    "$default_button_texture": "textures/ui/imagetaggedcorner",
+    "$hover_button_texture": "textures/ui/imagetaggedcorner",
+    "$pressed_button_texture": "textures/ui/imagetaggedcorner",
+    "$locked_button_texture": "textures/ui/imagetaggedcorner",
+    "$default_color": "white",
+    "$default_font": "smooth",
+    "$button_offset": [ 0, 0 ],
+    "$border_visible": false,
+    "$default_state_border_visible": false,
+    "$hover_state_border_visible": false,
+    "$pressed_state_border_visible": false,
+    "$locked_state_border_visible": false
+  },
+
+  "single_image_with_border_button@common_buttons.light_content_button": {
+    "$button_offset": [ 0, 0 ],
+    "$button_content|default": "common.empty_panel",
+    "$button_image_visible": false,
+    "$button_content_size": [ "100% - 2px", "100% - 2px" ]
+  },
+
+  "light_content_button@light_button_assets": {
+
+    "$button_offset|default": [ 0, 0 ],
+    "$button_pressed_offset|default": [ 0, 1 ],
+    "$pressed_alpha|default": 1,
+    "$button_type_panel|default": "common_buttons.button_content_panel",
+    "$button_content|default": "common.empty_panel",
+    "$button_state_panel|default": "common_buttons.new_ui_button_panel",
+
+    "$default_button_alpha|default": 1,
+    "$default_hover_alpha|default": 1,
+    "$default_pressed_alpha|default": 1,
+    "$border_default_alpha|default": 1,
+
+    // These states are for passing the button state to the button content - do not set these in a parent!
+    "$default_state|default": false,
+    "$hover_state|default": false,
+    "$pressed_state|default": false,
+    "$locked_state|default": false,
+    "$default_state_border_visible|default": true,
+    "$hover_state_border_visible|default": true,
+    "$pressed_state_border_visible|default": true,
+    "$locked_state_border_visible|default": true,
+
+    "controls": [
+      {
+        "default@$button_state_panel": {
+          "$new_ui_button_texture": "$default_button_texture",
+          "$text_color": "$light_button_default_text_color",
+          "$content_alpha": "$default_content_alpha",
+          "$secondary_text_color": "$light_button_secondary_default_text_color",
+          "$glyph_color": "$light_glyph_default_color",
+          "$border_color": "$light_border_default_color",
+          "$button_alpha": "$default_button_alpha",
+          "$border_visible": "$default_state_border_visible",
+          "$border_layer": 2,
+          "$default_state": true,
+          "$border_alpha": "$border_default_alpha",
+          "layer": 1
+        }
+      },
+
+      {
+        "hover@$button_state_panel": {
+          "$new_ui_button_texture": "$hover_button_texture",
+          "$text_color": "$light_button_hover_text_color",
+          "$secondary_text_color": "$light_button_secondary_hover_text_color",
+          "$glyph_color": "$light_glyph_hover_color",
+          "$content_alpha": "$hover_content_alpha",
+          "$border_color": "$light_border_hover_color",
+          "$border_visible": "$hover_state_border_visible",
+          "$border_layer": 3,
+          "$hover_state": true,
+          "$button_alpha": "$default_hover_alpha",
+          "layer": 2
+        }
+      },
+      {
+        "pressed@$button_state_panel": {
+          "$new_ui_button_texture": "$pressed_button_texture",
+          "$text_color": "$light_button_pressed_text_color",
+          "$secondary_text_color": "$light_button_secondary_pressed_text_color",
+          "$glyph_color": "$light_glyph_pressed_color",
+          "$content_alpha": "$pressed_alpha",
+          "$button_offset": "$button_pressed_offset",
+          "$border_color": "$light_border_pressed_color",
+          "$border_visible": "$pressed_state_border_visible",
+          "$border_layer": 3,
+          "$button_alpha": "$default_pressed_alpha",
+          "$pressed_state": true,
+          "layer": 3
+        }
+      },
+      {
+        "locked@$button_state_panel": {
+          "$new_ui_button_texture": "$locked_button_texture",
+          "$text_color": "$light_button_locked_text_color",
+          "$secondary_text_color": "$light_button_secondary_locked_text_color",
+          "$glyph_color": "$light_glyph_locked_color",
+          "$content_alpha": "$locked_alpha",
+          "$border_color": "$light_border_locked_color",
+          "$button_image": "common_buttons.locked_button_image",
+          "$border_visible": "$locked_state_border_visible",
+          "$border_layer": 1,
+          "$locked_state": true,
+          "layer": 1
+        }
+      }
+    ]
+  },
+
+  "dark_content_button@dark_button_assets": {
+
+    "$button_offset|default": [ 0, 0 ],
+    "$button_pressed_offset|default": [ 0, 1 ],
+    "$pressed_alpha|default": 1,
+    "$button_type_panel|default": "common_buttons.button_content_panel",
+    "$button_content|default": "common.empty_panel",
+    "$button_state_panel|default": "common_buttons.new_ui_button_panel",
+
+    // These states are for passing the button state to the button content - do not set these in a parent!
+    "$default_state|default": false,
+    "$hover_state|default": false,
+    "$pressed_state|default": false,
+    "$locked_state|default": false,
+
+    "controls": [
+      {
+        "default@$button_state_panel": {
+          "$new_ui_button_texture": "$default_button_texture",
+          "$text_color": "$dark_button_default_text_color",
+          "$secondary_text_color": "$dark_button_secondary_default_text_color",
+          "$glyph_color": "$dark_glyph_default_color",
+          "$content_alpha": 1,
+          "$border_color": "$dark_border_default_color",
+          "$border_layer": 2,
+          "$default_state": true,
+          "layer": 1
+        }
+      },
+      {
+        "hover@$button_state_panel": {
+          "$new_ui_button_texture": "$hover_button_texture",
+          "$text_color": "$dark_button_hover_text_color",
+          "$secondary_text_color": "$dark_button_secondary_hover_text_color",
+          "$glyph_color": "$dark_glyph_hover_color",
+          "$content_alpha": 1,
+          "$border_color": "$dark_border_hover_color",
+          "$border_layer": 3,
+          "$hover_state": true,
+          "layer": 2
+        }
+      },
+      {
+        "pressed@$button_state_panel": {
+          "$new_ui_button_texture": "$pressed_button_texture",
+          "$text_color": "$dark_button_pressed_text_color",
+          "$secondary_text_color": "$dark_button_secondary_pressed_text_color",
+          "$glyph_color": "$dark_glyph_pressed_color",
+          "$content_alpha": "$pressed_alpha",
+          "$button_offset": "$button_pressed_offset",
+          "$border_color": "$dark_border_pressed_color",
+          "$border_layer": 3,
+          "$pressed_state": true,
+          "layer": 3
+        }
+      },
+      {
+        "locked@$button_state_panel": {
+          "$new_ui_button_texture": "$locked_button_texture",
+          "$text_color": "$dark_button_locked_text_color",
+          "$secondary_text_color": "$dark_button_secondary_locked_text_color",
+          "$glyph_color": "$dark_glyph_locked_color",
+          "$content_alpha": "$locked_alpha",
+          "$border_color": "$dark_border_locked_color",
+          "$button_image": "common_buttons.locked_button_image",
+          "$border_layer": 1,
+          "$locked_state": true,
+          "layer": 1
+        }
+      }
+    ]
+  },
+
+  "no_background_content_button@common.button": {
+
+    "size": [ "100%c", "100%c" ],
+    "$button_state_panel": "common_buttons.borderless_form_fitting_button_panel",
+    "$anchor": "top_left", // Cannot override this or will cause unsolvable layout!
+    "$button_text_max_size": [ "100%c", 10 ],
+
+    "$button_offset|default": [ 0, 3 ],
+    "$pressed_button_offset|default": [ 0, 4 ],
+    "$pressed_alpha|default": 1,
+    "$locked_alpha": 1,
+
+    // text color
+    "$default_text_color|default": "$light_button_default_text_color",
+    "$hover_text_color|default": "$light_button_hover_text_color",
+    "$pressed_text_color|default": "$light_button_pressed_text_color",
+
+    // For text bindings
+    "$button_text_binding_type|default": "none",
+    "$button_binding_condition|default": "none",
+    "$button_text_grid_collection_name|default": "",
+
+    "$button_type_panel": "common_buttons.button_content_panel",
+    "$border_visible": false,
+    "$button_image_visible": false,
+    "$button_content|default": "common.empty_panel",
+    "$button_image|default": "common.empty_panel",
+
+    // These states are for passing the button state to the button content - do not set these in a parent!
+    "$default_state|default": false,
+    "$hover_state|default": false,
+    "$pressed_state|default": false,
+    "$locked_state|default": false,
+
+    "locked_control": "locked",
+
+    "$default_button_texture|default": "",
+    "$locked_button_texture|default": "textures/ui/disabledButtonNoBorder",
+
+    "controls": [
+      {
+        "default@$button_state_panel": {
+          "$new_ui_button_texture": "$default_button_texture",
+          "$text_color": "$default_text_color",
+          "$secondary_text_color": "$light_button_secondary_default_text_color",
+          "$glyph_color": "$light_glyph_default_color",
+          "$button_image_visible": false,
+          "$content_alpha": 1,
+          "$border_color": "$light_border_default_color",
+          "$border_layer": 2,
+          "$default_state": true,
+          "layer": 1
+        }
+      },
+      {
+        "hover@$button_state_panel": {
+          "$text_color": "$hover_text_color",
+          "$secondary_text_color": "$light_button_secondary_hover_text_color",
+          "$glyph_color": "$light_glyph_hover_color",
+          "$content_alpha": 1,
+          "$button_image": "common_buttons.background_button_image",
+          "$border_color": "$light_border_hover_color",
+          "$border_layer": 3,
+          "$hover_state": true,
+          "layer": 2
+        }
+      },
+      {
+        "pressed@$button_state_panel": {
+          "$text_color": "$pressed_text_color",
+          "$secondary_text_color": "$light_button_secondary_pressed_text_color",
+          "$glyph_color": "$light_glyph_pressed_color",
+          "$content_alpha": "$pressed_alpha",
+          "$button_image": "common_buttons.background_button_image",
+          "$button_offset": "$pressed_button_offset",
+          "$border_color": "$light_border_pressed_color",
+          "$border_layer": 3,
+          "$pressed_state": true,
+          "layer": 3
+        }
+      },
+      {
+        "locked@$button_state_panel": {
+          "$new_ui_button_texture": "$locked_button_texture",
+          "$text_color": "$light_button_locked_text_color",
+          "$secondary_text_color": "$light_button_secondary_locked_text_color",
+          "$glyph_color": "$light_glyph_locked_color",
+          "$content_alpha": "$locked_alpha",
+          "$button_image": "common_buttons.locked_button_image",
+          "$border_color": "$light_border_locked_color",
+          "$border_layer": 1,
+          "$locked_state": true,
+          "layer": 1
+        }
+      }
+    ]
+  },
+
+  "button_content_panel": {
+    "type": "panel",
+    "offset": "$button_offset",
+    "controls": [
+      {
+        "content@$button_content": {
+          "layer": 2
+        }
+      }
+    ]
+  },
+
+  "form_fitting_button_content_panel": {
+    "type": "panel",
+    "size": [ "100%c", "100%c" ],
+    "offset": "$button_offset",
+    "controls": [
+      {
+        "content@$button_content": {
+          "layer": 2
+        }
+      }
+    ]
+  },
+
+  "width_fitting_button_content_panel": {
+    "type": "panel",
+    "size": [ "100%c", "100%" ],
+    "offset": "$button_offset",
+    "controls": [
+      {
+        "content@$button_content": {
+          "layer": 2
+        }
+      }
+    ]
+  },
+
+  "height_fitting_button_content_panel": {
+    "type": "panel",
+    "size": [ "100%", "100%c" ],
+    "offset": "$button_offset",
+    "controls": [
+      {
+        "content@$button_content": {
+          "layer": 2
+        }
+      }
+    ]
+  },
+
+  /////////////////////////////////
+  //
+  //  GLYPH BUTTON
+  //
+  /////////////////////////////////
+
+  "light_glyph_button@light_button_assets": {
+
+    "$button_content|default": "common.empty_panel",
+    "$button_content_offset|default": [ 0, 0 ],
+    "$pressed_alpha|default": 1,
+    "$button_type_panel": "common_buttons.glyph_content_panel",
+    "$default_button_alpha|default": 1,
+    "$default_hover_alpha|default": 1,
+    "$default_pressed_alpha|default": 1,
+    "$default_glyph_color|default": "$light_glyph_default_color",
+
+    // These states are for passing the button state to the button content - do not set these in a parent!
+    "$default_state|default": false,
+    "$hover_state|default": false,
+    "$pressed_state|default": false,
+    "$locked_state|default": false,
+
+    "$button_default_offset|default": [ 0, 0 ],
+    "$button_hover_offset|default": [ 0, 0 ],
+    "$button_pressed_offset|default": [ 0, 1 ],
+    "$button_locked_offset|default": [ 0, 0 ],
+
+    "controls": [
+      {
+        "default@common_buttons.new_ui_button_panel": {
+          "layer": 1,
+          "$new_ui_button_texture": "$default_button_texture",
+          "$glyph_color": "$default_glyph_color",
+          "$content_alpha": "$default_content_alpha",
+          "$border_color": "$light_border_default_color",
+          "$border_layer": 2,
+          "$default_state": true,
+          "$button_alpha": "$default_button_alpha",
+          "$button_press_offset": "$button_default_offset"
+        }
+      },
+      {
+        "hover@common_buttons.new_ui_button_panel": {
+          "layer": 2,
+          "$new_ui_button_texture": "$hover_button_texture",
+          "$glyph_color": "$light_glyph_hover_color",
+          "$content_alpha": "$hover_content_alpha",
+          "$border_color": "$light_border_hover_color",
+          "$border_layer": 3,
+          "$hover_state": true,
+          "$button_alpha": "$default_hover_alpha",
+          "$button_press_offset": "$button_hover_offset"
+        }
+      },
+      {
+        "pressed@common_buttons.new_ui_button_panel": {
+          "layer": 3,
+          "$new_ui_button_texture": "$pressed_button_texture",
+          "$glyph_color": "$light_glyph_pressed_color",
+          "$content_alpha": "$pressed_alpha",
+          "$border_color": "$light_border_pressed_color",
+          "$border_layer": 3,
+          "$pressed_state": true,
+          "$button_alpha": "$default_pressed_alpha",
+          "$button_press_offset": "$button_pressed_offset"
+        }
+      },
+      {
+        "locked@common_buttons.new_ui_button_panel": {
+          "$new_ui_button_texture": "$locked_button_texture",
+          "$glyph_color": "$light_glyph_locked_color",
+          "$content_alpha": "$locked_alpha",
+          "$border_color": "$light_border_locked_color",
+          "$button_image": "common_buttons.locked_button_image",
+          "$border_layer": 1,
+          "$button_press_offset": "$button_locked_offset",
+          "$locked_state": true,
+          "layer": 1
+        }
+      }
+    ]
+  },
+
+  "dark_glyph_button@dark_button_assets": {
+
+    "$button_content|default": "common.empty_panel",
+    "$button_content_offset|default": [ 0, 0 ],
+    "$button_type_panel": "common_buttons.glyph_content_panel",
+
+    // These states are for passing the button state to the button content - do not set these in a parent!
+    "$default_state|default": false,
+    "$hover_state|default": false,
+    "$pressed_state|default": false,
+    "$locked_state|default": false,
+
+    "controls": [
+      {
+        "default@common_buttons.new_ui_button_panel": {
+          "$new_ui_button_texture": "$default_button_texture",
+          "$glyph_color": "$dark_glyph_default_color",
+          "$border_color": "$dark_border_default_color",
+          "$border_layer": 2,
+          "$default_state": true,
+          "$button_press_offset": [ 0, 0 ],
+          "layer": 1
+        }
+      },
+      {
+        "hover@common_buttons.new_ui_button_panel": {
+          "$new_ui_button_texture": "$hover_button_texture",
+          "$glyph_color": "$dark_glyph_hover_color",
+          "$border_color": "$dark_border_hover_color",
+          "$border_layer": 3,
+          "$hover_state": true,
+          "$button_press_offset": [ 0, 0 ],
+          "layer": 2
+        }
+      },
+      {
+        "pressed@common_buttons.new_ui_button_panel": {
+          "$new_ui_button_texture": "$pressed_button_texture",
+          "$glyph_color": "$dark_glyph_pressed_color",
+          "$border_color": "$dark_border_pressed_color",
+          "$border_layer": 3,
+          "$pressed_state": true,
+          "$button_press_offset": [ 0, 1 ],
+          "layer": 3
+        }
+      },
+      {
+        "locked@common_buttons.new_ui_button_panel": {
+          "$new_ui_button_texture": "$locked_button_texture",
+          "$glyph_color": "$dark_glyph_locked_color",
+          "$content_alpha": "$locked_alpha",
+          "$border_color": "$dark_border_locked_color",
+          "$button_image": "common_buttons.locked_button_image",
+          "$border_layer": 1,
+          "$button_press_offset": [ 0, 0 ],
+          "$locked_state": true,
+          "layer": 1
+        }
+      }
+    ]
+  },
+
+  "glyph_content_panel": {
+    "type": "panel",
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "offset": "$button_content_offset",
+    "controls": [
+      {
+        "glyph_button_content@$button_content": {
+          "color": "$glyph_color",
+          "layer": 3,
+          "offset": "$button_press_offset",
+          "alpha": "$content_alpha"
+        }
+      }
+    ]
+  },
+
+  "hyperlink_button@common_buttons.light_text_button": {
+    "$pressed_button_name": "button.menu_open_uri",
+    "property_bag": {
+      "#hyperlink": ""
+    }
+  },
+
+  "hyperlink_content_button@common_buttons.light_content_button": {
+    "$pressed_button_name": "button.menu_open_uri",
+    "property_bag": {
+      "#hyperlink": ""
+    }
+  }
+}

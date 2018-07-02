@@ -1,0 +1,53 @@
+{
+  "materials": {
+    "version": "1.0.0",
+
+    "particles_base": {
+      "vertexShader": "shaders/color_uv.vertex",
+      "vrGeometryShader": "shaders/color_uv.geometry",
+      "fragmentShader": "shaders/color_texture.fragment",
+
+      "vertexFields": [
+        { "field": "Position" },
+        { "field": "Color" },
+        { "field": "UV0" }
+      ],
+
+      "+samplerStates": [
+        {
+          "samplerIndex": 0,
+          "textureFilter": "Point"
+        }
+      ],
+
+      "msaaSupport": "Both"
+    },
+
+    "particles_opaque:particles_base": {
+      "+defines": [ "ENABLE_FOG" ],
+      "+states": [ "DisableAlphaWrite" ]
+    },
+
+    "particles_alpha:particles_base": {
+
+      "+defines": [ "ALPHA_TEST", "ENABLE_FOG" ],
+      "+states": [ "DisableAlphaWrite" ]
+    },
+
+    "particles_blend:particles_base": {
+
+      "+defines": [ "ENABLE_FOG" ],
+      "+states": [
+        "Blending",
+        "DisableCulling",
+        "DisableDepthWrite"
+      ]
+    },
+
+    "particles_effects:particles_alpha": {
+
+      "+defines": [ "EFFECTS_OFFSET" ],
+      "msaaSupport": "Both"
+    }
+  }
+}

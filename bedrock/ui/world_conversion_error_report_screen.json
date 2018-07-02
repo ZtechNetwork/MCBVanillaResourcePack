@@ -1,0 +1,239 @@
+/********************************************************
++*   (c) Mojang. All rights reserved                       *
++*   (c) Microsoft. All rights reserved.                   *
++*********************************************************/
+
+{
+  "namespace": "world_conversion_error_report",
+
+  "error_dropdown_panel": {
+    "type": "stack_panel",
+    "size": [ "100% - 12px", "100%" ],
+    "orientation": "horizontal",
+    "controls": [
+      {
+        "label_panel": {
+          "type": "panel",
+          "size": [ "fill", "100%" ],
+          "controls": [
+            {
+              "report_label@world_conversion_error_report.report_label": {}
+            }
+          ]
+        }
+      },
+      {
+        "arrow_panel": {
+          "type": "panel",
+          "layer": 1,
+          "size": [ "100%c", "100%" ],
+          "controls": [
+            {
+              "arrow@settings_common.arrow_image": {}
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "report_label@common.new_button_label": {
+    "layer": 2,
+    "anchor_from": "left_middle",
+    "anchor_to": "left_middle",
+    "size": [ "100%", "default" ],
+    "text": "$options_dropdown_toggle_label_binding",
+    "bindings": [
+      {
+        "binding_name": "$options_dropdown_toggle_label_binding"
+      }
+    ]
+  },
+
+  "dialog_content": {
+    "type": "stack_panel",
+    "size": [ "100% - 4px", "100% - 4px" ],
+    "controls": [
+      {
+        "padding_0": {
+          "type": "panel",
+          "size": [ "100%", 1 ]
+        }
+      },
+      {
+        "dropdown_visibility_panel": {
+          "type": "panel",
+          "size": [ "100%", "100%c - 2px" ],
+          "ignored": "$hide_report_reason_dropdown",
+          "controls": [
+            {
+              "error_dropdown@settings_common.option_dropdown": {
+                "$button_type_panel": "world_conversion_error_report.error_dropdown_panel",
+                "$show_option_label": false,
+                "$option_label": "#report_reason_dropdown_toggle_label",
+                "$dropdown_content": "world_conversion_error_report.report_dropdown_content",
+                "$dropdown_area": "main_panel",
+                "$dropdown_name": "report_reason_dropdown",
+                "$options_dropdown_toggle_label_binding": "#report_reason_dropdown_toggle_label",
+                "$dropdown_scroll_content_size": [ "100%", 116 ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "padding_1": {
+          "type": "panel",
+          "ignored": "$hide_report_reason_dropdown",
+          "size": [ "100%", 2 ]
+        }
+      },
+      {
+        "terms_and_conditions@world_conversion_error_report.terms_and_conditions": {
+          "size": [ "100%", "fill" ]
+        }
+      },
+      {
+        "padding_2": {
+          "type": "panel",
+          "size": [ "100%", 2 ]
+        }
+      },
+      {
+        "report_button@common_buttons.dark_text_button": {
+          "size": [ "100%", 30 ],
+          "$pressed_button_name": "button.report",
+          "$button_text": "worldConversionErrorReport.button.reportAndSend"
+        }
+      },
+      {
+        "padding_3": {
+          "type": "panel",
+          "size": [ "100%", 2 ]
+        }
+      },
+      {
+        "view_terms@common_buttons.dark_text_button": {
+          "size": [ "100%", 30 ],
+          "$pressed_button_name": "button.view_terms",
+          "$button_text": "worldConversionErrorReport.terms.viewTerms"          
+        }
+      },
+      {
+        "padding_4": {
+          "type": "panel",
+          "size": [ "100%", 2 ]
+        }
+      },
+      {
+        "back_button@common_buttons.dark_text_button": {
+          "size": [ "100%", 30 ],
+          "$pressed_button_name": "button.back",
+          "$button_text": "gui.goBack"
+        }
+      }
+    ]
+  },
+
+  "terms_and_conditions": {
+    "type": "label",
+    "text": "worldConversionErrorReport.terms.agreementForBeta",
+    "size": [ "100%", "default" ],
+    "font_type": "smooth",
+    "color": "$body_text_color"
+  },
+
+  "report_dropdown_content@settings_common.option_radio_dropdown_group": {
+    "size": [ "100%", "100%c" ],
+    "$show_option_label": false,
+    "$radio_buttons": [
+      {
+        "mobs@settings_common.radio_with_label": {
+          "min_size": [ "100%", 22 ],
+          "$toggle_state_binding_name": "#mobs",
+          "$radio_label_text": "worldConversionErrorReport.dropdown.mobs"
+        }
+      },
+      {
+        "terrain@settings_common.radio_with_label": {
+          "min_size": [ "100%", 22 ],
+          "$toggle_state_binding_name": "#terrain",
+          "$radio_label_text": "worldConversionErrorReport.dropdown.terrain"
+        }
+      },
+      {
+        "items_missing@settings_common.radio_with_label": {
+          "min_size": [ "100%", 22 ],
+          "$toggle_state_binding_name": "#items_missing",
+          "$radio_label_text": "worldConversionErrorReport.dropdown.itemsMissing"
+        }
+      },
+      {
+        "item_interaction@settings_common.radio_with_label": {
+          "min_size": [ "100%", 22 ],
+          "$toggle_state_binding_name": "#item_interaction",
+          "$radio_label_text": "worldConversionErrorReport.dropdown.itemInteraction"
+        }
+      },
+      {
+        "world_conversion@settings_common.radio_with_label": {
+          "min_size": [ "100%", 22 ],
+          "$toggle_state_binding_name": "#world_conversion_failed",
+          "$radio_label_text": "worldConversionErrorReport.dropdown.worldConversion"
+        }
+      }
+    ]
+  },
+
+  "dialog@common_dialogs.main_panel_no_buttons": {
+    "$text_name": "worldConversionErrorReport.title",
+    "$child_control": "world_conversion_error_report.dialog_content",
+    "$show_close_button": false,
+    "size": [ 280, 206 ]
+  },
+
+  "gamepad_helpers": {
+    "type": "panel",
+    "layer": 2,
+    "controls": [
+      {
+        "gamepad_helper_a@common.gamepad_helper_a": {
+          "anchor_from": "bottom_middle",
+          "anchor_to": "bottom_middle",
+          "offset": [ "-10%", "-5%" ]
+        }
+      },
+      {
+        "gamepad_helper_b@common.gamepad_helper_b": {
+          "anchor_from": "bottom_middle",
+          "anchor_to": "bottom_middle",
+          "offset": [ "10%", "-5%" ]
+        }
+      }
+    ]
+  },
+
+  // -----------------------------------------------
+  //
+  //    screen
+  //
+  // -----------------------------------------------
+  "world_conversion_error_report_screen@common.base_screen": {
+    "button_mappings": [
+      {
+        "from_button_id": "button.menu_cancel",
+        "to_button_id": "button.menu_exit",
+        "mapping_type": "global"
+      }
+    ],
+    "$screen_content": "world_conversion_error_report.world_conversion_error_report_screen_content"
+  },
+
+  "world_conversion_error_report_screen_content": {
+    "type": "panel",
+    "controls": [
+      { "gamepad_helpers@world_conversion_error_report.gamepad_helpers": {} },
+      { "main_panel@world_conversion_error_report.dialog": { "layer": 1 } }
+    ]
+  }
+}

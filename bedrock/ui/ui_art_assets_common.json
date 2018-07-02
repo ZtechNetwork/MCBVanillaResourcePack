@@ -1,0 +1,289 @@
+/********************************************************
++*   (c) Mojang. All rights reserved                       *
++*   (c) Microsoft. All rights reserved.                   *
++*********************************************************/
+
+{
+  "namespace": "common_art",
+
+  "title_image": {
+    "type": "image",
+    "layer": 1,
+    "texture": "textures/ui/title"
+  },
+
+  "title_image_edu": {
+    "type": "image",
+    "layer": 1,
+    "texture": "textures/ui/title_edu"
+  },
+
+  "splash_text": {
+    "type": "custom",
+    "renderer": "splash_text_renderer",
+    "size": [ 0.1, 0.1 ],
+    "layer": 2,
+    "anchor_from": "right_middle",
+    "anchor_to": "right_middle",
+    "$splash_text_visible|default": true,
+    "visible": "$splash_text_visible"
+  },
+
+  "title_panel_pocket": {
+    "type": "panel",
+    "offset": [ 0, "5%" ],
+    "anchor_from": "top_middle",
+    "anchor_to": "top_middle",
+    "size": [ "100%", "12.5%x" ],
+    "controls": [
+      { "title_image@common_art.title_image": {} },
+      {
+        "splash_text@splash_text": {
+          "offset": [ -106, 8 ]
+        }
+      }
+    ]
+  },
+
+  "title_panel_win10": {
+    "type": "panel",
+    "size": [ "55%", "18.85%x" ],
+    "offset": [ 0, "10%" ],
+    "anchor_from": "top_middle",
+    "anchor_to": "top_middle",
+    "controls": [
+      { "title_image@common_art.title_image": {} },
+      {
+        "splash_text@splash_text": {
+          "offset": [ -8, 10 ]
+        }
+      }
+    ]
+  },
+
+  "title_panel_osx": {
+    "type": "panel",
+    "size": [ "55%", "19.37%x" ],
+    "offset": [ 0, "10%" ],
+    "anchor_from": "top_middle",
+    "anchor_to": "top_middle",
+    "controls": [
+      { "title_image@common_art.title_image": {} },
+      {
+        "splash_text@splash_text": {
+          "offset": [ -8, 10 ]
+        }
+      }
+    ]
+  },
+
+  "title_panel_edu": {
+    "type": "panel",
+    "size": [ "55%", "24.355%x" ],
+    "offset": [ 0, "10%" ],
+    "anchor_from": "top_middle",
+    "anchor_to": "top_middle",
+    "controls": [
+      { "title_image_edu@common_art.title_image_edu": {} },
+      {
+        "splash_text@splash_text": {
+          "offset": [ -8, 6 ]
+        }
+      }
+    ]
+  },
+
+  "title_panel_firetv": {
+    "type": "panel",
+    "offset": [ 0, "10%" ],
+    "anchor_from": "top_middle",
+    "anchor_to": "top_middle",
+    "size": [ "55%", "19.37%x" ],
+    "controls": [
+      { "title_image@common_art.title_image": {} },
+      {
+        "splash_text@splash_text": {
+          "offset": [ -8, 12 ]
+        }
+      }
+    ]
+  },
+
+  "title_panel_vr": {
+    "type": "panel",
+    "size": [ "55%", "19.37%x" ],
+    "offset": [ 0, "10%" ],
+    "anchor_from": "top_middle",
+    "anchor_to": "top_middle",
+    "controls": [
+      { "title_image@common_art.title_image": {} },
+      {
+        "splash_text@splash_text": {
+          "offset": [ -8, 12 ]
+        }
+      }
+    ]
+  },
+  "title_panel_appletv": {
+    "type": "panel",
+    "size": [ "55%", "19.37%x" ],
+    "offset": [ 0, "10%" ],
+    "anchor_from": "top_middle",
+    "anchor_to": "top_middle",
+    "controls": [
+      { "title_image@common_art.title_image": {} },
+      {
+        "splash_text@splash_text": {
+          "offset": [ -8, 12 ]
+        }
+      }
+    ]
+  },
+
+  "title_panel_content": {
+    "type": "panel",
+    "variables": [
+      {
+        "requires": "$win10_edition",
+        "$title_panel": "title_panel_win10"
+      },
+      {
+        "requires": "$osx_edition",
+        "$title_panel": "title_panel_osx"
+      },
+      {
+        "requires": "$education_edition",
+        "$title_panel": "title_panel_edu"
+      },
+      {
+        "requires": "($pocket_edition or $console_edition)",
+        "$title_panel": "title_panel_pocket"
+      },
+      {
+        "requires": "$fire_tv",
+        "$title_panel": "title_panel_firetv"
+      },
+      {
+        "requires": "$gear_vr",
+        "$title_panel": "title_panel_vr"
+      },
+      {
+        "requires": "$apple_tv",
+        "$title_panel": "title_panel_appletv"
+      }
+    ],
+    "controls": [
+      {
+        "$title_panel@$title_panel": {}
+      }
+    ]
+  },
+
+  "start_title_panel_content": {
+    "type": "panel",
+    "size": [ "100%", "100%c" ],
+    "variables": [
+      {
+        "requires": "$win10_edition",
+        "$title_panel": "title_panel_win10"
+      },
+      {
+        "requires": "$osx_edition",
+        "$title_panel": "title_panel_osx"
+      },
+      {
+        "requires": "$education_edition",
+        "$title_panel": "title_panel_edu"
+      },
+      {
+        "requires": "($pocket_edition or $console_edition)",
+        "$title_panel": "title_panel_pocket"
+      },
+      {
+        "requires": "$fire_tv",
+        "$title_panel": "title_panel_firetv"
+      },
+      {
+        "requires": "$gear_vr",
+        "$title_panel": "title_panel_vr"
+      },
+      {
+        "requires": "$apple_tv",
+        "$title_panel": "title_panel_appletv"
+      }
+    ],
+    "controls": [
+      {
+        "$title_panel@$title_panel": {}
+      }
+    ]
+  },
+
+  "pause_logo_panel": {
+    "type": "input_panel",
+    "size": "$title_panel_size",
+    "variables": [
+      {
+        "requires": "$win10_edition",
+        "$title_panel": "common_art.title_image",
+        "$title_panel_size": [ "100%", "2.85%x" ],
+        "$logo_max_size": [ 275, "18.85%x" ],
+        "$logo_size": [ "90%", "18.85%x" ]
+      },
+      {
+        "requires": "$osx_edition",
+        "$title_panel": "common_art.title_image",
+        "$title_panel_size": [ "100%", "3.37%x" ],
+        "$logo_max_size": [ 275, "19.37%x" ],
+        "$logo_size": [ "90%", "19.37%x" ]
+      },
+      {
+        "requires": "$education_edition",
+        "$title_panel": "common_art.title_image_edu",
+        "$title_panel_size": [ "100%", "6.355%x" ],
+        "$logo_max_size": [ 275, "24.355%x" ],
+        "$logo_size": [ "90%", "24.355%x" ],
+        "$achievements_ignored": true
+      },
+      {
+        "requires": "($pocket_edition  or $console_edition)",
+        "$title_panel": "common_art.title_image",
+        "$title_panel_size": [ "100%", "5.769%x" ],
+        "$logo_max_size": [ 260, "21.769%x" ],
+        "$logo_size": [ "90%", "21.769%x" ]
+      },
+      {
+        "requires": "$fire_tv",
+        "$title_panel": "common_art.title_image",
+        "$title_panel_size": [ "100%", "3.37%x" ],
+        "$logo_max_size": [ 275, "19.37%x" ],
+        "$logo_size": [ "90%", "19.37%x" ]
+      },
+      {
+        "requires": "$gear_vr",
+        "$title_panel": "common_art.title_image",
+        "$title_panel_size": [ "100%", "3.37%x" ],
+        "$logo_max_size": [ 275, "19.37%x" ],
+        "$logo_size": [ "90%", "19.37%x" ]
+      },
+      {
+        "requires": "$apple_tv",
+        "$title_panel": "common_art.title_image",
+        "$title_panel_size": [ "100%", "19.37%x" ],
+        "$logo_max_size": [ 275, "19.37%x" ],
+        "$logo_size": [ "90%", "19.37%x" ]
+      }
+    ],
+    "controls": [
+      {
+        "logo@$title_panel": {
+          "size": "$logo_size",
+          "max_size": "$logo_max_size",
+          "anchor_from": "center",
+          "anchor_to": "center"
+        }
+      }
+    ]
+  }
+
+}

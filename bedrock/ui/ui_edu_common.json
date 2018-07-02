@@ -1,0 +1,62 @@
+{
+  "namespace": "edu_common",
+
+  "light_label": {
+    "type": "label",
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "color": "$generic_button_text_color",
+    "layer": 1
+  },
+
+  "dark_label": {
+    "type": "label",
+    "color": "$title_text_color",
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "layer": 1
+  },
+
+  // Requires specifying "$toggle_state_binding_name", "$toggle_enabled_binding_name", "$toggle_name"
+  "slider_toggle@settings_common.option_toggle_control": {
+    "size": [ "100%c", "100%c" ],
+    "$enabled": true,
+    "$toggle_enabled_binding_name|default": "#not_bound",
+    "$option_enabled_binding_name": "#not_bound",
+    // Doesn't need to be used but must exist as it'll be resolved as the default value of $toggle_state_binding_name
+    "$option_binding_name": "#not_bound",
+    "variables": []
+  },
+
+  "trash_default": {
+    "type": "image",
+    "texture": "textures/ui/trash_default"
+  },
+
+  "trash_hover": {
+    "type": "image",
+    "texture": "textures/ui/trash_hover"
+  },
+
+  "trash_pressed": {
+    "type": "image",
+    "texture": "textures/ui/trash_pressed"
+  },
+
+  "photo_trash_button": {
+    "type": "button",
+    "focus_enabled": true,
+    "size": [ 11, 12 ],
+    "layer": 1,
+    "default_control": "default",
+    "hover_control": "hover",
+    "pressed_control": "pressed",
+    "anchor_from": "bottom_middle",
+    "anchor_to": "bottom_middle",
+    "controls": [
+      { "default@edu_common.trash_default": {} },
+      { "hover@edu_common.trash_hover": {} },
+      { "pressed@edu_common.trash_pressed": {} }
+    ]
+  }
+}

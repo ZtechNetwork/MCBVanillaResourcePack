@@ -1,0 +1,461 @@
+/********************************************************
++*   (c) Mojang. All rights reserved                      *
++*   (c) Microsoft. All rights reserved.                  *
++*********************************************************/
+
+{
+  "namespace": "authentication",
+
+
+  //---------------------------------------------------------------------------
+  // Common
+  //---------------------------------------------------------------------------
+
+  "action_button@common_buttons.light_text_button": {
+    "$pressed_button_name": "button.action",
+    "anchor_from": "bottom_middle",
+    "anchor_to": "bottom_middle",
+    "size": [ "200px", "30px" ],
+    "offset": [ 0, -12 ],
+    // Ios users only see this on their first boot and when they do it's the first time they're siging in, so don't say try again
+    "variables": [
+      {
+        "requires": "(not $ios)",
+        "$button_text": "authentication.tryagain"
+      },
+      {
+        "requires": "$ios",
+        "$button_text": "gui.signIn"
+      }
+    ],
+    "$button_text": "authentication.tryagain",
+    "bindings": [
+      {
+        "binding_name": "#button_visible",
+        "binding_name_override": "#visible"
+      }
+    ]
+  },
+
+  "title_label@authentication.generic_label": {
+    "type": "label",
+    "anchor_from": "top_middle",
+    "anchor_to": "top_middle",
+    "offset": [ 15, 15 ],
+    "size": [ "90%", "default" ],
+    "text": "#authentication_message",
+    "layer": 1,
+    "color": "$body_text_color",
+    "bindings": [
+      {
+        "binding_name": "#authentication_message"
+      },
+      {
+        "binding_name": "(not #eula_visible)",
+        "binding_name_override": "#visible"
+      }
+    ]
+  },
+
+  "eula_hyperlink@common_buttons.hyperlink_button": {
+    "anchor_from": "left_middle",
+    "anchor_to": "left_middle",
+    "size": [ 200, 20 ],
+    "offset": [ 5, 0 ],
+    "$button_text": "eula.hyperlink",
+    "property_bag": {
+      "#hyperlink": "https://education.minecraft.net/eula"
+    }
+  },
+
+  "eula_label": {
+    "type": "label",
+    "color": "$body_text_color",
+    "text": "eula.intro",
+    "size": [ "100%", "default" ]
+  },
+
+  "eula_panel": {
+    "anchor_from": "top_middle",
+    "anchor_to": "top_middle",
+    "type": "stack_panel",
+    "orientation": "vertical",
+    "size": [ "90%", "100%c" ],
+    "offset": [ 15, 10 ],
+    "controls": [
+      {
+        "intro@authentication.eula_label": {
+          "text_alignment": "center",
+          "text": "eula.intro"
+        }
+      },
+      {
+        "eula_link_centered@common.empty_panel": {
+          // Allow button to be centered and padded a bit
+          "size": [ "100%", "100%c + 30px" ],
+          "controls": [
+            {
+              "eula_link@authentication.eula_hyperlink": {
+                "anchor_from": "top_middle",
+                "anchor_to": "top_middle",
+                "offset": [ 0, 10 ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "pad_accept@common.empty_panel": {
+          "size": [ "100%", 15 ]
+        }
+      },
+      {
+        "accept_prompt@authentication.eula_label": {
+          "text_alignment": "center",
+          "text": "eula.callToAction"
+        }
+      },
+      {
+        "accept_button_centered@common.empty_panel": {
+          "size": [ "100%", "100%c + 30px" ],
+          "controls": [
+            {
+              "accept_button@common_buttons.light_text_button": {
+                "$pressed_button_name": "button.action",
+                "anchor_from": "top_middle",
+                "anchor_to": "top_middle",
+                "offset": [ 0, 10 ],
+                "size": [ 200, 30 ],
+                "$button_text": "eula.acceptButton"
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "bindings": [
+      {
+        "binding_name": "#eula_visible",
+        "binding_name_override": "#visible"
+      }
+    ]
+  },
+
+  "title_panel": {
+    "type": "panel",
+    "size": [ "90%", "90%" ],
+    "offset": [ 1, 0 ],
+    "controls": [
+      { "eula_panel@authentication.eula_panel": {} },
+      { "title_label@title_label": {} }
+    ]
+  },
+
+  // -----------------------------------------------
+  //
+  //    screen
+  //
+  // -----------------------------------------------
+  "screen_common": {
+    "button_mappings": [
+      {
+        "from_button_id": "button.menu_cancel",
+        "mapping_type": "global"
+      },
+      {
+        "from_button_id": "button.menu_up",
+        "mapping_type": "global",
+        "scope": "view"
+      },
+      {
+        "from_button_id": "button.menu_down",
+        "mapping_type": "global",
+        "scope": "view"
+      },
+      {
+        "from_button_id": "button.menu_left",
+        "mapping_type": "global",
+        "scope": "view"
+      },
+      {
+        "from_button_id": "button.menu_right",
+        "mapping_type": "global",
+        "scope": "view"
+      }
+    ]
+  },
+
+  // Root panel all others parented to
+  "root_panel": {
+    "type": "panel",
+    "size": "$modal_screen_size",
+    "layer": 1,
+    "anchor_from": "center",
+    "anchor_to": "center"
+  },
+
+  "screen@common.base_screen": {
+    "$screen_content": "authentication.authentication_screen_content"
+  },
+
+  "authentication_screen_content": {
+    "type": "panel",
+    "layer": 1,
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "controls": [
+      {
+        "dialog_background_hollow_4@common.dialog_background_hollow_4": {
+          "size": [ "80%", "80%" ],
+          "bindings": [
+            {
+              "binding_name": "#background_visible",
+              "binding_name_override": "#visible"
+            }
+          ]
+        }
+      },
+      {
+        "background_content": {
+          "type": "panel",
+          "layer": 1,
+          "size": [ "80%", "80%" ],
+          "controls": [
+            {
+              "sign_in": {
+                "type": "panel",
+                "size": [ "95%", "95%" ],
+                "bindings": [
+                  {
+                    "binding_name": "(not #show_ios_account_error)",
+                    "binding_name_override": "#visible"
+                  }
+                ],
+                "controls": [
+                  { "title_panel@authentication.title_panel": { } },
+                  { "action_button@authentication.action_button": { } }
+                ]
+              }
+            },
+            {
+              "ios_account_error": {
+                "type": "panel",
+                "size": [ "95%", "95%" ],
+                "bindings": [
+                  {
+                    "binding_name": "#show_ios_account_error",
+                    "binding_name_override": "#visible"
+                  }
+                ],
+                "controls": [
+                  { "content@authentication.ios_account_error_content": { } }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "popup_dialog_factory": {
+          "type": "factory",
+          "control_ids": {
+            "trial_info": "@authentication.popup_dialog__trial_info"
+          }
+        }
+      }
+    ]
+  },
+
+  "popup_dialog__trial_info@popup_dialog.popup_dialog": {
+    "size": [ 300, 200 ],
+    "$fill_alpha": 1.0,
+    "controls": [
+      {
+        "background_with_buttons@common.common_panel": {
+          // All iOS ignores are because we can't direct users to a store that isn't the iOS App Store
+          "ignored": "$ios",
+          "$show_close_button": false,
+          "$dialog_background": "dialog_background_hollow_2"
+        }
+      },
+      {
+        "background_ios@common.common_panel": {
+          "ignored": "(not $ios)",
+          "$show_close_button": false,
+          "$dialog_background": "dialog_background_hollow_3"
+        }
+      },
+      { "popup_title@popup_title": { } },
+      { "popup_message@authentication.popup_message": { } },
+      {
+        "close_button@authentication.popup_button": {
+          "anchor_from": "bottom_middle",
+          "anchor_to": "bottom_middle",
+          "size": [ 100, 20 ]
+        }
+      },
+      { "popup_message_student@popup_message_student": { } },
+      { "popup_hyperlink@authentication.popup_hyperlink": { } }
+    ]
+  },
+
+  "popup_title": {
+    "type": "label",
+    "anchor_from": "top_middle",
+    "anchor_to": "top_middle",
+    "layer": 1,
+    "offset": [ 0, 8 ],
+    "color": "$title_text_color",
+    "size": [ "default", 20 ],
+    "text": "authentication.trialMessageTitle"
+  },
+
+  "popup_message": {
+    "type": "label",
+    "text": "#popup_text",
+    "layer": 1,
+    "anchor_from": "top_middle",
+    "anchor_to": "top_middle",
+    "offset": [ 5, 30 ],
+    "color": "$body_text_color",
+    "size": [ 270, "default" ],
+    "bindings": [
+      {
+        "binding_name": "#popup_text"
+      }
+    ]
+  },
+
+  "popup_message_student": {
+    // All iOS ignores are because we can't direct users to a store that isn't the iOS App Store
+    "ignored": "$ios",
+    "type": "label",
+    "text": "authentication.clickToPurchaseMessage",
+    "layer": 1,
+    "anchor_from": "bottom_middle",
+    "anchor_to": "bottom_middle",
+    "offset": [ 0, 80 ],
+    "color": "$body_text_color",
+    "size": [ "90%", "90%" ],
+    "bindings": [
+      {
+        "binding_name": "#popup_message_student_visible",
+        "binding_name_override": "#visible"
+      }
+    ]
+  },
+
+  "popup_hyperlink@common_buttons.hyperlink_button": {
+    // All iOS ignores are because we can't direct users to a store that isn't the iOS App Store
+    "ignored": "$ios",
+    "anchor_from": "bottom_middle",
+    "anchor_to": "bottom_middle",
+    "size": [ 240, 20 ],
+    "offset": [ 0, -60 ],
+    "$button_text_binding_type": "global",
+    "$button_text": "#hyperlink_prompt_text"
+  },
+
+  "popup_button@common_buttons.light_text_button": {
+    "$pressed_button_name": "button.close_dialog",
+    "$button_text": "gui.ok",
+    "anchor_from": "bottom_middle",
+    "anchor_to": "bottom_middle",
+    "offset": [ 0, -12 ],
+    "bindings": [
+      {
+        "binding_name": "#show_popup_button",
+        "binding_name_override": "#visible"
+      }
+    ]
+  },
+
+  "ios_error_sign_in": {
+    "type": "stack_panel",
+    "orientation": "vertical",
+    "anchor_from": "top_middle",
+    "anchor_to": "top_middle",
+    "size": [ "100%", "100%c" ],
+    "offset": [ 0, 10 ],
+    "controls": [
+      { "text@authentication.ios_error_sign_in_text": { } },
+      {
+        // Center element horizontally in stack panel and pad it
+        "wrapper@common.empty_panel": {
+          "size": [ "100%", "100%c + 20px" ],
+          "controls": [
+            { "sign_in@authentication.ios_error_sign_in_button": { } }
+          ]
+        }
+      }
+    ]
+  },
+
+  "ios_error_get_minecraft": {
+    "type": "stack_panel",
+    "orientation": "vertical",
+    "size": [ "100%", "100%c" ],
+    "anchor_from": "bottom_middle",
+    "anchor_to": "bottom_middle",
+    "controls": [
+      { "get_minecraft_text@authentication.get_minecraft_text": { } },
+      {
+        // Center element horizontally in stack panel and pad it
+        "wrapper@common.empty_panel": {
+          "size": [ "100%", "100%c + 20px" ],
+          "controls": [
+            { "to_app_store@authentication.to_app_store": { } }
+          ]
+        }
+      }
+    ]
+  },
+
+  "ios_account_error_content": {
+    "type": "panel",
+    "size": [ "95%", "95%" ],
+    "controls": [
+      { "sign_in@authentication.ios_error_sign_in": { } },
+      { "get_minecraft@authentication.ios_error_get_minecraft": { } }
+    ]
+  },
+
+  "ios_error_sign_in_button@common_buttons.light_text_button": {
+    "$pressed_button_name": "button.ios_error_sign_in",
+    "$button_text": "authentication.signInButton",
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "size": [ 220, 20 ]
+  },
+
+  "to_app_store@common_buttons.hyperlink_button": {
+    "$button_text": "authentication.buyMinecraft",
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "size": [ 220, 20 ],
+    "property_bag": {
+      "#hyperlink": "https://itunes.apple.com/us/app/minecraft/id479516143?mt=8"
+    }
+  },
+
+  "ios_error_sign_in_text@authentication.title_label": {
+    "type": "label",
+    "anchor_from": "top_middle",
+    "anchor_to": "top_middle",
+    "size": [ "100%", "default" ],
+    "layer": 1,
+    "color": "$body_text_color",
+    "text": "authentication.educationOnly"
+  },
+
+  "get_minecraft_text@authentication.title_label": {
+    "type": "label",
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "text_alignment": "center",
+    "size": [ "100%", "default" ],
+    "layer": 1,
+    "color": "$body_text_color",
+    "text": "authentication.minecraftInstead"
+  }
+}

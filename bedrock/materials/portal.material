@@ -1,0 +1,40 @@
+{
+  "materials": {
+    "version": "1.0.0",
+
+    "portal_base": {
+      "+defines": [ "ENABLE_FOG", "END_PORTAL" ],
+      "+states": [ "Blending" ],
+
+      "vertexFields": [
+        { "field": "Position" },
+        { "field": "UV1" },
+        { "field": "Color" },
+        { "field": "UV0" }
+      ],
+
+      "vertexShader": "shaders/end_portal.vertex",
+      "vrGeometryShader": "shaders/end_portal.geometry",
+      "fragmentShader": "shaders/end_portal.fragment",
+
+      "depthFunc": "LessEqual",
+
+      "blendSrc": "One",
+      "blendDst": "SourceAlpha",
+      "msaaSupport": "Both",
+
+      "+samplerStates": [
+        {
+          "samplerIndex": 0,
+          "textureFilter": "Point",
+          "textureWrap": "Repeat"
+        },
+        {
+          "samplerIndex": 1,
+          "textureFilter": "Point",
+          "textureWrap": "Repeat"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,292 @@
+{
+  "namespace": "patch_notes",
+
+  "solid_texture": {
+    "type": "image",
+    "texture": "textures/ui/White",
+    "color": [ 0.0, 0.0, 0.0 ]
+  },
+
+  "image_with_background@patch_notes.solid_texture": {
+    "$background_size|default": [ "100%", "100%" ],
+    "size": "$background_size",
+    "controls": [
+      {
+        "image@$image": {
+          "layer": 1,
+          "$image_size|default": [ "100%-2px", "100%-2px" ],
+          "size": "$image_size"
+        }
+      }
+    ]
+  },
+
+  "white_image@patch_notes.solid_texture": {
+    "color": [ 1, 1, 1 ]
+  },
+
+  "patch_main_image": {
+    "type": "image",
+    "bindings": [
+      {
+        "binding_name": "#main_image_texture",
+        "binding_name_override": "#texture",
+        "binding_type": "global"
+      },
+      {
+        "binding_name": "#main_image_texture_source",
+        "binding_name_override": "#texture_file_system",
+        "binding_type": "global"
+      }
+    ]
+  },
+
+  "store_image": {
+    "type": "image",
+    "bindings": [
+      {
+        "binding_name": "#store_image_texture",
+        "binding_name_override": "#texture",
+        "binding_type": "global"
+      },
+      {
+        "binding_name": "#store_image_texture_source",
+        "binding_name_override": "#texture_file_system",
+        "binding_type": "global"
+      }
+    ]
+  },
+
+  "patch_notes_header_background": {
+    "type": "panel",
+    "controls": [
+      {
+        "black_background": {
+          "type": "image",
+          "texture": "textures/ui/mainbanners",
+          "size": "$control_size",
+          "$control_size|default": [ "100%", "100%c+6px" ],
+          "variables": [
+            {
+              "requires": "(not $show_patch_image and not $show_offer)",
+              "$control_size": [ "100%", "100%c" ]
+            }
+          ],          
+          "controls": [
+            {
+              "content@$header_content": {
+                "variables": [
+                  {
+                    "requires": "(not $show_offer)",
+                    "$header_size": [ "100%-6px", "100%c" ]
+                  }
+                ],
+
+                "$header_size|default": [ "100%-6px", "50%c" ],
+                "size": "$header_size"
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "button_label_panel": {
+    "type": "panel",
+    "size": [ "100%", "100%c" ],
+    "controls": [
+      {
+        "text_label": {
+          "type": "label",
+          "color": "$text_color",
+          "text": "$button_text",
+          "size": [ "default", "default" ]
+        }
+      }
+    ]
+  },
+  "button_content": {
+    "type": "panel",
+    "controls": [
+      {
+        "button_label2@patch_notes.button_label_panel": {
+          "$button_text": "skins.picker.unlock.button"
+        }
+      }
+    ]
+  },
+
+  "patch_image@patch_notes.image_with_background": {
+    "$image": "patch_notes.patch_main_image",
+    "$background_size": [ "60% - 2px", "100%c + 2px" ],
+    "$image_size": [ "100% - 2px", "56.25%x" ],
+    "visible": "$show_patch_image"
+  },
+
+  "patch_notes_header_content_without_offer": {
+    "type": "panel",
+    "layer": 1,
+    "$show_patch_image_full_width|default": false,
+    "controls": [
+      {
+        "patch_image@patch_notes.patch_image": {
+          "variables": [
+            {
+              "requires": "$show_patch_image_full_width",
+              "$background_size": [ "100%", "100%c + 2px" ],
+              "$image_size": [ "100% - 2px", "33.33%x" ]
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+
+  "patch_notes_header_content_with_offer": {
+    "type": "stack_panel",
+    "orientation": "horizontal",
+    "layer": 1,
+    "controls": [
+      { "patch_image@patch_notes.patch_image": { } },
+      {
+        "padding": {
+          "type": "panel",
+          "size": [ 2, 0 ]
+        }
+      },
+      {
+        "store_item_section": {
+          "type": "stack_panel",
+          "orientation": "vertical",
+          "size": [ "fill", "100%c" ],
+          "controls": [
+            {
+              "store_image@patch_notes.image_with_background": {
+                "$image": "patch_notes.store_image",
+                "$background_size": [ "100%", "100%c + 2px" ],
+                "$image_size": [ "100%-2px", "56.25%x" ]
+              }
+            },
+            {
+              "padding": {
+                "type": "panel",
+                "size": [ 0, 2 ]
+              }
+            },
+            {
+              "store_button@common_buttons.light_content_button": {
+                "$pressed_button_name": "button.menu_store_offer",
+                "size": [ "100%", "28.125%x - 3.3px" ],
+                "$button_content": "patch_notes.button_content",
+                "enabled": "$is_pregame"
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "patch_notes_header": {
+    "type": "panel",
+    "size": [ "100%", "100%c" ],
+    "controls": [
+      {
+        "patch_notes_background@patch_notes.patch_notes_header_background": {
+          "size": [ "100% - 4px", "100%c" ],
+          "variables": [
+            {
+              "requires": "$show_offer",
+              "$header_content": "patch_notes_header_content_with_offer"
+
+            }
+          ],
+          "$header_content|default": "patch_notes_header_content_without_offer"
+        }
+      }
+    ]
+  },
+
+  "scroll_content": {
+    "type": "stack_panel",
+    "orientation": "vertical",
+    "size": [ "100%", "default" ],
+    "controls": [
+      {
+        "padding_0": {
+          "type": "panel",
+          "size": [ 0, 2 ]
+        }
+      },
+      { "patch_notes_header@patch_notes.patch_notes_header": { } },
+      {
+        "padding_1": {
+          "type": "panel",
+          "size": [ 0, 2 ]
+        }
+      },
+      {
+        "patch_notes_panel": {
+          "type": "panel",
+          "size": [ "100%", "100%c" ],
+          "controls": [
+            {
+              "patch_notes_text": {
+                "type": "label",
+                "color": "$body_text_color",
+                "size": [ "100%-4px", "default" ],
+                "text": "#patch_description",
+                "font_type": "smooth",
+                "bindings": [
+                  {
+                    "binding_name": "#patch_description",
+                    "binding_type": "global"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "patch_notes_content": {
+    "type": "panel",
+    "controls": [
+      {
+        "scrolling_panel@common.scrolling_panel": {
+          "$scrolling_content": "patch_notes.scroll_content",
+          "$show_background": false,
+          "$scroll_size": [ 4, "100%-4px" ],
+          "$scrolling_pane_size|default": [ "100%", "default" ],
+          "$always_handle_scrolling": true
+        }
+      }
+    ]
+  },
+
+  "continue_button@common_buttons.light_text_button": {
+    "$button_text": "patchNotes.continue",
+    "$pressed_button_name": "button.menu_exit",
+    "$button_focus_precedence": 1
+  },
+
+  "patch_notes_dialog@common_dialogs.main_panel_small_title_one_button": {
+    "size": "$patch_notes_screen_size",
+    
+    "$custom_title_label": "common_dialogs.standard_title_label",
+    "$text_name": "#dialog_title",
+    "$title_text_binding_type": "global",
+    "$use_custom_title_control": true,
+
+    "$child_control": "patch_notes.patch_notes_content",
+    "$button_panel": "patch_notes.continue_button"
+  },
+
+  "patch_notes_screen@common.base_screen": {
+    "$screen_content": "patch_notes.patch_notes_dialog"    
+  }
+}

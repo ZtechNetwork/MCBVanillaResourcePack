@@ -1,0 +1,189 @@
+{
+  "namespace": "disconnect",
+
+  "disconnect_screen_text": {
+    "type": "label",
+    "color": "$loading_text_color",
+    "size": [ "default", 30 ],
+    "max_size": [ "100% - 20px", 30 ],
+    "anchor_to": "center",
+    "anchor_from": "center",
+    "layer": 2,
+    "shadow": false
+  },
+
+  "disconnect_text@disconnect.disconnect_screen_text": {
+    "offset": [ 0, -40 ],
+    "text": "#disconnect_text",
+    "bindings": [
+      { "binding_name": "#disconnect_text" }
+    ]
+  },
+
+  "disconnect_title_text@disconnect.disconnect_screen_text": {
+    "size": [ "default", 10 ],
+    "max_size": [ "100% - 20px", 10 ],
+    "offset": [ 0, -10 ],
+    "text": "#title_text",
+    "bindings": [
+      { "binding_name": "#title_text" }
+    ]
+  },
+
+  "title_panel": {
+    "type": "panel",
+    "size": [ "100%", "100%" ],
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "controls": [
+      { "disconnect_title_text@disconnect.disconnect_title_text": {} },
+      { "disconnect_text@disconnect.disconnect_text": {} }
+    ]
+  },
+
+  "menu_button_template@common_buttons.light_text_button": {
+    "size": [ 128, 26 ],
+    "anchor_to": "top_middle",
+    "anchor_from": "top_middle"
+  },
+
+  "continue_button@disconnect.menu_button_template": {
+    "$pressed_button_name": "button.menu_continue",
+    "$button_text": "gui.continue"
+  },
+
+  "check_store_button@disconnect.menu_button_template": {
+    "$pressed_button_name": "button.menu_check_store",
+    "$button_text": "gui.store",
+    "ignored": "($is_holographic or $nx_os)"
+  },
+
+  "exit_button@disconnect.menu_button_template": {
+    "$pressed_button_name": "button.menu_leave_screen",
+    "$button_text": "gui.back"
+  },
+
+  "ok_button@disconnect.menu_button_template": {
+    "$pressed_button_name": "button.menu_leave_screen",
+    "$button_text": "gui.ok"
+  },
+
+
+  "button_panel": {
+    "type": "panel",
+    "size": [ "100%c", 0 ],
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "controls": [
+      { "ok_button@ok_button": {} }
+    ]
+  },
+
+  "gamepad_helpers": {
+    "type": "panel",
+    "size": [ 100, 10 ],
+    "offset": [ 0, "45%" ],
+    "controls": [
+      {
+        "gamepad_helper_a@common.gamepad_helper_a": {
+          "anchor_from": "center",
+          "anchor_to": "center"
+        }
+      }
+    ]
+  },
+
+  "disconnect_screen@common.base_screen": {
+    "button_mappings": [
+      {
+        "from_button_id": "button.menu_cancel",
+        "to_button_id": "button.menu_leave_screen",
+        "mapping_type": "global"
+      }
+    ],
+    "$screen_content": "disconnect.disconnect_screen_content",
+    "$button_layout": "@disconnect.button_panel",
+    "$screen_bg_content": "common.dirt_background"
+  },
+
+  "disconnect_screen_content": {
+    "type": "panel",
+    "controls": [
+      { "title_panel@disconnect.title_panel": {} },
+      { "gamepad_helpers@disconnect.gamepad_helpers": {} },
+      { "$button_layout": {} }
+    ]
+  },
+
+  "spacing_gap": {
+    "type": "panel",
+    "size": [ 5, 0 ]
+  },
+
+
+  // Realms Disconnect Screen
+
+  "realms_disconnect_screen@disconnect.disconnect_screen": {
+    "button_mappings": [
+      {
+        "from_button_id": "button.menu_select",
+        "to_button_id": "button.menu_select",
+        "mapping_type": "pressed"
+      },
+      {
+        "from_button_id": "button.menu_cancel",
+        "to_button_id": "button.menu_leave_screen",
+        "mapping_type": "global"
+      }
+    ],
+    "$button_layout": "@disconnect.realms_disconnect_button_panel",
+    "$screen_bg_content": "common.portal_background"
+  },
+
+  "realms_disconnect_button_panel": {
+    "type": "stack_panel",
+    "size": [ "100%c", 0 ],
+    "orientation": "horizontal",
+    "controls": [
+      { "check_store_button@disconnect.check_store_button": {} },
+      {
+        "spacing_gap@disconnect.spacing_gap": {
+          "ignored": "$is_holographic"
+        }
+      },
+      { "exit_button@disconnect.exit_button": {} }
+    ]
+  },
+
+  "realms_warning_screen@disconnect.disconnect_screen": {
+    "button_mappings": [
+      {
+        "from_button_id": "button.menu_select",
+        "to_button_id": "button.menu_select",
+        "mapping_type": "pressed"
+      },
+      {
+        "from_button_id": "button.menu_cancel",
+        "to_button_id": "button.menu_leave_screen",
+        "mapping_type": "global"
+      }
+    ],
+    "$button_layout": "@disconnect.realms_warning_button_panel",
+    "$screen_bg_content": "common.portal_background"
+  },
+
+  "realms_warning_button_panel": {
+    "type": "stack_panel",
+    "size": [ "100%c", 0 ],
+    "orientation": "horizontal",
+    "controls": [
+      { "check_store_button@disconnect.check_store_button": {} },
+      {
+        "spacing_gap@disconnect.spacing_gap": {
+          "ignored": "$is_holographic"
+        }
+      },
+      { "continue_button@disconnect.continue_button": {} }
+    ]
+  }
+}

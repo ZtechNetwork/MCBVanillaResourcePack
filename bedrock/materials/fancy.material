@@ -1,0 +1,45 @@
+{
+  "materials": {
+    "version": "1.0.0",
+
+    "clouds": {
+      "+states": [ "Blending", "DisableAlphaWrite" ],
+
+      "vertexShader": "shaders/cloud.vertex",
+      "vrGeometryShader": "shaders/cloud.geometry",
+      "fragmentShader": "shaders/color.fragment",
+      "vertexFields": [
+        { "field": "Position" },
+        { "field": "Color" },
+        { "field": "UV0" }
+      ],
+      "msaaSupport": "Both"
+    },
+
+    "passthru_postprocess": {
+
+      "states": [
+        "DisableDepthTest",
+        "DisableDepthWrite"
+      ],
+
+      "msaaSupport": "Both",
+
+      "vertexShader": "shaders/uv.vertex",
+      "vrGeometryShader": "shaders/uv.geometry",
+      "fragmentShader": "shaders/passthru.fragment",
+      "vertexFields": [
+        { "field": "Position" },
+        { "field": "UV0" }
+      ],
+      "samplerStates": [
+        {
+          "samplerIndex": 0,
+          "textureFilter": "Point"
+        }
+      ]
+
+    }
+
+  }
+}

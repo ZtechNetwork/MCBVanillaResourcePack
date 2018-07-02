@@ -1,0 +1,661 @@
+/********************************************************
++*   (c) Mojang. All rights reserved                      *
++*   (c) Microsoft. All rights reserved.                  *
++*********************************************************/
+
+{
+  "namespace": "portfolio",
+
+
+  //---------------------------------------------------------------------------
+  // Common
+  //---------------------------------------------------------------------------
+  "screenshot": {
+    "type": "image",
+    "texture_file_system": "$screenshot_file_system",
+    "layer": 1,
+    "anchor_from": "center",
+    "anchor_to": "center",
+
+    "bindings": [
+      {
+        "binding_name": "#screenshot_path",
+        "binding_name_override": "#texture",
+        "binding_type": "collection",
+        "binding_collection_name": "photos"
+      }
+    ]
+  },
+
+  "screenshot_frame": {
+    "type": "image",
+    "texture": "textures/ui/screenshot_frame",
+    "layer": 1,
+    "anchor_from": "center",
+    "anchor_to": "center"
+  },
+
+  "photo_trash_button_left@edu_common.photo_trash_button": {
+    "offset": [ "25%-50%x", "-85%y" ],
+    "anchor_from": "bottom_left",
+    "anchor_to": "bottom_left",
+
+    "bindings": [
+      {
+        "binding_name": "#trash_visibility_left",
+        "binding_name_override": "#visible"
+      }
+    ],
+    "button_mappings": [
+      {
+        "from_button_id": "button.menu_select",
+        "to_button_id": "button.portfolio_delete_photo_left",
+        "mapping_type": "pressed"
+      },
+      {
+        "from_button_id": "button.menu_ok",
+        "to_button_id": "button.portfolio_delete_photo_left",
+        "mapping_type": "focused"
+      }
+    ]
+  },
+
+  "photo_trash_button_right@edu_common.photo_trash_button": {
+
+    "offset": [ "-25%+50%x", "-85%y" ],
+
+    "anchor_from": "bottom_right",
+    "anchor_to": "bottom_right",
+
+    "bindings": [
+      {
+        "binding_name": "#trash_visibility_right",
+        "binding_name_override": "#visible"
+      }
+    ],
+
+    "button_mappings": [
+      {
+        "from_button_id": "button.menu_select",
+        "to_button_id": "button.portfolio_delete_photo_right",
+        "mapping_type": "pressed"
+      },
+      {
+        "from_button_id": "button.menu_ok",
+        "to_button_id": "button.portfolio_delete_photo_right",
+        "mapping_type": "focused"
+      }
+    ]
+  },
+
+  "photo_number": {
+    "type": "label",
+    "offset": [ 0, -24 ],
+    "layer": 1,
+    "size": [ 60, 30 ],
+    "text": "#item_name",
+    "color": "$dark_body_text_color",
+    "anchor_from": "top_middle",
+    "anchor_to": "top_middle",
+    "shadow": false
+  },
+
+  "photo_number_left@photo_number": {
+    "offset": [ "-22%", "5%" ],
+    "bindings": [
+      {
+        "binding_name": "#photo_page_item_name_left",
+        "binding_name_override": "#item_name",
+        "binding_type": "collection",
+        "binding_collection_name": "photos"
+      }
+    ]
+  },
+
+  "photo_number_right@photo_number": {
+
+    "offset": [ "28%", "5%" ],
+    "bindings": [
+      {
+        "binding_name": "#photo_page_item_name_right",
+        "binding_name_override": "#item_name",
+        "binding_type": "collection",
+        "binding_collection_name": "photos"
+      }
+    ]
+  },
+
+  "photo_corner_bl": {
+    "type": "image",
+    "texture": "textures/ui/photo_corner_bl",
+    "size": [ 19, 19 ],
+    "offset": [ -1, 1 ],
+    "layer": 1,
+    "anchor_to": "bottom_left",
+    "anchor_from": "bottom_left"
+  },
+
+  "photo_corner_br": {
+    "type": "image",
+    "texture": "textures/ui/photo_corner_br",
+    "size": [ 19, 19 ],
+    "offset": [ 1, 1 ],
+    "layer": 1,
+    "anchor_to": "bottom_right",
+    "anchor_from": "bottom_right"
+  },
+
+  "photo_corner_tr": {
+    "type": "image",
+    "texture": "textures/ui/photo_corner_tr",
+    "size": [ 19, 19 ],
+    "offset": [ 1, -1 ],
+    "layer": 1,
+    "anchor_to": "top_right",
+    "anchor_from": "top_right"
+  },
+
+  "photo_corner_tl": {
+    "type": "image",
+    "texture": "textures/ui/photo_corner_tl",
+    "size": [ 19, 19 ],
+    "offset": [ -1, -1 ],
+    "layer": 1,
+    "anchor_to": "top_left",
+    "anchor_from": "top_left"
+  },
+
+  "text_edit_box_default_indent": {
+    "type": "panel",
+    "allow_clipping": false
+  },
+
+  "text_edit_box_hover_indent@portfolio.text_edit_box_default_indent": {
+    "controls": [
+      {
+        "focus_border_white@common.focus_border_white": {
+          "allow_clipping": false,
+          "$focus_border_color": [ 0.0, 0.0, 0.0, 0.0 ]
+        }
+      }
+    ]
+  },
+
+  // **************************************************
+
+  "text_edit_control@common.multiline_text_edit_box": {
+    "anchor_from": "bottom_middle", // the parent
+    "anchor_to": "bottom_middle", // this control
+    "constrain_to_rect": true,
+    "enabled_newline": true,
+    "layer": 100,
+    "$text_edit_binding_name": "#text_box_item_name",
+    "property_bag": {
+      "#property_field": "#item_name"
+    },
+    "max_length": 1000, // use the parent area
+    "$panel_offset|default": [ 0, 0 ],
+    "size": [ "85%", 26 ],
+    "offset": "$panel_offset",
+    "$place_holder_text": "portfolioScreen.caption",
+    "$text_edit_box_content_binding_type": "collection",
+    "$text_edit_box_grid_collection_name": "photos",
+    "$text_box_name": "#text_box_photos",
+    "$text_color_binding_type": "global",
+    "variables":[
+      {
+        "requires": "($pocket_screen)",
+        "$panel_offset": [0, 2]
+      }
+    ],
+    "controls": [
+      {
+        "clipper_panel": {
+          "type": "panel",
+          "size": [ "100% - 6px", "100% - 4px" ],
+          "anchor_from": "center",
+          "anchor_to": "center",
+          "clips_children": true,
+          "$disabled_color|default": "$color",
+
+          "controls": [
+            {
+              "display_text@common.text_edit_box_label": {
+                "layer": 1,
+                "size": "$text_edit_box_label_size",
+                "min_size": [ "100%", 0 ],
+                "anchor_from": "right_middle",
+                "anchor_to": "right_middle",
+                "$text_alpha|default": "$alpha",
+                "$locked_text_alpha|default": "$disabled_alpha",
+                "$locked_color|default": "$disabled_color"
+              }
+            },
+            {
+              "place_holder_control@$place_holder_control": {
+                "layer": 1,
+                "size": "$text_edit_box_label_size",
+                "min_size": [ "100%", 0 ],
+                "anchor_from": "right_middle",
+                "anchor_to": "right_middle",
+                "$text_alpha|default": "$alpha",
+                "$locked_text_alpha|default": "$disabled_alpha",
+                "$locked_color|default": "$disabled_color"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "locked": {
+          "type": "panel",
+          "$disabled_color|default": "$color",
+          "controls": [
+            {
+              "edit_box_indent@common.edit_box_indent": {
+                "$color": "$disabled_color",
+                "$alpha": "$disabled_alpha"
+              }
+            }
+          ]
+        }
+      },
+      { "default@portfolio.text_edit_box_default_indent": {} },
+      { "hover@portfolio.text_edit_box_hover_indent": {} },
+      { "pressed@portfolio.text_edit_box_hover_indent": {} }
+
+    ]
+  },
+  "photo_item": {
+    "type": "panel",
+    "layer": 1,
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "size": [ "75%", "100%x" ],
+    "offset": [0, -2],
+    "bindings": [
+      {
+        "binding_name": "#photo_visibility",
+        "binding_name_override": "#visible",
+        "binding_type": "collection",
+        "binding_collection_name": "photos"
+      }
+    ],
+    "controls": [
+      { "screenshot@screenshot": { } },
+      { "screenshot_frame@screenshot_frame": { "layer": 2 } },
+      { "text_edit_control@text_edit_control": { "layer": 3 } },
+      { "photo_corner_bl@photo_corner_bl": { "layer": 4 } },
+      { "photo_corner_br@photo_corner_br": { "layer": 4 } },
+      { "photo_corner_tl@photo_corner_tl": { "layer": 4 } },
+      { "photo_corner_tr@photo_corner_tr": { "layer": 4 } }
+    ]
+  },
+
+  "photo_grid_item": {
+    "type": "panel",
+    "controls": [
+      { "photo_item@photo_item": { } }
+    ]
+  },
+
+  "photo_list_grid": {
+    "type": "grid",
+    "grid_item_template": "photo_grid_item",
+    "grid_dimensions": [ 2, 1 ],
+    "collection_name": "photos",
+    "anchor_to": "center",
+    "anchor_from": "center",
+    "size": [ "100%", "100%" ]
+  },
+  // **************************************************
+
+
+  // -----------------------------------------
+  // Photo Page PREV
+  // -----------------------------------------
+  "prev_button_default": {
+    "type": "image",
+    "texture": "textures/ui/arrow_l_default"
+  },
+
+  "prev_button_hover": {
+    "type": "image",
+    "texture": "textures/ui/arrow_l_hover"
+  },
+
+  "prev_button_pressed": {
+    "type": "image",
+    "texture": "textures/ui/arrow_l_pressed"
+  },
+
+  "photo_page_prev_button@common.button": {
+    "type": "button",
+    "focus_enabled": true,
+    "size": [ 7, 9 ],
+    "layer": 1,
+    "anchor_from": "left_middle",
+    "anchor_to": "left_middle",
+    "offset": [ "3.5%", "0%" ],
+    "default_control": "default",
+    "hover_control": "hover",
+    "pressed_control": "pressed",
+    "default_focus_precedence": 1,
+    "bindings": [
+      {
+        "binding_name": "#page_prev_visibility",
+        "binding_name_override": "#visible"
+      }
+    ],
+    "button_mappings": [
+      {
+        "from_button_id": "button.menu_select",
+        "to_button_id": "button.portfolio_page_prev",
+        "mapping_type": "pressed"
+      },
+      {
+        "from_button_id": "button.menu_ok",
+        "to_button_id": "button.portfolio_page_prev",
+        "mapping_type": "focused"
+      }
+    ],
+    "controls": [
+      { "default@prev_button_default": { } },
+      { "hover@prev_button_hover": { } },
+      { "pressed@prev_button_pressed": { } }
+    ]
+  },
+
+
+  // -----------------------------------------
+  // Photo Page NEXT
+  // -----------------------------------------
+  "next_button_default": {
+    "type": "image",
+    "texture": "textures/ui/arrow_r_default"
+  },
+
+  "next_button_hover": {
+    "type": "image",
+    "texture": "textures/ui/arrow_r_hover"
+  },
+
+  "next_button_pressed": {
+    "type": "image",
+    "texture": "textures/ui/arrow_r_pressed"
+  },
+
+  "photo_page_next_button@common.button": {
+    "type": "button",
+    "focus_enabled": true,
+    "size": [ 7, 9 ],
+    "layer": 1,
+    "anchor_from": "right_middle",
+    "anchor_to": "right_middle",
+    "offset": [ "-3.5%", "0%" ],
+    "default_control": "default",
+    "hover_control": "hover",
+    "pressed_control": "pressed",
+    "default_focus_precedence": 2,
+    "bindings": [
+      {
+        "binding_name": "#page_next_visibility",
+        "binding_name_override": "#visible"
+      }
+    ],
+    "button_mappings": [
+      {
+        "from_button_id": "button.menu_select",
+        "to_button_id": "button.portfolio_page_next",
+        "mapping_type": "pressed"
+      },
+      {
+        "from_button_id": "button.menu_ok",
+        "to_button_id": "button.portfolio_page_next",
+        "mapping_type": "focused"
+      }
+    ],
+    "controls": [
+      { "default@next_button_default": { } },
+      { "hover@next_button_hover": { } },
+      { "pressed@next_button_pressed": { } }
+    ]
+  },
+
+
+  //---------------------------------------------------------------------------
+  // EXPORT SHOTS
+  //---------------------------------------------------------------------------
+
+  "export_button@common_buttons.light_text_button": {
+    "type": "button",
+    "size": [ 120, 20 ],
+    "$button_text": "portfolioScreen.export",
+    "$pressed_button_name": "button.portfolio_export",
+    "layer": 1,
+    "anchor_from": "bottom_middle",
+    "anchor_to": "bottom_middle",
+    "offset": [ 0, 30 ],
+    "bindings": [
+      {
+        "binding_name": "#export_visibility",
+        "binding_name_override": "#visible"
+      }
+    ]
+  },
+
+
+
+
+  //---------------------------------------------------------------------------
+  // Background
+  //---------------------------------------------------------------------------
+  "book_binding": {
+    "type": "image",
+    "texture": "textures/ui/book_binding",
+    "layer": 1,
+    "anchor_from": "top_middle",
+    "anchor_to": "top_middle",
+    "offset": [ 0, 7 ],
+    "size": [ "1.5%", "100%-7px" ]
+  },
+
+  "book_spine": {
+    "type": "image",
+    "texture": "textures/ui/book_spine",
+    "layer": 1
+  },
+
+  "book_background": {
+    "type": "image",
+    "texture": "textures/ui/book_frame",
+    "layer": 1,
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "controls": [
+      { "book_binding@book_binding": { } },
+      {
+        "top_spine@book_spine": {
+          "anchor_from": "top_middle",
+          "anchor_to": "top_middle",
+          "offset": [ 0, 1 ],
+          "size": [ 7, 6 ]
+        }
+      },
+      {
+        "bottom_spine@book_spine": {
+          "anchor_from": "bottom_middle",
+          "anchor_to": "bottom_middle",
+          "offset": [ 0, -1 ],
+          "size": [ 7, 7 ]
+        }
+      }
+    ]
+  },
+
+  "header_panel": {
+    "type": "panel",
+    "size": [ "100%", "27px" ],
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "controls": [
+      {
+        "header_background": {
+          "type": "image",
+          "texture": "textures/ui/header_bar"
+        }
+      }
+    ]
+  },
+
+  "close_button_default": {
+    "type": "image",
+    "texture": "textures/ui/x_default"
+  },
+
+  "close_button_hover": {
+    "type": "image",
+    "texture": "textures/ui/x_hover"
+  },
+
+  "close_button_pressed": {
+    "type": "image",
+    "texture": "textures/ui/x_pressed"
+  },
+
+  "close_button": {
+    "type": "button",
+    "size": [ 7, 7 ],
+    "layer": 10,
+    "anchor_from": "top_right",
+    "anchor_to": "top_right",
+    "offset": [ -12, 12 ],
+    "default_control": "default",
+    "hover_control": "hover",
+    "pressed_control": "pressed",
+    "focus_enabled": false,
+    "button_mappings": [
+      {
+        "from_button_id": "button.menu_select",
+        "to_button_id": "button.menu_exit",
+        "mapping_type": "pressed"
+      },
+      {
+        "from_button_id": "button.menu_ok",
+        "to_button_id": "button.menu_exit",
+        "mapping_type": "focused"
+      }
+    ],
+    "controls": [
+      { "default@close_button_default": { } },
+      { "hover@close_button_hover": { } },
+      { "pressed@close_button_pressed": { } }
+    ]
+  },
+
+  //---------------------------------------------------------------------------
+  // No pics alert
+  //---------------------------------------------------------------------------
+  "alert_label": {
+    "layer": 11,
+    "type": "label",
+    "size": [ "100%", "default" ],
+    "text_alignment": "center",
+    "color": "$body_text_color"
+  },
+
+  "no_photo_alert_content": {
+    "type": "stack_panel",
+    "orientation": "vertical",
+    "size": [ "100%", "100%c" ],
+    "controls": [
+      { "p0@portfolio.alert_label": { "text": "portfolioScreen.nopics0" } },
+      { "p1@portfolio.alert_label": { "text": "portfolioScreen.nopics1" } }
+    ]
+  },
+
+  "no_photo_alert_ok@common.empty_panel": {
+    "controls": [
+      {
+        "ok_button@common_buttons.light_text_button": {
+          "type": "button",
+          "size": [ 150, 20 ],
+          "$button_text": "gui.ok",
+          "$pressed_button_name": "button.no_photo_alert_ok"
+        }
+      }
+    ]
+  },
+
+  // -----------------------------------------------
+  //
+  //    screen
+  //
+  // -----------------------------------------------
+
+  // Root panel all others parented to
+  "root_panel": {
+    "type": "panel",
+    "size": [ "90%", "50%x" ],
+    "layer": 1,
+    "anchor_from": "center",
+    "anchor_to": "center"
+  },
+
+  "portfolio_screen@common.base_screen": {
+    "button_mappings": [
+      {
+        "from_button_id": "button.menu_cancel",
+        "to_button_id": "button.menu_exit",
+        "mapping_type": "global"
+      }
+    ],
+    "$screen_content": "portfolio.portfolio_screen_content"
+  },
+
+  "portfolio_screen_content": {
+    "type": "panel",
+    "controls": [
+      {
+        "root_panel@root_panel": {
+          "layer": 1,
+          "anchor_from": "center",
+          "anchor_to": "center",
+          "offset": [ 0, -11 ],
+
+          "controls": [
+
+            { "book_background@book_background": { "layer": 1 } },
+
+            { "close_button@close_button": { "offset": [ -10, 10 ] } },
+
+            { "photo_list_grid@photo_list_grid": { } },
+
+            { "photo_number_left@photo_number_left": { } },
+            { "photo_number_right@photo_number_right": { } },
+
+            { "photo_trash_button_left@photo_trash_button_left": { } },
+            { "photo_trash_button_right@photo_trash_button_right": { } },
+
+            { "photo_page_prev_button@photo_page_prev_button": { } },
+            { "photo_page_next_button@photo_page_next_button": { } },
+
+            { "export_button@export_button": { } }
+          ]
+        }
+      },
+      {
+        "no_photos_alert@common_dialogs.main_panel_small_title_one_button": {
+          "size": [ 300, 125 ],
+          "layer": 10,
+          "$fill_alpha": 1.0,
+          "visible": "$no_pick_alert_visible",
+
+          "$text_name": "item.portfolio.name",
+          "$child_control": "portfolio.no_photo_alert_content",
+          "$button_panel": "portfolio.no_photo_alert_ok"
+        }
+      }
+    ]
+  }
+}

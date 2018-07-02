@@ -1,0 +1,1935 @@
+{
+  "namespace": "hud",
+
+  //---------------------------------------------------------------------------
+  // Hud Screen
+  //---------------------------------------------------------------------------
+
+  "hud_player_renderer": {
+    "type": "panel",
+    "size": [ 15, 15 ],
+
+    "controls": [
+      {
+        "hud_player": {
+          "type": "custom",
+          "renderer": "hud_player_renderer",
+          "layer": 1,
+          "animation_reset_name": "screen_animation_reset",
+          "anims": [
+            "@common.screen_exit_size_animation_push",
+            "@common.screen_exit_size_animation_pop",
+            "@common.screen_entrance_size_animation_push",
+            "@common.screen_entrance_size_animation_pop"
+          ],
+          "bindings": [
+            {
+              "binding_name": "#paper_doll_visible",
+              "binding_name_override": "#visible"
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "hotbar_renderer": {
+    "type": "custom",
+    "renderer": "hotbar_renderer",
+    "size": [ 20, 22 ],
+    "layer": 1,
+    "bindings": [
+      {
+        "binding_collection_name": "$hotbar_collection_name",
+        "binding_type": "collection_details"
+      }
+    ],
+    "controls": [
+      { "hotbar_slot_image@hotbar_slot_image": {} }
+    ]
+  },
+
+  "cooldown_renderer": {
+    "type": "custom",
+    "renderer": "hotbar_cooldown_renderer",
+    "size": [ 20, 22 ],
+    "layer": 1,
+    "bindings": [
+      {
+        "binding_collection_name": "$hotbar_collection_name",
+        "binding_type": "collection_details"
+      }
+    ]
+  },
+
+  "heart_renderer": {
+    "type": "custom",
+    "size": [ 1, 1 ],
+    "renderer": "heart_renderer",
+    "layer": 1,
+    "bindings": [
+      {
+        "binding_name": "#is_not_creative_mode",
+        "binding_name_override": "#visible"
+      }
+    ]
+  },
+
+  "horse_heart_renderer": {
+    "type": "custom",
+    "size": [ 1, 1 ],
+    "renderer": "horse_heart_renderer",
+    "layer": 1
+  },
+
+  "armor_renderer": {
+    "type": "custom",
+    "size": [ 1, 1 ],
+    "renderer": "armor_renderer",
+    "layer": 1,
+    "bindings": [
+      {
+        "binding_name": "#is_armor_visible",
+        "binding_name_override": "#visible"
+      }
+    ]
+  },
+
+  "exp_progress_bar_and_hotbar": {
+    "type": "panel",
+    "size": [ "100%c", 31 ],
+    "anchor_from": "bottom_middle",
+    "anchor_to": "bottom_middle",
+    "offset": "$xp_control_offset",
+    "controls": [
+      {
+        "resizing_xp_bar_with_hotbar": {
+          "type": "panel",
+          "size": [ "100%c", 5 ],
+          "controls": [
+            {
+              "empty_progress_bar@empty_progress_bar": {
+                "size": [ "100%c", 5 ],
+                "layer": 1,
+                "controls": [
+                  {
+                    "full_progress_bar@full_progress_bar": {
+                      "size": [ "100%c + 10px", 5 ],
+                      "layer": 2,
+                      "controls": [
+                        {
+                          "progress_bar_nub@progress_bar_nub": {
+                            "size": [ "100%c - 10px", 5 ],
+                            "max_size": [ 172, 5 ],
+                            "layer": 3,
+                            "controls": [
+                              {
+                                "hotbar@hotbar_chooser": {
+                                  "offset": [ 3, 16 ]
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "progress_text_label@progress_text_label": {
+                "offset": [ 0, 0 ],
+                "layer": 7
+              }
+            }
+          ],
+          "bindings": [
+            {
+              "binding_name": "#is_not_creative_mode",
+              "binding_name_override": "#visible"
+            }
+          ]
+        }
+      },
+      // For when we hide the XP bar in Creative Move we still want to display the HUD
+      {
+        "hotbar@hotbar_chooser": {
+          "offset": [ 3, 16 ],
+          "bindings": [
+            {
+              "binding_name": "#is_creative_mode",
+              "binding_name_override": "#visible"
+            }
+          ]
+        }
+      },
+      {
+        "item_text_factory": {
+          "size": [ 100, 10 ],
+          "type": "factory",
+          "control_ids": {
+            "survival_item_text": "@hud.survival_item_name_text",
+            "survival_item_text_above_interact_button": "@hud.survival_above_interact_button_item_text",
+            "survival_jukebox_text": "@hud.survival_jukebox_popup_text",
+            "survival_jukebox_text_above_interact_button": "@hud.survival_jukebox_above_interact_button_popup_text",
+            "creative_item_text": "@hud.creative_item_name_text",
+            "create_item_text_above_interact_button": "@hud.creative_above_interact_button_item_text",
+            "creative_jukebox_text": "@hud.creative_jukebox_popup_text",
+            "creative_jukebox_text_above_interact_button": "@hud.creative_jukebox_above_interact_button_popup_text"
+
+          }
+        }
+      }
+    ]
+  },
+
+  "full_progress_bar": {
+    "type": "image",
+    "texture": "textures/ui/experiencebarfull",
+    "clip_direction": "left",
+    "clip_pixelperfect": false,
+    "bindings": [
+      {
+        "binding_name": "#exp_progress",
+        "binding_name_override": "#clip_ratio",
+        "binding_type": "global"
+      }
+    ]
+  },
+
+  "empty_progress_bar": {
+    "type": "image",
+    "texture": "textures/ui/experiencebarempty"
+  },
+
+  "progress_bar_nub": {
+    "type": "image",
+    "texture": "textures/ui/experiencenub",
+    "tiled": true
+  },
+
+  "progress_text_label": {
+    "type": "label",
+    "shadow": true,
+    "text": "#level_number",
+    "color": "$experience_text_color",
+    "anchor_from": "top_middle",
+    "anchor_to": "bottom_middle",
+    "bindings": [
+      {
+        "binding_name": "#level_number",
+        "binding_type": "global"
+      },
+      {
+        "binding_name": "#level_number_visible",
+        "binding_type": "global",
+        "binding_name_override": "#visible"
+      }
+    ]
+  },
+
+  "horse_jump_renderer": {
+    "type": "custom",
+    "size": [ 1, 1 ],
+    "renderer": "horse_jump_renderer",
+    "layer": 1
+  },
+
+  "hunger_renderer": {
+    "type": "custom",
+    "size": [ 1, 1 ],
+    "renderer": "hunger_renderer",
+    "layer": 1,
+    "bindings": [
+      {
+        "binding_name": "#is_not_creative_mode",
+        "binding_name_override": "#visible"
+      }
+    ]
+  },
+
+  "bubbles_renderer": {
+    "type": "custom",
+    "size": [ 1, 1 ],
+    "renderer": "bubbles_renderer",
+    "layer": 1
+  },
+
+  "mob_effects_renderer": {
+    "type": "custom",
+    "renderer": "mob_effects_renderer",
+    "layer": 1
+  },
+
+  "vignette_renderer": {
+    "type": "custom",
+    "renderer": "vignette_renderer",
+    "layer": 4
+  },
+
+  "cursor_renderer": {
+    "type": "custom",
+    "size": [ 16, 16 ],
+    "renderer": "cursor_renderer",
+    "layer": 4
+  },
+
+  "debug_overlay_renderer": {
+    "type": "custom",
+    "renderer": "debug_overlay_renderer",
+    "layer": 1
+  },
+
+  "progress_indicator_renderer": {
+    "type": "custom",
+    "renderer": "progress_indicator_renderer",
+    "layer": 4
+  },
+
+  "camera_renderer": {
+    "type": "custom",
+    "renderer": "camera_renderer",
+    "layer": 1
+  },
+
+  "hotbar_hud_item_icon@common.item_renderer": {
+    "$item_collection_name": "$hotbar_collection_name",
+    "property_bag": {
+      "force_update": true
+    }
+  },
+
+  "elipses_image": {
+    "type": "image",
+    "texture": "textures/ui/elipses",
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "size": [ 13, 4 ],
+    "layer": 30,
+    "alpha": 0.65
+  },
+
+  "bound_button_label@button_label": {
+    "text": "$label_bind_name",
+    "bindings": [
+      {
+        "binding_name": "$label_bind_name",
+        "binding_type": "global"
+      }
+    ]
+  },
+
+  "default_borderless_button_layout": {
+    "type": "image",
+    "texture": "textures/ui/button_borderless_light",
+    "alpha": 0.45
+  },
+
+  "hover_borderless_button_layout@default_borderless_button_layout": {
+    "texture": "textures/ui/button_borderless_lighthover"
+  },
+
+  "pressed_borderless_button_layout@default_borderless_button_layout": {
+    "texture": "textures/ui/button_borderless_lightpressed"
+  },
+
+  "borderless_button@common.button": {
+    "controls": [
+      {
+        "default@default_borderless_button_layout": {}
+      },
+      {
+        "hover@hover_borderless_button_layout": {}
+      },
+      {
+        "pressed@pressed_borderless_button_layout": {}
+      },
+      {
+        "elipses@elipses_image": {}
+      }
+    ]
+  },
+
+  "hotbar_elipses_button@borderless_button": {
+    "$pressed_button_name": "button.hotbar_inventory_button",
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "size": [ 16, 16 ],
+    "layer": 3,
+    "focus_enabled": false,
+    "default_focus_precedence": 10,
+    "button_mappings": [
+      {
+        "from_button_id": "button.menu_select",
+        "to_button_id": "$pressed_button_name",
+        "mapping_type": "pressed"
+      }
+    ],
+    "bindings": [
+      {
+        "binding_name": "#inventory_touch_button",
+        "binding_name_override": "#visible",
+        "binding_type": "global"
+      }
+    ]
+  },
+
+  "start_cap_image": {
+    "type": "image",
+    "texture": "textures/ui/hotbar_start_cap",
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "size": [ 1, 22 ],
+    "layer": 4,
+    "alpha": 0.65,
+    "visible": true
+  },
+
+  "end_cap_image@start_cap_image": {
+    "texture": "textures/ui/hotbar_end_cap"
+  },
+
+  "hotbar_start_cap": {
+    "type": "panel",
+    "size": [ 1, 22 ],
+    "controls": [
+      { "start_cap_image@start_cap_image": {} }
+    ]
+  },
+
+  "hotbar_end_cap@hotbar_start_cap": {
+    "controls": [
+      { "end_cap_image@end_cap_image": {} }
+    ]
+  },
+
+  "heart_image": {
+    "type": "image",
+    "texture": "textures/ui/heart_background",
+    "size": [ 9, 9 ],
+    "layer": 1,
+    "alpha": 0.65
+  },
+
+  "hotbar_slot_image": {
+    "type": "image",
+    "offset": [ 0, 0 ],
+    "size": [ 20, 22 ],
+    "layer": 1,
+    "alpha": 0.65
+  },
+
+
+  "hotbar_slot_selected_image": {
+    "type": "image",
+    "texture": "textures/ui/selected_hotbar_slot",
+    "size": [ 24, 24 ],
+    "layer": 8,
+    "bindings": [
+      {
+        "binding_name": "#slot_selected",
+        "binding_name_override": "#visible",
+        "binding_type": "collection",
+        "binding_collection_name": "$hotbar_collection_name"
+      }
+    ]
+  },
+
+  "gui_hotbar_slot_button_prototype": {
+    "type": "button",
+
+    "$hotbar_select|default": "button.hotbar_select",
+
+    "$focus_id|default": "",
+    "$focus_override_down|default": "",
+    "$focus_override_up|default": "",
+    "$focus_override_left|default": "",
+    "$focus_override_right|default": "",
+    "focus_identifier": "$focus_id",
+    "focus_change_down": "$focus_override_down",
+    "focus_change_up": "$focus_override_up",
+    "focus_change_left": "$focus_override_left",
+    "focus_change_right": "$focus_override_right",
+    "focus_enabled": true,
+
+    "layer": 2,
+    "button_mappings": [
+      {
+        "from_button_id": "button.menu_select",
+        "to_button_id": "$hotbar_select",
+        "mapping_type": "pressed",
+        "button_up_right_of_first_refusal": true
+      },
+      {
+        "from_button_id": "button.menu_ok",
+        "to_button_id": "button.hotbar_ok",
+        "mapping_type": "focused"
+      },
+      {
+        "to_button_id": "button.slot_pressed",
+        "mapping_type": "pressed"
+      }
+    ],
+    "bindings": [
+      {
+        "binding_collection_name": "$hotbar_collection_name",
+        "binding_type": "collection_details"
+      }
+    ]
+  },
+
+  "player_position": {
+    "type": "image",
+    "size": [ "100%c + 6px", "100%c + 2px" ],
+    "texture": "textures/ui/Black",
+    "alpha": 0.5,
+    "controls": [
+      {
+        "player_position_text": {
+          "type": "label",
+          "anchor_from": "bottom_middle",
+          "anchor_to": "bottom_middle",
+          "layer": 1,
+
+          "enable_profanity_filter": false,
+          "color": "$chat_text_color",
+          "text": "#text",
+          "shadow": true,
+
+          "bindings": [
+            {
+              "binding_name": "#player_position_text",
+              "binding_name_override": "#text",
+              "binding_condition": "always_when_visible",
+              "binding_type": "global"
+            }
+          ]
+        }
+      }
+    ],
+    "bindings": [
+      {
+        "binding_name": "#player_position_visible",
+        "binding_name_override": "#visible",
+        "binding_condition": "always",
+        "binding_type": "global"
+      }
+    ]
+  },
+
+  "anim_chat_txt_alpha": {
+    "anim_type": "alpha",
+    "easing": "in_quart",
+    "duration": 1,
+    "from": 1,
+    "to": 0
+  },
+
+  "anim_chat_txt_wait": {
+    "anim_type": "wait",
+    "duration": "$chat_item_lifetime",
+    "next": "@hud.anim_chat_txt_alpha"
+  },
+
+  "anim_chat_bg_alpha": {
+    "anim_type": "alpha",
+    "easing": "in_quart",
+    "destroy_at_end": "chat_grid_item",
+    "duration": 1,
+    "from": 0.5,
+    "to": 0
+  },
+
+  "anim_chat_bg_wait": {
+    "anim_type": "wait",
+    "duration": "$chat_item_lifetime",
+    "next": "@hud.anim_chat_bg_alpha"
+  },
+
+  "chat_label": {
+    "type": "label",
+    "layer": 31,
+    "text": "#text",
+    "size": [ "100%", "default" ],
+    "shadow": true,
+    "localize": false,
+    "color": "$chat_text_color",
+    "anims": [
+      "@hud.anim_chat_txt_wait"
+    ],
+    "bindings": [
+      {
+        "binding_name": "#chat_text",
+        "binding_name_override": "#text",
+        "binding_type": "collection",
+        "binding_collection_name": "chat_text_grid",
+        "binding_condition": "once"
+      }
+    ]
+  },
+
+  "chat_grid_item": {
+    "type": "panel",
+    "layer": 1,
+    "size": [ "100%-2px", "100%c" ],
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "controls": [
+      {
+        "chat_background": {
+          "type": "image",
+          "texture": "textures/ui/Black",
+          "alpha": 0.5,
+          "size": [ "100%", "100%c" ],
+          "anims": [
+            "@hud.anim_chat_bg_wait"
+          ],
+          "controls": [
+            {
+              "chat_text@chat_label": {
+                "anchor_from": "top_left",
+                "anchor_to": "top_left",
+                "offset": [ 2, 0 ]
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "chat_panel": {
+    "type": "panel",
+    "clips_children": true,
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "size": [ "100%", "100%c" ],
+    "max_size": [ "100%", "50%" ],
+
+    "controls": [
+      {
+        "stack_panel": {
+          "type": "stack_panel",
+          "anchor_from": "bottom_left",
+          "anchor_to": "bottom_left",
+          "factory": {
+            "name": "chat_item_factory",
+            "max_children_size": 50,
+            "control_ids": {
+              "chat_item": "chat_item@hud.chat_grid_item"
+            }
+          }
+        }
+      }
+    ]
+  },
+
+  "item_durability@common.durability_bar": {
+    "$durability_bar_required|default": true,
+    "$item_collection_name": "$hotbar_collection_name"
+  },
+
+  "gui_hotbar_grid_item": {
+    "type": "panel",
+    "layer": 1,
+    "size": [ 20, 22 ],
+    "anchor_to": "top_left",
+    "anchor_from": "top_left",
+    "$stack_count_required|default": true,
+    "$durability_bar_required|default": true,
+    "controls": [
+      { "hotbar_slot_selected_image@hotbar_slot_selected_image": {} },
+      { "hotbar_renderer@hotbar_renderer": {} },
+      {
+        "hotbar_parent": {
+          "type": "panel",
+          "size": [ 18, 18 ],
+          "controls": [
+            {
+              "item_icon@hotbar_hud_item_icon": {
+                "size": [ 16, 16 ]
+              }
+            },
+            {
+              "item_count@common.stack_count_label": {
+                "$item_collection_name": "$hotbar_collection_name",
+                "$stack_count_collection_name": "$hotbar_collection_name",
+                "bindings": [
+                  {
+                    "binding_name": "#inventory_stack_count",
+                    "binding_type": "collection",
+                    "binding_collection_name": "$stack_count_collection_name"
+                  },
+                  {
+                    "binding_name": "#stack_count_visible",
+                    "binding_name_override": "#visible",
+                    "binding_type": "collection",
+                    "binding_collection_name": "$stack_count_collection_name"
+                  }
+                ]
+              }
+            },
+            { "item_dura@item_durability": {} }
+          ]
+        }
+      },
+      { "cooldown_renderer@cooldown_renderer": { "layer": 10 } },
+      { "hotbar_slot_button@gui_hotbar_slot_button_prototype": {} }
+    ]
+  },
+
+  "centered_gui_elements": {
+    "type": "panel",
+    "controls": [
+      {
+        "hud_player_rend_desktop@hud_player_renderer": {
+          "offset": "$hud_player_rend_desktop_offset",
+          "anchor_from": "top_left",
+          "anchor_to": "top_left"
+        }
+      }
+    ],
+    "bindings": [
+      {
+        "binding_name": "#hud_visible_centered_gui_elements",
+        "binding_name_override": "#visible",
+        "binding_type": "global"
+      }
+    ]
+  },
+
+  "centered_gui_elements_at_bottom_middle": {
+    "type": "panel",
+    "anchor_from": "bottom_middle",
+    "anchor_to": "bottom_middle",
+    "size": [ 180, 50 ],
+    "controls": [
+      {
+        "heart_rend@heart_renderer": {
+          "offset": [ -1, -40 ],
+          "anchor_from": "bottom_left",
+          "anchor_to": "bottom_left"
+        }
+      },
+      {
+        "horse_heart_rend_0@horse_heart_renderer": {
+          "offset": [ 180, -56 ],
+          "anchor_from": "bottom_left",
+          "anchor_to": "bottom_left",
+          "bindings": [
+            {
+              "binding_name": "#is_creative_mode",
+              "binding_name_override": "#visible"
+            }
+          ]
+        }
+      },
+      {
+        "horse_heart_rend_1@horse_heart_renderer": {
+          "offset": [ 180, -50 ],
+          "anchor_from": "bottom_left",
+          "anchor_to": "bottom_left",
+          "bindings": [
+            {
+              "binding_name": "#is_not_creative_mode",
+              "binding_name_override": "#visible"
+            }
+          ]
+        }
+      },
+      {
+        "armor_rend@armor_renderer": {
+          "offset": [ -1, -40 ],
+          "anchor_from": "bottom_left",
+          "anchor_to": "bottom_left"
+        }
+      },
+      {
+        "hunger_rend@hunger_renderer": {
+          "offset": [ 180, -40 ],
+          "anchor_from": "bottom_left",
+          "anchor_to": "bottom_left"
+        }
+      },
+      {
+        "bubbles_rend_0@bubbles_renderer": {
+          "offset": [ 180, -50 ],
+          "anchor_from": "bottom_left",
+          "anchor_to": "bottom_left",
+          "bindings": [
+            {
+              "binding_name": "#is_not_riding",
+              "binding_name_override": "#visible"
+            }
+          ]
+        }
+      },
+      {
+        "bubbles_rend_1@bubbles_renderer": {
+          "offset": [ 180, -70 ],
+          "anchor_from": "bottom_left",
+          "anchor_to": "bottom_left",
+          "bindings": [
+            {
+              "binding_name": "#is_riding",
+              "binding_name_override": "#visible"
+            }
+          ]
+        }
+      },
+      {
+        "horse_jump_rend@horse_jump_renderer": {
+          "anchor_from": "bottom_middle",
+          "anchor_to": "bottom_middle",
+          "offset": [ 0, -30 ],
+          "layer": 7,
+          "bindings": [
+            {
+              "binding_name": "#is_riding",
+              "binding_name_override": "#visible"
+            }
+          ]
+        }
+      },
+      { "exp_rend@exp_progress_bar_and_hotbar": {} }
+    ],
+    "bindings": [
+      {
+        "binding_name": "#hud_visible_centered",
+        "binding_name_override": "#visible",
+        "binding_type": "global"
+      }
+    ]
+  },
+
+  "not_centered_gui_elements": {
+    "type": "panel",
+    "controls": [
+      {
+        "heart_rend@heart_renderer": {
+          "offset": [ 2, 2 ],
+          "anchor_from": "top_left",
+          "anchor_to": "top_left"
+        }
+      },
+      {
+        "horse_heart_rend@horse_heart_renderer": {
+          "offset": [ -2, 2 ],
+          "anchor_from": "top_right",
+          "anchor_to": "top_right",
+          "layer": 1
+        }
+      },
+      {
+        "hunger_rend@hunger_renderer": {
+          "offset": [ -2, 2 ],
+          "anchor_from": "top_right",
+          "anchor_to": "top_right"
+        }
+      },
+      {
+        "armor_rend@armor_renderer": {
+          "offset": [ 2, 2 ],
+          "anchor_from": "top_left",
+          "anchor_to": "top_left"
+        }
+      },
+      {
+        "hud_player_rend_pocket@hud_player_renderer": {
+          "offset": [ 40, 40 ],
+          "anchor_from": "top_left",
+          "anchor_to": "top_left"
+        }
+      },
+      {
+        "bubbles_rend_0@bubbles_renderer": {
+          "offset": [ -1, 12 ],
+          "anchor_from": "top_right",
+          "anchor_to": "top_right",
+          "bindings": [
+            {
+              "binding_name": "#is_not_riding",
+              "binding_name_override": "#visible"
+            }
+          ]
+        }
+      },
+      {
+        "bubbles_rend_1@bubbles_renderer": {
+          "offset": [ -1, 32 ],
+          "anchor_from": "top_right",
+          "anchor_to": "top_right",
+          "bindings": [
+            {
+              "binding_name": "#is_riding",
+              "binding_name_override": "#visible"
+            }
+          ]
+        }
+      },
+      {
+        "horse_jump_rend@horse_jump_renderer": {
+          "anchor_from": "bottom_middle",
+          "anchor_to": "bottom_middle",
+          "offset": [ 0, -28 ],
+          "layer": 7,
+          "bindings": [
+            {
+              "binding_name": "#is_riding",
+              "binding_name_override": "#visible"
+            }
+          ]
+        }
+      }
+    ],
+    "bindings": [
+      {
+        "binding_name": "#hud_visible_not_centered",
+        "binding_name_override": "#visible",
+        "binding_type": "global"
+      }
+    ]
+  },
+
+
+  "hotbar_chooser": {
+    "type": "panel",
+    "size": [ "100%c", "100%c" ],
+    "$ignore_desktop": true,
+    "$ignore_pocket": false,
+    "variables": [
+      {
+        "requires": "($desktop_screen and not $education_edition)",
+        "$ignore_desktop": false,
+        "$ignore_pocket": true
+      }
+    ],
+
+    "controls": [
+      {
+        "desktop_hotbar@hotbar_panel": {
+          "ignored": "$ignore_desktop",
+          "offset": [ -4, 0 ]
+        }
+      },
+      {
+        "pocket_hotbar@hotbar_panel": {
+          "ignored": "$ignore_pocket",
+          "size": [ "100%c", 18 ],
+          "offset": [ -3, -2 ]
+        }
+      }
+    ]
+  },
+
+  //Note - This is the outer panel that 'reserves' the maximum space required for the right expandable portion of the hot bar
+  // so the hotbar doesn't move as result of center alignment and width change
+  "hotbar_elipses_panel_right": {
+    "type": "panel",
+    "size": [ 21, 22 ],
+    "controls": [
+      // The inner panels that change visibility according to current settings
+      { "content@hud.hotbar_elipses_panel_right_content": {} },
+      { 
+        "hotbar_end_cap@hud.hotbar_end_cap": {
+          "anchor_from": "left_middle",
+          "anchor_to": "left_middle",
+          "bindings": [
+            {
+              "binding_name": "(not #hotbar_elipses_right_visible)",
+              "binding_name_override": "#visible",
+              "binding_type": "global"
+            }
+          ]
+        } 
+      }
+    ]
+  },
+
+  "hotbar_elipses_panel_right_content": {
+    "type": "stack_panel",
+    "orientation": "horizontal",
+    "controls": [
+      { "elipses_content@hud.hotbar_elipses_panel_right_art": {} },
+      { "hotbar_end_cap@hud.hotbar_end_cap": {} }
+    ],
+    "bindings": [
+      {
+        "binding_name": "#hotbar_elipses_right_visible",
+        "binding_name_override": "#visible",
+        "binding_type": "global"
+      }
+    ]
+  },
+  
+  "hotbar_elipses_panel_right_art": {
+    "type": "panel",
+    "size": [ 20, 22 ],
+    "layer": 4,
+    "controls": [
+      {
+        "slot@hud.hotbar_slot_image": {
+          // The layering is for cover the grid cap/black border when this panel is visible
+          "layer": 2,
+          //Grab the right hand end of the hotbar
+          "texture": "textures/ui/hotbar_8"
+        }
+      },
+      { "button@hud.hotbar_elipses_button": {} }
+    ]
+  },
+
+  //Note - This is the outer panel that 'reserves' the maximum space required for the left expandable portion of the hot bar
+  // so the hotbar doesn't move as result of center alignment and width change
+  "hotbar_elipses_panel_left": {
+    "type": "panel",
+    "size": [ 21, 22 ],
+    "controls": [
+      // The inner panels that change visibility according to current settings
+      { "content@hud.hotbar_elipses_panel_left_content": {} },
+      { 
+        "hotbar_start_cap@hud.hotbar_start_cap": {
+          "anchor_from": "right_middle",
+          "anchor_to": "right_middle",
+          "bindings": [
+            {
+              "binding_name": "(not #hotbar_elipses_left_visible)",
+              "binding_name_override": "#visible",
+              "binding_type": "global"
+            }
+          ]
+        } 
+      }
+    ]
+  },
+
+  "hotbar_elipses_panel_left_content": {
+    "type": "stack_panel",
+    "orientation": "horizontal",
+    "controls": [
+      { "hotbar_start_cap@hud.hotbar_start_cap": {} },
+      { "button@hud.hotbar_elipses_panel_left_art": {} }
+    ],
+    "bindings": [
+      {
+        "binding_name": "#hotbar_elipses_left_visible",
+        "binding_name_override": "#visible",
+        "binding_type": "global"
+      }
+    ]
+  },
+
+  "hotbar_elipses_panel_left_art": {
+    "type": "panel",
+    "size": [ 20, 22 ],
+    "layer": 4,
+    "controls": [
+      {
+        "slot@hud.hotbar_slot_image": {
+          "layer": 2,
+          //Grab the left hand end of the hotbar
+          "texture": "textures/ui/hotbar_0"
+        }
+      },
+      { "button@hud.hotbar_elipses_button": {} }
+    ]
+  },
+
+  "hotbar_panel": {
+    "type": "stack_panel",
+    "orientation": "horizontal",
+    "size": [ "100%c", 22 ],
+    "anchor_from": "bottom_middle",
+    "anchor_to": "bottom_middle",
+    "controls": [
+      { "hotbar_elipses_panel_left@hud.hotbar_elipses_panel_left": {} },
+      { "hotbar_grid@hud.hotbar_grid": {} },
+      { "hotbar_elipses_panel_right@hud.hotbar_elipses_panel_right": {} }
+    ]
+  },
+
+  "hotbar_grid": {
+    "type": "grid",
+    "$hotbar_collection_name|default": "hotbar_items",
+    "grid_item_template": "hud.gui_hotbar_grid_item",
+    "grid_dimension_binding": "#hotbar_grid_dimensions",
+    "collection_name": "$hotbar_collection_name",
+    "bindings": [
+      {
+        "binding_name": "#hotbar_grid_dimensions",
+        "binding_type": "global"
+      }
+    ]
+  },
+
+  "edu_hotbar_grid": {
+    "type": "grid",
+    "grid_item_template": "hud.gui_hotbar_grid_item",
+    "grid_dimension_binding": "#hotbar_grid_dimensions",
+    "collection_name": "$hotbar_collection_name",
+    "bindings": [
+      {
+        "binding_name": "#hotbar_grid_dimensions",
+        "binding_type": "global"
+      }
+    ]
+  },
+
+  "anim_item_name_text_alpha": {
+    "anim_type": "alpha",
+    "easing": "in_expo",
+    "destroy_at_end": "item_text_label",
+    "duration": 2,
+    "from": 1.0,
+    "to": 0
+  },
+
+  "item_name_text": {
+    "type": "panel",
+    "size": [ 100, 10 ],
+    "controls": [
+      {
+        "item_text_label": {
+          "type": "label",
+          "anchor_from": "bottom_middle",
+          "anchor_to": "bottom_middle",
+          "text_alignment": "center",
+          "layer": 31,
+          "color": "$tool_tip_text",
+          "text": "#text",
+          "shadow": true,
+          "alpha": "@hud.anim_item_name_text_alpha",
+          "bindings": [
+            {
+              "binding_name": "#item_text",
+              "binding_name_override": "#text"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "jukebox_text": {
+    "type": "panel",
+    "size": [ 100, 10 ],
+    "controls": [
+      {
+        "item_text_label": {
+          "type": "label",
+          "anchor_from": "bottom_middle",
+          "anchor_to": "bottom_middle",
+          "text_alignment": "center",
+          "layer": 31,
+          "color": "$jukebox_text_color",
+          "text": "#text",
+          "shadow": true,
+          "alpha": "@hud.anim_item_name_text_alpha",
+          "bindings": [
+            {
+              "binding_name": "#jukebox_text",
+              "binding_name_override": "#text"
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "creative_item_name_text@hud.item_name_text": {
+    "offset": [ 0, -12 ]
+  },
+
+  "survival_item_name_text@hud.item_name_text": {
+    "offset": [ 0, -32 ]
+  },
+
+  "creative_above_interact_button_item_text@hud.item_name_text": {
+    "offset": [ 0, -22 ]
+  },
+
+  "survival_above_interact_button_item_text@hud.item_name_text": {
+    "offset": [ 0, -42 ]
+  },
+
+  "creative_jukebox_popup_text@hud.jukebox_text": {
+    "offset": [ 0, -32 ]
+  },
+
+  "survival_jukebox_popup_text@hud.jukebox_text": {
+    "offset": [ 0, -52 ]
+  },
+
+  "creative_jukebox_above_interact_button_popup_text@hud.jukebox_text": {
+    "offset": [ 0, -42 ]
+  },
+
+  "survival_jukebox_above_interact_button_popup_text@hud.jukebox_text": {
+    "offset": [ 0, -62 ]
+  },
+
+  "hud_tip_text@hud.item_name_text": {
+    "offset": [ 0, "50%-68px" ],
+    "controls": [
+      {
+        "item_text_label": {
+          "type": "label",
+          "layer": 31,
+          "color": "$tool_tip_text",
+          "text": "#text",
+          "shadow": true,
+          "alpha": "@hud.anim_item_name_text_alpha",
+          "bindings": [
+            {
+              "binding_name": "#tip_text",
+              "binding_name_override": "#text"
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "anim_actionbar_text_alpha_out": {
+    "anim_type": "alpha",
+    "easing": "in_expo",
+    "duration": 3,
+    "from": 1.0,
+    "to": 0,
+    "destroy_at_end": "hud_actionbar_text"
+  },
+
+  "auto_save_animation": {
+    "anim_type": "flip_book",
+    "initial_uv": [ 0, 0 ],
+    "frame_count": 9,
+    "frame_step": 18,
+    "fps": 10,
+    "reversible": true,
+    "easing": "linear"
+  },
+
+  "auto_save": {
+    "type": "image",
+    "layer": 31,
+    "texture": "textures/ui/auto_save",
+    "anchor_from": "top_right",
+    "anchor_to": "top_right",
+    "offset": [ -15, 15 ],
+    "size": [ 18, 30 ],
+    "uv_size": [ 18, 30 ],
+    "uv": "@auto_save_animation",
+    "disable_anim_fast_forward": true,
+    "bindings": [
+      {
+        "binding_name": "#auto_save_animation_visible",
+        "binding_name_override": "#visible"
+      }
+    ]
+  },
+
+  "hud_actionbar_text": {
+    "type": "panel",
+    "size": [ "100%", "100%c" ],
+    "offset": [ 0, "50%-68px" ],
+    "controls": [
+      {
+        "actionbar_message": {
+          "type": "label",
+          "anchor_from": "top_middle",
+          "anchor_to": "top_middle",
+          "color": "$tool_tip_text",
+          "text": "$actionbar_text",
+          "localize": false,
+          "alpha": "@hud.anim_actionbar_text_alpha_out"
+        }
+      }
+    ]
+  },
+
+  "anim_title_text_alpha_in": {
+    "anim_type": "alpha",
+    "easing": "linear",
+    "duration": "$title_fade_in_time",
+    "from": 0,
+    "to": 1,
+    "next": "@hud.anim_title_text_alpha_stay"
+  },
+
+  "anim_title_text_alpha_stay": {
+    "anim_type": "wait",
+    "duration": "$title_stay_time",
+    "next": "@hud.anim_title_text_alpha_out"
+  },
+
+  "anim_title_text_alpha_out": {
+    "anim_type": "alpha",
+    "easing": "linear",
+    "duration": "$title_fade_out_time",
+    "from": 1,
+    "to": 0,
+    "destroy_at_end": "hud_title_text"
+  },
+
+  "hud_title_text": {
+    "type": "stack_panel",
+    "orientation": "vertical",
+    "layer": 1,
+    "controls": [
+      {
+        "title_frame": {
+          "type": "panel",
+          "size": [ "100%", "100%c" ],
+          "controls": [
+            {
+              "title": {
+                "type": "label",
+                "anchor_from": "top_middle",
+                "anchor_to": "top_middle",
+                "color": "$title_command_text_color",
+                "text": "$title_text",
+                "localize": false,
+                "font_size": "extra_large",
+                "alpha": "@hud.anim_title_text_alpha_in",
+                "shadow": true
+              }
+            }
+          ]
+        }
+      },
+      {
+        "subtitle_frame": {
+          "type": "panel",
+          "size": [ "100%", "100%c" ],
+          "controls": [
+            {
+              "subtitle": {
+                "type": "label",
+                "anchor_from": "top_middle",
+                "anchor_to": "top_middle",
+                "color": "$title_command_text_color",
+                "text": "$subtitle_text",
+                "localize": false,
+                "font_size": "large",
+                "alpha": "@hud.anim_title_text_alpha_in",
+                "shadow": true
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "boss_name_panel": {
+    "type": "panel",
+    "size": [ "100%", "100%c" ],
+    "anchor_from": "top_middle",
+    "anchor_to": "top_middle",
+    "controls": [
+      {
+        "boss_name": {
+          "type": "label",
+          "color": "$boss_name_text_color",
+          "text": "#bossName",
+          "anchor_from": "top_middle",
+          "anchor_to": "top_middle",
+          "shadow": true,
+          "bindings": [
+            {
+              "binding_name": "#bossName",
+              "binding_type": "collection",
+              "binding_collection_name": "boss_bars"
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "tooltip_helper_icon_description@common.gamepad_helper_icon_description": {
+    "offset": [ 0, 7 ],
+    "$icon_description_bind_condition": "always"
+  },
+
+  "tooltip_helper@common.gamepad_helper": {
+    "$gamepad_description": "hud.tooltip_helper_icon_description",
+    "controls": [
+      {
+        "icon@$icon_image_ref": {}
+      },
+      {
+        "centerer": {
+          "ignored": "($hide_description)",
+          "type": "panel",
+          "size": [ "100%c + 2px", 13 ],
+          "offset": [ 1, 0 ],
+          "layer": 1,
+          "controls": [
+            { "desc@$gamepad_description": {} }
+          ]
+        }
+      }
+    ]
+  },
+
+  "base_icon_image": {
+    "type": "image",
+    "size": [ 26, 26 ],
+    "$gameplay_key_icon|default": "#gameplay_icon_texture",
+    "bindings": [
+      {
+        "binding_name": "$gameplay_key_icon",
+        "binding_name_override": "#texture"
+      }
+    ]
+  },
+
+  "inventory_icon_image@hud.base_icon_image": {
+    "$gameplay_key_icon": "#inventory_icon_texture"
+  },
+
+  "inventory_tooltip@hud.tooltip_helper": {
+    "size": [ "100%c", "100%cm" ],
+    "$icon_description_bind": "#inventory_description",
+    "$icon_image_ref": "hud.inventory_icon_image"
+  },
+
+
+  "crafting_icon_image@hud.base_icon_image": {
+    "$gameplay_key_icon": "#crafting_icon_texture"
+  },
+
+  "crafting_tooltip@hud.tooltip_helper": {
+    "size": [ "100%c", "100%cm" ],
+    "$icon_description_bind": "#crafting_description",
+    "$icon_image_ref": "hud.crafting_icon_image",
+    "bindings": [
+      {
+        "binding_name": "#crafting_tooltip_helper_visible",
+        "binding_name_override": "#visible"
+      }
+    ]
+  },
+
+  "drop_item_icon_image@hud.base_icon_image": {
+    "$gameplay_key_icon": "#drop_item_icon_texture"
+  },
+
+  "drop_item_tooltip@hud.tooltip_helper": {
+    "size": [ "100%c", "100%cm" ],
+    "$icon_description_bind": "#drop_item_description",
+    "$icon_image_ref": "hud.drop_item_icon_image",
+    "bindings": [
+      {
+        "binding_name": "#drop_item_tooltip_helper_visible",
+        "binding_name_override": "#visible"
+      }
+    ]
+  },
+
+  "mine_icon_image@hud.base_icon_image": {
+    "$gameplay_key_icon": "#attack_icon_texture"
+  },
+
+  "mine_tooltip@hud.tooltip_helper": {
+    "size": [ "100%c", "100%cm" ],
+    "$icon_description_bind": "#mine_description",
+    "$icon_image_ref": "hud.mine_icon_image",
+    "bindings": [
+      {
+        "binding_name": "#mine_tooltip_visible",
+        "binding_name_override": "#visible",
+        "binding_condition": "always"
+      }
+    ]
+  },
+
+  "context_sensitive_icon_image@hud.base_icon_image": {
+    "$gameplay_key_icon": "#use_icon_texture"
+  },
+
+  "context_sensitive_tooltip@hud.tooltip_helper": {
+    "size": [ "100%c", "100%cm" ],
+    "$icon_description_bind": "#context_sensitive_description",
+    "$icon_image_ref": "hud.context_sensitive_icon_image",
+    "bindings": [
+      {
+        "binding_name": "#context_sensitive_visible",
+        "binding_name_override": "#visible",
+        "binding_condition": "always"
+      }
+    ]
+  },
+
+  "dismount_icon_image@hud.base_icon_image": {
+    "$gameplay_key_icon": "#dismount_icon_texture"
+  },
+
+  "dismount_tooltip@hud.tooltip_helper": {
+    "size": [ "100%c", "100%cm" ],
+    "$icon_description_bind": "#dismount_description",
+    "$icon_image_ref": "hud.dismount_icon_image",
+    "bindings": [
+      {
+        "binding_name": "#dismount_tooltip_visible",
+        "binding_name_override": "#visible",
+        "binding_condition": "always"
+      }
+    ]
+  },
+
+  "left_gamepad_helpers": {
+    "type": "panel",
+    "anchor_from": "bottom_left",
+    "anchor_to": "bottom_left",
+    "offset": [ 10, 0 ],
+    "size": [ "100%", "100%c" ],
+    "max_size": [ "100%", "50%" ],
+
+    "controls": [
+      {
+        "stack_panel": {
+          "type": "stack_panel",
+          "size": [ "100%", "100%c" ],
+          "anchor_from": "bottom_left",
+          "anchor_to": "bottom_left",
+          "controls": [
+            { "crafting_tooltip@hud.crafting_tooltip": {} },
+            { "inventory_tooltip@hud.inventory_tooltip": {} },
+            { "dismount_tooltip@hud.dismount_tooltip": {} }
+          ]
+        }
+      }
+    ]
+  },
+
+  "right_gamepad_helpers": {
+    "type": "panel",
+    "anchor_from": "bottom_right",
+    "anchor_to": "bottom_right",
+    "size": [ "100%c", "100%c" ],
+    "max_size": [ "100%", "50%" ],
+
+    "controls": [
+      {
+        "stack_panel": {
+          "type": "stack_panel",
+          "size": [ "100%cm", "100%c" ],
+          "min_size": [ 75, "100%c" ],
+          "anchor_from": "bottom_right",
+          "anchor_to": "bottom_right",
+          "controls": [
+            { "context_sensitive_tooltip@hud.context_sensitive_tooltip": {} },
+            { "mine_tooltip@hud.mine_tooltip": {} },
+            { "drop_item_tooltip@hud.drop_item_tooltip": {} }
+          ]
+        }
+      }
+    ]
+  },
+
+  "boss_health_panel": {
+    "type": "panel",
+    "size": [ 182, 20 ],
+    "anchor_from": "top_middle",
+    "anchor_to": "top_middle",
+    "$progress_bar_collection": "boss_bars",
+    "controls": [
+      {
+        "boss_name@boss_name_panel": {}
+      },
+      {
+        "progress_bar_for_collections@common.progress_bar_for_collections": {
+          "offset": [ 0, 10 ]
+        }
+      }
+    ],
+    "bindings": [
+      {
+        "binding_name": "#bar_visible",
+        "binding_type": "collection",
+        "binding_collection_name": "boss_bars",
+        "binding_name_override": "#visible"
+      }
+    ]
+  },
+
+  "boss_health_grid": {
+    "type": "grid",
+    "grid_dimension_binding": "#boss_grid_dimension",
+    "grid_item_template": "hud.boss_health_panel",
+    "grid_fill_direction": "vertical",
+    "collection_name": "boss_bars",
+    "anchor_to": "top_middle",
+    "anchor_from": "top_middle",
+    "size": [ 182, "30%" ]
+  },
+
+  "root_panel": {
+    "type": "panel",
+    "$xp_control_offset|default": [ 0, -13 ],
+    "variables": [
+      {
+        "requires": "(not $desktop_screen)",
+        "$xp_control_offset": [ 0, -11 ]
+      }
+    ],
+    "controls": [
+      {
+        "left_gamepad_helpers@hud.left_gamepad_helpers": {}
+      },
+      {
+        "right_gamepad_helpers@hud.right_gamepad_helpers": {}
+      },
+      { "centered_gui_elements@centered_gui_elements": {} },
+      { "centered_gui_elements_at_bottom_middle@centered_gui_elements_at_bottom_middle": {} },
+      {
+        "centered_ridingvr_gui_elements@centered_gui_elements_at_bottom_middle": {
+          "anchor_from": "top_middle",
+          "anchor_to": "top_middle",
+          "offset": [ 0, 60 ],
+          "size": [ 180, 50 ],
+          "bindings": [
+            {
+              "binding_name": "#hud_visible_centered_ridingvr",
+              "binding_name_override": "#visible",
+              "binding_type": "global"
+            }
+          ]
+        }
+      },
+      { "not_centered_gui_elements@not_centered_gui_elements": {} },
+      {
+        "gamertag_label_for_splitscreen": {
+          "type": "label",
+          "size": [ "default", "default" ],
+          "anchor_from": "top_right",
+          "anchor_to": "top_right",
+          "offset": [ -4, 4 ],
+          "color": "$hud_gamertag_color",
+          "text_alignment": "right",
+          "text": "#gamertag",
+          "bindings": [
+            {
+              "binding_name": "#gamertag"
+            }
+          ]
+        }
+      },
+      {
+        "exp_rend@exp_progress_bar_and_hotbar": {
+          "anchor_from": "bottom_middle",
+          "anchor_to": "bottom_middle",
+          "bindings": [
+            {
+              "binding_name": "#hotbar_visible_not_centered",
+              "binding_name_override": "#visible",
+              "binding_type": "global"
+            }
+          ]
+        }
+      },
+      {
+        "hud_tip_text_factory": {
+          "type": "factory",
+          "control_name": "@hud.hud_tip_text"
+        }
+      },
+      {
+        "hud_actionbar_text_area": {
+          "type": "panel",
+          "factory": {
+            "name": "hud_actionbar_text_factory",
+            "control_ids": {
+              "hud_actionbar_text": "hud_actionbar_text@hud.hud_actionbar_text"
+            }
+          }
+        }
+      },
+      {
+        "hud_title_text_area": {
+          "type": "panel",
+          "factory": {
+            "name": "hud_title_text_factory",
+            "control_ids": {
+              "hud_title_text": "hud_title_text@hud.hud_title_text"
+            }
+          }
+        }
+      },
+      {
+        "mob_effects_renderer@mob_effects_renderer": {
+          "size": [ "100%", "75%" ],
+          "offset": [ 0, 24 ],
+          "anchor_from": "center",
+          "anchor_to": "center"
+        }
+      },
+      { "vignette_rend@vignette_renderer": {} },
+      { "curor_rend@cursor_renderer": {} },
+      { "sidebar@scoreboard.scoreboard_sidebar": {} },
+      { "list@scoreboard.scoreboard_list": {} },
+      { "debug_overlay_rend@debug_overlay_renderer": {} },
+      {
+        "progress_rend@progress_indicator_renderer": {
+          "offset": [ "50%", "50%" ]
+        }
+      },
+      {
+        //We need to be able to move chat down the screen when we are in VR and riding.
+        //SO use a stack panel with a padding that we can ignore at runtime as needed
+        "chat_stack": {
+          "type": "stack_panel",
+          "orientation": "vertical",
+          "size": [ "40%", "100%" ],
+          "anchor_from": "top_left",
+          "anchor_to": "top_left",
+          "controls": [
+            {
+              "paper_doll_padding": {
+                "type": "panel",
+                "size": [ "100%", 50 ],
+                "bindings": [
+                  {
+                    "binding_name": "#paper_doll_visible",
+                    "binding_name_override": "#visible"
+                  }
+                ]
+              }
+            },
+            {
+              "paper_doll_padding_living_room": {
+                "type": "panel",
+                "size": [ "100%", 30 ],
+                "bindings": [
+                  {
+                    "binding_name": "#paper_doll_visible_living_room",
+                    "binding_name_override": "#visible"
+                  }
+                ]
+              }
+            },
+            {
+              "vr_riding_chat_padding": {
+                "type": "panel",
+                "size": [ "100%", 132 ],
+                "visible": "#vr_riding", //Make this visible to move the chat panel down
+                "bindings": [
+                  {
+                    "binding_name": "#vr_riding",
+                    "binding_name_override": "#visible"
+                  }
+                ]
+              }
+            },
+            {
+              "vr_chat_padding": {
+                "type": "panel",
+                "size": [ "100%", 30 ],
+                "visible": "#vr_non_riding", //Make this visible to move the chat panel down
+                "bindings": [
+                  {
+                    "binding_name": "#vr_non_riding",
+                    "binding_name_override": "#visible"
+                  }
+                ]
+              }
+            },
+            {
+              "non_centered_gui_padding": {
+                "type": "panel",
+                "size": [ "100%", 32 ],
+                "bindings": [
+                  {
+                    "binding_name": "#hud_visible_not_centered",
+                    "binding_name_override": "#visible",
+                    "binding_type": "global"
+                  }
+                ]
+              }
+            },
+            { "player_position@hud.player_position": {} },
+            { "chat_panel@hud.chat_panel": {} }
+          ]
+        }
+      },
+      {
+        "boss_health_panel": {
+          "type": "stack_panel",
+          "orientation": "vertical",
+          "size": [ "100%", "100%" ],
+          "controls": [
+            {
+              "boss_hud_padding": {
+                "type": "panel",
+                "size": [ "100%", 20 ],
+                "visible": "#boss_hud_padding", //Make this visible to move the boss hud panel down
+                "bindings": [
+                  {
+                    "binding_name": "#boss_hud_padding",
+                    "binding_name_override": "#visible"
+                  }
+                ]
+              }
+            },
+            {
+              "boss_hud_panel": {
+                "type": "panel",
+                "controls": [
+                  {
+                    "boss_health_grid@boss_health_grid": {
+                      "offset": [ 0, 2 ]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "save_icon@hud.auto_save": {
+        }
+      }
+    ],
+    "bindings": [
+      {
+        "binding_name": "#hud_visible",
+        "binding_name_override": "#visible",
+        "binding_type": "global"
+      },
+      {
+        "binding_name": "#hud_alpha",
+        "binding_name_override": "#alpha",
+        "binding_type": "global"
+      },
+      {
+        "binding_name": "#hud_propagate_alpha",
+        "binding_name_override": "#propagateAlpha",
+        "binding_type": "global"
+      }
+    ]
+  },
+
+  "hud_screen@common.base_screen": {
+    "is_showing_menu": false,
+    "should_steal_mouse": true,
+    "low_frequency_rendering": true,
+    "absorbs_input": false,
+    "send_telemetry": false,
+
+    "$screen_animations": [
+      "@common.screen_exit_animation_push_fade",
+      "@common.screen_exit_animation_pop_fade",
+      "@common.screen_entrance_animation_push_fade",
+      "@common.screen_entrance_animation_pop_fade"
+    ],
+
+    "button_mappings": [
+      {
+        "from_button_id": "button.scoreboard",
+        "to_button_id": "button.scoreboard",
+        "mapping_type": "global"
+      },
+      {
+        "from_button_id": "button.inventory_left",
+        "to_button_id": "button.hotbar_inventory_left",
+        "mapping_type": "global"
+      },
+      {
+        "from_button_id": "button.inventory_right",
+        "to_button_id": "button.hotbar_inventory_right",
+        "mapping_type": "global"
+      },
+      {
+        "from_button_id": "button.hide_gui",
+        "to_button_id": "button.hide_gui_all",
+        "mapping_type": "global"
+      },
+      {
+        "from_button_id": "button.hide_tooltips",
+        "to_button_id": "button.hide_tooltips_hud",
+        "mapping_type": "global"
+      },
+      {
+        "from_button_id": "button.hide_paperdoll",
+        "to_button_id": "button.hide_paperdoll_hud",
+        "mapping_type": "global"
+      },
+      {
+        "from_button_id": "button.slot1",
+        "to_button_id": "button.slot_1",
+        "mapping_type": "global"
+      },
+      {
+        "from_button_id": "button.slot2",
+        "to_button_id": "button.slot_2",
+        "mapping_type": "global"
+      },
+      {
+        "from_button_id": "button.slot3",
+        "to_button_id": "button.slot_3",
+        "mapping_type": "global"
+      },
+      {
+        "from_button_id": "button.slot4",
+        "to_button_id": "button.slot_4",
+        "mapping_type": "global"
+      },
+      {
+        "from_button_id": "button.slot5",
+        "to_button_id": "button.slot_5",
+        "mapping_type": "global"
+      },
+      {
+        "from_button_id": "button.slot6",
+        "to_button_id": "button.slot_6",
+        "mapping_type": "global"
+      },
+      {
+        "from_button_id": "button.slot7",
+        "to_button_id": "button.slot_7",
+        "mapping_type": "global"
+      },
+      {
+        "from_button_id": "button.slot8",
+        "to_button_id": "button.slot_8",
+        "mapping_type": "global"
+      },
+      {
+        "from_button_id": "button.slot9",
+        "to_button_id": "button.slot_9",
+        "mapping_type": "global"
+      },
+      {
+        "from_button_id": "button.slot0",
+        "to_button_id": "button.slot_0",
+        "mapping_type": "global"
+      }
+    ],
+    "$screen_content": "hud.hud_content"
+  },
+
+  "hud_content": {
+    "type": "panel",
+    "$hud_player_rend_desktop_offset|default": [ 15, 15 ],
+    "variables": [
+      {
+        "requires": "($is_holographic and not $is_living_room_mode)",
+        "$hud_player_rend_desktop_offset": [ 100, 50 ]
+      }
+    ],
+    "controls": [
+      {
+        "root_panel@hud.root_panel": {}
+      },
+      {
+        "camera_renderer@camera_renderer": {
+          "ignored": "(not $education_edition)"
+        }
+      },
+      { "inventory_selected_icon_button@common.inventory_selected_icon_button": {} }
+    ]
+  }
+}

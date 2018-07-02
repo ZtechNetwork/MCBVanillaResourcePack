@@ -1,0 +1,269 @@
+{
+  "namespace": "chat_settings",
+
+  /* Table of Contents
+    Common Objects
+    Chat Settings Button
+    Chat Settings Main Menu
+      Chat Settings Main Menu - Top Button
+      Chat Settings Main Menu - Section Buttons
+      Chat Settings Main Menu - Panel
+    Chat Settings Screen
+  */
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Common Objects
+  /////////////////////////////////////////////////////////////////////////////
+
+  "text_fitting_label": {
+    "type": "label",
+    "size": [ "default", 10 ],
+    "text": "$text",
+    "color": "$text_color"
+  },
+
+  "menu_button_content_left_padding": {
+    "type": "panel",
+    "size": [ 10, 0 ]
+  },
+
+  "menu_button_content_right_padding": {
+    "type": "panel",
+    "size": [ 5, 0 ]
+  },
+
+  // Can be used to vertically center label in a stack_panel
+  "fit_text_panel": {
+    "type": "panel",
+    "size": [ "100%c", "100%" ],
+    "$text|default": "default text",
+    "controls": [ { "label@chat_settings.text_fitting_label": {} } ]
+  },
+
+  // Used to get text to visually align correctly
+  "align_text_panel": {
+    "type": "panel",
+    "size": [ "fill", "100%" ],
+    "$text|default": "default text",
+    "controls": [
+      {
+        "label@chat_settings.text_fitting_label": {
+          "size": [ "100%", 10 ],
+          "text_alignment": "left"
+        }
+      }
+    ]
+  },
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Chat Settings Button
+  /////////////////////////////////////////////////////////////////////////////
+
+  "gamepad_y_centering_panel": {
+    "type": "panel",
+    "size": [ 24, "100% - 2px" ],
+    "controls": [
+      {
+        "gamepad_helper_y@common.gamepad_helper_y": {
+          "$icon_description_bind_type": "none"
+        }
+      }
+    ],
+    "bindings": [
+      {
+        // Hide the centering panel when gamepad helpers are also hidden
+        "binding_name": "#gamepad_helper_visible",
+        "binding_name_override": "#visible"
+      }
+    ]
+  },
+
+  "chat_settings_button_content": {
+    "type": "stack_panel",
+    "orientation": "horizontal",
+    "size": [ "100%c", "100%" ],
+    "controls": [
+      { "open_indicator@chat_settings.text_fitting_label": { "$text": "<" } },
+      { "settings_label@chat_settings.text_fitting_label": { "$text": "chat.settings" } }
+    ]
+  },
+
+  "chat_settings_button@common_buttons.light_content_button": {
+    "$pressed_button_name": "button.open_chat_settings",
+    "$focus_id": "settings_button_focus_id",
+    "size": [ "100%c", "100% - 2px" ],
+    "$anchor": "left_middle",
+
+    // Make the button grow to fit its content
+    "$button_state_panel": "common_buttons.new_ui_width_fitting_button_panel",
+    "$button_type_panel": "common_buttons.width_fitting_button_content_panel",
+    "$button_content": "chat_settings.chat_settings_button_content",
+    "$button_size_override": [ "100%c", "100%" ],
+
+    // There are currently no focusable elements alongside the Chat Settings Button
+    "$focus_override_right": "FOCUS_OVERRIDE_STOP",
+    "$focus_override_left": "FOCUS_OVERRIDE_STOP"
+  },
+
+  "chat_settings_button_panel": {
+    "type": "stack_panel",
+    "orientation": "horizontal",
+    "size": [ "100%c", "100%" ],
+    "controls": [
+      { "gamepad_y_icon@chat_settings.gamepad_y_centering_panel": {} },
+      { "chat_settings_button@chat_settings.chat_settings_button": {} }
+    ],
+    "bindings": [
+      {
+        "binding_name": "#chat_settings_button_enabled",
+        "binding_name_override": "#visible"
+      }
+    ]
+  },
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Chat Settings Main Menu
+  /////////////////////////////////////////////////////////////////////////////
+
+  // Templates //
+
+  "right_symbol_button_content_template": {
+    "type": "stack_panel",
+    "orientation": "horizontal",
+    "size": [ "100%", "100%" ],
+    "$button_text|default": "button text",
+    // The symbol on the right side of the label
+    "$right_symbol|default": "~",
+    "controls": [
+      { "left_padding@chat_settings.menu_button_content_left_padding": {} },
+      { "label@chat_settings.align_text_panel": { "$text": "$button_text" } },
+      { "symbol@chat_settings.fit_text_panel": { "$text": "$right_symbol" } },
+      { "right_padding@chat_settings.menu_button_content_right_padding": {} }
+    ]
+  },
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Chat Settings Main Menu - Top Button
+
+  "main_menu_top_button_content@chat_settings.right_symbol_button_content_template": {
+    "$button_text": "chat.settings",
+    "$right_symbol": "x"
+  },
+
+  "main_menu_top_button@common_buttons.light_content_button": {
+    "size": [ "100%", 30 ],
+    "$button_content": "chat_settings.main_menu_top_button_content",
+    "$pressed_button_name": "button.close_chat_settings",
+
+    "$focus_override_up": "FOCUS_OVERRIDE_STOP",
+    "$focus_override_right": "FOCUS_OVERRIDE_STOP",
+    "$focus_override_left": "FOCUS_OVERRIDE_STOP"
+  },
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Chat Settings Main Menu - Section Buttons
+
+  // Templates //
+
+  "expand_button_content_template@chat_settings.right_symbol_button_content_template": {
+    "$right_symbol": ">"
+  },
+
+  "menu_button_template@common_buttons.light_content_button": {
+    // Note: Children that inherit this template need to define these variables
+    // "$pressed_button_name", "$button_content", "$button_text"
+    "type": "button",
+    "size": "$menu_button_size",
+    "anchor_from": "right_middle",
+    "anchor_to": "right_middle",
+
+    "$focus_override_right": "FOCUS_OVERRIDE_STOP",
+    "$focus_override_left": "FOCUS_OVERRIDE_STOP"
+  },
+
+  // This panel exists so that the button will be right aligned
+  "menu_button_panel_template": {
+    "type": "panel",
+    "size": [ "100%", "100%c" ],
+    // The section button to show in the Chat Settings Main Menu
+    "$menu_button|default": "temp_menu_button",
+    // The size of the section button
+    "$menu_button_size|default": [ "100% - 16px", 30 ],
+    "controls": [ { "button@chat_settings.$menu_button": {} } ]
+  },
+
+  // Buttons //
+
+  // TODO: This button should be replaced once a real feature section button is added i.e. Font, Color
+  "temp_menu_button@chat_settings.menu_button_template": {
+    "$pressed_button_name": "button.temp_name",
+    "$button_content": "chat_settings.expand_button_content_template",
+    // Alter the button text for the content template
+    "$button_text": "Temp Text",
+
+    "$focus_override_down": "FOCUS_OVERRIDE_STOP"
+  },
+
+  "temp_button_panel@chat_settings.menu_button_panel_template": {
+    "$menu_button": "temp_menu_button"
+  },
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Chat Settings Main Menu - Panel
+
+  "chat_settings_main_menu": {
+    "type": "stack_panel",
+    "orientation": "vertical",
+    "size": [ "40%", "100%" ],
+    "anchor_from": "right_middle",
+    "anchor_to": "right_middle",
+    "controls": [
+      { "settings_title_button@chat_settings.main_menu_top_button": {} },
+      { "temp_section_button@chat_settings.temp_button_panel": {} }
+    ]
+  },
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Chat Settings Screen
+  /////////////////////////////////////////////////////////////////////////////
+
+  "screen_background@common.screen_background": {
+    "$screen_background_alpha": 0.5
+  },
+
+  // This stops input from reaching buttons underneath, and can have button_mappings
+  "chat_settings_screen": {
+    "type": "input_panel",
+    "controls": [
+      {
+        "background_button@common_buttons.transparent_content_button": {
+          "$pressed_button_name": "button.close_chat_settings",
+          "$button_content": "chat_settings.screen_background",
+          "$button_content_size": [ "100%", "100%" ],
+          "$button_image_visible": false,
+          "focus_enabled": false,
+          "layer": 0
+        }
+      },
+      { "main_menu@chat_settings.chat_settings_main_menu": { "layer": 5 } }
+    ],
+    "bindings": [
+      {
+        "binding_name": "#chat_settings_main_enabled",
+        "binding_name_override": "#visible"
+      }
+    ],
+    "button_mappings": [
+      {
+        "from_button_id": "button.menu_exit",
+        "to_button_id": "button.chat_settings_menu_cancel",
+        "mapping_type": "global"
+      },
+      {
+        "from_button_id": "button.menu_cancel",
+        "to_button_id": "button.chat_settings_menu_cancel",
+        "mapping_type": "global"
+      }
+    ]
+  }
+}

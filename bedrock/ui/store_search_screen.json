@@ -1,0 +1,211 @@
+{
+  "namespace": "store_search",
+
+  "store_offer_grid_item@common_store.store_offer_grid_item": {
+    "size": [ "25%", "100%" ]
+  },
+
+  "trending_row_content": {
+    "type": "panel",
+    "size": [ "100%", "100%c" ],
+    "anchor_from": "top_middle",
+    "anchor_to": "top_middle",
+    "controls": [
+      {
+        "trending_row_panel": {
+          "type": "stack_panel",
+          "orientation": "vertical",
+          "size": [ "100%", "100%c" ],
+          "anchor_from": "center",
+          "anchor_to": "center",
+          "controls": [
+            {
+              "trending_row_label_panel": {
+                "type": "panel",
+                "size": [ "100%", "100%c" ],
+                "controls": [
+                  {
+                    "trending_row_label": {
+                      "type": "label",
+                      "size": [ "100%", 10 ],
+                      "offset": [ 2, 0 ],
+                      "text": "#trending_row_name",
+                      "color": "$body_text_color",
+                      "bindings": [
+                        {
+                          "binding_type": "collection",
+                          "binding_collection_name": "category_collection",
+                          "binding_name": "#trending_row_name"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "mid_padding": {
+                "type": "panel",
+                "size": [ "100%", 1 ]
+              }
+            },
+            {
+              "trending_offers_grid": {
+                "type": "grid",
+                //------------------------------------------------------------------------
+                // 14.0625% comes from store_item_list.store_offer_grid_item's size
+                //     25%x * 56.25%  = 14.0625%x
+                // The reason for not copying the item list screen is because if you
+                // do, it causes weird sizing issues with the row grids and their sizing
+                //------------------------------------------------------------------------
+                "size": [ "100%", "14.0625%x + 36px" ],
+                "anchor_from": "top_left",
+                "anchor_to": "top_left",
+                "grid_item_template": "store_search.store_offer_grid_item",
+                "grid_dimension_binding": "#trending_offers_dimensions",
+                "collection_name": "offers_collection",
+                "bindings": [
+                  {
+                    "binding_name": "#trending_offers_dimensions"
+                  }
+                ]
+              }
+            },
+            {
+              "bottom_padding": {
+                "type": "panel",
+                "size": [ "100%", 4 ]
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "trending_rows_grid": {
+    "type": "grid",
+    "size": [ "100%", "default" ],
+    "grid_item_template": "store_search.trending_row_content",
+    "grid_dimension_binding": "#trending_rows_dimensions",
+    "collection_name": "category_collection",
+    "bindings": [
+      {
+        "binding_name": "#trending_rows_dimensions"
+      },
+      {
+        "binding_name": "(not #search_active)",
+        "binding_name_override": "#visible"
+      }
+    ]
+  },
+
+  "search_offer_content": {
+    "type": "panel",
+    "size": [ "100%", "100%c" ],
+    "bindings": [
+      {
+        "binding_name": "(not #trending_page_loading_visible)",
+        "binding_name_override": "#visible"
+      }
+    ],
+    "controls": [
+      {
+        "trending_grid@store_search.trending_rows_grid": {}
+      },
+      {
+        "item_list_panel": {
+          "type": "panel",
+          "size": [ "100%", "100%c" ],
+          "controls": [
+            {
+              "item_list_grid@store_item_list.store_offer_grid": {}
+            }
+          ],
+          "bindings": [
+            {
+              "binding_name": "#search_active",
+              "binding_name_override": "#visible"
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  //--------------------------------------------------------------------------------
+  // Screen
+  //--------------------------------------------------------------------------------
+
+  "main_panel": {
+    "type": "input_panel",
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "controls": [
+      {
+        "seach_object@common_store.search_object": {
+          "layer": 6, // Make this on top so the loading bar shows
+          "$search_offer_content": "store_search.search_offer_content"
+        }
+      },
+      {
+        "progress_loading@common_store.progress_loading": {
+          "layer": 5,
+          "bindings": [
+            {
+              "binding_name": "#trending_page_loading_visible",
+              "binding_name_override": "#visible"
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "store_search_screen_content": {
+    "type": "panel",
+    "alpha": "@common_store.screen_fade_in_alpha_anim",
+    "propagate_alpha": true,
+    "disable_anim_fast_forward": true,
+    "controls": [
+      {
+        "main_panel@common_store.store_header_with_coins": {
+          "$child_control": "store_search.main_panel",
+          "$button_text": "store.title"
+        }
+      },
+      {
+        "popup_dialog_factory": {
+          "type": "factory",
+          "control_ids": {
+            "no_store_connection": "@common_store.popup_dialog__no_store_connection",
+            "restore_popup": "@common_store.popup_dialog__restore_popup",
+            "restore_failed": "@common_store.popup_dialog__restore_failed"
+          }
+        }
+      }
+    ]
+  },
+
+  "store_search_screen@common_store.store_base_screen": {
+    "button_mappings": [
+      {
+        "from_button_id": "button.menu_cancel",
+        "to_button_id": "button.menu_exit",
+        "mapping_type": "global"
+      },
+      {
+        "from_button_id": "button.controller_secondary_select",
+        "to_button_id": "button.coin_wallet",
+        "mapping_type": "global"
+      }
+    ],
+    "$default_text_color": [ 0.3, 0.3, 0.3 ],
+    "$screen_content": "store_search.store_search_screen_content",
+    "$header_safezone_control": "common_store.store_top_bar_filler",
+    "$header_bar_control": "common_store.store_top_bar",
+    "$screen_background_control": "common_store.store_background",
+    "$is_full_screen_layout": true
+  }
+
+}

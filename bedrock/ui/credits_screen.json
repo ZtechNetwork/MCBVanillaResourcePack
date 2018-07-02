@@ -1,0 +1,209 @@
+{
+  "namespace": "credits",
+
+  "credits_label_panel": {
+    "type": "panel",
+    "size": [ "100%", "100%c" ],
+    "controls": [
+      {
+        "text": {
+          "type": "label",
+          "color": "$body_text_color",
+          "text": "#credits_text",
+          "size": [ "100%", "default" ]
+        }
+      }
+    ]
+  },
+
+  "padding": {
+    "type": "panel",
+    "$padding|default": [ 0, 30 ],
+    "size": "$padding"
+  },
+
+  "anim_scroll": {
+    "anim_type": "offset",
+    "from": [ 0, 0 ],
+    "to": [ 0, "-100%y-100%" ],
+    "duration": "$credits_duration",
+    "end_event": "scroll_end"
+  },
+
+  "anim_fade_in": {
+    "anim_type": "alpha",
+    "easing": "linear",
+    "duration": 3,
+    "from": 1,
+    "to": 0
+  },
+
+  "anim_fade_out": {
+    "anim_type": "alpha",
+    "easing": "linear",
+    "duration": 3,
+    "from": 0,
+    "to": 1,
+    "end_event": "credits_end"
+  },
+
+  "anim_background_scroll": {
+    "anim_type": "offset",
+    "from": [ 0, "-0%y" ],
+    "to": [ 0, "-25%y" ],
+    "duration": "$background_scroll_duration"
+  },
+
+  "anim_button_wait": {
+    "anim_type": "wait",
+    "duration": 5.0,
+    "destroy_at_end": "skip_button"
+  },
+
+  "fade_in_image": {
+    "type": "image",
+    "texture": "textures/ui/White",
+    "color": [ 0, 0, 0 ],
+    "anims": [
+      "@credits.anim_fade_in"
+    ]
+  },
+
+  "fade_out_image@credits.fade_in_image": {
+    "alpha": 0,
+    "anims": [
+      "@credits.anim_fade_out"
+    ]
+  },
+
+  "credits_stack": {
+    "anchor_from": "bottom_middle",
+    "anchor_to": "top_middle",
+    "size": [ "50%", "default" ],
+    "type": "stack_panel",
+    "orientation": "vertical",
+    "controls": [
+      { "logo@common_art.pause_logo_panel": { } },
+      {
+        "padding@credits.padding": {
+          "$padding": [ 0, 100 ]
+        }
+      }
+    ],
+    "factory": {
+      "name": "credits_text_factory",
+      "control_ids": {
+        "credits_text": "credits_label@credits.credits_label_panel",
+        "padding": "padding@credits.padding"
+      }
+    },
+    "anims": [
+      "@credits.anim_scroll"
+    ]
+  },
+  "skip_panel": {
+    "type": "panel",
+    "layer": 2,
+
+    "controls": [
+      {
+        "skip_button@common_buttons.light_text_form_fitting_button": {
+          "$pressed_button_name": "button.menu_exit",
+          "anchor_from": "bottom_right",
+          "anchor_to": "bottom_right",
+          "$button_text": "credits.skip",
+          "offset": [ -8, -8 ],
+          "bindings": [
+            {
+              "binding_name": "#skip_button_visible",
+              "binding_name_override": "#visible",
+              "binding_type": "global"
+            }
+          ],
+          "anims": [
+            "@credits.anim_button_wait"
+          ]
+        }
+      },
+      {
+        "exit_credits_input_panel": {
+          "type": "input_panel",
+          "button_mappings": [
+            {
+              "from_button_id": "button.menu_cancel",
+              "to_button_id": "button.menu_exit",
+              "mapping_type": "global"
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "credits_screen_content": {
+    "type": "panel",
+    "$credits_duration|default": 500,
+    "controls": [
+      { "credits_stack@credits.credits_stack": { "layer": 1 } },
+      {
+        "vignette_renderer": {
+          "type": "custom",
+          "renderer": "vignette_renderer",
+          "layer": 2,
+          "property_bag": {
+            "opacity_override": 0.0
+          }
+        }
+      },
+      { "fade_in_image@credits.fade_in_image": { "layer": 1 } },
+      {
+        "credits_factory": {
+          "type": "factory",
+          "control_ids": {
+            "fade_out_image": "fade_out_image@credits.fade_out_image",
+            "skip_button": "skip_button@credits.skip_panel"
+          }
+        }
+      },
+      {
+        "whole_screen_input_panel": {
+          "type": "input_panel",
+          "layer": 1,
+          "button_mappings": [
+            {
+              "from_button_id": "button.menu_select",
+              "to_button_id": "button.show_skip",
+              "mapping_type": "global"
+            },
+            {
+              "from_button_id": "button.menu_ok",
+              "to_button_id": "button.show_skip",
+              "mapping_type": "global"
+            },
+            {
+              "from_button_id": "button.menu_cancel",
+              "to_button_id": "button.show_skip",
+              "mapping_type": "global"
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "background@common.dirt_background": {
+    // Background scroll is $credits_duration + fade out
+    "$background_scroll_duration|default": 503,
+    "size": [ "100%", "2000%" ],
+    "tiled_scale": [ 2, 2 ],
+    "layer": 0,
+    "anims": [
+      "@credits.anim_background_scroll"
+    ]
+  },
+
+  "credits_screen@common.base_screen": {
+    "$screen_content": "credits.credits_screen_content",
+    "$screen_bg_content": "credits.background"
+  }
+}

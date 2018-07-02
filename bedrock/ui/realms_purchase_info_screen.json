@@ -1,0 +1,188 @@
+{
+  "namespace": "realms_purchase_info",
+
+  "realms_purchase_info_scroll_content": {
+    "type": "stack_panel",
+    "orientation": "vertical",
+    "size": [ "100%", "default" ],
+    "controls": [
+      {
+        "focusable_element": {
+          "type": "input_panel",
+          "focus_enabled": true,
+          "default_focus_precedence": 0,
+          "size": [ "100%", "1px" ]
+        }
+      },
+      {
+        "padding": {
+          "type": "panel",
+          "size": [ 0, 2 ]
+        }
+      },
+      {
+        "padding2": {
+          "type": "panel",
+          "size": [ 0, 2 ]
+        }
+      },
+      {
+        "purchase_info_panel": {
+          "type": "panel",
+          "size": [ "100%", "100%c" ],
+          "$text_binding_id|default": "#realms_purchase_info",
+          "variables": [
+            {
+              "requires": "($apple_tv)",
+              "$text_binding_id": "#realms_eula_info"
+            }
+          ],
+          "controls": [
+            {
+              "purchase_info_text": {
+                "type": "label",
+                "color": "$body_text_color",
+                "size": [ "100%-4px", "default" ],
+                "text": "$text_binding_id",
+                "bindings": [
+                  {
+                    "binding_name": "$text_binding_id",
+                    "binding_condition": "once"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "ms_privacy_policy_link_panel": {
+          "ignored": "(not $apple_tv)",
+          "type": "panel",
+          "size": [ "100%", "100%c" ],
+          "offset": [ 0, 2 ],
+          "controls": [
+            {
+              "ms_privacy_policy_link_text": {
+                "type": "label",
+                "color": "$body_text_color",
+                "size": [ "100%-4px", "default" ],
+                "text": "realmsPurchaseInfoScreen.microsoftPrivacyPolicy"
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "realms_purchase_info_content": {
+    "type": "panel",
+    "controls": [
+      {
+        "scrolling_panel@common.scrolling_panel": {
+          "$scrolling_content": "realms_purchase_info.realms_purchase_info_scroll_content",
+          "$show_background": false,
+          "$scroll_size": [ 4, "100%-4px" ],
+          "$scrolling_pane_size|default": [ "100%", "default" ]
+        }
+      }
+    ]
+  },
+
+  "view_realms_purchase_info": {
+    "type": "panel",
+    "size": "$realms_create_screen_size",
+    "controls": [
+      {
+        "background_with_buttons@common.common_panel": {
+          "$show_close_button": false,
+          "$dialog_background": "dialog_background_hollow_2",
+          "$fill_alpha": 1
+        }
+      },
+      {
+        "title_text": {
+          "type": "label",
+          "offset": [ 0, 9 ],
+          "size": [ "default", 15 ],
+          "anchor_to": "top_middle",
+          "anchor_from": "top_middle",
+          "layer": 1,
+          "text": "realmsPurchaseInfoScreen.viewSubscriptionInfo",
+          "color": "$title_text_color",
+          "shadow": false
+        }
+      },
+      {
+        "text_content@realms_purchase_info.realms_purchase_info_content": {
+          "anchor_from": "top_left",
+          "anchor_to": "top_left",
+          "offset": [ 10, 22 ],
+          "size": [ "100% - 18px", "100% - 66px" ]
+        }
+      },
+      {
+        "two_buttons_panel": {
+          "type": "panel",
+          "anchor_to": "bottom_middle",
+          "anchor_from": "bottom_middle",
+          "size": [ "100%-14px", 30 ],
+          "offset": [ 0, -7 ],
+          "controls": [
+            {
+              "terms_and_conditions_button@common_buttons.hyperlink_button": {
+                "ignored": "($apple_tv)",
+                "anchor_from": "top_left",
+                "anchor_to": "top_left",
+                "$button_text": "realmsCreateScreen.viewTermsAndConditions",
+                "size": [ "50% - 2px", "100%" ],
+                "$button_text_size": [ "100%", "default" ],
+                "$button_text_max_size": [ "100% - 10px", 20 ],
+                "property_bag": {
+                  "#hyperlink": "https://aka.ms/minecraftrealmsterms"
+                }
+              }
+            },
+            {
+              "right_half_width@popup_dialog.popup_dialog_button": {
+                "ignored": "($apple_tv)",
+                "$pressed_button_name": "button.menu_exit",
+                "size": [ "50% - 2px", "100%" ],
+                "default_focus_precedence": 1,
+                "$button_text": "gui.cancel",
+                "anchor_from": "top_right",
+                "anchor_to": "top_right",
+                "offset": [ 0, 0 ]
+              }
+            },
+            {
+              "right_full_width@popup_dialog.popup_dialog_button": {
+                "ignored": "(not $apple_tv)",
+                "$pressed_button_name": "button.menu_exit",
+                "size": [ "100%", "100%" ],
+                "default_focus_precedence": 1,
+                "$button_text": "gui.ok",
+                "anchor_from": "top_right",
+                "anchor_to": "top_right",
+                "offset": [ 0, 0 ]
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "realms_purchase_info_screen@common.base_screen": {
+    "button_mappings": [
+      {
+        "from_button_id": "button.menu_cancel",
+        "to_button_id": "button.menu_exit",
+        "mapping_type": "global"
+      }
+    ],
+    "$screen_content": "realms_purchase_info.view_realms_purchase_info",
+    "$default_text_color": [ 0.3, 0.3, 0.3 ]
+  }
+}

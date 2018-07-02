@@ -1,0 +1,73 @@
+/********************************************************
++*   (c) Mojang. All rights reserved                       *
++*   (c) Microsoft. All rights reserved.                   *
++*********************************************************/
+
+// Used to control the layout of the Realm Settings screen. Player gets to this screen
+// by selecting the "configure" button in the Realms List screen.
+
+{
+  "namespace": "realms_common",
+
+  // The "envelope" icon that shows in the header panel if you have a pending invite
+  "pending_invites_icon": {
+    "type": "image",
+    "texture": "textures/ui/invite_base",
+    "layer": 5,
+    "anchor_from": "bottom_right",
+    "anchor_to": "bottom_right",
+
+    "bindings": [
+      {
+        "binding_name": "#pending_invites_visible",
+        "binding_name_override": "#visible",
+        "binding_type": "global"
+      }
+    ],
+    "size": [ 16, 16 ]
+  },
+
+  "dark_banner": {
+    "type": "image",
+    "texture": "textures/ui/mainbanners",
+    "layer": 1,
+    "anchor_from": "top_left",
+    "anchor_to": "top_left"
+  },
+
+  "dark_banner_hover@dark_banner": {
+    "texture": "textures/ui/MainBannersHover"
+  },
+
+  // Legacy - do not use
+  "legacy_banner": {
+    "type": "image",
+    "texture": "textures/ui/legacybanner",
+    "layer": 1,
+    "anchor_from": "top_left",
+    "anchor_to": "top_left"
+  },
+
+  "main_banner": {
+    "type": "image",
+    "texture": "textures/ui/mainbanners",
+    "layer": 1,
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "size": [ "100% - 6px", "default" ]
+  },
+
+  "hollow_banner": {
+    "type": "image",
+    "texture": "textures/ui/hollowbanner",
+    "layer": 1,
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "size": [ "100% - 6px", "default" ]
+  },
+
+  "popup_dialog_bg": {
+    "type": "image",
+    "texture": "textures/ui/dialog_background_opaque"
+  }
+}

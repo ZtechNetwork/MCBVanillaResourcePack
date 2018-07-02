@@ -1,0 +1,39 @@
+{
+  "materials": {
+    "version": "1.0.0",
+
+    "barrier": {
+      "+defines": [ "ALPHA_TEST", "TEXEL_AA", "ATLAS_TEXTURE" ],
+      "+states": [ "DisableAlphaWrite" ],
+
+      "vertexFields": [
+        { "field": "Position" },
+        { "field": "UV1" },
+        { "field": "Color" },
+        { "field": "UV0" }
+      ],
+
+      "vertexShader": "shaders/barrier.vertex",
+      "vrGeometryShader": "shaders/uv.geometry",
+      "fragmentShader": "shaders/renderchunk.fragment",
+
+      "msaaSupport": "Both",
+
+      "depthFunc": "LessEqual",
+
+      "blendSrc": "SourceAlpha",
+      "blendDst": "OneMinusSrcAlpha",
+
+      "+samplerStates": [
+        {
+          "samplerIndex": 0,
+          "textureFilter": "TexelAA"
+        },
+        {
+          "samplerIndex": 1,
+          "textureFilter": "Bilinear"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "namespace": "dev_console",
+
+  "keyboard_button_content@common_buttons.button_content_panel": {
+    "controls": [
+      {
+        "keyboard_image@chat.keyboard_image": {
+        }
+      }
+    ]
+  },
+
+  "keyboard_button@common_buttons.light_content_button": {
+    "$pressed_button_name": "keyboard_button",
+    "$button_content": "dev_console.keyboard_button_content",
+    "size": [ 20, 20 ]
+  },
+
+  "send_button_content@common_buttons.button_content_panel": {
+    "controls": [
+      {
+        "send_image@chat.send_image": {
+        }
+      }
+    ]
+  },
+
+  "send_button@common_buttons.light_content_button": {
+    "$pressed_button_name": "button.send",
+    "$button_content": "dev_console.send_button_content",
+    "size": [ 20, 20 ]
+  },
+
+  "chat_stack_panel": {
+    "type": "stack_panel",
+    "orientation": "horizontal",
+    "size": [ "100%", 20 ],
+    "controls": [
+      {
+        "text_edit_box@chat.text_edit_box": {
+        }
+      },
+      {
+        "send_button@dev_console.send_button": {
+        }
+      },
+      {
+        "keyboard_button@dev_console.keyboard_button": {
+        }
+      }
+    ]
+  },
+
+  "main_stack_panel": {
+    "type": "stack_panel",
+    "orientation": "vertical",
+    "size": [ "100%", "100%" ],
+    "controls": [
+      {
+        "messages_scrolling_panel@chat.messages_scrolling_panel": {
+        }
+      },
+      {
+        "chat_stack_panel@dev_console.chat_stack_panel": {
+        }
+      }
+    ]
+  },
+
+  "dev_console_dialog@common_dialogs.main_panel_no_buttons": {
+    "$child_control": "main_stack_panel",
+    "size": [ "100%", "75%" ],
+    "anchor_from": "top_middle",
+    "anchor_to": "top_middle"
+
+  },
+
+  "dev_console_screen@common.base_screen": {
+    "$screen_content": "dev_console.dev_console_dialog",
+    "force_render_below": true,
+    "button_mappings": [
+      {
+        "from_button_id": "button.menu_cancel",
+        "to_button_id": "button.menu_exit",
+        "mapping_type": "global"
+      }
+    ]
+  }
+}

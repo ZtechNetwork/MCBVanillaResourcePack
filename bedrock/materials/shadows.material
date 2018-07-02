@@ -1,0 +1,133 @@
+{
+  "materials": {
+    "version": "1.0.0",
+
+    "shadow_front": {
+      "+states": [
+        "StencilWrite",
+        "DisableColorWrite",
+        "DisableDepthWrite",
+        "EnableStencilTest"
+      ],
+
+      "vertexShader": "shaders/position.vertex",
+      "vrGeometryShader": "shaders/position.geometry",
+      "fragmentShader": "shaders/flat_white.fragment",
+
+      "frontFace": {
+        "stencilFunc": "Always",
+        "stencilFailOp": "Keep",
+        "stencilDepthFailOp": "Keep",
+        "stencilPassOp": "Replace"
+      },
+
+      "backFace": {
+        "stencilFunc": "Always",
+        "stencilFailOp": "Keep",
+        "stencilDepthFailOp": "Keep",
+        "stencilPassOp": "Replace"
+      },
+
+      "stencilRef": 0,
+      "stencilReadMask": 255,
+      "stencilWriteMask": 1,
+      "vertexFields": [
+        { "field": "Position" }
+      ],
+      "msaaSupport": "Both"
+
+    },
+
+    "shadow_back": {
+      "+states": [
+        "StencilWrite",
+        "DisableColorWrite",
+        "DisableDepthWrite",
+        "InvertCulling",
+        "EnableStencilTest"
+      ],
+
+      "vertexShader": "shaders/position.vertex",
+      "vrGeometryShader": "shaders/position.geometry",
+      "fragmentShader": "shaders/flat_white.fragment",
+
+      "frontFace": {
+        "stencilFunc": "Always",
+        "stencilFailOp": "Keep",
+        "stencilDepthFailOp": "Keep",
+        "stencilPassOp": "Replace"
+      },
+
+      "backFace": {
+        "stencilFunc": "Always",
+        "stencilFailOp": "Keep",
+        "stencilDepthFailOp": "Keep",
+        "stencilPassOp": "Replace"
+      },
+
+      "stencilRef": 1,
+      "stencilReadMask": 255,
+      "stencilWriteMask": 1,
+
+      "vertexFields": [
+        { "field": "Position" }
+      ],
+      "msaaSupport": "Both"
+
+    },
+
+    "shadow_overlay": {
+      "+states": [
+        "DisableDepthTest",
+        "DisableCulling",
+        "Blending",
+        "EnableStencilTest"
+      ],
+
+      "vertexShader": "shaders/color.vertex",
+      "vrGeometryShader": "shaders/color.geometry",
+      "fragmentShader": "shaders/shadow_stencil_overlay.fragment",
+
+      "blendSrc": "DestColor",
+      "blendDst": "Zero",
+
+      "frontFace": {
+        "stencilFunc": "Equal",
+        "stencilPass": "Replace"
+      },
+
+      "backFace": {
+        "stencilFunc": "Equal",
+        "stencilPass": "Replace"
+      },
+
+      "stencilRef": 1,
+      "stencilReadMask": 255,
+      "stencilWriteMask": 0,
+
+      "vertexFields": [
+        { "field": "Position" },
+        { "field": "Color" }
+      ],
+      "msaaSupport": "Both"
+
+    },
+
+    "water_hole": {
+      "+states": [
+        "DisableColorWrite"
+      ],
+      "vertexFields": [
+        { "field": "Position" },
+        { "field": "Color" },
+        { "field": "UV0" }
+      ],
+
+      "vertexShader": "shaders/position.vertex",
+      "vrGeometryShader": "shaders/position.geometry",
+      "fragmentShader": "shaders/flat_white.fragment",
+
+      "msaaSupport": "Both"
+    }
+  }
+}

@@ -1,0 +1,417 @@
+{
+  "namespace": "scoreboard",
+
+  "scoreboard_sidebar_score": {
+    "type": "label",
+    "layer": 2,
+    "size": [ "default", 10 ],
+    "text": "#player_score_sidebar",
+    "text_alignment": "right",
+    "anchor_from": "top_right",
+    "anchor_to": "top_right",
+    "inherit_max_sibling_width": true,
+    "locked_alpha": 1.0,
+    "color": "$player_score_color",
+    "bindings": [
+      {
+        "binding_name": "#player_score_sidebar",
+        "binding_type": "collection",
+        "binding_collection_name": "scoreboard_scores"
+      }
+    ]
+  },
+
+  "scoreboard_sidebar_player": {
+    "type": "label",
+    "layer": 2,
+    "text": "#player_name_sidebar",
+    "text_alignment": "left",
+    "size": [ "default", 10 ],
+    "anchor_from": "top_right",
+    "anchor_to": "top_right",
+    "inherit_max_sibling_width": true,
+    "locked_alpha": 1.0,
+    "color": "$player_name_color",
+    "bindings": [
+      {
+        "binding_name": "#player_name_sidebar",
+        "binding_type": "collection",
+        "binding_collection_name": "scoreboard_players"
+      }
+    ]
+  },
+
+  "scoreboard_sidebar": {
+    "type": "panel",
+    "size": [ "100%cm", "100%c" ],
+    "anchor_from": "right_middle",
+    "anchor_to": "right_middle",
+    "ignored": "$scoreboards_feature_disabled",
+    "controls": [
+      {
+        "main": {
+          "type": "image",
+          "texture": "textures/ui/Black",
+          "alpha": 0.5,
+          "size": [ "100%cm", "100%c" ],
+          "controls": [
+            {
+              "displayed_objective": {
+                "type": "label",
+                "size": [ "default", 10 ],
+                "text": "#objective_sidebar_name",
+                "anchor_from": "top_middle",
+                "anchor_to": "top_middle",
+                "text_alignment": "center",
+                "inherit_max_sibling_width": true,
+                "locked_alpha": 1.0,
+                "layer": 1,
+                "color": "$objective_title_color",
+                "bindings": [
+                  {
+                    "binding_name": "#objective_sidebar_name",
+                    "binding_type": "global"
+                  }
+                ]
+              }
+            },
+            {
+              "lists": {
+                "type": "panel",
+                "anchor_from": "top_left",
+                "anchor_to": "top_left",
+                "inherit_max_sibling_width": true,
+                "offset": [ 0, 10 ],
+                "size": [ "100%c", "100%cm" ],
+                "controls": [
+                  {
+                    "players": {
+                      "type": "stack_panel",
+                      "anchor_from": "top_left",
+                      "anchor_to": "top_left",
+                      "size": [ "100%cm", "100%c" ],
+                      "orientation": "vertical",
+                      "collection_name": "scoreboard_players",
+                      "factory": {
+                        "name": "player_list_factory",
+                        "control_name": "scoreboard.scoreboard_sidebar_player"
+                      },
+                      "bindings": [
+                        {
+                          "binding_name": "#scoreboard_sidebar_size",
+                          "binding_type": "global",
+                          "binding_name_override": "#collection_length"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "scores": {
+                      "type": "stack_panel",
+                      "anchor_from": "top_right",
+                      "anchor_to": "top_right",
+                      "size": [ "100%cm", "100%c" ],
+                      "orientation": "vertical",
+                      "collection_name": "scoreboard_scores",
+                      "factory": {
+                        "name": "player_score_factory",
+                        "control_name": "scoreboard.scoreboard_sidebar_score"
+                      },
+                      "bindings": [
+                        {
+                          "binding_name": "#scoreboard_sidebar_size",
+                          "binding_type": "global",
+                          "binding_name_override": "#collection_length"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "bindings": [
+      {
+        "binding_name": "#scoreboard_sidebar_visible",
+        "binding_type": "global",
+        "binding_name_override": "#visible"
+      }
+    ]
+  },
+  "scoreboard_list_player_icon": {
+    "type": "panel",
+    "size": [ 9, 10 ],
+    "controls": [
+      {
+        "icon": {
+          "type": "image",
+          "anchor_from": "left_middle",
+          "anchor_to": "left_middle",
+          "size": [ 8, 10 ],
+          "layer": 2,
+          "bindings": [
+            {
+              "binding_name": "#scoreboard_list_player_icon",
+              "binding_type": "collection",
+              "binding_collection_name": "scoreboard_list_icons",
+              "binding_name_override": "#texture"
+            },
+            {
+              "binding_name": "#scoreboard_list_player_icon_filesystem",
+              "binding_type": "collection",
+              "binding_collection_name": "scoreboard_list_icons",
+              "binding_name_override": "#texture_file_system"
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "scoreboard_list_player_name": {
+    "type": "label",
+    "text": "#scoreboard_list_player_name",
+    "size": [ "default", 10 ],
+    //"inherit_max_sibling_width": true,
+    "shadow": true,
+    "layer": 2,
+    "color": "$player_name_color",
+    "bindings": [
+      {
+        "binding_name": "#scoreboard_list_player_name",
+        "binding_type": "collection",
+        "binding_collection_name": "scoreboard_list_names"
+      }
+    ]
+  },
+
+  "scoreboard_list_player_score": {
+    "type": "label",
+    "text": "#scoreboard_list_player_score",
+    "text_alignment": "right",
+    "size": [ "default", 10 ],
+    //"inherit_max_sibling_width": true,
+    "color": "$player_list_score_color",
+    "shadow": true,
+    "layer": 2,
+    "bindings": [
+      {
+        "binding_name": "#scoreboard_list_player_score",
+        "binding_type": "collection",
+        "binding_collection_name": "scoreboard_list_scores"
+      }
+    ]
+  },
+
+  "scoreboard_list_player_health@hud.heart_renderer": { //SCOREBOARD TODO: heart_renderer probably only shows local players health. might need a new custom one?
+  },
+
+  "scoreboard_list_player_connection": {
+    "type": "image",
+    "size": [ 10, 10 ],
+    "bindings": [
+      {
+        "binding_name": "#scoreboard_list_connection",
+        "binding_type": "collection",
+        "binding_collection_name": "scoreboard_list_connections",
+        "binding_name_override": "#texture"
+      }
+    ]
+  },
+
+  "scoreboard_list_bg": {
+    "type": "image",
+    "texture": "textures/ui/scoreboard_list_background",
+    "size": [ "100%", 10 ]
+  },
+
+  "scoreboard_list_pad": {
+    "type": "panel",
+    "size": [ 2, 10 ]
+  },
+
+  "scoreboard_list": {
+    "type": "panel",
+    "anchor_from": "top_middle",
+    "anchor_to": "top_middle",
+    "size": [ "100%cm", "100%cm" ],
+    "offset": [ 0, "5%" ],
+    "ignored": "$scoreboards_feature_disabled",
+    "controls": [
+      {
+        "bg": {
+          "type": "panel",
+          "size": [ 5, "100%c" ], //Dummy size, will be overwritten
+          "inherit_max_sibling_width": true,
+          "controls": [
+            {
+              "stack": {
+                "type": "stack_panel",
+                "orientation": "vertical",
+                "anchor_from": "top_middle",
+                "anchor_to": "top_middle",
+                "size": [ "100% + 2px", "100%c" ],
+                "collection_name": "scoreboard_list_bgs",
+                "factory": {
+                  "name": "list_bg_factory",
+                  "control_name": "scoreboard.scoreboard_list_bg"
+                },
+                "bindings": [
+                  {
+                    "binding_name": "#scoreboard_list_size",
+                    "binding_type": "global",
+                    "binding_name_override": "#collection_length"
+                  }
+                ]
+              }
+            }
+          ]
+
+        }
+      },
+      {
+        "data": {
+          "type": "stack_panel",
+          "orientation": "horizontal",
+          "anchor_from": "top_middle",
+          "anchor_to": "top_middle",
+          "inherit_max_sibling_width": true,
+          "size": [ "100%c", "100%cm" ],
+          "controls": [
+            {
+              "scoreboard_list_icons_panel": {
+                "type": "stack_panel",
+                "orientation": "vertical",
+                "anchor_from": "top_right",
+                "anchor_to": "top_right",
+                "size": [ "100%cm", "100%c" ],
+                "collection_name": "scoreboard_list_icons",
+                "factory": {
+                  "name": "icon_factory",
+                  "control_name": "scoreboard.scoreboard_list_player_icon"
+                },
+                "bindings": [
+                  {
+                    "binding_name": "#scoreboard_list_size",
+                    "binding_type": "global",
+                    "binding_name_override": "#collection_length"
+                  }
+                ]
+              }
+            },
+            {
+              "scoreboard_list_name_panel": {
+                "type": "stack_panel",
+                "orientation": "vertical",
+                "anchor_from": "top_right",
+                "anchor_to": "top_right",
+                "size": [ "100%cm", "100%c" ],
+                "collection_name": "scoreboard_list_names",
+                "factory": {
+                  "name": "name_factory",
+                  "control_name": "scoreboard.scoreboard_list_player_name"
+                },
+                "bindings": [
+                  {
+                    "binding_name": "#scoreboard_list_size",
+                    "binding_type": "global",
+                    "binding_name_override": "#collection_length"
+                  }
+                ]
+              }
+            },
+            {
+              "pad1@scoreboard.scoreboard_list_pad": {}
+            },
+            {
+              "scoreboard_list_score_panel": {
+                "type": "stack_panel",
+                "orientation": "vertical",
+                "anchor_from": "top_right",
+                "anchor_to": "top_right",
+                "size": [ "100%cm", "100%c" ],
+                "collection_name": "scoreboard_list_scores",
+                "factory": {
+                  "name": "score_factory",
+                  "control_name": "scoreboard.scoreboard_list_player_score"
+                },
+                "bindings": [
+                  {
+                    "binding_name": "#scoreboard_list_size",
+                    "binding_type": "global",
+                    "binding_name_override": "#collection_length"
+                  },
+                  {
+                    "binding_name": "#scoreboard_list_scoretype_score",
+                    "binding_type": "global",
+                    "binding_name_override": "#visible"
+                  }
+                ]
+              }
+            },
+            {
+              "pad2@scoreboard.scoreboard_list_pad": {}
+            },
+            {
+              "scoreboard_list_health_panel": {
+                "type": "stack_panel",
+                "orientation": "vertical",
+                "anchor_from": "top_right",
+                "anchor_to": "top_right",
+                "size": [ "100%cm", "100%c" ],
+                "collection_name": "scoreboard_list_healths",
+                "factory": {
+                  "name": "health_factory",
+                  "control_name": "scoreboard.scoreboard_list_player_health"
+                },
+                "bindings": [
+                  {
+                    "binding_name": "#scoreboard_list_size",
+                    "binding_type": "global",
+                    "binding_name_override": "#collection_length"
+                  },
+                  {
+                    "binding_name": "#scoreboard_list_scoretype_hearts",
+                    "binding_type": "global",
+                    "binding_name_override": "#visible"
+                  }
+                ]
+              }
+            }//,//SCOREBOARD TODO: Build a way to properly track everyones ping
+            //{
+            //  "scoreboard_list_connection_panel": {
+            //    "type": "stack_panel",
+            //    "orientation": "vertical",
+            //    "anchor_from": "top_right",
+            //    "anchor_to": "top_right",
+            //    "size": [ "100%cm", "100%c" ],
+            //    "collection_name": "scoreboard_list_connections",
+            //    "factory": {
+            //      "name": "connection_factory",
+            //      "control_name": "scoreboard.scoreboard_list_player_connection"
+            //    },
+            //    "bindings": [
+            //      {
+            //        "binding_name": "#scoreboard_list_size",
+            //        "binding_type": "global",
+            //        "binding_name_override": "#collection_length"
+            //      }
+            //    ]
+            //  }
+            //}
+          ]
+        }
+      }
+    ],
+    "bindings": [
+      {
+        "binding_name": "#scoreboard_show_tab",
+        "binding_type": "global",
+        "binding_name_override": "#visible"
+      }
+    ]
+  }
+}
