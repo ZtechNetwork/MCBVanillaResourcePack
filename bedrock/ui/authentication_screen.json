@@ -303,11 +303,16 @@
     "type": "label",
     "anchor_from": "top_middle",
     "anchor_to": "top_middle",
+    "text": "#popup_title",
     "layer": 1,
     "offset": [ 0, 8 ],
     "color": "$title_text_color",
     "size": [ "default", 20 ],
-    "text": "authentication.trialMessageTitle"
+    "bindings": [
+      {
+        "binding_name": "#popup_title"
+      }
+    ]
   },
 
   "popup_message": {
@@ -330,7 +335,7 @@
     // All iOS ignores are because we can't direct users to a store that isn't the iOS App Store
     "ignored": "$ios",
     "type": "label",
-    "text": "authentication.clickToPurchaseMessage",
+    "text": "#popup_message_student_text",
     "layer": 1,
     "anchor_from": "bottom_middle",
     "anchor_to": "bottom_middle",
@@ -341,6 +346,9 @@
       {
         "binding_name": "#popup_message_student_visible",
         "binding_name_override": "#visible"
+      },
+      {
+        "binding_name": "#popup_message_student_text"
       }
     ]
   },

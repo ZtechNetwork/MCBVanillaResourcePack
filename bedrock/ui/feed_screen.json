@@ -922,6 +922,9 @@
   //--------------------------------------------------------------------------------
   "popup_dialog__new_post@popup_dialog.popup_dialog": {
     "size": [ 300, 225 ],
+    // _displayCustomModalPopup() may be called while this popup is visible -- need to move it down
+    // from the default layer 100 so that it does not interfere with the second popup
+    "layer": 90,
     "$is_screenshot_visible": "#feed_screenshot_visible",
     "$is_add_screenshot_visible": "#feed_add_screenshot_visible",
     "controls": [

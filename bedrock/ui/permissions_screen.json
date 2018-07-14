@@ -892,7 +892,10 @@
     // new_button_state has a layer of 2
     "layer": 3,
     "orientation": "horizontal",
-    "size": [ "100% - 16px", "100% - 8px" ],
+    "$content_size|default": [ "100% - 16px", "100% - 8px" ],
+    "$content_label_visible|default": true,
+    "size": "$content_size",
+    "$padding_size|default": [ 10, 0 ],
     "controls": [
       {
         "icon_panel": {
@@ -903,14 +906,19 @@
             {
               "dropdown_icon_image": {
                 "type": "image",
-                "texture": "#permission_level_dropdown_icon_texture",
-                "size": [ 15, 15 ],
+                "$dropdown_icon_image_texture_binding|default": "#permission_level_dropdown_icon_texture",
+                "$icon_binding_type_override|default": "global",
+                "$icon_binding_collection_name_override|default": "",
+                "texture": "$dropdown_icon_image_texture_binding",
+                "$dropdown_icon_image_size|default": [ 15, 15 ],
+                "size": "$dropdown_icon_image_size",
                 "offset": [ 0, -1 ],
                 "bindings": [
                   {
-                    "binding_name": "#permission_level_dropdown_icon_texture",
+                    "binding_name": "$dropdown_icon_image_texture_binding",
                     "binding_name_override": "#texture",
-                    "binding_type": "global"
+                    "binding_type": "$icon_binding_type_override",
+                    "binding_collection_name": "$icon_binding_collection_name_override"
                   }
                 ]
               }
@@ -921,7 +929,7 @@
       {
         "dropdown_label_padding": {
           "type": "panel",
-          "size": [ 10, 0 ]
+          "size": "$padding_size"
         }
       },
       {
@@ -941,6 +949,7 @@
                 "max_size": [ "100%", "100%" ],
                 "text": "$options_dropdown_toggle_label_binding",
                 "alpha": "$content_alpha",
+                "visible": "$content_label_visible",
                 "bindings": [
                   {
                     "binding_name": "$options_dropdown_toggle_label_binding",

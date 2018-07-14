@@ -922,8 +922,10 @@
           // we really want this on top of everything
           "layer": 42,
           "size": "$dropdown_scroll_content_size",
-          "anchor_from": "top_left",
-          "anchor_to": "top_left",
+          "$anchor_dropdown_content_from|default": "top_left",
+          "$anchor_dropdown_content_to|default": "top_left",
+          "anchor_from": "$anchor_dropdown_content_from",
+          "anchor_to": "$anchor_dropdown_content_to",
           "modal": true,
           "$dropdown_content_controls|default": [
             {
@@ -1251,6 +1253,7 @@
 
     "$text_edit_box_selected_to_button_id|default": "button.text_edit_box_selected",
     "$text_edit_box_deselected_to_button_id|default": "button.text_edit_box_deselected",
+    "$text_edit_box_button_up_right_of_first_refusal|default": false,
 
     "button_mappings": [
       {
@@ -1258,7 +1261,8 @@
         "to_button_id": "$text_edit_box_selected_to_button_id",
         "handle_select": true,
         "handle_deselect": true,
-        "mapping_type": "pressed"
+        "mapping_type": "pressed",
+        "button_up_right_of_first_refusal": "$text_edit_box_button_up_right_of_first_refusal"
       },
       {
         "from_button_id": "button.menu_select",
@@ -4149,7 +4153,7 @@
               "requires": "$desktop_screen",
               "$narrow_screen_size": [ 280, "100% - 10px" ], // Realms Pending Invitations, Add Players
               "$play_screen_size": [ 282, "100% - 50px" ], // Play Screen
-              "$tabbed_upsell_screen_size": [ 310, 176 ], // Trial Tabbed Upsell Screen
+              "$tabbed_upsell_screen_size": [ 310, 173 ], // Trial Tabbed Upsell Screen
               "$realms_create_screen_size": [ 267, 240 ], // Realms Create
               "$large_screen_size": [ 317, "100% - 10px" ], // Multiplayer Invitations
               "$store_screen_size": [ "100% - 4px", "100% - 4px" ], // Store Home
@@ -4185,7 +4189,7 @@
               "requires": "($pocket_screen or $is_holographic)",
               "$narrow_screen_size": [ "90.3225%", "100% - 4px" ], // Realms Pending Invitations, Add Players
               "$play_screen_size": [ "83.4375%", "100% - 4px" ], // Play Screen
-              "$tabbed_upsell_screen_size": [ 310, 176 ], // Trial Tabbed Upsell Screen
+              "$tabbed_upsell_screen_size": [ 310, 173 ], // Trial Tabbed Upsell Screen
               "$realms_create_screen_size": [ "71.2766%", "100% - 4px" ], // Realms Create
               "$large_screen_size": [ "70.3215%", "100% - 4px" ], // Multiplayer Invitations
               "$store_screen_size": [ "100% - 4px", "100% - 4px" ], // Store Home, purchase Skin Pack

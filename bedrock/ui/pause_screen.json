@@ -676,13 +676,13 @@
     "color": [ 0, 0, 0 ],
     "anchor_from": "right_middle",
     "anchor_to": "right_middle",
-    "visible": "(not $trial)",
+    "visible": "(not $trial or $is_android_trial)",
     "controls": [
       { "player_panel_background@pause.player_panel_background": {} }
     ],
     "bindings": [
       {
-        "binding_name": "#is_full_version",
+        "binding_name": "(#is_full_version or $is_android_trial)",
         "binding_name_override": "#visible",
         "binding_type": "global"
       }

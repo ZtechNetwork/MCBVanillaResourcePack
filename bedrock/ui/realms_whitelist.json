@@ -14,6 +14,16 @@
     "size": [ "100%", 5 ]
   },
 
+  "friends_containing_panel": {
+    "type": "panel",
+    "size": [ "100%", "100%c" ],
+    "controls": [
+      {
+        "friends_panel@realms_whitelist.friends_panel": {}
+      }
+    ]
+  },
+
   "friends_panel": {
     "type": "stack_panel",
     "anchor_from": "top_left",
@@ -29,6 +39,28 @@
       {
         "add_friends_and_invite_link_panel@realms_whitelist.add_friends_and_invite_link_panel": {}
       },
+      {
+        "option_dropdown_permissions@settings_common.option_dropdown": {
+          "$option_label": "permissions.title.settings",
+          "$dropdown_content": "permissions.permission_level_dropdown_content",
+          "$dropdown_area": "friends_panel",
+          "$dropdown_name": "realm_default_permission_dropdown",
+          "$button_type_panel": "permissions.permission_level_dropdown_state_content",
+          "$options_dropdown_toggle_label_binding": "#realm_default_permission_dropdown_toggle_label",
+          "$option_enabled_binding_name": "#realm_default_permission_dropdown_enabled",
+          "$show_option_label": true,
+          "$is_world_settings": true,
+          "$dropdown_scroll_content_size": [ "100%", "385%" ],
+          "size": [ "100%", "50px" ],
+          "bindings": [
+            {
+              "binding_name": "#permission_dropdown_visible",
+              "binding_name_override": "#visible"
+            }
+          ]
+        }
+      },
+      { "player_filter_label@realms_whitelist.player_filter_label": {} },
       { "player_filter_text_box@realms_whitelist.player_filter_text_box": {} },
       {
         "spacing_gap_members_top@realms_whitelist.spacing_gap": {}
@@ -215,6 +247,27 @@
         "binding_name": "#invited_friends_visible",
         "binding_name_override": "#visible",
         "binding_type": "global"
+      }
+    ]
+  },
+
+  "player_filter_label": {
+    "type": "panel",
+    "size": [ "100%", 13 ],
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "controls": [
+      {
+        "player_filter_title": {
+          "type": "label",
+          "color": "$main_header_text_color",
+          "offset": [ 1, -1 ],
+          "text": "realmsInvitationScreen.playerFilterTitle",
+          "font_size": "normal",
+          "anchor_from": "bottom_left",
+          "anchor_to": "bottom_left",
+          "layer": 1
+        }
       }
     ]
   },
@@ -641,7 +694,19 @@
         }
       },
       {
-        "op_deop_button@realms_whitelist.op_deop_button": {}
+        "member_permissions@realms_whitelist.permissions_dropdown": {}
+      },
+      {
+        "op_deop_button@realms_whitelist.op_deop_button": {
+          "bindings": [
+            {
+              "binding_name": "(not #permission_collection_dropdown_visible)",
+              "binding_name_override": "#visible",
+              "binding_type": "collection",
+              "binding_collection_name": "$collection_binding_name"
+            }
+          ]
+        }
       }
     ],
     "bindings": [
@@ -692,6 +757,55 @@
           "bindings": [
             {
               "binding_name": "(not #player_online)",
+              "binding_name_override": "#visible",
+              "binding_type": "collection",
+              "binding_collection_name": "$collection_binding_name"
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "permissions_dropdown": {
+    "type": "stack_panel",
+    "orientation": "vertical",
+    "size": [ "100%c", "100%" ],
+    "controls": [
+      {
+        "vertical_space": {
+          "type": "panel",
+          "size": [ 0, 2 ]
+        }
+      },
+      {
+        "option_dropdown_permissions@settings_common.option_dropdown": {
+          "$dropdown_content": "permissions.permission_level_dropdown_content",
+          "$dropdown_area": "friends_panel",
+          "$dropdown_name": "player_permissions_dropdown",
+          "$dropdown_icon_image_texture_binding": "#collection_permission_level_dropdown_icon_texture",
+          "$anchor_dropdown_content_from": "top_right",
+          "$anchor_dropdown_content_to": "top_right",
+          "$icon_binding_type_override": "collection",
+          "$icon_binding_collection_name_override": "$collection_binding_name",
+          "$button_type_panel": "permissions.permission_level_dropdown_state_content",
+          "$options_dropdown_toggle_label_binding": "#player_permissions_dropdown_toggle_label",
+          "$options_dropdown_toggle_label_binding_type": "collection",
+          "$options_dropdown_toggle_label_binding_collection_name": "$collection_binding_name",
+          "$toggle_binding_type": "collection",
+          "$toggle_grid_collection_name": "$collection_binding_name",
+          "$option_enabled_binding_name": "#player_permissions_dropdown_enabled",
+          "$content_label_visible": false,
+          "$is_world_settings": true,
+          "$show_option_label": false,
+          "$dropdown_icon_image_size": [ 10, 10 ],
+          "$dropdown_scroll_content_size": [ "400%", "600%" ],
+          "$content_size": [ "100% - 9px", "100% - 8px" ],
+          "size": [ "40px", "100%" ],
+          "$option_dropdown_size": [ "100%", "21px" ],
+          "bindings": [
+            {
+              "binding_name": "#permission_collection_dropdown_visible",
               "binding_name_override": "#visible",
               "binding_type": "collection",
               "binding_collection_name": "$collection_binding_name"
@@ -1100,7 +1214,7 @@
     "anchor_from": "top_left",
     "$show_background": false,
     "$scroll_size": [ 5, "100% - 4px" ],
-    "$scrolling_content": "realms_whitelist.friends_panel",
+    "$scrolling_content": "realms_whitelist.friends_containing_panel",
     "$friend_panel_size": [ "100% - 1px", "100%c" ]
   },
 
