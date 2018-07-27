@@ -19,7 +19,6 @@ void main(){
     gl_Position = vec4(outPos.xy, 0.2, 1.0);
 
     texCoord = Position.xy / OutSize;
-    texCoord.y = 1.0 - texCoord.y;
 
     float Deg2Rad = 0.0174532925;
     float InRadians = InRotation * Deg2Rad;

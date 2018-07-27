@@ -16,5 +16,4 @@ void main(){
     oneTexel = 1.0 / InSize;
 
     texCoord = Position.xy / OutSize;
-    texCoord.y = 1.0 - texCoord.y;    
 }

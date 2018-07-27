@@ -16,6 +16,7 @@ void main(){
     vec2 inOutRatio = OutSize / InSize;
     vec2 inScreenRatio = ScreenSize / InSize;
     texCoord = Position.xy / OutSize;
+    texCoord.y = 1.0 - texCoord.y;
     texCoord.x = texCoord.x * inOutRatio.x;
     texCoord.y = texCoord.y * inOutRatio.y;
     texCoord.y -= 1.0 - inScreenRatio.y;
