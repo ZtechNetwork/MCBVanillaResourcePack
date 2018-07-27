@@ -112,6 +112,10 @@
             {
               "binding_name": "#action_button_visible",
               "binding_name_override": "#visible"
+            },
+            {
+              "binding_name": "#action_button_enabled",
+              "binding_name_override": "#enabled"
             }
           ]
         }
@@ -149,14 +153,15 @@
           "$button_focus_precedence|default": 9,
           "$pressed_button_name": "$button_action",
           "$focus_id": "$interact_button_id",
+          "$action_button_enabled_binding|default": "#item_meets_requirements",
           "bindings": [
+            {
+              "binding_name": "$action_button_enabled_binding",
+              "binding_name_override": "#enabled"
+            },
             {
               "binding_name": "#action_button_visible",
               "binding_name_override": "#visible"
-            },
-            {
-              "binding_name": "#item_meets_requirements",
-              "binding_name_override": "#enabled"
             }
           ],
           "variables": [
@@ -324,7 +329,7 @@
           "$button_text_bind_name": "#purchase_with_coins_button_text",
           "$interact_button_id|default": "button.purchase_with_coins",
           "$focus_id": "$interact_button_id",
-          "$button_content": "mashup.large_button_coin_purchase_label"          
+          "$button_content": "mashup.large_button_coin_purchase_label"
         }
       }
     ],
@@ -397,6 +402,15 @@
     ]
   },
 
+  "coin_image@common_store.coin_icon": {
+    "bindings": [
+      {
+        "binding_name": "#coin_visible",
+        "binding_name_override": "#visible"
+      }
+    ]
+  },
+
   "coin_purchase_label": {
     "type": "stack_panel",
     "size": [ "100%", 12 ],
@@ -406,7 +420,7 @@
       {
         "coin_purchase_label_text": {
           "type": "label",
-          "color": "$light_button_default_text_color",
+          "color": "$text_color",
           "size": [ "50% + 2.5px", "default" ],
           "inherit_max_sibling_height": true,
           "text_alignment": "right",
@@ -424,7 +438,7 @@
           "size": [ "100%c", "100%c" ],
           "controls": [
             {
-              "coin@common_store.coin_icon": {
+              "coin@mashup.coin_image": {
                 "offset": [ -3, -1 ]
               }
             }
@@ -595,7 +609,7 @@
       {
         "sales_padding_0": {
           "type": "panel",
-          "size": [ "fill", "100%" ]          
+          "size": [ "fill", "100%" ]
         }
       },
       {
@@ -621,7 +635,7 @@
       {
         "coin_purchase_label_text": {
           "type": "label",
-          "color": "$light_button_default_text_color",
+          "color": "$text_color",
           "size": [ "default", "default" ],
           "inherit_max_sibling_height": true,
           "text_alignment": "right",
@@ -640,7 +654,7 @@
           "size": [ "100%c", "100%c" ],
           "controls": [
             {
-              "coin@common_store.coin_icon": {
+              "coin@mashup.coin_image": {
                 "offset": [ -2, -0.25 ]
               }
             }
@@ -760,7 +774,7 @@
             {
               "coin_purchase_label_text": {
                 "type": "label",
-                "color": "$light_button_default_text_color",
+                "color": "$text_color",
                 "size": [ "default", "default" ],
                 "inherit_max_sibling_height": true,
                 "text_alignment": "right",
@@ -782,7 +796,7 @@
           "size": [ "100%c", "100%" ],
           "controls": [
             {
-              "coin@common_store.coin_icon": {
+              "coin@mashup.coin_image": {
                 "offset": [ -2, -0.25 ]
               }
             }
@@ -1540,7 +1554,8 @@
             {
               "world_interact@mashup.interaction_button_panel": {
                 "$button_text_bind_name": "#world_view_button_text",
-                "$button_action": "button.createWorld"
+                "$button_action": "button.createWorld",
+                "$action_button_enabled_binding": "#action_button_enabled"
               }
             }
           ]
@@ -2142,7 +2157,7 @@
                 "size": [ "100% + 4px", "100% + 12px" ],
                 "anchor_from": "top_left",
                 "anchor_to": "top_left",
-                "layer": 6,
+                "layer": 8,
                 "visible": false,
                 "bindings": [
                   {
@@ -2170,7 +2185,7 @@
                 "font_type": "smooth",
                 "visible": false,
                 "color": "$body_text_color",
-                "layer": 1,
+                "layer": 2,
                 "bindings": [
                   {
                     "binding_type": "view",

@@ -122,6 +122,38 @@
     ]
   },
 
+  "save_button@common_buttons.light_text_button": {
+    "$pressed_button_name": "button.structure_save",
+    "$button_text": "structure_block.save",
+    "bindings": [
+      {
+        "binding_name": "#save_enabled",
+        "binding_name_override": "#enabled",
+        "binding_condition": "visible"
+      },
+      {
+        "binding_name": "#save_visible",
+        "binding_name_override": "#visible"
+      }
+    ]
+  },
+
+  "load_button@common_buttons.light_text_button": {
+    "$pressed_button_name": "button.structure_load",
+    "$button_text": "structure_block.load",
+    "bindings": [
+      {
+        "binding_name": "#load_enabled",
+        "binding_name_override": "#enabled",
+        "binding_condition": "visible"
+      },
+      {
+        "binding_name": "#load_visible",
+        "binding_name_override": "#visible"
+      }
+    ]
+  },
+
   "reset_button@common_buttons.light_text_button": {
     "$pressed_button_name": "button.structure_reset",
     "$button_text": "structure_block.reset"
@@ -383,7 +415,7 @@
         }
       },
       {
-        "include_entities@structure_editor.include_entities_panel": { }
+        "include_entities@structure_editor.include_entities_panel": {}
       },
       {
         "offset_1": {
@@ -392,7 +424,7 @@
         }
       },
       {
-        "include_player@structure_editor.include_player_panel": { }
+        "include_player@structure_editor.include_player_panel": {}
       },
       {
         "offset_2": {
@@ -401,7 +433,7 @@
         }
       },
       {
-        "remove_blocks@structure_editor.remove_blocks_panel": { }
+        "remove_blocks@structure_editor.remove_blocks_panel": {}
       },
       {
         "offset_3": {
@@ -427,6 +459,156 @@
       },
       {
         "offset_5": {
+          "type": "panel",
+          "size": [ "100%", 2 ]
+        }
+      }
+    ]
+  },
+
+  "save_mode_panel": {
+    "type": "stack_panel",
+    "orientation": "vertical",
+    "size": [ "100%", "100%c" ],
+    "bindings": [
+      {
+        "binding_name": "#save_mode_panel_visible",
+        "binding_name_override": "#visible"
+      }
+    ],
+    "controls": [
+      {
+        "size_offset_panel": {
+          "type": "stack_panel",
+          "orientation": "horizontal",
+          "size": [ "100%", "50%c" ],
+          "controls": [
+            {
+              "size_panel@structure_editor.grid_axis_selection_panel": {
+                "size": [ "50%", "100%c" ],
+                "anchor_from": "top_left",
+                "anchor_to": "top_left",
+                "$axis_selection_panel_label": "structure_block.size",
+                "$grid_axis_collection_name": "save_size_grid",
+                "$grid_axis_edit_box_name": "#save_size_edit_box"
+              }
+            },
+            {
+              "offset_panel@structure_editor.grid_axis_selection_panel": {
+                "size": [ "50%", "100%c" ],
+                "anchor_from": "top_left",
+                "anchor_to": "top_left",
+                "$axis_selection_panel_label": "structure_block.offset",
+                "$grid_axis_collection_name": "save_offset_grid",
+                "$grid_axis_edit_box_name": "#save_offset_edit_box"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "offset_0": {
+          "type": "panel",
+          "size": [ "100%", 4 ]
+        }
+      },
+      {
+        "include_entities@structure_editor.include_entities_panel": {}
+      },
+      {
+        "offset_1": {
+          "type": "panel",
+          "size": [ "100%", 2 ]
+        }
+      },
+      {
+        "include_player@structure_editor.include_player_panel": {}
+      },
+      {
+        "offset_2": {
+          "type": "panel",
+          "size": [ "100%", 4 ]
+        }
+      },
+      {
+        "remove_blocks@structure_editor.remove_blocks_panel": {}
+      },
+      {
+        "offset_3": {
+          "type": "panel",
+          "size": [ "100%", 4 ]
+        }
+      },
+      {
+        "save@structure_editor.save_button": {
+          "size": [ "100%", 30 ]
+        }
+      },
+      {
+        "offset_4": {
+          "type": "panel",
+          "size": [ "100%", 4 ]
+        }
+      },
+      {
+        "reset@structure_editor.reset_button": {
+          "size": [ "100%", 30 ]
+        }
+      },
+      {
+        "offset_5": {
+          "type": "panel",
+          "size": [ "100%", 2 ]
+        }
+      }
+    ]
+  },
+
+  "load_mode_panel": {
+    "type": "stack_panel",
+    "orientation": "vertical",
+    "size": [ "100%", "100%c" ],
+    "bindings": [
+      {
+        "binding_name": "#load_mode_panel_visible",
+        "binding_name_override": "#visible"
+      }
+    ],
+    "controls": [
+      {
+        "offset_panel@structure_editor.grid_axis_selection_panel": {
+          "size": [ "100%", "100%c" ],
+          "anchor_from": "top_left",
+          "anchor_to": "top_left",
+          "$axis_selection_panel_label": "structure_block.offset",
+          "$grid_axis_collection_name": "load_offset_grid",
+          "$grid_axis_edit_box_name": "#load_offset_edit_box"
+        }
+      },
+      {
+        "offset_0": {
+          "type": "panel",
+          "size": [ "100%", "100%c + 4px" ]
+        }
+      },
+      {
+        "load@structure_editor.load_button": {
+          "size": [ "100%", 30 ]
+        }
+      },
+      {
+        "offset_1": {
+          "type": "panel",
+          "size": [ "100%", 4 ]
+        }
+      },
+      {
+        "reset@structure_editor.reset_button": {
+          "size": [ "100%", 30 ]
+        }
+      },
+      {
+        "offset_2": {
           "type": "panel",
           "size": [ "100%", 2 ]
         }
@@ -505,7 +687,7 @@
           "size": [ "100%c", "100%" ],
           "controls": [
             {
-              "arrow@settings_common.arrow_image": { }
+              "arrow@settings_common.arrow_image": {}
             }
           ]
         }
@@ -521,6 +703,20 @@
           "ignored": "(not $3DExport_support)",
           "$toggle_state_binding_name": "#structure_export_mode",
           "$radio_label_text": "structure_block.mode.export"
+        }
+      },
+      {
+        "structure_export_mode@settings_common.radio_with_label": {
+          "ignored": "(not $save_support)",
+          "$toggle_state_binding_name": "#structure_save_mode",
+          "$radio_label_text": "structure_block.mode.save"
+        }
+      },
+      {
+        "structure_export_mode@settings_common.radio_with_label": {
+          "ignored":  "(not $load_support)",
+          "$toggle_state_binding_name": "#structure_load_mode",
+          "$radio_label_text": "structure_block.mode.load"
         }
       }
     ]
@@ -567,7 +763,7 @@
               }
             },
             {
-              "mode_panel@structure_editor.mode_panel": { }
+              "mode_panel@structure_editor.mode_panel": {}
             },
             {
               "offset_1": {
@@ -578,6 +774,16 @@
             {
               "export_mode_panel@structure_editor.export_mode_panel": {
                 "ignored": "(not $3DExport_support)"
+              }
+            },
+            {
+              "save_mode_panel@structure_editor.save_mode_panel": {
+                "ignored": "(not $save_support)"
+              }
+            },
+            {
+              "load_mode_panel@structure_editor.load_mode_panel": {
+                "ignored": "(not $load_support)"
               }
             },
             {
@@ -596,7 +802,7 @@
     "type": "panel",
     "controls": [
       {
-        "scrolling_panel@structure_editor.scrolling_panel": { }
+        "scrolling_panel@structure_editor.scrolling_panel": {}
       }
     ]
   },

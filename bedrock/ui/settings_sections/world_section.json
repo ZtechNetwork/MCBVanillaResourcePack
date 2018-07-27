@@ -420,19 +420,21 @@
       },
       {
         "level_seed_selector@settings_common.option_text_edit_with_button": {
-          "ignored": "$education_edition",
+          "ignored": "($education_edition or $is_android_trial)",
           "$option_label": "createWorldScreen.levelSeed",
           "$option_binding_name": "#world_seed",
           "$option_enabled_binding_name": "#world_seed_enabled",
           "$text_box_name": "world_seed_text_box",
-          "$pressed_button_name": "choose_ugc_level_seed",
-          "variables": [
-            {
-              "requires": "$is_android_trial",
-              "$text_edit_box_selected_to_button_id": "button.redirect_to_upsell",
-              "$text_edit_box_button_up_right_of_first_refusal": true
-            }
-          ]
+          "$pressed_button_name": "choose_ugc_level_seed"
+        }
+      },
+      {
+        "level_seed_selector_trial@world_section.option_text_edit_mock_with_button": {
+          "ignored": "($education_edition or not $is_android_trial)",
+          "$option_label": "createWorldScreen.levelSeed",
+          "$option_binding_name": "#world_seed",
+          "$option_enabled_binding_name": "#world_seed_enabled",
+          "$pressed_button_name": "button.redirect_to_upsell"
         }
       },
       {
@@ -1289,6 +1291,63 @@
               "binding_name_override": "#visible"
             }
           ]
+        }
+      },
+      {
+        "platform_multiplayer_warning_label@world_section.cross_platform_warning_label": {
+          "ignored": "(not $nx_os)",
+          "text": "#platform_multiplayer_warning_text",
+          "bindings": [
+            {
+              "binding_name": "#platform_multiplayer_warning_text"
+            },
+            {
+              "binding_name": "#platform_multiplayer_warning_label_visible",
+              "binding_name_override": "#visible"
+            }
+          ]
+        }
+      },
+      {
+        "xbl_multiplayer_warning_label@world_section.cross_platform_warning_label": {
+          "ignored": "(not $is_xboxlive_enabled)",
+          "text": "#xbl_multiplayer_warning_text",
+          "bindings": [
+            {
+              "binding_name": "#xbl_multiplayer_warning_text"
+            },
+            {
+              "binding_name": "#xbl_multiplayer_warning_label_visible",
+              "binding_name_override": "#visible"
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "option_text_edit_mock_with_button@settings_common.option_generic": {
+    "$control_name": "world_section.option_text_edit_mock_control_with_button"
+  },
+
+  "option_text_edit_mock_control_with_button": {
+    "type": "stack_panel",
+    "orientation": "horizontal",
+    "size": [ "100%", "30px" ],
+    "controls": [
+      {
+        "trial_text_box_button@common_buttons.transparent_content_button": {
+          "size": [ "85%", "100%" ],
+          "$default_button_texture": "textures/ui/edit_box_indent",
+          "$hover_button_texture": "textures/ui/edit_box_indent_hover",
+          "$pressed_button_texture": "textures/ui/edit_box_indent",
+          "$locked_button_texture": "textures/ui/edit_box_indent"
+        }
+      },
+      {
+        "seed_arrow_button@common_buttons.light_glyph_button": {
+          "$button_content": "settings_common.arrow_image",
+          "size": [ "fill", "100%" ]
         }
       }
     ]

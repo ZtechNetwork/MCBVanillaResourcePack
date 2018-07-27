@@ -3301,10 +3301,12 @@
               }
             },
             {
-              "no_friends_grid@play.label_content_template": {
+              "no_friends_grid_message@play.label_content_template": {
                 "$label_content_label": "networkWorld.joinable_friends_label",
                 "$label_content_content": "play.information_panel",
-                "$information_panel_label_text": "networkWorld.no_joinable_friends_label",
+                "$information_panel_label_text": "#no_friends_grid_message_text",
+                "$information_panel_label_text_binding_type": "global",
+                "$information_panel_label_text_binding_condition": "always_when_visible",
                 "variables": [
                   {
                     "requires": "$nx_os",
@@ -3313,22 +3315,10 @@
                 ],
                 "bindings": [
                   {
-                    "binding_name": "#no_friends_grid_visible",
-                    "binding_name_override": "#visible"
-                  }
-                ]
-              }
-            },
-            {
-              "no_nex_grid@play.label_content_template": {
-                "$label_content_label": "#no_nex_grid_label",
-                "$label_content_label_binding_type": "global",
-                "$label_content_content": "play.information_panel",
-                "$information_panel_label_text": "#no_nex_info_label",
-                "$information_panel_label_text_binding_type": "global",
-                "bindings": [
+                    "binding_name": "#no_friends_grid_message_text"
+                  },
                   {
-                    "binding_name": "#no_nex_multiplayer_grid_visible",
+                    "binding_name": "#no_friends_grid_message_visible",
                     "binding_name_override": "#visible"
                   }
                 ]
@@ -3358,7 +3348,7 @@
             },
             // Cross Platform Friends Grid
             {
-              "friends_grid_cross_platform@play.label_content_template": {
+              "cross_platform_friends_grid@play.label_content_template": {
                 "$label_content_label": "networkWorld.joinable_cross_platform_friends_label",
                 "$label_content_content": "play.network_world_item_grid",
                 "$network_world_grid_item_template": "play.network_world_item",
@@ -3377,57 +3367,37 @@
               }
             },
             {
-              "cross_platform_no_friends_grid@play.label_content_template": {
+              "no_cross_platform_friends_grid_message@play.label_content_template": {
                 "$label_content_label": "networkWorld.joinable_cross_platform_friends_label",
                 "$label_content_content": "play.information_panel",
-                "$information_panel_label_text": "networkWorld.no_joinable_friends_label",
+                "$information_panel_label_text": "#no_cross_platform_friends_grid_message_text",
+                "$information_panel_label_text_binding_type": "global",
+                "$information_panel_label_text_binding_condition": "always_when_visible",
                 "ignored": "(not $nx_os)",
                 "bindings": [
                   {
-                    "binding_name": "#cross_platform_no_friends_grid_visible",
-                    "binding_name_override": "#visible"
-                  }
-                ]
-              }
-            },
-            {
-              "no_cross_platform_multiplayer_grid@play.label_content_template": {
-                "$label_content_label": "networkWorld.joinable_cross_platform_friends_label",
-                "$label_content_content": "play.information_panel",
-                "$information_panel_label_text": "networkWorld.no_xbl_label",
-                "ignored": "(not $nx_os)",
-                "bindings": [
+                    "binding_name": "#no_cross_platform_friends_grid_message_text"
+                  },
                   {
-                    "binding_name": "#no_cross_platform_multiplayer_grid_visible",
+                    "binding_name": "#no_cross_platform_friends_grid_message_visible",
                     "binding_name_override": "#visible"
                   }
                 ]
               }
             },
             {
-              "disconnected_from_xbl@play.label_content_template": {
+              "general_no_multiplayer_grid_message@play.label_content_template": {
                 "$label_content_label": "networkWorld.joinable_friends_label",
                 "$label_content_content": "play.information_panel",
-                "$information_panel_label_text|default": "networkWorld.connect_to_xbl",
-                "ignored": "($nx_os or $education_edition)",
-                "bindings": [
-                  {
-                    "binding_name": "#disconnected_from_xbl_visible",
-                    "binding_name_override": "#visible"
-                  }
-                ]
-              }
-            },
-            {
-              "disconnected_from_network@play.label_content_template": {
-                "$label_content_label": "networkWorld.joinable_friends_label",
-                "$label_content_content": "play.information_panel",
-                "$information_panel_label_text": "#disconnected_from_network_label",
+                "$information_panel_label_text": "#general_no_multiplayer_grid_message_text",
                 "$information_panel_label_text_binding_type": "global",
                 "$information_panel_label_text_binding_condition": "always_when_visible",
                 "bindings": [
                   {
-                    "binding_name": "#disconnected_from_network_visible",
+                    "binding_name": "#general_no_multiplayer_grid_message_text"
+                  },
+                  {
+                    "binding_name": "#general_no_multiplayer_grid_message_visible",
                     "binding_name_override": "#visible"
                   }
                 ]
