@@ -132,6 +132,30 @@
         }
       },
       {
+        "clear_msa_token": {
+          "ignored": "(not $nx_os and not $is_pregame)",
+          "type": "panel",
+          "size": [ "100%", 32 ],
+          "controls": [
+            {
+              "clear_msa_token_button@settings_common.action_button": {
+                "$pressed_button_name": "button.clear_msa_token_button",
+                "$button_text": "xbox.dev_wrongSandboxSigninFailed.button.clearXbl",
+                "anchor_from": "top_right",
+                "anchor_to": "top_right",
+                "offset": [ 0, 2 ],
+                "bindings": [
+                  {
+                    "binding_name": "#not_logged_in",
+                    "binding_name_override": "#visible"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
         "terms_and_conditions_link_button@settings_common.link_button": {
           "ignored": "($is_holographic or $fire_tv or $apple_tv or not $nx_os)",
           "$button_text": "options.termsAndConditions",
@@ -832,6 +856,7 @@
       },
       {
         "option_toggle_screen_animations@settings_common.option_toggle": {
+          "ignored": "($is_holographic)",
           "$option_label": "options.screenAnimations",
           "$option_binding_name": "#screen_animations",
           "$option_enabled_binding_name": "#screen_animations_enabled",
