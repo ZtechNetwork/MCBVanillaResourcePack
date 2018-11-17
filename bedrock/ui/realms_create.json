@@ -254,12 +254,8 @@
             },
             {
               // Stop-gap measure until we can get hyperlinks to work from VR and FireTV
-              "requires": "($is_holographic or $fire_tv or $apple_tv or $nx_os)",
+              "requires": "($is_holographic or $fire_tv or $nx_os)",
               "$pressed_button_name_privacy_policy": "button.privpol_popup"
-            },
-            {
-              "requires": "($apple_tv)",
-              "$pressed_button_name_terms_conditions": "button.tos_ios_appletv"
             }
           ],
           "controls": [
@@ -498,7 +494,7 @@
           "$used_fonttype": "smooth",
           "$show_option_label": false,
           "$show_for_ios|default": false,
-          "ignored": "(not $apple_tv and not $is_ios)",
+          "ignored": "(not $is_ios)",
           "layer": 3,
           "size": [ "100% - 4px", "100%c" ]
         }
@@ -593,9 +589,10 @@
         "mapping_type": "global"
       },
       {
-        "from_button_id": "button.controller_secondary_select",
+        "from_button_id": "button.controller_select",
         "to_button_id": "button.coin_wallet",
-        "mapping_type": "global"
+        "mapping_type": "global",
+        "ignored": "(not $nx_os)"
       }
     ],
     "$screen_content": "realms_create.realms_create_content",

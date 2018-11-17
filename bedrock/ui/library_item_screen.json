@@ -1,0 +1,376 @@
+{
+  "namespace": "library_item",
+
+  "dark_background": {
+    "type": "image",
+    "texture": "textures/ui/dark_bg"
+  },
+
+  "black_background": {
+    "type": "image",
+    "texture": "textures/ui/Black"
+  },
+
+  "cancel_button@common_buttons.light_text_button": {
+    "$pressed_button_name": "button.download_cancel",
+    "$button_text": "gui.cancel"
+  },
+
+  "modal_progress_panel_with_cancel": {
+    "type": "panel",
+    "size": "$modal_screen_size",
+    "$background_fill_alpha|default": 0.8,
+    "controls": [
+      {
+        "common_panel@common.common_panel": {
+          "$dialog_background": "dialog_background_hollow_2",
+          "$fill_alpha": "$background_fill_alpha",
+          "$show_close_button": false
+        }
+      },
+      {
+        "content": {
+          "type": "panel",
+          "anchor_from": "top_left",
+          "anchor_to": "top_left",
+          // magic offset to make the scroll clipping perfect
+          "size": [ "100%-12px", "100%-60px" ],
+          "offset": [ 6, 20 ],
+          "controls": [
+            {
+              "title_panel@progress.title_panel": {}
+            },
+            {
+              "label": {
+                "type": "label",
+                "color": "$dark_button_default_text_color",
+                "size": [ "100% - 20px", "100% - 20px" ],
+                "anchor_from": "bottom_middle",
+                "anchor_to": "bottom_middle",
+                "layer": 1,
+                "shadow": false,
+                "text": "library.item.progress.body"
+              }
+            },
+            {
+              "progress_loading_bars@progress.progress_loading_bars": {}
+            }
+          ]
+        }
+      },
+      {
+        "cancel_button@library_item.cancel_button": {
+          "anchor_from": "bottom_middle",
+          "anchor_to": "bottom_middle",
+          "size": [ "40%", "20%" ],
+          "offset": [ 0, -8 ]
+        }
+      }
+    ]
+  },
+
+
+  "scrolling_content": {
+    "size": [ "100% - 2px", "100%c + 10px" ],
+    "type": "panel",
+    "controls": [
+      { "content@library_item.content": {} }
+    ]
+  },
+
+  "content": {
+    "type": "stack_panel",
+    "orientation": "vertical",
+    "size": [ "100% - 4px", "100%c - 4px" ],
+    "controls": [
+      { "stack_buffer1@library_item.black_background": { "size": [ "100%", 1 ] } },
+      {
+        "world_top_panel@library_item.black_background": {
+          "size": [ "100%", "100%c" ],
+          "controls": [
+            { "world_top@library_item.world_top": {} }
+          ]
+        }
+      },
+      { "padding_middle@common.empty_panel": { "size": [ "100%", 6 ] } },
+      {
+        "description": {
+          "type": "label",
+          "size": [ "default", 10 ],
+          "text": "library.item.description",
+          "color": "$generic_button_text_color"
+        }
+      },
+      {
+        "world_bottom_panel@library_item.black_background": {
+          "size": [ "100%", "100%c" ],
+          "controls": [
+            { "world_bottom@library_item.world_bottom": {} }
+          ]
+        }
+      }
+    ]
+  },
+
+  "thumbnail": {
+    "type": "image",
+    "bilinear": true,
+    "bindings": [
+      {
+        "binding_name": "#world_texture",
+        "binding_name_override": "#texture"
+      },
+      {
+        "binding_name": "#file_system",
+        "binding_name_override": "#texture_file_system"
+      }
+    ]
+  },
+
+  /*********************
+        BUTTONS
+  *********************/
+
+  "import_button@common_buttons.light_text_button": {
+    "$font_type": "smooth",
+    "layer": 1,
+    "$button_text": "gui.importWorld",
+    "$pressed_button_name": "button.import_world"
+  },
+
+  "launch_button@common_buttons.light_text_button": {
+    "$font_type": "smooth",
+    "layer": 1,
+    "$button_text": "library.item.launch",
+    "$pressed_button_name": "button.launch_world"
+  },
+
+  "author@library.base_label": {
+    "text": "#author",
+    "bindings": [
+      { "binding_name": "#author" }
+    ]
+  },
+
+  "title@library.base_label": {
+    "text": "#title",
+    "font_scale_factor": 1.3,
+    "bindings": [
+      { "binding_name": "#title" }
+    ]
+  },
+
+  "button_panel@library_item.button_panel": {
+    "size": [ "50%", "100%" ],
+    "offset": [ 2, 0 ],
+    "anchor_from": "left_middle",
+    "anchor_to": "left_middle"
+  },
+
+  "summary@library.base_label": {
+    "text": "#subtitle",
+    "bindings": [
+      { "binding_name": "#subtitle" }
+    ]
+  },
+
+  "panel_wrapper": {
+    "type": "panel",
+    "layer": 1,
+    "$content|default": "",
+    "controls": [
+      {
+        "place_holder@library_item.$content": { "layer": 2 }
+      }
+    ]
+  },
+
+  "button_panel": {
+    "type": "panel",
+    "controls": [
+      {
+        "launch_button@library_item.launch_button": {
+          "bindings": [
+            {
+              "binding_name": "#imported_template",
+              "binding_name_override": "#visible"
+            }
+          ]
+        }
+      },
+      {
+        "import_button@library_item.import_button": {
+          "bindings": [
+            {
+              "binding_name": "(not #imported_template)",
+              "binding_name_override": "#visible"
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "world_summary": {
+    "type": "stack_panel",
+    "orientation": "vertical",
+    "size": [ "100%", "100%" ],
+    "controls": [
+      { "padding_top@common.empty_panel": { "size": [ "100%", 3 ] } },
+      {
+        "title_panel@library_item.panel_wrapper": {
+          "size": [ "100%", 15 ],
+          "$content": "title"
+        }
+      },
+      {
+        "author_panel@library_item.panel_wrapper": {
+          "size": [ "100%", 15 ],
+          "$content": "author"
+        }
+      },
+      {
+        "button_panel@library_item.panel_wrapper": {
+          "size": [ "100%", 20 ],
+          "$content": "button_panel"
+        }
+      },
+      { "padding_before_summary@common.empty_panel": { "size": [ "100%", 3 ] } },
+      {
+        "summary_panel@library_item.panel_wrapper": {
+          "size": [ "100%", "fill" ],
+          "$content": "summary"
+        }
+      }
+    ]
+  },
+
+  "world_top": {
+    "type": "stack_panel",
+    "orientation": "horizontal",
+    // thumbnail scaling results in odd y value size
+    "size": [ "100% - 2px", "28.75%x - 2px" ],
+    "controls": [
+      {
+        "world_image_panel": {
+          "size": [ "50%", "100%" ],
+          "type": "stack_panel",
+          "orientation": "vertical",
+          "controls": [
+            {
+              // Image dimensions are 480 x 270 = 56.25% ratio of y to x. The .25% is handled in parent panel so that black borders line up nicely
+              "thumbnail@library_item.thumbnail": {
+                "size": [ "100%", "56%x" ],
+                "layer": 1
+              }
+            }
+          ]
+        }
+      },
+      { "horizontal_padding@common.empty_panel": { "size": [ 1, "100%" ] } },
+      {
+        "world_summary_panel@library_item.dark_background": {
+          "size": [ "fill", "100% - 1px" ],
+          "layer": 1,
+          "controls": [
+            { "world_summary@library_item.world_summary": {} }
+          ]
+        }
+      }
+    ]
+  },
+
+  "world_bottom": {
+    "type": "panel",
+    "size": [ "100% - 2px", "100%c + 2px" ],
+    "layer": 1,
+    "controls": [
+      {
+        "dark_background@library_item.dark_background": {
+          "size": [ "100%", "100%c + 2px" ],
+          "controls": [
+            {
+              "description@library.base_label": {
+                "text": "#description",
+                "min_size": [ "100% - 5px", "17%x" ],
+                "size": [ "100% - 5px", "default" ],
+                "bindings": [
+                  { "binding_name": "#description" }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "modal_panel@common.input_panel": {
+    "layer": 201,
+    "size": [ "100%", "100%" ],
+    "button_mappings": [
+      {
+        "from_button_id": "button.menu_cancel",
+        "to_button_id": "button.download_cancel",
+        "mapping_type": "global"
+      }
+    ],
+    "bindings": [
+      {
+        "binding_name": "#download_in_progress",
+        "binding_name_override": "#visible"
+      }
+    ],
+    "controls": [
+      {
+        "downloading@library_item.modal_progress_panel_with_cancel": {
+          "layer": 1,
+          "$pressed_button_name": "button.download_cancel"
+        }
+      }
+    ]
+  },
+
+  //--------------------------------------------------------------------------------
+  // Screen
+  //--------------------------------------------------------------------------------
+
+  "library_item_screen@common.base_screen": {
+    // When the player hits Esc (menu_cancel button), they can exit the screen
+    "button_mappings": [
+      {
+        "from_button_id": "button.menu_cancel",
+        "to_button_id": "button.menu_exit",
+        "mapping_type": "global"
+      }
+    ],
+    "$is_full_screen_layout": true,
+    "$screen_content": "library_item.screen_content"
+  },
+
+  "screen_content": {
+    "type": "panel",
+    "controls": [
+      { "download_progress_panel@library_item.modal_panel": {} },
+      {
+        "header@common.fullscreen_header": {
+          "$back_button_has_title": true,
+          "$button_text": "gui.back",
+          "$child_control": "library_item.main_panel"
+        }
+      }
+    ]
+  },
+
+  "main_panel@common.scrolling_panel": {
+    "$scroll_size": [ 6, "100% - 4px" ],
+    "anchor_from": "top_middle",
+    "anchor_to": "top_middle",
+    "$scrolling_content": "library_item.scrolling_content",
+    "$scrolling_content_anchor_from": "top_middle",
+    "$scrolling_content_anchor_to": "top_middle",
+    "$scroll_bar_left_padding_size": [ 0, 0 ],
+    "$scroll_bar_right_padding_size": [ 2, 0 ],
+    "$show_background": false
+  }
+}

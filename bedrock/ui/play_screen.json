@@ -837,11 +837,30 @@
       {
         "edit_panel": {
           "type": "panel",
-          "size": [ "100%c - 1px", "100% + 1px" ],
+          "size": [ "100%y - 1px", "100% + 1px" ],
           "controls": [
             {
               "realms_world_edit_button@play.realms_world_edit_button": {
                 "layer": 1
+              }
+            },
+            {
+              "realms_world_expiry_notification_image": {
+                "type": "image",
+                "texture": "textures/ui/update",
+                "offset": [ 0, -10 ],
+                "size": [ 8, 15 ],
+                "anchor_from": "top_right",
+                "anchor_to": "top_right",
+                "layer": 7,
+                "bindings": [
+                  {
+                    "binding_type": "collection",
+                    "binding_name": "#realms_world_expiry_notification_visible",
+                    "binding_name_override": "#visible",
+                    "binding_collection_name": "$realms_worlds_collection_name"
+                  }
+                ]
               }
             }
           ],
@@ -1458,7 +1477,7 @@
               "ping_rate_icon@play.ping_rate_icon": {}
             }
           ],
-          "bindings":[
+          "bindings": [
             {
               "binding_type": "collection",
               "binding_name": "(not #show_ping_loading)",
@@ -1557,12 +1576,12 @@
       },
       {
         "progress@progress.progress_loading_bars": {
-          "size": [32, "100%"],
+          "size": [ 32, "100%" ],
           "layer": 5,
           "color": "$text_color",
-          
 
-          "bindings":[
+
+          "bindings": [
             {
               "binding_type": "collection",
               "binding_name": "#show_ping_loading",
@@ -2253,7 +2272,7 @@
     "controls": [
       {
         "add_friend_button@play.add_friend_button": {
-          "ignored": "($apple_tv or (not $supports_add_friend) or $nx_os)",
+          "ignored": "((not $supports_add_friend) or $nx_os)",
           "size": [ "fill", 30 ],
           "bindings": [
             {
@@ -2268,7 +2287,7 @@
         "padding_1": {
           "type": "panel",
           "size": [ 1, 0 ],
-          "ignored": "($apple_tv or (not $supports_add_friend) or $nx_os)"
+          "ignored": "((not $supports_add_friend) or $nx_os)"
         }
       },
       {
@@ -2327,6 +2346,7 @@
     "layer": 2,
     "$button_text": "networkWorld.joinByCode",
     "$pressed_button_name": "button.menu_network_join_by_code",
+    "$button_focus_precedence":  10,
     "button_mappings": [
       {
         "from_button_id": "button.menu_select",
@@ -2737,7 +2757,7 @@
                       "ignored": "$world_picker_screen",
                       "$pressed_button_name": "button.menu_realm_world_trial",
                       "$button_content": "play.realms_trial_content_panel",
-                      "$button_content_text":  "playscreen.realmsTrialWorld",
+                      "$button_content_text": "playscreen.realmsTrialWorld",
                       "$focus_id": "realms_trial_button"
                     }
                   }
@@ -2762,7 +2782,7 @@
                       "ignored": "$world_picker_screen",
                       "$pressed_button_name": "button.menu_realm_nintendo_first_realm_purchase_button",
                       "$button_content": "play.realms_trial_content_panel",
-                      "$button_content_text":  "playscreen.realmsCreateFirstWorld",
+                      "$button_content_text": "playscreen.realmsCreateFirstWorld",
                       "$focus_id": "realms_trial_button"
                     }
                   }
@@ -2781,6 +2801,22 @@
                 "type": "panel",
                 "size": [ "100%", 4 ]
               }
+            }
+          ]
+        }
+      },
+      {
+        "realms_multiplayer_blocked_panel@play.label_content_template": {
+          "$label_content_label": "playscreen.header.realms",
+          "$label_content_content": "play.information_panel",
+          "$information_panel_label_text": "#multiplayer_sessions",
+          "$information_panel_label_text_binding_type": "global",
+          "$information_panel_label_text_binding_condition": "always_when_visible",
+          "visible": false,
+          "bindings": [
+            {
+              "binding_name": "#multiplayer_blocked_panel_visible",
+              "binding_name_override": "#visible"
             }
           ]
         }
@@ -3115,18 +3151,6 @@
           "size": [ "100%", "100%c - 1px" ],
           "$add_friend_visible": true,
           "$add_friend_not_visible": false,
-          "variables": [
-            {
-              "requires": "(not $is_xboxlive_enabled)",
-              "$add_friend_visible": false,
-              "$add_friend_not_visible": true
-            },
-            {
-              "requires": "$is_android_trial",
-              "$add_friend_visible": true,
-              "$add_friend_not_visible": false
-            }
-          ],
           "controls": [
             {
               "padding_0": {
@@ -3325,7 +3349,7 @@
                 ]
               }
             },
-            // Find Cross-Platform Friends button, only on Switch platform for now 
+            // Find Cross-Platform Friends button, only on Switch platform for now
             {
               "switch_find_cross_platform_friend_button@play.add_friend_button": {
                 "ignored": "(not $nx_os)",
@@ -3999,6 +4023,7 @@
       },
       {
         "x_image@common.close_button": {
+          "ignored": "$game_pad",
           "layer": 1,
           "offset": [ 0, -1 ],
           "anchor_from": "center",
@@ -4246,30 +4271,11 @@
     "$tab_content_panel": "play.edu_tab_content_panel_layout"
   },
 
-  "non_edu_play_screen_panel": {
-    "type": "panel",
-    "variables": [
-      {
-        "requires": "(not $trial or $is_android_trial)",
-        "$main_panel": "play.default_play_screen_panel"
-      },
-      {
-        "requires": "($trial and not $is_android_trial)",
-        "$main_panel": "play.trial_play_screen_panel"
-      }
-    ],
-    "controls": [
-      {
-        "win10_main_control@$main_panel": {}
-      }
-    ]
-  },
-
   //---------------------------------------------------------------------------
   // Screen
   //---------------------------------------------------------------------------
 
-  "play_screen@common.base_screen": {    
+  "play_screen@common.base_screen": {
     "button_mappings": [
       {
         "from_button_id": "button.menu_cancel",
@@ -4298,7 +4304,7 @@
     "variables": [
       {
         "requires": "(not $education_edition)",
-        "$main_panel": "play.non_edu_play_screen_panel"
+        "$main_panel": "play.default_play_screen_panel"
       },
       {
         "requires": "$education_edition",

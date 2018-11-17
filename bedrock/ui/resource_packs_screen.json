@@ -1521,6 +1521,27 @@
         }
       },
       {
+        "world_template_option_lock_panel": {
+          "ignored": "(not $is_world_create and not $is_template_create and not $is_world_edit)",
+          "type": "panel",
+          "size": [ "100%", "100%c + 6px" ],
+          "bindings": [
+            {
+              "binding_name": "#is_world_template_locked",
+              "binding_name_override": "#visible"
+            }
+          ],
+          "controls": [
+            {
+              "option_info_label@settings_common.option_info_label": {
+                "$container_text_binding_name": "#world_template_option_locked_warning_text",
+                "$show_option_label": false
+              }
+            }
+          ]
+        }
+      },
+      {
         "top_panel": {
           "type": "panel",
           "visible": "$top_label_box",
@@ -1534,6 +1555,11 @@
             {
               "binding_name": "#force_pack_download_enabled_level",
               "binding_name_override": "#visible",
+              "binding_type": "$force_pack_download_binding_type"
+            },
+            {
+              "binding_name": "#force_pack_download_locked_level",
+              "binding_name_override": "#enabled",
               "binding_type": "$force_pack_download_binding_type"
             }
           ]

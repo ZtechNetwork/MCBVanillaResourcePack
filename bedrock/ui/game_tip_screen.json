@@ -1,0 +1,60 @@
+{
+  "namespace": "game_tip",
+
+  "anim_game_tip_txt_wait": {
+    "anim_type": "wait",
+    "duration": "$game_tip_item_lifetime",
+    "next": "@game_tip.anim_game_tip_txt_alpha"
+  },
+
+  "anim_game_tip_txt_alpha": {
+    "anim_type": "alpha",
+    "easing": "in_quart",
+    "duration": 1,
+    "from": 1,
+    "to": 0
+  },
+
+  "game_tip_label": {
+    "type": "label",
+    "layer": 31,
+    "text": "#text",
+    "color": "$body_text_color",
+    "size": [ "100%", "default" ],
+    "anims": [
+      "@game_tip.anim_game_tip_txt_wait"
+    ]
+  },
+
+  "game_tip_item": {
+    "type": "panel",
+    "layer": 1,
+    "size": [ "100% + 5px", "100%c" ],
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "controls": [
+      {
+        "game_tip_text@game_tip_label": {
+          "anchor_from": "center",
+          "anchor_to": "center",
+          "offset": [ 2, 0 ]
+        }
+      }
+    ]
+  },
+
+  "game_tip_panel": {
+    "type": "stack_panel",
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "size": [ "100%", "100%c" ],
+    "max_size": [ "100%", "50%" ],
+    "factory": {
+      "name": "game_tip_item_factory",
+      "max_children_size": 1,
+      "control_ids": {
+        "game_tip": "game_tip@game_tip.game_tip_item"
+      }
+    }
+  }
+}

@@ -48,6 +48,31 @@
 
       "+defines": [ "EFFECTS_OFFSET" ],
       "msaaSupport": "Both"
+    },
+
+    "particles_random_test": {
+      "vertexShader": "shaders/particle_random_test.vertex",
+      "vrGeometryShader": "shaders/color_uv.geometry",
+      "fragmentShader": "shaders/color_texture.fragment",
+
+      "vertexFields": [
+        { "field": "Position" },
+        { "field": "Color" },
+        { "field": "Normal" },
+        { "field": "UV0" }
+      ],
+
+      "+samplerStates": [
+        {
+          "samplerIndex": 0,
+          "textureFilter": "Point"
+        }
+      ],
+
+      "+defines": [ "ALPHA_TEST", "ENABLE_FOG" ],
+      "+states": [ "DisableAlphaWrite" ],
+
+      "msaaSupport": "Both"
     }
   }
 }

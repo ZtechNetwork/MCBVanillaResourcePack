@@ -9,13 +9,29 @@
   "content_toggle_image_panel": {
     "ignored": "$ignore_content_toggle_image",
     "type": "panel",
-    "size": [ 24, "100%" ],
+    "size": [ "100%c", "100%" ],
+
     "controls": [
       {
         "icon": {
           "type": "image",
-          "size": [ 24, 24 ],
-          "texture": "$content_toggle_image"
+          "$content_toggle_image_size|default": [ 24, 24 ],
+          "size": "$content_toggle_image_size",
+          "texture": "$content_toggle_image",
+          "$content_toggle_image_color_binding|default": "$f_color_format",
+          "color": "$content_toggle_image_color_binding",
+          "$content_toggle_image_binding_type|default": "none",
+          "$content_toggle_image_binding_condition|default": "none",
+          "$content_toggle_image_binding_type|default": "none",
+          "bindings": [
+            {
+              "binding_name": "$content_toggle_image_color_binding",
+              "binding_name_override": "#color",
+              "binding_type": "$content_toggle_image_binding_type",
+              "binding_condition": "$content_toggle_image_binding_condition",
+              "binding_collection_name": "$toggle_grid_collection_name"
+            }
+          ]
         }
       }
     ]
@@ -28,17 +44,18 @@
       {
         "toggle_label": {
           "type": "label",
-          "size": [ "100%", 10 ],
-          "anchor_from": "left_middle",
-          "anchor_to": "left_middle",
+          "size": [ "100%", "default" ],
+          "max_size": [ "100%", "100% - 4px" ],
           "text_alignment": "left",
           "color": "$text_color",
           "$content_toggle_label|default": "#content_toggle_label",
           "text": "$content_toggle_label",
           "$content_toggle_label_binding_type|default": "none",
+          "$content_toggle_label_binding_condition|default": "none",
           "bindings": [
             {
               "binding_type": "$content_toggle_label_binding_type",
+              "binding_condition": "$content_toggle_label_binding_condition",
               "binding_collection_name": "$toggle_grid_collection_name",
               "binding_name": "$content_toggle_label"
             }

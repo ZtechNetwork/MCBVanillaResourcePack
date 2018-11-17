@@ -10,7 +10,7 @@
     "$selector_stack_panel": "how_to_play.selector_stack_panel",
     "$section_content_panels": "how_to_play.section_content_panels",
     "$header_safezone_control": "common_store.store_top_bar_filler",
-    "$header_bar_control": "common_store.store_top_bar",    
+    "$header_bar_control": "common_store.store_top_bar",
     "$is_full_screen_layout": true
   },
 
@@ -33,7 +33,7 @@
             },
             {
               "action_button@how_to_play_common.action_button": {
-                "ignored": "$education_edition",
+                "ignored": "($education_edition or $trial)",
                 "$pressed_button_name": "patch_notes_button",
                 "$button_text": "howtoplay.whatsNew",
                 "$focus_override_up": "FOCUS_OVERRIDE_STOP"
@@ -56,65 +56,82 @@
             { "inventory_button@how_to_play.inventory_button": { "$toggle_group_forced_index": 2 } },
             { "crafting_button@how_to_play.crafting_button": { "$toggle_group_forced_index": 3 } },
 
+            {
+              "education_category@how_to_play_common.topic_category": {
+                "$category": "education",
+                "ignored": "(not $education_edition)"
+              }
+            },
+            { "world_builder_button@how_to_play.world_builder_button": { "$toggle_group_forced_index": 4 } },
+            { "permission_blocks_button@how_to_play.permission_blocks_button": { "$toggle_group_forced_index": 5 } },
+            { "chalkboard_button@how_to_play.chalkboard_button": { "$toggle_group_forced_index": 6 } },
+            { "chemistry_button@how_to_play.chemistry_button": { "$toggle_group_forced_index": 7 } },
+            { "npc_button@how_to_play.npc_button": { "$toggle_group_forced_index": 8 } },
+            { "camera_button@how_to_play.camera_button": { "$toggle_group_forced_index": 9 } },
+            { "portfolio_button@how_to_play.portfolio_button": { "$toggle_group_forced_index": 10 } },
+            { "classroom_mode_button@how_to_play.classroom_mode_button": { "$toggle_group_forced_index": 11 } },
+            { "code_builder_button@how_to_play.code_builder_button": { "$toggle_group_forced_index": 12 } },
+
             { "first_day_category@how_to_play_common.topic_category": { "$category": "firstDay" } },
-            { "tools_button@how_to_play.tools_button": { "$toggle_group_forced_index": 4 } },
-            { "weapons_button@how_to_play.weapons_button": { "$toggle_group_forced_index": 5 } },
-            { "nightfall_button@how_to_play.nightfall_button": { "$toggle_group_forced_index": 6 } },
-            { "navigation_button@how_to_play.navigation_button": { "$toggle_group_forced_index": 7 } },
-            { "chat_button@how_to_play.chat_button": { "$toggle_group_forced_index": 8 } },
+            { "tools_button@how_to_play.tools_button": { "$toggle_group_forced_index": 13 } },
+            { "weapons_button@how_to_play.weapons_button": { "$toggle_group_forced_index": 14 } },
+            { "nightfall_button@how_to_play.nightfall_button": { "$toggle_group_forced_index": 15 } },
+            { "navigation_button@how_to_play.navigation_button": { "$toggle_group_forced_index": 16 } },
+            { "chat_button@how_to_play.chat_button": { "$toggle_group_forced_index": 17 } },
 
             { "crafting_category@how_to_play_common.topic_category": { "$category": "crafting" } },
-            { "crafting_table_button@how_to_play.crafting_table_button": { "$toggle_group_forced_index": 9 } },
-            { "furnace_button@how_to_play.furnace_button": { "$toggle_group_forced_index": 10 } },
-            { "anvil_button@how_to_play.anvil_button": { "$toggle_group_forced_index": 11 } },
-            { "enchanting_table_button@how_to_play.enchanting_table_button": { "$toggle_group_forced_index": 12 } },
-            { "brewing_stand_button@how_to_play.brewing_stand_button": { "$toggle_group_forced_index": 13 } },
-            { "banners_button@how_to_play.banners_button": { "$toggle_group_forced_index": 14 } },
-            { "fireworks_button@how_to_play.fireworks_button": { "$toggle_group_forced_index": 15 } },
-            { "cauldron_button@how_to_play.cauldron_button": { "$toggle_group_forced_index": 16 } },
-            { "book_and_quill_button@how_to_play.book_and_quill_button": { "$toggle_group_forced_index": 17 } },
-            
+            { "crafting_table_button@how_to_play.crafting_table_button": { "$toggle_group_forced_index": 18 } },
+            { "furnace_button@how_to_play.furnace_button": { "$toggle_group_forced_index": 19 } },
+            { "anvil_button@how_to_play.anvil_button": { "$toggle_group_forced_index": 20 } },
+            { "enchanting_table_button@how_to_play.enchanting_table_button": { "$toggle_group_forced_index": 21 } },
+            { "brewing_stand_button@how_to_play.brewing_stand_button": { "$toggle_group_forced_index": 22 } },
+            { "banners_button@how_to_play.banners_button": { "$toggle_group_forced_index": 23 } },
+            { "fireworks_button@how_to_play.fireworks_button": { "$toggle_group_forced_index": 24 } },
+            { "cauldron_button@how_to_play.cauldron_button": { "$toggle_group_forced_index": 25 } },
+            { "book_and_quill_button@how_to_play.book_and_quill_button": { "$toggle_group_forced_index": 26 } },
+
             { "play_category@how_to_play_common.topic_category": { "$category": "play" } },
-            { "armor_button@how_to_play.armor_button": { "$toggle_group_forced_index": 18 } },
-            { "armor_stand_button@how_to_play.armor_stand_button": { "$toggle_group_forced_index": 19 } },
-            { "beacons_button@how_to_play.beacons_button": { "$toggle_group_forced_index": 20 } },
-            { "conduits_button@how_to_play.conduits_button": { "$toggle_group_forced_index": 21 } },
-            { "beds_button@how_to_play.beds_button": { "$toggle_group_forced_index": 22 } },
-            { "blocks_button@how_to_play.blocks_button": { "$toggle_group_forced_index": 23 } },
-            { "chests_button@how_to_play.chests_button": { "$toggle_group_forced_index": 24 } },
-            { "dyes_button@how_to_play.dyes_button": { "$toggle_group_forced_index": 25 } },
-            { "ender_chest_button@how_to_play.ender_chest_button": { "$toggle_group_forced_index": 26 } },
-            { "farming_button@how_to_play.farming_button": { "$toggle_group_forced_index": 27 } },
-            { "fishing_button@how_to_play.fishing_button": { "$toggle_group_forced_index": 28 } },
-            { "mounts_button@how_to_play.mounts_button": { "$toggle_group_forced_index": 29 } },
-            { "nether_portals_button@how_to_play.nether_portals_button": { "$toggle_group_forced_index": 30 } },
-            { "pets_button@how_to_play.pets_button": { "$toggle_group_forced_index": 31 } },
-            { "ranching_button@how_to_play.ranching_button": { "$toggle_group_forced_index": 32 } },
-            { "transportation_button@how_to_play.transportation_button": { "$toggle_group_forced_index": 33 } },
-            { "trading_button@how_to_play.trading_button": { "$toggle_group_forced_index": 34 } },
+            { "armor_button@how_to_play.armor_button": { "$toggle_group_forced_index": 27 } },
+            { "armor_stand_button@how_to_play.armor_stand_button": { "$toggle_group_forced_index": 28 } },
+            { "beacons_button@how_to_play.beacons_button": { "$toggle_group_forced_index": 29 } },
+            { "conduits_button@how_to_play.conduits_button": { "$toggle_group_forced_index": 30 } },
+            { "beds_button@how_to_play.beds_button": { "$toggle_group_forced_index": 31 } },
+            { "blocks_button@how_to_play.blocks_button": { "$toggle_group_forced_index": 32 } },
+            { "chests_button@how_to_play.chests_button": { "$toggle_group_forced_index": 33 } },
+            { "dyes_button@how_to_play.dyes_button": { "$toggle_group_forced_index": 34 } },
+            { "ender_chest_button@how_to_play.ender_chest_button": { "$toggle_group_forced_index": 35 } },
+            { "farming_button@how_to_play.farming_button": { "$toggle_group_forced_index": 36 } },
+            { "fishing_button@how_to_play.fishing_button": { "$toggle_group_forced_index": 37 } },
+            { "mounts_button@how_to_play.mounts_button": { "$toggle_group_forced_index": 38 } },
+            { "nether_portals_button@how_to_play.nether_portals_button": { "$toggle_group_forced_index": 39 } },
+            { "pets_button@how_to_play.pets_button": { "$toggle_group_forced_index": 40 } },
+            { "ranching_button@how_to_play.ranching_button": { "$toggle_group_forced_index": 41 } },
+            { "scaffolding_button@how_to_play.scaffolding_button": { "$toggle_group_forced_index": 42 } },
+            { "transportation_button@how_to_play.transportation_button": { "$toggle_group_forced_index": 43 } },
+            { "trading_button@how_to_play.trading_button": { "$toggle_group_forced_index": 44 } },
 
             { "options_and_cheats_category@how_to_play_common.topic_category": { "$category": "optionsAndCheats" } },
-            { "game_settings_button@how_to_play.game_settings_button": { "$toggle_group_forced_index": 35 } },
-            { "difficulty_button@how_to_play.difficulty_button": { "$toggle_group_forced_index": 36 } },
-            { "adventure_mode_button@how_to_play.adventure_mode_button": { "$toggle_group_forced_index": 37 } },
-            { "creative_mode_button@how_to_play.creative_mode_button": { "$toggle_group_forced_index": 38 } },
-            { "commands_button@how_to_play.commands_button": { "$toggle_group_forced_index": 39 } },
-            { "host_and_player_options_button@how_to_play.host_and_player_options_button": { "$toggle_group_forced_index": 40 } },
-            { "command_blocks_button@how_to_play.command_blocks_button": { "$toggle_group_forced_index": 41 } },
+            { "game_settings_button@how_to_play.game_settings_button": { "$toggle_group_forced_index": 45 } },
+            { "difficulty_button@how_to_play.difficulty_button": { "$toggle_group_forced_index": 46 } },
+            { "adventure_mode_button@how_to_play.adventure_mode_button": { "$toggle_group_forced_index": 47 } },
+            { "creative_mode_button@how_to_play.creative_mode_button": { "$toggle_group_forced_index": 48 } },
+            { "commands_button@how_to_play.commands_button": { "$toggle_group_forced_index": 49 } },
+            { "host_and_player_options_button@how_to_play.host_and_player_options_button": { "$toggle_group_forced_index": 50 } },
+            { "command_blocks_button@how_to_play.command_blocks_button": { "$toggle_group_forced_index": 51 } },
 
             { "engineering_category@how_to_play_common.topic_category": { "$category": "engineering" } },
-            { "redstone_button@how_to_play.redstone_button": { "$toggle_group_forced_index": 42 } },
-            { "hoppers_button@how_to_play.hoppers_button": { "$toggle_group_forced_index": 43 } },
-            { "droppers_button@how_to_play.droppers_button": { "$toggle_group_forced_index": 44 } },
-            { "dispensers_button@how_to_play.dispensers_button": { "$toggle_group_forced_index": 45 } },
-            { "jukebox_button@how_to_play.jukebox_button": { "$toggle_group_forced_index": 46 } },
+            { "redstone_button@how_to_play.redstone_button": { "$toggle_group_forced_index": 52 } },
+            { "hoppers_button@how_to_play.hoppers_button": { "$toggle_group_forced_index": 53 } },
+            { "droppers_button@how_to_play.droppers_button": { "$toggle_group_forced_index": 54 } },
+            { "dispensers_button@how_to_play.dispensers_button": { "$toggle_group_forced_index": 55 } },
+            { "jukebox_button@how_to_play.jukebox_button": { "$toggle_group_forced_index": 56 } },
 
             { "the_end_category@how_to_play_common.topic_category": { "$category": "theEnd" } },
-            { "eye_of_ender_button@how_to_play.eye_of_ender_button": { "$toggle_group_forced_index": 47 } },
-            { "the_end_button@how_to_play.the_end_button": { "$toggle_group_forced_index": 48 } },
-            { "end_cities_button@how_to_play.end_cities_button": { "$toggle_group_forced_index": 49 } },
-            { "elytra_button@how_to_play.elytra_button": { "$toggle_group_forced_index": 50 } },
-            { "shulker_boxes_button@how_to_play.shulker_boxes_button": { "$toggle_group_forced_index": 51 } },
+            { "eye_of_ender_button@how_to_play.eye_of_ender_button": { "$toggle_group_forced_index": 57 } },
+            { "the_end_button@how_to_play.the_end_button": { "$toggle_group_forced_index": 58 } },
+            { "end_cities_button@how_to_play.end_cities_button": { "$toggle_group_forced_index": 59 } },
+            { "elytra_button@how_to_play.elytra_button": { "$toggle_group_forced_index": 60 } },
+            { "shulker_boxes_button@how_to_play.shulker_boxes_button": { "$toggle_group_forced_index": 61 } },
 
             {
               "enhanced_play_category@how_to_play_common.topic_category": {
@@ -124,13 +141,13 @@
             },
             {
               "multiplayer_button@how_to_play.multiplayer_button": {
-                "$toggle_group_forced_index": 52,
+                "$toggle_group_forced_index": 62,
                 "ignored": "$education_edition"
               }
             },
             {
               "realms_button@how_to_play.realms_button": {
-                "$toggle_group_forced_index": 53,
+                "$toggle_group_forced_index": 63,
                 "ignored": "($education_edition or (not $is_realms_enabled and $nx_os))",
                 "bindings": [
                   {
@@ -142,19 +159,19 @@
             },
             {
               "servers_button@how_to_play.servers_button": {
-                "$toggle_group_forced_index": 54,
+                "$toggle_group_forced_index": 64,
                 "ignored": "($education_edition or ($ignore_3rd_party_servers and $nx_os))"
               }
             },
             {
               "the_store_button@how_to_play.the_store_button": {
-                "$toggle_group_forced_index": 55,
+                "$toggle_group_forced_index": 65,
                 "ignored": "$education_edition"
               }
             },
             {
               "resource_and_behavior_packs_button@how_to_play.resource_and_behavior_packs_button": {
-                "$toggle_group_forced_index": 56,
+                "$toggle_group_forced_index": 66,
                 "ignored": "$education_edition"
               }
             },
@@ -181,67 +198,77 @@
           "type": "stack_panel",
           "controls": [
             {
-              "section_contents_header@how_to_play_common.section_contents_header": { }
+              "section_contents_header@how_to_play_common.section_contents_header": {}
             },
-            { "adventure_mode_section@how_to_play.adventure_mode_section": { } },
-            { "anvil_section@how_to_play.anvil_section": { } },
-            { "armor_section@how_to_play.armor_section": { } },
-            { "armor_stand_section@how_to_play.armor_stand_section": { } },
-            { "banners_section@how_to_play.banners_section": { } },
-            { "beacons_section@how_to_play.beacons_section": { } },
-            { "conduits_section@how_to_play.conduits_section": { } },
-            { "beds_section@how_to_play.beds_section": { } },
-            { "blocks_section@how_to_play.blocks_section": { } },
-            { "book_and_quill_section@how_to_play.book_and_quill_section": { } },
-            { "brewing_stand_section@how_to_play.brewing_stand_section": { } },
-            { "cauldron_section@how_to_play.cauldron_section": { } },
-            { "chat_section@how_to_play.chat_section": { } },
-            { "chests_section@how_to_play.chests_section": { } },
-            { "command_blocks_section@how_to_play.command_blocks_section": { } },
-            { "commands_section@how_to_play.commands_section": { } },
-            { "controls_section@how_to_play.controls_section": { } },
-            { "crafting_section@how_to_play.crafting_section": { } },
-            { "crafting_table_section@how_to_play.crafting_table_section": { } },
-            { "creative_mode_section@how_to_play.creative_mode_section": { } },
-            { "difficulty_section@how_to_play.difficulty_section": { } },
-            { "dispensers_section@how_to_play.dispensers_section": { } },
-            { "droppers_section@how_to_play.droppers_section": { } },
-            { "dyes_section@how_to_play.dyes_section": { } },
-            { "elytra_section@how_to_play.elytra_section": { } },
-            { "enchanting_table_section@how_to_play.enchanting_table_section": { } },
-            { "end_cities_section@how_to_play.end_cities_section": { } },
-            { "ender_chest_section@how_to_play.ender_chest_section": { } },
-            { "eye_of_ender_section@how_to_play.eye_of_ender_section": { } },
-            { "farming_section@how_to_play.farming_section": { } },
-            { "fireworks_section@how_to_play.fireworks_section": { } },
-            { "fishing_section@how_to_play.fishing_section": { } },
-            { "furnace_section@how_to_play.furnace_section": { } },
-            { "game_settings_section@how_to_play.game_settings_section": { } },
-            { "hoppers_section@how_to_play.hoppers_section": { } },
-            { "host_and_player_options_section@how_to_play.host_and_player_options_section": { } },
-            { "hud_section@how_to_play.hud_section": { } },
-            { "inventory_section@how_to_play.inventory_section": { } },
-            { "jukebox_section@how_to_play.jukebox_section": { } },
-            { "mounts_section@how_to_play.mounts_section": { } },
+            { "adventure_mode_section@how_to_play.adventure_mode_section": {} },
+            { "anvil_section@how_to_play.anvil_section": {} },
+            { "armor_section@how_to_play.armor_section": {} },
+            { "armor_stand_section@how_to_play.armor_stand_section": {} },
+            { "banners_section@how_to_play.banners_section": {} },
+            { "beacons_section@how_to_play.beacons_section": {} },
+            { "conduits_section@how_to_play.conduits_section": {} },
+            { "beds_section@how_to_play.beds_section": {} },
+            { "blocks_section@how_to_play.blocks_section": {} },
+            { "book_and_quill_section@how_to_play.book_and_quill_section": {} },
+            { "brewing_stand_section@how_to_play.brewing_stand_section": {} },
+            { "cauldron_section@how_to_play.cauldron_section": {} },
+            { "chat_section@how_to_play.chat_section": {} },
+            { "chests_section@how_to_play.chests_section": {} },
+            { "command_blocks_section@how_to_play.command_blocks_section": {} },
+            { "commands_section@how_to_play.commands_section": {} },
+            { "controls_section@how_to_play.controls_section": {} },
+            { "world_builder_section@how_to_play.world_builder_section": { "ignored": "(not $education_edition)" } },
+            { "permission_blocks_section@how_to_play.permission_blocks_section": { "ignored": "(not $education_edition)" } },
+            { "chalkboard_section@how_to_play.chalkboard_section": { "ignored": "(not $education_edition)" } },
+            { "chemistry_section@how_to_play.chemistry_section": { "ignored": "(not $education_edition)" } },
+            { "npc_section@how_to_play.npc_section": { "ignored": "(not $education_edition)" } },
+            { "camera_section@how_to_play.camera_section": { "ignored": "(not $education_edition)" } },
+            { "portfolio_section@how_to_play.portfolio_section": { "ignored": "(not $education_edition)" } },
+            { "classroom_mode_section@how_to_play.classroom_mode_section": { "ignored": "(not $education_edition)" } },
+            { "code_builder_section@how_to_play.code_builder_section": { "ignored": "(not $education_edition)" } },
+            { "crafting_section@how_to_play.crafting_section": {} },
+            { "crafting_table_section@how_to_play.crafting_table_section": {} },
+            { "creative_mode_section@how_to_play.creative_mode_section": {} },
+            { "difficulty_section@how_to_play.difficulty_section": {} },
+            { "dispensers_section@how_to_play.dispensers_section": {} },
+            { "droppers_section@how_to_play.droppers_section": {} },
+            { "dyes_section@how_to_play.dyes_section": {} },
+            { "elytra_section@how_to_play.elytra_section": {} },
+            { "enchanting_table_section@how_to_play.enchanting_table_section": {} },
+            { "end_cities_section@how_to_play.end_cities_section": {} },
+            { "ender_chest_section@how_to_play.ender_chest_section": {} },
+            { "eye_of_ender_section@how_to_play.eye_of_ender_section": {} },
+            { "farming_section@how_to_play.farming_section": {} },
+            { "fireworks_section@how_to_play.fireworks_section": {} },
+            { "fishing_section@how_to_play.fishing_section": {} },
+            { "furnace_section@how_to_play.furnace_section": {} },
+            { "game_settings_section@how_to_play.game_settings_section": {} },
+            { "hoppers_section@how_to_play.hoppers_section": {} },
+            { "host_and_player_options_section@how_to_play.host_and_player_options_section": {} },
+            { "hud_section@how_to_play.hud_section": {} },
+            { "inventory_section@how_to_play.inventory_section": {} },
+            { "jukebox_section@how_to_play.jukebox_section": {} },
+            { "mounts_section@how_to_play.mounts_section": {} },
             { "multiplayer_section@how_to_play.multiplayer_section": { "ignored": "$education_edition" } },
-            { "navigation_section@how_to_play.navigation_section": { } },
-            { "nether_portals_section@how_to_play.nether_portals_section": { } },
-            { "nightfall_section@how_to_play.nightfall_section": { } },
-            { "pets_section@how_to_play.pets_section": { } },
-            { "ranching_section@how_to_play.ranching_section": { } },
+            { "navigation_section@how_to_play.navigation_section": {} },
+            { "nether_portals_section@how_to_play.nether_portals_section": {} },
+            { "nightfall_section@how_to_play.nightfall_section": {} },
+            { "pets_section@how_to_play.pets_section": {} },
+            { "ranching_section@how_to_play.ranching_section": {} },
             { "realms_section@how_to_play.realms_section": { "ignored": "($education_edition or (not $is_realms_enabled and $nx_os))" } },
-            { "redstone_section@how_to_play.redstone_section": { } },
+            { "redstone_section@how_to_play.redstone_section": {} },
             { "resource_and_behavior_packs_section@how_to_play.resource_and_behavior_packs_section": { "ignored": "$education_edition" } },
+            { "scaffolding_section@how_to_play.scaffolding_section": {} },
             { "servers_section@how_to_play.servers_section": { "ignored": "($education_edition or ($ignore_3rd_party_servers and $nx_os))" } },
-            { "shulker_boxes_section@how_to_play.shulker_boxes_section": { } },
-            { "the_end_section@how_to_play.the_end_section": { } },
+            { "shulker_boxes_section@how_to_play.shulker_boxes_section": {} },
+            { "the_end_section@how_to_play.the_end_section": {} },
             { "the_store_section@how_to_play.the_store_section": { "ignored": "$education_edition" } },
-            { "tools_section@how_to_play.tools_section": { } },
-            { "trading_section@how_to_play.trading_section": { } },
-            { "transportation_section@how_to_play.transportation_section": { } },
-            { "weapons_section@how_to_play.weapons_section": { } },
+            { "tools_section@how_to_play.tools_section": {} },
+            { "trading_section@how_to_play.trading_section": {} },
+            { "transportation_section@how_to_play.transportation_section": {} },
+            { "weapons_section@how_to_play.weapons_section": {} },
             {
-              "section_contents_footer@how_to_play_common.section_contents_footer": { }
+              "section_contents_footer@how_to_play_common.section_contents_footer": {}
             }
           ]
         }
@@ -623,7 +650,7 @@
       }
     ]
   },
-  
+
   "conduits_button@how_to_play_common.section_toggle_button": {
     "$section_topic": "conduits"
   },
@@ -925,7 +952,7 @@
         }
       },
       {
-        "paragraph_4_touch@how_to_play_common.paragraph_touch" : {
+        "paragraph_4_touch@how_to_play_common.paragraph_touch": {
           "$text": "howtoplay.cauldron.text.4.touch"
         }
       },
@@ -1377,6 +1404,390 @@
       {
         "paragraph_8_windowsmr_controller@how_to_play_common.paragraph_windowsmr_controller": {
           "$text": "howtoplay.controls.text.8.windowsmr_controller"
+        }
+      }
+    ]
+  },
+
+  "world_builder_button@how_to_play_common.edu_section_toggle_button": {
+    "$section_topic": "worldBuilder"
+  },
+
+  "world_builder_section@how_to_play_common.main_sections": {
+    "bindings": [
+      {
+        "binding_type": "view",
+        "source_control_name": "worldBuilder_button_toggle",
+        "source_property_name": "#toggle_state",
+        "target_property_name": "#visible"
+      }
+    ],
+    "controls": [
+      {
+        "paragraph_1@how_to_play_common.paragraph": {
+          "$text": "howtoplay.worldBuilder.text.1"
+        }
+      },
+      { "padding_1@how_to_play_common.padding": {} },
+      {
+        "paragraph_2@how_to_play_common.paragraph": {
+          "$text": "howtoplay.worldBuilder.text.2"
+        }
+      },
+      { "padding_2@how_to_play_common.padding": {} },
+      {
+        "paragraph_3@how_to_play_common.paragraph": {
+          "$text": "howtoplay.worldBuilder.text.3"
+        }
+      },
+      { "padding_3@how_to_play_common.small_padding": {} },
+      {
+        "paragraph_4@how_to_play_common.paragraph": {
+          "$text": "howtoplay.worldBuilder.text.4"
+        }
+      },
+      { "padding_4@how_to_play_common.padding": {} },
+      {
+        "paragraph_5@how_to_play_common.paragraph": {
+          "$text": "howtoplay.worldBuilder.text.5"
+        }
+      },
+      { "padding_5@how_to_play_common.small_padding": {} },
+      {
+        "paragraph_6@how_to_play_common.paragraph": {
+          "$text": "howtoplay.worldBuilder.text.6"
+        }
+      },
+      {
+        "paragraph_7@how_to_play_common.paragraph": {
+          "$text": "howtoplay.worldBuilder.text.7"
+        }
+      },
+      { "padding_7@how_to_play_common.padding": {} },
+      {
+        "paragraph_8@how_to_play_common.paragraph": {
+          "$text": "howtoplay.worldBuilder.text.8"
+        }
+      },
+      { "padding_8@how_to_play_common.small_padding": {} },
+      {
+        "paragraph_9@how_to_play_common.paragraph": {
+          "$text": "howtoplay.worldBuilder.text.9"
+        }
+      }
+    ]
+  },
+
+  "permission_blocks_button@how_to_play_common.edu_section_toggle_button": {
+    "$section_topic": "permissionBlocks"
+  },
+
+  "permission_blocks_section@how_to_play_common.main_sections": {
+    "bindings": [
+      {
+        "binding_type": "view",
+        "source_control_name": "permissionBlocks_button_toggle",
+        "source_property_name": "#toggle_state",
+        "target_property_name": "#visible"
+      }
+    ],
+    "controls": [
+      {
+        "paragraph_1@how_to_play_common.paragraph": {
+          "$text": "howtoplay.permissionBlocks.text.1"
+        }
+      },
+      { "padding_1@how_to_play_common.padding": {} },
+      {
+        "header_1@how_to_play_common.header": {
+          "$text": "howtoplay.permissionBlocks.title.1"
+        }
+      },
+      {
+        "paragraph_2@how_to_play_common.paragraph": {
+          "$text": "howtoplay.permissionBlocks.text.2"
+        }
+      },
+      { "padding_3@how_to_play_common.padding": {} },
+      {
+        "paragraph_3@how_to_play_common.paragraph": {
+          "$text": "howtoplay.permissionBlocks.text.3"
+        }
+      },
+      { "padding_4@how_to_play_common.padding": {} },
+      {
+        "paragraph_4@how_to_play_common.paragraph": {
+          "$text": "howtoplay.permissionBlocks.text.4"
+        }
+      },
+      { "padding_5@how_to_play_common.padding": {} },
+      {
+        "paragraph_5@how_to_play_common.paragraph": {
+          "$text": "howtoplay.permissionBlocks.text.5"
+        }
+      },
+      { "padding_7@how_to_play_common.padding": {} },
+      {
+        "header_2@how_to_play_common.header": {
+          "$text": "howtoplay.permissionBlocks.title.2"
+        }
+      },
+      {
+        "paragraph_6@how_to_play_common.paragraph": {
+          "$text": "howtoplay.permissionBlocks.text.6"
+        }
+      }
+    ]
+  },
+
+  "chalkboard_button@how_to_play_common.edu_section_toggle_button": {
+    "$section_topic": "chalkboard"
+  },
+
+  "chalkboard_section@how_to_play_common.main_sections": {
+    "bindings": [
+      {
+        "binding_type": "view",
+        "source_control_name": "chalkboard_button_toggle",
+        "source_property_name": "#toggle_state",
+        "target_property_name": "#visible"
+      }
+    ],
+    "controls": [
+      {
+        "paragraph_1_keyboard@how_to_play_common.paragraph_keyboard": {
+          "$text": "howtoplay.chalkboard.text.1"
+        }
+      },
+      {
+        "paragraph_1_gamepad@how_to_play_common.paragraph_gamepad": {
+          "$text": "howtoplay.chalkboard.text.1"
+        }
+      },
+      {
+        "paragraph_1_touch@how_to_play_common.paragraph_touch": {
+          "$text": "howtoplay.chalkboard.text.1.touch"
+        }
+      }
+    ]
+  },
+
+  "chemistry_button@how_to_play_common.edu_section_toggle_button": {
+    "$section_topic": "chemistry"
+  },
+
+  "chemistry_section@how_to_play_common.main_sections": {
+    "bindings": [
+      {
+        "binding_type": "view",
+        "source_control_name": "chemistry_button_toggle",
+        "source_property_name": "#toggle_state",
+        "target_property_name": "#visible"
+      }
+    ],
+    "controls": [
+      {
+        "paragraph_1@how_to_play_common.paragraph": {
+          "$text": "howtoplay.chemistry.text.1"
+        }
+      },
+      { "padding_1@how_to_play_common.padding": {} },
+      {
+        "paragraph_2@how_to_play_common.paragraph": {
+          "$text": "howtoplay.chemistry.text.2"
+        }
+      }
+    ]
+  },
+
+  "npc_button@how_to_play_common.edu_section_toggle_button": {
+    "$section_topic": "npc"
+  },
+
+  "npc_section@how_to_play_common.main_sections": {
+    "bindings": [
+      {
+        "binding_type": "view",
+        "source_control_name": "npc_button_toggle",
+        "source_property_name": "#toggle_state",
+        "target_property_name": "#visible"
+      }
+    ],
+    "controls": [
+      {
+        "paragraph_1@how_to_play_common.paragraph": {
+          "$text": "howtoplay.npc.text.1"
+        }
+      },
+      { "padding_1@how_to_play_common.padding": {} },
+      {
+        "paragraph_2@how_to_play_common.paragraph": {
+          "$text": "howtoplay.npc.text.2"
+        }
+      },
+      { "padding_2@how_to_play_common.padding": {} },
+      {
+        "paragraph_3@how_to_play_common.paragraph": {
+          "$text": "howtoplay.npc.text.3"
+        }
+      }
+    ]
+  },
+
+  "camera_button@how_to_play_common.edu_section_toggle_button": {
+    "$section_topic": "camera"
+  },
+
+  "camera_section@how_to_play_common.main_sections": {
+    "bindings": [
+      {
+        "binding_type": "view",
+        "source_control_name": "camera_button_toggle",
+        "source_property_name": "#toggle_state",
+        "target_property_name": "#visible"
+      }
+    ],
+    "controls": [
+      {
+        "paragraph_1@how_to_play_common.paragraph": {
+          "$text": "howtoplay.camera.text.1"
+        }
+      },
+      { "padding_1@how_to_play_common.padding": {} },
+      {
+        "paragraph_2_keyboard@how_to_play_common.paragraph_keyboard": {
+          "$text": "howtoplay.camera.text.2"
+        }
+      },
+      {
+        "paragraph_2_gamepad@how_to_play_common.paragraph_gamepad": {
+          "$text": "howtoplay.camera.text.2"
+        }
+      },
+      {
+        "paragraph_2_touch@how_to_play_common.paragraph_touch": {
+          "$text": "howtoplay.camera.text.2.touch"
+        }
+      },
+      { "padding_2@how_to_play_common.padding": {} },
+      {
+        "paragraph_3_keyboard@how_to_play_common.paragraph_keyboard": {
+          "$text": "howtoplay.camera.text.3"
+        }
+      },
+      {
+        "paragraph_3_gamepad@how_to_play_common.paragraph_gamepad": {
+          "$text": "howtoplay.camera.text.3"
+        }
+      },
+      {
+        "paragraph_3_touch@how_to_play_common.paragraph_touch": {
+          "$text": "howtoplay.camera.text.3.touch"
+        }
+      },
+      { "padding_3@how_to_play_common.padding": {} },
+      {
+        "paragraph_4@how_to_play_common.paragraph": {
+          "$text": "howtoplay.camera.text.4"
+        }
+      }
+    ]
+  },
+
+  "portfolio_button@how_to_play_common.edu_section_toggle_button": {
+    "$section_topic": "portfolio"
+  },
+
+  "portfolio_section@how_to_play_common.main_sections": {
+    "bindings": [
+      {
+        "binding_type": "view",
+        "source_control_name": "portfolio_button_toggle",
+        "source_property_name": "#toggle_state",
+        "target_property_name": "#visible"
+      }
+    ],
+    "controls": [
+      {
+        "paragraph_1_keyboard@how_to_play_common.paragraph_keyboard": {
+          "$text": "howtoplay.portfolio.text.1"
+        }
+      },
+      {
+        "paragraph_1_gamepad@how_to_play_common.paragraph_gamepad": {
+          "$text": "howtoplay.portfolio.text.1"
+        }
+      },
+      {
+        "paragraph_1_touch@how_to_play_common.paragraph_touch": {
+          "$text": "howtoplay.portfolio.text.1.touch"
+        }
+      }
+    ]
+  },
+
+  "classroom_mode_button@how_to_play_common.edu_section_toggle_button": {
+    "$section_topic": "classroomMode"
+  },
+
+  "classroom_mode_section@how_to_play_common.main_sections": {
+    "bindings": [
+      {
+        "binding_type": "view",
+        "source_control_name": "classroomMode_button_toggle",
+        "source_property_name": "#toggle_state",
+        "target_property_name": "#visible"
+      }
+    ],
+    "controls": [
+      {
+        "paragraph_1@how_to_play_common.paragraph": {
+          "$text": "howtoplay.classroomMode.text.1"
+        }
+      },
+      { "padding_1@how_to_play_common.padding": {} },
+      {
+        "paragraph_2@how_to_play_common.paragraph": {
+          "ignored": "$ios",
+          "$text": "howtoplay.classroomMode.text.2"
+        }
+      }
+    ]
+  },
+
+  "code_builder_button@how_to_play_common.edu_section_toggle_button": {
+    "$section_topic": "codeBuilder"
+  },
+
+  "code_builder_section@how_to_play_common.main_sections": {
+    "bindings": [
+      {
+        "binding_type": "view",
+        "source_control_name": "codeBuilder_button_toggle",
+        "source_property_name": "#toggle_state",
+        "target_property_name": "#visible"
+      }
+    ],
+    "controls": [
+      {
+        "paragraph_1@how_to_play_common.paragraph": {
+          "$text": "howtoplay.codeBuilder.text.1"
+        }
+      },
+      { "padding_1@how_to_play_common.padding": {} },
+      {
+        "paragraph_2_keyboard@how_to_play_common.paragraph_keyboard": {
+          "$text": "howtoplay.codeBuilder.text.2"
+        }
+      },
+      {
+        "paragraph_2_gamepad@how_to_play_common.paragraph_gamepad": {
+          "$text": "howtoplay.codeBuilder.text.2"
+        }
+      },
+      {
+        "paragraph_2_touch@how_to_play_common.paragraph_touch": {
+          "$text": "howtoplay.codeBuilder.text.2.touch"
         }
       }
     ]
@@ -2748,7 +3159,7 @@
       },
       {
         "padding_5@how_to_play_common.padding": {
-          
+
         }
       },
       {
@@ -3069,7 +3480,7 @@
           "variables": [
             {
               "requires": "($is_realms_enabled and not $ignore_3rd_party_servers and $is_premium_enabled)", // this text mentions both Realms and Servers, so both must be enabled to show it
-              "$text": "howtoplay.multiplayer.text.3.no_subscription"  // no_subscription means "Requires subscription"
+              "$text": "howtoplay.multiplayer.text.3.no_subscription" // no_subscription means "Requires subscription"
             },
             {
               "requires": "($is_realms_enabled and not $ignore_3rd_party_servers and not $is_premium_enabled)", // this text mentions both Realms and Servers, so both must be enabled to show it
@@ -3081,7 +3492,7 @@
             },
             {
               "requires": "(not $is_realms_enabled or $ignore_3rd_party_servers and not $is_premium_enabled)",
-              "$text": "howtoplay.multiplayer.text.3.norealms.has_subscription"  // has subscription means "Subscription not required"
+              "$text": "howtoplay.multiplayer.text.3.norealms.has_subscription" // has subscription means "Subscription not required"
             }
           ]
         }
@@ -3558,6 +3969,81 @@
           "$text": "howtoplay.resourceAndBehaviorPacks.text.2"
         }
       }
+    ]
+  },
+
+  "scaffolding_button@how_to_play_common.section_toggle_button": {
+    "$section_topic": "scaffolding"
+  },
+
+  "scaffolding_section@how_to_play_common.main_sections": {
+    "bindings": [
+      {
+        "binding_type": "view",
+        "source_control_name": "scaffolding_button_toggle",
+        "source_property_name": "#toggle_state",
+        "target_property_name": "#visible"
+      }
+    ],
+    "controls": [
+      {
+        "header_1@how_to_play_common.header": {
+          "$text": "howtoplay.scaffolding.header.1"
+        }
+      },
+      {
+        "paragraph_1_keyboard@how_to_play_common.paragraph_keyboard": {
+          "$text": "howtoplay.scaffolding.text.1.keyboard"
+        }
+      },
+      {
+        "paragraph_1_gamepad@how_to_play_common.paragraph_gamepad": {
+          "$text": "howtoplay.scaffolding.text.1.gamepad"
+        }
+      },
+      {
+        "paragraph_1_touch@how_to_play_common.paragraph_touch": {
+          "$text": "howtoplay.scaffolding.text.1.touch"
+        }
+      },
+      {
+        "paragraph_1_rift_controller@how_to_play_common.paragraph_rift_controller": {
+          "$text": "howtoplay.scaffolding.text.1.rift_controller"
+        }
+      },
+      {
+        "paragraph_1_windowsmr_controller@how_to_play_common.paragraph_windowsmr_controller": {
+          "$text": "howtoplay.scaffolding.text.1.windowsmr_controller"
+        }
+      },
+      { "padding_1@how_to_play_common.padding": {} },
+      {
+        "header_2@how_to_play_common.header": {
+          "$text": "howtoplay.scaffolding.header.2"
+        }
+      },
+      {
+        "paragraph_2@how_to_play_common.paragraph": {
+          "$text": "howtoplay.scaffolding.text.2"
+        }
+      },
+      {
+        "image_1@how_to_play_common.image": {
+          "texture": "textures/ui/Scaffolding",
+          "size": [ "100%", "250px" ]
+        }
+      },
+      {
+        "header_3@how_to_play_common.header": {
+          "$text": "howtoplay.scaffolding.header.3"
+        }
+      },
+      {
+        "paragraph_3@how_to_play_common.paragraph": {
+          "$text": "howtoplay.scaffolding.text.3"
+        }
+      },
+      { "padding_2@how_to_play_common.padding": {} }
     ]
   },
 

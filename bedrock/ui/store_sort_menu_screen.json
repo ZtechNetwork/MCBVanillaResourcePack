@@ -117,11 +117,61 @@
     ]
   },
 
+  "sort_menu_toggles": {
+    "type": "stack_panel",
+    "orientation": "vertical",
+    "size": [ "100%", "100%c" ],
+    "anchor_to": "top_right",
+    "anchor_from": "top_right",
+    "$filter_sort_prefix": "sort_menu",
+    "controls": [
+      {
+        "relevance_toggle_panel": {
+          "type": "panel",
+          "size": [ "100%", 30 ],
+          "controls": [
+            {
+              "relevance_toggle@sort_menu.sort_menu_toggle_panel": {
+                "size": [ "100% - 16px", 30 ],
+                "anchor_from": "right_middle",
+                "anchor_to": "right_middle",
+                "$filter_sort_prefix": "sort_relevance",
+                "$content_toggle_label": "store.search.sort_menu.Default",
+                "$checked_toggle_icon": "textures/ui/radio_on",
+                "$checked_hover_toggle_icon": "textures/ui/radio_on_hover",
+                "$unchecked_toggle_icon": "textures/ui/radio_off",
+                "$unchecked_hover_toggle_icon": "textures/ui/radio_off_hover"
+              }
+            }
+          ],
+          "bindings": [
+            {
+              "binding_name": "#relevance_toggle_visible",
+              "binding_name_override": "#visible"
+            }
+          ]
+        }
+      },
+      {
+        "sort_toggle_grid@common_store.filter_sort_grid_panel": {
+          "$filter_sort_prefix": "sort_menu",
+          "$filter_sort_grid_size": [ "100% - 16px", "default" ],
+          "$filter_sort_grid_item": "sort_menu.sort_menu_toggle_panel",
+          "$content_toggle_label": "#sort_toggle_label",
+          "$checked_toggle_icon": "textures/ui/radio_on",
+          "$checked_hover_toggle_icon": "textures/ui/radio_on_hover",
+          "$unchecked_toggle_icon": "textures/ui/radio_off",
+          "$unchecked_hover_toggle_icon": "textures/ui/radio_off_hover"
+        }
+      }
+    ]
+  },
+
   //Menu that pops up when you click on the sort menu...
   "sort_menu_show": {
     "type": "stack_panel", //stacks panels together
     "orientation": "vertical",
-    "size": [ "100%", "100%c" ],
+    "size": [ "100%", "100%" ],
     "layer": 2,
     "controls": [
       {
@@ -145,54 +195,9 @@
       },
       //Sorting options radio button instances
       {
-        "sort_menu_toggles": {
-          "type": "stack_panel",
-          "orientation": "vertical",
-          "size": [ "100%", "100%c" ],
-          "anchor_to": "top_right",
-          "anchor_from": "top_right",
-          "$filter_sort_prefix": "sort_menu",
-          "controls": [
-            {
-              "relevance_toggle_panel": {
-                "type": "panel",
-                "size": [ "100%", 30 ],
-                "controls": [
-                  {
-                    "relevance_toggle@sort_menu.sort_menu_toggle_panel": {
-                      "size": [ "100% - 16px", 30 ],
-                      "anchor_from": "right_middle",
-                      "anchor_to": "right_middle",
-                      "$filter_sort_prefix": "sort_relevance",
-                      "$content_toggle_label": "store.search.sort_menu.Default",
-                      "$checked_toggle_icon": "textures/ui/radio_on",
-                      "$checked_hover_toggle_icon": "textures/ui/radio_on_hover",
-                      "$unchecked_toggle_icon": "textures/ui/radio_off",
-                      "$unchecked_hover_toggle_icon": "textures/ui/radio_off_hover"
-                    }
-                  }
-                ],
-                "bindings": [
-                  {
-                    "binding_name": "#relevance_toggle_visible",
-                    "binding_name_override": "#visible"
-                  }
-                ]
-              }
-            },
-            {
-              "sort_toggle_grid@common_store.filter_sort_grid_panel": {
-                "$filter_sort_prefix": "sort_menu",
-                "$filter_sort_grid_size": [ "100% - 16px", "default" ],
-                "$filter_sort_grid_item": "sort_menu.sort_menu_toggle_panel",
-                "$content_toggle_label": "#sort_toggle_label",
-                "$checked_toggle_icon": "textures/ui/radio_on",
-                "$checked_hover_toggle_icon": "textures/ui/radio_on_hover",
-                "$unchecked_toggle_icon": "textures/ui/radio_off",
-                "$unchecked_hover_toggle_icon": "textures/ui/radio_off_hover"
-              }
-            }
-          ]
+        "sort_scrolling_content_panel@common_store.filter_sort_submenu_scrolling_panel_section": {
+          "$filter_sort_scrolling_panel_size": [ "100%", "100%" ],
+          "$scrolling_content": "sort_menu.sort_menu_toggles"
         }
       }
     ]
@@ -231,6 +236,7 @@
   "sort_menu_screen_content@common.modal_area_panel_base": {
     "layer": 100,
     "$menu_cancel_button_id": "button.close_sort_menu",
+    "$sort_filter_bg_exit_button_name": "button.close_sort_menu",
     "controls": [
       {
         "sort_menu_main@sort_menu.sort_menu_panel": {}

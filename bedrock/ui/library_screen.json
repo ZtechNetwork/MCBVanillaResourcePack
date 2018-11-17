@@ -1,0 +1,331 @@
+{
+  "namespace": "library",
+
+  "base_label": {
+    "type": "label",
+    "size": [ "100% - 8px", "100%" ],
+    "offset": [ 3, 0 ],
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "layer": 1,
+    "color": "$body_text_color",
+    "font_type": "smooth",
+    "text_alignment": "left"
+  },
+
+  "library_learn_more_button@common_buttons.light_content_button": {
+    "size": [ 150, 30 ]
+  },
+
+  "feedback_icon": {
+    "type": "image",
+    "texture": "textures/ui/Feedback",
+    "layer": 3,
+    "size": [ 16, 16 ]
+  },
+
+  "find_more_worlds_icon": {
+    "type": "image",
+    "texture": "textures/ui/worldsIcon",
+    "size": [ 16, 17 ]
+  },
+
+  "learn_more_content": {
+    "type": "panel",
+    "$learn_more_text|default": "",
+    "$learn_more_content|default": "common.empty_panel",
+    "controls": [
+      {
+        "icon@$learn_more_content": {
+          "anchor_to": "left_middle",
+          "anchor_from": "left_middle",
+          "offset": [ 7, 0 ]
+        }
+      },
+      {
+        "text_hover": {
+          "ignored": "$hover_state",
+          "type": "label",
+          "text": "$learn_more_text",
+          "color": "$light_button_default_text_color"
+        }
+      },
+      {
+        "text_default": {
+          "ignored": "(not $hover_state)",
+          "type": "label",
+          "text": "$learn_more_text",
+          "color": "$generic_button_text_color"
+        }
+      }
+    ]
+  },
+
+  "buttons_stack_panel": {
+    "size": [ "100%", 90 ],
+    "type": "stack_panel",
+    "orientation": "horizontal",
+    "controls": [
+      {
+        "worlds_wrapper": {
+          "size": [ "50%", "100%" ],
+          "type": "panel",
+          "controls": [
+            {
+              "library_find_more_worlds_button@library.library_learn_more_button": {
+                "offset": [ "-5%", -10 ],
+                "anchor_from": "bottom_right",
+                "anchor_to": "bottom_right",
+                "$learn_more_text": "library.findMoreWorlds",
+                "$learn_more_content": "library.find_more_worlds_icon",
+                "$button_content": "library.learn_more_content",
+                "$pressed_button_name": "button.find_more_worlds"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "feedback_wrapper": {
+          "size": [ "50%", "100%" ],
+          "type": "panel",
+          "controls": [
+            {
+              "library_leave_feedback_button@library.library_learn_more_button": {
+                "offset": [ "5%", -10 ],
+                "anchor_from": "bottom_left",
+                "anchor_to": "bottom_left",
+                "$learn_more_text": "library.leaveFeedback",
+                "$learn_more_content": "library.feedback_icon",
+                "$button_content": "library.learn_more_content",
+                "$pressed_button_name": "button.leave_feedback"
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "screen_content_stack_panel": {
+    "type": "stack_panel",
+    "orientation": "vertical",
+    "size": [ "100%", "100%c" ],
+    "controls": [
+      { "grid_content@library.grid_content": {} },
+      { "buttons_stack_panel@library.buttons_stack_panel": {} }
+    ]
+  },
+
+  "scrolling_content": {
+    "type": "panel",
+    "size": [ "100%-2px", "100%c" ],
+    "$scrolling_content_anchor_from": "top_middle",
+    "$scrolling_content_anchor_to": "top_middle",
+    "controls": [
+      { "screen_content_stack_panel@library.screen_content_stack_panel": {} },
+      {
+        "worlds_populating_progress@progress.progress_panel": {
+          "size": [ 200, 200 ],
+          "bindings": [
+            {
+              "binding_name": "#show_worlds_populating_progress",
+              "binding_name_override": "#visible"
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "grid_content": {
+    "type": "grid",
+    "size": [ "100%", "default" ],
+    "grid_item_template": "library.grid_item",
+    "grid_rescaling_type": "horizontal",
+    "collection_name": "library_items",
+    "bindings": [
+      {
+        "binding_name": "#library_max_grid_items",
+        "binding_name_override": "#maximum_grid_items"
+      }
+    ]
+  },
+
+  "grid_item": {
+    "type": "panel",
+    // Fit 4 items per row.
+    // Image dimensions are 480 x 270 = 56.25% ratio of y to x
+    "size": [ "25%", "56.25%x + 36px" ],
+    "controls": [
+      {
+        "library_item_button@library.borderless_button": {
+          // Provide spacing between the library item buttons
+          "size": [ "100% - 2px", "100% - 2px" ],
+          // Create an accurate 1 pixel border around the button's content
+          "$button_content_size": [ "100% - 4px", "100% - 4px" ],
+          "$button_content": "library.button_content",
+          "$pressed_button_name": "button.library_item",
+          "bindings": [
+            {
+              "binding_type": "collection_details",
+              "binding_collection_name": "library_items"
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "borderless_button@common_buttons.dark_content_button": {
+    "$border_visible": false,
+    "$default_button_texture": "textures/ui/Black",
+    "$hover_button_texture": "textures/ui/White"
+  },
+
+  "button_content": {
+    "type": "stack_panel",
+    "orientation": "vertical",
+    "size": [ "100%", "100%" ],
+    "controls": [
+      {
+        "world_image_panel": {
+          "type": "panel",
+          "size": [ "100%", "56.25%x" ],
+          "controls": [
+            {
+              "world_image@library.world_image": {
+                "layer": 1
+              }
+            }
+          ]
+        }
+      },
+      { "padding_middle@common.empty_panel": { "size": [ "100%", 1 ] } },
+      {
+        "world_info_panel": {
+          "type": "panel",
+          "size": [ "100%", "fill" ],
+          "controls": [
+            {
+              "world_info@library.world_info": {
+                "layer": 1
+              }
+            },
+            {
+              "background": {
+                "type": "image",
+                "texture": "textures/ui/dark_bg"
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "world_image": {
+    "type": "image",
+    "bilinear": true,
+    "bindings": [
+      {
+        "binding_type": "collection",
+        "binding_collection_name": "library_items",
+        "binding_name": "#world_texture",
+        "binding_name_override": "#texture"
+      },
+      {
+        "binding_type": "collection",
+        "binding_collection_name": "library_items",
+        "binding_name": "#file_system",
+        "binding_name_override": "#texture_file_system"
+      }
+    ]
+  },
+
+  "world_info": {
+    "type": "stack_panel",
+    "orientation": "vertical",
+    "size": [ "100% - 4px", "100%c" ],
+    "$max_label_size": [ "100%", 19 ],
+    "controls": [
+      {
+        "title@library.base_label": {
+          "text": "#library_item_title",
+          "size": [ "100%", "default" ],
+          "max_size": "$max_label_size",
+          "bindings": [
+            {
+              "binding_type": "collection",
+              "binding_collection_name": "library_items",
+              "binding_name": "#library_item_title"
+            }
+          ]
+        }
+      },
+      {
+        "creator@library.base_label": {
+          "text": "#creator",
+          "size": [ "100%", "default" ],
+          "max_size": "$max_label_size",
+          "font_scale_factor": 0.85,
+          "bindings": [
+            {
+              "binding_type": "collection",
+              "binding_collection_name": "library_items",
+              "binding_name": "#creator"
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  //--------------------------------------------------------------------------------
+  // Screen
+  //--------------------------------------------------------------------------------
+
+  "library_screen@common.base_screen": {
+    // When the player hits Esc (menu_cancel button), they can exit the screen
+    "button_mappings": [
+      {
+        "from_button_id": "button.menu_cancel",
+        "to_button_id": "button.menu_exit",
+        "mapping_type": "global"
+      }
+    ],
+    "$is_full_screen_layout": true,
+    "$screen_content": "library.screen_content"
+  },
+
+  "screen_content": {
+    "type": "panel",
+    "controls": [
+      {
+        "header@common.fullscreen_header": {
+          "$back_button_has_title": true,
+          "$button_text": "library.title",
+          "$child_control": "library.main_panel"
+        }
+      },
+      {
+        "welcome_panel@library_modal.welcome_panel": {
+          // Make the input_panel be above the header's back button
+          "layer": 201
+        }
+      }
+    ]
+  },
+
+  "main_panel@common.scrolling_panel": {
+    "$scroll_size": [ 6, "100%-4px" ],
+    "anchor_from": "top_middle",
+    "anchor_to": "top_middle",
+    "$scrolling_content": "library.scrolling_content",
+    "$scrolling_content_anchor_from": "top_middle",
+    "$scrolling_content_anchor_to": "top_middle",
+    "$scroll_bar_left_padding_size": [ 0, 0 ],
+    "$scroll_bar_right_padding_size": [ 2, 0 ],
+    "$show_background": false
+  }
+}

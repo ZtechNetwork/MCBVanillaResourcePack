@@ -495,6 +495,10 @@
     "bindings": [
       {
         "binding_name": "#world_template_item_grid_dimension"
+      },
+      {
+        "binding_name": "#template_list_visible",
+        "binding_name_override": "#visible"
       }
     ]
   },
@@ -657,15 +661,27 @@
           "type": "stack_panel",
           "orientation": "vertical",
           "size": [ "100%", "100%c" ],
-          "bindings": [
-            {
-              "binding_name": "#template_list_visible",
-              "binding_name_override": "#visible"
-            }
-          ],
           "controls": [
-            { "my_templates_label_panel@world_templates.my_templates_label": {} },
+            {
+              "my_templates_label_panel@world_templates.my_templates_label": {
+                "bindings": [
+                  {
+                    "binding_name": "#template_list_visible",
+                    "binding_name_override": "#visible"
+                  }
+                ]
+              }
+            },
             { "world_template_item_grid@world_templates.world_template_item_grid": {} },
+            {
+              "inventory_button@common_buttons.dark_text_button": {
+                "size": [ "100%", 30 ],
+                "$pressed_button_name": "button.inventory",
+                "$button_text": "selectTemplate.inventory",
+                "focus_change_left": "FOCUS_OVERRIDE_STOP",
+                "focus_change_right": "FOCUS_OVERRIDE_STOP"
+              }
+            },
             {
               "template_list_bottom_padding": {
                 "type": "panel",
@@ -710,7 +726,7 @@
                 "grid_dimension_binding": "#suggested_offers_item_grid_dimension",
                 "collection_name": "#suggested_offers_collection",
                 "$collection_name": "#suggested_offers_collection",
-                "$collection_prefix": "offers",
+                "$collection_prefix": "offer",
                 "$pressed_button_name": "button.select_offer",
                 "$world_template_description_binding_name": "#created_by_label",
                 "$world_template_name_binding_name": "#title_label",

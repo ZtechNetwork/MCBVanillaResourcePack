@@ -10,6 +10,13 @@
     "size": [ "100%", "100%c" ],
     "anchor_from": "top_middle",
     "anchor_to": "top_middle",
+
+    // row binding vars
+    "$store_row_binding_type|default": "global",
+    "$store_row_collection_details|default": "none",
+    "$store_row_collection_prefix|default": "",
+    "$store_row_collection_name|default": "",
+
     "controls": [
       {
         "trending_row_panel": {
@@ -33,8 +40,8 @@
                       "color": "$body_text_color",
                       "bindings": [
                         {
-                          "binding_type": "collection",
-                          "binding_collection_name": "category_collection",
+                          "binding_type": "$store_row_binding_type",
+                          "binding_collection_name": "$store_row_collection_name",
                           "binding_name": "#trending_row_name"
                         }
                       ]
@@ -58,12 +65,22 @@
                 // The reason for not copying the item list screen is because if you
                 // do, it causes weird sizing issues with the row grids and their sizing
                 //------------------------------------------------------------------------
-                "size": [ "100%", "14.0625%x + 36px" ],
+                "size": [ "100%", "14.0625%x + 33px" ],
                 "anchor_from": "top_left",
                 "anchor_to": "top_left",
                 "grid_item_template": "store_search.store_offer_grid_item",
                 "grid_dimension_binding": "#trending_offers_dimensions",
-                "collection_name": "offers_collection",
+
+                "$offer_category_collection_details": "$store_row_collection_details",
+                "$offer_category_collection_prefix": "$store_row_collection_prefix",
+                "$offer_category_collection_name": "$store_row_collection_name",
+
+                "$offer_collection_details": "collection_details",
+                "$offer_binding_type": "collection",
+                "$offer_collection_prefix": "offer",
+                "$offer_collection_name": "offer_collection",
+
+                "collection_name": "$offer_collection_name",
                 "bindings": [
                   {
                     "binding_name": "#trending_offers_dimensions"
@@ -88,13 +105,19 @@
     "size": [ "100%", "default" ],
     "grid_item_template": "store_search.trending_row_content",
     "grid_dimension_binding": "#trending_rows_dimensions",
-    "collection_name": "category_collection",
+
+    "$store_row_binding_type": "collection",
+    "$store_row_collection_details": "collection_details",
+    "$store_row_collection_prefix": "category",
+    "$store_row_collection_name": "category_collection",
+
+    "collection_name": "$store_row_collection_name",
     "bindings": [
       {
         "binding_name": "#trending_rows_dimensions"
       },
       {
-        "binding_name": "(not #search_active)",
+        "binding_name": "#trending_rows_visible",
         "binding_name_override": "#visible"
       }
     ]
@@ -124,7 +147,7 @@
           ],
           "bindings": [
             {
-              "binding_name": "#search_active",
+              "binding_name": "(not #trending_rows_visible)",
               "binding_name_override": "#visible"
             }
           ]
@@ -196,6 +219,12 @@
       },
       {
         "from_button_id": "button.controller_secondary_select",
+        "to_button_id": "button.close_result_panel",
+        "mapping_type": "global",
+        "ignored": "$ignore_3rd_party_servers"
+      },
+      {
+        "from_button_id": "button.controller_select",
         "to_button_id": "button.coin_wallet",
         "mapping_type": "global"
       }

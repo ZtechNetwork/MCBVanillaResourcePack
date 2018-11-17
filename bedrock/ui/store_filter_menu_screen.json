@@ -36,6 +36,18 @@
     ]
   },
 
+  "filter_variables_panel": {
+    "type": "panel",
+
+    "$filter_type_label|default": "('store.search.filter.' + $filter_sort_prefix)",
+    "$filter_selected_text|default": "('#filter_selected_' + $filter_sort_prefix)",
+    "$filter_selected_label_visible_binding_name|default": "('#filter_' + $filter_sort_prefix + '_selected_visible')",
+    "$filter_clear_button_text|default": "('store.search.filter.clear.' + $filter_sort_prefix)",
+    "$filter_clear_button_pressed_name|default": "('button.clear_' + $filter_sort_prefix)",
+
+    "$pressed_button_name|default": "('button.filter_' + $filter_sort_prefix)"
+  },
+
   "filter_option_button_content": {
     "type": "stack_panel",
     "orientation": "horizontal",
@@ -127,13 +139,32 @@
     "size": "$filter_button_panel_size",
     "controls": [
       {
-        "filter_options_button@common_buttons.light_content_button": {
-          "size": "$filter_button_size",
-          "anchor_from": "right_middle",
-          "anchor_to": "right_middle",
-          "$button_content": "filter_menu.filter_option_button_content",
-          "$secondary_text_color": "$place_holder_text_color"
+        "filter_variables_panel@filter_menu.filter_variables_panel": {
+          "controls": [
+            {
+              "filter_options_button@common_buttons.light_content_button": {
+                "size": "$filter_button_size",
+                "anchor_from": "right_middle",
+                "anchor_to": "right_middle",
+                "$button_content": "filter_menu.filter_option_button_content",
+                "$secondary_text_color": "$place_holder_text_color"
+              }
+            }
+          ]
         }
+      }
+    ]
+  },
+
+  "filter_main_menu_options_button_panel@filter_menu.filter_options_button_panel": {
+    "visible": false,
+    "property_bag": {
+      "#visible": false
+    },
+    "bindings": [
+      {
+        "binding_name": "('#filter_option_visible_' + $filter_sort_prefix)",
+        "binding_name_override": "#visible"
       }
     ]
   },
@@ -191,13 +222,10 @@
     ]
   },
 
-  // this is a button with no button mappings to stop input from reaching the
-  // background if the user clicks on it
   "filter_title_bar@common_buttons.light_content_button": {
     "type": "button",
     "size": "$filter_button_panel_size",
     "layer": 1,
-    "focus_enabled": false,
     "$button_content": "filter_menu.filter_title_bar_content",
     "$new_ui_button_texture": "textures/ui/button_borderless_light",
     "$pressed_button_name": "button.exit_filter_menu"
@@ -219,26 +247,6 @@
   ///////////////////////////////////////////////////////////////////////////////////
   // filter submenu sections
 
-  "filter_submenu_scrolling_panel_section": {
-    "type": "panel",
-    "size": [ "100%", "fill" ],
-    "controls": [
-      {
-        "submenu_scrolling_panel@common.scrolling_panel": {
-          "size": "$filter_button_size",
-          "anchor_from": "top_right",
-          "anchor_to": "top_right",
-          "$scrolling_pane_offset": [ 0, 0 ],
-          "$scroll_size": [ 5, "100% - 4px" ],
-          "$scroll_bar_left_padding_size": [ 0, 0 ],
-          "$bar_visible": false,
-          "$show_background": false
-        }
-      }
-    ]
-  },
-
-
   "pack_type_sub_menu_panel": {
     "type": "panel",
     "size": [ "100%", "100%c" ],
@@ -250,20 +258,23 @@
           "size": [ "100%", "100%c" ],
           "anchor_from": "top_right",
           "anchor_to": "top_right",
+
+          "$is_collection": true,
           "$filter_item_toggle_icon": "textures/ui/chevron_grey_right",
+          "$toggle_grid_collection_name": "($filter_sort_prefix + '_collection')",
+          "collection_name": "($filter_sort_prefix + '_collection')",
+
           "controls": [
             {
               "skin_packs_filter@filter_menu.filter_checkbox_toggle": {
-                "$content_toggle_image": "textures/ui/mashup_hangar",
-                "$content_toggle_label": "store.search.filter.skinPacks",
-                "$filter_sort_prefix": "skinpack"
+                "collection_index": 0,
+                "$content_toggle_image": "textures/ui/mashup_hangar"
               }
             },
             {
               "texture_packs_filter@filter_menu.filter_checkbox_toggle": {
-                "$content_toggle_image": "textures/ui/mashup_PaintBrush",
-                "$content_toggle_label": "store.search.filter.texturePacks",
-                "$filter_sort_prefix": "resourcepack"
+                "collection_index": 1,
+                "$content_toggle_image": "textures/ui/mashup_PaintBrush"
               }
             },
             {
@@ -271,15 +282,16 @@
                 "type": "stack_panel",
                 "orientation": "vertical",
                 "size": [ "100%", "100%c" ],
-                "$filter_sort_prefix": "world_template_type",
+                "$filter_sort_prefix": "world_template",
                 "controls": [
                   {
                     "worlds_template_filter@filter_menu.filter_checkbox_toggle": {
                       "type": "panel",
                       "size": "$filter_button_panel_size",
+                      "$is_collection": false,
                       "$content_toggle_label": "store.search.filter.worldTemplates",
                       "$content_toggle_image": "textures/ui/mashup_world",
-                      "$filter_sort_prefix": "world_template",
+                      "$filter_sort_prefix": "world_template_types",
                       "$content_toggle_icon_panel_size": [ 8, "100%" ],
                       "$content_toggle_icon_size": [ 8, 8 ],
                       "$checked_toggle_icon": "textures/ui/chevron_white_up",
@@ -312,9 +324,8 @@
             },
             {
               "mashup_packs_filter@filter_menu.filter_checkbox_toggle": {
-                "$content_toggle_image": "textures/ui/MashupIcon",
-                "$content_toggle_label": "store.search.filter.mashupPacks",
-                "$filter_sort_prefix": "mashup"
+                "collection_index": 2,
+                "$content_toggle_image": "textures/ui/MashupIcon"
               }
             }
           ]
@@ -337,6 +348,7 @@
   "filter_section_content": {
     "type": "stack_panel",
     "orientation": "vertical",
+    "size": [ "100%", "100%" ],
     "anchor_to": "top_right",
     "anchor_from": "top_right",
     "controls": [
@@ -351,9 +363,20 @@
         }
       },
       {
-        "section_sub_menu@filter_menu.filter_submenu_scrolling_panel_section": {
+        "section_sub_menu@common_store.filter_sort_submenu_scrolling_panel_section": {
+          "$filter_sort_scrolling_panel_size": "$filter_button_size",
           "$scrolling_content": "$filter_section_sub_menu_panel"
         }
+      }
+    ]
+  },
+
+  "filter_section_content_dynamic@filter_menu.filter_variables_panel": {
+    "$filter_sort_grid_size": [ "100%", "default" ],
+    "$filter_sort_grid_item": "filter_menu.filter_checkbox_no_icon_toggle",
+    "controls": [
+      {
+        "filter_section_content@filter_menu.filter_section_content": {}
       }
     ]
   },
@@ -369,28 +392,54 @@
         "filter_title_bar_panel@filter_menu.filter_title_bar": {}
       },
       {
-        "pack_type_button@filter_menu.filter_options_button_panel": {
-          "$filter_type_label": "store.search.filter.packType",
-          "$filter_selected_text": "#filter_selected_packs",
-          "$filter_selected_label_visible_binding_name": "#filter_packs_selected_visible",
+        "pack_type_button@filter_menu.filter_main_menu_options_button_panel": {
+          "$filter_sort_prefix": "pack_type",
+          "$filter_type_label": "store.search.filter.pack_type",
+          "$filter_selected_text": "#filter_selected_packtype",
+          "$filter_selected_label_visible_binding_name": "#filter_packtype_selected_visible",
           "$pressed_button_name": "button.filter_pack_type"
         }
       },
       {
-        "creator_button@filter_menu.filter_options_button_panel": {
-          "$filter_type_label": "store.search.filter.creators",
-          "$filter_selected_text": "#filter_selected_creators",
-          "$filter_selected_label_visible_binding_name": "#filter_creators_selected_visible",
-          "$pressed_button_name": "button.filter_creator"
+        "minecoin_button@filter_menu.filter_main_menu_options_button_panel": {
+          "ignored": "($is_inventory_screen or $is_on_3p_server)",
+          "$filter_sort_prefix": "minecoin"
         }
       },
       {
-        "installed_state_button@filter_menu.filter_options_button_panel": {
+        "rating_button@filter_menu.filter_main_menu_options_button_panel": {
+          "ignored": "($is_inventory_screen or $is_on_3p_server)",
+          "$filter_sort_prefix": "rating"
+        }
+      },
+      {
+        "creator_button@filter_menu.filter_main_menu_options_button_panel": {
+          "ignored": "$is_on_3p_server",
+          "$filter_sort_prefix": "creator"
+        }
+      },
+      {
+        "installed_state_button@filter_menu.filter_main_menu_options_button_panel": {
           "ignored": "(not $is_inventory_screen)",
-          "$filter_type_label": "store.search.filter.installedState",
-          "$filter_selected_text": "#filter_selected_installed_state",
-          "$filter_selected_label_visible_binding_name": "#filter_installed_state_selected_visible",
-          "$pressed_button_name": "button.filter_installed_state"
+          "$filter_sort_prefix": "installed_state"
+        }
+      },
+      {
+        "filter_main_menu_filter_toggles_section": {
+          "type": "panel",
+          "size": [ "100%", "100%c" ],
+          "$filter_sort_prefix": "main_menu_filter_toggles",
+          "$filter_sort_grid_item": "filter_menu.filter_checkbox_no_icon_toggle",
+          "$filter_sections_content_panel_visible": "#non_dropdown_filter_section_visible",
+          "controls": [
+            {
+              "filter_main_menu_filter_toggle_grid_panel@common_store.filter_sort_grid_panel": {
+                "size": [ "100% - 16px", "100%c" ],
+                "anchor_to": "right_middle",
+                "anchor_from": "right_middle"
+              }
+            }
+          ]
         }
       },
       {
@@ -408,6 +457,10 @@
 
   "filter_section_content_panel": {
     "type": "panel",
+    "$filter_sections_content_panel_visible|default": "",
+    "property_bag": {
+      "#visible": false
+    },
     "controls": [
       {
         "filter_menu_screen@$filter_section_screen_content": {
@@ -431,44 +484,21 @@
 
   "filter_pack_type_section@filter_menu.filter_section_content_panel": {
     "$is_main_menu": false,
+    "$filter_sort_prefix": "pack_type",
     "$filter_section_screen_content": "filter_menu.filter_section_content",
     "$filter_sections_content_panel_visible": "#pack_type_filter_section_visible",
-    "$filter_type_label": "store.search.filter.packType",
-    "$filter_selected_text": "#filter_selected_packs",
-    "$filter_selected_label_visible_binding_name": "#filter_packs_selected_visible",
-    "$filter_clear_button_text": "store.search.filter.clearPackTypeFilters",
+    "$filter_type_label": "store.search.filter.pack_type",
+    "$filter_selected_text": "#filter_selected_packtype",
+    "$filter_selected_label_visible_binding_name": "#filter_packtype_selected_visible",
+    "$filter_clear_button_text": "store.search.filter.clear.pack_type",
     "$filter_clear_button_pressed_name": "button.clear_pack_type_filters",
     "$filter_section_sub_menu_panel": "filter_menu.pack_type_sub_menu_panel"
   },
 
-  "filter_creator_section@filter_menu.filter_section_content_panel": {
+  "filter_type_section@filter_menu.filter_section_content_panel": {
     "$is_main_menu": false,
-    "$filter_section_screen_content": "filter_menu.filter_section_content",
-    "$filter_sections_content_panel_visible": "#creator_filter_section_visible",
-    "$filter_type_label": "store.search.filter.creators",
-    "$filter_selected_text": "#filter_selected_creators",
-    "$filter_selected_label_visible_binding_name": "#filter_creators_selected_visible",
-    "$filter_clear_button_text": "store.search.filter.clearCreatorFilters",
-    "$filter_clear_button_pressed_name": "button.clear_creator_filters",
-    "$filter_section_sub_menu_panel": "common_store.filter_sort_grid_panel",
-    "$filter_sort_prefix": "creator",
-    "$filter_sort_grid_size": [ "100%", "default" ],
-    "$filter_sort_grid_item": "filter_menu.filter_checkbox_no_icon_toggle"
-  },
-
-  "filter_installed_state_section@filter_menu.filter_section_content_panel": {
-    "$is_main_menu": false,
-    "$filter_section_screen_content": "filter_menu.filter_section_content",
-    "$filter_sections_content_panel_visible": "#installed_state_filter_section_visible",
-    "$filter_type_label": "store.search.filter.installedState",
-    "$filter_selected_text": "#filter_selected_installed_state",
-    "$filter_selected_label_visible_binding_name": "#filter_installed_state_selected_visible",
-    "$filter_clear_button_text": "store.search.filter.resetInstalledStateFilters",
-    "$filter_clear_button_pressed_name": "button.reset_installed_state_filters",
-    "$filter_section_sub_menu_panel": "common_store.filter_sort_grid_panel",
-    "$filter_sort_prefix": "installed",
-    "$filter_sort_grid_size": [ "100%", "default" ],
-    "$filter_sort_grid_item": "filter_menu.filter_checkbox_no_icon_toggle"
+    "$filter_section_screen_content": "filter_menu.filter_section_content_dynamic",
+    "$filter_section_sub_menu_panel": "common_store.filter_sort_grid_panel"
   },
 
   "filter_menu_panel": {
@@ -500,11 +530,28 @@
               "filter_pack_type_screen@filter_menu.filter_pack_type_section": {}
             },
             {
-              "filter_creator_section@filter_menu.filter_creator_section": {}
+              "filter_minecoin_section@filter_menu.filter_type_section": {
+                "$filter_sort_prefix": "minecoin",
+                "$filter_sections_content_panel_visible": "#minecoin_filter_section_visible"
+              }
             },
             {
-              "filter_installed_state_section@filter_menu.filter_installed_state_section": {
-                "ignored": "(not $is_inventory_screen)"
+              "filter_rating_section@filter_menu.filter_type_section": {
+                "$filter_sort_prefix": "rating",
+                "$filter_sections_content_panel_visible": "#rating_filter_section_visible"
+              }
+            },
+            {
+              "filter_creator_section@filter_menu.filter_type_section": {
+                "$filter_sort_prefix": "creator",
+                "$filter_sections_content_panel_visible": "#creator_filter_section_visible"
+              }
+            },
+            {
+              "filter_installed_state_section@filter_menu.filter_type_section": {
+                "ignored": "(not $is_inventory_screen)",
+                "$filter_sort_prefix": "installed_state",
+                "$filter_sections_content_panel_visible": "#installed_state_filter_section_visible"
               }
             }
           ]
@@ -517,6 +564,7 @@
     "layer": 100,
     "$inventory_sort_and_filter_disabled|default": true,
     "$menu_cancel_button_id": "button.close_filter_menu",
+    "$sort_filter_bg_exit_button_name": "button.exit_filter_menu",
     "controls": [
       {
         "filter_main_panel@filter_menu.filter_menu_panel": {}

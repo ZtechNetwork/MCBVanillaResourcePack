@@ -240,6 +240,38 @@
     "orientation": "vertical",
     "controls": [
       {
+        "permissions_padding_0": {
+          "type": "panel",
+          "size": [ "100%", 8 ],
+          "bindings": [
+            {
+              "binding_name": "#is_world_template_locked",
+              "binding_name_override": "#visible"
+            }
+          ]
+        }
+      },
+      {
+        "world_template_option_lock_panel": {
+          "type": "panel",
+          "size": [ "100%", "100%c" ],
+          "bindings": [
+            {
+              "binding_name": "#is_world_template_locked",
+              "binding_name_override": "#visible"
+            }
+          ],
+          "controls": [
+            {
+              "option_info_label@settings_common.option_info_label": {
+                "$container_text_binding_name": "#world_template_permissions_locked_warning_text",
+                "$show_option_label": false
+              }
+            }
+          ]
+        }
+      },
+      {
         "permissions_padding_1": {
           "type": "panel",
           "size": [ "100%", 8 ]

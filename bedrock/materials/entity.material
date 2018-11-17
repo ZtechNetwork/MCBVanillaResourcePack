@@ -107,6 +107,34 @@
       ]
     },
 
+    "alpha_block:entity_static": {
+      "msaaSupport": "Both"
+    },
+
+    "alpha_block_color:alpha_block": {
+      "+defines": [ "ALPHA_TEST" ],
+      "vertexFields": [
+        { "field": "Position" },
+        { "field": "Color" },
+        { "field": "Normal" },
+        { "field": "UV0" }
+      ],
+      "variants": [
+        {
+          "skinning": {
+            "+defines": [ "USE_SKINNING" ],
+            "vertexFields": [
+              { "field": "Position" },
+              { "field": "BoneId0" },
+              { "field": "Color" },
+              { "field": "Normal" },
+              { "field": "UV0" }
+            ]
+          }
+        }
+      ]
+    },
+
     "entity_nocull:entity": {
       "+states": [ "DisableCulling" ]
     },
@@ -284,6 +312,11 @@
       "msaaSupport": "Both"
     },
 
+    "item_in_hand_multicolor_tint:item_in_hand": {
+      "+defines": [ "COLOR_BASED", "NO_TEXTURE", "ITEM_IN_HAND", "MULTI_COLOR_TINT" ],
+      "-defines": [ "USE_OVERLAY" ]
+    },
+
     "map_decoration": {
       "+defines": [ "ALPHA_TEST", "TINTED" ],
 
@@ -442,6 +475,20 @@
         "ALPHA_TEST",
         "USE_COLOR_MASK",
         "GLINT"
+      ],
+      "+samplerStates": [
+        {
+          "samplerIndex": 1,
+          "textureWrap": "Repeat"
+        }
+      ]
+    },
+
+   "entity_alphatest_multicolor_tint:entity_glint": {
+      "+states": [ "DisableAlphaWrite" ],
+      "+defines": [
+        "ALPHA_TEST",
+        "MULTI_COLOR_TINT"
       ],
       "+samplerStates": [
         {
@@ -781,12 +828,13 @@
     "ender_crystal:entity_alphatest": {},
     "ender_dragon:entity_emissive_alpha_one_sided": {},
     "enderman:entity_emissive_alpha": {},
-	"enderman_invisible:entity_emissive_alpha": {
+    "enderman_invisible:entity_emissive_alpha": {
       "+defines": [ "USE_ONLY_EMISSIVE" ]
     },
     "endermite:entity_alphatest": {},
     "evoker:entity_alphatest": {},
     "fang:entity_alphatest": {},
+    "cat:entity_alphatest_change_color": {},
     "clownfish:entity_alphatest": {},
     "cod:entity_alphatest": {},
     "conduit:entity_alphatest": {},
@@ -821,6 +869,7 @@
     "player:entity": {},
     "player_alphatest:entity_alphatest": {},
     "polar_bear:entity": {},
+    "panda:entity": {},
     "rabbit:entity": {},
     "sheep:entity_change_color": {},
     "shulker:entity_alphatest": {},
@@ -830,6 +879,7 @@
     "silverfish:entity": {},
     "silverfish_layers:entity_alphatest": {},
     "skeleton:entity_alphatest": {},
+    "pillager:entity_alphatest": {},
     "slime:entity_alphatest": {},
     "slime_outer:entity": {
       "+states": [ "Blending" ]
@@ -860,4 +910,4 @@
     "zombie:entity_alphatest": {},
     "zombie_villager:entity_alphatest": {}
   }
-}
+  }

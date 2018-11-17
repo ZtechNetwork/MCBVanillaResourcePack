@@ -153,7 +153,8 @@
           "color": "$chat_text_color",
           "localize": false,
           "size": [ "100%", "default" ],
-          "text": "#text"
+          "text": "#text",
+          "line_padding": "$chat_message_spacing"
         }
       }
     ],
@@ -171,8 +172,10 @@
     "$scrolling_content_anchor_to": "bottom_left",
     "factory": {
       "name": "messages_factory",
-      "control_name": "messages_text",
-      "max_children_size": 100
+      "max_children_size": 100,
+      "control_ids": {
+        "chat_screen_messages": "chat_screen_messages@chat.messages_text"
+      }
     }
   },
   "messages_scrolling_panel@common.scrolling_panel": {
@@ -235,19 +238,25 @@
         "to_button_id": "$text_edit_box_selected_to_button_id",
         "handle_select": false,
         "handle_deselect": true,
-        "mapping_type": "global",
-        "consume_event": false
+        "mapping_type": "global"
       },
       {
         "from_button_id": "button.menu_ok",
         "to_button_id": "$text_edit_box_selected_to_button_id",
         "handle_select": true,
-        "handle_deselect": false,
+        "handle_deselect": true,
         "mapping_type": "pressed"
       },
       {
         "from_button_id": "button.menu_ok",
         "to_button_id": "$text_edit_box_selected_to_button_id",
+        "handle_select": false,
+        "handle_deselect": true,
+        "mapping_type": "global"
+      },
+      {
+        "from_button_id": "button.menu_cancel",
+        "to_button_id": "$text_edit_box_deselected_to_button_id",
         "handle_select": false,
         "handle_deselect": true,
         "mapping_type": "global"
@@ -282,14 +291,14 @@
       {
         "from_button_id": "button.menu_textedit_up",
         "to_button_id": "button.chat_previous_message",
-        "handle_select": false,
+        "handle_select": true,
         "handle_deselect": false,
         "mapping_type": "focused"
       },
       {
         "from_button_id": "button.menu_textedit_down",
         "to_button_id": "button.chat_next_message",
-        "handle_select": false,
+        "handle_select": true,
         "handle_deselect": false,
         "mapping_type": "focused"
       },
@@ -613,7 +622,6 @@
     ]
   },
 
-
   "back_content_panel": {
     "type": "panel",
     "size": [ "100%c", "100%" ],
@@ -745,7 +753,7 @@
     "controls": [
       { "messages_panel@chat.messages_scrolling_panel": {} },
       { "chat_bottom_panel@chat.chat_bottom_panel": { "layer": 2 } },
-      { "chat_top_panel@chat.chat_header": {} },
+      { "chat_top_panel@chat.chat_header": { "layer": 2 } },
       { "autocomplete_commands_panel@chat.commands_panel": { "layer": 3 } },
       { "host_main_panel@host_options.host_panel": { "layer": 4 } },
       { "settings_screen@chat_settings.chat_settings_screen": { "layer": 13 } }

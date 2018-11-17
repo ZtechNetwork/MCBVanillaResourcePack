@@ -72,7 +72,7 @@
     "$enabled|default": true,
     "$option_enabled_binding_name|default": "",
     "controls": [
-      { "option_generic_core@settings_common.option_generic_core": { } }
+      { "option_generic_core@settings_common.option_generic_core": {} }
     ]
   },
 
@@ -263,6 +263,43 @@
         "button@common_buttons.light_glyph_button": {
           "$button_content": "settings_common.arrow_image",
           "size": [ "fill", "100%" ]
+        }
+      }
+    ]
+  },
+
+  "option_text_edit_control_with_text_button": {
+    "type": "stack_panel",
+    "orientation": "horizontal",
+    "$option_text_edit_control_with_button_size|default": [ "100%", "30px" ],
+    "size": "$option_text_edit_control_with_button_size",
+    "controls": [
+      {
+        "text_box@common.text_edit_box": {
+          "$option_text_edit_control_size|default": [ "85%", "100%" ],
+          "size": "$option_text_edit_control_size",
+          "max_length": "$max_text_edit_length",
+          "$text_edit_box_content_binding_name": "$option_binding_name",
+          "$text_edit_box_binding_collection_name": "$option_binding_name",
+          "$text_edit_box_binding_type": "global",
+          "$text_box_enabled_binding_name": "$option_enabled_binding_name",
+          "enabled": "$enabled",
+          "$place_holder_text": "$option_place_holder_text",
+          "variables": [
+            {
+              "requires": "(not $option_enabled_binding_name or not $enabled)",
+              "$text_box_enabled_binding_name": "#not_data_bound",
+              "$text_edit_box_enabled_binding_type": "none"
+            }
+          ]
+        }
+      },
+      {
+        "button@common_buttons.light_text_button": {
+          "$pressed_button_name|default": "unset_button_name",
+          "$button_text|default": "unset $button_text",
+          "$option_button_control_size|default": [ "fill", "100%" ],
+          "size": "$option_button_control_size"
         }
       }
     ]
@@ -669,6 +706,12 @@
     "$control_name": "settings_common.option_text_edit_control_with_button"
   },
 
+  "option_text_edit_with_text_button@settings_common.option_generic": {
+    "$option_place_holder_text|default": "",
+    "$max_text_edit_length|default": 30,
+    "$control_name": "settings_common.option_text_edit_control_with_text_button"
+  },
+
   "option_slider@settings_common.option_generic": {
     "$control_name": "settings_common.option_slider_control"
   },
@@ -715,7 +758,7 @@
     ],
     "$screen_content": "settings_common.settings_content",
     "$header_safezone_control": "common_store.store_top_bar_filler",
-    "$header_bar_control": "common_store.store_top_bar",    
+    "$header_bar_control": "common_store.store_top_bar",
     "$is_full_screen_layout": true
   },
 
@@ -946,7 +989,7 @@
       { "dialog_titles@settings_common.dialog_titles": {} },
       { "selector_area@settings_common.selector_area": {} },
       { "content_area@settings_common.content_area": {} },
-      { "section_divider@settings_common.section_divider": { } }
+      { "section_divider@settings_common.section_divider": {} }
     ]
   },
 

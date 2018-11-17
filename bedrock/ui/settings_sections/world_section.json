@@ -271,6 +271,41 @@
     ],
     "controls": [
       {
+        "unlock_template_options_panel": {
+          "type": "stack_panel",
+          "orientation": "vertical",
+          "size": [ "100%", "100%c + 4px" ],
+          "bindings": [
+            {
+              "binding_name": "#is_world_template_locked",
+              "binding_name_override": "#visible"
+            }
+          ],
+          "controls": [
+            {
+              "option_info_label@settings_common.option_info_label": {
+                "$container_text_binding_name": "#world_template_options_lock_warning_text",
+                "$show_option_label": false
+              }
+            },
+            {
+              "unlock_template_options_button@settings_common.action_button": {
+                "size": [ "100%", 30 ],
+                "$button_text": "options.unlockTemplateWorldOptions.initiate",
+                "$pressed_button_name": "unlock_templated_world_options",
+                "$focus_override_right": "FOCUS_OVERRIDE_STOP",
+                "bindings": [
+                  {
+                    "binding_name": "#player_has_world_template_option_unlock_permissions",
+                    "binding_name_override": "#enabled"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
         "option_info_label@settings_common.option_info_label": {
           "$container_text_binding_name": "#achievement_warning_text",
           "$show_option_label": false,
@@ -420,7 +455,7 @@
       },
       {
         "level_seed_selector@settings_common.option_text_edit_with_button": {
-          "ignored": "($education_edition or $is_android_trial)",
+          "ignored": "($education_edition or not $is_seeds_enabled)",
           "$option_label": "createWorldScreen.levelSeed",
           "$option_binding_name": "#world_seed",
           "$option_enabled_binding_name": "#world_seed_enabled",
@@ -430,7 +465,7 @@
       },
       {
         "level_seed_selector_trial@world_section.option_text_edit_mock_with_button": {
-          "ignored": "($education_edition or not $is_android_trial)",
+          "ignored": "($education_edition or $is_seeds_enabled)",
           "$option_label": "createWorldScreen.levelSeed",
           "$option_binding_name": "#world_seed",
           "$option_enabled_binding_name": "#world_seed_enabled",
@@ -467,7 +502,7 @@
           "$focus_override_right": "FOCUS_OVERRIDE_STOP",
           "$toggle_binding_condition": "always_when_visible"
         }
-      },
+      },    
       {
         "show_coordinates_toggle@settings_common.option_toggle": {
           "$option_label": "createWorldScreen.showCoordinates",
@@ -534,6 +569,16 @@
         }
       },
       {
+        "immediate_respawn_toggle@settings_common.option_toggle": {
+          "$option_label": "createWorldScreen.immediaterespawn",
+          "$option_binding_name": "#immediaterespawn",
+          "$option_enabled_binding_name": "#immediaterespawn_enabled",
+          "$toggle_name": "doimmediaterespawn",
+          "$focus_override_right": "FOCUS_OVERRIDE_STOP",
+          "$toggle_binding_condition": "always_when_visible"
+        }
+      },       
+      {
         "experimental_gameplay_toggle@settings_common.option_toggle": {
           "ignored": "$education_edition",
           "$option_label": "createWorldScreen.experimentalgameplay",
@@ -560,6 +605,17 @@
           "$option_binding_name": "#allow_cheats",
           "$option_enabled_binding_name": "#allow_cheats_enabled",
           "$toggle_name": "allow_cheats",
+          "$focus_override_right": "FOCUS_OVERRIDE_STOP",
+          "$toggle_binding_condition": "always_when_visible"
+        }
+      },
+      {
+        "code_builder_toggle@settings_common.option_toggle": {
+          "ignored": "(not $education_edition)",
+          "$option_label": "options.codeBuilder",
+          "$option_binding_name": "#code_builder",
+          "$option_enabled_binding_name": "#code_builder_enabled",
+          "$toggle_name": "code_builder",
           "$focus_override_right": "FOCUS_OVERRIDE_STOP",
           "$toggle_binding_condition": "always_when_visible"
         }
@@ -663,6 +719,30 @@
             }
           ],
           "$toggle_binding_condition": "always_when_visible"
+        }
+      },
+      {
+        "command_blocks_enabled_toggle@settings_common.option_toggle": {
+          "ignored": "$education_edition",
+          "$option_label": "createWorldScreen.commandblocksenabled",
+          "$option_binding_name": "#command_blocks_enabled",
+          "$option_enabled_binding_name": "#command_blocks_enabled_on",
+          "$toggle_name": "command_blocks_enabled",
+          "$focus_override_right": "FOCUS_OVERRIDE_STOP",
+          "$toggle_binding_condition": "always_when_visible"
+        }
+      },
+      {
+        "random_tick_speed@settings_common.option_text_edit_with_text_button": {
+          "$option_label": "createWorldScreen.randomtickspeed",
+          "$option_binding_name": "#random_tick_speed",
+          "$option_enabled_binding_name": "#random_tick_speed_enabled",
+          "$max_text_edit_length": 4,
+          "$text_edit_box_text_type": "NumberChars",
+          "$option_text_edit_control_size": [ "50%", "100%" ],
+          "$text_box_name": "random_tick_speed_text_box",
+          "$button_text": "createWorldScreen.randomtickspeed.reset",
+          "$pressed_button_name": "reset_random_tick_speed"
         }
       },
       {
@@ -847,7 +927,6 @@
 
   "level_texture_pack_button@resource_packs.resource_packs_section_toggle_base": {
     "$toggle_view_binding_name": "level_texture_pack_button_toggle",
-    "enabled": "(not $trial or $is_android_trial)",
     "$cycling_icon_path": "#cycling_icon_path_level",
     "$cycling_icon_zip": "#cycling_icon_zip_level",
     "$cycling_icon_file_system": "#cycling_icon_file_system_level",
@@ -917,7 +996,6 @@
   //ADDONS
   "addon_button@resource_packs.resource_packs_section_toggle_base": {
     "$toggle_view_binding_name": "addon_button_toggle",
-    "enabled": "(not $trial or $is_android_trial)",
     "$cycling_icon_path": "#cycling_icon_path_addon",
     "$cycling_icon_zip": "#cycling_icon_zip_addon",
     "$cycling_icon_file_system": "#cycling_icon_file_system_addon",

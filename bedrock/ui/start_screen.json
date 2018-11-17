@@ -8,6 +8,13 @@
     "size": [ 16, 16 ]
   },
 
+  "educator_resource_icon": {
+    "type": "image",
+    "texture": "textures/items/apple",
+    "layer": 30,
+    "size": [ 18, 18 ]
+  },
+
   "Xbox_icon": {
     "type": "image",
     "texture": "textures/ui/xbox4",
@@ -24,13 +31,16 @@
     "size": [ 32, 16 ]
   },
 
-  "new_offers_icon": {
-    "type": "image",
-    "texture": "textures/ui/newOffersIcon",
+  "new_offers_icon@common_store.new_offer_icon": {
     "layer": 11, // This is the lowest layer where the button border won't show through this icon while being pressed
     "anchor_from": "top_right",
-    "anchor_to": "top_right",
-    "size": [ 21, 15 ]
+    "anchor_to": "top_right"
+  },
+
+  "beta_icon@common_store.beta_icon": {
+    "layer": 11, // This is the lowest layer where the button border won't show through this icon while being pressed
+    "anchor_from": "top_right",
+    "anchor_to": "top_right"
   },
 
   "update_prompt_icon": {
@@ -219,6 +229,12 @@
   // Online Buttons Panel (and the lang button)
   //---------------------------------------------------------------------------
 
+  "edu_feedback_button@common_buttons.light_content_button": {
+    "size": [ 24, 24 ],
+    "$button_content": "start.feedback_icon",
+    "$pressed_button_name": "button.edu_feedback"
+  },
+
   "release_feedback_button@common_buttons.hyperlink_content_button": {
     "size": [ 24, 24 ],
     "property_bag": {
@@ -237,8 +253,9 @@
     "ignored": "$feedback_ignored",
     "type": "panel",
     "controls": [
-      { "release_feedback_button@start.release_feedback_button": { "ignored": "$pre_release" } },
-      { "pre_release_feedback_button@start.pre_release_feedback_button": { "ignored": "(not $pre_release)" } }
+      { "edu_feedback_button@start.edu_feedback_button": { "ignored": "(not $education_edition)" } },
+      { "release_feedback_button@start.release_feedback_button": { "ignored": "($pre_release or $education_edition)" } },
+      { "pre_release_feedback_button@start.pre_release_feedback_button": { "ignored": "(not $pre_release or $education_edition)" } }
     ]
   },
 
@@ -266,6 +283,40 @@
 
   "column_frame": {
     "type": "panel"
+  },
+
+  "educator_resources_content": {
+    "type": "panel",
+    "controls": [
+      {
+        "educator_resource_icon@start.educator_resource_icon": {
+          "anchor_to": "left_middle",
+          "anchor_from": "left_middle",
+          "offset": [ 10, -2 ]
+        }
+      },
+      {
+        "educator_resource_text_hover": {
+          "ignored": "$hover_state",
+          "type": "label",
+          "text": "menu.educatorResources",
+          "color": "$light_button_default_text_color"
+        }
+      },
+      {
+        "educator_resource_text_default": {
+          "ignored": "(not $hover_state)",
+          "type": "label",
+          "text": "menu.educatorResources",
+          "color": "$generic_button_text_color"
+        }
+      }
+    ]
+  },
+
+  "educator_resources_button@start.main_content_button": {
+    "$pressed_button_name": "button.edu_resources",
+    "$button_content": "start.educator_resources_content"
   },
 
   "online_buttons_panel": {
@@ -460,6 +511,10 @@
     "size": [ "100% - 2px", "100% - 2px" ]
   },
 
+  "main_content_button@common_buttons.light_content_button": {
+    "size": [ "100% - 2px", "100% - 2px" ]
+  },
+
   "play_button@start.main_button": {
     "$pressed_button_name": "button.menu_play",
     "$button_text": "menu.play",
@@ -482,6 +537,11 @@
         "binding_name": "#focus_change_left"
       }
     ]
+  },
+
+  "library_button@start.main_button": {
+    "$pressed_button_name": "button.menu_library",
+    "$button_text": "library.title"
   },
 
   "achievements_button@start.main_button": {
@@ -507,7 +567,7 @@
     "$button_content": "start.store_button_content",
     "$button_text_binding_type": "none",
     "$button_binding_condition": "none",
-    "$button_text_grid_collection_name": ""    
+    "$button_text_grid_collection_name": ""
   },
 
   "store_button_sale_banner@start.sale_ribbon_icon": {
@@ -543,7 +603,7 @@
         }
       },
       {
-        "sales_banner@start.store_button_sale_banner": {          
+        "sales_banner@start.store_button_sale_banner": {
           "anchor_from": "top_left",
           "anchor_to": "top_left",
           "offset": [ -6, -8 ],
@@ -637,7 +697,17 @@
 
   "main_buttons_panel": {
     "type": "panel",
-    "size": [ 150, "100%c" ],
+    "size": "$main_panel_size",
+    "variables": [
+      {
+        "requires": "$education_edition",
+        "$main_panel_size": [ 175, "100%c" ]
+      },
+      {
+        "requires": "(not $education_edition)",
+        "$main_panel_size": [ 150, "100%c" ]
+      }
+    ],
     "controls": [
       {
         "stacked_rows": {
@@ -669,7 +739,7 @@
             },
             {
               "stacked_row_2@start.stacked_row": {
-                "ignored": "(not $is_android_trial)",
+                "ignored": "(not $trial)",
                 "controls": [
                   {
                     "stacked_columns": {
@@ -733,16 +803,56 @@
               }
             },
             {
-              "stacked_row_3@start.stacked_row": {
-                "ignored": "($is_android_trial)",
+              "settings@start.stacked_row": {
+                "ignored": "$trial",
                 "controls": [
                   { "settings_button@start.settings_button": {} }
                 ]
               }
             },
             {
-              "stacked_row_4@start.stacked_row": {
-                "ignored": "(($is_android_trial) or ($store_ignored))",
+              "library@start.stacked_row": {
+                "ignored": "(not $education_edition)",
+                "controls": [
+                  { "library_button@start.library_button": {} },
+                  {
+                    "beta_icon@start.beta_icon": {
+                      "offset": [ 8, -6 ]
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "quick_play_educator_resources@start.stacked_row": {
+                "ignored": "(not $education_edition)",
+                "controls": [
+                  {
+                    "quick_play_button@start.quick_play_button": {
+                      "bindings": [
+                        {
+                          "binding_name": "(not #teacher_content_visible)",
+                          "binding_name_override": "#visible"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "educator_resources_button@start.educator_resources_button": {
+                      "bindings": [
+                        {
+                          "binding_name": "#teacher_content_visible",
+                          "binding_name_override": "#visible"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "store@start.stacked_row": {
+                "ignored": "(($trial) or ($store_ignored))",
                 "controls": [
                   {
                     "store_button@start.store_button": {
@@ -779,7 +889,7 @@
               }
             },
             {
-              "stacked_row_5@start.stacked_row": {
+              "buy_game@start.stacked_row": {
                 "controls": [
                   { "buy_game_button@start.buy_game_button": {} }
                 ],
@@ -788,14 +898,6 @@
                     "binding_name": "#trial_game_mode",
                     "binding_name_override": "#visible"
                   }
-                ]
-              }
-            },
-            {
-              "stacked_row_6@start.stacked_row": {
-                "ignored": "(not $education_edition)",
-                "controls": [
-                  { "quick_play_button@start.quick_play_button": {} }
                 ]
               }
             }
@@ -807,7 +909,7 @@
 
   "gamepad_helpers": {
     "type": "stack_panel",
-    "orientation": "horizontal",    
+    "orientation": "horizontal",
     "size": [ "100%c", 26 ],
     "controls": [
       { "gamepad_helper_a@common.gamepad_helper_a": {} },
@@ -957,10 +1059,6 @@
       },
       {
         "requires": "$gear_vr",
-        "$feedback_ignored": true
-      },
-      {
-        "requires": "$apple_tv",
         "$feedback_ignored": true
       },
       {

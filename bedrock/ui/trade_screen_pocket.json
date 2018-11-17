@@ -103,6 +103,69 @@
     ]
   },
 
+  "trade_item_slot_result_button@common.container_slot_button_prototype": {
+    "button_mappings": [
+      {
+        "from_button_id": "button.menu_select",
+        "to_button_id": "button.trade_take_all_place_all",
+        "mapping_type": "pressed"
+      },
+      {
+        "from_button_id": "button.menu_ok",
+        "to_button_id": "button.trade_take_all_place_all",
+        "mapping_type": "pressed"
+      },
+      {
+        "from_button_id": "button.menu_secondary_select",
+        "to_button_id": "button.trade_take_all_place_all",
+        "mapping_type": "pressed"
+      },
+      {
+        "from_button_id": "button.controller_select",
+        "to_button_id": "button.trade_take_all_place_all",
+        "mapping_type": "pressed"
+      },
+      {
+        "from_button_id": "button.menu_auto_place",
+        "to_button_id": "button.container_auto_place",
+        "mapping_type": "pressed"
+      },
+      {
+        "from_button_id": "button.controller_secondary_select",
+        "to_button_id": "button.container_auto_place",
+        "mapping_type": "pressed"
+      },
+      {
+        "from_button_id": "button.menu_inventory_drop",
+        "to_button_id": "button.drop_one",
+        "mapping_type": "pressed"
+      },
+      {
+        "from_button_id": "button.menu_inventory_drop_all",
+        "to_button_id": "button.drop_all",
+        "mapping_type": "pressed"
+      },
+      {
+        "from_button_id": "button.menu_select",
+        "to_button_id": "button.trade_coalesce_stack",
+        "mapping_type": "double_pressed"
+      },
+      {
+        "from_button_id": "button.menu_ok",
+        "to_button_id": "button.trade_coalesce_stack",
+        "mapping_type": "double_pressed"
+      },
+      {
+        "to_button_id": "button.container_slot_hovered",
+        "mapping_type": "pressed"
+      }
+    ]
+  },
+
+  "trade_item_slot_result@trade_item_slot": {
+    "$button_ref": "trade_pocket.trade_item_slot_result_button"
+  },
+
   //---------------------------------------------------------------------------
   // Panels
   //---------------------------------------------------------------------------
@@ -146,7 +209,7 @@
           "grid_position": [ 3, 0 ],
           "$cell_image_size": [ 26, 26 ],
           "$top_item": "trade_pocket.result_item_panel",
-          "$bottom_item": "trade_pocket.trade_item_slot",
+          "$bottom_item": "trade_pocket.trade_item_slot_result",
           "$recipe_collection": "sell_item",
           "$trade_ingredient_collection": "trade_result_item"
         }

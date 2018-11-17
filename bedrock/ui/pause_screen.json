@@ -80,7 +80,7 @@
   "change_skin_button@common_buttons.light_glyph_button": {
     "ignored": "$nx_os",
     "size": [ 29, 26 ],
-    "$pressed_button_name": "button.menu_skins",    
+    "$pressed_button_name": "button.menu_skins",
     "anchor_from": "bottom_middle",
     "anchor_to": "bottom_middle",
     "$button_content_offset": [ 3, 2 ],
@@ -280,7 +280,7 @@
   },
 
   "feedback_button@settings_common.link_button": {
-    "ignored": "(not $pre_release or $apple_tv)",
+    "ignored": "(not $pre_release)",
     "size": [ "100%", 28 ],
     "$button_text": "pauseScreen.betaFeedback",
     "$focus_id": "button.feedback_button",
@@ -299,9 +299,9 @@
     }
   },
 
-  "invite_players_button@grid_button_template": {
+  "invite_players_button@pause.grid_button_template": {
     "$pressed_button_name": "button.menu_invite_players",
-    "$button_text": "pauseScreen.invite",    
+    "$button_text": "pauseScreen.invite",
     "focus_change_down": "FOCUS_OVERRIDE_STOP",
     "focus_change_right": "FOCUS_OVERRIDE_STOP",
     "bindings": [
@@ -394,7 +394,7 @@
         "from_button_id": "button.controller_select",
         "to_button_id": "button.menu_skins",
         "mapping_type": "global",
-        "scope": "controller"        
+        "scope": "controller"
       }
     ],
 
@@ -410,8 +410,8 @@
     "layer": 1,
     "controls": [
       { "pause_screen_main_panels@pause.pause_screen_main_panels": {} },
-      { "gamepad_helpers@gamepad_helpers": {} },
-      { "keyboard_helpers@keyboard_helpers": {} }
+      { "gamepad_helpers@pause.gamepad_helpers": {} },
+      { "keyboard_helpers@pause.keyboard_helpers": {} }
     ]
   },
 
@@ -512,7 +512,7 @@
       }
     ],
     "controls": [
-      { "menu_button_control@menu_button_control": {} }
+      { "menu_button_control@pause.menu_button_control": {} }
     ]
   },
 
@@ -533,7 +533,7 @@
       }
     ],
     "controls": [
-      { "menu_background@menu_background": {} }
+      { "menu_background@pause.menu_background": {} }
     ]
   },
 
@@ -667,7 +667,7 @@
     "$show_background": false,
     "$scroll_track_size": [ 5, "100% - 4px" ],
     "$scroll_track_offset|default": [ -4, 2 ],
-    "$scrolling_content": "pause.player_list"
+    "$scrolling_content": "pause.player_lists"
   },
 
 
@@ -676,16 +676,8 @@
     "color": [ 0, 0, 0 ],
     "anchor_from": "right_middle",
     "anchor_to": "right_middle",
-    "visible": "(not $trial or $is_android_trial)",
     "controls": [
       { "player_panel_background@pause.player_panel_background": {} }
-    ],
-    "bindings": [
-      {
-        "binding_name": "(#is_full_version or $is_android_trial)",
-        "binding_name_override": "#visible",
-        "binding_type": "global"
-      }
     ]
   },
 
@@ -703,7 +695,6 @@
     "anchor_from": "top_left",
     "anchor_to": "top_left",
     "size": [ "100% - 4px", "100%c" ],
-    "offset": [ 0, 0 ],
     "focus_container": true,
     "use_last_focus": true,
     "focus_nagivation_mode_right": "contained",
@@ -714,27 +705,59 @@
         }
       },
       {
-        "ip_label@ip_label": {
+        "ip_label@pause.ip_label": {
           "ignored": "(not $education_edition)"
         }
       },
       { "players_label@pause.players_label": {} },
       {
-        "vertical_padding_1@pause.vertical_padding": {
+        "vertical_padding_2@pause.vertical_padding": {
           "size": [ 0, 3 ]
         }
       },
-      { "players_grid_panel@pause.players_grid_panel": {} },
+      { "players_grid_panel@pause.players_grid": {} },
+      {
+        "vertical_padding_3@pause.vertical_padding": {
+          "size": [ 0, 3 ]
+        }
+      },
       { "invite_players_button_panel@pause.invite_players_button_panel": {} },
       {
-        "vertical_padding_2@pause.vertical_padding": {
+        "vertical_padding_4@pause.vertical_padding": {
           "size": [ 0, 3 ]
         }
       },
       { "disconnected_from_multiplayer_label_panel@pause.disconnected_from_multiplayer_label_panel": {} },
       {
-        "vertical_padding_3@pause.vertical_padding": {
+        "vertical_padding_5@pause.vertical_padding": {
           "size": [ 0, 1 ]
+        }
+      }
+    ]
+  },
+
+  "player_lists": {
+    "type": "panel",
+    "size": [ "100% - 4px", "100%c" ],
+    "controls": [
+      {
+        "normal_list@pause.player_list": {
+          "bindings": [
+            {
+              "binding_name": "(not #list_has_display_objective)",
+              "binding_name_override": "#visible"
+            }
+          ]
+        }
+      },
+      {
+        "scoreboard_list@scoreboard.scoreboard_player_list": {
+          "bindings": [
+            {
+              "binding_name": "#list_has_display_objective",
+              "binding_name_override": "#visible"
+            }
+          ]
         }
       }
     ]
@@ -819,7 +842,7 @@
     "size": [ "100%", "100%c" ],
     "controls": [
       {
-        "invite_players_button@invite_players_button": {}
+        "invite_players_button@pause.invite_players_button": {}
       }
     ]
   },
@@ -840,17 +863,14 @@
 
   "players_label": {
     "type": "label",
-    "text": "pauseScreen.currentWorld",
+    "text": "#worldname",
     "size": [ "100%", 10 ],
     "color": "$main_header_text_color",
-    "layer": 1
-  },
-
-  "players_grid_panel": {
-    "type": "panel",
-    "size": [ "100%", "100%c" ],
-    "controls": [
-      { "players_grid@players_grid": {} }
+    "layer": 1,
+    "bindings": [
+      {
+        "binding_name": "#worldname"
+      }
     ]
   },
 
@@ -873,7 +893,7 @@
     "type": "panel",
     "size": [ "100%", 27 ],
     "controls": [
-      { "player_grid_item_content@player_grid_item_content": {} }
+      { "player_grid_item_content@pause.player_grid_item_content": {} }
     ]
   },
 
@@ -894,8 +914,8 @@
                 "type": "panel",
                 "size": [ "fill", "100%" ],
                 "controls": [
-                  { "player_button@player_button": {} },
-                  { "player_banner@player_banner": {} }
+                  { "player_button@pause.player_button": {} },
+                  { "player_banner@pause.player_banner": {} }
                 ]
               }
             },
@@ -923,7 +943,7 @@
           "anchor_from": "top_right",
           "size": [ "100%c", "100% + 1px" ],
           "controls": [
-            { "player_permission_button@player_permission_button": {} }
+            { "player_permission_button@pause.player_permission_button": {} }
           ],
           "bindings": [
             {
@@ -998,8 +1018,8 @@
     "offset": [ 4, 0 ],
     "layer": 3,
     "controls": [
-      { "player_pic_panel@player_pic_panel": {} },
-      { "player_gamertag@player_gamertag": {} }
+      { "player_pic_panel@pause.player_pic_panel": {} },
+      { "player_gamertag@pause.player_gamertag": {} }
     ]
   },
 
@@ -1008,7 +1028,6 @@
     "anchor_from": "top_left",
     "anchor_to": "top_left",
     "$button_content": "pause.player_button_content",
-    "enabled": "(not $apple_tv)",
     "button_mappings": [
       {
         "from_button_id": "button.menu_select",
@@ -1035,7 +1054,7 @@
     ]
   },
 
-  "player_banner@player_grid_banner": {
+  "player_banner@pause.player_grid_banner": {
     "size": [ "100%", "100%" ],
     "anchor_from": "top_left",
     "anchor_to": "top_left",
@@ -1057,8 +1076,8 @@
     "anchor_to": "left_middle",
     "anchor_from": "left_middle",
     "controls": [
-      { "player_gamer_pic@player_gamer_pic": {} },
-      { "player_local_icon@player_local_icon": {} }
+      { "player_gamer_pic@pause.player_gamer_pic": {} },
+      { "player_local_icon@pause.player_local_icon": {} }
     ]
   },
 
@@ -1141,14 +1160,14 @@
     "type": "panel",
     "controls": [
       {
-        "player_grid_banner_no_focus@player_grid_banner_no_focus": {
+        "player_grid_banner_no_focus@pause.player_grid_banner_no_focus": {
           "controls": [
-            { "player_button_content@player_button_content": {} }
+            { "player_button_content@pause.player_button_content": {} }
           ]
         }
       },
       {
-        "focus_border_button@focus_border_button": {
+        "focus_border_button@pause.focus_border_button": {
           "layer": 5
         }
       }
@@ -1171,12 +1190,12 @@
     "texture": "textures/ui/focus_border_white",
     "color": [ 0.7, 0.7, 0.7 ]
   },
-  
+
   "pause_screen_border": {
     "type": "image",
     "layer": 2,
     "texture": "textures/ui/pause_screen_border"
-  },  
+  },
 
   "filler_panel": {
     "type": "panel",

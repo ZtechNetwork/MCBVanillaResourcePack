@@ -70,6 +70,18 @@
     ]
   },
 
+  "realm_consumable_to_subscription_info_label@settings_common.option_info_label": {
+    "$container_size": [ "100%", "60px" ],
+    "$container_text_binding_name": "#realm_consumable_to_subscription_info",
+    "$show_option_label": false,
+    "bindings": [
+      {
+        "binding_name": "#realm_consumable_to_subscription_visibility",
+        "binding_name_override": "#visible"
+      }
+    ]
+  },
+
   "manage_subscription_button@settings_common.action_button": {
     "$button_text": "realmsSettingsScreen.manageSubscriptionButton",
     "$pressed_button_name": "menu_realms_manage_subscription",
@@ -109,6 +121,17 @@
     "bindings": [
       {
         "binding_name": "#renew_consumable_button_visible",
+        "binding_name_override": "#visible"
+      }
+    ]
+  },
+
+  "delete_realm_button@settings_common.action_button": {
+    "$button_text": "realmsSettingsScreen.deleteRealmButton",
+    "$pressed_button_name": "menu_realms_delete_realm",
+    "bindings": [
+      {
+        "binding_name": "#delete_realm_button_visible",
         "binding_name_override": "#visible"
       }
     ]
@@ -166,6 +189,7 @@
             { "player_count_label@realms_settings.player_count_label": {} },
             { "realm_duration_label@realms_settings.realm_duration_label": {} },
             { "realm_subscription_origin_label@realms_settings.realm_subscription_origin_label": {} },
+            { "realm_consumable_to_subscription_info_label@realms_settings.realm_consumable_to_subscription_info_label": {} },
             { "manage_subscription_button@realms_settings.manage_subscription_button": {} },
             { "renew_subscription_button@realms_settings.renew_subscription_button": {} },
             { "extend_consumable_button@realms_settings.extend_consumable_button": {} },
@@ -176,6 +200,7 @@
                 "size": [ 0, 2 ]
               }
             },
+            { "delete_realm_button@realms_settings.delete_realm_button": {} },
             { "open_realm_button@realms_settings.open_realm_button": {} },
             { "close_realm_button@realms_settings.close_realm_button": {} },
             {
@@ -669,13 +694,13 @@
         }
       },
       {
-        "world_name_text@realms_settings.label_text": {
-          "text": "#world_text",
+        "version_text@realms_settings.label_text": {
+          "text": "#version_text",
           "size": [ "100% - 8px", 10 ],
           "color": "$light_button_secondary_default_text_color",
           "bindings": [
             {
-              "binding_name": "#world_text",
+              "binding_name": "#version_text",
               "binding_type": "collection",
               "binding_collection_name": "$collection_binding_name"
             }
@@ -693,14 +718,14 @@
     "size": [ "fill", "100%" ],
     "controls": [
       {
-        "date_text@realms_settings.label_text": {
-          "text": "#date_text",
+        "time_text@realms_settings.label_text": {
+          "text": "#time_text",
           "text_alignment": "right",
           "size": [ "100% - 3px", 10 ],
           "color": "$light_button_secondary_default_text_color",
           "bindings": [
             {
-              "binding_name": "#date_text",
+              "binding_name": "#time_text",
               "binding_type": "collection",
               "binding_collection_name": "$collection_binding_name"
             }
@@ -714,14 +739,14 @@
         }
       },
       {
-        "time_text@realms_settings.label_text": {
-          "text": "#time_text",
+        "size_text@realms_settings.label_text": {
+          "text": "#size_text",
           "text_alignment": "right",
           "size": [ "100% - 3px", 10 ],
           "color": "$light_button_secondary_default_text_color",
           "bindings": [
             {
-              "binding_name": "#time_text",
+              "binding_name": "#size_text",
               "binding_type": "collection",
               "binding_collection_name": "$collection_binding_name"
             }

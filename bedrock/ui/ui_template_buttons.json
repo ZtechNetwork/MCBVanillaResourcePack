@@ -119,8 +119,11 @@
   "new_ui_form_fitting_button_panel": {
     "type": "panel",
     "layer": 1,
-    "$button_size_override|default": [ "100%c", "100%c" ],
     "size": "$button_size_override",
+    "$button_size_override|default": [ "100%c", "100%c" ],
+    "$focus_border_size_override|default": [ "100%c + 2px", "100%c + 2px" ],
+    "$button_image_size_override|default": [ "100%c + 2px", "100%c + 2px" ],
+    "$button_content_size_override|default": [ "100%c + 6px", "100%c + 6px" ],
 
     "$content_alpha|default": 1,
     "anchor_from": "$anchor",
@@ -130,12 +133,12 @@
         "border@common_buttons.focus_border": {
           "color": "$border_color",
           "layer": "$border_layer",
-          "size": [ "100%c + 2px", "100%c + 2px" ],
+          "size": "$focus_border_size_override",
           "$button_image|default": "common_buttons.button_image",
           "controls": [
             {
               "$button_image@$button_image": {
-                "size": [ "100%c + 2px", "100%c + 2px" ],
+                "size": "$button_image_size_override",
                 "$form_fitting_min_size|default": [ 0, 0 ],
                 "min_size": "$form_fitting_min_size",
                 "layer": 1,
@@ -143,7 +146,7 @@
                   {
                     "button_content": {
                       "type": "panel",
-                      "size": [ "100%c + 6px", "100%c + 6px" ],
+                      "size": "$button_content_size_override",
                       "controls": [
                         {
                           "$button_type_panel@$button_type_panel": {
@@ -486,6 +489,24 @@
     ]
   },
 
+
+  /////////////////////////////////
+  //
+  //  FORM FITTING CONTENT BUTTON
+  //
+  /////////////////////////////////
+
+  // Max size will be the size specified for the button, otherwise will shrink the width to fit the text, also only single line
+  // The default height of the button will be 20 texels which is the minimum required for touch target size
+  "light_content_form_fitting_button@common_buttons.light_content_button": {
+    "size": [ "100%c", "20px" ],
+    "$button_state_panel|default": "common_buttons.new_ui_form_fitting_button_panel",
+    "$anchor": "top_left", // Cannot override this or will cause unsolvable layout!
+    "$button_offset|default": [ 3, 3 ],
+    "$button_pressed_offset|default": [ 3, 4 ],
+    "$button_type_panel": "common_buttons.horizontal_form_fitting"
+  },
+
   /////////////////////////////////
   //
   //  FORM FITTING TEXT BUTTON
@@ -820,6 +841,20 @@
   "form_fitting_button_content_panel": {
     "type": "panel",
     "size": [ "100%c", "100%c" ],
+    "offset": "$button_offset",
+    "controls": [
+      {
+        "content@$button_content": {
+          "layer": 2
+        }
+      }
+    ]
+  },
+
+
+  "horizontal_form_fitting": {
+    "type": "panel",
+    "size": [ "100%c", "100%" ],
     "offset": "$button_offset",
     "controls": [
       {

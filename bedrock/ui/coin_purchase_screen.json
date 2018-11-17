@@ -1,11 +1,6 @@
 {
   "namespace": "coin_purchase",
 
-  "white_label": {
-    "type": "label",
-    "color": "$generic_button_text_color"
-  },
-
   "black_image": {
     "type": "image",
     "texture": "textures/ui/Black"
@@ -30,13 +25,15 @@
           "size": [ "100%c", "100%c" ],
           "controls": [
             {
-              "coins_without_bonus@coin_purchase.white_label": {
+              "coins_with_bonus": {
+                "type": "label",
                 "layer": 3,
                 "offset": [ 0, 1 ],
-                "text": "#coins_without_bonus",
+                "text": "#coins_with_bonus",
+                "color": "$coin_color",
                 "bindings": [
                   {
-                    "binding_name": "#coins_without_bonus",
+                    "binding_name": "#coins_with_bonus",
                     "binding_type": "collection",
                     "binding_collection_name": "coin_purchase_grid"
                   }

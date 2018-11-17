@@ -37,12 +37,7 @@
         "button_label": {
           "type": "label",
           "color": "$text_color",
-          "text": "#price",
-          "bindings": [
-            {
-              "binding_name": "#price"
-            }
-          ]
+          "text": "trial.tabbed_upsell.button"
         }
       }
     ]
@@ -58,8 +53,7 @@
       {
         "label_text": {
           "type": "label",
-          "size": [ "100%", "100%" ],
-          "max_size": [ "100%", "100%" ],
+          "size": [ "100%", "default" ],
           "$text_font_scale_factor|default": 0.9,
           "font_scale_factor": "$text_font_scale_factor",
           "font_type": "smooth",
@@ -73,7 +67,7 @@
   "text_panel": {
     "type": "stack_panel",
     "orientation": "vertical",
-    "size": [ "60% - 5px", "100%" ],
+    "size": [ "100%", "default" ],
     "controls": [
       {
         "tab_content_title_panel@tabbed_upsell.label_panel": {
@@ -85,9 +79,17 @@
       },
       {
         "tab_content_description_panel@tabbed_upsell.label_panel": {
-          "size": [ "100%", "fill" ],
+          "size": [ "100%", "100%c" ],
           "$text_color": "$body_text_color",
           "$text": "$description_text"
+        }
+      },
+      {
+        "tab_content_description_panel_second@tabbed_upsell.label_panel": {
+          "ignored": "(not $multiline_description)",
+          "size": [ "100%", "100%c" ],
+          "$text_color": "$body_text_color",
+          "$text": "$description_text_line_2"
         }
       }
     ]
@@ -130,7 +132,13 @@
         "horizontal_padding_01@tabbed_upsell.text_horizontal_padding": {}
       },
       {
-        "text_panell@tabbed_upsell.text_panel": {}
+        "scrolling_panel@common.scrolling_panel": {
+          "size": [ "60% - 5px", "100%" ],
+          "$scrolling_content": "tabbed_upsell.text_panel",
+          "$show_background": false,
+          "$scroll_size": [ "5px", "100% - 4px" ],
+          "$scroll_bar_left_padding_size": [ 1, 0 ]
+        }
       }
     ]
   },
@@ -328,6 +336,7 @@
     "anchor_to": "bottom_middle",
     "anchor_from": "bottom_middle",
     "size": [ "100%", "fill" ],
+    "$multiline_description": false,
     "controls": [
       {
         "minecraft_tab_content@tabbed_upsell.minecraft_tab_content_panel": {}
@@ -398,7 +407,9 @@
     "$scroll_tab_content": "tabbed_upsell.content_image_panel",
     "$texture": "textures/ui/tabbed_upsell_xbox",
     "$title_text": "trial.tabbed_upsell.xbl.title",
-    "$description_text": "trial.tabbed_upsell.xbl.description"
+    "$description_text": "trial.tabbed_upsell.xbl.description",
+    "$multiline_description": true,
+    "$description_text_line_2": "trial.tabbed_upsell.xbl.description.line2"
   },
 
   "achievements_tab_content_panel@tabbed_upsell.common_tab_content_panel": {

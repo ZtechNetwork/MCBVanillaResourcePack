@@ -9,11 +9,17 @@
 
   "normal_description_label": {
     "type": "label",
+    "text": "$trial_description_test",
     "size": [ "100%", 10 ],
     "color": "$body_text_color",
     "anchor_from": "center",
     "anchor_to": "center",
-    "layer": 2
+    "layer": 2,
+    "bindings": [
+      {
+        "binding_name": "$trial_description_test"
+      }
+    ]
   },
 
   "trialTime": {
@@ -43,12 +49,11 @@
     "controls": [
       {
         "description_text@normal_description_label": {
-          "text": "$trial_description_test",
           "size": [ "100%", "100%" ],
           "anchor_from": "top_left",
           "anchor_to": "top_left"
 
-        }      
+        }
       }
     ]
   },
@@ -78,17 +83,17 @@
         }
       },
       {
-        "line2@normal_description_label": {          
+        "line2@normal_description_label": {
           "text": "trial.upsell.expiredDescription.line2"
         }
       },
       {
-        "line3@normal_description_label": {          
+        "line3@normal_description_label": {
           "text": "trial.upsell.expiredDescription.line3"
         }
       },
       {
-        "line4@normal_description_label": {          
+        "line4@normal_description_label": {
           "text": "trial.upsell.expiredDescription.line4"
         }
       },
@@ -105,7 +110,7 @@
     "$pressed_button_name": "button.menu_continue",
     "$button_text": "$continue_button_text"
   },
-  
+
   "buy_button@common_buttons.light_text_button": {
     "$pressed_button_name": "button.menu_buy_game",
     "$button_text": "trial.upsell.unlock"
@@ -119,19 +124,19 @@
   },
 
   "trial_upsell_screen_dialog@common_dialogs.main_panel_one_button": {
-    "$child_control": "trialUpsell.trial_description_panel",
+    "$child_control": "trialUpsell.content_description_panel",
     "$text_name": "trial.upsell.title",
     "$button_panel": "trialUpsell.button_content_panel",
     "$continue_button_text": "trial.upsell.startTrial",
-    "$trial_description_test": "trial.upsell.description.updated"
+    "$trial_description_test": "#trial_upsell_updatedDescription"
   },
 
-  "trial_upsell_expired_screen_dialog@common_dialogs.main_panel_one_button": {    
-    "$child_control": "trialUpsell.trial_description_panel",
+  "trial_upsell_expired_screen_dialog@common_dialogs.main_panel_one_button": {
+    "$child_control": "trialUpsell.content_description_panel",
     "$text_name": "trial.upsell.expiredTitle",
     "$button_panel": "trialUpsell.button_content_panel",
     "$continue_button_text": "trial.upsell.expiredViewWorld",
-    "$trial_description_test": "trial.upsell.expiredNewDescription"
+    "$trial_description_test": "#trial_upsell_expired_updatedDescription"
   },
 
   "button_content_panel": {
@@ -168,11 +173,11 @@
   "trial_upsell_screen_content": {
     "type": "panel",
     "controls": [
-      { "trialTime@trialTime": { } },
+      { "trialTime@trialTime": {} },
       {
         "root_panel@root_panel": {
           "controls": [
-            { "trial_upsell_screen_dialog@trial_upsell_screen_dialog": { } }
+            { "trial_upsell_screen_dialog@trial_upsell_screen_dialog": {} }
           ]
         }
       }
@@ -193,12 +198,26 @@
   "trial_upsell_expired_screen_content": {
     "type": "panel",
     "controls": [
-      { "trialTime@trialTime": { } },
+      { "trialTime@trialTime": {} },
       {
         "root_panel@root_panel": {
           "controls": [
-            { "trial_upsell_expired_screen_dialog@trial_upsell_expired_screen_dialog": { } }
+            { "trial_upsell_expired_screen_dialog@trial_upsell_expired_screen_dialog": {} }
           ]
+        }
+      }
+    ]
+  },
+
+  "content_description_panel": {
+    "type": "panel",
+    "controls": [
+      {
+        "scrolling_panel@common.scrolling_panel": {
+          "$scrolling_content": "trialUpsell.trial_description_panel",
+          "$show_background": false,
+          "$scroll_size": [ "5px", "100%c" ],
+          "$scroll_bar_left_padding_size": [ 1, 0 ]
         }
       }
     ]

@@ -980,7 +980,6 @@
   },
 
   "find_friends_button@common_buttons.light_text_button": {
-    "ignored": "($apple_tv)",
     "anchor_from": "left_middle",
     "anchor_to": "left_middle",
     "size": [ "100%", 30 ],
@@ -1093,25 +1092,12 @@
     "texture": "textures/ui/more_dots"
   },
 
-  "share_icon_microsoft": {
+  "share_icon": {
     "type": "image",
     "layer": 2,
-    "size": [ 16, 16 ],
-    "texture": "textures/ui/share_microsoft"
-  },
-
-  "share_icon_apple": {
-    "type": "image",
-    "layer": 2,
-    "size": [ 16, 16 ],
-    "texture": "textures/ui/share_apple"
-  },
-
-  "share_icon_google": {
-    "type": "image",
-    "layer": 2,
-    "size": [ 16, 16 ],
-    "texture": "textures/ui/share_google"
+    "size": "$share_icon_size",
+    "texture": "$share_icon_texture",
+    "offset": "$share_icon_offset"
   },
 
   "minus_icon": {
@@ -1488,6 +1474,26 @@
           "size": [ "100%c", 28 ],
           "offset": [ -6, 0 ],
           "orientation": "horizontal",
+          "variables": [
+            {
+              "requires": "($apple_os and $supports_share)",
+              "$share_icon_texture": "textures/ui/share_apple",
+              "$share_icon_offset": [ 3.5, -1.5 ],
+              "$share_icon_size": [ 11, 15 ]
+            },
+            {
+              "requires": "(($microsoft_os or (not $apple_os and not $google_os)) and $supports_share)",
+              "$share_icon_texture": "textures/ui/share_microsoft",
+              "$share_icon_offset": [ 2.5, -0.5 ],
+              "$share_icon_size": [ 15, 13 ]
+            },
+            {
+              "requires": "($google_os and $supports_share)",
+              "$share_icon_texture": "textures/ui/share_google",
+              "$share_icon_offset": [ 2.0, -0.5 ],
+              "$share_icon_size": [ 14, 13 ]
+            }
+          ],
           "controls": [
             {
               "link_copy@realms_whitelist.copy_button": {
@@ -1504,28 +1510,14 @@
               "spacing": {
                 "type": "panel",
                 "size": [ 1, 0 ],
-                "ignored": "($gear_vr or $xbox_one or (not $google_os and not $apple_os and not $microsoft_os))"
+                "ignored": "(not $supports_share)"
               }
             },
             {
-              "link_share_microsoft@realms_whitelist.share_button": {
+              "link_share@realms_whitelist.share_button": {
                 "offset": [ 0, 6 ],
-                "ignored": "($oculus_rift or $xbox_one or not $microsoft_os)",
-                "$button_content": "realms_whitelist.share_icon_microsoft" //exp-todo: replace with binding that can hotswap this and only have one control
-              }
-            },
-            {
-              "link_share_apple@realms_whitelist.share_button": {
-                "offset": [ 0, 6 ],
-                "ignored": "(not $apple_os)",
-                "$button_content": "realms_whitelist.share_icon_apple"
-              }
-            },
-            {
-              "link_share_google@realms_whitelist.share_button": {
-                "offset": [ 0, 6 ],
-                "ignored": "($gear_vr or not $google_os)",
-                "$button_content": "realms_whitelist.share_icon_google"
+                "$button_content": "realms_whitelist.share_icon",
+                "ignored": "(not $supports_share)"
               }
             }
           ]

@@ -1,17 +1,6 @@
 {
   "namespace": "store_sale_item_list",
 
-  "row_header_label@common_store.label": {
-    "text": "worlds on sale",
-    "color": "$row_header_text_color",
-    "bindings": [
-      {
-        "binding_name": "$row_header_visible_binding",
-        "binding_name_override": "#visible"
-      }
-    ]
-  },
-
   "banner_header": {
     "type": "panel",
     "size": [ "100%", 16 ],
@@ -38,17 +27,14 @@
                       "size": [ "100%c - 50%y + 24px", "100%" ],
                       "controls": [
                         {
-                          "sales_row_header_label@common_store.row_header_label": {
+                          "sales_row_header_label@common_store.store_section_header_label": {
                             "size": [ "default", 10 ],
                             "offset": [ 12, 0.5 ],
                             "anchor_from": "left_middle",
                             "anchor_to": "left_middle",
-                            "$row_header_visible_binding": "",
-                            "$row_header_label_visible_binding_type": "none",
-                            "$row_header_label_text_binding_type": "global",
-                            "$row_header_label_binding_collection_name": "",
-                            "$row_header_label_text": "#sales_header_text",
-                            "$row_header_text_color": "$title_text_color",
+                            "$store_section_header_visible_binding": "#is_sales_grid_visible",
+                            "$store_section_header_label_text": "#sales_header_text",
+                            "$store_section_header_text_color": "$title_text_color",
                             "layer": 1
                           }
                         },
@@ -127,8 +113,7 @@
           "size": [ "100%", "100%c" ],
           "controls": [
             {
-              "sales_banner_panel@store_sale_item_list.banner_header": {
-              }
+              "sales_banner_panel@store_sale_item_list.banner_header": {}
             },
             {
               "top_sales_grid_padding": {

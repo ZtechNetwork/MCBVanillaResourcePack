@@ -31,12 +31,6 @@
           "type": "panel",
           "size": [ "100%", "100%c" ],
           "$text_binding_id|default": "#realms_purchase_info",
-          "variables": [
-            {
-              "requires": "($apple_tv)",
-              "$text_binding_id": "#realms_eula_info"
-            }
-          ],
           "controls": [
             {
               "purchase_info_text": {
@@ -50,24 +44,6 @@
                     "binding_condition": "once"
                   }
                 ]
-              }
-            }
-          ]
-        }
-      },
-      {
-        "ms_privacy_policy_link_panel": {
-          "ignored": "(not $apple_tv)",
-          "type": "panel",
-          "size": [ "100%", "100%c" ],
-          "offset": [ 0, 2 ],
-          "controls": [
-            {
-              "ms_privacy_policy_link_text": {
-                "type": "label",
-                "color": "$body_text_color",
-                "size": [ "100%-4px", "default" ],
-                "text": "realmsPurchaseInfoScreen.microsoftPrivacyPolicy"
               }
             }
           ]
@@ -132,7 +108,6 @@
           "controls": [
             {
               "terms_and_conditions_button@common_buttons.hyperlink_button": {
-                "ignored": "($apple_tv)",
                 "anchor_from": "top_left",
                 "anchor_to": "top_left",
                 "$button_text": "realmsCreateScreen.viewTermsAndConditions",
@@ -146,23 +121,10 @@
             },
             {
               "right_half_width@popup_dialog.popup_dialog_button": {
-                "ignored": "($apple_tv)",
                 "$pressed_button_name": "button.menu_exit",
                 "size": [ "50% - 2px", "100%" ],
                 "default_focus_precedence": 1,
                 "$button_text": "gui.cancel",
-                "anchor_from": "top_right",
-                "anchor_to": "top_right",
-                "offset": [ 0, 0 ]
-              }
-            },
-            {
-              "right_full_width@popup_dialog.popup_dialog_button": {
-                "ignored": "(not $apple_tv)",
-                "$pressed_button_name": "button.menu_exit",
-                "size": [ "100%", "100%" ],
-                "default_focus_precedence": 1,
-                "$button_text": "gui.ok",
                 "anchor_from": "top_right",
                 "anchor_to": "top_right",
                 "offset": [ 0, 0 ]

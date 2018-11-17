@@ -226,6 +226,14 @@
       "+defines": [ "ALPHA_TEST", "ENABLE_VERTEX_TINT_MASK", "ENABLE_CURRENT_ALPHA_MULTIPLY" ]
     },
 
+    "ui_item_multicolor_tint:ui_item": {
+      "vertexShader": "shaders/color_uv.vertex",
+      "vrGeometryShader": "shaders/color_uv.geometry",
+      "fragmentShader": "shaders/color_texture.fragment",
+
+      "+defines": [ "MULTI_COLOR_TINT" ]
+    },
+
     "ui_item_glint_stencil:ui_item": {
       "vertexShader": "shaders/color_uv.vertex",
       "vrGeometryShader": "shaders/color_uv.geometry",
@@ -440,7 +448,6 @@
       "vertexShader": "shaders/banner.vertex",
       "vrGeometryShader": "shaders/banner.geometry",
       "fragmentShader": "shaders/banner.fragment",
-      "depthFunc": "LessEqual",
       "+states": [ "Blending" ],
       "+defines": [ "ENABLE_LIGHT", "UI_ENTITY" ],
 
