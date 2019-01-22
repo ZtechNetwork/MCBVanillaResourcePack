@@ -229,10 +229,6 @@
       {
         "requires": "(not $pre_release)",
         "$focus_up_control": "button.menu_quit"
-      },
-      {
-        "requires": "$pre_release",
-        "$focus_up_control": "button.feedback_button"
       }
     ]
   },
@@ -272,31 +268,11 @@
     ]
   },
 
-  "how_to_play_button@pause.pause_button_template": {
-    "$pressed_button_name": "button.menu_how_to_play",
-    "$button_text": "menu.howToPlay",
+  "feedback_button@pause.pause_button_template": {
+    "$pressed_button_name": "button.menu_feedback",
+    "$button_text": "options.group.feedback",
     "anchor_to": "top_middle",
     "anchor_from": "top_middle"
-  },
-
-  "feedback_button@settings_common.link_button": {
-    "ignored": "(not $pre_release)",
-    "size": [ "100%", 28 ],
-    "$button_text": "pauseScreen.betaFeedback",
-    "$focus_id": "button.feedback_button",
-    "variables": [
-      {
-        "requires": "(not $education_edition)",
-        "$fblink": "https://aka.ms/minecraftfbbeta"
-      },
-      {
-        "requires": "($education_edition)",
-        "$fblink": "https://aka.ms/minecraftedubeta"
-      }
-    ],
-    "property_bag": {
-      "#hyperlink": "$fblink"
-    }
   },
 
   "invite_players_button@pause.grid_button_template": {
@@ -346,10 +322,6 @@
       {
         "requires": "(not $pre_release)",
         "$focus_down_control": "button.menu_continue"
-      },
-      {
-        "requires": "$pre_release",
-        "$focus_down_control": "button.feedback_button"
       }
     ]
   },
@@ -644,15 +616,9 @@
                 ]
               }
             },
-            { "how_to_play_button@pause.how_to_play_button": {} },
+            { "feedback_button@pause.feedback_button": {} },
             { "how_to_play@pause.vertical_padding": {} },
-            { "quit_button@pause.quit_button": {} },
-            {
-              "feedback@pause.vertical_padding": {
-                "ignored": "(not $pre_release)"
-              }
-            },
-            { "feedback_button@pause.feedback_button": {} }
+            { "quit_button@pause.quit_button": {} }
           ]
         }
       }

@@ -154,7 +154,7 @@
           "localize": false,
           "size": [ "100%", "default" ],
           "text": "#text",
-          "line_padding": "$chat_message_spacing"
+          "line_padding": "$chat_line_spacing"
         }
       }
     ],
@@ -238,7 +238,9 @@
         "to_button_id": "$text_edit_box_selected_to_button_id",
         "handle_select": false,
         "handle_deselect": true,
-        "mapping_type": "global"
+        "mapping_type": "global",
+        // Deselect textbox and allow selection of another UI control with same mouse press
+        "consume_event": false
       },
       {
         "from_button_id": "button.menu_ok",

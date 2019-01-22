@@ -108,7 +108,8 @@
 
   "continue_button@common_buttons.light_text_button": {
     "$pressed_button_name": "button.menu_continue",
-    "$button_text": "$continue_button_text"
+    "$button_text": "$continue_button_text",
+    "$button_text_binding_type": "global"
   },
 
   "buy_button@common_buttons.light_text_button": {
@@ -127,7 +128,7 @@
     "$child_control": "trialUpsell.content_description_panel",
     "$text_name": "trial.upsell.title",
     "$button_panel": "trialUpsell.button_content_panel",
-    "$continue_button_text": "trial.upsell.startTrial",
+    "$continue_button_text": "#trial_upsell_continue_button",
     "$trial_description_test": "#trial_upsell_updatedDescription"
   },
 
@@ -135,7 +136,7 @@
     "$child_control": "trialUpsell.content_description_panel",
     "$text_name": "trial.upsell.expiredTitle",
     "$button_panel": "trialUpsell.button_content_panel",
-    "$continue_button_text": "trial.upsell.expiredViewWorld",
+    "$continue_button_text": "#trial_upsell_continue_button",
     "$trial_description_test": "#trial_upsell_expired_updatedDescription"
   },
 
@@ -216,7 +217,7 @@
         "scrolling_panel@common.scrolling_panel": {
           "$scrolling_content": "trialUpsell.trial_description_panel",
           "$show_background": false,
-          "$scroll_size": [ "5px", "100%c" ],
+          "$scroll_size": [ "5px", "100%" ],
           "$scroll_bar_left_padding_size": [ 1, 0 ]
         }
       }

@@ -386,6 +386,17 @@
     "$bottom_button_text": "progressScreen.dialog.button.leave"
   },
 
+  "add_on_confirmation@progress.simple_popup_dialog_base": {
+    "$title_text": "progressScreen.dialog.title.scriptConfirm",
+    "$description_text": "progressScreen.dialog.message.scriptConfirm",
+
+    "$top_button_text": "#empty_binding",
+    "$middle_button_press": "button.join",
+    "$middle_button_text": "#join_and_download",
+    "$bottom_button_press": "button.leave",
+    "$bottom_button_text": "progressScreen.dialog.button.leave"
+  },
+
   "texture_pack_optional@progress.simple_popup_dialog_base": {
     "$title_text": "progressScreen.dialog.title.resourcePack",
     "$description_text": "progressScreen.dialog.message.resourcePackOptional",
@@ -798,7 +809,7 @@
       "@common.screen_exit_animation_pop_fade"
     ],
 
-	  "button_mappings": [
+    "button_mappings": [
       {
         "from_button_id": "button.menu_cancel",
         "to_button_id": "button.menu_exit",
@@ -812,6 +823,7 @@
     "control_ids": {
       "test": "dialog@progress.popup_dialog_base",
       "add_on_only": "add_on_only@progress.add_on_only",
+      "add_on_confirmation": "add_on_only@progress.add_on_confirmation",
       "add_on_with_optional_texture_pack": "add_on_only@progress.add_on_with_optional_texture_pack",
       "add_on_with_texture_pack": "add_on_only@progress.add_on_with_texture_pack",
       "texture_pack_optional": "add_on_only@progress.texture_pack_optional",
@@ -1037,7 +1049,7 @@
     ]
   },
 
-    "auto_save_animation": {
+  "auto_save_animation": {
     "anim_type": "flip_book",
     "initial_uv": [ 0, 0 ],
     "frame_count": 9,

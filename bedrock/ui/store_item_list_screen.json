@@ -106,7 +106,12 @@
     "layer": 1,
     "bindings": [
       {
-        "binding_type": "collection",
+        "binding_type": "$store_factory_collection_details",
+        "binding_collection_name": "$store_factory_collection_name",
+        "binding_collection_prefix": "$store_factory_collection_prefix"
+      },
+      {
+        "binding_type": "$offer_binding_type",
         "binding_collection_name": "$offer_collection_name",
         "binding_name": "#title_label"
       }
@@ -183,7 +188,7 @@
                         {
                           "binding_type": "$offer_binding_type",
                           "binding_collection_name": "$offer_collection_name",
-                          "binding_name": "#durable_title_visible",
+                          "binding_name": "(not #is_offer_collection_query)",
                           "binding_name_override": "#visible"
                         }
                       ],
@@ -205,9 +210,14 @@
                       "font_scale_factor": 1.3,
                       "bindings": [
                         {
+                          "binding_type": "$store_factory_collection_details",
+                          "binding_collection_name": "$store_factory_collection_name",
+                          "binding_collection_prefix": "$store_factory_collection_prefix"
+                        },
+                        {
                           "binding_type": "collection",
                           "binding_collection_name": "$offer_collection_name",
-                          "binding_name": "(not #durable_title_visible)",
+                          "binding_name": "#is_offer_collection_query",
                           "binding_name_override": "#visible"
                         },
                         {

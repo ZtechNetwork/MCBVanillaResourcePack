@@ -591,6 +591,12 @@
           "anchor_from": "top_left",
           "anchor_to": "top_left"
         }
+      },
+      {
+        "header_panel_bottom_padding": {
+          "type": "panel",
+          "size": [ "100%", 5 ]
+        }
       }
     ]
   },
@@ -675,6 +681,7 @@
             { "world_template_item_grid@world_templates.world_template_item_grid": {} },
             {
               "inventory_button@common_buttons.dark_text_button": {
+                "ignored": "$education_edition",
                 "size": [ "100%", 30 ],
                 "$pressed_button_name": "button.inventory",
                 "$button_text": "selectTemplate.inventory",
@@ -686,6 +693,61 @@
               "template_list_bottom_padding": {
                 "type": "panel",
                 "size": [ "100%", 4 ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "education_template_panel": {
+          "type": "stack_panel",
+          "orientation": "vertical",
+          "ignored": "(not $education_edition)",
+          "size": [ "100%", "100%c" ],
+          "controls": [
+            {
+              "suggested_content_offers_title_label@resource_packs.suggested_content_offers_title_label": {
+                "size": [ "100%", "10px" ],
+                "$suggested_content_offers_label_text": "selectTemplate.suggestedContent.title",
+                "$suggested_content_offers_binding_type": "none",
+                "bindings": [
+                  {
+                    "binding_name": "#education_template_visible",
+                    "binding_name_override": "#visible"
+                  }
+                ]
+              }
+            },
+            {
+              "education_template_grid": {
+                "type": "grid",
+                "size": [ "100%", "default" ],
+                "grid_item_template": "world_templates.world_template_item",
+                "grid_dimension_binding": "#education_template_item_grid_dimension",
+                "$collection_name": "#education_template_collection",
+                "collection_name": "#education_template_collection",
+                "$collection_prefix|default": "",
+                "$pressed_button_name": "button.select_template",
+                "$world_template_description_binding_name": "#created_by_label",
+                "$world_template_name_binding_name": "#title_label",
+                "$screenshot_texture_name": "#template_texture_name",
+                "$screenshot_file_system": "#template_texture_file_system",
+                "bindings": [
+                  {
+                    "binding_name": "#education_template_item_grid_dimension"
+                  },
+                  {
+                    "binding_name": "#education_template_visible",
+                    "binding_name_override": "#visible"
+                  }
+                ]
+              }
+            },
+            {
+              "see_more_templates_button@common_buttons.dark_text_button": {
+                "size": [ "100%", 30 ],
+                "$pressed_button_name": "button.see_more_templates",
+                "$button_text": "selectTemplate.suggestedContent.button"
               }
             }
           ]

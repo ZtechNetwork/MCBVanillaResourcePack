@@ -165,7 +165,9 @@
     "anchor_from": "top_middle",
     "size": [ "100%", "50%-1px" ],
     "$pressed_button_name": "$popup_dialog_left_button_name",
-    "$button_text": "#modal_left_button_text"
+    "$button_text": "#modal_left_button_text",
+    "$left_focus_number|default": 0,
+    "default_focus_precedence": "$left_focus_number"
   },
 
   "modal_middle_button@common_buttons.light_text_button": {
@@ -173,7 +175,9 @@
     "anchor_from": "center",
     "size": [ "100%", "50%-1px" ],
     "$pressed_button_name": "$popup_dialog_middle_button_name",
-    "$button_text": "#modal_middle_button_text"
+    "$button_text": "#modal_middle_button_text",
+    "$middle_focus_number|default": 0,
+    "default_focus_precedence": "$middle_focus_number"
   },
 
   "modal_rightcancel_button@common_buttons.light_text_button": {
@@ -181,7 +185,9 @@
     "anchor_from": "bottom_middle",
     "size": [ "100%", "50%-1px" ],
     "$pressed_button_name": "$popup_dialog_rightcancel_button_name",
-    "$button_text": "#modal_rightcancel_button_text"
+    "$button_text": "#modal_rightcancel_button_text",
+    "$right_focus_number|default": 1,
+    "default_focus_precedence": "$right_focus_number"
   },
 
   "three_buttons_panel": {
@@ -203,8 +209,7 @@
       },
       {
         "right@popup_dialog.modal_rightcancel_button": {
-          "size": [ "100%", "33% - 1px" ],
-          "default_focus_precedence": 1
+          "size": [ "100%", "33% - 1px" ]
         }
       }
     ]
@@ -233,8 +238,7 @@
       },
       {
         "right@popup_dialog.modal_rightcancel_button": {
-          "size": [ "100%", "33% - 1px" ],
-          "default_focus_precedence": 1
+          "size": [ "100%", "33% - 1px" ]
         }
       }
     ]
@@ -250,7 +254,6 @@
       { "left@popup_dialog.modal_left_button": {} },
       {
         "right@popup_dialog.modal_rightcancel_button": {
-          "default_focus_precedence": 1
         }
       }
     ]
@@ -271,7 +274,6 @@
       },
       {
         "right@popup_dialog.modal_rightcancel_button": {
-          "default_focus_precedence": 1
         }
       }
     ]
@@ -300,7 +302,6 @@
       {
         "background_with_buttons@common.common_panel": {
           "$dialog_background": "$dialog_background_override",
-          "$show_close_button": false,
           "$fill_alpha": 1
         }
       },

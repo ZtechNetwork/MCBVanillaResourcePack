@@ -17,27 +17,35 @@
 
   "game_tip_label": {
     "type": "label",
-    "layer": 31,
-    "text": "#text",
+    "layer": 3,
+    "text_alignment": "center",
     "color": "$body_text_color",
-    "size": [ "100%", "default" ],
+    "text": "#text",
+    "size": [ "100%-10px", "default" ],
+    "offset": [ 0, 5 ],
     "anims": [
       "@game_tip.anim_game_tip_txt_wait"
     ]
   },
 
   "game_tip_item": {
-    "type": "panel",
+    "type": "image",
+    "texture": "textures/ui/effect_background",
     "layer": 1,
-    "size": [ "100% + 5px", "100%c" ],
-    "anchor_from": "top_left",
-    "anchor_to": "top_left",
+    "size": [ "100%+10px", "100%c+10px" ],
+    "$fill_alpha|default": 0.6,
+    "variables": [
+      {
+        "requires": "$is_holographic",
+        "$fill_alpha": 1.0
+      }
+    ],
+    "alpha": "$fill_alpha",
     "controls": [
       {
         "game_tip_text@game_tip_label": {
-          "anchor_from": "center",
-          "anchor_to": "center",
-          "offset": [ 2, 0 ]
+          "anchor_from": "top_middle",
+          "anchor_to": "top_middle"
         }
       }
     ]
@@ -45,10 +53,11 @@
 
   "game_tip_panel": {
     "type": "stack_panel",
-    "anchor_from": "top_left",
-    "anchor_to": "top_left",
-    "size": [ "100%", "100%c" ],
-    "max_size": [ "100%", "50%" ],
+    "anchor_from": "top_middle",
+    "anchor_to": "top_middle",
+    "size": [ "default", "default" ],
+    "max_size": [ 170, "100%" ],
+    "offset": [ 0, 15 ],
     "factory": {
       "name": "game_tip_item_factory",
       "max_children_size": 1,
