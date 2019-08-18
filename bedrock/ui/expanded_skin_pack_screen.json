@@ -339,10 +339,37 @@
         "pdp_background@expanded_skin_pack.purchase_pack_panel_background": {}
       },
       {
-        "purchase_buttons@mashup.purchase_buttons_panel": {
+        "purchase_buttons@pdp.purchase_buttons_panel": {
           "size": [ "100%", 26 ],
           "$button_action": "button.purchase",
           "$button_focus_precedence": 6
+        }
+      },
+      {
+        "disclaimer_panel": {
+          "type": "panel",
+          "size": [ "100%", "100%c" ],
+          "controls": [
+            {
+              "legal_text_label": {
+                "type": "label",
+                "size": [ "100%", "default" ],
+                "color": "$body_text_color",
+                "font_type": "smooth",
+                "font_scale_factor": 0.68,
+                "text": "#purchase_with_currency_disclaimer",
+                "bindings": [
+                  {
+                    "binding_name": "#purchase_with_currency_disclaimer"
+                  },
+                  {
+                    "binding_name": "#currency_purchase_visible",
+                    "binding_name_override": "#visible"
+                  }
+                ]
+              }
+            }
+          ]
         }
       }
     ]
@@ -430,7 +457,7 @@
           "orientation": "horizontal",
           "controls": [
             {
-              "padding@mashup.horizontal_padding_2px": {
+              "padding@pdp.horizontal_padding_2px": {
                 "size": [ 4, 0 ]
               }
             },
@@ -517,7 +544,7 @@
               }
             },
             {
-              "glyph_section@mashup.vertical_glyph_section_panel": {
+              "glyph_section@pdp.vertical_glyph_section_panel": {
                 "$store_factory_collection_details": "none",
                 "$store_factory_binding_type": "global",
                 "$store_factory_collection_prefix": "",
@@ -528,7 +555,7 @@
         }
       },
       {
-        "padding1@mashup.horizontal_padding_2px": {
+        "padding1@pdp.horizontal_padding_2px": {
           "size": [ 1, 0 ]
         }
       },
@@ -573,7 +600,7 @@
         }
       },
       {
-        "padding2@mashup.horizontal_padding_2px": {
+        "padding2@pdp.horizontal_padding_2px": {
           "size": [ 2, 0 ]
         }
       }
@@ -616,7 +643,7 @@
           "@expanded_skin_pack.screen_exit_size_animation_push",
           "@expanded_skin_pack.screen_exit_size_animation_pop",
           "@common.screen_entrance_size_animation_push",
-          "@common.screen_entrance_size_animation_pop"          
+          "@common.screen_entrance_size_animation_pop"
         ]
       }
     ],

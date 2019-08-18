@@ -89,13 +89,12 @@
 
   "skin_model": {
     "type": "custom",
-    "renderer": "paper_doll_renderer",
+    "renderer": "actor_portrait_renderer",
     "layer": 5,
     "anchor_from": "bottom_middle",
     "anchor_to": "bottom_middle",
     "size": [ "100%", "100%" ],
     "offset": [ 0, -10 ],
-    "use_selected_skin": false,
     "enable_scissor_test": true,
     "animation_reset_name": "screen_animation_reset",
     "anims": [
@@ -104,9 +103,6 @@
       "@common.screen_entrance_size_animation_push",
       "@common.screen_entrance_size_animation_pop"
     ],
-    "property_bag": {
-      "entity_type": "npc"
-    },
     "bindings": [
       {
         "binding_type": "collection",
@@ -744,7 +740,6 @@
       {
         "model@npc_interact.skin_model": {
           "offset": [ 0, 0 ],
-          "rotation": "custom_y",
           "bindings": [
             {
               "binding_type": "global",
@@ -1195,12 +1190,6 @@
         "from_button_id": "button.menu_exit",
         "to_button_id": "button.menu_continue",
         "mapping_type": "global"
-      },
-      {
-        "from_button_id": "button.menu_vr_realign",
-        "to_button_id": "button.menu_vr_realign",
-        "mapping_type": "global",
-        "scope": "controller"
       }
     ]
   }

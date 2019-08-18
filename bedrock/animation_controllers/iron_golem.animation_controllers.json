@@ -1,0 +1,47 @@
+{
+  "format_version": "1.8.0",
+  "animation_controllers": {
+    "controller.animation.iron_golem.move": {
+      "states": {
+        "default": {
+          "parameters": [ "query.modified_move_speed" ],
+          "animations": [
+            {
+              "walk": [
+                {
+                  "0.0": 0.0,
+                  "1.0": 1.0
+                }
+              ]
+            },
+            { "look_at_target": [] }
+          ]
+        }
+      }
+    },
+    "controller.animation.iron_golem.arm_movement": {
+      "states": {
+        "default": {
+          "animations": [ { "move": [] } ],
+          "transitions": [
+            { "attack": "variable.attack_animation_tick > 0.0" },
+            { "flower": "variable.offer_flower_tick" }
+          ]
+        },
+        "attack": {
+          "animations": [ { "attack": [] } ],
+          "transitions": [
+            { "default": "variable.attack_animation_tick <= 0.0" }
+          ]
+        },
+        "flower": {
+          "animations": [ { "flower": [] } ],
+          "transitions": [
+            { "attack": "variable.attack_animation_tick > 0.0" },
+            { "default": "variable.offer_flower_tick <= 0.0" }
+          ]
+        }
+      }
+    }
+  }
+}

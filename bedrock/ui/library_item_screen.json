@@ -167,10 +167,58 @@
     "anchor_to": "left_middle"
   },
 
-  "summary@library.base_label": {
+  "summary_content_label@library.base_label": {
+    "size": [ "100%", "default" ],
+    "offset": [ 0, 0 ],
     "text": "#subtitle",
     "bindings": [
       { "binding_name": "#subtitle" }
+    ]
+  },
+
+  "summary_content@library_item.summary_content_label": {
+    "controls": [
+      {
+        // When there is a nested scroll view, the child
+        // doesn't get focus when hovered (unless directly
+        // over the bar). If we put an input panel over it
+        // we get focus and scrolling works as one would
+        // expect. However we need to hide it if the scroll
+        // bar isn't visible otherwise it will take input
+        // from the parent scroll view when it shouldn't.
+        // Directly binding to the bar and track wasn't
+        // working so a round-a-bout method for getting
+        // visiblity was set up.
+        "scroll_focuser": {
+          "type": "input_panel",
+          "focus_enabled": true,
+          "bindings": [
+            {
+              "binding_type": "view",
+              "source_control_name": "$scroll_view_name",
+              "source_property_name": "#scroll_bar_visible",
+              "target_property_name": "#visible"
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "summary": {
+    "type": "panel",
+    "size": [ "100% - 3px", "90%" ],
+    "offset": [ 3, 0 ],
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "controls": [
+      {
+        "summary_scrolling_panel@common.scrolling_panel": {
+          "size": [ "100%", "100%" ],
+          "$scroll_view_name": "summary_scroll_view",
+          "$scrolling_content": "library_item.summary_content"
+        }
+      }
     ]
   },
 

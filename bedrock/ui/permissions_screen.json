@@ -345,7 +345,10 @@
       },
       {
         "option_toggle@permissions.option_toggle": {
-          "size": [ 30, "100%" ]
+          "size": [ 30, "100%" ],
+          "$toggle_tts_header_binding_type": "collection",
+          "$toggle_tts_header_binding_collection_name": "permissions_collection",
+          "$toggle_tts_header": "#option_name"
         }
       }
     ]
@@ -374,7 +377,8 @@
     "bindings": [
       {
         "binding_name": "#ip_address_text",
-        "binding_name_override": "#ip"
+        "binding_name_override": "#ip",
+        "binding_condition": "visibility_changed"
       }
     ]
   },

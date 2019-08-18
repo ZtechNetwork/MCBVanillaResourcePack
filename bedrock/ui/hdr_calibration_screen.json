@@ -108,6 +108,7 @@
   "calibration_slider": {
     "type": "stack_panel",
     "size": [ "50%", "100%c" ],
+    "$slider_header": "options.worldLightBrightness",
     "controls": [
       {
         "centering_panel": {
@@ -118,7 +119,7 @@
               "slider_label": {
                 "type": "label",
                 "size": [ "default", "default" ],
-                "text": "options.worldLightBrightness",
+                "text": "$slider_header",
                 "color": "$body_text_color"
               }
             }
@@ -138,13 +139,16 @@
                 "size": "$slider_size",
                 "$slider_box_size": [ 10, 16 ],
                 "offset": [ 1, 0 ],
-                "$slider_select_on_hover": true
+                "$slider_select_on_hover": true,
+                "$slider_tts_header": "$slider_header",
+                "$slider_tts_name": "",
+                "$slider_tts_text_value": "#hdr_calibration_text_value"
               }
             }
           ]
-        }      
+        }
       }
-    ]    
+    ]
   },
 
 

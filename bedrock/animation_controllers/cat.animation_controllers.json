@@ -1,0 +1,82 @@
+{
+  "format_version": "1.8.0",
+  "animation_controllers": {
+    "controller.animation.cat.baby": {
+      "states": {
+        "baby": {
+          "parameters": [ "query.is_baby" ],
+          "animations": [
+            {
+              "baby_transform": [
+                {
+                  "0.0": 0.0,
+                  "1.0": 1.0
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "controller.animation.cat.look_at_target": {
+      "states": {
+        "default": {
+          "animations": [ { "look_at_target": [] } ]
+        }
+      }
+    },
+    "controller.animation.cat.move": {
+      "states": {
+        "sneaking": {
+          "animations": [ { "sneak": [] } ],
+          "transitions": [
+            { "sprinting": "variable.State == 1" },
+            { "sitting": "variable.State == 2" },
+            { "walking": "variable.State == 3" },
+            { "lie_down": "variable.State == 4" }
+          ]
+        },
+        "sprinting": {
+          "parameters": [ "query.modified_move_speed" ],
+          "animations": [ { "sprint": [] } ],
+          "transitions": [
+            { "sneaking": "variable.State == 0" },
+            { "sitting": "variable.State == 2" },
+            { "walking": "variable.State == 3" },
+            { "lie_down": "variable.State == 4" }
+          ]
+        },
+        "sitting": {
+          "parameters": [ "query.modified_move_speed" ],
+          "animations": [ { "sit": [] } ],
+          "transitions": [
+            { "sneaking": "variable.State == 0" },
+            { "sprinting": "variable.State == 1" },
+            { "walking": "variable.State == 3" },
+            { "lie_down": "variable.State == 4" }
+          ]
+        },
+        "walking": {
+          "parameters": [ "query.modified_move_speed" ],
+          "animations": [ { "walk": [] } ],
+          "transitions": [
+            { "sneaking": "variable.State == 0" },
+            { "sprinting": "variable.State == 1" },
+            { "sitting": "variable.State == 2" },
+            { "lie_down": "variable.State == 4" }
+          ]
+        },
+        "lie_down": {
+          "parameters": [ "query.modified_move_speed" ],
+          "animations": [ { "lie_down": [] } ],
+          "transitions": [
+            { "sneaking": "variable.State == 0" },
+            { "sprinting": "variable.State == 1" },
+            { "sitting": "variable.State == 2" },
+            { "walking": "variable.State == 3" }
+          ]
+        }
+      }
+    }
+  }
+}

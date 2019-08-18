@@ -1,0 +1,51 @@
+{
+  "format_version": "1.8.0",
+  "render_controllers": {
+    "controller.render.horse": {
+      "arrays": {
+        "textures": {
+          "Array.base": [
+            "Texture.base_brown",
+            "Texture.base_white",
+            "Texture.base_creamy",
+            "Texture.base_chestnut",
+            "Texture.base_brown",
+            "Texture.base_black",
+            "Texture.base_gray",
+            "Texture.base_darkbrown",
+            "Texture.mule",
+            "Texture.donkey",
+            "Texture.skeleton",
+            "Texture.zombie"
+          ],
+          "Array.markings": [
+            "Texture.markings_none",
+            "Texture.markings_white",
+            "Texture.markings_whitefield",
+            "Texture.markings_whitedots",
+            "Texture.markings_blackdots"
+          ],
+          "Array.armor": [
+            "Texture.armor_none",
+            "Texture.armor_leather",
+            "Texture.armor_iron",
+            "Texture.armor_gold",
+            "Texture.armor_diamond"
+          ]
+        }
+      },
+      "geometry": "Geometry.default",
+      "materials": [
+        { "*": "Material.default" },
+        { "TailA": "Material.horse_hair" },
+        { "Mane": "Material.horse_hair" },
+        { "*Saddle*": "Material.horse_saddle" }
+      ],
+      "textures": [
+        "Array.base[variable.BaseTextureIndex]",
+        "Array.markings[variable.MarkingsTextureIndex]",
+        "Array.armor[variable.ArmorTextureIndex]"
+      ]
+    }
+  }
+}

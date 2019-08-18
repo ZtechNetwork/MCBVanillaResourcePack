@@ -1,0 +1,815 @@
+/********************************************************
+*   (c) Mojang. All rights reserved                      *
+*   (c) Microsoft. All rights reserved.                  *
+*********************************************************/
+{
+  "namespace": "course",
+
+  //---------------------------------------------------------------------------
+  // Images
+  //---------------------------------------------------------------------------
+  "estimated_time_icon": {
+    "type": "image",
+    "texture": "textures/ui/clock",
+    "size": [ "11px", "11px" ]
+  },
+
+  "base_course_icon": {
+    "type": "image",
+    "$icon_visibility_binding|default": false,
+    "bindings": [
+      {
+        "binding_type": "collection",
+        "binding_name": "$icon_visibility_binding",
+        "binding_name_override": "#visible",
+        "binding_collection_name": "lesson_items"
+      }
+    ]
+  },
+
+  // All of the images below use the temp dev glyph until we receive assets for these.
+  "completed_lesson_icon@course.base_course_icon": {
+    "texture": "textures/ui/dev_glyph",
+    "size": [ "14px", "14px" ]
+  },
+
+  "multiplayer_icon@course.base_course_icon": {
+    "texture": "textures/ui/dev_glyph",
+    "size": [ "14px", "14px" ]
+  },
+
+  "locked_lesson_icon@course.base_course_icon": {
+    "texture": "textures/ui/dev_glyph",
+    "size": [ "20px", "20px" ]
+  },
+
+
+  //---------------------------------------------------------------------------
+  // Reused components
+  //---------------------------------------------------------------------------
+  // A screenshot with a border.
+  "bordered_screenshot": {
+    "type": "image",
+    // Pass the image name and file system in please.
+    "$image_texture|default": "",
+    "$image_file_system|default": "",
+    "$binding_type|default": "global",
+    "$binding_collection_name|default": "",
+    // Defaults to a ratio relative to the horizontal width of the image.
+    // This is the ratio fitted to the size of a screenshot for a world template.
+    // For the reverse ratio, use [ "173.91%y", "100%" ]
+    "size": [ "100%", "57.5%x" ],
+    // Defaults (for this screen) to an image with a solid black border.
+    // For an inset image border, use "textures/ui/default_indent"
+    "texture": "textures/ui/background_with_border",
+    "controls": [
+      {
+        "item_image": {
+          "type": "image",
+          "layer": 1,
+          // Uses a 1px border on all sides to display the border background.
+          "size": [ "100%-2px", "100%-2px" ],
+          "bindings": [
+            {
+              "binding_name": "$image_texture",
+              "binding_name_override": "#texture",
+              "binding_type": "$binding_type",
+              "binding_collection_name": "$binding_collection_name"
+            },
+            {
+              "binding_name": "$image_file_system",
+              "binding_name_override": "#texture_file_system",
+              "binding_type": "$binding_type",
+              "binding_collection_name": "$binding_collection_name"
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  // The collection version of the bordered screenshot above.
+  "bordered_screenshot_for_collections@course.bordered_screenshot": {
+    "$binding_collection_name": "#items",
+    "$binding_type": "collection"
+  },
+
+  // A panel that groups the estimated time text with an icon.
+  "estimated_time_panel": {
+    "$estimated_time|default": "",
+    "$binding_type|default": "global",
+    "$binding_collection_name|default": "",
+    "type": "stack_panel",
+    // If the size is relative to the children, it crashes the layout engine, so be thoughtful when changing the size parameter.
+    // Right now, this size is optimized for the active estimated time length label (on the RHS of the screen).
+    "size": [ "100%", "14px" ],
+    "orientation": "horizontal",
+    // To get the icon and image centered, we have to wrap these in panels.
+    "controls": [
+      {
+        "centering_container_icon@common.empty_panel": {
+          "size": [ "100%y", "100%" ],
+          "controls": [
+            {
+              "estimated_time_icon@course.estimated_time_icon": {
+                "anchor_from": "center",
+                "anchor_to": "center"
+              }
+            }
+          ]
+        }
+      },
+      { "padding_middle@course.vertical_padding_2px": {} },
+      {
+        "centering_container_label@common.empty_panel": {
+          "size": [ "fill", "100%" ],
+          "controls": [
+            {
+              "item_estimated_time_label": {
+                "type": "label",
+                "size": [ "default", "default" ],
+                "text": "#estimated_time",
+                "color": "$generic_button_text_color",
+                "anchor_from": "left_middle",
+                "anchor_to": "left_middle",
+                "bindings": [
+                  {
+                    "binding_name": "$estimated_time",
+                    "binding_name_override": "#estimated_time",
+                    "binding_type": "$binding_type",
+                    "binding_collection_name": "$binding_collection_name"
+                  }
+                ]
+              }
+            }
+
+          ]
+        }
+      }
+    ]
+  },
+
+  // The collections version of the estimated time panel above.
+  "estimated_time_panel_for_collections@course.estimated_time_panel": {
+    "$binding_collection_name": "#items",
+    "$binding_type": "collection"
+  },
+
+  // A hacky way to mimic a "selected" button for the active button item:
+  // Buttons and panels for the active lesson item.
+  "lesson_item_button@common_buttons.dark_content_button": {
+    // Defaults to 75% of the height since the other 25% is spacing between items.
+    "size": [ "100%-8px", "75%" ],
+    "anchor_to": "top_middle",
+    "anchor_from": "top_middle",
+    "$button_content_size": [ "100%-4px", "100%-4px" ],
+    "$button_content": "course.item_button_content",
+    "$pressed_button_name": "button.lesson_item"
+  },
+
+  "selected_lesson_item_button@course.lesson_item_button": {
+    "$default_button_texture": "textures/ui/button_borderless_darkpressed"
+  },
+
+  // Buttons and panels for the active lesson item.
+  "active_lesson_button@common_buttons.light_text_button": {
+    "size": [ "100% - 4px", "30% - 4px" ],
+    "$button_text_binding_type": "none"
+  },
+
+  "active_lesson_button_panel": {
+    "$visibility_condition|default": [
+      {
+        "binding_name": "#default_visibility",
+        "binding_name_override": "#visible"
+      }
+    ],
+    "type": "stack_panel",
+    "orientation": "vertical",
+    "size": [ "45%", "100%" ],
+    "bindings": "$visibility_condition"
+  },
+
+  // Some padding panels, or how we pretend that we have margins.
+  // Larger variations are typically used between header-ish elements and at the bottom of scroll panels to give some nice space following the bottommost element.
+  "horizontal_padding_4px@common.empty_panel": {
+    "size": [ "100%", "4px" ]
+  },
+
+  "horizontal_padding_8px@common.empty_panel": {
+    "size": [ "100%", "8px" ]
+  },
+
+  "vertical_padding_2px@common.empty_panel": {
+    "size": [ "2px", "100%" ]
+  },
+
+  "vertical_padding_4px@common.empty_panel": {
+    "size": [ "4px", "100%" ]
+  },
+
+  //---------------------------------------------------------------------------
+  // LEFT SIDE OF THE COURSE SCREEN
+  //---------------------------------------------------------------------------
+  // The panel containing the title and a grid (list) of course items (lessons).
+  "lesson_list_content": {
+    "size": [ "100%-4px", "100%c-4px" ],
+    "type": "stack_panel",
+    "orientation": "vertical",
+    "controls": [
+      { "padding_top@course.horizontal_padding_4px": {} },
+      { "lesson_stack_panel_content@course.lesson_stack_panel_content": {} }
+    ]
+  },
+
+  "lesson_stack_panel_content": {
+    "type": "stack_panel",
+    "orientation": "vertical",
+    "factory": {
+      "name": "lesson_panel_factory",
+      "control_name": "course.lesson_panel_item"
+    },
+    "collection_name": "lesson_items",
+    "size": [ "100%", "default" ],
+    "bindings": [
+      {
+        "binding_name": "#lesson_count",
+        "binding_name_override": "#collection_length"
+      }
+    ]
+  },
+
+  // The item for each lesson - a button that contains a bunch of lesson-related content.
+  // Currently contains two buttons: a normal one and a selected one which displays if it is the currently-selected lesson.
+  "lesson_panel_item": {
+    "type": "panel",
+    "size": [ "100%", "30%x" ],
+    "controls": [
+      {
+        "lesson_item_button@course.lesson_item_button": {
+          "bindings": [
+            {
+              "binding_type": "collection",
+              "binding_collection_name": "lesson_items",
+              "binding_name": "(not #lesson_is_active_item)",
+              "binding_name_override": "#visible"
+            },
+            {
+              "binding_type": "collection_details",
+              "binding_collection_name": "lesson_items"
+            }
+          ]
+        }
+      },
+      {
+        "selected_lesson_item_button@course.selected_lesson_item_button": {
+          "bindings": [
+            {
+              "binding_type": "collection",
+              "binding_collection_name": "lesson_items",
+              "binding_name": "#lesson_is_active_item",
+              "binding_name_override": "#visible"
+            },
+            {
+              "binding_type": "collection_details",
+              "binding_collection_name": "lesson_items"
+            }
+          ]
+        }
+      },
+      // TODO: Once we have the assets for it, this will be a divider between items.
+      {
+        "lesson_item_spacing_panel@common.empty_panel": {
+          "anchor_to": "bottom_middle",
+          "anchor_from": "bottom_middle",
+          "size": [ "100%", "25%" ],
+          "bindings": [
+            {
+              "binding_type": "collection",
+              "binding_collection_name": "lesson_items",
+              "binding_name": "#lesson_should_add_spacing_panel",
+              "binding_name_override": "#visible"
+
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  // The content for each lesson item button in the list.
+  "item_button_content": {
+    "type": "stack_panel",
+    "orientation": "vertical",
+    "size": [ "100%-4px", "100%-4px" ],
+    "controls": [
+      { "item_image_title_panel@course.item_image_title_panel": {} }
+    ]
+  },
+
+  // Panel that holds the screenshot and a bunch of other status icons overlaid on top.
+  "item_screenshot_and_icons@common.empty_panel": {
+    // The ratio is the default screenshot aspect ratio.
+    "size": [ "173.91%y", "100%" ],
+    "controls": [
+      {
+        "item_bordered_image@course.bordered_screenshot_for_collections": {
+          // Takes up the entire panel (plus icons on top, so it doesn't need the weird ratio).
+          "size": [ "100%", "100%" ],
+          "$image_texture": "#lesson_texture_name",
+          "$image_file_system": "#lesson_location_type",
+          "$binding_collection_name": "lesson_items"
+        }
+      },
+      {
+        "multiplayer_icon@course.multiplayer_icon": {
+          "layer": 2,
+          "anchor_from": "bottom_right",
+          "anchor_to": "bottom_right",
+          "$icon_visibility_binding": "#lesson_is_multiplayer"
+        }
+      },
+      {
+        "completed_lesson_icon@course.completed_lesson_icon": {
+          "layer": 3,
+          "anchor_from": "top_left",
+          "anchor_to": "top_left",
+          "$icon_visibility_binding": "#lesson_is_completed"
+        }
+      },
+      {
+        "locked_lesson_icon@course.locked_lesson_icon": {
+          "layer": 4,
+          "anchor_from": "center",
+          "anchor_to": "center",
+          "$icon_visibility_binding": "#lesson_is_disabled"
+        }
+      }
+    ]
+  },
+
+  // A panel containing the template/default image & the ordered title of the item.
+  "item_image_title_panel": {
+    "type": "stack_panel",
+    "orientation": "horizontal",
+    "size": [ "100%", "100%" ],
+    "controls": [
+      { "item_screenshot_and_icons@course.item_screenshot_and_icons": {} },
+      { "item_image_title_padding_middle@course.vertical_padding_4px": {} },
+      {
+        "item_title_label": {
+          "type": "label",
+          "localize": false,
+          "text": "#item_title",
+          "size": [ "fill", "100%" ],
+          "color": "$generic_button_text_color",
+          "bindings": [
+            {
+              "binding_type": "collection",
+              "binding_collection_name": "lesson_items",
+              "binding_name": "#lesson_title",
+              "binding_name_override": "#item_title"
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  //---------------------------------------------------------------------------
+  // RIGHT SIDE OF THE COURSE SCREEN
+  //---------------------------------------------------------------------------
+  "active_lesson_content": {
+    "size": [ "100%-4px", "100%c-4px" ],
+    "type": "stack_panel",
+    "orientation": "vertical",
+    "$background_fill_alpha|default": 0.1,
+    "controls": [
+      { "padding_top@course.horizontal_padding_4px": {} },
+      { "active_lesson_description_container@course.active_lesson_description_container": {} },
+      { "padding_middle0@course.horizontal_padding_8px": {} },
+      // Title for the tasks
+      {
+        "active_lesson_title_label": {
+          "size": [ "100%-4px", "default" ],
+          "type": "label",
+          "text": "#content_title",
+          "color": "$generic_button_text_color",
+          "bindings": [
+            {
+              "binding_name": "#active_lesson_content_title",
+              "binding_name_override": "#content_title"
+            }
+          ]
+        }
+      },
+      { "padding_middle1@course.horizontal_padding_4px": {} },
+      { "active_lesson_tasks_panel@course.active_lesson_tasks_panel": {} },
+      { "padding_bottom@course.horizontal_padding_8px": {} }
+    ]
+  },
+
+
+  // A panel that contains information about the active lesson.
+  // This container is just the background image...
+  "active_lesson_description_container": {
+    "type": "image",
+    "size": [ "100%-4px", "100%c-2px" ],
+    "texture": "textures/ui/background_with_border",
+    "controls": [
+      { "active_lesson_description_panel@course.active_lesson_description_panel": {} }
+    ]
+  },
+
+  // ...And this is its content.
+  // This information that *should* be populated prior to loading world or any content below.
+  "active_lesson_description_panel": {
+    "type": "stack_panel",
+    "orientation": "vertical",
+    "size": [ "100%-4px", "100%c" ],
+    "layer": 1,
+    "controls": [
+      { "active_description_padding_top@course.horizontal_padding_4px": {} },
+      {
+        "active_lesson_title_label": {
+          "type": "label",
+          "text": "#active_title",
+          "color": "$generic_button_text_color",
+          "size": [ "100%-4px", "default" ],
+          "text_alignment": "center",
+          "bindings": [
+            {
+              "binding_name": "#active_lesson_title",
+              "binding_name_override": "#active_title"
+            }
+          ]
+        }
+      },
+      { "active_description_padding_middle0@course.horizontal_padding_4px": {} },
+      { "active_lesson_item_screenshot_button_panel@course.active_lesson_item_screenshot_button_panel": {} },
+      {
+        "active_lesson_creator_label": {
+          "type": "label",
+          "text": "#active_creator",
+          "localize": false,
+          "color": "$generic_button_text_color",
+          "size": [ "100%-4px", "default" ],
+          "font_type": "smooth",
+          "bindings": [
+            {
+              "binding_name": "#active_lesson_creator",
+              "binding_name_override": "#active_creator"
+            }
+          ]
+        }
+      },
+
+      { "active_description_padding_middle1@course.horizontal_padding_4px": {} },
+      {
+        "active_lesson_goals_label": {
+          "type": "label",
+          "text": "#active_goals",
+          "color": "$generic_button_text_color",
+          "size": [ "100%-4px", "default" ],
+          "font_type": "smooth",
+          "bindings": [
+            {
+              "binding_name": "#active_lesson_goals",
+              "binding_name_override": "#active_goals"
+            }
+          ]
+        }
+      },
+      { "item_description_padding_bottom@course.horizontal_padding_8px": {} }
+    ]
+  },
+
+  // The horizontal stack panel that displays the images and buttons for the active lesson.
+  "active_lesson_item_screenshot_button_panel": {
+    "type": "stack_panel",
+    "orientation": "horizontal",
+    "size": [ "100%-2px", "32%x" ],
+    "controls": [
+      { "padding_left@course.vertical_padding_2px": {} },
+      {
+        // Need to anchor to an empty panel to get center anchoring to work correctly
+        "extra_panel@common.empty_panel": {
+          "size": [ "55%-8px", "100%" ],
+          "controls": [
+            {
+              "active_lesson_item_screenshot@course.bordered_screenshot": {
+                "anchor_to": "top_middle",
+                "anchor_from": "top_middle",
+                "$image_texture": "#active_lesson_texture_name",
+                "$image_file_system": "#active_lesson_location_type"
+              }
+            }
+          ]
+        }
+      },
+      { "padding_middle@course.vertical_padding_4px": {} },
+      // Three different versions of the button panels based on the type of content (world vs. not-world, and if world, the current progress).
+      // The conditions for visibility are defined in the descriptions.
+      { "active_lesson_not_started_panel@course.active_lesson_not_started_panel": {} },
+      { "active_lesson_continue_restart_panel@course.active_lesson_continue_restart_panel": {} },
+      { "active_lesson_link_to_more_panel@course.active_lesson_link_to_more_panel": {} }
+    ]
+  },
+
+  // Some re-used join components for multiplayer world content.
+  "join_button@course.active_lesson_button": {
+    "$pressed_button_name": "button.active_lesson.join",
+    "$button_text": "course.edu.join",
+    "bindings": [
+      {
+        "binding_name": "#is_active_lesson_multiplayer",
+        "binding_name_override": "#visible"
+      }
+    ]
+  },
+
+  "join_button_padding@course.horizontal_padding_4px": {
+    "bindings": [
+      {
+        "binding_name": "#is_active_lesson_multiplayer",
+        "binding_name_override": "#visible"
+      }
+
+    ]
+  },
+
+  // Button panel for world content which has not been started yet.
+  "active_lesson_not_started_panel@course.active_lesson_button_panel": {
+    "$visibility_condition": [
+      { "binding_name": "#has_world_content" },
+      { "binding_name": "#is_content_started" },
+      {
+        "binding_type": "view",
+        "source_property_name": "(#has_world_content and not #is_content_started)",
+        "target_property_name": "#visible"
+      }
+    ],
+    "controls": [
+      // Start button is used for non-multiplayer worlds
+      {
+        "start_button@course.active_lesson_button": {
+          "$pressed_button_name": "button.active_lesson.start",
+          "$button_text": "course.edu.startButton",
+          "bindings": [
+            {
+              "binding_name": "(not #is_active_lesson_multiplayer)",
+              "binding_name_override": "#visible"
+            }
+          ]
+        }
+      },
+      // Host button is used for multiplayer worlds
+      {
+        "host_button@course.active_lesson_button": {
+          "$pressed_button_name": "button.active_lesson.start",
+          "$button_text": "course.edu.hostButton",
+          "bindings": [
+            {
+              "binding_name": "#is_active_lesson_multiplayer",
+              "binding_name_override": "#visible"
+            }
+          ]
+        }
+      },
+      { "join_button_padding@course.join_button_padding": {} },
+      { "join_button@course.join_button": {} },
+      { "active_lesson_button_padding_middle@course.horizontal_padding_4px": {} },
+      {
+        "estimated_length_title_label": {
+          "type": "label",
+          "size": [ "100%-4px", "default" ],
+          "text": "course.edu.estimatedLength",
+          "color": "$generic_button_text_color",
+          "visible": "$course_screen_show_estimated_time"
+        }
+      },
+      {
+        "active_lesson_estimated_time_panel@course.estimated_time_panel": {
+          "$estimated_time": "#active_lesson_estimated_time_formatted",
+          "visible": "$course_screen_show_estimated_time"
+        }
+      },
+      { "active_lesson_button_padding_bottom@course.horizontal_padding_4px": {} }
+    ]
+  },
+
+  // Button panel for world content which has been started.
+  "active_lesson_continue_restart_panel@course.active_lesson_button_panel": {
+    "$visibility_condition": [
+      { "binding_name": "#has_world_content" },
+      { "binding_name": "#is_content_started" },
+      {
+        "binding_type": "view",
+        "source_property_name": "(#has_world_content and #is_content_started)",
+        "target_property_name": "#visible"
+      }
+    ],
+    "controls": [
+      {
+        "continue_button@course.active_lesson_button": {
+          "$pressed_button_name": "button.active_lesson.continue",
+          "$button_text": "course.edu.continueButton"
+        }
+      },
+      { "active_lesson_button_padding_middle@course.horizontal_padding_4px": {} },
+      {
+        "restart_button@course.active_lesson_button": {
+          "$pressed_button_name": "button.active_lesson.restart",
+          "$button_text": "course.edu.restartButton"
+        }
+      },
+      { "join_button_padding@course.join_button_padding": {} },
+      { "join_button@course.join_button": {} }
+    ]
+  },
+
+  // Button panel for non-world content.
+  "active_lesson_link_to_more_panel@course.active_lesson_button_panel": {
+    "$visibility_condition": [
+      {
+        "binding_name": "(not #has_world_content)",
+        "binding_name_override": "#visible"
+      }
+    ],
+    "controls": [
+      { "active_lesson_button_padding_top@course.horizontal_padding_4px": {} },
+      {
+        "try_it_now_button@course.active_lesson_button": {
+          "$pressed_button_name": "button.active_lesson.try_it_now",
+          "$button_text": "course.edu.tryItNowButton"
+        }
+      },
+      { "active_lesson_button_padding_middle@course.horizontal_padding_4px": {} },
+      {
+        "learn_more_button@course.active_lesson_button": {
+          "$pressed_button_name": "button.active_lesson.load_link",
+          "$button_text": "course.edu.learnMoreButton"
+        }
+      }
+    ]
+  },
+
+  // A panel for displaying the active tasks (background image with grid).
+  "active_lesson_tasks_panel": {
+    "type": "image",
+    "size": [ "100%-2px", "100%c" ],
+    "texture": "textures/ui/background_with_border",
+    "layer": 1,
+    "controls": [
+      { "task_stack_panel_content@course.task_stack_panel_content": {} },
+      { "active_lesson_tasks_padding_bottom@course.horizontal_padding_8px": {} }
+    ]
+  },
+
+  "task_stack_panel_content": {
+    "type": "stack_panel",
+    "factory": {
+      "name": "task_grid_factory",
+      "control_name": "course.task_panel_item"
+    },
+    "orientation": "vertical",
+    "collection_name": "active_tasks",
+    "size": [ "100%-2px", "100%c-2px" ],
+    "layer": 2,
+    "bindings": [
+      {
+        "binding_name": "#active_tasks_count",
+        "binding_name_override": "#collection_length"
+      }
+    ]
+  },
+
+  // The item for each active task - an icon (eventually) and a task name.
+  "task_panel_item": {
+    "type": "panel",
+    // Currently, 20px works pretty well as the height for the given label settings.
+    "size": [ "100%-4px", "100%c" ],
+    "controls": [
+      {
+        "task_label": {
+          "type": "label",
+          "text": "#task_text",
+          "size": [ "100%-4px", "default" ],
+          "font_type": "smooth",
+          "color": "$generic_button_text_color",
+          "bindings": [
+            {
+              "binding_type": "collection",
+              "binding_collection_name": "active_tasks",
+              "binding_name": "#active_task_label",
+              "binding_name_override": "#task_text"
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  //---------------------------------------------------------------------------
+  // Screens
+  //---------------------------------------------------------------------------
+
+  "course_screen@common.base_screen": {
+    "$is_full_screen_layout": true,
+    "$screen_content": "course.screen_content"
+  },
+
+  // The content of the screen - a header panel.
+  "screen_content": {
+    "type": "panel",
+    "controls": [
+      {
+        "header@common.fullscreen_header": {
+          "$back_button_has_title": true,
+          "$button_text": "$course_screen_header",
+          "$child_control": "course.header_content"
+        }
+      }
+    ]
+  },
+
+  "header_content": {
+    "type": "panel",
+    "size": [ "100%", "100%" ],
+    "controls": [
+      {
+        "stack_content@course.stack_content": {
+          "bindings": [
+            {
+              "binding_name": "#show_course_content",
+              "binding_name_override": "#visible"
+            }
+          ]
+        }
+      },
+      // Show the loading screen if course is loading.
+      {
+        "items_populating_progress@progress.progress_panel": {
+          // Stops the progress buton from binding to the wrong $button_text binding.
+          "$button_text_binding_type": "none",
+          "size": [ 200, 200 ],
+          "bindings": [
+            {
+              "binding_name": "#show_course_populating_progress",
+              "binding_name_override": "#visible"
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "stack_content": {
+    "type": "stack_panel",
+    "size": [ "100%", "100%" ],
+    "orientation": "horizontal",
+    "controls": [
+      { "lesson_list_scroll_panel@course.lesson_list_scroll_panel": {} },
+      // TODO: The center divider is slightly imperfect (i.e., leaves a 1px black edge on top and bottom of divider).
+      {
+        "center_divider": {
+          "type": "image",
+          "texture": "textures/ui/background_with_border",
+          "size": [ "3px", "100%" ]
+        }
+      },
+      { "padding_middle@course.vertical_padding_2px": {} },
+      { "active_lesson_scroll_panel@course.active_lesson_scroll_panel": {} }
+    ]
+  },
+
+  // The left-hand side of the screen - a scroll panel that contains the course content (lessons).
+  "lesson_list_scroll_panel@common.scrolling_panel_with_offset": {
+    "size": [ "45%-2px", "100%" ],
+    "$scroll_size": [ 5, "100%-4px" ],
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "$scrolling_content": "course.lesson_list_content",
+    "$scrolling_content_anchor_from": "top_middle",
+    "$scrolling_content_anchor_to": "top_middle",
+    "$scroll_bar_left_padding_size": [ 0, 0 ],
+    "$scroll_bar_right_padding_size": [ 4, 0 ],
+    "$scroll_bar_contained": true,
+    "$show_background": false
+  },
+
+  // The right-hand side of the screen - a scroll panel that contains the currently-selected (active) lesson content.
+  "active_lesson_scroll_panel@common.scrolling_panel_with_offset": {
+    "size": [ "fill", "100%" ],
+    "$scroll_size": [ 6, "100%-4px" ],
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "$scrolling_content": "course.active_lesson_content",
+    "$scrolling_content_anchor_from": "top_middle",
+    "$scrolling_content_anchor_to": "top_middle",
+    "$scroll_bar_left_padding_size": [ 0, 0 ],
+    "$scroll_bar_right_padding_size": [ 2, 0 ],
+    "$scroll_bar_contained": true,
+    "$show_background": false
+  }
+}

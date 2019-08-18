@@ -1,0 +1,68 @@
+{
+  "format_version": "1.8.0",
+  "animation_controllers": {
+    "controller.animation.ocelot.baby": {
+      "states": {
+        "baby": {
+          "parameters": [ "query.is_baby" ],
+          "animations": [
+            {
+              "baby_transform": [
+                {
+                  "0.0": 0.0,
+                  "1.0": 1.0
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "controller.animation.ocelot.look_at_target": {
+      "states": {
+        "default": {
+          "animations": [ { "look_at_target": [] } ]
+        }
+      }
+    },
+    "controller.animation.ocelot.move": {
+      "states": {
+        "sneaking": {
+          "animations": [ { "sneak": [] } ],
+          "transitions": [
+            { "sprinting": "variable.State == 1" },
+            { "sitting": "variable.State == 2" },
+            { "walking": "variable.State == 3" }
+          ]
+        },
+        "sprinting": {
+          "parameters": [ "query.modified_move_speed" ],
+          "animations": [ { "sprint": [] } ],
+          "transitions": [
+            { "sneaking": "variable.State == 0" },
+            { "sitting": "variable.State == 2" },
+            { "walking": "variable.State == 3" }
+          ]
+        },
+        "sitting": {
+          "parameters": [ "query.modified_move_speed" ],
+          "animations": [ { "sit": [] } ],
+          "transitions": [
+            { "sneaking": "variable.State == 0" },
+            { "sprinting": "variable.State == 1" },
+            { "walking": "variable.State == 3" }
+          ]
+        },
+        "walking": {
+          "parameters": [ "query.modified_move_speed" ],
+          "animations": [ { "walk": [] } ],
+          "transitions": [
+            { "sneaking": "variable.State == 0" },
+            { "sprinting": "variable.State == 1" },
+            { "sitting": "variable.State == 2" }
+          ]
+        }
+      }
+    }
+  }
+}

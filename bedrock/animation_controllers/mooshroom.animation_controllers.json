@@ -1,0 +1,37 @@
+{
+  "format_version": "1.8.0",
+  "animation_controllers": {
+    "controller.animation.mooshroom.setup": {
+      "states": {
+        "default": {
+          "animations": [ { "setup": [] } ]
+        }
+      }
+    },
+    "controller.animation.mooshroom.baby": {
+      "states": {
+        "default": {
+          "animations": [ { "baby_transform": [] } ]
+        }
+      }
+    },
+    "controller.animation.mooshroom.move": {
+      "states": {
+        "default": {
+          "parameters": [ "query.modified_move_speed" ],
+          "animations": [
+            {
+              "walk": [
+                {
+                  "0.0": 0.0,
+                  "1.0": 1.0
+                }
+              ]
+            },
+            { "look_at_target": [] }
+          ]
+        }
+      }
+    }
+  }
+}

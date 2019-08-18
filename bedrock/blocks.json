@@ -481,8 +481,8 @@
   "farmland": {
     "textures": {
       "up": "farmland",
-      "down": "dirt",
-      "side": "dirt"
+      "down": "farmland_side",
+      "side": "farmland_side"
     },
     "sound": "gravel"
   },
@@ -1159,6 +1159,16 @@
   "structure_block": {
     "textures": "structure_block"
   },
+  "jigsaw": {
+    "textures": {
+      "up": "jigsaw_side",
+      "down": "jigsaw_side",
+      "north": "jigsaw_front",
+      "south": "jigsaw_back",
+      "west": "jigsaw_side",
+      "east": "jigsaw_side"
+    }
+  },
   "structure_void": {
     "textures": "structure_void"
   },
@@ -1334,7 +1344,11 @@
       "up": true,
       "down": true
     },
-    "textures": "redsandstone_side"
+    "textures": {
+      "up": "redsandstone_top",
+      "down": "redsandstone_bottom",
+      "side": "redsandstone_side"
+    }
   },
   "double_stone_slab2": {
     "textures": {
@@ -1484,6 +1498,17 @@
       "south": "stonecutter_side",
       "west": "stonecutter_other_side",
       "east": "stonecutter_other_side"
+    },
+    "sound": "stone"
+  },
+  "stonecutter_block": {
+    "textures": {
+      "up": "stonecutter2_top",
+      "down": "stonecutter2_bottom",
+      "north": "stonecutter2_side",
+      "south": "stonecutter2_side",
+      "west": "stonecutter2_saw",
+      "east": "stonecutter2_saw"
     },
     "sound": "stone"
   },
@@ -1847,23 +1872,23 @@
   },
   "barrel": {
     "textures": {
-      "up": "fishbarrel_side",
-      "down": "fishbarrel_side",
-      "north": "fishbarrel_top_lid",
-      "south": "fishbarrel_bottom",
-      "east": "fishbarrel_side",
-      "west": "fishbarrel_side"
+      "up": "barrel_side",
+      "down": "barrel_side",
+      "north": "barrel_top",
+      "south": "barrel_bottom",
+      "east": "barrel_side",
+      "west": "barrel_side"
     },
     "sound": "wood"
   },
   "smithing_table": {
     "textures": {
       "up": "smithing_table_top",
-      "down": "crafting_table_bottom",
-      "north": "smithing_table_side_a",
-      "south": "smithing_table_side_a",
-      "west": "smithing_table_side_b",
-      "east": "smithing_table_side_b"
+      "down": "smithing_table_bottom",
+      "north": "smithing_table_front",
+      "south": "smithing_table_front",
+      "west": "smithing_table_side",
+      "east": "smithing_table_side"
     },
     "sound": "wood"
   },
@@ -1871,10 +1896,21 @@
     "textures": {
       "up": "smoker_top",
       "down": "smoker_bottom",
-      "north": "smoker_front_off",
-      "south": "smoker_side",
+      "north": "smoker_side",
+      "south": "smoker_front_off",
       "west": "smoker_side",
       "east": "smoker_side"
+    },
+    "sound": "stone"
+  },
+  "lit_smoker": {
+    "textures": {
+      "up": "smoker_top",
+      "down": "smoker_bottom",
+      "north": "smoker_side",
+      "south": "smoker_side",
+      "west": "smoker_side",
+      "east": "smoker_front_on"
     },
     "sound": "stone"
   },
@@ -1882,17 +1918,28 @@
     "textures": {
       "up": "blast_furnace_top",
       "down": "blast_furnace_top",
-      "north": "blast_furnace_front_off",
-      "south": "blast_furnace_side",
+      "north": "blast_furnace_side",
+      "south": "blast_furnace_front_off",
       "west": "blast_furnace_side",
       "east": "blast_furnace_side"
+    },
+    "sound": "stone"
+  },
+  "lit_blast_furnace": {
+    "textures": {
+      "up": "blast_furnace_top",
+      "down": "blast_furnace_top",
+      "north": "blast_furnace_side",
+      "south": "blast_furnace_side",
+      "west": "blast_furnace_side",
+      "east": "blast_furnace_front_on"
     },
     "sound": "stone"
   },
   "lantern": {
     "textures": "lantern",
     "carried_textures": "lantern_carried",
-    "sound": "metal"
+    "sound": "lantern"
   },
   "lava_cauldron": {
     "textures": {
@@ -1922,7 +1969,7 @@
       "north": "bell_side",
       "south": "bell_side",
       "east": "dark_oak_planks",
-      "west": "stone"
+      "west": "bell_stone"
     },
     "carried_textures": "bell_carried",
     "sound": "metal"
@@ -1946,6 +1993,60 @@
       "south": "fletching_table_side1",
       "east": "fletching_table_side2",
       "west": "fletching_table_side2"
+    },
+    "sound": "wood"
+  },
+  "campfire": {
+    "textures": {
+      "up": "campfire_fire",
+      "down": "campfire_log",
+      "side": "campfire_log_lit"
+    },
+    "sound": "wood"
+  },
+  "loom": {
+    "textures": {
+      "up": "loom_top",
+      "down": "loom_bottom",
+      "north": "loom_front",
+      "south": "loom_side",
+      "west": "loom_side",
+      "east": "loom_side"
+    },
+    "sound": "wood"
+  },
+  "lectern": {
+    "textures": {
+      "up": "lectern_top",
+      "down": "lectern_bottom",
+      "north": "lectern_front",
+      "south": "lectern_sides",
+      "west": "lectern_sides",
+      "east": "lectern_base"
+    },
+    "sound": "wood"
+  },
+  "wood": {
+    "textures": "wood",
+    "sound": "wood"
+  },
+  "sweet_berry_bush": {
+    "textures": {
+      "up": "sweet_berry_bush_1",
+      "down": "sweet_berry_bush_0",
+      "north": "sweet_berry_bush_2",
+      "south": "sweet_berry_bush_3",
+      "west": "sweet_berry_bush_3",
+      "east": "sweet_berry_bush_3"
+    },
+    "carried_textures": "sweet_berry_bush_carried",
+    "sound": "sweet_berry_bush"
+  },
+  "composter": {
+    "textures": {
+      "up": "composter_top",
+      "down": "composter_bottom",
+      "side": "composter_side"
     },
     "sound": "wood"
   }

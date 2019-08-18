@@ -1,0 +1,60 @@
+{
+	"format_version" : "1.8.0",
+	"animations" : {
+		"animation.villager.baby_transform" : {
+			"bones" : {
+				"head" : {
+					"scale" : 1.50
+				}
+			},
+			"loop" : true
+		},
+		"animation.villager.general" : {
+			"bones" : {
+				"arms" : {
+					"position" : [ 0.0, -1.0, -1.0 ],
+					"rotation" : [ "-42.97 - this", 0.0, 0.0 ]
+				}
+			},
+			"loop" : true
+		},
+		"animation.villager.general.v1.0" : {
+			"bones" : {
+				"arms" : {
+					"position" : [ 0.0, "-3.0 - this", "-1.0 - this" ],
+					"rotation" : [ "-42.97 - this", 0.0, 0.0 ]
+				}
+			},
+			"loop" : true
+		},
+		"animation.villager.get_in_bed" : {
+			"bones" : {
+				"body" : {
+					"position" : [ 0.0, 1.0, -15.0 ],
+					"rotation" : [ -90.0, 0.0, 0.0 ]
+				}
+			},
+			"loop" : true
+		},
+		"animation.villager.move" : {
+			"anim_time_update" : "query.modified_distance_moved",
+			"bones" : {
+				"leg0" : {
+					"rotation" : [ "(math.cos(query.anim_time * 38.17) * 40.0) - this", "-this", 0.0 ]
+				},
+				"leg1" : {
+					"rotation" : [ "(math.cos(query.anim_time * 38.17 + 180) * 40.0) - this", "-this", 0.0 ]
+				}
+			},
+			"loop" : true
+		},
+		"animation.villager.raise_arms" : {
+			"bones" : {
+				"arms" : {
+					"rotation" : [ "variable.raise_arms * -15.0", 0.0, 0.0 ]
+				}
+			},
+			"loop" : true
+		}
+	}
+}

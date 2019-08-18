@@ -1,0 +1,43 @@
+{
+  "format_version": "1.8.0",
+  "animation_controllers": {
+    "controller.animation.turtle.general": {
+      "states": {
+        "default": {
+          "animations": [ { "general": [] } ]
+        }
+      }
+    },
+    "controller.animation.turtle.move": {
+      "states": {
+        "default": {
+          "animations": [ { "look_at_target": [] } ],
+          "transitions": [
+            { "swimming": "query.is_in_water && !query.is_on_ground" },
+            { "walking": "!query.is_in_water && query.is_on_ground" }
+          ]
+        },
+        "swimming": {
+          "parameters": [ "query.modified_move_speed" ],
+          "animations": [
+            { "move": [] },
+            { "look_at_target": [] }
+          ],
+          "transitions": [
+            { "walking": "!query.is_in_water && query.is_on_ground" }
+          ]
+        },
+        "walking": {
+          "parameters": [ "query.modified_move_speed" ],
+          "animations": [
+            { "ground_move": [] },
+            { "look_at_target": [] }
+          ],
+          "transitions": [
+            { "swimming": "query.is_in_water && !query.is_on_ground" }
+          ]
+        }
+      }
+    }
+  }
+}

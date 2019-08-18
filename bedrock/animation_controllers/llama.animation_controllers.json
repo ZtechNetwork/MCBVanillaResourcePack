@@ -1,0 +1,41 @@
+{
+  "format_version": "1.8.0",
+  "animation_controllers": {
+    "controller.animation.llama.baby": {
+      "states": {
+        "baby": {
+          "parameters": [ "query.is_baby" ],
+          "animations": [
+            {
+              "baby_transform": [
+                {
+                  "0.0": 0.0,
+                  "1.0": 1.0
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "controller.animation.llama.move": {
+      "states": {
+        "default": {
+          "parameters": [ "query.modified_move_speed" ],
+          "animations": [
+            { "setup": [] },
+            {
+              "walk": [
+                {
+                  "0.0": 0.0,
+                  "1.0": 1.0
+                }
+              ]
+            },
+            { "look_at_target": [] }
+          ]
+        }
+      }
+    }
+  }
+}

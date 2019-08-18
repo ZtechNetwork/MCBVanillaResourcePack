@@ -6,6 +6,11 @@
 {
   "namespace": "storage_management",
 
+  "lock_icon": {
+    "type": "image",
+    "texture": "textures/ui/lock"
+  },
+
   //---------------------------------------------------------------------------
   // Main Content
   //---------------------------------------------------------------------------
@@ -25,92 +30,19 @@
           "controls":[
             {
               "panel":{
-                "type": "stack_panel",
-                "orientation": "horizontal",
+                "type": "panel",
                 "size": ["100%", 32],
                 "controls":[
                   {
-                    "search_panel":{
-                      "type": "panel",
-                      "size": ["fill", "100%"],
-                      "controls":[
-                        {
-                          "search_control@common.text_edit_box": {
-                            "layer": 4,
-                            "size": [ "100%", "100%" ],
-                            "$text_box_name": "search_control",
-                            "$text_edit_text_control": "search_display_text",
-                            "$text_edit_box_content_binding_name": "#search_box_text",
-                            "$focus_override_up": "FOCUS_OVERRIDE_STOP",
-                            "max_length": 30
-                          }
-                        },
-                        { 
-                          "magnifying_glass":{
-                            "type": "image",
-                            "layer": 2,
-                            "anchor_from": "left_middle",
-                            "anchor_to": "left_middle",
-                            "size": [ "100%y", "100% - 10px" ],
-                            "texture": "textures/ui/magnifyingGlass",
-                            "offset": [4, 0],
-                            "alpha": 0.3,
-                            "bindings":[
-                              {
-                                "binding_type": "view",
-                                "source_control_name": "search_display_text",
-                                "source_property_name": "(not #text_edit_selected and #search_panel_visible)",
-                                "target_property_name": "#visible"
-                              }
-                            ]
-                          }
-                        },
-                        {
-                          "x_button@common.close_button": {
-                            "anchor_from": "right_middle",
-                            "anchor_to": "right_middle",
-                            "offset": [ -2, 0 ],
-                            "visible": false,
-                            "focus_enabled": true,
-                            "layer": 6,
-                            "$close_button_visible_binding_name": "#search_clear_button_visible",
-                            "$close_button_visible_binding_type": "global",
-                            "button_mappings": [
-                              {
-                                "from_button_id": "button.menu_select",
-                                "to_button_id": "button.searchClear",
-                                "mapping_type": "focused"
-                              },
-                              {
-                                "from_button_id": "button.menu_ok",
-                                "to_button_id": "button.searchClear",
-                                "mapping_type": "pressed"
-                              }
-                            ]
-                          }
-                        }
+                    "multiselect_button@common_toggles.light_image_toggle": {
+                      "offset": [-1, 0],
+                      "$toggle_name": "toggle.enableMultiselect",
+                      "$button_content": "storage_management.generic_button",
+                      "$button_texture": "textures/ui/multiselection",
+                      "$focus_override_right": "FOCUS_OVERRIDE_STOP",
+                      "$focus_override_up": "FOCUS_OVERRIDE_STOP",
 
-                      ]
-                    }
-                  },
-                  {
-                    "container":{
-                      "type": "panel",
-                      "size": ["100%c", "100%"],
-                      "controls":[
-                        {
-                          "multiselect_button@common_toggles.light_image_toggle": {
-                            "offset": [-1, 0],
-                            "$toggle_name": "toggle.enableMultiselect",
-                            "$button_content": "storage_management.generic_button",
-                            "$button_texture": "textures/ui/multiselection",
-                            "$focus_override_right": "FOCUS_OVERRIDE_STOP",
-                            "$focus_override_up": "FOCUS_OVERRIDE_STOP",
-
-                            "size": [ 32, "100%" ]
-                          }
-                        }
-                      ]
+                      "size": [ "100%", "100%" ]
                     }
                   }
                   
@@ -378,9 +310,11 @@
           "type": "image",
           "layer": 1,
           "texture": "$button_texture",
-          "size": [ "100%", "100% - 2px" ],
+          "size": [ 26, "100% - 2px" ],
+          "anchor_to": "left_middle",
+          "anchor_from": "left_middle",
 
-          "variables":[
+          "variables": [
             {
               "requires": "($toggle_checked or $toggle_checked_hover)",
               "$button_texture": "textures/ui/invertedmultiselecticon"
@@ -390,7 +324,7 @@
           "$button_texture_binding_type|default": "none",
           "$button_texture_collection_name|default": "",
 
-          "bindings":[
+          "bindings": [
             {
               "binding_type": "$button_texture_binding_type",
               "binding_collection_name": "$button_texture_collection_name",
@@ -398,6 +332,17 @@
               "binding_name_override": "#texture"
             }
           ]
+        }
+      },
+      {
+        "text": {
+          "type": "label",
+          "anchor_to": "left_middle",
+          "anchor_from": "left_middle",
+          "text": "storageManager.multiselect",
+          "offset": [ 30, 0 ],
+          "size": [ "100% - 30px", "default" ],
+          "color": "$text_color"
         }
       }
     ]
@@ -473,6 +418,18 @@
         "binding_type": "$date_binding_type",
         "binding_collection_name": "$date_binding_collection",
         "binding_name": "$date_text"
+      },
+      {
+        "binding_type": "collection_details"
+      }
+    ],
+
+    "$lock_bindings": [
+      {
+        "binding_type": "$lock_binding_type",
+        "binding_collection_name": "$lock_binding_collection",
+        "binding_name": "#lock_visible",
+        "binding_name_override": "#visible"
       },
       {
         "binding_type": "collection_details"
@@ -895,6 +852,24 @@
           "text": "$size_text",
           "bindings": "$size_bindings"
         }
+      },
+      {
+        "lock_panel": {
+          "type": "panel",
+          "size": [ "35% + 100%c + 8px", "100%c + 4px" ],
+          "anchor_to": "bottom_right",
+          "anchor_from": "bottom_right",
+          "visible": false,
+          "offset": [ -2, -2 ],
+          "controls": [
+            {
+              "lock_icon@storage_management.lock_icon": {
+                "size": [ 8, 8 ]
+              }
+            }
+          ],
+          "bindings": "$lock_bindings"
+        }
       }
     ]
   },
@@ -1012,49 +987,6 @@
         }
       },
       {
-        "search_stack_panel": {
-          "type": "stack_panel",
-          "orientation": "vertical",
-          "bindings":[
-            {
-              "binding_name": "#search_panel_visible",
-              "binding_name_override": "#visible"
-            }
-          ],
-
-          "controls": [
-            {
-              "stack_panel":{
-                "type": "stack_panel",
-                "orientation": "vertical",
-                "size": [ "100% - 2px", "100%c" ],
-
-                "factory": {
-                  "name": "search_items",
-                  "control_ids":{
-                    "world": "@storage_management.search_world_controls",
-                    "world_template": "@storage_management.search_world_template_controls",
-                    "resource": "@storage_management.search_resource_controls",
-                    "behavior": "@storage_management.search_behavior_controls",
-                    "skin": "@storage_management.search_skin_controls",
-                    "cache": "@storage_management.search_cached_controls"
-                  }
-                },
-                
-
-                "collection_name": "search_panel",
-                "bindings": [
-                  {
-                    "binding_name": "#search_panel_length",
-                    "binding_name_override": "#collection_length"
-                  }
-                ]
-              }
-            }
-          ]
-        }
-      },
-      {
         "multiselect_padding":{
           "type": "panel",
           "anchor_from": "bottom_left",
@@ -1120,48 +1052,6 @@
     "$panel_prefix": "cache"
   },
 
-  //Search items
-  "search_world_controls@storage_management.resource_sub_item": {
-    "$padding_size": [0, "fill"],
-    "$button_texture": "textures/ui/WorldDemoScreen",
-    "$item_template": "storage_management.world_sub_text",
-    "$panel_prefix": "world"
-  },
-
-  "search_world_template_controls@storage_management.resource_sub_item": {
-    "$padding_size": [0, "fill"],
-    "$button_texture": "textures/ui/WorldDemoScreen",
-    "$item_template": "storage_management.world_template_sub_text",
-    "$panel_prefix": "world_template"
-  },
-
-  "search_resource_controls@storage_management.resource_sub_item": {
-    "$padding_size": [0, "fill"],
-    "$item_template": "storage_management.pack_description_sub_item",
-    "$panel_prefix": "resource"
-  },
-
-  "search_behavior_controls@storage_management.resource_sub_item": {
-    "$padding_size": [0, "fill"],
-    "$item_template": "storage_management.pack_description_sub_item",
-    "$panel_prefix": "behavior"
-
-  },
-
-  "search_skin_controls@storage_management.resource_sub_item": {
-    "$padding_size": [0, "fill"],
-    "$button_texture": "textures/ui/FriendsDiversity",
-    "$item_template": "storage_management.basic_sub_item",
-    "$panel_prefix": "skin"
-  },
-
-  "search_cached_controls@storage_management.resource_sub_item": {
-    "$padding_size": [0, "fill"],
-    "$button_texture": "textures/ui/Wrenches1",
-    "$item_template": "storage_management.texture_icon_sub_item",
-    "$panel_prefix": "cache"
-  },
-
   "resource_sub_item": {
     "type": "stack_panel",
     "orientation": "horizontal",
@@ -1187,6 +1077,9 @@
 
           "$size_binding_type": "collection",
           "$size_binding_collection": "($panel_prefix + _panel)",
+
+          "$lock_binding_type": "collection",
+          "$lock_binding_collection": "($panel_prefix + _panel)",
 
           "$content_template|default": "storage_management.icon_item_text",
           "$control_template|default": "storage_management.resource_toggle",

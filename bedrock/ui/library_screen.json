@@ -30,6 +30,21 @@
     "size": [ 16, 17 ]
   },
 
+  "search_bar@common.text_edit_box": {
+    "max_length": 50,
+    "anchor_from": "top_right",
+    "anchor_to": "top_right",
+    "size": [ 200, 15 ],
+    "offset": [ -2, 3 ],
+    "layer": 5,
+
+    "$place_holder_text": "store.search.title",
+    "$text_box_name": "search_filter_text",
+    "property_bag": {
+      "#property_field": "#item_name"
+    }
+  },
+
   "learn_more_content": {
     "type": "panel",
     "$learn_more_text|default": "",
@@ -112,6 +127,7 @@
     "orientation": "vertical",
     "size": [ "100%", "100%c" ],
     "controls": [
+      { "padding_top@common.empty_panel": { "size": [ "100%", 2 ] } },
       { "grid_content@library.grid_content": {} },
       { "buttons_stack_panel@library.buttons_stack_panel": {} }
     ]
@@ -170,6 +186,19 @@
             {
               "binding_type": "collection_details",
               "binding_collection_name": "library_items"
+            }
+          ]
+        }
+      },
+      {
+        "new_item_tag@common_store.status_new_offer_icon": {
+          "offset": [ -4, -1 ],
+          "bindings": [
+            {
+              "binding_type": "collection",
+              "binding_collection_name": "library_items",
+              "binding_name": "#should_display_new_icon",
+              "binding_name_override": "#visible"
             }
           ]
         }
@@ -247,7 +276,7 @@
     "type": "stack_panel",
     "orientation": "vertical",
     "size": [ "100% - 4px", "100%c" ],
-    "$max_label_size": [ "100%", 19 ],
+    "$max_label_size": [ "100%", 17 ],
     "controls": [
       {
         "title@library.base_label": {
@@ -304,7 +333,7 @@
       {
         "header@common.fullscreen_header": {
           "$back_button_has_title": true,
-          "$button_text": "library.title",
+          "$button_text": "$library_screen_header",
           "$child_control": "library.main_panel"
         }
       },
@@ -313,7 +342,8 @@
           // Make the input_panel be above the header's back button
           "layer": 201
         }
-      }
+      },
+      { "search_bar@library.search_bar": {} }
     ]
   },
 

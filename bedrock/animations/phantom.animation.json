@@ -1,0 +1,37 @@
+{
+	"format_version" : "1.8.0",
+	"animations" : {
+		"animation.phantom.base_pose" : {
+			"bones" : {
+				"body" : {
+					"position" : [ 0.0, -20.0, 0.0 ],
+					"rotation" : [ "-query.target_x_rotation", 0.0, 0.0 ]
+				}
+			},
+			"loop" : true
+		},
+		"animation.phantom.move" : {
+			"bones" : {
+				"tail" : {
+					"rotation" : [ "variable.tailrotx", 0.0, 0.0 ]
+				},
+				"tailtip" : {
+					"rotation" : [ "variable.tailrotx", 0.0, 0.0 ]
+				},
+				"wing0" : {
+					"rotation" : [ 0.0, 0.0, "variable.wingrotz" ]
+				},
+				"wing1" : {
+					"rotation" : [ 0.0, 0.0, "-variable.wingrotz" ]
+				},
+				"wingtip0" : {
+					"rotation" : [ 0.0, 0.0, "variable.wingrotz" ]
+				},
+				"wingtip1" : {
+					"rotation" : [ 0.0, 0.0, "-variable.wingrotz" ]
+				}
+			},
+			"loop" : true
+		}
+	}
+}

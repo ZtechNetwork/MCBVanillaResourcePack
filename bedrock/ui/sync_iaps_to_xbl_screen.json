@@ -45,15 +45,10 @@
         "padding_0@sync_iaps_to_xbl.padding": {}
       },
       {
-        "scrolling_panel@common.scrolling_panel": {
-          "$show_background": false,
-          "$scroll_box_visible_touch": true,
+        "description_label_wrapper@common.tts_label_focus_wrapper": {
           "size": [ "100%", "fill" ],
-          "$scrolling_content": "sync_iaps_to_xbl.description_label_panel",
-          "$scroll_size": [ 5, "100%" ],
-          "$scrolling_pane_size": [ "100%", "100%" ],
-          "$scrolling_pane_offset": [ 0, 0 ],
-          "$scroll_bar_right_padding_size": [ 0, 0 ]
+          "$tts_label_panel": "sync_iaps_to_xbl.scrolling_panel",
+          "$focus_border_size": [ "100% + 2px", "100%" ]
         }
       },
       {
@@ -93,8 +88,19 @@
     ]
   },
 
+  "scrolling_panel@common.scrolling_panel": {
+    "$show_background": false,
+    "$scroll_box_visible_touch": true,
+    "size": [ "100%", "100%" ],
+    "$scrolling_content": "sync_iaps_to_xbl.description_label_panel",
+    "$scroll_size": [ 5, "100%" ],
+    "$scrolling_pane_size": [ "100%", "100%" ],
+    "$scrolling_pane_offset": [ 0, 0 ],
+    "$scroll_bar_right_padding_size": [ 0, 0 ]
+  },
+
   "description_label_panel": {
-    "type": "stack_panel",
+    "type": "panel",
     "size": [ "100%", "100%c" ],
     "layer": 1,
     "$font_scale": 0.8,
@@ -106,7 +112,17 @@
           "text": "xbl.syncIAP.description",
           "font_type": "smooth",
           "color": "$body_text_color",
-          "font_scale_factor": "$font_scale"
+          "font_scale_factor": "$font_scale",
+          "bindings": [
+            {
+              "binding_type": "global",
+              "binding_condition": "once",
+              "binding_name": "#tts_dialog_body"
+            }
+          ],
+          "property_bag": {
+            "#tts_dialog_body": "xbl.syncIAP.description"
+          }
         }
       }
     ]

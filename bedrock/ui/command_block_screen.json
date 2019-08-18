@@ -134,6 +134,20 @@
         "handle_select": false,
         "handle_deselect": true,
         "mapping_type": "global"
+      },
+      {
+        "from_button_id": "button.menu_autocomplete",
+        "to_button_id": "button.chat_autocomplete",
+        "handle_select": true,
+        "handle_deselect": false,
+        "mapping_type": "global"
+      },
+      {
+        "from_button_id": "button.menu_autocomplete_back",
+        "to_button_id": "button.chat_autocomplete_back",
+        "handle_select": true,
+        "handle_deselect": false,
+        "mapping_type": "global"
       }
     ]
   },
@@ -378,7 +392,7 @@
                       "anchor_to": "center",
                       "size": [ "100%", 30 ],
                       "$focus_id": "hover_note_text",
-                      "layer":  5,
+                      "layer": 5,
                       "max_length": 15,
                       "$text_box_name": "command_block.hover_note_textbox",
                       "$text_edit_box_content_binding_name": "#command_hover_note",
@@ -395,7 +409,7 @@
               }
             },
             {
-              "block_type_mode_panel@command_block.block_type_panel": { }
+              "block_type_mode_panel@command_block.block_type_panel": {}
             },
             {
               "offset4": {
@@ -404,7 +418,7 @@
               }
             },
             {
-              "condition_mode_panel@command_block.condition_mode_panel": { }
+              "condition_mode_panel@command_block.condition_mode_panel": {}
             },
             {
               "offset5": {
@@ -413,22 +427,79 @@
               }
             },
             {
-              "redstone_mode_panel@command_block.redstone_mode_panel": { }
+              "redstone_mode_panel@command_block.redstone_mode_panel": {}
             },
             {
-              "offset6": {
+              "offset_execute_on_first_tick": {
+                "type": "panel",
+                "size": [ "100%", 2 ]
+              }
+            },
+            {
+              "option_label_execute_on_first_tick": {
+                "type": "label",
+                "color": "$body_text_color",
+                "size": [ "100%", "default" ],
+                "layer": 2,
+                "text": "commandBlockScreen.executeFirstTick",
+                "visible": true,
+                "locked_alpha": 0.5
+              }
+            },
+            {
+              "execute_on_first_tick_toggle@settings_common.option_toggle": {
+                "$option_binding_name": "#execute_on_first_tick",
+                "$option_enabled_binding_name": "#execute_on_first_tick_enabled",
+                "$show_option_label": false,
+                "$toggle_name": "execute_on_first_tick",
+                "$toggle_binding_condition": "visible"
+              }
+            },
+            {
+              "offset_tick_delay": {
+                "type": "panel",
+                "size": [ "100%", 2 ]
+              }
+            },
+            {
+              "option_label_tick_delay": {
+                "type": "label",
+                "color": "$body_text_color",
+                "size": [ "100%", "default" ],
+                "offset": [ 2, 0 ],
+                "layer": 1,
+                "text": "commandBlockScreen.tickDelay",
+                "visible": true,
+                "locked_alpha": 0.5
+              }
+            },
+            {
+              "tick_delay_text@common.text_edit_box": {
+                "anchor_from": "center",
+                "anchor_to": "center",
+                "size": [ "100%", 30 ],
+                "$focus_id": "tick_delay_text",
+                "layer": 5,
+                "max_length": 5,
+                "$text_edit_box_text_type": "NumberChars",
+                "$text_box_name": "command_block.tick_delay_textbox",
+                "$text_edit_box_content_binding_name": "#command_tick_delay"
+              }
+            },
+            {
+              "offset7": {
                 "type": "panel",
                 "size": [ "100%", 7 ]
               }
             },
             {
               "cancel@command_block.cancel_button": {
-                "$focus_override_right":  "show_output_toggle",
+                "$focus_override_right": "show_output_toggle",
                 "size": [ "100%", 30 ]
               }
             },
             {
-              "offset7": {
+              "offset8": {
                 "type": "panel",
                 "size": [ "100%", 4 ]
               }

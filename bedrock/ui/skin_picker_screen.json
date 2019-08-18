@@ -165,6 +165,10 @@
         "custom_skin_button@common_buttons.light_text_form_fitting_button": {
           "$button_text_max_size": [ 120, 10 ],
           "$pressed_button_name": "button.choose_custom_skin",
+          "$focus_id": "custom_focus_id",
+          "$focus_override_down": "accept_focus_id",
+          "$focus_override_up": "accept_focus_id",
+          "$focus_override_right": "FOCUS_OVERRIDE_STOP",
           "ignored": "($image_picking_not_supported or $education_edition)",
           "$button_text": "skins.picker.custom.button",
           "anchor_from": "top_middle",
@@ -253,6 +257,11 @@
   "undo_skin_button@common_buttons.light_glyph_button": {
     "$pressed_button_name": "button.undo_skin",
     "$button_content": "skin_picker.undo_image",
+    "$focus_id": "undo_focus_id",
+    "$focus_override_down": "custom_focus_id",
+    "$focus_override_up": "custom_focus_id",
+    "$focus_override_right": "accept_focus_id",
+    "consume_hover_events": false,
     "bindings": [
       {
         "binding_name": "#undo_button_enabled",
@@ -265,6 +274,12 @@
     "$button_text_binding_type": "global",
     "$button_text": "#accept_skin_button_text",
     "$pressed_button_name": "button.accept_skin",
+    "$focus_id": "accept_focus_id",
+    "$focus_override_down": "custom_focus_id",
+    "$focus_override_up": "custom_focus_id",
+    "$focus_override_right": "undo_focus_id",
+    "$focus_override_left": "undo_focus_id",
+    "consume_hover_events": false,
     "bindings": [
       {
         "binding_name": "#accept_skin_button_enabled",
@@ -282,15 +297,15 @@
     "anchor_from": "bottom_middle",
     "anchor_to": "bottom_middle",
     "orientation": "horizontal",
-    "size": [ "100% - 4px", "100% - 4px" ],
+    "size": [ "100% - 4px", "100% - 2px" ],
     "offset": [ 0, -2 ],
     "controls": [
       {
-        "stack_item_0@stack_item": {
+        "stack_item_0@skin_picker.stack_item": {
           "size": [ "25%", "100%" ],
           "controls": [
             {
-              "undo_btn@undo_skin_button": {
+              "undo_btn@skin_picker.undo_skin_button": {
                 "default_focus_precedence": 0,
                 "size": [ "100%", "100%" ],
                 "offset": [ 0, 0 ],
@@ -304,11 +319,11 @@
         }
       },
       {
-        "stack_item_1@stack_item": {
+        "stack_item_1@skin_picker.stack_item": {
           "size": [ "75% + 1px", "100%" ],
           "controls": [
             {
-              "accept_button@accept_skin_button": {
+              "accept_button@skin_picker.accept_skin_button": {
                 "default_focus_precedence": 1,
                 "size": [ "100%", "100%" ],
                 "offset": [ -1, 0 ],
@@ -316,6 +331,84 @@
                 "anchor_to": "left_middle",
                 "layer": 1,
                 "$focus_override_right": "FOCUS_OVERRIDE_STOP"
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "appearance_status_image_panel": {
+    "type": "panel",
+    "size": [ 8, "100%" ],
+    "controls": [
+      {
+        "limited_status_image": {
+          "type": "image",
+          "size": [ "100%", "100%x" ],
+          "bilinear": true,
+          "texture": "textures/ui/infobulb",
+          "bindings": [
+            {
+              "binding_name": "#limited_status_visible",
+              "binding_name_override": "#visible"
+            }
+          ]
+        }
+      },
+      {
+        "no_restrictions_status_image": {
+          "type": "image",
+          "size": [ "100%", "100%x" ],
+          "bilinear": true,
+          "visible": false,
+          "texture": "textures/ui/realms_green_check",
+          "bindings": [
+            {
+              "binding_type": "view",
+              "source_control_name": "limited_status_image",
+              "source_property_name": "(not #visible)",
+              "target_property_name": "#visible",
+              "resolve_sibling_scope": true
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "appearance_status_content": {
+    "type": "stack_panel",
+    "orientation": "horizontal",
+    "size": [ "100% - 6px", "100% - 2px" ],
+    "layer": 2,
+    "controls": [
+      {
+        "appearance_status_image_panel@skin_picker.appearance_status_image_panel": {}
+      },
+      {
+        "padding": {
+          "type": "panel",
+          "size": [ "3px", "100%" ]
+        }
+      },
+      {
+        "appearance_status_label_panel": {
+          "type": "panel",
+          "size": [ "fill", "100%" ],
+          "controls": [
+            {
+              "appearance_status_label": {
+                "type": "label",
+                "size": [ "100%", 10 ],
+                "text": "#appearance_status_brief_label",
+                "color": "$f_color_format",
+                "bindings": [
+                  {
+                    "binding_name": "#appearance_status_brief_label"
+                  }
+                ]
               }
             }
           ]
@@ -332,24 +425,24 @@
     "size": [ "100%", "100% - 2px" ],
     "controls": [
       {
-        "preview@skin_viewer_panel": {
-          "size": [ "100%", "100% - 48px" ]
+        "preview@skin_picker.skin_viewer_panel": {
+          "size": [ "100%", "100% - 54px" ]
         }
       },
       {
         "button_frame": {
           "type": "stack_panel",
           "orientation": "vertical",
-          "size": [ "100%", 50 ],
+          "size": [ "100%", 54 ],
           "anchor_from": "bottom_middle",
           "anchor_to": "bottom_middle",
           "controls": [
             {
-              "stack_item_0@stack_item": {
+              "stack_item_0@skin_picker.stack_item": {
                 "size": [ "100%", 12 ],
                 "controls": [
                   {
-                    "rotation@skin_rotation_arrows": {
+                    "rotation@skin_picker.skin_rotation_arrows": {
                       "anchor_from": "top_middle",
                       "anchor_to": "top_middle",
                       "size": [ "50%", "100% - 4px" ]
@@ -359,10 +452,61 @@
               }
             },
             {
-              "stack_item_1@stack_item": {
+              "padding": {
+                "type": "panel",
+                "size": [ "100%", 4 ]
+              }
+            },
+            {
+              "notification_and_accept_input_panel": {
+                "type": "input_panel",
                 "size": [ "100%", "fill" ],
+                "button_mappings": [
+                  {
+                    "to_button_id": "button.is_hovered",
+                    "mapping_type": "pressed"
+                  }
+                ],
                 "controls": [
-                  { "accept@accept_skin_panel": {} }
+                  {
+                    "notification_and_accept_stack": {
+                      "type": "stack_panel",
+                      "orientation": "vertical",
+                      "size": [ "100%", "100%" ],
+                      "controls": [
+                        {
+                          "skin_status_notification_section": {
+                            "type": "panel",
+                            "size": [ "100%", 14 ],
+                            "controls": [
+                              {
+                                "appearance_status_notification_panel@common_buttons.static_tooltip_notification_panel": {
+                                  "size": [ "100% - 4px", "100%" ],
+                                  "button_mappings": [],
+                                  "consume_hover_events": false,
+                                  "focus_enabled": false,
+                                  "$static_tooltip_button_visibility_binding_name": "#is_appearance_status_visible",
+                                  "$tooltip_popup_visible_binding": "#is_appearance_status_hover_panel_visible",
+                                  "$override_tooltip_popup_image": true,
+                                  "$tooltip_popup_override_image_panel": "skin_picker.appearance_status_image_panel",
+                                  "$tooltip_text_binding_name": "#appearance_status_hover_label",
+                                  "$tooltip_panel_content": "skin_picker.appearance_status_content"
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "stack_item_1@skin_picker.stack_item": {
+                            "size": [ "100%", "fill" ],
+                            "controls": [
+                              { "accept@skin_picker.accept_skin_panel": {} }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
                 ]
               }
             }
@@ -371,6 +515,7 @@
       }
     ]
   },
+
 
   //--------------------------------------------------------------------------------
   // Change Skins Panel
@@ -608,6 +753,7 @@
     "anchor_to": "top_left",
     "color": "$main_header_text_color",
     "text": "#pack_name",
+    "enable_profanity_filter": false,
     "bindings": [
       {
         "binding_type": "collection",
@@ -925,6 +1071,10 @@
     "bindings": [
       {
         "binding_name": "#recent_skins_grid_dimensions"
+      },
+      {
+        "binding_name": "#is_recent_grid_ready",
+        "binding_name_override": "#visible"
       }
     ]
   },
@@ -990,6 +1140,14 @@
                 "controls": [
                   {
                     "recent_skins_grid@recent_skins_grid": {}
+                  },
+                  {
+                    "recent_skins_loading_panel@common_store.progress_loading": {
+                      "$hide_failure_text": true,
+                      "$hide_progress_loading_outline": true,
+                      "$source_control_name": "recent_skins_grid",
+                      "$source_property_name": "(not #visible)"
+                    }
                   }
                 ]
               }
@@ -1145,6 +1303,7 @@
               "preview_skin_name@skin_picker.title_label": {
                 "visible": "(not $education_edition)",
                 "text": "#skin_name",
+                "enable_profanity_filter": false,
                 // In the edge case where the skin name is too long to fit,
                 // even with the main title pushed as far to the left as it can
                 // go, then the skin name should truncate.  Since the label's

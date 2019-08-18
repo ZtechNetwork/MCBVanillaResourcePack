@@ -532,7 +532,7 @@
     "easing": "in_quart",
     "destroy_at_end": "chat_grid_item",
     "duration": 1,
-    "from": 0.5,
+    "from": 0.7,
     "to": 0
   },
 
@@ -550,6 +550,9 @@
     "shadow": true,
     "localize": false,
     "color": "$chat_text_color",
+    "font_type": "$chat_font_type",
+    "font_scale_factor": "$chat_font_scale_factor",
+    "line_padding": "$chat_line_spacing",
     "anims": [
       "@hud.anim_chat_txt_wait"
     ],
@@ -575,7 +578,7 @@
         "chat_background": {
           "type": "image",
           "texture": "textures/ui/Black",
-          "alpha": 0.5,
+          "alpha": 0.7,
           "size": [ "100%", "100%c" ],
           "anims": [
             "@hud.anim_chat_bg_wait"
@@ -1137,7 +1140,14 @@
   },
 
   "survival_item_name_text@hud.item_name_text": {
-    "offset": [ 0, -32 ]
+    "$offset|default": [ 0, -32 ],
+    "variables": [
+      {
+        "requires": "$pocket_screen",
+        "$offset": [ 0, -10 ]
+      }
+    ],
+    "offset": "$offset"
   },
 
   "creative_above_interact_button_item_text@hud.item_name_text": {
@@ -1315,6 +1325,8 @@
                 "localize": false,
                 "font_size": "extra_large",
                 "shadow": true,
+                "size": [ "100%", "default" ],
+                "text_alignment": "center",
                 "bindings": [
                   {
                     "binding_name": "#hud_title_text_string",
@@ -1343,6 +1355,8 @@
                 "font_size": "large",
                 "shadow": true,
                 "alpha": "$anim_type",
+                "size": [ "100%", "default" ],
+                "text_alignment": "center",
                 "bindings": [
                   {
                     "binding_name": "#hud_subtitle_text_string",
@@ -1749,7 +1763,18 @@
       },
       { "vignette_rend@vignette_renderer": {} },
       { "curor_rend@cursor_renderer": {} },
-      { "game_tip@game_tip.game_tip_panel": {} },
+      {
+        "game_tip@game_tip.game_tip_panel": {
+          "$offset": [ 0, "-80px" ],
+          "variables": [
+            {
+              "requires": "$pocket_screen",
+              "$offset": [ 0, "-50px" ]
+            }
+          ],
+          "offset": "$offset"
+        }
+      },
       { "sidebar@scoreboard.scoreboard_sidebar": {} },
       {
         "progress_rend@progress_indicator_renderer": {

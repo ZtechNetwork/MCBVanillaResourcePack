@@ -1,0 +1,19 @@
+{
+  "format_version": "1.8.0",
+  "render_controllers": {
+    "controller.render.wither_boss_armor": {
+      "geometry": "Geometry.armor",
+      "materials": [ { "*": "Material.armor" } ],
+      "textures": [ "Texture.armor" ],
+      "part_visibility": [ { "*": "query.is_shield_powered" } ],
+      "uv_anim": {
+        "offset": [
+          "(query.is_shield_powered ? (Math.cos(query.life_time * 22.92) * 3) : 0.0)",
+          "(query.is_shield_powered ? (query.life_time * 0.2) : 0.0)"
+        ],
+        "scale": [ 1.0, 1.0 ]
+      },
+      "ignore_lighting": true
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "format_version": "1.8.0",
+  "animation_controllers": {
+    "controller.animation.pillager.attack": {
+      "states": {
+        "default": {
+          "transitions": [
+            { "hold": "variable.attack_state == 1" },
+            { "charge": "variable.attack_state == 2" }
+          ]
+        },
+        "hold": {
+          "animations": [ { "crossbow_hold": [] } ],
+          "transitions": [
+            { "default": "variable.attack_state == 0" },
+            { "charge": "variable.attack_state == 2" }
+          ]
+        },
+        "charge": {
+          "animations": [ { "crossbow_charge": [] } ],
+          "transitions": [
+            { "default": "variable.attack_state == 0" },
+            { "hold": "variable.attack_state == 1" }
+          ]
+        }
+      }
+    }
+  }
+}

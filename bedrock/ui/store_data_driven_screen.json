@@ -266,7 +266,7 @@
       {
         "padding_0": {
           "type": "panel",
-          "size": [ "100%", 2 ]
+          "size": [ "100%", 4 ]
         }
       },
       {
@@ -740,6 +740,7 @@
                 "type": "image",
                 "size": [ 24, 24 ],
                 "texture": "#nav_button_texture",
+                "allow_debug_missing_texture": false,
                 "layer": 1,
                 "bindings": [
                   {
@@ -803,10 +804,13 @@
     ]
   },
 
-  "nav_button_panel": {
+  "nav_button_fill@store_layout.nav_button_standard": {
+    "size": [ "fill", "100%" ]
+  },
+
+  "nav_button_standard": {
     "type": "panel",
-    "$nav_size|default": [ "25%", "100%" ],
-    "size": "$nav_size",
+    "size": [ "25%", "100%" ],
     "controls": [
       {
         "nav_button@common_buttons.light_content_button": {
@@ -827,19 +831,6 @@
           ]
         }
       }
-    ],
-    "bindings": [
-      {
-        "binding_type": "$store_factory_collection_details",
-        "binding_collection_name": "$store_factory_collection_name",
-        "binding_collection_prefix": "$store_factory_collection_prefix"
-      },
-      {
-        "binding_type": "collection",
-        "binding_collection_name": "$nav_button_collection_name",
-        "binding_name": "#is_valid_nav_button",
-        "binding_name_override": "#visible"
-      }
     ]
   },
 
@@ -859,42 +850,34 @@
           "$nav_button_collection_name": "nav_button_collection",
           "collection_name": "$nav_button_collection_name",
 
-          "controls": [
-            {
-              "navButton0@store_layout.nav_button_panel": {
-                "collection_index": 0
-              }
+          "factory": {
+            "name": "nav_button_factory",
+            "control_ids": {
+              "nav_button_standard": "@store_layout.nav_button_standard",
+              "nav_button_fill": "@store_layout.nav_button_fill"
             },
-            {
-              "navButton1@store_layout.nav_button_panel": {
-                "collection_index": 1
-              }
-            },
-            {
-              "navButton2@store_layout.nav_button_panel": {
-                "collection_index": 2
-              }
-            },
-            {
-              "navButton3@store_layout.nav_button_panel": {
-                "collection_index": 3
-              }
-            }
-          ],
+            "factory_variables": [
+              "$nav_button_collection_name",
+              "$nav_button_binding_type",
+              "$store_factory_collection_details",
+              "$store_factory_collection_prefix",
+              "$store_factory_collection_name"
+            ]
+          },
           "bindings": [
             {
               "binding_type": "$store_factory_collection_details",
               "binding_collection_name": "$store_factory_collection_name",
               "binding_collection_prefix": "$store_factory_collection_prefix"
+            },
+            {
+              "binding_name": "#nav_section_content",
+              "binding_name_override": "#collection_length"              
             }
           ]
         }
       }
     ]
-  },
-
-  "nav_button_fill_grid_panel@store_layout.nav_button_grid_panel": {
-    "$nav_size": [ "fill", "100%" ]
   },
 
   "store_layout_ribbon_search_button@common_buttons.light_content_button": {

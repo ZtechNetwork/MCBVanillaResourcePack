@@ -311,6 +311,11 @@
     "$default_pressed_alpha|default": 1,
     "$default_button_pressed_offset|default": [ 0, 1 ],
 
+    "$default_text_color|default": "$light_button_default_text_color",
+    "$hover_text_color|default": "$light_button_hover_text_color",
+    "$pressed_text_color|default": "$light_button_pressed_text_color",
+    "$locked_text_color|default": "$light_button_locked_text_color",
+
     // For text bindings
     "$button_text_binding_type|default": "none",
     "$button_binding_condition|default": "none",
@@ -329,7 +334,7 @@
       {
         "default@$button_state_panel": {
           "$new_ui_button_texture": "$default_button_texture",
-          "$text_color": "$light_button_default_text_color",
+          "$text_color": "$default_text_color",
           "$secondary_text_color": "$light_button_secondary_default_text_color",
           "$content_alpha": "$default_content_alpha",
           "$border_color": "$light_border_default_color",
@@ -342,7 +347,7 @@
       {
         "hover@$button_state_panel": {
           "$new_ui_button_texture": "$hover_button_texture",
-          "$text_color": "$light_button_hover_text_color",
+          "$text_color": "$hover_text_color",
           "$secondary_text_color": "$light_button_secondary_hover_text_color",
           "$content_alpha": 1,
           "$border_color": "$light_border_hover_color",
@@ -355,7 +360,7 @@
       {
         "pressed@$button_state_panel": {
           "$new_ui_button_texture": "$pressed_button_texture",
-          "$text_color": "$light_button_pressed_text_color",
+          "$text_color": "$pressed_text_color",
           "$secondary_text_color": "$light_button_secondary_pressed_text_color",
           "$button_offset|default": "$button_pressed_offset",
           "$content_alpha": "$pressed_alpha",
@@ -369,7 +374,7 @@
       {
         "locked@$button_state_panel": {
           "$new_ui_button_texture": "$locked_button_texture",
-          "$text_color": "$light_button_locked_text_color",
+          "$text_color": "$locked_text_color",
           "$secondary_text_color": "$light_button_secondary_locked_text_color",
           "$content_alpha": "$locked_alpha",
           "$border_color": "$light_border_locked_color",
@@ -1066,5 +1071,81 @@
     "property_bag": {
       "#hyperlink": ""
     }
+  },
+
+
+  //////////  Tool Tip Types  //////////
+
+  "static_tooltip_notification_panel@common.button": {
+    "size": [ "100%", "100%" ],
+    "sound_volume": 0.0,
+    "layer": 1,
+
+    // background textures
+    "$tooltip_button_default_texture|default": "textures/ui/tooltip_notification_default_background",
+    "$tooltip_button_pressed_texture|default": "textures/ui/tooltip_notification_default_background",
+    "$tooltip_button_hover_texture|default": "textures/ui/tooltip_notification_default_background",
+    "$tooltip_button_locked_texture|default": "textures/ui/tooltip_notification_default_background",
+
+    "$tooltip_button_content_size|default": [ "100%", "100%" ],
+
+    // binding vars (should be same for all children)
+    "$tooltip_button_binding_type|default": "global",
+    "$tooltip_button_collection_name|default": "",
+
+    "locked_control": "locked",
+
+    "$tooltip_hovered_to_button_id|default": "button.is_hovered",
+    "button_mappings": [
+      {
+        "from_button_id": "button.menu_select",
+        "to_button_id": "$pressed_button_name",
+        "mapping_type": "pressed"
+      },
+      {
+        "from_button_id": "button.menu_ok",
+        "to_button_id": "$pressed_button_name",
+        "mapping_type": "focused"
+      },
+      {
+        "to_button_id": "$tooltip_hovered_to_button_id",
+        "mapping_type": "pressed"
+      }
+    ],
+
+    "controls": [
+      {
+        "default@common.tooltip_button_content": {
+          "$tooltip_background_texture": "$tooltip_button_default_texture"
+        }
+      },
+      {
+        "pressed@common.tooltip_button_content": {
+          "$tooltip_background_texture": "$tooltip_button_pressed_texture"
+        }
+      },
+      {
+        "hover@common.tooltip_button_content": {
+          "$tooltip_background_texture": "$tooltip_button_hover_texture"
+        }
+      },
+      {
+        "locked@common.tooltip_button_content": {
+          "$tooltip_background_texture": "$tooltip_button_locked_texture"
+        }
+      },
+      { "static_tooltip_popup_panel@common.static_tooltip_popup_with_image_and_text": {} }
+    ],
+    "bindings": [
+      {
+        "binding_name": "$static_tooltip_button_visibility_binding_name",
+        "binding_name_override": "#visible",
+        "binding_collection_name": "$tooltip_button_collection_name",
+        "binding_type": "$tooltip_button_binding_type"
+      }
+    ]
   }
+
+  ///////////////////////////////////////////////////////////////////////////
+
 }

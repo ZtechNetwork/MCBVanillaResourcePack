@@ -31,7 +31,7 @@
           "controls": [
             {
               "tab_content@$tab_content": {
-                "layer": 1
+                "layer": 3
               }
             }
           ]
@@ -75,6 +75,9 @@
     "controls": [
       {
         "$tab_view_binding_name@common.toggle": {
+          "$toggle_tts_name": "accessibility.tab.tts.title",
+          "$toggle_tts_enabled_binding_type": "global",
+
           "controls": [
             {
               "unchecked@$tab_panel": {
@@ -287,5 +290,99 @@
     "$checked_hover_image|default": "textures/ui/TabRightFront",
     "$checked_locked_image|default": "textures/ui/TabRightFront",
     "$checked_locked_hover_image|default": "textures/ui/TabRightFront"
+  },
+
+  //---------------------------------------------------------------------------
+  // Pocket Tabs
+  //---------------------------------------------------------------------------
+
+  "pocket_tab_left@common_tabs.tab_left": {
+    "size": [ "100%", 33 ],
+    "$toggle_focus_enabled": false,
+    "$toggle_name": "left_navigation_tab"
+  },
+
+  "pocket_tab_right@common_tabs.tab_right": {
+    "size": [ "100%", 33 ],
+    "$toggle_focus_enabled": false,
+    "$toggle_name": "right_navigation_tab"
+  },
+
+  "pocket_tab_close_button": {
+    "type": "image",
+    "size": [ "100%", 33 ],
+    "texture": "textures/ui/TabRightBackTopMost",
+
+    "controls": [
+      {
+        "close_button@common.light_close_button": {
+          "anchor_from": "center",
+          "anchor_to": "center",
+          "offset": [ 0, 0 ]
+        }
+      }
+    ]
+  },
+
+  "pocket_tab_help_button": {
+    "type": "image",
+    "size": [ "100%", 33 ],
+    "texture": "textures/ui/TabRightBackTopMost",
+
+    "controls": [
+      {
+        "help_button@common.help_button": {
+          "anchor_from": "center",
+          "anchor_to": "center",
+          "offset": [ 0, 0 ]
+        }
+      }
+    ]
+  },
+
+  "pocket_tab_close_and_help_button": {
+    "type": "image",
+    "size": [ "100%", 51 ],
+    "texture": "textures/ui/TabRightBackTopMost",
+
+    "controls": [
+      {
+        "close_button@common.light_close_button": {
+          "anchor_from": "top_middle",
+          "anchor_to": "top_middle",
+          "offset": [ 0, 6 ]
+        }
+      },
+      {
+        "help_button@common.help_button": {
+          "anchor_from": "bottom_middle",
+          "anchor_to": "bottom_middle",
+          "offset": [ 0, -8 ]
+        }
+      }
+    ]
+  },
+
+  "tab_close_and_help_button": {
+    "type": "image",
+    "size": [ "100%", 42 ],
+    "texture": "textures/ui/TabRightBackTopMost",
+
+    "controls": [
+      {
+        "close_button@common.light_close_button": {
+          "anchor_from": "top_middle",
+          "anchor_to": "top_middle",
+          "offset": [ 0, 4 ]
+        }
+      },
+      {
+        "help_button@common.help_button": {
+          "anchor_from": "bottom_middle",
+          "anchor_to": "bottom_middle",
+          "offset": [ 0, -6 ]
+        }
+      }
+    ]
   }
 }

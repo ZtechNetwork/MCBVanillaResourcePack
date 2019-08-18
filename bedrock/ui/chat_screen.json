@@ -107,6 +107,7 @@
     "$button_content": "chat.keyboard_image_panel",
     "$pressed_button_name": "button.keyboard_toggle",
     "$focus_id": "keyboard_button_focus_id",
+    "$button_tts_header": "accessibility.chat.tts.keyboard",
     "bindings": [
       {
         "binding_name": "#keyboard_button_focus_override_up",
@@ -123,22 +124,17 @@
     "$pressed_button_name": "button.send",
     "$anchor": "bottom_right",
     "size": [ "100%c", 27 ],
-
-    "focus_enabled": false,
+    "$tts_enabled|default": true,
+    "focus_enabled": "$tts_enabled",
 
     "$button_type_panel": "chat.send_panel",
+    "$button_tts_header": "accessibility.chat.tts.sendChatMessage",
     "bindings": [
       {
         "binding_name": "#send_button_visible",
         "binding_name_override": "#enabled"
       }
     ]
-  },
-
-  "hide_toggle@settings_common.option_toggle": {
-    "$option_binding_name": "#hide_chat",
-    "$option_enabled_binding_name": "#hide_chat_enabled",
-    "$toggle_name": "hide_chat"
   },
 
   // Messages Panel //
@@ -154,6 +150,8 @@
           "localize": false,
           "size": [ "100%", "default" ],
           "text": "#text",
+          "font_type": "$chat_font_type",
+          "font_scale_factor": "$chat_font_scale_factor",
           "line_padding": "$chat_line_spacing"
         }
       }
@@ -165,6 +163,12 @@
       }
     ]
   },
+
+	"message_tts_wrapper@common.tts_label_focus_wrapper": {
+		"$tts_label_panel": "chat.messages_text",
+		"$focus_border_visible_binding": "#host_options_menu_not_open_and_tts_enabled"
+	},
+
   "messages_stack_panel": {
     "type": "stack_panel",
     "orientation": "vertical",
@@ -174,7 +178,7 @@
       "name": "messages_factory",
       "max_children_size": 100,
       "control_ids": {
-        "chat_screen_messages": "chat_screen_messages@chat.messages_text"
+        "chat_screen_messages": "chat_screen_messages@chat.message_tts_wrapper"
       }
     }
   },
@@ -206,6 +210,8 @@
     "$focus_override_right": "keyboard_button_focus_id",
     "$focus_override_left": "host_main_button_focus_id",
     // focus override up and down are controlled with bindings
+    "$text_box_tts_header": "accessibility.chat.tts.textboxTitle",
+    "$text_box_tts_name": "",
 
     "bindings": [
       {
@@ -312,7 +318,7 @@
         "handle_select": false,
         "handle_deselect": false,
         "mapping_type": "global",
-        // TODO: Always use this binding once the Mute User Story is finished
+        // TODO: Always use this binding once Chat Settings can be public
         "ignored": "$is_publish"
       },
       {
@@ -321,7 +327,7 @@
         "handle_select": false,
         "handle_deselect": false,
         "mapping_type": "global",
-        // TODO: delete this binding once the Mute User Story is finished
+        // TODO: delete this binding once Chat Settings can be public
         "ignored": "(not $is_publish)"
       },
       {
@@ -391,7 +397,7 @@
       {
         "auto_complete_item_renderer@common.item_renderer": {
           "size": [ 9, 9 ],
-          "offset": [ -2, -4 ],
+          "offset": [ 2, 0 ],
           "anchor_from": "left_middle",
           "anchor_to": "left_middle",
           "bindings": [
@@ -525,7 +531,45 @@
     ]
   },
 
-  // TODO: When the Mute User Story is done, then this Mute Toggle should be removed
+  "back_content_panel": {
+    "type": "panel",
+    "size": [ "100%c", "100%" ],
+    "anchor_from": "left_middle",
+    "anchor_to": "left_middle",
+    "controls": [
+      {
+        "back_button@common.back_button": {
+          "offset": [ 0, -1 ],
+          "$button_text_binding_type": "global",
+          "$button_text": "#back_button_text"          
+        }
+      },
+      {
+        "gamepad_back_helper": {
+          "type": "panel",
+          "size": [ "100%c", 26 ],
+          "offset": [ -4, -1 ],
+          "$gamepad_helper_icon_description_text_color": "$light_glyph_default_color",
+          "$gamepad_helper_icon_description_shadow": false,
+          "controls": [
+            {
+              "gamepad_helper_button@common.gamepad_helper_b": {
+                "$icon_description_bind": "#back_button_text"
+              }
+            }
+          ],
+          "bindings": [
+            {
+              "binding_name": "#is_using_gamepad",
+              "binding_name_override": "#visible"
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  // TODO: Delete all chat mute stuff here when Chat Settings can be public
   "mute_text": {
     "type": "panel",
     "size": [ "100%c", "100%" ],
@@ -541,6 +585,13 @@
         }
       }
     ]
+  },
+
+  "hide_toggle@settings_common.option_toggle": {
+    "$option_binding_name": "#hide_chat",
+    "$option_enabled_binding_name": "#hide_chat_enabled",
+    "$toggle_name": "hide_chat",
+    "$option_label": "accessibility.chat.tts.hideChat"
   },
 
   "mute_interaction": {
@@ -624,44 +675,6 @@
     ]
   },
 
-  "back_content_panel": {
-    "type": "panel",
-    "size": [ "100%c", "100%" ],
-    "anchor_from": "left_middle",
-    "anchor_to": "left_middle",
-    "controls": [
-      {
-        "back_button@common.back_button": {
-          "offset": [ 0, -1 ],
-          "$button_text_binding_type": "global",
-          "$button_text": "#back_button_text"
-        }
-      },
-      {
-        "gamepad_back_helper": {
-          "type": "panel",
-          "size": [ "100%c", 26 ],
-          "offset": [ -4, -1 ],
-          "$gamepad_helper_icon_description_text_color": "$light_glyph_default_color",
-          "$gamepad_helper_icon_description_shadow": false,
-          "controls": [
-            {
-              "gamepad_helper_button@common.gamepad_helper_b": {
-                "$icon_description_bind": "#back_button_text"
-              }
-            }
-          ],
-          "bindings": [
-            {
-              "binding_name": "#is_using_gamepad",
-              "binding_name_override": "#visible"
-            }
-          ]
-        }
-      }
-    ]
-  },
-
   "mute_panel": {
     "type": "stack_panel",
     "orientation": "horizontal",
@@ -710,8 +723,9 @@
                       "size": [ 2, "100%" ]
                     }
                   },
+                  // TODO: Delete this when Chat Settings can be public
                   { "mute_section@chat.mute_panel": { "ignored": "(not $is_publish)" } },
-                  // TODO: Show the chat settings button once the Mute User Story has been finished
+                  // TODO: Show the button when Chat Settings can be public
                   { "chat_settings_button@chat_settings.chat_settings_button_panel": { "ignored": "$is_publish" } },
                   {
                     "padding4": {
@@ -767,7 +781,7 @@
     "size": [ "100%", "100%" ],
     "texture": "textures/ui/White",
     "color": [ 0.0, 0.0, 0.0 ],
-    "alpha": 0.5
+    "alpha": 0.7
   },
 
   ////////////////////////////
@@ -815,6 +829,18 @@
 
   "dev_console_screen@common.base_screen": {
     "$screen_content": "chat.dev_console_dialog",
-    "force_render_below": true
+    "force_render_below": true,
+    "button_mappings": [
+      {
+        "from_button_id": "button.menu_exit",
+        "to_button_id": "button.chat_menu_cancel",
+        "mapping_type": "global"
+      },
+      {
+        "from_button_id": "button.menu_cancel",
+        "to_button_id": "button.chat_menu_cancel",
+        "mapping_type": "global"
+      }
+    ]
   }
 }

@@ -8,13 +8,6 @@
     "size": [ 16, 16 ]
   },
 
-  "educator_resource_icon": {
-    "type": "image",
-    "texture": "textures/items/apple",
-    "layer": 30,
-    "size": [ 18, 18 ]
-  },
-
   "Xbox_icon": {
     "type": "image",
     "texture": "textures/ui/xbox4",
@@ -32,12 +25,6 @@
   },
 
   "new_offers_icon@common_store.new_offer_icon": {
-    "layer": 11, // This is the lowest layer where the button border won't show through this icon while being pressed
-    "anchor_from": "top_right",
-    "anchor_to": "top_right"
-  },
-
-  "beta_icon@common_store.beta_icon": {
     "layer": 11, // This is the lowest layer where the button border won't show through this icon while being pressed
     "anchor_from": "top_right",
     "anchor_to": "top_right"
@@ -134,7 +121,8 @@
     "$button_content_offset": [ 1, 2 ],
     "$button_content": "start.change_skin_icon",
     "$pressed_alpha": 0.65,
-    "$focus_id": "menu_skins_button"
+    "$focus_id": "menu_skins_button",
+    "$button_tts_header": "accessibility.start.skinPicker"
   },
 
   "skin_viewer_panel": {
@@ -188,8 +176,20 @@
                     "source_control_name": "viewer_panel",
                     "source_property_name": "#gesture_mouse_delta_x",
                     "target_property_name": "#gesture_mouse_delta_x"
+                  },
+                  {
+                    "binding_name": "#is_appearance_visible",
+                    "binding_name_override": "#visible"
                   }
                 ]
+              }
+            },
+            {
+              "appearacne_loading_panel@common_store.progress_loading": {
+                "$hide_failure_text": true,
+                "$hide_progress_loading_outline": true,
+                "$source_control_name": "paper_doll",
+                "$source_property_name": "(not #visible)"
               }
             }
           ]
@@ -252,6 +252,7 @@
   "feedback_button": {
     "ignored": "$feedback_ignored",
     "type": "panel",
+    "$button_tts_header": "accessibility.start.feedback",
     "controls": [
       { "edu_feedback_button@start.edu_feedback_button": { "ignored": "(not $education_edition)" } },
       { "release_feedback_button@start.release_feedback_button": { "ignored": "($pre_release or $education_edition)" } },
@@ -285,38 +286,9 @@
     "type": "panel"
   },
 
-  "educator_resources_content": {
-    "type": "panel",
-    "controls": [
-      {
-        "educator_resource_icon@start.educator_resource_icon": {
-          "anchor_to": "left_middle",
-          "anchor_from": "left_middle",
-          "offset": [ 10, -2 ]
-        }
-      },
-      {
-        "educator_resource_text_hover": {
-          "ignored": "$hover_state",
-          "type": "label",
-          "text": "menu.educatorResources",
-          "color": "$light_button_default_text_color"
-        }
-      },
-      {
-        "educator_resource_text_default": {
-          "ignored": "(not $hover_state)",
-          "type": "label",
-          "text": "menu.educatorResources",
-          "color": "$generic_button_text_color"
-        }
-      }
-    ]
-  },
-
-  "educator_resources_button@start.main_content_button": {
+  "educator_resources_button@start.main_button": {
     "$pressed_button_name": "button.edu_resources",
-    "$button_content": "start.educator_resources_content"
+    "$button_text": "menu.educatorResources"
   },
 
   "online_buttons_panel": {
@@ -527,21 +499,24 @@
     ]
   },
 
-  "quick_play_button@start.main_button": {
-    "$pressed_button_name": "button.menu_quick_play",
-    "$button_text": "menu.quickplay",
-    "default_focus_precedence": 1,
-    "$focus_override_right": "menu_skins_button",
-    "bindings": [
-      {
-        "binding_name": "#focus_change_left"
-      }
-    ]
+  "course_button@start.main_button": {
+    "$pressed_button_name": "button.menu_courses",
+    "$button_text": "course.edu.courses"
   },
 
   "library_button@start.main_button": {
     "$pressed_button_name": "button.menu_library",
     "$button_text": "library.title"
+  },
+
+  "tutorial_button@start.main_button": {
+    "$pressed_button_name": "button.menu_tutorial",
+    "$button_text": "tutorial.edu.menuTitle"
+  },
+
+  "switch_accounts_button@start.main_button": {
+    "$pressed_button_name": "button.switch_accounts",
+    "$button_text": "accounts.switch"
   },
 
   "achievements_button@start.main_button": {
@@ -567,7 +542,8 @@
     "$button_content": "start.store_button_content",
     "$button_text_binding_type": "none",
     "$button_binding_condition": "none",
-    "$button_text_grid_collection_name": ""
+    "$button_text_grid_collection_name": "",
+    "tts_inherit_siblings": true
   },
 
   "store_button_sale_banner@start.sale_ribbon_icon": {
@@ -585,7 +561,10 @@
                 "offset": [ -1, -1 ],
                 "text": "store.startMenu.sale",
                 "color": "$title_text_color",
-                "layer": 1
+                "layer": 1,
+                "tts_name": "accessibility.store.tag",
+                "tts_control_type_order_priority": 1004, // To be read after the button control type
+                "tts_value_order_priority": 1003
               }
             }
           ]
@@ -814,21 +793,16 @@
               "library@start.stacked_row": {
                 "ignored": "(not $education_edition)",
                 "controls": [
-                  { "library_button@start.library_button": {} },
-                  {
-                    "beta_icon@start.beta_icon": {
-                      "offset": [ 8, -6 ]
-                    }
-                  }
+                  { "library_button@start.library_button": {} }
                 ]
               }
             },
             {
-              "quick_play_educator_resources@start.stacked_row": {
+              "switch_accounts_or_educator_resources@start.stacked_row": {
                 "ignored": "(not $education_edition)",
                 "controls": [
                   {
-                    "quick_play_button@start.quick_play_button": {
+                    "switch_accounts@start.switch_accounts_button": {
                       "bindings": [
                         {
                           "binding_name": "(not #teacher_content_visible)",
@@ -992,6 +966,7 @@
       {
         "button@common.button": {
           "$pressed_button_name": "button.menu_invite_notification",
+          "$button_tts_header": "realmsInvitationScreen.shareTitle",
           "size": [ 20, 20 ],
           "offset": [ 2, 2 ],
           "controls": [

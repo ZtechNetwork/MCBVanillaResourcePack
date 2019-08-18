@@ -1,0 +1,187 @@
+{
+  "namespace": "pdp_screenshots",
+
+  "banner_empty": {
+    "type": "image",
+    "texture": "textures/ui/BannersTransparent"
+  },
+
+  "screenshot_carousel": {
+    "type": "panel",
+    "size": [ "100%", "100%cm" ],
+    "clips_children": true,
+    "controls": [
+      {
+        "cycle_pack_left_button@common_store.cycle_pack_left_button": {
+          "$pressed_button_name": "button.cycle_screenshots_left",
+          "$cycle_pack_button_collection_type": "global",
+          "$cycle_pack_button_collection": "",
+          "$cycle_pack_button_enabled": "#mashup_cycle_pack_left_button_enabled",
+          "$gamepad_helper_icon_size": [ 15, 15 ],
+          "size": [ 20, 1 ],
+          "inherit_max_sibling_height": true,
+          "anchor_from": "top_left",
+          "anchor_to": "top_left",
+          "button_mappings": [
+            {
+              "from_button_id": "button.menu_select",
+              "to_button_id": "$pressed_button_name",
+              "mapping_type": "pressed",
+              "button_up_right_of_first_refusal": true
+            },
+            {
+              "from_button_id": "button.menu_ok",
+              "to_button_id": "$pressed_button_name",
+              "mapping_type": "focused",
+              "button_up_right_of_first_refusal": true
+            }
+          ]
+        }
+      },
+      {
+        "screenshots_grid@pdp_screenshots.screenshots_grid": {
+        }
+      },
+      {
+        "cycle_pack_right_button@common_store.cycle_pack_right_button": {
+          "$pressed_button_name": "button.cycle_screenshots_right",
+          "$cycle_pack_button_collection_type": "global",
+          "$cycle_pack_button_collection": "",
+          "$cycle_pack_button_enabled": "#mashup_cycle_pack_right_button_enabled",
+          "$gamepad_helper_icon_size": [ 15, 15 ],
+          "size": [ 20, 1 ],
+          "inherit_max_sibling_height": true,
+          "anchor_from": "top_right",
+          "anchor_to": "top_right",
+          "button_mappings": [
+            {
+              "from_button_id": "button.menu_select",
+              "to_button_id": "$pressed_button_name",
+              "mapping_type": "pressed",
+              "button_up_right_of_first_refusal": true
+            },
+            {
+              "from_button_id": "button.menu_ok",
+              "to_button_id": "$pressed_button_name",
+              "mapping_type": "focused",
+              "button_up_right_of_first_refusal": true
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "screenshots_grid": {
+    "type": "stack_panel",
+    "orientation": "horizontal",
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "size": [ "100%", "100%cm" ],
+    "offset": [ "-40%", 0 ],
+    "controls": [
+      {
+        "left_image_panel@pdp_screenshots.screenshots_grid_item": {
+          "alpha": 0.4,
+          "propagate_alpha": true,
+          "$screenshot_name": "#left_world_screenshot_texture_name",
+          "$screenshot_location": "#left_world_screenshot_file_system"
+        }
+      },
+      {
+        "middle_image_panel@pdp_screenshots.screenshots_grid_item": {
+          "$screenshot_name": "#middle_world_screenshot_texture_name",
+          "$screenshot_location": "#middle_world_screenshot_file_system",
+          "$is_middle": true
+        }
+      },
+      {
+        "right_image_panel@pdp_screenshots.screenshots_grid_item": {
+          "alpha": 0.4,
+          "propagate_alpha": true,
+          "$screenshot_name": "#right_world_screenshot_texture_name",
+          "$screenshot_location": "#right_world_screenshot_file_system"
+        }
+      }
+    ]
+  },
+
+  "screenshots_grid_item": {
+    "type": "panel",
+    "size": [ "60%", "56.25%x + 0.675px" ],
+    "controls": [
+      {
+        "frame@banner_empty": {
+          "size": [ "100%", "100%" ],
+          "layer": 2,
+          "controls": [
+            {
+              "screenshot_button@common.button": {
+                "$is_middle|default": false,
+                "visible": "$is_middle",
+                "layer": 4,
+                "size": [ "100%", "100%" ],
+                "focus_enabled": true,
+                "$focus_override_left_binding_type": "none",
+                "$focus_override_left": "screenshot_interact_button",
+                "$focus_override_right_binding_type": "none",
+                "$focus_override_right": "screenshot_interact_button",
+                "default_control": "",
+                "hover_control": "hover",
+                "pressed_control": "pressed",
+                "button_mappings": [
+                  {
+                    "from_button_id": "button.menu_tab_right",
+                    "to_button_id": "button.cycle_screenshots_right",
+                    "mapping_type": "focused"
+                  },
+                  {
+                    "from_button_id": "button.menu_tab_left",
+                    "to_button_id": "button.cycle_screenshots_left",
+                    "mapping_type": "focused"
+                  }
+                ],
+                "controls": [
+                  {
+                    "hover@common.square_image_border_white": {
+                    }
+                  },
+                  {
+                    "pressed@common.square_image_border_white": {
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "screenshot_image": {
+          "type": "image",
+          "layer": 1,
+          "size": [ "100% - 2px", "100%" ],
+          "bindings": [
+            {
+              "binding_name": "$screenshot_name",
+              "binding_name_override": "#texture"
+            },
+            {
+              "binding_name": "$screenshot_location",
+              "binding_name_override": "#texture_file_system"
+            }
+          ]
+        }
+      },
+      {
+        "progress_loading@common_store.progress_loading": {
+          "layer": 5,
+          "$source_control_name": "screenshot_image",
+          "$source_property_name": "(#texture = '')",
+          "$use_sibling_scope": true,
+          "$hide_failure_text": true
+        }
+      }
+    ]
+  }
+}

@@ -84,6 +84,11 @@
     "$store_offer_grid_prefix|default": "list",
     "$store_offer_grid_collection_name|default": "list_collection",
     "collection_name": "$store_offer_grid_collection_name",
+    
+    "property_bag": {
+      "#collection_name": "$store_offer_grid_collection_name"
+    },
+
     "bindings": [
       {
         "binding_type": "$store_factory_collection_details",
@@ -93,6 +98,10 @@
       {
         "binding_name": "#max_grid_offers",
         "binding_name_override": "#maximum_grid_items"
+      },
+      {
+        "binding_name": "#grid_list_visible",
+        "binding_name_override": "#visible"
       }
     ]
   },
@@ -635,12 +644,21 @@
         "mapping_type": "global"
       }
     ],
+    "variables": [
+      {
+        "requires": "$is_sales_collection",
+        "$search_offer_content": "store_sale_item_list.sales_offer_content"
+      },
+      {
+        "requires": "(not $is_sales_collection)",
+        "$content_between_searchbar_and_results": "store_sale_item_list.sales_offer_content"
+      }
+    ],
     "$default_text_color": [ 0.3, 0.3, 0.3 ],
     "$screen_content": "store_item_list.store_screen_content",
     "$header_safezone_control": "common_store.store_top_bar_filler",
     "$header_bar_control": "common_store.store_top_bar",
-    "$screen_background_control": "common_store.store_background",
-    "$content_between_searchbar_and_results": "store_sale_item_list.sales_offer_content",
+    "$screen_background_control": "common_store.store_background",    
     "$is_full_screen_layout": true,
     "$fill_alpha": 0.75
   },

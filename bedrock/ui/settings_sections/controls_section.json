@@ -24,6 +24,7 @@
       {
         "default_label@common.new_button_label": {
           "text": "#binding_button_text",
+          "tts_override_control_value": " ",
           "bindings": [
             {
               "binding_name": "#binding_button_text",
@@ -135,9 +136,21 @@
       },
       {
         "keymapping_button_0@binding_button": {
+          "$button_tts_header": "#audible_keymapping_name",
           "size": [ "40% + 1px", "100% - 4px" ],
           "anchor_from": "top_left",
-          "anchor_to": "top_left"
+          "anchor_to": "top_left",
+          "bindings": [
+            {
+              "binding_type": "collection_details",
+              "binding_collection_name": "$keymapping_collection"
+            },
+            {
+              "binding_name":  "#audible_keymapping_name",
+              "binding_type":  "collection",
+              "binding_collection_name": "$keymapping_collection"
+            }
+          ]
         }
       },
       {
@@ -146,6 +159,7 @@
           "anchor_from": "top_left",
           "anchor_to": "top_left",
           "$pressed_button_name": "button.reset_binding",
+          "$button_tts_header": "accessibility.settings.reset",
           "bindings": [
             {
               "binding_type": "collection_details",
@@ -216,9 +230,21 @@
       },
       {
         "keymapping_button_0@controls_section.image_binding_button": {
+          "$button_tts_header":  "#audible_keymapping_name",
           "size": [ "20% + 1px", "100% - 4px" ],
           "anchor_from": "top_left",
-          "anchor_to": "top_left"
+          "anchor_to": "top_left",
+          "bindings": [
+            {
+              "binding_type": "collection_details",
+              "binding_collection_name": "$keymapping_collection"
+            },
+            {
+              "binding_name":  "#audible_keymapping_name",
+              "binding_type":  "collection",
+              "binding_collection_name": "$keymapping_collection"
+            }
+          ]
         }
       },
       {
@@ -227,6 +253,7 @@
           "anchor_from": "top_left",
           "anchor_to": "top_left",
           "$pressed_button_name": "button.reset_binding",
+          "$button_tts_header": "accessibility.settings.reset",
           "bindings": [
             {
               "binding_type": "collection_details",
@@ -288,12 +315,12 @@
           "$option_label": "#keyboard_mouse_sensitivity_slider_label",
           "$slider_name": "keyboard_mouse_sensitivity",
           "$slider_value_binding_name": "#keyboard_mouse_sensitivity",
+          "$slider_tts_text_value": "#keyboard_mouse_sensitivity_text_value",
           "$option_enabled_binding_name": "#keyboard_mouse_sensitivity_enabled",
           "$focus_override_right": "FOCUS_OVERRIDE_STOP",
-
           "$label_bindings": [
             {
-              "binding_name": "#keyboard_mouse_sensitivity_slider_label"
+              "binding_name": "$option_label"
             }
           ]
         }
@@ -304,10 +331,11 @@
           "$option_label": "#vr_ui_mouse_sensitivity_slider_label",
           "$slider_name": "vr_ui_mouse_sensitivity",
           "$slider_value_binding_name": "#vr_ui_mouse_sensitivity",
+          "$slider_tts_text_value": "#vr_ui_mouse_sensitivity_text_value",
           "$option_enabled_binding_name": "#vr_ui_mouse_sensitivity_enabled",
           "$label_bindings": [
             {
-              "binding_name": "#vr_ui_mouse_sensitivity_slider_label"
+              "binding_name": "$option_label"
             }
           ]
         }
@@ -400,11 +428,12 @@
                 "$option_label": "#keyboard_smooth_rotation_speed_slider_label",
                 "$slider_name": "keyboard_smooth_rotation_speed",
                 "$slider_value_binding_name": "#keyboard_smooth_rotation_speed",
+                "$slider_tts_text_value": "#keyboard_smooth_rotation_speed_text_value",
                 "$option_enabled_binding_name": "#keyboard_smooth_rotation_speed_enabled",
                 "$focus_override_right": "FOCUS_OVERRIDE_STOP",
                 "$label_bindings": [
                   {
-                    "binding_name": "#keyboard_smooth_rotation_speed_slider_label"
+                    "binding_name": "$option_label"
                   }
                 ]
               }
@@ -465,11 +494,12 @@
           "$option_label": "#controller_sensitivity_slider_label",
           "$slider_name": "controller_sensitivity",
           "$slider_value_binding_name": "#controller_sensitivity",
+          "$slider_tts_text_value": "#controller_sensitivity_text_value",
           "$option_enabled_binding_name": "#controller_sensitivity_enabled",
           "$focus_override_right": "FOCUS_OVERRIDE_STOP",
           "$label_bindings": [
             {
-              "binding_name": "#controller_sensitivity_slider_label"
+              "binding_name": "$option_label"
             }
           ]
         }
@@ -480,10 +510,11 @@
           "$option_label": "#vr_sensitivity_slider_label",
           "$slider_name": "vr_sensitivity",
           "$slider_value_binding_name": "#vr_sensitivity",
+          "$slider_tts_text_value": "#vr_sensitivity_text_value",
           "$option_enabled_binding_name": "#vr_sensitivity_enabled",
           "$label_bindings": [
             {
-              "binding_name": "#vr_sensitivity_slider_label"
+              "binding_name": "$option_label"
             }
           ]
         }
@@ -493,11 +524,12 @@
           "$option_label": "#vr_roll_turn_sensitivity_slider_label",
           "$slider_name": "vr_roll_turn_sensitivity",
           "$slider_value_binding_name": "#vr_roll_turn_sensitivity",
+          "$slider_tts_text_value": "#vr_roll_turn_sensitivity_text_value",
           "$option_enabled_binding_name": "#vr_roll_turn_sensitivity_enabled",
           "$focus_override_right": "FOCUS_OVERRIDE_STOP",
           "$label_bindings": [
             {
-              "binding_name": "#vr_roll_turn_sensitivity_slider_label"
+              "binding_name": "$option_label"
             }
           ],
           "bindings": [
@@ -568,11 +600,12 @@
           "$option_label": "#gamepad_cursor_sensitivity_slider_label",
           "$slider_name": "gamepad_cursor_sensitivity",
           "$slider_value_binding_name": "#gamepad_cursor_sensitivity",
+          "$slider_tts_text_value": "#gamepad_cursor_sensitivity_text_value",
           "$option_enabled_binding_name": "#gamepad_cursor_sensitivity_enabled",
           "$focus_override_right": "FOCUS_OVERRIDE_STOP",
           "$label_bindings": [
             {
-              "binding_name": "#gamepad_cursor_sensitivity_slider_label"
+              "binding_name": "$option_label"
             }
           ]
         }
@@ -658,10 +691,11 @@
           "$option_label": "#touch_sensitivity_slider_label",
           "$slider_name": "touch_sensitivity",
           "$slider_value_binding_name": "#touch_sensitivity",
+          "$slider_tts_text_value": "#touch_sensitivity_text_value",
           "$option_enabled_binding_name": "#touch_sensitivity_enabled",
           "$label_bindings": [
             {
-              "binding_name": "#touch_sensitivity_slider_label"
+              "binding_name": "$option_label"
             }
           ]
         }
@@ -737,10 +771,11 @@
           "$option_label": "#button_size_slider_label",
           "$slider_name": "button_size",
           "$slider_value_binding_name": "#button_size",
+          "$slider_tts_text_value": "#button_size_text_value",
           "$option_enabled_binding_name": "#button_size_enabled",
           "$label_bindings": [
             {
-              "binding_name": "#button_size_slider_label"
+              "binding_name": "$option_label"
             }
           ]
         }

@@ -22,6 +22,19 @@
               { "field": "UV0" }
             ]
           }
+        },
+        {
+          "skinning_color": {
+            "+defines": [ "USE_SKINNING", "USE_OVERLAY" ],
+            "+states": [ "Blending" ],
+            "vertexFields": [
+              { "field": "Position" },
+              { "field": "BoneId0" },
+              { "field": "Color" },
+              { "field": "Normal" },
+              { "field": "UV0" }
+            ]
+          }
         }
       ],
       "msaaSupport": "Both",
@@ -629,6 +642,22 @@
       ]
     },
 
+    "entity_multitexture_masked:entity_alphatest": {
+      "+defines": [
+        "MASKED_MULTITEXTURE"
+      ],
+      "+samplerStates": [
+        {
+          "samplerIndex": 0,
+          "textureWrap": "Clamp"
+        },
+        {
+          "samplerIndex": 1,
+          "textureWrap": "Clamp"
+        }
+      ]
+    },
+
     "moving_block": {
       "vertexShader": "shaders/renderchunk.vertex",
       "vrGeometryShader": "shaders/renderchunk.geometry",
@@ -810,8 +839,10 @@
     "armor_enchanted:entity_alphatest_glint": {},
     "armor_leather_enchanted:entity_alphatest_change_color_glint": {},
     "armor_stand:entity_alphatest": {},
+    "arrow:entity_alphatest": {},
     "bat:entity_alphatest": {},
     "bed:entity_alphatest": {},
+    "bell:entity": {},
     "blaze_head:entity_emissive_alpha": {},
     "blaze_body:entity_emissive": {},
     "boat:entity": {},
@@ -843,12 +874,13 @@
     "tropicalfish:entity_multitexture_multiplicative_blend": {},
     "ghast:entity_emissive_alpha": {},
     "guardian:entity_alphatest": {},
-    "horse:entity_multitexture_alpha_test": {},
+    "horse:entity_multitexture_alpha_test_color_mask": {},
     "horse_leather_armor:entity_multitexture_alpha_test_color_mask": {},
     "horse_saddle:entity_alphatest": {},
     "horse_hair:entity_alphatest": {},
     "husk:entity_alphatest": {},
     "husk_clothes:entity_alphatest": {},
+    "ravager:entity_alphatest": {},
     "iron_golem:entity_alphatest": {},
     "magma_cube:entity_emissive_alpha": {},
     "leash_knot:entity": {},
@@ -862,6 +894,8 @@
     "ocelot:entity_alphatest": {},
     "parrot:entity_alphatest": {},
     "pig:entity": {},
+    "shield:entity": {},
+    "shield_glint:entity_glint": {},
     "trident:entity": {},
     "trident_riptide:entity_alphatest": {},
     "trident_glint:entity_glint": {},
@@ -902,12 +936,25 @@
     "camera:entity": {},
     "vex:entity_alphatest": {},
     "villager:entity_alphatest": {},
+    "villager_v2:entity_alphatest": {
+      "depthFunc": "LessEqual"
+    },
+    "villager_v2_masked:entity_multitexture_masked": {
+      "depthFunc": "LessEqual"
+    },
     "vindicator:entity_alphatest": {},
+    "wandering_trader:entity_alphatest": {},
     "witch:entity_alphatest": {},
     "wither_boss:entity_alphatest": {},
     "wither_boss_armor:charged_creeper": {},
     "wolf:entity_change_color": {},
     "zombie:entity_alphatest": {},
-    "zombie_villager:entity_alphatest": {}
+    "zombie_villager:entity_alphatest": {},
+    "zombie_villager_v2:entity_alphatest": {
+      "depthFunc": "LessEqual"
+    },
+    "zombie_villager_v2_masked:entity_multitexture_masked": {
+      "depthFunc": "LessEqual"
+    }
   }
-  }
+}

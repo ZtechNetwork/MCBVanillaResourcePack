@@ -38,7 +38,7 @@
           "anchor_to": "top_left",
           "size": [ "100% - 8px", "100% - 5px" ],
           "offset": [ 4, 3 ],
-          "controls": [ { "content@$child_control": { } } ]
+          "controls": [ { "content@$child_control": {} } ]
         }
       }
     ]
@@ -114,12 +114,17 @@
     ]
   },
 
+  "tts_gamertag_item_info_wrapper@common.tts_label_focus_wrapper": {
+    "size": [ "100% - 62px", "100%" ],
+    "$focus_border_size": [ "100%", 22 ],
+    "$tts_label_panel": "realms_pending_invitations.gamertag_item_info",
+    "anchor_from": "top_left",
+    "anchor_to": "top_left"
+  },
+
   "gamertag_item_info": {
     "type": "panel",
-    "anchor_from": "top_left",
-    "anchor_to": "top_left",
     "layer": 4,
-    "size": [ "100% - 62px", "100%" ],
     "bindings": [
       {
         "binding_type": "collection_details",
@@ -186,6 +191,7 @@
     "$button_content": "realms_pending_invitations.accept_button_content",
     "offset": [ "-100%y - 1px", 0 ],
     "layer": 2,
+    "$button_tts_header": "gui.accept",
     "button_mappings": [
       {
         "from_button_id": "button.menu_select",
@@ -203,6 +209,7 @@
   "realm_decline_button@realms_pending_invitations.realm_invite_button": {
     "$button_content": "realms_pending_invitations.decline_button_content",
     "layer": 2,
+    "$button_tts_header": "gui.decline",
     "button_mappings": [
       {
         "from_button_id": "button.menu_select",
@@ -247,10 +254,10 @@
   "gamertag_item_content": {
     "type": "panel",
     "controls": [
-      { "lb@realms_pending_invitations.gamertag_item_info": { } },
-      { "a@realms_pending_invitations.realm_accept_button": { } },
-      { "d@realms_pending_invitations.realm_decline_button": { } },
-      { "ap@realms_pending_invitations.realm_accepted_panel": { } }
+      { "lb@realms_pending_invitations.tts_gamertag_item_info_wrapper": {} },
+      { "a@realms_pending_invitations.realm_accept_button": {} },
+      { "d@realms_pending_invitations.realm_decline_button": {} },
+      { "ap@realms_pending_invitations.realm_accepted_panel": {} }
     ]
   },
 
@@ -311,7 +318,7 @@
           "controls": [
             {
               "hide_invites_text@realms_pending_invitations.panel_text": {
-                "size": [ "default", "default" ],                
+                "size": [ "default", "default" ],
                 "anchor_from": "left_middle",
                 "anchor_to": "left_middle",
                 "text": "realmsPendingInvitationsScreen.showFriendInvites"
@@ -414,6 +421,17 @@
     ]
   },
 
+  "no_invites_label_wrapper@common.tts_label_focus_wrapper": {
+    "$tts_label_panel": "realms_pending_invitations.no_invites_label",
+    "bindings": [
+      {
+        "binding_name": "#no_invites_visible",
+        "binding_name_override": "#visible",
+        "binding_type": "global"
+      }
+    ]
+  },
+
   "no_invites_label": {
     "type": "panel",
     "size": [ "100%", "100%c" ],
@@ -423,14 +441,7 @@
           "text": "realmsPendingInvitationsScreen.noInvites",
           "size": [ "default", "default" ],
           "anchor_from": "top_middle",
-          "anchor_to": "top_middle",
-          "bindings": [
-            {
-              "binding_name": "#no_invites_visible",
-              "binding_name_override": "#visible",
-              "binding_type": "global"
-            }
-          ]
+          "anchor_to": "top_middle"
         }
       }
     ]
@@ -448,15 +459,15 @@
           "size": [ "100%", 1 ]
         }
       },
-      { "sfop@realms_pending_invitations.show_friends_only_toggle": { } },
-      { "gig@realms_pending_invitations.gamertag_item_grid": { } },
+      { "sfop@realms_pending_invitations.show_friends_only_toggle": {} },
+      { "gig@realms_pending_invitations.gamertag_item_grid": {} },
       {
         "lower_padding": {
           "type": "panel",
           "size": [ "100%", 2 ]
         }
       },
-      { "nil@no_invites_label": { } }
+      { "nil@realms_pending_invitations.no_invites_label_wrapper": {} }
     ]
   },
 
@@ -497,7 +508,7 @@
                 "$child_control": "realms_pending_invitations.content_panel"
               }
             },
-            { "sgh@realms_pending_invitations.gamepad_helpers": { } }
+            { "sgh@realms_pending_invitations.gamepad_helpers": {} }
           ]
         }
       }

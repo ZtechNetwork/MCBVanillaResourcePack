@@ -293,6 +293,26 @@
     ]
   },
 
+  "screen_exit_upwards_animation_pop_offset": {
+    "anim_type": "offset",
+    "easing": "out_cubic",
+    "duration": "$transition_time_pop",
+    "from": [ 0, 0 ],
+    "to": [ 0, "-100%" ],
+    "play_event": "screen.exit_pop",
+    "end_event": "screen.exit_end"
+  },
+
+  "screen_entrance_downwards_animation_push_offset": {
+    "anim_type": "offset",
+    "easing": "out_cubic",
+    "duration": "$transition_time_push",
+    "from": [ 0, "-100%" ],
+    "to": [ 0, 0 ],
+    "play_event": "screen.entrance_push",
+    "end_event": "screen.entrance_end"
+  },
+
   "code_screen@common.base_screen": {
     "$screen_content": "code.code_screen_panel",
     "$screen_bg_content": "code.dim_background",
@@ -302,6 +322,16 @@
         "to_button_id": "button.menu_exit",
         "mapping_type": "global"
       }
+    ],
+    "$screen_animations": [
+      "@common.screen_exit_animation_push_offset",
+      "@code.screen_exit_upwards_animation_pop_offset",
+      "@code.screen_entrance_downwards_animation_push_offset",
+      "@common.screen_entrance_animation_pop_offset",
+      "@common.screen_exit_animation_push_fade",
+      "@common.screen_exit_animation_pop_fade",
+      "@common.screen_entrance_animation_push_fade",
+      "@common.screen_entrance_animation_pop_fade"
     ]
   },
 
@@ -472,6 +502,14 @@
 
   "split_padding@common.empty_panel": {
     "size": [ "50%", "100%" ],
+    "controls": [
+      {
+        "position_display@hud.player_position": {
+          "anchor_from": "top_left",
+          "anchor_to": "top_left"
+        }
+      }
+    ],
     "bindings": [
       {
         "binding_name": "$split_visibility",
@@ -558,7 +596,7 @@
 
   "modal": {
     "type": "input_panel",
-    "size": [ 220, 135 ],
+    "size": [ 220, 140 ],
     "controls": [
       {
         "content@$modal_type": {

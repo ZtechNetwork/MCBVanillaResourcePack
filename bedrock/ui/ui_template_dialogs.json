@@ -13,12 +13,20 @@
     "text": "$text_name",
     "layer": 4,
     "shadow": false,
+    "property_bag": {
+      "#tts_dialog_title": "$text_name"
+    },
     "bindings": [
       {
         "binding_type": "$title_text_binding_type",
         "binding_condition": "$title_binding_condition",
         "binding_name": "$text_name",
         "binding_name_override": "$text_name"
+      },
+      {
+        "binding_type": "global",
+        "binding_condition": "once",
+        "binding_name": "#tts_dialog_title"
       }
     ]
   },
@@ -72,7 +80,8 @@
       {
         "panel_indent": {
           "type": "panel",
-          "size": [ "100% - 16px", "100% - 78px" ],
+          // Fit to the hole in dialog_background_hollow_1 exactly
+          "size": [ "100% - 16px", "100% - 99px" ],
           "offset": [ 0, 23 ],
           "anchor_from": "top_middle",
           "anchor_to": "top_middle",

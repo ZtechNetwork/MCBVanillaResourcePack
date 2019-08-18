@@ -1,0 +1,105 @@
+{
+  "format_version": "1.8.0",
+  "animation_controllers": {
+    "controller.animation.panda.baby": {
+      "states": {
+        "baby": {
+          "parameters": [ "query.is_baby" ],
+          "animations": [
+            {
+              "baby_transform": [
+                {
+                  "0.0": 0.0,
+                  "1.0": 1.0
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "controller.animation.panda.unhappy": {
+      "states": {
+        "baby": {
+          "parameters": [ "query.unhappy_counter" ],
+          "animations": [
+            {
+              "unhappy": [
+                {
+                  "0.0": 0.0,
+                  "1.0": 1.0
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "controller.animation.panda.sneezing": {
+      "states": {
+        "baby": {
+          "parameters": [ "query.sneeze_counter" ],
+          "animations": [
+            {
+              "sneezing": [
+                {
+                  "0.0": 0.0,
+                  "1.0": 1.0
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "controller.animation.panda.move": {
+      "states": {
+        "default": {
+          "parameters": [ "query.modified_move_speed" ],
+          "animations": [
+            {
+              "walk": [
+                {
+                  "0.0": 0.0,
+                  "1.0": 1.0
+                }
+              ]
+            },
+            {
+               "look_at_target": [] 
+            }
+          ],
+          "transitions": [
+            { "rolling": "query.roll_counter > 0" },
+            { "sitting": "query.sit_amount > 0" },
+            { "lying": "query.lie_amount > 0" }
+          ]
+        },
+        "rolling": {
+          "animations": [ { "rolling": [] } ],
+          "transitions": [
+            { "default": "query.roll_counter <= 0" },
+            { "sitting": "query.sit_amount > 0" },
+            { "lying": "query.lie_amount > 0" }
+          ]
+        },
+        "lying": {
+          "animations": [ { "lying": [] } ],
+          "transitions": [
+            { "default": "query.lie_amount <= 0" },
+            { "rolling": "query.roll_counter > 0" },
+            { "sitting": "query.sit_amount > 0" }
+          ]
+        },
+        "sitting": {
+          "animations": [ { "sitting": [] } ],
+          "transitions": [
+            { "default": "query.sit_amount <= 0" },
+            { "rolling": "query.roll_counter > 0" },
+            { "lying": "query.lie_amount > 0" }
+          ]
+        }
+      }
+    }
+  }
+}

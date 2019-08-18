@@ -1,0 +1,161 @@
+{
+  "format_version": "1.8.0",
+  "render_controllers": {
+    "controller.render.armor.head.v1.0": {
+      "arrays": {
+        "materials": {
+          "array.armor_material": [
+            "material.armor",
+            "material.armor_enchanted",
+            "material.armor_leather",
+            "material.armor_leather_enchanted"
+          ]
+        },
+        "textures": {
+          "array.armor_texture": [
+            "texture.leather",
+            "texture.chain",
+            "texture.iron",
+            "texture.diamond",
+            "texture.gold",
+            "texture.turtle",  // elytra not supported - need to pad the array by one
+            "texture.turtle"
+          ]
+        }
+      },
+      "geometry": "geometry.armor",
+      "materials": [
+        { "head": "array.armor_material[query.armor_material_slot(0)]" },
+        { "hat": "array.armor_material[query.armor_material_slot(0)]" }
+      ],
+      "part_visibility": [
+        { "*": false },
+        { "head": "query.has_armor_slot(0)" },
+        { "hat": "query.has_armor_slot(0)" }
+      ],
+      "color": {
+        "r": "query.armor_color_slot(0, 0)",
+        "g": "query.armor_color_slot(0, 1)",
+        "b": "query.armor_color_slot(0, 2)",
+        "a": "query.armor_color_slot(0, 3)"
+      },
+      "textures": [ "array.armor_texture[query.armor_texture_slot(0)]", "texture.enchanted" ]
+    },
+    "controller.render.armor.chest.v1.0": {
+      "arrays": {
+        "materials": {
+          "array.armor_material": [
+            "material.armor",
+            "material.armor_enchanted",
+            "material.armor_leather",
+            "material.armor_leather_enchanted"
+          ]
+        },
+        "textures": {
+          "array.armor_texture": [
+            "texture.leather",
+            "texture.chain",
+            "texture.iron",
+            "texture.diamond",
+            "texture.gold"
+          ]
+        }
+      },
+      "geometry": "geometry.armor",
+      "materials": [
+        { "body": "array.armor_material[query.armor_material_slot(1)]" },
+        { "leftarm": "array.armor_material[query.armor_material_slot(1)]" },
+        { "rightarm": "array.armor_material[query.armor_material_slot(1)]" }
+      ],
+      "part_visibility": [
+        { "*": 0 },
+        { "body": "query.has_armor_slot(1)" },
+        { "leftarm": "query.has_armor_slot(1)" },
+        { "rightarm": "query.has_armor_slot(1)" }
+      ],
+      "color": {
+        "r": "query.armor_color_slot(1, 0)",
+        "g": "query.armor_color_slot(1, 1)",
+        "b": "query.armor_color_slot(1, 2)",
+        "a": "query.armor_color_slot(1, 3)"
+      },
+      "textures": [ "array.armor_texture[query.armor_texture_slot(1)]", "texture.enchanted" ]
+    },
+    "controller.render.armor.legs.v1.0": {
+      "arrays": {
+        "materials": {
+          "array.armor_material": [
+            "material.armor",
+            "material.armor_enchanted",
+            "material.armor_leather",
+            "material.armor_leather_enchanted"
+          ]
+        },
+        "textures": {
+          "array.armor_texture": [
+            "texture.leather_leggings",
+            "texture.chain_leggings",
+            "texture.iron_leggings",
+            "texture.diamond_leggings",
+            "texture.gold_leggings"
+          ]
+        }
+      },
+      "geometry": "geometry.armor_leggings",
+      "materials": [
+        { "leftleg": "array.armor_material[query.armor_material_slot(2)]" },
+        { "rightleg": "array.armor_material[query.armor_material_slot(2)]" }
+      ],
+      "part_visibility": [
+        { "*": 0 },
+        { "leftleg": "query.has_armor_slot(2)" },
+        { "rightleg": "query.has_armor_slot(2)" }
+      ],
+      "color": {
+        "r": "query.armor_color_slot(2, 0)",
+        "g": "query.armor_color_slot(2, 1)",
+        "b": "query.armor_color_slot(2, 2)",
+        "a": "query.armor_color_slot(2, 3)"
+      },
+      "textures": [ "array.armor_texture[query.armor_texture_slot(2)]", "texture.enchanted" ]
+    },
+    "controller.render.armor.feet.v1.0": {
+      "arrays": {
+        "materials": {
+          "array.armor_material": [
+            "material.armor",
+            "material.armor_enchanted",
+            "material.armor_leather",
+            "material.armor_leather_enchanted"
+          ]
+        },
+        "textures": {
+          "array.armor_texture": [
+            "texture.leather",
+            "texture.chain",
+            "texture.iron",
+            "texture.diamond",
+            "texture.gold"
+          ]
+        }
+      },
+      "geometry": "geometry.armor",
+      "materials": [
+        { "leftleg": "array.armor_material[query.armor_material_slot(3)]" },
+        { "rightleg": "array.armor_material[query.armor_material_slot(3)]" }
+      ],
+      "part_visibility": [
+        { "*": 0 },
+        { "leftleg": "query.has_armor_slot(3)" },
+        { "rightleg": "query.has_armor_slot(3)" }
+      ],
+      "color": {
+        "r": "query.armor_color_slot(3, 0)",
+        "g": "query.armor_color_slot(3, 1)",
+        "b": "query.armor_color_slot(3, 2)",
+        "a": "query.armor_color_slot(3, 3)"
+      },
+      "textures": [ "array.armor_texture[query.armor_texture_slot(3)]", "texture.enchanted" ]
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "format_version": "1.8.0",
+  "animation_controllers": {
+    "controller.animation.wither_skeleton.attack": {
+      "states": {
+        "default": {
+          "transitions": [ { "chase_target": "variable.has_target" } ]
+        },
+        "chase_target": {
+          "animations": [ { "wither_skeleton_attack": [] } ],
+          "transitions": [ { "default": "!variable.has_target" } ]
+        }
+      }
+    }
+  }
+}

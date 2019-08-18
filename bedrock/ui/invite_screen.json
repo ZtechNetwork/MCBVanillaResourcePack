@@ -43,7 +43,7 @@
     "anchor_from": "left_middle",
     "offset": [ 20, 0 ],
     "controls": [
-      { "black_border@black_border": { } },
+      { "black_border@black_border": {} },
       {
         "gamerpic@gamerpic": {
           "layer": 1,
@@ -91,10 +91,10 @@
     "size": [ 9, 9 ],
     "controls": [
       {
-        "online_image@online_image": { }
+        "online_image@online_image": {}
       },
       {
-        "offline_image@offline_image": { }
+        "offline_image@offline_image": {}
       }
     ]
   },
@@ -102,7 +102,7 @@
   //The selected indicator - a check box - 4 images for checked/hover
   "checkbox_panel": {
     "type": "panel",
-    "size": ["100%c", "100%c"],
+    "size": [ "100%c", "100%c" ],
     "anchor_to": "left_middle",
     "anchor_from": "left_middle",
     "layer": 2,
@@ -111,25 +111,25 @@
 
   "checked_panel@invite.checkbox_panel": {
     "controls": [
-      { "checked_image@common.checked_image": { } }
+      { "checked_image@common.checked_image": {} }
     ]
   },
 
   "unchecked_panel@checkbox_panel": {
     "controls": [
-      { "unchecked_image@common.unchecked_image": { } }
+      { "unchecked_image@common.unchecked_image": {} }
     ]
   },
 
   "checked_hover_panel@invite.checkbox_panel": {
     "controls": [
-      { "checked_hover_image@common.checked_hover_image": { } }
+      { "checked_hover_image@common.checked_hover_image": {} }
     ]
   },
 
   "unchecked_hover_panel@invite.checkbox_panel": {
     "controls": [
-      { "unchecked_hover_image@common.unchecked_hover_image": { } }
+      { "unchecked_hover_image@common.unchecked_hover_image": {} }
     ]
   },
 
@@ -182,7 +182,7 @@
   "hover_friend_button": {
     "type": "panel",
     "controls": [
-      { "friend_button_layout@friend_button_layout": { } },
+      { "friend_button_layout@friend_button_layout": {} },
       {
         "hover_text@common.hover_text": {
           "layer": 30,
@@ -214,7 +214,7 @@
     "controls": [
       { "friend_background@invite.friend_background": { "layer": 0 } },
       { "friend_button_layout@invite.friend_button_layout": { "layer": 1 } },
-      { "unchecked@invite.unchecked_panel": {}}
+      { "unchecked@invite.unchecked_panel": {} }
     ]
   },
 
@@ -223,7 +223,7 @@
     "controls": [
       { "friend_background@invite.friend_background": { "layer": 0 } },
       { "friend_button_layout@invite.friend_button_layout": { "layer": 1 } },
-      { "checked@invite.checked_panel": {}}
+      { "checked@invite.checked_panel": {} }
     ]
   },
 
@@ -232,8 +232,8 @@
     "controls": [
       { "friend_background_hover@invite.friend_background_hover": { "layer": 0 } },
       { "friend_button_layout@invite.friend_button_layout": { "layer": 1 } },
-      { "unchecked_hover@invite.unchecked_hover_panel": {}},
-      { "hover_friend_button@invite.hover_friend_button": { } }
+      { "unchecked_hover@invite.unchecked_hover_panel": {} },
+      { "hover_friend_button@invite.hover_friend_button": {} }
     ]
   },
 
@@ -242,38 +242,41 @@
     "controls": [
       { "friend_background_hover@invite.friend_background_hover": { "layer": 0 } },
       { "friend_button_layout@invite.friend_button_layout": { "layer": 1 } },
-      { "checked_hover@invite.checked_hover_panel": {}},
-      { "hover_friend_button@invite.hover_friend_button": { } }
+      { "checked_hover@invite.checked_hover_panel": {} },
+      { "hover_friend_button@invite.hover_friend_button": {} }
     ]
   },
 
   "friend_button@common.checkbox": {
     "$pressed_button_name": "button.menu_friend_select",
     "size": [ "100%", "100%" ],
+    "tts_control_type_order_priority": 100,
+    "tts_value_order_priority": 101,
+
     "controls": [
       {
-        "checked@checked_friend_button_layout": { }
+        "checked@checked_friend_button_layout": {}
       },
       {
-        "unchecked@unchecked_friend_button_layout": { }
+        "unchecked@unchecked_friend_button_layout": {}
       },
       {
-        "checked_hover@checked_hover_friend_button_layout": { }
+        "checked_hover@checked_hover_friend_button_layout": {}
       },
       {
-        "unchecked_hover@unchecked_hover_friend_button_layout": { }
+        "unchecked_hover@unchecked_hover_friend_button_layout": {}
       },
       {
-        "checked_locked@checked_friend_button_layout": { } //unused on this screen
+        "checked_locked@checked_friend_button_layout": {} //unused on this screen
       },
       {
-        "unchecked_locked@unchecked_friend_button_layout": { } //unused on this screen
+        "unchecked_locked@unchecked_friend_button_layout": {} //unused on this screen
       },
       {
-        "checked_locked_hover@checked_friend_button_layout": { } //unused on this screen
+        "checked_locked_hover@checked_friend_button_layout": {} //unused on this screen
       },
       {
-        "unchecked_locked_hover@unchecked_friend_button_layout": { } //unused on this screen
+        "unchecked_locked_hover@unchecked_friend_button_layout": {} //unused on this screen
       }
     ],
     "$toggle_grid_collection_name": "$collection_name",
@@ -287,7 +290,7 @@
     "size": [ "100% - 7px", 30 ],
     "controls": [
       {
-        "friend_button@friend_button": { }
+        "friend_button@friend_button": {}
       }
     ]
   },
@@ -401,7 +404,9 @@
         }
       },
       {
-        "online_friend_list_grid@online_friend_list_grid": { }
+        "online_friend_list_grid@online_friend_list_grid": {
+          "$tts_section_header": "invite.OnlineFriends"
+        }
       },
       {
         "offline@friend_panel": {
@@ -429,19 +434,17 @@
         }
       },
       {
-        "offline_friend_list_grid@offline_friend_list_grid": { }
+        "offline_friend_list_grid@offline_friend_list_grid": {
+          "$tts_section_header": "invite.OfflineFriends"
+        }
       },
       {
         "no_friends@friend_panel": {
           "size": [ "100%", 30 ],
           "controls": [
             {
-              "frame_label@frame_label": {
-                "size": [ "default", 30 ],
-                "max_size": [ "100% - 14px", 30 ],
-                "text": "invite.noFriends",
-                "anchor_from": "bottom_middle",
-                "anchor_to": "bottom_middle"
+              "no_friends_tts_wrapper@common.tts_label_focus_wrapper": {
+                "$tts_label_panel": "invite.no_friends_frame_label"
               }
             }
           ],
@@ -467,6 +470,14 @@
       //  }
       //}
     ]
+  },
+
+  "no_friends_frame_label@invite.frame_label": {
+    "size": [ "default", 30 ],
+    "max_size": [ "100% - 14px", 30 ],
+    "text": "invite.noFriends",
+    "anchor_from": "bottom_middle",
+    "anchor_to": "bottom_middle"
   },
 
   "invite_panel@common_dialogs.main_panel_one_button": {
@@ -558,8 +569,7 @@
     "controls": [
       {
         "add_friend_button@common_buttons.light_content_button": {
-          "ignored": "($is_inviting_to_realm or (not $supports_add_friend))",
-          "focus_enabled": false,
+          "ignored": "($is_inviting_to_realm or (not $supports_add_friend))",          
           "$pressed_button_name": "button.add_friend",
           "$button_content": "invite.invite_button_content",
           "$button_text|default": "networkWorld.add_friend",
@@ -573,8 +583,7 @@
       },
       {
         "add_member_button@common_buttons.light_content_button": {
-          "ignored": "(not $is_realm_owner)",
-          "focus_enabled": false,
+          "ignored": "(not $is_realm_owner)",          
           "$pressed_button_name": "button.add_member",
           "$button_content": "invite.invite_button_content",
           "$button_text": "invite.realm.add_member",
@@ -597,8 +606,7 @@
       },
       {
         "send_button@common_buttons.light_content_button": {
-          "$pressed_button_name": "button.send_invites",
-          "focus_enabled": false,
+          "$pressed_button_name": "button.send_invites",          
           "$button_content": "invite.invite_button_content",
           "$button_text": "#send_button",
           "$invite_label_binding_type": "global",
@@ -663,7 +671,7 @@
     "anchor_from": "top_left",
     "anchor_to": "top_left",
     "controls": [
-      { "gamepad_helpers@gamepad_helpers": { } },
+      { "gamepad_helpers@gamepad_helpers": {} },
       { "invite_panel@invite_panel": { "layer": 1 } }
     ]
   }

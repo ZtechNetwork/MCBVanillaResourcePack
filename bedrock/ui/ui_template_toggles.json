@@ -22,7 +22,6 @@
           "color": "$content_toggle_image_color_binding",
           "$content_toggle_image_binding_type|default": "none",
           "$content_toggle_image_binding_condition|default": "none",
-          "$content_toggle_image_binding_type|default": "none",
           "bindings": [
             {
               "binding_name": "$content_toggle_image_color_binding",
@@ -295,6 +294,11 @@
     "$custom_toggle_state_binding_name|default": "",
     "$custom_toggle_state_binding_name_override|default": "",
 
+    "$toggle_tts_header_binding_type|default": "none",
+    "$toggle_tts_header_binding_condition|default": "visible",
+    "$toggle_tts_header_binding_collection_name|default": "",
+    "$toggle_tts_header|default": "",
+
     "button_mappings": "$button_mappings",
 
     "bindings": [
@@ -362,6 +366,12 @@
         "binding_collection_name": "$toggle_grid_collection_name",
         "binding_name": "$custom_toggle_state_binding_name",
         "binding_name_override": "$custom_toggle_state_binding_name_override"
+      },
+      {
+        "binding_type": "$toggle_tts_header_binding_type",
+        "binding_condition": "$toggle_tts_header_binding_condition",
+        "binding_collection_name": "$toggle_tts_header_binding_collection_name",
+        "binding_name": "$toggle_tts_header"
       }
     ]
   },
@@ -502,6 +512,7 @@
     "$toggle_tab_focus_binding_type|default": "none",
     "$toggle_on_hover_binding_type|default": "none",
     "$toggle_view_binding_name|default": "this_toggle",
+    "$template_toggle|default": "common.toggle",
     "$toggle_tab_focus_binding_name|default": "",
     "$toggle_on_hover_binding_name|default": "",
 
@@ -517,7 +528,7 @@
     "controls": [
       {
         // done as a child to allow for parent bindings
-        "$toggle_view_binding_name@common.toggle": {
+        "$toggle_view_binding_name@$template_toggle": {
           "focus_wrap_enabled": false,
           "bindings": [
             {

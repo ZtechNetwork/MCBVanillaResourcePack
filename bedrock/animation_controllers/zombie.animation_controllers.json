@@ -1,0 +1,35 @@
+{
+  "format_version": "1.8.0",
+  "animation_controllers": {
+    "controller.animation.zombie.attack_bare_hand": {
+      "states": {
+        "default": {
+          "transitions": [ 
+            { "is_bare_hand": "variable.is_holding_left != 1.0" }
+          ]
+        },
+        "is_bare_hand": {
+          "animations": [ { "zombie_attack_bare_hand": [] } ],
+          "transitions": [ 
+            { "default": "variable.is_holding_left == 1.0" }
+          ]
+        }
+      }
+    },
+    "controller.animation.zombie.swimming": {
+      "states": {
+        "default": {
+          "transitions": [ 
+            { "is_swimming": "variable.swim_amount > 0.0" }
+          ]
+        },
+        "is_swimming": {
+          "animations": [ { "zombie_swimming": [] } ],
+          "transitions": [ 
+            { "default": "variable.swim_amount <= 0.0" }
+          ]      
+        }
+      }
+    }
+  }
+}

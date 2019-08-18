@@ -147,14 +147,22 @@
     ]
   },
 
+  "dialog_text_wrapper@common.tts_label_focus_wrapper": {
+    "$tts_label_panel": "popup_dialog.modal_label_panel",
+    "$focus_border_size": [ "100%", "100% - 3px" ],
+    "anchor_from": "top_middle",
+    "anchor_to": "top_middle",
+    "$focus_border_anchor": "top_middle",
+    "offset": [ 0, 23 ]
+  },
+
   "modal_label_panel@common.scrolling_panel": {
     "$scrolling_pane_size": [ "100% - 1px", "100% - 3px" ],
     "$scrolling_pane_offset": [ 2, 0 ],
     "$scrolling_content": "popup_dialog.modal_label_text",
     "$scroll_size": [ 5, "100% - 4px" ],
     "$show_background": false,
-    "layer": 1,
-    "offset": [ 0, 23 ],
+    "layer": 1,    
     "anchor_from": "top_middle",
     "anchor_to": "top_middle",
     "$always_handle_scrolling": true
@@ -307,7 +315,7 @@
       },
       { "title@popup_dialog.modal_title_text": {} },
       {
-        "text_with_buttons@popup_dialog.modal_label_panel": {
+        "text_with_buttons@popup_dialog.dialog_text_wrapper": {
           "size": "$modal_panel_label_size"
         }
       },
@@ -388,21 +396,21 @@
         "$modal_screen_size": [ 214, 190 ],
         "$dialog_background_override": "dialog_background_hollow_6",
         "$button_panel": "popup_dialog.three_buttons_panel",
-        "$modal_panel_label_size": ["100% - 16px", "100% - 124px"]
+        "$modal_panel_label_size": [ "100% - 16px", "100% - 124px" ]
       },
       {
         "requires": "$destructive_three_buttons_visible",
         "$modal_screen_size": [ 214, 190 ],
         "$dialog_background_override": "dialog_background_hollow_6",
         "$button_panel": "popup_dialog.destructive_three_buttons_panel",
-        "$modal_panel_label_size": ["100% - 16px", "100% - 124px"]
+        "$modal_panel_label_size": [ "100% - 16px", "100% - 124px" ]
       },
       {
         "requires": "$two_buttons_visible",
         "$modal_screen_size": [ 214, 175 ],
         "$dialog_background_override": "dialog_background_hollow_1",
         "$button_panel": "popup_dialog.two_buttons_panel",
-        "$modal_panel_label_size": ["100% - 16px", "100% - 96px"]
+        "$modal_panel_label_size": [ "100% - 16px", "100% - 96px" ]
       },
       {
         "requires": "$destructive_two_buttons_visible",
@@ -416,7 +424,7 @@
         "$modal_screen_size": [ 214, 130 ],
         "$dialog_background_override": "dialog_background_hollow_2",
         "$button_panel": "popup_dialog.single_button_panel",
-        "$modal_panel_label_size": ["100% - 16px", "100% - 62px"]
+        "$modal_panel_label_size": [ "100% - 16px", "100% - 62px" ]
       },
       {
         "requires": "$no_buttons_visible",

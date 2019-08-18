@@ -1,0 +1,36 @@
+{
+  "format_version": "1.8.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "minecraft:vindicator",
+      "materials": { "default": "vindicator" },
+      "textures": { "default": "textures/entity/vindicator" },
+      "geometry": { "default": "geometry.vindicator" },
+      "scripts": {
+        "pre_animation": [
+          "variable.attack = Math.sin(1.0 - (1.0 - variable.attack_time) * (1.0 - variable.attack_time)) * 180.0;",
+          "variable.attack2 = Math.sin(variable.attack_time * 180.0);"
+        ],
+        "scale": "0.9375"
+      },
+      "animations": {
+        "look_at_target_default": "animation.humanoid.look_at_target.default.v1.0",
+        "look_at_target_gliding": "animation.humanoid.look_at_target.gliding.v1.0",
+        "look_at_target_swimming": "animation.humanoid.look_at_target.swimming.v1.0",
+        "vindicator_base": "animation.vindicator.base",
+        "vindicator_attack": "animation.vindicator.attack",
+        "vindicator_walk": "animation.vindicator.walk"
+      },
+      "animation_controllers": [
+        { "look_at_target": "controller.animation.humanoid.look_at_target" },
+        { "vindicator_base": "controller.animation.vindicator.base" }
+      ],
+      "render_controllers": [ "controller.render.vindicator" ],
+      "enable_attachables": true,
+      "spawn_egg": {
+        "texture": "spawn_egg",
+        "texture_index": 39
+      }
+    }
+  }
+}

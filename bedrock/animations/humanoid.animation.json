@@ -1,0 +1,236 @@
+{
+	"format_version" : "1.8.0",
+	"animations" : {
+		"animation.humanoid.attack.rotations" : {
+			"bones" : {
+				"body" : {
+					"rotation" : [ 0.0, "variable.attack_body_rot_y - this", 0.0 ]
+				},
+				"leftarm" : {
+					"rotation" : [ "variable.attack_body_rot_y", 0.0, 0.0 ]
+				},
+				"rightarm" : {
+					"rotation" : [ "math.sin(1.0 - math.pow(1.0 - variable.attack_time, 3.0) * 180.0) * (variable.is_brandishing_spear ? -1.0 : 1.0 )", "variable.is_brandishing_spear ? 0.0 : variable.attack_body_rot_y * 2.0", 0.0 ]
+				}
+			},
+			"loop" : true
+		},
+		"animation.humanoid.base_pose" : {
+			"bones" : {
+				"waist" : {
+					"rotation" : [ 0.0, 0.0, 0.0 ]
+				}
+			},
+			"loop" : true
+		},
+		"animation.humanoid.big_head" : {
+			"bones" : {
+				"head" : {
+					"scale" : 1.399999976158142
+				}
+			},
+			"loop" : true
+		},
+		"animation.humanoid.bob" : {
+			"bones" : {
+				"leftarm" : {
+					"rotation" : [ 0.0, 0.0, "((math.cos(query.life_time * 103.2) * 2.865) + 2.865) *-1.0" ]
+				},
+				"leftleg" : {
+					"rotation" : [ "-math.sin(query.life_time * 76.8) * 2.865", 0.0, 0.0 ]
+				},
+				"rightarm" : {
+					"rotation" : [ 0.0, 0.0, "(math.cos(query.life_time * 103.2) * 2.865) + 2.865" ]
+				}
+			},
+			"loop" : true
+		},
+		"animation.humanoid.bow_and_arrow" : {
+			"bones" : {
+				"leftarm" : {
+					"rotation" : [ "query.target_x_rotation - 90.0 - math.sin(query.life_time * 76.8) * 2.865 - this", "query.target_y_rotation + 28.65", "-(math.cos(query.life_time * 103.2) * 2.865) - 2.865" ]
+				},
+				"rightarm" : {
+					"rotation" : [ "query.target_x_rotation - 90.0 + math.sin(query.life_time * 76.8) * 2.865 - this", "query.target_y_rotation - 5.73", "(math.cos(query.life_time * 103.2) * 2.865) + 2.865" ]
+				}
+			},
+			"loop" : true
+		},
+		"animation.humanoid.brandish_spear" : {
+			"bones" : {
+				"rightarm" : {
+					"rotation" : [ "this * -0.5 - 157.5 - 22.5 * variable.charge_amount", "-this", 0.0 ]
+				}
+			},
+			"loop" : true
+		},
+		"animation.humanoid.charging" : {
+			"bones" : {
+				"rightarm" : {
+					"rotation" : [ "22.5 * variable.charge_amount - this", "-this", 0.0 ]
+				}
+			},
+			"loop" : true
+		},
+		"animation.humanoid.damage_nearby_mobs" : {
+			"bones" : {
+				"leftarm" : {
+					"rotation" : [ "-45.0-this", "-this", "-this" ]
+				},
+				"leftleg" : {
+					"rotation" : [ "45.0-this", "-this", "-this" ]
+				},
+				"rightarm" : {
+					"rotation" : [ "45.0-this", "-this", "-this" ]
+				},
+				"rightleg" : {
+					"rotation" : [ "-45.0-this", "-this", "-this" ]
+				}
+			},
+			"loop" : true
+		},
+		"animation.humanoid.holding" : {
+			"bones" : {
+				"leftarm" : {
+					"rotation" : [ "variable.is_holding_left ? (-this * 0.5 - 18.0) : 0.0", 0.0, 0.0 ]
+				},
+				"rightarm" : {
+					"rotation" : [ "variable.is_holding_right ? (-this * 0.5 - 18.0) : 0.0", 0.0, 0.0 ]
+				}
+			},
+			"loop" : true
+		},
+		"animation.humanoid.look_at_target.default" : {
+			"bones" : {
+				"head" : {
+					"rotation" : [ "query.target_x_rotation", "query.target_y_rotation", 0.0 ]
+				}
+			},
+			"loop" : true
+		},
+		"animation.humanoid.look_at_target.gliding" : {
+			"bones" : {
+				"head" : {
+					"rotation" : [ -45.0, "query.target_y_rotation", 0.0 ]
+				}
+			},
+			"loop" : true
+		},
+		"animation.humanoid.look_at_target.swimming" : {
+			"bones" : {
+				"head" : {
+					"rotation" : [ "math.lerp(query.target_x_rotation, -45.0, variable.swim_amount)", "query.target_y_rotation", 0.0 ]
+				}
+			},
+			"loop" : true
+		},
+		"animation.humanoid.move" : {
+			"bones" : {
+				"leftarm" : {
+					"rotation" : [ "variable.tcos0", 0.0, 0.0 ]
+				},
+				"leftleg" : {
+					"rotation" : [ "variable.tcos1 * 1.4", 0.0, 0.0 ]
+				},
+				"rightarm" : {
+					"rotation" : [ "variable.tcos1", 0.0, 0.0 ]
+				},
+				"rightleg" : {
+					"rotation" : [ "variable.tcos0 * 1.4", 0.0, 0.0 ]
+				}
+			},
+			"loop" : true
+		},
+		"animation.humanoid.riding.arms" : {
+			"bones" : {
+				"leftarm" : {
+					"rotation" : [ -36.0, 0.0, 0.0 ]
+				},
+				"rightarm" : {
+					"rotation" : [ -36.0, 0.0, 0.0 ]
+				}
+			},
+			"loop" : true
+		},
+		"animation.humanoid.riding.legs" : {
+			"bones" : {
+				"leftleg" : {
+					"rotation" : [ "-72.0 - this", "-18.0 - this", "-this" ]
+				},
+				"rightleg" : {
+					"rotation" : [ "-72.0 - this", "18.0 - this", "-this" ]
+				}
+			},
+			"loop" : true
+		},
+		"animation.humanoid.sneaking" : {
+			"bones" : {
+				"body" : {
+					"rotation" : [ "0.5 - this", 0.0, 0.0 ]
+				},
+				"head" : {
+					"position" : [ 0.0, 1.0, 0.0 ]
+				},
+				"leftarm" : {
+					"rotation" : [ 72.0, 0.0, 0.0 ]
+				},
+				"leftleg" : {
+					"position" : [ 0.0, -3.0, 4.0 ]
+				},
+				"rightarm" : {
+					"rotation" : [ 72.0, 0.0, 0.0 ]
+				},
+				"rightleg" : {
+					"position" : [ 0.0, -3.0, 4.0 ]
+				}
+			},
+			"loop" : true
+		},
+		"animation.humanoid.swimming" : {
+			"animation_length" : 1.299999952316284,
+			"bones" : {
+				"leftarm" : {
+					"rotation" : {
+						"0.7" : {
+							"post" : [ "math.lerp(this, 11.25 * variable.internal_swim_pos, variable.leftarmswim_amount)", "math.lerp(this, 180.0, variable.leftarmswim_amount)", "math.lerp(this, 72.77 + 13.4 * variable.internal_swim_pos, variable.leftarmswim_amount)" ],
+							"pre" : [ "math.lerp(this, 0.0, variable.leftarmswim_amount)", "math.lerp(this, 180.0, variable.leftarmswim_amount)", "math.lerp(this, 180.0 - 0.01877 * (-65.0 * variable.internal_swim_pos + variable.internal_swim_pos * variable.internal_swim_pos), variable.leftarmswim_amount)" ]
+						},
+						"1.1" : [ "math.lerp(this, 11.25 * variable.internal_swim_pos, variable.leftarmswim_amount)", "math.lerp(this, 180.0, variable.leftarmswim_amount)", "math.lerp(this, 72.77 + 13.4 * variable.internal_swim_pos, variable.leftarmswim_amount)" ],
+						"1.3" : {
+							"post" : [ "math.lerp(this, 90.0 - (22.5 * variable.internal_swim_pos), variable.leftarmswim_amount)", "math.lerp(this, 180.0, variable.leftarmswim_amount)", "math.lerp(this, 180.0, variable.leftarmswim_amount)" ],
+							"pre" : [ "math.lerp(this, 11.25 * variable.internal_swim_pos, variable.leftarmswim_amount)", "math.lerp(this, 180.0, variable.leftarmswim_amount)", "math.lerp(this, 72.77 + 13.4 * variable.internal_swim_pos, variable.leftarmswim_amount)" ]
+						}
+					}
+				},
+				"leftleg" : {
+					"rotation" : [ "math.lerp(this, math.cos(query.modified_distance_moved * 19.5 + 180.0) * 17.2, variable.leftarmswim_amount) - this", 0.0, 0.0 ]
+				},
+				"rightarm" : {
+					"rotation" : {
+						"0.7" : {
+							"post" : [ "math.lerp(this, 11.25 * variable.internal_swim_pos, variable.rightarmswim_amount)", "math.lerp(this, 180.0, variable.rightarmswim_amount)", "math.lerp(this, 72.77 + 13.4 * variable.internal_swim_pos, variable.rightarmswim_amount)" ],
+							"pre" : [ "math.lerp(this, 0.0, variable.rightarmswim_amount)", "math.lerp(this, 180.0, variable.rightarmswim_amount)", "math.lerp(this, -0.1019 * (-65.0 * variable.internal_swim_pos + variable.internal_swim_pos * variable.internal_swim_pos), variable.rightarmswim_amount)" ]
+						},
+						"1.1" : [ "math.lerp(this, 11.25 * variable.internal_swim_pos, variable.rightarmswim_amount)", "math.lerp(this, 180.0, variable.rightarmswim_amount)", "math.lerp(this, 72.77 + 13.4 * variable.internal_swim_pos, variable.rightarmswim_amount)" ],
+						"1.3" : {
+							"post" : [ "math.lerp(this, 90.0 - (22.5 * variable.internal_swim_pos), variable.rightarmswim_amount)", "math.lerp(this, 180.0, variable.rightarmswim_amount)", "math.lerp(this, 180.0, variable.rightarmswim_amount)" ],
+							"pre" : [ "math.lerp(this, 11.25 * variable.internal_swim_pos, variable.rightarmswim_amount)", "math.lerp(this, 180.0, variable.rightarmswim_amount)", "math.lerp(this, 72.77 + 13.4 * variable.internal_swim_pos, variable.rightarmswim_amount)" ]
+						}
+					}
+				},
+				"rightleg" : {
+					"rotation" : [ "math.lerp(this, math.cos(query.modified_distance_moved * 19.5) * 17.2, variable.leftarmswim_amount) - this", 0.0, 0.0 ]
+				}
+			},
+			"loop" : true
+		},
+		"animation.humanoid.use_item_progress" : {
+			"bones" : {
+				"rightarm" : {
+					"rotation" : [ "variable.useitemstartupprogress * -60.0 + variable.useitemintervalprogress * 11.25", "variable.useitemstartupprogress * -22.5 + variable.useitemintervalprogress * 11.25", "variable.useitemstartupprogress * -5.625 + variable.useitemintervalprogress * 11.25" ]
+				}
+			},
+			"loop" : true
+		}
+	}
+}

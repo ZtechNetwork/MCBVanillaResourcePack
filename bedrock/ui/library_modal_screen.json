@@ -169,7 +169,11 @@
       { "paragraph_two@library_modal.paragraph": { "$welcome_text": "library.welcome.2" } },
       { "padding_3@common.empty_panel": { "size": [ "100%", 10 ] } },
       {
-        "paragraph_three@library_modal.paragraph": { "$welcome_text": "library.welcome.3" }
+        "paragraph_three@library_modal.paragraph": {
+          // This part mentions "beta" and "in progress" wording that is not allowed by ios certification
+          "ignored":"$ios",
+          "$welcome_text": "library.welcome.3"
+        }
       }
     ]
   },

@@ -1,0 +1,61 @@
+{
+  "format_version": "1.8.0",
+  "animation_controllers": {
+    "controller.animation.parrot.setup": {
+      "states": {
+        "default": {
+          "animations": [
+            { "look_at_target": [] },
+            { "base": [] }
+          ]
+        }
+      }
+    },
+    "controller.animation.parrot.move": {
+      "states": {
+        "dancing": {
+          "animations": [
+            { "dance": [] }
+          ],
+          "transitions": [
+            { "flying": "variable.state == 0" },
+            { "standing": "variable.state == 1" },
+            { "sitting": "variable.state == 2" }
+          ]
+        },
+        "sitting": {
+          "animations": [
+            { "sitting": [] }
+          ],
+          "transitions": [
+            { "flying": "variable.state == 0" },
+            { "standing": "variable.state == 1" },
+            { "dancing": "variable.state == 3" }
+          ]
+        },
+        "flying": {
+          "animations": [
+            { "moving": [] },
+            { "flying": [] }
+          ],
+          "transitions": [
+            { "standing": "variable.state == 1" },
+            { "sitting": "variable.state == 2" },
+            { "dancing": "variable.state == 3" }
+          ]
+        },
+        "standing": {
+          "animations": [
+            { "moving": [] },
+            { "standing": [] }
+          ],
+          "transitions": [
+            { "flying": "variable.state == 0" },
+            { "sitting": "variable.state == 2" },
+            { "dancing": "variable.state == 3" }
+          ]
+        }
+      }
+    }
+  }
+}

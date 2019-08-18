@@ -1,0 +1,21 @@
+{
+  "format_version": "1.8.0",
+  "animation_controllers": {
+    "controller.animation.bat.move": {
+      "states": {
+        "resting": {
+          "animations": [ { "resting": [] } ],
+          "transitions": [
+            { "flying": "!query.is_resting" }
+          ]
+        },
+        "flying": {
+          "animations": [ { "flying": [] } ],
+          "transitions": [
+            { "resting": "query.is_resting" }
+          ]
+        }
+      }
+    }
+  }
+}

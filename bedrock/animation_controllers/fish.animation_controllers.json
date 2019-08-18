@@ -1,0 +1,21 @@
+{
+  "format_version": "1.8.0",
+  "animation_controllers": {
+    "controller.animation.fish.general": {
+      "states": {
+        "swimming": {
+          "animations": [ { "swim": [] } ],
+          "transitions": [
+            { "flopping": "!query.is_in_water" }
+          ]
+        },
+        "flopping": {
+          "animations": [ { "flop": [] } ],
+          "transitions": [
+            { "swimming": "query.is_in_water" }
+          ]
+        }
+      }
+    }
+  }
+}

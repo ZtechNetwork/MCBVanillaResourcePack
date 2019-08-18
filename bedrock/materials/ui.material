@@ -58,6 +58,15 @@
 
     },
 
+    "im_gui:ui_texture_and_color": {
+      "-states": [
+        "EnableStencilTest"
+      ],
+      "+states": [
+        "DisableCulling"
+      ]
+    },
+
     "ui_texture_and_color_blur:ui_texture_and_color": {
       "+samplerStates": [
         {
@@ -205,7 +214,7 @@
       ]
     },
 
-    "ui_textured_and_glcolor_bilinear_sprite:ui_textured_and_glcolor": {      
+    "ui_textured_and_glcolor_bilinear_sprite:ui_textured_and_glcolor": {
       "+samplerStates": [
         {
           "samplerIndex": 0,
@@ -408,7 +417,7 @@
     "debug_array_texture:debug_texture": {
       "defines": [ "ARRAY_TEXTURE_0" ]
     },
-    "ui_mob_head:ui_item": {
+    "ui_skinning_item:ui_item": {
       "vertexShader": "shaders/entity.vertex",
       "vrGeometryShader": "shaders/entity.geometry",
       "fragmentShader": "shaders/entity.fragment",
@@ -440,9 +449,15 @@
         }
       ]
     },
+    "ui_mob_head:ui_skinning_item": {},
     "ui_dragon_head:ui_mob_head": {},
 
-    "ui_conduit:ui_mob_head": {},
+    "ui_conduit:ui_skinning_item": {},
+
+    "ui_shield:ui_skinning_item": {},
+    "ui_shield_glint:ui_shield": {
+      "+defines": [ "GLINT" ]
+    },
 
     "ui_banner:ui_item": {
       "vertexShader": "shaders/banner.vertex",
