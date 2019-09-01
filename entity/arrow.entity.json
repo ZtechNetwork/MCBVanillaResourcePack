@@ -16,6 +16,10 @@
         "move": "animation.arrow.move"
       },
       "scripts": {
+        "pre_animation": [
+          "variable.shake = query.shake_time - query.frame_alpha;",
+          "variable.shake_power = variable.shake > 0.0 ? -Math.sin(variable.shake * 200.0) * variable.shake : 0.0;"
+        ],
         "animate": [
           "move"
         ]

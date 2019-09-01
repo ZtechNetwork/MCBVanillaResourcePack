@@ -1,0 +1,107 @@
+/********************************************************
+*   (c) Mojang. All rights reserved                     *
+*   (c) Microsoft. All rights reserved.                 *
+*********************************************************/
+{
+  "namespace": "lesson_quiz",
+
+  //---------------------------------------------------------------------------
+  // Screens
+  //---------------------------------------------------------------------------
+
+  "quiz_screen_factory": {
+    "type": "factory",
+    "control_ids": {
+      "quiz_screen_popup": "@lesson_quiz.quiz_screen_popup"
+    }
+  },
+
+  "quiz_screen_popup@popup_dialog.form_fit_modal_dialog_popup": {
+    "$modal_title": "quiz.popup.title",
+    "$popup_dialog_escape_button_name": "button.close_quiz_popup",
+    "$modal_contents": "lesson_quiz.quiz_screen_panel",
+    "$screen_background_alpha": 0.4,
+    "$modal_contents_padding": [ 6, 6 ]
+  },
+
+  "take_quiz_button@common_buttons.light_text_button": {
+    "$pressed_button_name": "button.take_quiz",
+    "$button_text": "quiz.popup.ok",
+    "size": [ "100%", 28 ],
+    "bindings": [
+      {
+        "binding_name": "#quiz_url_obtained",
+        "binding_name_override": "#enabled",
+        "binding_type": "global"
+      }
+    ]
+  },
+
+  "quiz_screen_panel": {
+    "type": "panel",
+    "size": [ 220, 80 ],
+    "layer": 21, // Some large number so it shows up at the top
+    "anchor_to": "center",
+    "anchor_from": "center",
+    "controls": [
+      {
+        "quiz_screen_stack_panel@lesson_quiz.quiz_screen_stack_panel": {}
+      }
+    ]
+  },
+
+  "quiz_screen_stack_panel": {
+    "type": "stack_panel",
+    "orientation": "vertical",
+    "size": [ "100%", "100%" ],
+    "controls": [
+      {
+        "label": {
+          "type": "label",
+          "color": "$dark_button_default_text_color",
+          "size": [ "100%", "fill" ],
+          "layer": 1,
+          "text": "#quiz_popup_text",
+          "bindings": [
+            {
+              "binding_name": "(not #quiz_query_in_progress)",
+              "binding_name_override": "#visible"
+            },
+            {
+              "binding_name": "#quiz_popup_text"
+            }
+          ]
+        }
+      },
+      {
+        "loading_panel": {
+          "type": "panel",
+          "layer": 1,
+          "size": [ "100%", "100% - 28px" ],
+          "controls": [
+            {
+              "progress_loading_bars": {
+                "type": "image",
+                "texture": "textures/ui/loading_bar",
+                "uv_size": [ 64, 8 ],
+                "uv": "@progress.bar_animation",
+                "color": "$light_glyph_locked_color",
+                "size": [ "80%", "100%" ],
+                "anchor_from": "center",
+                "anchor_to": "center"
+              }
+            }
+          ],
+          "bindings": [
+            {
+              "binding_name": "#quiz_query_in_progress",
+              "binding_name_override": "#visible",
+              "binding_type": "global"
+            }
+          ]
+        }
+      },
+      { "quiz_button@lesson_quiz.take_quiz_button": {} }
+    ]
+  }
+}

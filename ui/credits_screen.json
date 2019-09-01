@@ -1,35 +1,6 @@
 {
   "namespace": "credits",
 
-  "credits_label_panel": {
-    "type": "panel",
-    "size": [ "100%", "100%c" ],
-    "controls": [
-      {
-        "text": {
-          "type": "label",
-          "color": "$body_text_color",
-          "text": "#credits_text",
-          "size": [ "100%", "default" ]
-        }
-      }
-    ]
-  },
-
-  "padding": {
-    "type": "panel",
-    "$padding|default": [ 0, 30 ],
-    "size": "$padding"
-  },
-
-  "anim_scroll": {
-    "anim_type": "offset",
-    "from": [ 0, 0 ],
-    "to": [ 0, "-100%y-100%" ],
-    "duration": "$credits_duration",
-    "end_event": "scroll_end"
-  },
-
   "anim_fade_in": {
     "anim_type": "alpha",
     "easing": "linear",
@@ -76,31 +47,6 @@
     ]
   },
 
-  "credits_stack": {
-    "anchor_from": "bottom_middle",
-    "anchor_to": "top_middle",
-    "size": [ "50%", "default" ],
-    "type": "stack_panel",
-    "orientation": "vertical",
-    "controls": [
-      { "logo@common_art.pause_logo_panel": { } },
-      {
-        "padding@credits.padding": {
-          "$padding": [ 0, 100 ]
-        }
-      }
-    ],
-    "factory": {
-      "name": "credits_text_factory",
-      "control_ids": {
-        "credits_text": "credits_label@credits.credits_label_panel",
-        "padding": "padding@credits.padding"
-      }
-    },
-    "anims": [
-      "@credits.anim_scroll"
-    ]
-  },
   "skip_panel": {
     "type": "panel",
     "layer": 2,
@@ -140,11 +86,31 @@
     ]
   },
 
+  "credits_renderer": {
+    "type": "custom",
+    "renderer": "credits_renderer",
+    "size": [ "65%", "100%" ],
+    "end_event": "scroll_end",
+    "bindings": [
+      {
+        "binding_name": "#show_edu_icon"
+      },
+      {
+        "binding_name": "#show_end_poem"
+      },
+      {
+        "binding_name": "#player_name"
+      },
+      {
+        "binding_name": "#scroll_faster"
+      }
+    ]
+  },
+
   "credits_screen_content": {
     "type": "panel",
-    "$credits_duration|default": 500,
     "controls": [
-      { "credits_stack@credits.credits_stack": { "layer": 1 } },
+      { "credits_renderer@credits.credits_renderer": { "layer": 2 } },
       {
         "vignette_renderer": {
           "type": "custom",
@@ -192,7 +158,7 @@
   },
 
   "background@common.dirt_background": {
-    // Background scroll is $credits_duration + fade out
+    // Background scroll
     "$background_scroll_duration|default": 503,
     "size": [ "100%", "2000%" ],
     "tiled_scale": [ 2, 2 ],

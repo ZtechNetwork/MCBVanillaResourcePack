@@ -1,0 +1,195 @@
+{
+  "namespace": "edu_permissions",
+
+  //---------------------------------------------------------------------------
+  // SCREEN
+  //---------------------------------------------------------------------------
+
+  "permissions_menu_factory": {
+    "type": "factory",
+    "control_ids": {
+      "permissions_popup": "@edu_permissions.permissions_screen_popup"
+    }
+  },
+
+  "permissions_screen_popup@popup_dialog.form_fit_modal_dialog_popup": {
+    "$modal_title": "permissions.popup.title",
+    "$popup_dialog_escape_button_name": "button.close_permissions_popup",
+    "$modal_contents": "edu_permissions.permission_content_panel",
+    "$screen_background_alpha": 0.4,
+    "$modal_contents_padding": [ 6, 6 ],
+    // Keeps the whole dialog above the menu but behind modal dialogs
+    "layer": 20
+  },
+
+  //---------------------------------------------------------------------------
+  // CONTENT
+  //---------------------------------------------------------------------------
+
+  "permission_content_panel": {
+    "type": "panel",
+    "size": [ 260, 206 ],
+    "anchor_to": "center",
+    "anchor_from": "center",
+    "controls": [
+      {
+        "permission_stack_panel_content@edu_permissions.content_stack_panel": {}
+      }
+    ]
+  },
+
+  "content_stack_panel": {
+    "type": "stack_panel",
+    "orientation": "vertical",
+    "size": [ "100%", "100%" ],
+    "controls": [
+      {
+        "perms_dropdown@edu_permissions.permissions_dropdown": {}
+      },
+      {
+        "remove_player_button@edu_permissions.remove_player_button": {}
+      }
+    ]
+  },
+
+  "permissions_dropdown@settings_common.option_dropdown_no_scroll": {
+    "$option_label": "#permissions_dropdown_label",
+    "$dropdown_area": "permission_stack_panel_content",
+    "$dropdown_name": "permission_level_dropdown",
+    "$option_enabled_binding_name": "#permissions_dropdown_enabled",
+    "$options_dropdown_toggle_label_binding": "#permissions_dropdown_button_label",
+    "anchor_from": "left_middle",
+    "anchor_to": "left_middle",
+
+
+    // Dropdown toggle button //
+    "$option_dropdown_size": [ "100%", 22 ],
+    "$options_dropdown_toggle_button_state_content": [ "100%", "100%" ],
+
+    "$options_dropdown_toggle_left_padding": [ 2, 0 ],
+    "$options_dropdown_toggle_prelabel_content_size": [ 14, 14 ],
+    "$options_dropdown_toggle_prelabel_content_padding": [ 4, 0 ],
+    "$options_dropdown_toggle_prelabel_content": "edu_permissions.permission_level_icon",
+
+    "$label_bindings": [
+      {
+        "binding_name": "$option_label",
+        "binding_name_override": "$option_label"
+      }
+    ],
+
+    "$options_dropdown_label_bindings": [
+      {
+        "binding_name": "$options_dropdown_toggle_label_binding",
+        "binding_condition": "none",
+        "binding_type": "$options_dropdown_toggle_label_binding_type",
+        "binding_collection_name": "$options_dropdown_toggle_label_binding_collection_name"
+      }
+    ],
+
+    // Dropdown contents //
+    "$dropdown_content": "edu_permissions.permissions_dropdown_content"
+  },
+
+  "permissions_dropdown_content": {
+    "type": "stack_panel",
+    "size": [ "100%", "100%c + 4px" ],
+    "offset": [ 0, 2 ],
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "collection_name": "permission_roles",
+    "controls": [
+      {
+        "permission_level_radio_visitor@edu_permissions.custom_radio": {
+          "$toggle_state_binding_name": "#permission_level_radio_visitor",
+          "$radio_label_text": "permissions.visitor",
+          "$radio_label_desc": "permissions.description.visitors",
+          "$radio_content_control": "edu_permissions.visitor_icon",
+          "$dropdown_item_description": "permissions.description.visitors"
+        }
+      },
+      {
+        "permission_level_radio_member@edu_permissions.custom_radio": {
+          "$toggle_state_binding_name": "#permission_level_radio_member",
+          "$radio_label_text": "permissions.member",
+          "$radio_label_desc": "permissions.description.members",
+          "$radio_content_control": "edu_permissions.member_icon",
+          "$dropdown_item_description": "permissions.description.members"
+        }
+      },
+      {
+        "permission_level_radio_oeprator@edu_permissions.custom_radio": {
+          "$toggle_state_binding_name": "#permission_level_radio_operator",
+          "$radio_label_text": "permissions.operator",
+          "$radio_label_desc": "permissions.description.operators",
+          "$radio_content_control": "edu_permissions.operator_icon",
+          "$dropdown_item_description": "permissions.description.operators"
+        }
+      }
+    ]
+  },
+
+  "custom_radio": {
+    "type": "stack_panel",
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "size": [ "100%", "100%c" ],
+    "$no_description": false,
+    "$no_radio_content": false,
+    "controls": [
+      {
+        "radio@settings_common.radio_item_with_label_and_content": {}
+      }
+    ]
+  },
+
+  "operator_icon": {
+    "type": "image",
+    "size": [ 14, 14 ],
+    "texture": "textures/ui/permissions_op_crown"
+  },
+
+  "member_icon": {
+    "type": "image",
+    "size": [ 14, 14 ],
+    "texture": "textures/ui/permissions_member_star"
+  },
+
+  "visitor_icon": {
+    "type": "image",
+    "size": [ 14, 14 ],
+    "texture": "textures/ui/permissions_visitor_hand"
+  },
+
+  "permission_level_icon": {
+    "type": "image",
+    "size": [ 14, 14 ],
+    "anchor_from": "left_middle",
+    "anchor_to": "left_middle",
+    "offset":  [0, 4],
+
+    "bindings": [
+      {
+        "binding_type": "global",
+        "binding_name": "#player_permissions_dropdown_toggle_button_icon_texture",
+        "binding_name_override": "#texture"
+      }
+    ]
+  },
+
+  "remove_player_button@common_buttons.light_text_button": {
+    "size": [ "100%", 22 ],
+    "$button_text": "permissions.removeplayer",
+    "$pressed_button_name": "remove_player_button",
+    "$focus_id": "remove_player_button",
+    "$focus_override_up": "permissions_dropdown_root",
+    "bindings": [
+      {
+        "binding_name": "#remove_player_button_visible",
+        "binding_name_override": "#visible"
+      }
+    ]
+  }
+
+}
+

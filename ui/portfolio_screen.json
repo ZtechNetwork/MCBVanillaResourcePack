@@ -202,6 +202,7 @@
     "$text_edit_box_grid_collection_name": "photos",
     "$text_box_name": "#text_box_photos",
     "$text_color_binding_type": "global",
+    "$text_alignment": "center",
     "variables":[
       {
         "requires": "($pocket_screen)",
@@ -424,8 +425,32 @@
 
 
   //---------------------------------------------------------------------------
-  // EXPORT SHOTS
+  // Bottom Buttons
   //---------------------------------------------------------------------------
+
+  "bottom_button_panel": {
+    "type": "panel",
+    "size": [ "100%", "100%cm" ],
+    "offset": [ 0, 30 ],
+    "anchor_from": "bottom_middle",
+    "anchor_to": "bottom_middle",
+    "controls": [
+      { "export_button@portfolio.export_button": {} },
+      { "im_content_button@portfolio.im_content_button": {} }
+    ],
+    "bindings": [
+      {
+        "binding_name": "#export_visibility",
+        "binding_name_override": "#visible"
+      }
+    ]
+  },
+
+  "im_content_button@im_reader.reader_button": {
+    "size": [ "100%y", "100%sm" ],
+    "anchor_from": "bottom_right",
+    "anchor_to": "bottom_right"
+  },
 
   "export_button@common_buttons.light_text_button": {
     "type": "button",
@@ -434,14 +459,7 @@
     "$pressed_button_name": "button.portfolio_export",
     "layer": 1,
     "anchor_from": "bottom_middle",
-    "anchor_to": "bottom_middle",
-    "offset": [ 0, 30 ],
-    "bindings": [
-      {
-        "binding_name": "#export_visibility",
-        "binding_name_override": "#visible"
-      }
-    ]
+    "anchor_to": "bottom_middle"
   },
 
 
@@ -469,7 +487,6 @@
   "book_background": {
     "type": "image",
     "texture": "textures/ui/book_frame",
-    "layer": 1,
     "anchor_from": "center",
     "anchor_to": "center",
     "controls": [
@@ -625,7 +642,7 @@
 
           "controls": [
 
-            { "book_background@book_background": { "layer": 1 } },
+            { "book_background@book_background": { } },
 
             { "close_button@close_button": { "offset": [ -10, 10 ] } },
 
@@ -640,7 +657,7 @@
             { "photo_page_prev_button@photo_page_prev_button": { } },
             { "photo_page_next_button@photo_page_next_button": { } },
 
-            { "export_button@export_button": { } }
+            { "bottom_button_panel@portfolio.bottom_button_panel": { } }
           ]
         }
       },

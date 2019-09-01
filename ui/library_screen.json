@@ -14,7 +14,8 @@
   },
 
   "library_learn_more_button@common_buttons.light_content_button": {
-    "size": [ 150, 30 ]
+    "max_size": [ 200, 30 ],
+    "size": [ "100%", 30 ]
   },
 
   "feedback_icon": {
@@ -30,14 +31,48 @@
     "size": [ 16, 17 ]
   },
 
+  // Used by the big library items.
+  "gray_overlay": {
+    "type": "image",
+    "texture": "textures/ui/Gray",
+    "size": [ "100%", "100%" ],
+    "alpha": 0.8
+  },
+
+  "completed_item_icon": {
+    "type": "image",
+    "texture": "textures/ui/check",
+    "size": [ 44, 32 ]
+  },
+
+  "locked_item_icon": {
+    "type": "image",
+    "texture": "textures/ui/lock_color",
+    "size": [ 44, 44 ]
+  },
+
+  "creator_label@edu_common.readable_label": {
+    "$default_font_scale_factor": 0.85,
+    "$normalized_font_scale_factor": 1.0,
+    "text": "#creator",
+    "size": [ "100%", "default" ],
+    "max_size": "$max_label_size",
+    "bindings": [
+      {
+        "binding_type": "collection",
+        "binding_collection_name": "library_items",
+        "binding_name": "#creator"
+      }
+    ]
+  },
+
   "search_bar@common.text_edit_box": {
     "max_length": 50,
-    "anchor_from": "top_right",
-    "anchor_to": "top_right",
-    "size": [ 200, 15 ],
-    "offset": [ -2, 3 ],
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "size": [ "100% - 4px", 18 ],
     "layer": 5,
-
+    "visible": "$library_screen_show_search_bar",
     "$place_holder_text": "store.search.title",
     "$text_box_name": "search_filter_text",
     "property_bag": {
@@ -77,20 +112,20 @@
   },
 
   "buttons_stack_panel": {
-    "size": [ "100%", 90 ],
+    "size": [ "100%", "100%c" ],
     "type": "stack_panel",
     "orientation": "horizontal",
+    "visible": "$library_screen_show_world_and_feedback_buttons",
     "controls": [
       {
         "worlds_wrapper": {
-          "size": [ "50%", "100%" ],
+          "size": [ "50%", 20 ],
           "type": "panel",
           "controls": [
             {
               "library_find_more_worlds_button@library.library_learn_more_button": {
-                "offset": [ "-5%", -10 ],
-                "anchor_from": "bottom_right",
-                "anchor_to": "bottom_right",
+                "anchor_from": "top_middle",
+                "anchor_to": "top_middle",
                 "$learn_more_text": "library.findMoreWorlds",
                 "$learn_more_content": "library.find_more_worlds_icon",
                 "$button_content": "library.learn_more_content",
@@ -102,14 +137,13 @@
       },
       {
         "feedback_wrapper": {
-          "size": [ "50%", "100%" ],
+          "size": [ "50%", 20 ],
           "type": "panel",
           "controls": [
             {
               "library_leave_feedback_button@library.library_learn_more_button": {
-                "offset": [ "5%", -10 ],
-                "anchor_from": "bottom_left",
-                "anchor_to": "bottom_left",
+                "anchor_from": "top_middle",
+                "anchor_to": "top_middle",
                 "$learn_more_text": "library.leaveFeedback",
                 "$learn_more_content": "library.feedback_icon",
                 "$button_content": "library.learn_more_content",
@@ -127,15 +161,27 @@
     "orientation": "vertical",
     "size": [ "100%", "100%c" ],
     "controls": [
-      { "padding_top@common.empty_panel": { "size": [ "100%", 2 ] } },
+      {
+        "search_bar_wrapper": {
+          "type": "stack_panel",
+          "size": [ "100%", "100%cm" ],
+          "orientation": "horizontal",
+          "controls": [
+            { "padding_left@common.empty_panel": { "size": [ 2, "100%sm" ] } },
+            { "library_search_bar@library.search_bar": {} }
+          ]
+        }
+      },
+      { "padding_middle@common.empty_panel": { "size": [ "100%", 4 ] } },
       { "grid_content@library.grid_content": {} },
+      { "padding_bottom@common.empty_panel": { "size": [ "100%", 4 ] } },
       { "buttons_stack_panel@library.buttons_stack_panel": {} }
     ]
   },
 
   "scrolling_content": {
     "type": "panel",
-    "size": [ "100%-2px", "100%c" ],
+    "size": [ "100%", "100%c" ],
     "$scrolling_content_anchor_from": "top_middle",
     "$scrolling_content_anchor_to": "top_middle",
     "controls": [
@@ -157,7 +203,7 @@
   "grid_content": {
     "type": "grid",
     "size": [ "100%", "default" ],
-    "grid_item_template": "library.grid_item",
+    "grid_item_template": "$library_screen_button_template",
     "grid_rescaling_type": "horizontal",
     "collection_name": "library_items",
     "bindings": [
@@ -279,7 +325,7 @@
     "$max_label_size": [ "100%", 17 ],
     "controls": [
       {
-        "title@library.base_label": {
+        "title_label@library.base_label": {
           "text": "#library_item_title",
           "size": [ "100%", "default" ],
           "max_size": "$max_label_size",
@@ -292,21 +338,191 @@
           ]
         }
       },
+      { "creator_label@library.creator_label": {} }
+    ]
+  },
+
+  // Big item used for China courses view - or (eventually) view where there's 2 or fewer items on screen.
+  "grid_item_big": {
+    "type": "panel",
+    // Fit 2 items per row.
+    "size": [ "50%", "100%x" ],
+    "controls": [
       {
-        "creator@library.base_label": {
-          "text": "#creator",
-          "size": [ "100%", "default" ],
-          "max_size": "$max_label_size",
-          "font_scale_factor": 0.85,
+        "library_item_button@library.borderless_button": {
+          // Provide spacing between the library item buttons
+          "size": [ "100% - 10px", "100% - 10px" ],
+          // Create an accurate 1 pixel border around the button's content
+          "$button_content_size": [ "100% - 4px", "100% - 4px" ],
+          "$button_content": "library.button_content_big",
+          "$pressed_button_name": "button.library_item",
           "bindings": [
             {
-              "binding_type": "collection",
-              "binding_collection_name": "library_items",
-              "binding_name": "#creator"
+              "binding_type": "collection_details",
+              "binding_collection_name": "library_items"
             }
           ]
         }
       }
+      // Unlike the standard grid item, we don't display new tags or anything like that.
+    ]
+  },
+
+  // The version of the content for "grid_item_big" - slightly different ratios/layout/information.
+  "button_content_big": {
+    "type": "stack_panel",
+    "orientation": "vertical",
+    "size": [ "100%", "100%" ],
+    "controls": [
+      {
+        "world_image_panel": {
+          "type": "panel",
+          "size": [ "100%", "67%x" ],
+          "controls": [
+            {
+              "world_image@library.world_image": {
+                "layer": 1,
+                "fill": true
+              }
+            },
+            {
+              "gray_overlay@library.gray_overlay": {
+                "layer": 2,
+                "bindings": [
+                  {
+                    "binding_type": "collection",
+                    "binding_collection_name": "library_items",
+                    // If and|or expressions for bindings ever get fixed, this binding should be removed and replaced with should be "#is_complete or (not #is_enabled)".
+                    "binding_name": "#is_image_grayed_out",
+                    "binding_name_override": "#visible"
+                  }
+                ]
+              }
+            },
+            {
+              "completed_item_icon@library.completed_item_icon": {
+                "layer": 3,
+                "bindings": [
+                  {
+                    "binding_condition": "once",
+                    "binding_type": "collection",
+                    "binding_collection_name": "library_items",
+                    "binding_name": "#is_complete",
+                    "binding_name_override": "#visible"
+                  }
+                ]
+              }
+            },
+            {
+              "locked_item_icon@library.locked_item_icon": {
+                "layer": 4,
+                "bindings": [
+                  {
+                    "binding_condition": "once",
+                    "binding_type": "collection",
+                    "binding_collection_name": "library_items",
+                    "binding_name": "(not #is_enabled)",
+                    "binding_name_override": "#visible"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      { "padding_middle@common.empty_panel": { "size": [ "100%", "2px" ] } },
+      {
+        "world_info_panel": {
+          "type": "panel",
+          "size": [ "100%", "fill" ],
+          "controls": [
+            {
+              "world_info_big@library.world_info_big": {
+                "layer": 1
+              }
+            },
+            {
+              "background": {
+                "type": "image",
+                "texture": "textures/ui/Black"
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "title_creator_panel@common.empty_panel": {
+    "size": [ "100%", "100%cm" ],
+    "$max_label_size": [ "50%", "24px" ],
+    "controls": [
+      {
+        // The title for this item uses slightly different styling than the default Library labels
+        "title_label@edu_common.readable_label": {
+          "$default_font_scale_factor": 1,
+          "$normalized_font_scale_factor": 1.2,
+          "offset": [ 0, 0 ],
+          "text": "#library_item_title",
+          "size": [ "50%", "default" ],
+          // Keeps the title constrained to two lines.
+          "max_size": "$max_label_size",
+          "anchor_to": "top_left",
+          "anchor_from": "top_left",
+          "bindings": [
+            {
+              "binding_type": "collection",
+              "binding_collection_name": "library_items",
+              "binding_name": "#library_item_title"
+            }
+          ]
+        }
+      },
+      {
+        "creator_label@library.creator_label": {
+          // Subtract 2px to create slim border between the title and the creator.
+          "size": [ "50% - 2px", "default" ],
+          // Keeps the creator name constrained to two lines.
+          "max_size": "$max_label_size",
+          // Revert the offsetting from the default label.
+          "offset": [ 0, 0 ],
+          "anchor_to": "bottom_right",
+          "anchor_from": "bottom_right",
+          "text_alignment": "right"
+        }
+      }
+    ]
+  },
+
+  "world_info_big": {
+    "type": "stack_panel",
+    "orientation": "vertical",
+    "size": [ "100% - 4px", "100%" ],
+    "controls": [
+      { "padding_top@common.empty_panel": { "size": [ "100%", "2px" ] } },
+      { "title_creator_panel@library.title_creator_panel": {} },
+      // Need to stick description in an empty panel to center description text.
+      { "padding_middle@common.empty_panel": { "size": [ "100%", "2px" ] } },
+      {
+        "description@edu_common.readable_label": {
+          "$default_font_scale_factor": 0.85,
+          "$normalized_font_scale_factor": 1.0,
+          "anchor_to": "top_middle",
+          "anchor_from": "top_middle",
+          "text": "#description",
+          "size": [ "100%", "default" ],
+          // Keeps the max size to roughly about four lines.
+          "max_size": [ "100%", "48px" ],
+          "bindings": [
+            {
+              "binding_type": "collection",
+              "binding_collection_name": "library_items",
+              "binding_name": "#description"
+            }
+          ]
+        }
+      },
+      { "padding_bottom@common.empty_panel": { "size": [ "100%", "2px" ] } }
     ]
   },
 
@@ -330,30 +546,42 @@
   "screen_content": {
     "type": "panel",
     "controls": [
-      {
-        "header@common.fullscreen_header": {
-          "$back_button_has_title": true,
-          "$button_text": "$library_screen_header",
-          "$child_control": "library.main_panel"
-        }
-      },
+      { "screen_content_stack@library.screen_content_stack": {} },
       {
         "welcome_panel@library_modal.welcome_panel": {
-          // Make the input_panel be above the header's back button
+          // Make the input_panel be above the header's back button and the "new" tags
           "layer": 201
         }
+      }
+    ]
+  },
+
+  "screen_content_stack": {
+    "type": "stack_panel",
+    "size": ["100%", "100%"],
+    "controls": [
+      {
+        "header@edu_common.edu_screen_header": {
+          "$title_texture": "textures/ui/icon_bookshelf",
+          "$title_has_image": true,
+          "$title_text": "$library_screen_header"
+        }
       },
-      { "search_bar@library.search_bar": {} }
+      { "padding_middle@common.empty_panel": { "size": [ "100%", 4 ] } },
+      { "main_panel@library.main_panel": {} },
+      { "padding_bottom@common.empty_panel": { "size": [ "100%", 4 ] } }
     ]
   },
 
   "main_panel@common.scrolling_panel": {
-    "$scroll_size": [ 6, "100%-4px" ],
+    "$scrolling_pane_size": ["100%", "100%-21px"],
+    "$scroll_size": [ 6, "100% - 10px" ],
     "anchor_from": "top_middle",
     "anchor_to": "top_middle",
     "$scrolling_content": "library.scrolling_content",
     "$scrolling_content_anchor_from": "top_middle",
     "$scrolling_content_anchor_to": "top_middle",
+    "$scroll_track_anchor": "top_middle",
     "$scroll_bar_left_padding_size": [ 0, 0 ],
     "$scroll_bar_right_padding_size": [ 2, 0 ],
     "$show_background": false

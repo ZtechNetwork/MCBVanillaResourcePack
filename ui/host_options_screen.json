@@ -275,6 +275,48 @@
   // Teleport
   //////////////////////////////////////////////////////////////////////////
 
+  // This is defined in the pause namespace, stealing it from there
+  "platform_icon_panel@pause.platform_icon_panel": {
+    "$icon_offset": [ 0, 2 ]
+  },
+
+  "gamertag_wrapper@pause.gametag_wrapper": {
+    "anchor_from": "left_middle",
+    "anchor_to": "left_middle"
+  },
+
+  "player_pic_panel": {
+    "type": "panel",
+    "size": [ 20, "100%" ],
+    "offset": [ 1, 0 ],
+    "anchor_to": "left_middle",
+    "anchor_from": "left_middle",
+    "ignored": "$education_edition",
+    "controls": [
+      { "player_gamer_pic@pause.player_gamer_pic": {} },
+      { "player_local_icon@pause.player_local_icon": {} }
+    ]
+  },
+
+  "player_button_content": {
+    "type": "stack_panel",
+    "orientation": "horizontal",
+    "anchor_from": "left_middle",
+    "anchor_to": "left_middle",
+    "size": [ "100%-4px", "100%-4px" ],
+    "offset": [ 4, 0 ],
+    "layer": 3,
+    "controls": [
+      { "player_pic_panel@host_options.player_pic_panel": {} },
+      {
+        "player_gamertag@host_options.gamertag_wrapper": {
+          "size": [ "fill", "100%" ]
+        }
+      },
+      { "platform_icon@host_options.platform_icon_panel": {} }
+    ]
+  },
+
   "player_grid_item": {
     "type": "panel",
     "size": [ "100%", 30 ],
@@ -283,8 +325,7 @@
         "player_banner@main_dark_button": {
           "$button_text": "#gamertag",
           "$pressed_button_name": "button.sub_command",
-          // This is defined in the pause namespace, stealing it from there
-          "$button_content": "pause.player_button_content",
+          "$button_content": "host_options.player_button_content",
 
           "bindings": [
             {

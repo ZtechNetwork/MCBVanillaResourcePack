@@ -294,10 +294,7 @@
 
     "entity_custom:entity": {
       "+states": [ "Blending" ],
-      "+defines": [ "ALPHA_TEST", "Blending", "USE_OVERLAY", "USE_MASK" ],
-
-      "blendSrc": "SourceColor",
-      "blendDst": "Zero"
+      "+defines": [ "ALPHA_TEST", "Blending", "USE_OVERLAY", "USE_MASK" ]
     },
 
     "item_in_hand:entity": {
@@ -497,7 +494,7 @@
       ]
     },
 
-    "entity_alphatest_multicolor_tint:entity_glint": {
+    "entity_alphatest_multicolor_tint:entity": {
       "+states": [ "DisableAlphaWrite" ],
       "+defines": [
         "ALPHA_TEST",
@@ -777,6 +774,7 @@
 
     "entity_beam_additive:entity_alphablend": {
       "+defines": [ "COLOR_BASED", "NO_TEXTURE" ],
+      "-defines": [ "USE_OVERLAY" ],
       "+states": [ "Blending", "DisableDepthWrite" ],
 
       "blendSrc": "SourceAlpha",
@@ -865,6 +863,8 @@
     "endermite:entity_alphatest": {},
     "evoker:entity_alphatest": {},
     "fang:entity_alphatest": {},
+    "fishing_hook:entity_alphatest": {},
+    "fox:entity": {},
     "cat:entity_alphatest_change_color": {},
     "clownfish:entity_alphatest": {},
     "cod:entity_alphatest": {},
@@ -955,6 +955,9 @@
     },
     "zombie_villager_v2_masked:entity_multitexture_masked": {
       "depthFunc": "LessEqual"
+    },
+    "player_animated:entity_alphatest": {
+      "+defines": [ "USE_UV_ANIM" ]
     }
   }
 }

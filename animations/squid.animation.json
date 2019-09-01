@@ -3,6 +3,7 @@
 	"animations" : {
 		"animation.squid.move" : {
 			"anim_time_update" : "query.modified_distance_moved",
+			"loop" : true,
 			"bones" : {
 				"body" : {
 					"position" : [ 0.0, "query.is_in_water ? 0.0 : (query.is_baby ? 3.2 : 6.4)", 0.0 ]
@@ -31,17 +32,16 @@
 				"tentacle8" : {
 					"rotation" : [ "variable.squid.tentacleangle - this", "-225.0 - this", 0.0 ]
 				}
-			},
-			"loop" : true
+			}
 		},
 		"animation.squid.rotate" : {
 			"anim_time_update" : "query.modified_distance_moved",
+			"loop" : true,
 			"bones" : {
 				"body" : {
 					"rotation" : [ 90.0, 0.0, "variable.squid.zbodyrotation" ]
 				}
-			},
-			"loop" : true
+			}
 		}
 	}
 }

@@ -13,6 +13,11 @@
     "size": [ 9, 7 ],
     "texture": "textures/ui/chat_keyboard"
   },
+  "gear_image": {
+    "type": "image",
+    "size": [ 14, 14 ],
+    "texture": "textures/ui/gear"
+  },
   "send_image": {
     "type": "image",
     "size": [ 21, 18 ],
@@ -120,6 +125,13 @@
     ]
   },
 
+  "chat_settings_button@chat.small_button": {
+    "$button_content": "chat.gear_image",
+    "$pressed_button_name": "button.open_chat_settings",
+    "$focus_id": "chat_settings_button_focus_id",
+    "$button_tts_header": "chat.settings"
+  },
+
   "send_button@common_buttons.light_text_form_fitting_button": {
     "$pressed_button_name": "button.send",
     "$anchor": "bottom_right",
@@ -164,10 +176,10 @@
     ]
   },
 
-	"message_tts_wrapper@common.tts_label_focus_wrapper": {
-		"$tts_label_panel": "chat.messages_text",
-		"$focus_border_visible_binding": "#host_options_menu_not_open_and_tts_enabled"
-	},
+  "message_tts_wrapper@common.tts_label_focus_wrapper": {
+    "$tts_label_panel": "chat.messages_text",
+    "$focus_border_visible_binding": "#host_options_menu_not_open_and_tts_enabled"
+  },
 
   "messages_stack_panel": {
     "type": "stack_panel",
@@ -208,7 +220,7 @@
     "default_focus_precedence": 1,
     "$focus_id": "text_edit_box_focus_id",
     "$focus_override_right": "keyboard_button_focus_id",
-    "$focus_override_left": "host_main_button_focus_id",
+    "$focus_override_left": "chat_settings_button_focus_id",
     // focus override up and down are controlled with bindings
     "$text_box_tts_header": "accessibility.chat.tts.textboxTitle",
     "$text_box_tts_name": "",
@@ -312,24 +324,6 @@
       },
 
       // Controller Mappings //
-      {
-        "from_button_id": "button.controller_secondary_select",
-        "to_button_id": "button.open_chat_settings",
-        "handle_select": false,
-        "handle_deselect": false,
-        "mapping_type": "global",
-        // TODO: Always use this binding once Chat Settings can be public
-        "ignored": "$is_publish"
-      },
-      {
-        "from_button_id": "button.controller_secondary_select",
-        "to_button_id": "button.mute_chat",
-        "handle_select": false,
-        "handle_deselect": false,
-        "mapping_type": "global",
-        // TODO: delete this binding once Chat Settings can be public
-        "ignored": "(not $is_publish)"
-      },
       {
         "from_button_id": "button.controller_select",
         "to_button_id": "button.send",
@@ -501,6 +495,7 @@
     "controls": [
       { "keyboard_button@chat.keyboard_button": {} },
       { "host_main_button@host_options.host_main_button": { "ignored": "$is_pregame" } },
+      { "chat_settings@chat.chat_settings_button": {} },
       { "text_box@chat.text_edit_box": {} },
       { "send_button@chat.send_button": { "offset": [ -20, 0 ] } }
     ]
@@ -510,14 +505,14 @@
 
   "title_text": {
     "type": "panel",
-    "size": [ "fill", "100%" ],
+    "size": [ "100%c", "100%c" ],
     "controls": [
       {
         "title_panel": {
           "type": "label",
           "size": [ "default", 10 ],
           "text": "#text",
-          "offset": [ 28, -1 ],
+          "offset": [ 0, -1 ],
           "color": "$title_text_color",
           "layer": 2,
           "bindings": [
@@ -541,7 +536,7 @@
         "back_button@common.back_button": {
           "offset": [ 0, -1 ],
           "$button_text_binding_type": "global",
-          "$button_text": "#back_button_text"          
+          "$button_text": "#back_button_text"
         }
       },
       {
@@ -569,173 +564,22 @@
     ]
   },
 
-  // TODO: Delete all chat mute stuff here when Chat Settings can be public
-  "mute_text": {
-    "type": "panel",
-    "size": [ "100%c", "100%" ],
-    "controls": [
-      {
-        "title_panel": {
-          "type": "label",
-          "size": [ "default", 10 ],
-          "text": "chat.mute",
-          "offset": [ 2, -1 ],
-          "color": "$title_text_color",
-          "layer": 2
-        }
-      }
-    ]
-  },
-
-  "hide_toggle@settings_common.option_toggle": {
-    "$option_binding_name": "#hide_chat",
-    "$option_enabled_binding_name": "#hide_chat_enabled",
-    "$toggle_name": "hide_chat",
-    "$option_label": "accessibility.chat.tts.hideChat"
-  },
-
-  "mute_interaction": {
-    "type": "panel",
-    "size": [ "100%c", "100%" ],
-    "anchor_from": "left_middle",
-    "anchor_to": "left_middle",
-    "controls": [
-
-      // Yes or No //
-
-      {
-        "yes_or_no_panel": {
-          "type": "panel",
-          "size": [ 24, "100%" ],
-          "controls": [
-            {
-              "yes_or_no_label": {
-                "type": "label",
-                "size": [ 20, 8 ],
-                "offset": [ -20, -2 ],
-                "text": "#text",
-                "color": "$title_text_color",
-                "layer": 2,
-                "bindings": [
-                  {
-                    "binding_name": "#text_chat_hidden",
-                    "binding_name_override": "#text"
-                  }
-                ]
-              }
-            }
-          ]
-        }
-      },
-
-      // Toggle for Keyboad and Touch //
-
-      {
-        "toggle_panel": {
-          "type": "panel",
-          "size": [ "100%c", "100%c" ],
-          "anchor_from": "bottom_left",
-          "anchor_to": "bottom_left",
-          "controls": [
-            {
-              "hide_toggle@chat.hide_toggle": {
-                "size": [ 32, "100%c" ],
-                "offset": [ 20, 1 ],
-                "bindings": [
-                  {
-                    "binding_name": "(not #gamepad_helper_visible)",
-                    "binding_name_override": "#visible"
-                  }
-                ]
-              }
-            }
-          ]
-        }
-      },
-      {
-        "gamepad_y_button": {
-          "type": "panel",
-          "size": [ 24, 17 ],
-          "offset": [ 6, -1 ],
-          "controls": [
-            {
-              "icon@common.gamepad_helper_y": {
-                "$icon_description_bind_type": "none"
-              }
-            }
-          ],
-          "bindings": [
-            {
-              "binding_name": "#gamepad_helper_visible",
-              "binding_name_override": "#visible"
-            }
-          ]
-        }
-      }
-    ]
-  },
-
-  "mute_panel": {
-    "type": "stack_panel",
-    "orientation": "horizontal",
-    "size": [ "100%c", "100%" ],
-    "controls": [
-      { "mute@chat.mute_text": {} },
-      {
-        "padding3": {
-          "type": "panel",
-          "size": [ 16, "100%" ]
-        }
-      },
-      { "mute_interact@chat.mute_interaction": {} }
-    ]
-  },
-
-  "chat_header": {
-    "type": "stack_panel",
-    "size": [ "100%", "100%" ],
+  "chat_header@common_store.store_top_bar": {
+    "anchor_to": "top_left",
+    "anchor_from": "top_left",
     "$back_button_text": "controller.buttonTip.back",
     "controls": [
       {
-        "top_bar@common_store.store_top_bar": {
-          "size": [ "100%", 23 ],
+        "title_panel": {
+          "type": "panel",
+          "size": [ "100%", 19 ],
           "controls": [
             {
-              "title_stack_panel": {
-                "type": "stack_panel",
-                "size": [ "100%", 19 ],
-                "orientation": "horizontal",
-                "controls": [
-                  {
-                    "padding1": {
-                      "type": "panel",
-                      "size": [ 2, "100%" ]
-                    }
-                  },
-                  {
-                    "back_button_content_panel@chat.back_content_panel": {
-                    }
-                  },
-                  { "title@chat.title_text": {} },
-                  {
-                    "padding2": {
-                      "type": "panel",
-                      "size": [ 2, "100%" ]
-                    }
-                  },
-                  // TODO: Delete this when Chat Settings can be public
-                  { "mute_section@chat.mute_panel": { "ignored": "(not $is_publish)" } },
-                  // TODO: Show the button when Chat Settings can be public
-                  { "chat_settings_button@chat_settings.chat_settings_button_panel": { "ignored": "$is_publish" } },
-                  {
-                    "padding4": {
-                      "type": "panel",
-                      "size": [ 2, "100%" ]
-                    }
-                  }
-                ]
+              "back_button_content_panel@chat.back_content_panel": {
+                "offset": [ 2, 0 ]
               }
-            }
+            },
+            { "title@chat.title_text": {} }
           ]
         }
       }
@@ -772,7 +616,7 @@
       { "chat_top_panel@chat.chat_header": { "layer": 2 } },
       { "autocomplete_commands_panel@chat.commands_panel": { "layer": 3 } },
       { "host_main_panel@host_options.host_panel": { "layer": 4 } },
-      { "settings_screen@chat_settings.chat_settings_screen": { "layer": 13 } }
+      { "popup_factory@chat_settings.popup_factory": {} }
     ]
   },
 
@@ -782,65 +626,5 @@
     "texture": "textures/ui/White",
     "color": [ 0.0, 0.0, 0.0 ],
     "alpha": 0.7
-  },
-
-  ////////////////////////////
-  // Standalone window      //
-  ////////////////////////////
-
-  "main_stack_panel": {
-    "type": "stack_panel",
-    "orientation": "vertical",
-    "size": [ "100% - 4px", "100%" ],
-    "controls": [
-      {
-        "messages_scrolling_panel@chat.messages_scrolling_panel": {
-          "size": [ "100%-2px", "100%-29px" ]
-        }
-      },
-      {
-        "chat_bottom_panel@chat.chat_bottom_panel": {}
-      }
-    ]
-  },
-
-  "main_with_intellisense": {
-    "type": "panel",
-    "controls": [
-      {
-        "main_stack@main_stack_panel": {}
-      },
-      {
-        "commands_panel@chat.commands_panel": {
-          "size": [ "100%", "100%-29px" ],
-          "offset": [ 0, -29 ],
-          "layer": 11
-        }
-      }
-    ]
-  },
-
-  "dev_console_dialog@common_dialogs.main_panel_no_buttons": {
-    "$child_control": "main_with_intellisense",
-    "size": [ "100%", "75%" ],
-    "anchor_from": "top_middle",
-    "anchor_to": "top_middle"
-  },
-
-  "dev_console_screen@common.base_screen": {
-    "$screen_content": "chat.dev_console_dialog",
-    "force_render_below": true,
-    "button_mappings": [
-      {
-        "from_button_id": "button.menu_exit",
-        "to_button_id": "button.chat_menu_cancel",
-        "mapping_type": "global"
-      },
-      {
-        "from_button_id": "button.menu_cancel",
-        "to_button_id": "button.chat_menu_cancel",
-        "mapping_type": "global"
-      }
-    ]
   }
 }

@@ -11,65 +11,6 @@
     "texture": "textures/ui/Black"
   },
 
-  "cancel_button@common_buttons.light_text_button": {
-    "$pressed_button_name": "button.download_cancel",
-    "$button_text": "gui.cancel"
-  },
-
-  "modal_progress_panel_with_cancel": {
-    "type": "panel",
-    "size": "$modal_screen_size",
-    "$background_fill_alpha|default": 0.8,
-    "controls": [
-      {
-        "common_panel@common.common_panel": {
-          "$dialog_background": "dialog_background_hollow_2",
-          "$fill_alpha": "$background_fill_alpha",
-          "$show_close_button": false
-        }
-      },
-      {
-        "content": {
-          "type": "panel",
-          "anchor_from": "top_left",
-          "anchor_to": "top_left",
-          // magic offset to make the scroll clipping perfect
-          "size": [ "100%-12px", "100%-60px" ],
-          "offset": [ 6, 20 ],
-          "controls": [
-            {
-              "title_panel@progress.title_panel": {}
-            },
-            {
-              "label": {
-                "type": "label",
-                "color": "$dark_button_default_text_color",
-                "size": [ "100% - 20px", "100% - 20px" ],
-                "anchor_from": "bottom_middle",
-                "anchor_to": "bottom_middle",
-                "layer": 1,
-                "shadow": false,
-                "text": "library.item.progress.body"
-              }
-            },
-            {
-              "progress_loading_bars@progress.progress_loading_bars": {}
-            }
-          ]
-        }
-      },
-      {
-        "cancel_button@library_item.cancel_button": {
-          "anchor_from": "bottom_middle",
-          "anchor_to": "bottom_middle",
-          "size": [ "40%", "20%" ],
-          "offset": [ 0, -8 ]
-        }
-      }
-    ]
-  },
-
-
   "scrolling_content": {
     "size": [ "100% - 2px", "100%c + 10px" ],
     "type": "panel",
@@ -134,7 +75,7 @@
   "import_button@common_buttons.light_text_button": {
     "$font_type": "smooth",
     "layer": 1,
-    "$button_text": "gui.importWorld",
+    "$button_text": "menu.play",
     "$pressed_button_name": "button.import_world"
   },
 
@@ -143,6 +84,13 @@
     "layer": 1,
     "$button_text": "library.item.launch",
     "$pressed_button_name": "button.launch_world"
+  },
+
+  "share_button@common_buttons.light_text_button": {
+    "$font_type": "smooth",
+    "layer": 1,
+    "$button_text": "library.item.button.share",
+    "$pressed_button_name": "button.share_world_link"
   },
 
   "author@library.base_label": {
@@ -161,7 +109,7 @@
   },
 
   "button_panel@library_item.button_panel": {
-    "size": [ "50%", "100%" ],
+    "size": [ "100%", "100%" ],
     "offset": [ 2, 0 ],
     "anchor_from": "left_middle",
     "anchor_to": "left_middle"
@@ -233,7 +181,28 @@
     ]
   },
 
-  "button_panel": {
+  "button_stack_panel": {
+    "type": "stack_panel",
+    "orientation": "horizontal",
+    "size": [ "100%", 20 ],
+    "controls": [
+      { "padding_left@common.empty_panel": { "size": [ 2, "100%sm" ] } },
+      {
+        "launch_import_button_panel@library_item.launch_import_button_panel": {
+          "size": [ "fill", 20 ]
+        }
+      },
+      { "padding_middle@common.empty_panel": { "size": [ 2, "100%sm" ] } },
+      {
+        "share_button@library_item.share_button": {
+          "size": [ "fill", 20 ]
+        }
+      },
+      { "padding_right@common.empty_panel": { "size": [ 2, "100%sm" ] } }
+    ]
+  },
+
+  "launch_import_button_panel": {
     "type": "panel",
     "controls": [
       {
@@ -278,9 +247,9 @@
         }
       },
       {
-        "button_panel@library_item.panel_wrapper": {
+        "button_stack_panel_wrapper@library_item.panel_wrapper": {
           "size": [ "100%", 20 ],
-          "$content": "button_panel"
+          "$content": "button_stack_panel"
         }
       },
       { "padding_before_summary@common.empty_panel": { "size": [ "100%", 3 ] } },
@@ -352,32 +321,11 @@
       }
     ]
   },
-
-  "modal_panel@common.input_panel": {
-    "layer": 201,
-    "size": [ "100%", "100%" ],
-    "button_mappings": [
-      {
-        "from_button_id": "button.menu_cancel",
-        "to_button_id": "button.download_cancel",
-        "mapping_type": "global"
-      }
-    ],
-    "bindings": [
-      {
-        "binding_name": "#download_in_progress",
-        "binding_name_override": "#visible"
-      }
-    ],
-    "controls": [
-      {
-        "downloading@library_item.modal_progress_panel_with_cancel": {
-          "layer": 1,
-          "$pressed_button_name": "button.download_cancel"
-        }
-      }
-    ]
-  },
+  //--------------------------------------------------------------------------------
+  // Share Dialog
+  //--------------------------------------------------------------------------------
+  
+  "share_popup_dialog@edu_common.edu_share_text_popup": {},
 
   //--------------------------------------------------------------------------------
   // Screen
@@ -399,13 +347,20 @@
   "screen_content": {
     "type": "panel",
     "controls": [
-      { "download_progress_panel@library_item.modal_panel": {} },
+      {
+        "download_progress_panel@edu_common.download_progress_modal_panel": {
+          "$body_text": "library.item.progress.body"
+        }
+      },
       {
         "header@common.fullscreen_header": {
           "$back_button_has_title": true,
           "$button_text": "gui.back",
           "$child_control": "library_item.main_panel"
         }
+      },
+      {
+        "share_popup_factory@edu_common.share_popup_dialog_factory": {}
       }
     ]
   },

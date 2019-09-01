@@ -1,24 +1,19 @@
 {
-  "format_version": "1.8.0",
-  "animation_controllers": {
-    "controller.animation.spider.move": {
-      "states": {
-        "default": {
-          "parameters": [ "query.modified_move_speed" ],
-          "animations": [
-            { "default_leg_pose": [] },
-            {
-              "walk": [
-                {
-                  "0.0": 0.0,
-                  "1.0": 1.0
-                }
-              ]
-            },
-            { "look_at_target": [] }
-          ]
-        }
-      }
-    }
-  }
+	"format_version" : "1.10.0",
+	"animation_controllers" : {
+		"controller.animation.spider.move" : {
+			"initial_state" : "default",
+			"states" : {
+				"default" : {
+					"animations" : [
+						"default_leg_pose",
+						{
+							"walk" : "query.modified_move_speed"
+						},
+						"look_at_target"
+					]
+				}
+			}
+		}
+	}
 }

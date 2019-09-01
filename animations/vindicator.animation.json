@@ -2,17 +2,18 @@
 	"format_version" : "1.8.0",
 	"animations" : {
 		"animation.vindicator.attack" : {
+			"loop" : true,
 			"bones" : {
 				"leftarm" : {
-					"rotation" : [ "query.is_riding ? 0.0 : ((math.cos(query.life_time * 20.0 * 10.89) * 28.65) + (variable.attack2 * 68.76 - variable.attack * 22.92))", 0.0, 0.0 ]
+					"rotation" : [ "query.is_riding ? 0.0 : ((math.cos(query.life_time * 20.0 * 10.89) * 28.65) + (math.sin(variable.attack_time * 180.0) * 68.76 - (math.sin((1.0 - (1.0 - variable.attack_time) * (1.0 - variable.attack_time)) * 180.0)) * 22.92))", 0.0, 0.0 ]
 				},
 				"rightarm" : {
-					"rotation" : [ "(-108 + math.cos(query.life_time * 20.0 * 3.84) * 2.87) + (variable.attack2 * 126.05 - variable.attack * 22.92)", 0.0, 0.0 ]
+					"rotation" : [ "(-108 + math.cos(query.life_time * 20.0 * 3.84) * 2.87) + (math.sin(variable.attack_time * 180.0) * 126.05 - (math.sin((1.0 - (1.0 - variable.attack_time) * (1.0 - variable.attack_time)) * 180.0)) * 22.92)", 0.0, 0.0 ]
 				}
-			},
-			"loop" : true
+			}
 		},
 		"animation.vindicator.base" : {
+			"loop" : true,
 			"bones" : {
 				"arms" : {
 					"position" : [ 0.0, "-3.0 - this", "-1.0 - this" ],
@@ -26,18 +27,18 @@
 					"rotation" : [ "math.cos(query.life_time * 20.0 * 3.84) * 2.87", 9.0, "math.cos(query.life_time * 20.0 * 5.16) * 2.87 + 2.87" ],
 					"scale" : "query.is_angry ? 1.0 : 0.0"
 				}
-			},
-			"loop" : true
+			}
 		},
 		"animation.vindicator.riding.arms" : {
+			"loop" : true,
 			"bones" : {
 				"leftarm" : {
 					"rotation" : [ -36.0, 0.0, 0.0 ]
 				}
-			},
-			"loop" : true
+			}
 		},
 		"animation.vindicator.riding.legs" : {
+			"loop" : true,
 			"bones" : {
 				"leg0" : {
 					"rotation" : [ "-72.0 - this", "18.0 - this", "-this" ]
@@ -45,10 +46,10 @@
 				"leg1" : {
 					"rotation" : [ "-72.0 - this", "-18.0 - this", "-this" ]
 				}
-			},
-			"loop" : true
+			}
 		},
 		"animation.vindicator.walk" : {
+			"loop" : true,
 			"bones" : {
 				"leg0" : {
 					"rotation" : [ "(math.cos(query.modified_distance_moved * 38.17) * 80.21) * query.modified_move_speed * 0.5", 0.0, 0.0 ]
@@ -56,8 +57,7 @@
 				"leg1" : {
 					"rotation" : [ "(math.cos(query.modified_distance_moved * 38.17 + 180) * 80.21) * query.modified_move_speed * 0.5", 0.0, 0.0 ]
 				}
-			},
-			"loop" : true
+			}
 		}
 	}
 }

@@ -10,16 +10,21 @@
     "ignored": "$ignore_content_toggle_image",
     "type": "panel",
     "size": [ "100%c", "100%" ],
-
+    "$content_toggle_variables|default": [],
+    "variables": "$content_toggle_variables",
     "controls": [
       {
         "icon": {
           "type": "image",
           "$content_toggle_image_size|default": [ 24, 24 ],
+          "$content_toggle_image_uv|default": [],
+          "$content_toggle_image_uv_size|default": [],
           "size": "$content_toggle_image_size",
           "texture": "$content_toggle_image",
           "$content_toggle_image_color_binding|default": "$f_color_format",
           "color": "$content_toggle_image_color_binding",
+          "uv": "$content_toggle_image_uv",
+          "uv_size": "$content_toggle_image_uv_size",
           "$content_toggle_image_binding_type|default": "none",
           "$content_toggle_image_binding_condition|default": "none",
           "bindings": [
@@ -43,6 +48,7 @@
       {
         "toggle_label": {
           "type": "label",
+          "layer": 3,
           "size": [ "100%", "default" ],
           "max_size": [ "100%", "100% - 4px" ],
           "text_alignment": "left",
@@ -159,6 +165,12 @@
     "$button_offset|default": [ 0, 0 ]
   },
 
+  "light_content_toggle@common_toggles.light_ui_toggle": {
+    "$button_type_panel": "common_buttons.button_content_panel",
+    "$button_content|default": "common_toggles.toggle_content_panel",
+    "$button_offset|default": [ 0, 0 ]
+  },
+
   "dark_text_toggle@common_toggles.dark_ui_toggle": {
     "$button_type_panel": "common_buttons.new_ui_binding_button_label",
     "$button_offset|default": [ 0, 0 ],
@@ -258,6 +270,11 @@
     "$toggle_unchecked|default": false,
     "$toggle_unchecked_hover|default": false,
     "$toggle_checked_hover|default": false,
+
+    "$default_state|default": false,
+    "$hover_state|default": false,
+    "$pressed_state|default": false,
+    "$locked_state|default": false,
 
     "$button_mappings|default": [
       {
@@ -595,6 +612,7 @@
     "$border_layer": 1,
     "$border_color": "$default_border_color",
     "$toggle_unchecked": true,
+    "$default_state": true,
     "layer": 1
   },
 
@@ -607,6 +625,7 @@
     "$border_layer": 2,
     "$border_color": "$default_border_color",
     "$toggle_checked": true,
+    "$pressed_state": true,
     "layer": 2
   },
 
@@ -619,6 +638,7 @@
     "$border_layer": 3,
     "$border_color": "$hover_border_color",
     "$toggle_unchecked_hover": true,
+    "$hover_state": true,
     "layer": 3
   },
 
@@ -631,6 +651,7 @@
     "$border_layer": 4,
     "$border_color": "$hover_border_color",
     "$toggle_checked_hover": true,
+    "$pressed_state": true,
     "layer": 4
   },
 
@@ -644,6 +665,7 @@
     "$border_layer": 1,
     "$border_color": "$default_border_color",
     "$toggle_locked": true,
+    "$default_state": true,
     "layer": 1
   },
 
@@ -656,6 +678,7 @@
     "$border_layer": 1,
     "$border_color": "$default_border_color",
     "$toggle_locked": true,
+    "$default_state": true,
     "layer": 1
   },
 
@@ -668,6 +691,7 @@
     "$border_layer": 1,
     "$border_color": "$default_border_color",
     "$toggle_locked": true,
+    "$pressed_state": true,
     "layer": 1
   },
 
@@ -706,5 +730,211 @@
     "type": "image",
     "texture": "textures/ui/radio_on_hover",
     "size": [ 10, 10 ]
+  },
+
+
+
+  //---------------------------------------------------------------------------
+  // Checkbox button common
+  //---------------------------------------------------------------------------
+
+  "check_box_button_toggle_image": {
+    "type": "image",
+    "size": [ 10, 10 ],
+    "anchor_from": "right_middle",
+    "anchor_to": "right_middle",
+    "texture": "$toggle_texture"
+  },
+
+  //---------------------------------------------------------------------------
+  // Checkbox toggle states
+  //---------------------------------------------------------------------------
+  "checkbox_button_checked_state@common_toggles.check_box_button_toggle_image": {
+    "$toggle_texture": "textures/ui/checkbox_checkHover"
+  },
+
+  "checkbox_button_unchecked_state@common_toggles.check_box_button_toggle_image": {
+    "$toggle_texture": "textures/ui/checkbox_space"
+  },
+
+  "checkbox_button_checked_hover_state@common_toggles.check_box_button_toggle_image": {
+    "$toggle_texture": "textures/ui/checkbox_checkHover"
+  },
+
+  "checkbox_button_unchecked_hover_state@common_toggles.check_box_button_toggle_image": {
+    "$toggle_texture": "textures/ui/checkbox_spaceHover"
+  },
+
+  "checkbox_button_checked_locked_state@common_toggles.check_box_button_toggle_image": {
+    "$toggle_texture": "textures/ui/checkbox_check_locked"
+  },
+
+  "checkbox_button_unchecked_locked_state@common_toggles.check_box_button_toggle_image": {
+    "$toggle_texture": "textures/ui/checkbox_space_locked"
+  },
+
+  //---------------------------------------------------------------------------
+  // Checkbox button states
+  //---------------------------------------------------------------------------
+
+  "toggle_checkbox_unchecked@common_toggles.check_box_button_ui_panel": {
+    "$new_ui_button_texture": "$default_texture",
+    "$content_alpha": 1,
+    "$text_color": "$default_text_color",
+    "$glyph_color": "$default_glyph_color",
+    "$toggle_image": "common_toggles.checkbox_button_unchecked_state",
+    "$border_layer": 1,
+    "$border_color": "$default_border_color",
+    "$toggle_unchecked": true,
+    "layer": 1
+  },
+
+  "toggle_checkbox_checked@common_toggles.check_box_button_ui_panel": {
+    "$new_ui_button_texture": "$hover_texture",
+    "$content_alpha": 1,
+    "$text_color": "$default_checked_text_color",
+    "$glyph_color": "$default_checked_glyph_color",
+    "$toggle_image": "common_toggles.checkbox_button_checked_state",
+    "$border_layer": 2,
+    "$border_color": "$default_border_color",
+    "$toggle_checked": true,
+    "layer": 2
+  },
+
+  "toggle_checkbox_unchecked_hover@common_toggles.check_box_button_ui_panel": {
+    "$new_ui_button_texture": "$pressed_texture",
+    "$content_alpha": 1,
+    "$text_color": "$default_text_color",
+    "$glyph_color": "$default_glyph_color",
+    "$toggle_image": "common_toggles.checkbox_button_unchecked_hover_state",
+    "$border_layer": 3,
+    "$border_color": "$hover_border_color",
+    "$toggle_unchecked_hover": true,
+    "layer": 3
+  },
+
+  "toggle_checkbox_checked_hover@common_toggles.check_box_button_ui_panel": {
+    "$new_ui_button_texture": "$pressed_no_hover_texture",
+    "$content_alpha": 1,
+    "$text_color": "$default_checked_text_color",
+    "$glyph_color": "$default_checked_glyph_color",
+    "$toggle_image": "common_toggles.checkbox_button_checked_hover_state",
+    "$border_layer": 4,
+    "$border_color": "$hover_border_color",
+    "$toggle_checked_hover": true,
+    "layer": 4
+  },
+
+  "toggle_checkbox_unchecked_locked@common_toggles.check_box_button_ui_panel": {
+    "$new_ui_button_texture": "$unchecked_locked_texture",
+    "$content_alpha": "$locked_alpha",
+    "$text_color": "$default_text_color",
+    "$glyph_color": "$default_glyph_color",
+    "$toggle_image": "common_toggles.checkbox_button_unchecked_locked_state",
+    "$border_layer": 1,
+    "$border_color": "$default_border_color",
+    "$toggle_locked": true,
+    "layer": 1
+  },
+
+  "toggle_checkbox_checked_locked@common_toggles.check_box_button_ui_panel": {
+    "$new_ui_button_texture": "$checked_locked_texture",
+    "$content_alpha": "$locked_alpha",
+    "$text_color": "$default_text_color",
+    "$glyph_color": "$default_glyph_color",
+    "$toggle_image": "common_toggles.checkbox_button_checked_locked_state",
+    "$border_layer": 1,
+    "$border_color": "$default_border_color",
+    "$toggle_locked": true,
+    "layer": 1
+  },
+
+  //---------------------------------------------------------------------------
+  // Checkbox button templates
+  //---------------------------------------------------------------------------
+
+  "check_box_button_ui_panel@common_buttons.new_ui_button_panel": {
+    "controls": [
+      {
+        "toggle_image": {
+          "type": "panel",
+          "$button_content_size|default": [ "100%", "80%" ],
+          "size": "$button_content_size",
+          "$anchor": "left_middle",
+          "$text_alignment": "left",
+          "$button_text_size": [ "100%", "100%" ],
+          "controls": [
+            {
+              "$button_image@$button_image": {
+                "ignored": "(not $button_image_visible)",
+                "size": "$button_image_size",
+                "offset": "$image_offset",
+                "anchor_from": "$image_anchor",
+                "anchor_to": "$image_anchor",
+                "layer": 1
+              }
+            },
+            {
+              "button_content": {
+                "type": "panel",
+                "size": "$button_content_size",
+                "controls": [
+                  {
+                    "$button_type_panel@$button_type_panel": {
+                      "layer": 3
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "border@common_buttons.focus_border": {
+                "color": "$border_color",
+                "layer": "$border_layer",
+                "alpha": "$border_alpha",
+                "ignored": "(not $border_visible)"
+              }
+            },
+            {
+              "checkbox_image": {
+                "type": "panel",
+                "offset": [ -6, 0 ],
+                "layer": 10,
+                "controls": [
+                  { "image@$toggle_image": {} }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "button_and_checkbox_template@common_toggles.light_template_toggle": {
+    "$unchecked_control|default": "common_toggles.toggle_checkbox_unchecked",
+    "$checked_control|default": "common_toggles.toggle_checkbox_checked",
+    "$unchecked_hover_control|default": "common_toggles.toggle_checkbox_unchecked_hover",
+    "$checked_hover_control|default": "common_toggles.toggle_checkbox_checked_hover",
+    "$unchecked_locked_control|default": "common_toggles.toggle_checkbox_unchecked_locked",
+    "$unchecked_locked_hover_control|default": "common_toggles.toggle_checkbox_unchecked_locked",
+    "$checked_locked_control|default": "common_toggles.toggle_checkbox_checked_locked",
+    "$checked_locked_hover_control|default": "common_toggles.toggle_checkbox_checked_locked",
+
+    "$default_texture|default": "textures/ui/button_borderless_light",
+    "$hover_texture|default": "textures/ui/button_borderless_light",
+    "$pressed_texture|default": "textures/ui/button_borderless_light",
+    "$pressed_no_hover_texture|default": "textures/ui/button_borderless_light",
+    "$locked_texture|default": "textures/ui/disabledButtonNoBorder",
+    "$unchecked_locked_texture|default": "textures/ui/disabledButtonNoBorder",
+    "$checked_locked_texture|default": "textures/ui/disabledButtonNoBorder",
+
+    "$toggle_binding_type|default": "none"
+  },
+
+
+  "button_with_checkbox_toggle@common_toggles.light_text_toggle": {
+    "$template_toggle": "common_toggles.button_and_checkbox_template"
   }
+
 }

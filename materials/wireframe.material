@@ -1,0 +1,30 @@
+{
+  "materials": {
+    "version": "1.0.0",
+
+    "wireframe": {
+      "+defines": [ ],
+      "+states": [
+        "DisableAlphaWrite",
+        "DisableCulling"
+      ],
+
+      "vertexFields": [
+        { "field": "Position" },
+        { "field": "Color" }
+      ],
+
+      "vertexShader": "shaders/color.vertex",
+      "vrGeometryShader": "shaders/color.geometry",
+      "fragmentShader": "shaders/color.fragment",
+
+      "msaaSupport": "Both",
+
+      "depthFunc": "LessEqual",
+
+      "blendSrc": "SourceAlpha",
+      "blendDst": "OneMinusSrcAlpha"
+
+    }
+  }
+}

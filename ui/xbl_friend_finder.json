@@ -24,7 +24,7 @@
       }
     ]
   },
-  
+
   "text_edit_panel": {
     "type": "panel",
     "size": [ "100%", 20 ],
@@ -70,6 +70,82 @@
               "handle_select": false,
               "handle_deselect": true,
               "mapping_type": "global"
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "progress_loading": {
+    "type": "panel",
+    "size": [ "100%", "100%" ],
+
+    "$hide_failure_text|default": false,
+    "$use_sibling_scope|default": true,
+    "$hide_progress_loading_outline|default": false,
+    "$baseLayer|default": 2,
+
+    "controls": [
+      {
+        "progress_loading_outline@common_store.banner_fill": {
+          "visible": "(not $hide_progress_loading_outline)"
+        }
+      },
+      {
+        "stack_panel": {
+          "type": "stack_panel",
+          "orientation": "vertical",
+          "controls": [
+            {
+              "centerer_0": {
+                "type": "panel",
+                "size": [ "100%", "100%c" ],
+                "controls": [
+                  {
+                    "network_failure_text": {
+                      "type": "label",
+                      "layer": "($baseLayer + 1)",
+                      "color": "$body_text_color",
+                      "text_alignment": "center",
+                      "ignored": "$hide_failure_text",
+                      "size": [ "100%-4px", "default" ],
+                      "text": "network.thirdparty.findfriends.failed",
+                      "alpha": 0,
+                      "anims": [
+                        "@common_store.failure_text_wait_animation"
+                      ],
+                      "bindings": [
+                        {
+                          "binding_name": "#should_display_no_internet_warning",
+                          "binding_name_override": "#visible",
+                          "binding_condition": "always"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "centerer_1": {
+                "type": "panel",
+                "size": [ "100%", "100%c" ],
+                "controls": [
+                  {
+                    "progress_loading_bars@common_store.progress_loading_bars": {
+                      "layer": "($baseLayer + 1)",
+                      "bindings": [
+                        {
+                          "binding_name": "#search_in_progress",
+                          "binding_name_override": "#visible",
+                          "binding_condition": "always"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
             }
           ]
         }
@@ -123,16 +199,8 @@
               }
             },
             {
-              "searching_bars@common_store.progress_loading_bars": {
-                "offset": [ 0, 10 ],
-                "anchor_from": "center",
-                "anchor_to": "center",
-                "bindings": [
-                  {
-                    "binding_name": "#search_in_progress",
-                    "binding_name_override": "#visible"
-                  }
-                ]
+              "progress_loading@xbl_friend_finder.progress_loading": {
+                "layer": 100 // Make this on top
               }
             }
           ],
@@ -209,7 +277,7 @@
     "$text_name": "xbox.profile.addFriend",
     "variables": [
       {
-        "requires": "$nx_os",
+        "requires": "($nx_os or $is_berwick)",
         "$text_name": "networkWorld.find_cross_platform_friends"
       }
     ]

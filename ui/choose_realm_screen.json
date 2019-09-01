@@ -58,16 +58,33 @@
     "anchor_to": "top_left",
     "size": [ "100%-4px", "100%c" ],
     "offset": [ 2, 0 ],
-    "controls": [      
+    "controls": [
       {
         "realms_stack_panel": {
           "type": "stack_panel",
           "orientation": "vertical",
           "size": [ "100%", "100%c" ],
           "controls": [
-            
             {
               "realms_world_item_grid@choose_realm.realms_world_item_grid": {}
+            },
+            {
+              "padding_0": {
+                "type": "panel",
+                "size": [ "100%", 2 ]
+              }
+            },
+            {
+              "realms_plus_button@choose_realm.realms_plus_button": {}
+            },
+            {
+              "padding_1": {
+                "type": "panel",
+                "size": [ "100%", 2 ]
+              }
+            },
+            {
+              "create_realm_button@choose_realm.create_new_realm_button": {}
             }
           ]
         }
@@ -123,6 +140,33 @@
         "binding_collection_name": "realms_collection"
       }
     ]
+  },
+
+  "realms_plus_button@settings_common.action_button": {
+    "size": [ "100%", 30 ],
+    "$button_text_max_size": [ "100%", 20 ],
+    "$default_button_texture": "textures/ui/realmsContent",
+    "$hover_button_texture": "textures/ui/realmsContentHover",
+    "$pressed_button_texture": "textures/ui/realmsContentPressed",
+    "$button_text": "chooseRealmScreen.realmsplusbuttontext",
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "default_focus_precedence": 2,
+    "$pressed_button_name": "button.realms_plus",
+    "bindings": [
+      {
+        "binding_name": "#realms_plus_visible",
+        "binding_name_override": "#visible"
+      }
+    ]
+  },
+
+  "create_new_realm_button@common_buttons.light_text_button": {
+    "$pressed_button_name": "button.menu_create_realm",
+    "$button_text": "chooseRealmScreen.realmsbuttontext",
+    "size": [ "100%", 30 ],
+    "anchor_from": "center",
+    "anchor_to": "center"
   },
 
   "realms_world_content_panel": {

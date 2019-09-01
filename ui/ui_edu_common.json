@@ -17,6 +17,32 @@
     "layer": 1
   },
 
+  "readable_label": {
+    "$default_font_scale_factor|default": 1.0,
+    "$normalized_font_scale_factor|default": 1.0,
+    // Using normalized font size for rendering non-smooth font, particularly for unicode languages
+    "variables": [
+      {
+        "requires": "($use_normalized_font_size)",
+        "$font_scale_factor": "$normalized_font_scale_factor"
+      },
+      {
+        "requires": "(not $use_normalized_font_size)",
+        "$font_scale_factor": "$default_font_scale_factor"
+      }
+    ],
+    "font_scale_factor": "$font_scale_factor",
+    "type": "label",
+    "size": [ "100% - 8px", "100%" ],
+    "offset": [ 3, 0 ],
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "layer": 1,
+    "color": "$body_text_color",
+    "font_type": "smooth",
+    "text_alignment": "left"
+  },
+
   // Requires specifying "$toggle_state_binding_name", "$toggle_enabled_binding_name", "$toggle_name"
   "slider_toggle@settings_common.option_toggle_control": {
     "size": [ "100%c", "100%c" ],
@@ -58,5 +84,471 @@
       { "hover@edu_common.trash_hover": {} },
       { "pressed@edu_common.trash_pressed": {} }
     ]
+  },
+
+  // A modal downloading window originally used by library_item_screen, moved here so it could be used by other screens.
+  "download_progress_modal_panel@common.input_panel": {
+    "layer": 201,
+    "size": [ "100%", "100%" ],
+    "button_mappings": [
+      {
+        "from_button_id": "button.menu_cancel",
+        "to_button_id": "button.download_cancel",
+        "mapping_type": "global"
+      }
+    ],
+    "bindings": [
+      {
+        "binding_name": "#is_download_in_progress",
+        "binding_name_override": "#visible"
+      }
+    ],
+    "controls": [
+      {
+        "downloading@edu_common.modal_progress_panel_with_cancel": {
+          "layer": 1,
+          "$pressed_button_name": "button.download_cancel"
+        }
+      }
+    ]
+  },
+
+  "loading_progress_modal_panel@common.input_panel": {
+    "layer": 201,
+    "size": [ "100%", "100%" ],
+    "bindings": [
+      {
+        "binding_name": "#is_loading_in_progress",
+        "binding_name_override": "#visible"
+      }
+    ],
+    "controls": [
+      {
+        "loading@edu_common.modal_progress_panel_no_button": {
+          "layer": 1
+        }
+      }
+    ]
+  },
+
+  "modal_cancel_button@common_buttons.light_text_button": {
+    "$pressed_button_name": "button.download_cancel",
+    "$button_text": "gui.cancel"
+  },
+
+  "modal_progress_panel_with_cancel": {
+    "type": "panel",
+    "size": "$modal_screen_size",
+    "$background_fill_alpha|default": 0.8,
+    "$body_text|default": "",
+    "controls": [
+      {
+        "common_panel@common.common_panel": {
+          "$dialog_background": "dialog_background_hollow_2",
+          "$fill_alpha": "$background_fill_alpha",
+          "$show_close_button": false
+        }
+      },
+      {
+        "content": {
+          "type": "panel",
+          "anchor_from": "top_left",
+          "anchor_to": "top_left",
+          // magic offset to make the scroll clipping perfect
+          "size": [ "100%-12px", "100%-60px" ],
+          "offset": [ 6, 20 ],
+          "controls": [
+            { "title_panel@progress.title_panel": {} },
+            {
+              "label": {
+                "type": "label",
+                "color": "$dark_button_default_text_color",
+                "size": [ "100% - 20px", "100% - 20px" ],
+                "anchor_from": "bottom_middle",
+                "anchor_to": "bottom_middle",
+                "layer": 1,
+                "shadow": false,
+                "text": "$body_text"
+              }
+            },
+            { "progress_loading_bars@progress.progress_loading_bars": {} }
+          ]
+        }
+      },
+      {
+        "cancel_button@edu_common.modal_cancel_button": {
+          "anchor_from": "bottom_middle",
+          "anchor_to": "bottom_middle",
+          "size": [ "40%", "20%" ],
+          "offset": [ 0, -8 ]
+        }
+      }
+    ]
+  },
+
+  "modal_progress_panel_no_button": {
+    "type": "panel",
+    "size": [ 204, 100 ],
+    "$background_fill_alpha|default": 0.8,
+    "$body_text|default": "",
+    "controls": [
+      {
+        "common_panel@common.common_panel": {
+          "$dialog_background": "dialog_background_hollow_3",
+          "$fill_alpha": "$background_fill_alpha",
+          "$show_close_button": false
+        }
+      },
+      {
+        "content": {
+          "type": "panel",
+          "anchor_from": "top_left",
+          "anchor_to": "top_left",
+          "layer": 1,
+          // magic offset to make the scroll clipping perfect
+          "size": [ "100% - 12px", "100% - 12px" ],
+          "offset": [ 6, 6 ],
+          "controls": [
+            {
+              "progress_title_text@progress.progress_title_text": {
+                "color": "$title_text_color",
+                "anchor_from": "top_middle",
+                "anchor_to": "top_middle",
+                "offset": [ 0, 3 ],
+                "text": "menu.loadingLevel"
+              }
+            },
+            {
+              "progress_loading_bars@progress.progress_loading_bars": {
+                "offset": [ 0, 15 ]
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "apple_animation_definition": {
+    "anim_type": "flip_book",
+    "initial_uv": [ 0, 0 ],
+    "frame_count": 36,
+    "frame_step": 64,
+    "fps": 10,
+    "easing": "linear"
+  },
+
+  "apple_animation": {
+    "type": "image",
+    "texture": "textures/ui/eating_apple",
+    "uv": "@edu_common.apple_animation_definition",
+    "uv_size": [ 64, 64 ]
+  },
+
+  "book_animation_definition": {
+    "anim_type": "flip_book",
+    "initial_uv": [ 0, 0 ],
+    "frame_count": 36,
+    "frame_step": 64,
+    "fps": 12,
+    "easing": "linear"
+  },
+
+  "book_animation": {
+    "type": "image",
+    "texture": "textures/ui/book_animation",
+    "uv": "@edu_common.book_animation_definition",
+    "uv_size": [ 64, 64 ]
+  },
+
+  "edu_loading_animation@edu_common.book_animation": {
+  },
+
+  "horizontal_stack_item": {
+    "type": "panel",
+    "size": [ "100%c", "100%" ]
+  },
+
+  "vertical_stack_item": {
+    "type": "panel",
+    "size": [ "100%", "100%c" ]
+  },
+
+  "back_button_padded": {
+    "type": "stack_panel",
+    "orientation": "horizontal",
+    "size": [ "100%c", "100%" ],
+    "bindings": [
+      {
+        "binding_name": "(not #is_using_gamepad)",
+        "binding_name_override": "#visible"
+      }
+    ],
+    "controls": [
+      { "back_button_padding_before@common.empty_panel": { "size": [ 2, "100%sm" ] } },
+      {
+        "back_button@common.back_title_button": {
+          "$button_text": ""
+        }
+      }
+    ]
+  },
+
+  // Requires
+  // - $title_text
+  // - (if image): $title_has_image: true and $title_texture
+  "edu_screen_header@common.top_bar": {
+    "layer": 1,
+    "controls": [
+      {
+        "title_controls": {
+          "type": "stack_panel",
+          "orientation": "horizontal",
+          "size": [ "100%", "100% - 3px" ],
+          "anchor_from": "top_left",
+          "anchor_to": "top_left",
+          "$title_has_image|default": false,
+          "controls": [
+            {
+              "back_item@edu_common.horizontal_stack_item": {
+                "layer": 1,
+                "controls": [
+                  { "back_button@edu_common.back_button_padded": {} },
+                  {
+                    "gamepad@common.gamepad_helper_b": {
+                      "anchor_from": "left_middle",
+                      "anchor_to": "left_middle",
+                      "$hide_description": true
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "image_item@edu_common.horizontal_stack_item": {
+                "layer": 1,
+                "ignored": "(not $title_has_image)",
+                "controls": [
+                  {
+                    "image": {
+                      "size": [ "100%y", "100% - 4px" ],
+                      "type": "image",
+                      "texture": "$title_texture"
+                    }
+                  }
+                ]
+              }
+            },
+            { "title_text_padding@common.empty_panel": { "size": [ 3, "100%" ] } },
+            {
+              "title_item@edu_common.horizontal_stack_item": {
+                "layer": 1,
+                "controls": [
+                  {
+                    "title": {
+                      "type": "label",
+                      "color": "$title_text_color",
+                      "text": "$title_text",
+                      "anchor_from": "left_middle",
+                      "anchor_to": "left_middle"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  // Share text popup
+
+  //header
+  "share_dialog_title": {
+    "type": "label",
+    "color": "$title_text_color",
+    "$popup_title_text|default": "library.item.sharepopup.title",
+    "text": "$popup_title_text",
+    "layer": 2
+  },
+
+  "share_header_panel": {
+    "type": "panel",
+    "layer": 2,
+    "size": [ "100% - 14px", 19 ],
+    "offset": [ 7, 3 ],
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "controls": [
+      { "title@edu_common.share_dialog_title": {} },
+      {
+        "close_button@common.close_button": {
+          "$close_button_offset": [ 5, 0 ],
+          "anchor_from": "right_middle",
+          "anchor_to": "right_middle",
+          "$close_button_to_button_id": "button.close_share_popup"
+        }
+      }
+    ]
+  },
+
+  //body
+  "body_panel": {
+    "type": "panel",
+    "offset": [ 11, 23 ],
+    "size": [ "100% - 22px", "100%c + 8px"],
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "layer": 1,
+    "controls": [
+      { "body_stack@edu_common.body_content_stack": {} }
+    ]
+  },
+  
+  "body_content_stack": {
+    "type": "stack_panel",
+    "orientation": "vertical",
+    "layer": 5,
+    "size": [ "100%", "100%c" ],
+    "controls": [
+      { "body_text@edu_common.share_dialog_body_text": {} },
+      { "padding_middle@common.empty_panel": { "size": [ "100%sm", 4 ] } },
+      { "copy_link_panel@edu_common.copy_link_stack_panel": {} }
+    ]
+  },
+
+  "share_dialog_body_text": {
+    "type": "label",
+    "color": "$body_text_color",
+    "$popup_body_text|default": "library.item.sharepopup.body",
+    "text": "$popup_body_text",
+    "size": [ "100%", 10 ],
+    "layer": 1,
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "offset": [ 3, 2 ]
+  },
+
+  
+  "share_icon": {
+    "type": "image",
+    "layer": 2,
+    "size": "$share_icon_size",
+    "texture": "$share_icon_texture",
+    "offset": "$share_icon_offset"
+  },
+
+  "share_label": {
+    "type": "stack_panel",
+    "size": [ "100%", "100%" ],
+    "offset": [ 0, 1 ],
+    "orientation": "horizontal",
+    "controls": [
+      {
+        "share_image_offset_panel": {
+          "type": "panel",
+          "size": [ "100%c", "100%c" ],
+          "variables": [
+            {
+              "requires": "($apple_os and $supports_share)",
+              "$share_icon_texture": "textures/ui/share_apple",
+              "$share_icon_offset": [ 3.5, -1.5 ],
+              "$share_icon_size": [ 11, 15 ]
+            },
+            {
+              "requires": "(($microsoft_os or (not $apple_os and not $google_os)) and $supports_share)",
+              "$share_icon_texture": "textures/ui/share_microsoft",
+              "$share_icon_offset": [ 2.5, -0.5 ],
+              "$share_icon_size": [ 15, 13 ]
+            },
+            {
+              "requires": "($google_os and $supports_share)",
+              "$share_icon_texture": "textures/ui/share_google",
+              "$share_icon_offset": [ 2.0, -0.5 ],
+              "$share_icon_size": [ 14, 13 ]
+            },
+            {
+              "requires": "($supports_clipboard and not $supports_share)",
+              "$share_icon_texture": "textures/ui/copy",
+              "$share_icon_offset": [ 1.5, -0.5 ],
+              "$share_icon_size": [ 13, 14 ]
+            }
+          ],
+          "controls": [
+            {
+              "link_share@edu_common.share_icon": {
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "copy_link_stack_panel": {
+    "type": "stack_panel",
+    "orientation": "horizontal",
+    "size": [ "100%", 22 ],
+    "$placeholder_text": "#share_link",
+    "controls": [
+      {
+        "link_box@common.text_edit_box": {
+          "size": [ "fill", 22 ],
+          "enabled": false,
+          "$text_edit_box_enabled_binding_type": "none",
+          "$place_holder_text": "$library_item_share_link",
+          "$place_holder_text_color": "$body_text_color",
+          "$locked_text_alpha": 1.0
+        }
+      },
+      {
+        "copy_button@common_buttons.light_content_button": {
+          "$button_content": "edu_common.share_label",
+          "$pressed_button_name": "button.copy_share_link",
+          "size": [ 22, 22 ]
+        }
+      }
+    ]
+  },
+
+  //Popup dialog and factory
+  "edu_share_text_popup@popup_dialog.popup_dialog": {
+    "size": [ 300, 75 ],
+    "$background_control|default": "common.dialog_background_hollow_3",
+    "$header_control|default": "edu_common.share_header_panel",
+    "$body_content_control|default": "edu_common.body_panel",
+    "controls": [
+      {
+        "background@$background_control": {
+          "$fill_alpha": 1.0
+        }
+      },
+      {
+        "header@$header_control": {}
+      },
+      {
+        "body_content@$body_content_control": {}
+      }
+    ],
+    "button_mappings": [
+      {
+        "from_button_id": "button.menu_cancel",
+        "to_button_id": "button.close_share_popup",
+        "mapping_type": "global"
+      },
+      {
+        "from_button_id": "button.menu_exit",
+        "to_button_id": "button.close_share_popup",
+        "mapping_type": "global"
+      }
+    ]
+  },
+
+  "share_popup_dialog_factory": {
+    "type": "factory",
+    "control_ids": {
+      "share_link_popup": "@edu_common.edu_share_text_popup"
+    }
   }
 }

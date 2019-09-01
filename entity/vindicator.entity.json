@@ -1,5 +1,5 @@
 {
-  "format_version": "1.8.0",
+  "format_version": "1.10.0",
   "minecraft:client_entity": {
     "description": {
       "identifier": "minecraft:vindicator",
@@ -12,11 +12,12 @@
         "texture_index": 39
       },
       "scripts": {
-        "pre_animation": [
-          "variable.attack = Math.sin(1.0 - (1.0 - variable.attack_time) * (1.0 - variable.attack_time)) * 180.0;",
-          "variable.attack2 = Math.sin(variable.attack_time * 180.0);"
-        ],
-        "scale": "0.9375"
+        "scale": "0.9375",
+        "animate": [
+          "controller_look_at_target",
+          "controller_vindicator_base",
+          "controller_riding"
+        ]
       },
       "animations": {
         "look_at_target_default": "animation.humanoid.look_at_target.default",
@@ -26,13 +27,12 @@
         "riding.legs": "animation.vindicator.riding.legs",
         "vindicator_base": "animation.vindicator.base",
         "vindicator_attack": "animation.vindicator.attack",
-        "vindicator_walk": "animation.vindicator.walk"
+        "vindicator_walk": "animation.vindicator.walk",
+        "celebrating": "animation.humanoid.celebrating",
+        "controller_look_at_target": "controller.animation.humanoid.look_at_target",
+        "controller_vindicator_base": "controller.animation.vindicator.base",
+        "controller_riding": "controller.animation.humanoid.riding"
       },
-      "animation_controllers": [
-        { "look_at_target": "controller.animation.humanoid.look_at_target" },
-        { "vindicator_base": "controller.animation.vindicator.base" },
-        { "riding": "controller.animation.humanoid.riding" }
-      ],
       "render_controllers": [ "controller.render.vindicator" ],
       "enable_attachables": true
     }

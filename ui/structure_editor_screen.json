@@ -6,6 +6,15 @@
 {
   "namespace": "structure_editor",
 
+  "help_icon": {
+    "type": "image",
+    "texture": "textures/ui/how_to_play_button_default",
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "layer": 3,
+    "size": [ 32, 16 ]
+  },
+
   "common_text_label": {
     "type": "label",
     "color": "$main_header_text_color",
@@ -35,12 +44,13 @@
       },
       {
         "edit_box@structure_editor.text_edit_control": {
+          "$text_box_max_length|default": 3,
           "size": [ "100% - 30px", "100%" ],
           "$text_edit_box_label_min_size": [ 0, 0 ],
           "offset": [ -13, 0 ],
           "anchor_from": "right_middle",
           "anchor_to": "right_middle",
-          "max_length": 3
+          "max_length": "$text_box_max_length"
         }
       }
     ]
@@ -106,18 +116,14 @@
     ]
   },
 
-  "export_3D_button@common_buttons.light_text_button": {
+  "3d_export_button@common_buttons.light_text_button": {
     "$pressed_button_name": "button.structure_3D_export",
     "$button_text": "structure_block.export",
     "bindings": [
       {
-        "binding_name": "#export_enabled",
+        "binding_name": "#3d_export_enabled",
         "binding_name_override": "#enabled",
         "binding_condition": "visible"
-      },
-      {
-        "binding_name": "#export_visible",
-        "binding_name_override": "#visible"
       }
     ]
   },
@@ -130,10 +136,6 @@
         "binding_name": "#save_enabled",
         "binding_name_override": "#enabled",
         "binding_condition": "visible"
-      },
-      {
-        "binding_name": "#save_visible",
-        "binding_name_override": "#visible"
       }
     ]
   },
@@ -143,17 +145,9 @@
     "$button_text": "structure_block.export",
     "bindings": [
       {
-        "binding_name": "#save_enabled",
+        "binding_name": "#export_enabled",
         "binding_name_override": "#enabled",
         "binding_condition": "visible"
-      },
-      {
-        "binding_name": "#save_visible",
-        "binding_name_override": "#visible"
-      },
-      {
-        "binding_name": "(not #is_exporting)",
-        "binding_name_override": "#enabled"
       }
     ]
   },
@@ -166,10 +160,6 @@
         "binding_name": "#load_enabled",
         "binding_name_override": "#enabled",
         "binding_condition": "visible"
-      },
-      {
-        "binding_name": "#load_visible",
-        "binding_name_override": "#visible"
       }
     ]
   },
@@ -177,6 +167,11 @@
   "reset_button@common_buttons.light_text_button": {
     "$pressed_button_name": "button.structure_reset",
     "$button_text": "structure_block.reset"
+  },
+
+  "help_button@common_buttons.light_glyph_button": {
+    "$pressed_button_name": "button.help",
+    "$button_content": "structure_editor.help_icon"
   },
 
   "toggle_option_panel": {
@@ -277,6 +272,44 @@
     ]
   },
 
+
+  "show_bounding_box_panel": {
+    "type": "stack_panel",
+    "orientation": "vertical",
+    "size": [ "100%", "100%c" ],
+    "controls": [
+      {
+        "label@structure_editor.common_text_label": {
+          "size": [ "100%", 10 ],
+          "text": "structure_block.show_bounding_box"
+        }
+      },
+      {
+        "toggle_wrapper": {
+          "type": "panel",
+          "size": [ "100%", "100%c" ],
+          "controls": [
+            {
+              "toggle@structure_editor.toggle_option_panel": {
+                "anchor_from": "top_left",
+                "anchor_to": "top_left",
+                "offset": [ 10, 0 ],
+                "$enabled": true,
+                "$option_binding_name": "#show_bounding_box_binding_name",
+                "$option_enabled_binding_name": "#show_bounding_box_enabled",
+                "$toggle_name": "#show_bounding_box_toggle",
+                "$first_label_text": "structure_block.off",
+                "$second_label_text": "structure_block.show",
+                "$first_label_visible_binding_name": "#show_bounding_box_toggle_off",
+                "$second_label_visible_binding_name": "#show_bounding_box_toggle_on"
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+
   "include_player_panel": {
     "type": "stack_panel",
     "orientation": "vertical",
@@ -351,17 +384,20 @@
     ]
   },
 
-  "export_mode_panel": {
+  "3d_export_mode_panel": {
     "type": "stack_panel",
     "orientation": "vertical",
     "size": [ "100%", "100%c" ],
     "bindings": [
       {
-        "binding_name": "#export_mode_panel_visible",
+        "binding_name": "#3d_export_mode_panel_visible",
         "binding_name_override": "#visible"
       }
     ],
     "controls": [
+      {
+        "structure_name@structure_editor.structure_name_wrapper": {}
+      },
       {
         "size_offset_panel": {
           "type": "stack_panel",
@@ -385,7 +421,8 @@
                 "anchor_to": "top_left",
                 "$axis_selection_panel_label": "structure_block.offset",
                 "$grid_axis_collection_name": "export_offset_grid",
-                "$grid_axis_edit_box_name": "#export_offset_edit_box"
+                "$grid_axis_edit_box_name": "#export_offset_edit_box",
+                "$text_box_max_length": 5
               }
             }
           ]
@@ -398,18 +435,6 @@
         }
       },
       {
-        "include_entities@structure_editor.include_entities_panel": {}
-      },
-      {
-        "offset_1": {
-          "type": "panel",
-          "size": [ "100%", 2 ]
-        }
-      },
-      {
-        "include_player@structure_editor.include_player_panel": {}
-      },
-      {
         "offset_2": {
           "type": "panel",
           "size": [ "100%", 4 ]
@@ -417,49 +442,6 @@
       },
       {
         "remove_blocks@structure_editor.remove_blocks_panel": {}
-      },
-      {
-        "offset_3": {
-          "type": "panel",
-          "size": [ "100%", 4 ]
-        }
-      },
-      {
-        "export_disclaimer": {
-          "size": [ "100%", "default" ],
-          "type": "label",
-          "text": "3d_export.remixServiceDiscontinued",
-          "color": "$warning_text_color",
-          "bindings": [
-            {
-              "binding_name": "#disclaimer_text_visible",
-              "binding_name_override": "#visible"
-            }
-          ]
-
-        }
-      },
-      {
-        "export@structure_editor.export_3D_button": {
-          "size": [ "100%", 30 ]
-        }
-      },
-      {
-        "offset_4": {
-          "type": "panel",
-          "size": [ "100%", 4 ]
-        }
-      },
-      {
-        "reset@structure_editor.reset_button": {
-          "size": [ "100%", 30 ]
-        }
-      },
-      {
-        "offset_5": {
-          "type": "panel",
-          "size": [ "100%", 2 ]
-        }
       }
     ]
   },
@@ -475,6 +457,9 @@
       }
     ],
     "controls": [
+      {
+        "structure_name@structure_editor.structure_name_wrapper": {}
+      },
       {
         "size_offset_panel": {
           "type": "stack_panel",
@@ -498,14 +483,15 @@
                 "anchor_to": "top_left",
                 "$axis_selection_panel_label": "structure_block.offset",
                 "$grid_axis_collection_name": "save_offset_grid",
-                "$grid_axis_edit_box_name": "#save_offset_edit_box"
+                "$grid_axis_edit_box_name": "#save_offset_edit_box",
+                "$text_box_max_length": 5
               }
             }
           ]
         }
       },
       {
-        "offset_0": {
+        "include_entities_offset": {
           "type": "panel",
           "size": [ "100%", 4 ]
         }
@@ -514,16 +500,7 @@
         "include_entities@structure_editor.include_entities_panel": {}
       },
       {
-        "offset_1": {
-          "type": "panel",
-          "size": [ "100%", 2 ]
-        }
-      },
-      {
-        "include_player@structure_editor.include_player_panel": {}
-      },
-      {
-        "offset_2": {
+        "remove_blocks_offset": {
           "type": "panel",
           "size": [ "100%", 4 ]
         }
@@ -532,44 +509,77 @@
         "remove_blocks@structure_editor.remove_blocks_panel": {}
       },
       {
-        "offset_3": {
+        "redstone_save_offset": {
           "type": "panel",
           "size": [ "100%", 4 ]
         }
       },
       {
-        "save@structure_editor.save_button": {
-          "size": [ "100%", 30 ]
-        }
+        "redstone_save_mode@structure_editor.redstone_save_mode_panel": {}
       },
       {
-        "offset_4": {
-          "type": "panel",
-          "size": [ "100%", 4 ]
-        }
-      },
-      {
-        "export@structure_editor.export_button": {
-          "ignored": "(not $file_picking_supported)",
-          "size": [ "100%", 30 ]
-        }
-      },
-      {
-        "offset_export": {
-          "ignored": "(not $file_picking_supported)",
-          "type": "panel",
-          "size": [ "100%", 4 ]
-        }
-      },
-      {
-        "reset@structure_editor.reset_button": {
-          "size": [ "100%", 30 ]
-        }
-      },
-      {
-        "offset_5": {
+        "trailing_offset": {
           "type": "panel",
           "size": [ "100%", 2 ]
+        }
+      }
+    ]
+  },
+
+  "mirror_checkbox": {
+    "type": "stack_panel",
+    "size": [ "100%c", 10 ],
+    "orientation": "horizontal",
+
+    "controls": [
+      {
+        "label": {
+          "type": "label",
+          "text": "$checkbox_text",
+          "color": "$checkbox_text_color"
+        }
+      },
+      {
+        "padding": {
+          "type": "panel",
+          "size": [ 4, "100%" ]
+        }
+      },
+      {
+        "check_box@common.checkbox": {
+          "size": [ 10, 10 ]
+        }
+      }
+    ]
+  },
+
+  "mirror_checkboxes": {
+    "type": "stack_panel",
+    "size": [ "100%c", 10 ],
+    "orientation": "horizontal",
+    "controls": [
+      {
+        "mirror_checkbox_x@structure_editor.mirror_checkbox": {
+          "$checkbox_text_color": "$x_axis_text_color",
+          "$checkbox_text": "X:",
+          "$toggle_name": "mirror_x",
+          "$toggle_state_binding_name": "#mirror_x",
+          "$toggle_enabled_binding_name": "#mirror_x_enabled"
+        }
+      },
+      {
+        "padding": {
+          "type": "panel",
+          "size": [ 4, "100%" ]
+        }
+      },
+      {
+        "mirror_checkbox_z@structure_editor.mirror_checkbox": {
+          "$checkbox_text_color": "$z_axis_text_color",
+          "$checkbox_text": "Z:",
+          "$toggle_name": "mirror_z",
+          "$toggle_state_binding_name": "#mirror_z",
+          "$toggle_enabled_binding_name": "#mirror_z_enabled"
         }
       }
     ]
@@ -587,19 +597,41 @@
     ],
     "controls": [
       {
+        "structure_name@structure_editor.structure_name_wrapper": {}
+      },
+      {
         "offset_panel@structure_editor.grid_axis_selection_panel": {
           "size": [ "100%", "100%c" ],
           "anchor_from": "top_left",
           "anchor_to": "top_left",
           "$axis_selection_panel_label": "structure_block.offset",
           "$grid_axis_collection_name": "load_offset_grid",
-          "$grid_axis_edit_box_name": "#load_offset_edit_box"
+          "$grid_axis_edit_box_name": "#load_offset_edit_box",
+          "$text_box_max_length": 5
         }
       },
       {
-        "offset_0": {
+        "include_entities_offset": {
           "type": "panel",
-          "size": [ "100%", "100%c + 4px" ]
+          "size": [ "100%", 4 ]
+        }
+      },
+      {
+        "include_entities@structure_editor.include_entities_panel": {}
+      },
+      {
+        "remove_blocks_offset": {
+          "type": "panel",
+          "size": [ "100%", 4 ]
+        }
+      },
+      {
+        "remove_blocks@structure_editor.remove_blocks_panel": {}
+      },
+      {
+        "integrity_offset": {
+          "type": "panel",
+          "size": [ "100%", 4 ]
         }
       },
       {
@@ -668,59 +700,29 @@
         }
       },
       {
-        "offset_3": {
-          "type": "panel",
-          "size": [ "100%", "100%c + 4px" ]
+        "mirror_label": {
+          "type": "label",
+          "text": "structure_block.mirror",
+          "color": "$main_header_text_color"
         }
       },
       {
-        "mirror_slider@settings_common.option_slider": {
-          "ignored": "($is_holographic)",
-          "$option_label": "#mirror_slider_label",
-          "$slider_name": "mirror",
-          "$slider_value_binding_name": "#mirror",
-          "$option_enabled_binding_name": "#mirror_enabled",
-          "$slider_steps_binding_name": "#mirror_steps",
-          "$focus_override_up": "FOCUS_OVERRIDE_STOP",
-          "$slider_tts_text_value": "#mirror_text_value",
-          "$label_bindings": [
+        "mirror_checkboxes_centerer": {
+          "type": "panel",
+          "size": [ "100%", "100%c" ],
+          "controls": [
             {
-              "binding_name": "#mirror_slider_label"
+              "mirror_checkboxes@structure_editor.mirror_checkboxes": {
+                "anchor_to": "left_middle",
+                "anchor_from": "left_middle",
+                "offset": [ 8, 0 ]
+              }
             }
           ]
         }
       },
       {
-        "load@structure_editor.load_button": {
-          "size": [ "100%", 30 ]
-        }
-      },
-      {
-        "offset_4": {
-          "type": "panel",
-          "size": [ "100%", 4 ]
-        }
-      },
-      {
-        "export@structure_editor.export_button": {
-          "ignored": "(not $file_picking_supported)",
-          "size": [ "100%", 30 ]
-        }
-      },
-      {
-        "offset_export": {
-          "ignored": "(not $file_picking_supported)",
-          "type": "panel",
-          "size": [ "100%", 4 ]
-        }
-      },
-      {
-        "reset@structure_editor.reset_button": {
-          "size": [ "100%", 30 ]
-        }
-      },
-      {
-        "offset_5": {
+        "checkbox_offset": {
           "type": "panel",
           "size": [ "100%", 2 ]
         }
@@ -740,9 +742,24 @@
     ],
     "controls": [
       {
-        "offset_0": {
+        "top_offset": {
           "type": "panel",
           "size": [ "100%", 4 ]
+        }
+      },
+      {
+        "data_label@structure_editor.common_text_label": {
+          "size": [ "100% - 4px", 10 ],
+          "offset": [ 5, 0 ],
+          "anchor_from": "left_middle",
+          "anchor_to": "left_middle",
+          "text": "structure_block.data_label"
+        }
+      },
+      {
+        "data_label_offset": {
+          "type": "panel",
+          "size": [ "100%", 2 ]
         }
       },
       {
@@ -755,7 +772,7 @@
         }
       },
       {
-        "offset_2": {
+        "data_field_offset": {
           "type": "panel",
           "size": [ "100%", 2 ]
         }
@@ -763,80 +780,461 @@
     ]
   },
 
-  "icon_dropdown_toggle_button_state_content": {
+  "help_button_panel": {
     "type": "stack_panel",
-    // new_button_state has a layer of 2
-    "layer": 3,
     "orientation": "horizontal",
-    "size": [ "100% - 14px", "100% - 8px" ],
+    "size": [ 34, 30 ],
+    "anchor_from": "right_middle",
+    "anchor_to": "right_middle",
     "controls": [
       {
-        "icon_panel": {
+        "help@structure_editor.help_button": {
+          "size": [ 30, 30 ]
+        }
+      },
+      {
+        "help_divider": {
           "type": "panel",
-          "layer": 1,
-          "size": [ "100%c", "100%" ],
+          "size": [ "4px", "100%" ]
+        }
+      }
+    ]
+  },
+
+  "save_button_panel": {
+    "type": "stack_panel",
+    "orientation": "horizontal",
+    "size": [ "100% - 34px", 30 ],
+    "anchor_from": "left_middle",
+    "anchor_to": "left_middle",
+    "controls": [
+      {
+        "divider": {
+          "type": "panel",
+          "size": [ "4px", "100%" ]
+        }
+      },
+      {
+        "save@structure_editor.save_button": {
+          "size": [ "33% - 3px", "100%" ]
+        }
+      },
+      {
+        "save_divider": {
+          "type": "panel",
+          "size": [ "2px", "100%" ]
+        }
+      },
+      {
+        "export@structure_editor.export_button": {
+          "size": [ "34% - 4px", "100%" ]
+        }
+      },
+      {
+        "export_divider": {
+          "type": "panel",
+          "size": [ "2px", "100%" ]
+        }
+      },
+      {
+        "reset@structure_editor.reset_button": {
+          "size": [ "33% - 3px", "100%" ]
+        }
+      },
+      {
+        "reset_divider": {
+          "type": "panel",
+          "size": [ "2px", "100%" ]
+        }
+      }
+    ],
+    "bindings": [
+      {
+        "binding_name": "#save_visible",
+        "binding_name_override": "#visible"
+      }
+    ]
+  },
+
+  "save_button_panel_no_export": {
+    "type": "stack_panel",
+    "orientation": "horizontal",
+    "size": [ "100% - 34px", 30 ],
+    "anchor_from": "left_middle",
+    "anchor_to": "left_middle",
+    "controls": [
+      {
+        "divider": {
+          "type": "panel",
+          "size": [ "4px", "100%" ]
+        }
+      },
+      {
+        "save@structure_editor.save_button": {
+          "size": [ "50% - 4px", "100%" ]
+        }
+      },
+      {
+        "save_divider": {
+          "type": "panel",
+          "size": [ 2, "100%" ]
+        }
+      },
+      {
+        "reset@structure_editor.reset_button": {
+          "size": [ "50% - 4px", "100%" ]
+        }
+      },
+      {
+        "reset_divider": {
+          "type": "panel",
+          "size": [ "2px", "100%" ]
+        }
+      }
+    ],
+    "bindings": [
+      {
+        "binding_name": "#save_visible",
+        "binding_name_override": "#visible"
+      }
+    ]
+  },
+
+  "load_button_panel": {
+    "type": "stack_panel",
+    "orientation": "horizontal",
+    "size": [ "100% - 34px", 30 ],
+    "anchor_from": "left_middle",
+    "anchor_to": "left_middle",
+    "controls": [
+      {
+        "divider": {
+          "type": "panel",
+          "size": [ "4px", "100%" ]
+        }
+      },
+      {
+        "load@structure_editor.load_button": {
+          "size": [ "33% - 3px", "100%" ]
+        }
+      },
+      {
+        "load_divider": {
+          "type": "panel",
+          "size": [ "2px", "100%" ]
+        }
+      },
+      {
+        "export@structure_editor.export_button": {
+          "size": [ "34% - 4px", "100%" ]
+        }
+      },
+      {
+        "export_divider": {
+          "type": "panel",
+          "size": [ "2px", "100%" ]
+        }
+      },
+      {
+        "reset@structure_editor.reset_button": {
+          "size": [ "33% - 3px", "100%" ]
+        }
+      },
+      {
+        "reset_divider": {
+          "type": "panel",
+          "size": [ "2px", "100%" ]
+        }
+      }
+    ],
+    "bindings": [
+      {
+        "binding_name": "#load_visible",
+        "binding_name_override": "#visible"
+      }
+    ]
+  },
+
+  "load_button_panel_no_export": {
+    "type": "stack_panel",
+    "orientation": "horizontal",
+    "size": [ "100% - 34px", 30 ],
+    "anchor_from": "left_middle",
+    "anchor_to": "left_middle",
+    "controls": [
+      {
+        "divider": {
+          "type": "panel",
+          "size": [ "4px", "100%" ]
+        }
+      },
+      {
+        "load@structure_editor.load_button": {
+          "size": [ "50% - 4px", "100%" ]
+        }
+      },
+      {
+        "load_divider": {
+          "type": "panel",
+          "size": [ "2px", "100%" ]
+        }
+      },
+      {
+        "reset@structure_editor.reset_button": {
+          "size": [ "50% - 4px", "100%" ]
+        }
+      },
+      {
+        "reset_divider": {
+          "type": "panel",
+          "size": [ "2px", "100%" ]
+        }
+      }
+    ],
+    "bindings": [
+      {
+        "binding_name": "#load_visible",
+        "binding_name_override": "#visible"
+      }
+    ]
+  },
+
+  "3d_export_button_panel": {
+    "type": "stack_panel",
+    "orientation": "horizontal",
+    "size": [ "100% - 34px", 30 ],
+    "anchor_from": "left_middle",
+    "anchor_to": "left_middle",
+    "controls": [
+      {
+        "divider": {
+          "type": "panel",
+          "size": [ "4px", "100%" ]
+        }
+      },
+      {
+        "3d_export@structure_editor.3d_export_button": {
+          "size": [ "50% - 4px", "100%" ]
+        }
+      },
+      {
+        "3d_export_divider": {
+          "type": "panel",
+          "size": [ "2px", "100%" ]
+        }
+      },
+      {
+        "reset@structure_editor.reset_button": {
+          "size": [ "50% - 4px", "100%" ]
+        }
+      },
+      {
+        "reset_divider": {
+          "type": "panel",
+          "size": [ "2px", "100%" ]
+        }
+      }
+    ],
+    "bindings": [
+      {
+        "binding_name": "#3d_export_visible",
+        "binding_name_override": "#visible"
+      }
+    ]
+  },
+
+
+  "data_button_panel": {
+    "type": "stack_panel",
+    "orientation": "horizontal",
+    "size": [ "100% - 34px", 30 ],
+    "anchor_from": "left_middle",
+    "anchor_to": "left_middle",
+    "controls": [
+      {
+        "divider": {
+          "type": "panel",
+          "size": [ "4px", " 100%" ]
+        }
+      },
+      {
+        "reset@structure_editor.reset_button": {
+          "size": [ "100% - 6px", "100%" ]
+        }
+      },
+      {
+        "reset_divider": {
+          "type": "panel",
+          "size": [ "2px", "100%" ]
+        }
+      }
+    ],
+    "bindings": [
+      {
+        "binding_name": "#data_mode_panel_visible",
+        "binding_name_override": "#visible"
+      }
+    ]
+  },
+
+  "corner_button_panel": {
+    "type": "stack_panel",
+    "orientation": "horizontal",
+    "size": [ "100% - 34px", 30 ],
+    "anchor_from": "left_middle",
+    "anchor_to": "left_middle",
+    "controls": [
+      {
+        "divider": {
+          "type": "panel",
+          "size": [ "4px", "100%" ]
+        }
+      },
+      {
+        "reset@structure_editor.reset_button": {
+          "size": [ "100% - 2px", "100%" ]
+        }
+      },
+      {
+        "reset_divider": {
+          "type": "panel",
+          "size": [ "2px", "100%" ]
+        }
+      }
+    ],
+    "bindings": [
+      {
+        "binding_name": "#data_mode_panel_visible",
+        "binding_name_override": "#visible"
+      }
+    ]
+  },
+
+  "button_panel_wrapper": {
+    "type": "image",
+    "texture": "textures/ui/recipe_back_panel",
+    "layer": 2,
+    "offset": [ 0, 2 ],
+    "controls": [
+      {
+        "panel": {
+          "type": "panel",
+          "size": [ "100% - 6px", "100% - 6px" ],
+          "anchor_from": "center",
+          "anchor_to": "center",
           "controls": [
             {
-              "dropdown_contents_icon": {
-                "type": "image",
-                "layer": 2,
-                "texture": "#texture",
-                "size": [ 16, 16 ],
-                "bindings": [
-                  {
-                    "binding_name": "#block_type_icon_texture",
-                    "binding_name_override": "#texture",
-                    "binding_type": "global"
-                  }
-                ]
+              "divider": {
+                "type": "panel",
+                "size": [ "4px", "100%" ],
+                "anchor_from": "top_left",
+                "anchor_to": "top_left"
+              }
+            },
+            {
+              "save_panel@structure_editor.save_button_panel": {
+                "layer": 3,
+                "ignored": "(not $file_picking_supported)"
+              }
+            },
+            {
+              "save_panel_no_export@structure_editor.save_button_panel_no_export": {
+                "layer": 3,
+                "ignored": "($file_picking_supported)"
+              }
+            },
+            {
+              "load_panel_no_export@structure_editor.load_button_panel_no_export": {
+                "layer": 3,
+                "ignored": "($file_picking_supported)"
+              }
+            },
+            {
+              "load_panel@structure_editor.load_button_panel": {
+                "layer": 3,
+                "ignored": "(not $file_picking_supported)"
+              }
+            },
+            {
+              "3d_export_panel@structure_editor.3d_export_button_panel": {
+                "ignored": "(not $3DExport_support)",
+                "layer": 3
+              }
+            },
+            {
+              "data_panel@structure_editor.data_button_panel": {
+                "layer": 3,
+                "ignored": "(not $data_support)"
+              }
+            },
+            {
+              "how_to_play_button@structure_editor.help_button_panel": {
+                "layer": 3
+              }
+            },
+            {
+              "end_divider": {
+                "type": "panel",
+                "size": [ "4px", "100%" ],
+                "anchor_from": "top_right",
+                "anchor_to": "top_right"
               }
             }
           ]
         }
-      },
+      }
+    ]
+  },
+
+  "redstone_dropdown_content@settings_common.option_radio_dropdown_group": {
+    "$show_option_label": false,
+    "$radio_buttons": [
       {
-        "spacer": {
-          "type": "panel",
-          "layer": 1,
-          "size": [ 4, "100%" ]
+        "structure_redstone_memory@settings_common.radio_with_label": {
+          "$toggle_state_binding_name": "#structure_redstone_memory",
+          "$radio_label_text": "structure_block.save_to_memory"
         }
       },
       {
-        "label_panel": {
-          "type": "panel",
-          "layer": 1,
-          "size": [ "fill", "100%" ],
-          "controls": [
-            {
-              "label@common.new_button_label": {
-                "layer": 1,
-                "anchor_from": "left_middle",
-                "anchor_to": "left_middle",
-                "size": [ "100%", "default" ],
-                "max_size": [ "100%", "100%" ],
-                "text": "$options_dropdown_toggle_label_binding",
-                "alpha": "$alpha",
-                "bindings": [
-                  {
-                    "binding_name": "$options_dropdown_toggle_label_binding",
-                    "binding_condition": "none"
-                  }
-                ]
-              }
-            }
-          ]
+        "structure_redstone_disk@settings_common.radio_with_label": {
+          "$toggle_state_binding_name": "#structure_redstone_disk",
+          "$radio_label_text": "structure_block.save_to_disk"
+        }
+      }
+    ]
+  },
+
+  "redstone_save_mode_panel@settings_common.option_dropdown": {
+    "$option_label": "structure_block.redstone_save_mode",
+    "$dropdown_content": "structure_editor.redstone_dropdown_content",
+    "$dropdown_area": "scrolling_panel",
+    "$dropdown_name": "redstone_dropdown",
+    "$option_enabled_binding_name": "#redstone_dropdown_enabled",
+    "$options_dropdown_toggle_label_binding": "#redstone_dropdown_toggle_label",
+    "$dropdown_scroll_content_size": [ "100%", "140%" ]
+  },
+
+  "structure_name_wrapper": {
+    "type": "panel",
+    "size": [ "100%", "100%c + 4px" ],
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "controls": [
+      {
+        "structure_name@structure_editor.text_edit_control": {
+          "size": [ "100% - 4px", 20 ],
+          "max_length": 30,
+          "$text_box_name": "#structure_name",
+          "$text_edit_box_content_binding_name": "#structure_name_content_binding_name",
+          "$place_holder_text": "structure_block.structure_name",
+          "$text_color_binding_name": "#name_box_color",
+          "$text_color_binding_type": "global"
         }
       },
       {
-        "arrow_panel": {
+        "structure_name_offset": {
           "type": "panel",
-          "layer": 1,
-          "size": [ "100%c", "100%" ],
-          "controls": [
-            {
-              "arrow@settings_common.arrow_image": {}
-            }
-          ]
+          "size": [ "100%", 2 ]
         }
       }
     ]
@@ -846,38 +1244,49 @@
     "$show_option_label": false,
     "$radio_buttons": [
       {
-        "structure_export_mode@settings_common.radio_with_label": {
-          "ignored": "(not $3DExport_support)",
-          "$toggle_state_binding_name": "#structure_export_mode",
-          "$radio_label_text": "structure_block.mode.export"
-        }
-      },
-      {
-        "structure_export_mode@settings_common.radio_with_label": {
-          "ignored": "(not $save_support)",
+        "structure_save_mode@settings_common.radio_with_label": {
           "$toggle_state_binding_name": "#structure_save_mode",
-          "$radio_label_text": "structure_block.mode.save"
+          "$radio_label_text|default": "structure_block.mode.save",
+          "variables": [
+            {
+              "requires": "(not $save_support)",
+              "$radio_label_text": "structure_block.mode.save.experimental"
+
+            }
+          ]
         }
       },
       {
-        "structure_export_mode@settings_common.radio_with_label": {
-          "ignored":  "(not $load_support)",
+        "structure_load_mode@settings_common.radio_with_label": {
           "$toggle_state_binding_name": "#structure_load_mode",
-          "$radio_label_text": "structure_block.mode.load"
+          "$radio_label_text|default": "structure_block.mode.load",
+          "variables": [
+            {
+              "requires": "(not $load_support)",
+              "$radio_label_text": "structure_block.mode.load.experimental"
+
+            }
+          ]
         }
       },
       {
         "structure_data_mode@settings_common.radio_with_label": {
-          "ignored":  "(not $data_support)",
+          "ignored": "(not $data_support)",
           "$toggle_state_binding_name": "#structure_data_mode",
           "$radio_label_text": "structure_block.mode.data"
+        }
+      },
+      {
+        "structure_3d_export_mode@settings_common.radio_with_label": {
+          "ignored": "(not $3DExport_support)",
+          "$toggle_state_binding_name": "#structure_3d_export_mode",
+          "$radio_label_text": "structure_block.mode.export"
         }
       }
     ]
   },
 
   "mode_panel@settings_common.option_dropdown": {
-    "$button_content": "structure_editor.icon_dropdown_toggle_button_state_content",
     "$option_label": "structure_block.mode",
     "$dropdown_content": "structure_editor.mode_dropdown_content",
     "$dropdown_area": "scrolling_panel",
@@ -887,31 +1296,54 @@
     "$dropdown_scroll_content_size": [ "100%", "200%" ]
   },
 
+  "experimental_warning_label": {
+    "type": "label",
+    "text": "structure_block.experimental",
+    "color": "$body_text_color",
+    "size": [ "100%", "default" ],
+    "bindings": [
+      {
+        "binding_name": "$warning_label_visible_binding",
+        "binding_name_override": "#visible"
+      }
+    ]
+  },
+
+  "scrolling_panel_wrapper@common.dialog_background_hollow_4": {
+    "layer": 2,
+    "offset": [ 0, 2 ],
+    "controls": [
+      {
+        "scrolling_panel@structure_editor.scrolling_panel": {
+          "size": [ "100% - 16px", "100% - 16px" ]
+        }
+      }
+    ]
+  },
+
   "scrolling_panel@common.scrolling_panel": {
     "layer": 1,
     "$scrolling_pane_size": [ "100%", "100%" ],
     "$scrolling_content": "structure_editor.scroll_panel_content",
     "$scroll_size": [ 5, "100% - 4px" ],
-    "$show_background": false,
-    "anchor_from": "top_right",
-    "anchor_to": "top_right"
+    "$show_background": false
   },
 
   "scroll_panel_content": {
     "type": "panel",
     "anchor_from": "top_left",
     "anchor_to": "top_left",
-    "size": [ "100%-4px", "100%c" ],
+    "size": [ "100% - 4px", "100%c" ],
     "offset": [ 2, 0 ],
     "controls": [
       {
         "content_stack_panel": {
           "type": "stack_panel",
           "orientation": "vertical",
-          "size": [ "100%", "100%c" ],
+          "size": [ "100% - 4px", "100%c" ],
           "controls": [
             {
-              "offset_0": {
+              "base_offset": {
                 "type": "panel",
                 "size": [ "100%", 2 ]
               }
@@ -920,13 +1352,13 @@
               "mode_panel@structure_editor.mode_panel": {}
             },
             {
-              "offset_1": {
+              "mode_panel_offset": {
                 "type": "panel",
                 "size": [ "100%", 2 ]
               }
             },
             {
-              "export_mode_panel@structure_editor.export_mode_panel": {
+              "3d_export_mode_panel@structure_editor.3d_export_mode_panel": {
                 "ignored": "(not $3DExport_support)"
               }
             },
@@ -936,13 +1368,46 @@
               }
             },
             {
+              "save_mode_experimental_warning_label@structure_editor.experimental_warning_label": {
+                "ignored": "$save_support",
+                "$warning_label_visible_binding": "#save_mode_panel_visible"
+              }
+            },
+            {
               "load_mode_panel@structure_editor.load_mode_panel": {
                 "ignored": "(not $load_support)"
               }
             },
             {
+              "load_mode_experimental_warning_label@structure_editor.experimental_warning_label": {
+                "ignored": "$load_support",
+                "$warning_label_visible_binding": "#load_mode_panel_visible"
+              }
+            },
+            {
               "data_mode_panel@structure_editor.data_mode_panel": {
                 "ignored": "(not $data_support)"
+              }
+            },
+            {
+              "base_mode_offset": {
+                "type": "panel",
+                "size": [ "100%", 2 ]
+              }
+            },
+            {
+              "show_bounding_box@structure_editor.show_bounding_box_panel": {}
+            },
+            {
+              "show_bounding_box_offset": {
+                "type": "panel",
+                "size": [ "100%", 2 ]
+              }
+            },
+            {
+              "data_mode_experimental_warning_label@structure_editor.experimental_warning_label": {
+                "ignored": "$data_support",
+                "$warning_label_visible_binding": "#data_mode_panel_visible"
               }
             },
             {
@@ -961,7 +1426,81 @@
     "type": "panel",
     "controls": [
       {
-        "scrolling_panel@structure_editor.scrolling_panel": {}
+        "scrolling_panel@structure_editor.scrolling_panel_wrapper": {}
+      }
+    ]
+  },
+
+  "anim_save_message_text_alpha": {
+    "anim_type": "alpha",
+    "easing": "in_expo",
+    "destroy_at_end": "save_message_label",
+    "duration": 2,
+    "from": 1.0,
+    "to": 0
+  },
+
+  "save_message_text": {
+    "type": "panel",
+    "offset": [ 0, 30 ],
+    "size": [ "100%c", "100%c" ],
+    "anchor_from": "top_middle",
+    "anchor_to": "top_middle",
+    "controls": [
+      {
+        "save_message_label": {
+          "type": "label",
+          "size": [ 100, 10 ],
+          "anchor_from": "bottom_middle",
+          "anchor_to": "bottom_middle",
+          "text_alignment": "center",
+          "layer": 7,
+          "color": "$tool_tip_text",
+          "text": "structure_block.save.successful",
+          "shadow": true,
+          "alpha": "@structure_editor.anim_save_message_text_alpha"
+        }
+      }
+    ]
+  },
+
+  "export_disabled_label": {
+    "type": "label",
+    "anchor_from": "bottom_middle",
+    "anchor_to": "bottom_middle",
+    "text_alignment": "left",
+    "layer": 7,
+    "color": "$tool_tip_text",
+    "text": "structure_block.export.disabled_message",
+    "shadow": true,
+    "bindings": [
+      {
+        "binding_name": "#export_disabled_visible",
+        "binding_name_override": "#visible"
+      }
+    ]
+  },
+
+  "image_panel_wrapper@common.dialog_background_hollow_4": {
+    "layer": 2,
+    "controls": [
+      {
+        "image_panel@structure_editor.image_panel": {
+          "size": [ "100% - 16px", "100% - 16px" ]
+        }
+      },
+      {
+        "save_message_factory": {
+          "type": "factory",
+          "control_name": "@structure_editor.save_message_text"
+        }
+      },
+      {
+        "export_disabled@structure_editor.export_disabled_label": {
+          "size": [ "100% - 20px", 30 ],
+          "offset": [ 10, -10 ]
+
+        }
       }
     ]
   },
@@ -970,19 +1509,26 @@
     "type": "panel",
     "controls": [
       {
-        "black_border@structure_editor.black_border": {
-          "layer": 1
-        }
-      },
-      {
         "border_indent": {
           "type": "panel",
-          "size": [ "100%-2px", "100%-2px" ],
+          "size": [ "100%", "100%" ],
           "layer": 2,
           "controls": [
             {
               "background_gradient@structure_editor.background_gradient": {
                 "layer": 1
+              }
+            },
+            {
+              "image_outline@common_buttons.focus_border": {
+                "size": [ "100% - 2px", "100% - 2px" ],
+                "layer": 4,
+                "bindings": [
+                  {
+                    "binding_name": "#has_focus",
+                    "binding_name_override": "#visible"
+                  }
+                ]
               }
             },
             {
@@ -1070,9 +1616,12 @@
     "ignored": "$is_holographic"
   },
 
+
   "structure_renderer": {
     "type": "input_panel",
+    "focus_enabled": true,
     "gesture_tracking_button": "button.turn_structure",
+    "always_handle_controller_direction": true,
     "button_mappings": [
       {
         "from_button_id": "button.menu_select",
@@ -1093,6 +1642,8 @@
           "type": "custom",
           "renderer": "3d_structure_renderer",
           "property_bag": {
+            "#has_focus": false,
+            "#block_position": [ 0, 0, 0 ],
             "#bottom_left_block": [ 0, 0, 0 ],
             "#top_right_block": [ 1, 1, 1 ],
             "#include_entities": false,
@@ -1100,6 +1651,14 @@
             "#include_players": false
           },
           "bindings": [
+            {
+              "binding_name": "#has_focus",
+              "binding_condition": "visible"
+            },
+            {
+              "binding_name": "#block_position",
+              "binding_condition": "visible"
+            },
             {
               "binding_name": "#bottom_left_block",
               "binding_condition": "visible"
@@ -1119,6 +1678,12 @@
             {
               "binding_name": "#include_players",
               "binding_condition": "visible"
+            },
+            {
+              "binding_type": "view",
+              "source_control_name": "structure_renderer",
+              "source_property_name": "#gesture_delta_source",
+              "target_property_name": "#gesture_delta_source"
             },
             {
               "binding_type": "view",
@@ -1154,41 +1719,32 @@
     "orientation": "vertical",
     "controls": [
       {
-        "structure_name_wrapper": {
-          "type": "panel",
-          "size": [ "100%", "100%c + 4px" ],
-          "anchor_from": "top_left",
-          "anchor_to": "top_left",
-          "controls": [
-            {
-              "structure_name@structure_editor.text_edit_control": {
-                "size": [ "100% - 4px", 20 ],
-                "max_length": 30,
-                "$text_box_name": "#structure_name",
-                "$text_edit_box_content_binding_name": "#structure_name_content_binding_name",
-                "$place_holder_text": "structure_block.structure_name"
-              }
-            }
-          ]
-        }
-      },
-      {
-        "offset": {
+        "base_offset": {
           "type": "panel",
           "size": [ "100%", 2 ]
         }
       },
       {
-        "image_wrapper": {
+        "preview@structure_editor.image_panel_wrapper": {
+          "size": [ "100% - 6px", "100% - 50px" ]
+        }
+      },
+      {
+        "image_offset": {
           "type": "panel",
-          "size": [ "100%", "fill" ],
+          "size": [ "100%", 1 ]
+        }
+      },
+      {
+        "button_wrapper": {
+          "type": "panel",
+          "size": [ "100% - 6px", "46px" ],
           "controls": [
             {
-              "image@structure_editor.image_panel": {
-                "size": [ "100% - 4px", "100% - 4px" ]
-              }
+              "buttons@structure_editor.button_panel_wrapper": {}
             }
           ]
+
         }
       }
     ]
@@ -1197,11 +1753,9 @@
   "divider_content": {
     "type": "panel",
     "controls": [
-      // "$divider_offset": [ "40%", "22px" ]
-      // divider size "size": [ "5px", "100% - 29px" ]
       {
         "left_side@structure_editor.left_divider_content": {
-          "size": [ "40% - 8px", "100% - 31px" ],
+          "size": [ "160px", "100% - 31px" ],
           "offset": [ 8, 23 ],
           "anchor_from": "top_left",
           "anchor_to": "top_left"
@@ -1210,8 +1764,8 @@
       },
       {
         "right_side@structure_editor.right_divider_content": {
-          "size": [ "60% - 13px", "100% - 31px" ],
-          "offset": [ "40% + 5px", 23 ],
+          "size": [ "100% - 170px", "100% - 31px" ],
+          "offset": [ "170px", 23 ],
           "anchor_from": "top_left",
           "anchor_to": "top_left"
 
@@ -1222,21 +1776,18 @@
 
   "structure_editor_content": {
     "type": "panel",
-    "size": "$extra_large_screen_size",
-    "visible": "($3DExport_support or $save_support or $load_support)",
     "controls": [
       {
-        "background_divider@common.common_panel": {
+        "background_panel@common.fullscreen_header": {
           "$dialog_background": "common.dialog_background_hollow_3",
-          "$show_divider": true,
-          "$divider_offset": [ "40%", "22px" ]
+          "layer": 3
         }
       },
       {
         "title@structure_editor.common_text_label": {
-          "anchor_from": "top_middle",
-          "anchor_to": "top_middle",
-          "offset": [ 0, 8 ],
+          "anchor_from": "top_left",
+          "anchor_to": "top_left",
+          "offset": [ 40, 6 ],
           "layer": 4,
           "text": "structure_block.title",
           "color": "$title_text_color"
@@ -1277,6 +1828,8 @@
         "scope": "view"
       }
     ],
-    "$screen_content": "structure_editor.structure_editor_content"
+    "$screen_content": "structure_editor.structure_editor_content",
+    "$screen_bg_content": "common.screen_background",
+    "$screen_background_alpha": 0.95
   }
 }

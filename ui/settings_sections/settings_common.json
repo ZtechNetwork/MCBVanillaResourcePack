@@ -381,25 +381,29 @@
   },
 
   "radio_visuals_checked@radio_visuals": {
-    "$radio_texture": "textures/ui/radio_on"
+    "$radio_texture": "textures/ui/radio_on",
+    "$selected": true
   },
 
   "radio_visuals_unchecked_locked@radio_visuals": {
     "$radio_texture": "textures/ui/radio_off",
-    "$alpha": 0.5
+    "$alpha": 0.5    
   },
 
   "radio_visuals_checked_locked@radio_visuals": {
     "$radio_texture": "textures/ui/radio_on",
-    "$alpha": 0.5
+    "$alpha": 0.5,
+    "$selected": true
   },
 
   "radio_visuals_unchecked_hover@radio_visuals": {
-    "$radio_texture": "textures/ui/radio_off_hover"
+    "$radio_texture": "textures/ui/radio_off_hover",
+    "$hovered": true
   },
 
   "radio_visuals_checked_hover@radio_visuals": {
-    "$radio_texture": "textures/ui/radio_on_hover"
+    "$radio_texture": "textures/ui/radio_on_hover",
+    "$hovered": true
   },
 
   "radio_visuals": {
@@ -410,6 +414,18 @@
     "$radio_label_color|default": "$main_header_text_color",
     "$radio_label_font_type|default": "default",
     "$no_label|default": false,
+    "$selected|default": false,
+    "$hovered|default": false,
+    "variables": [
+      {
+        "requires": "$selected",
+        "$highlight_image": "textures/ui/dropDownSelectBG"
+      },
+      {
+        "requires": "$hovered",
+        "$highlight_image": "textures/ui/dropDownHoverBG"
+      }
+    ],
     "controls": [
       {
         "radio_image": {
@@ -418,7 +434,8 @@
           "alpha": "$alpha",
           "anchor_from": "left_middle",
           "anchor_to": "left_middle",
-          "size": [ 10, 10 ]
+          "size": [ 10, 10 ],
+          "layer": 2
         }
       },
       {
@@ -433,7 +450,22 @@
           "offset": [ 16, 0.5 ],
           "size": [ "100% - 16px", "default" ],
           "alpha": "$alpha",
-          "bindings": "$radio_label_bindings"
+          "bindings": "$radio_label_bindings",
+          "layer": 2
+        }
+      },
+      {
+        "accessibility_selection_highlight": {
+          "type": "image",
+          "$selection_highlight_size|default": [ "100% + 4px", "100% + 2px" ],
+          "size": "$selection_highlight_size",
+          "$selection_highlight_offset|default": [ 0, 0 ],
+          "offset": "$selection_highlight_offset",
+          "ignored": "(not $selected and not $hovered)",
+          "$highlight_image|default": "",
+          "texture": "$highlight_image",
+          "tiled": true,
+          "layer": 1
         }
       }
     ]
@@ -505,6 +537,198 @@
     ]
   },
 
+  "radio_with_label_and_content_unchecked@settings_common.radio_with_label_and_content": {
+    "$radio_texture": "textures/ui/radio_off"
+  },
+
+  "radio_with_label_and_content_checked@settings_common.radio_with_label_and_content": {
+    "$radio_background_color": "$radio_background_checked_color",
+    "$radio_texture": "textures/ui/radio_on"
+  },
+
+  "radio_with_label_and_content_unchecked_locked@settings_common.radio_with_label_and_content": {
+    "$radio_texture": "textures/ui/radio_off",
+    "$alpha": 0.5
+  },
+
+  "radio_with_label_and_content_checked_locked@settings_common.radio_with_label_and_content": {
+    "$radio_background_color": "$radio_background_checked_color",
+    "$radio_texture": "textures/ui/radio_on",
+    "$alpha": 0.5
+  },
+
+  "radio_with_label_and_content_unchecked_hover@settings_common.radio_with_label_and_content": {
+    "$radio_background_color": "$radio_background_hover_color",
+    "$radio_texture": "textures/ui/radio_off_hover"
+  },
+
+  "radio_with_label_and_content_checked_hover@settings_common.radio_with_label_and_content": {
+    "$radio_background_color": "$radio_background_hover_color",
+    "$radio_texture": "textures/ui/radio_on_hover"
+  },
+
+  "radio_with_label_and_content_stack_item": {
+    "type": "panel",
+    "$radio_stack_item_element_size|default": [ "100%c", 19 ],
+    "size": "$radio_stack_item_element_size"
+  },
+
+  "radio_with_label_and_content": {
+    "type": "panel",
+    "size": [ "100%", "100%cm" ],
+    "$radio_background_color|default": "$radio_background_unchecked_color",
+    "controls": [
+      {
+        "radio_background": {
+          "type": "image",
+          "texture": "textures/ui/White",
+          "keep_ratio": false,
+          "size": [ "100% - 4px", "100%sm" ],
+          "color": "$radio_background_color",
+          "layer": 1
+        }
+      },
+      {
+        "radio_item_with_description_stack": {
+          "type": "stack_panel",
+          "orientation": "vertical",
+          "size": [ "100%", "100%c + 4px" ],
+
+          "layer": 2,
+          "$no_description|default":  true,
+          "controls": [
+            {
+              "radio_icon_and_label@settings_common.radio_item_with_label_and_content_stack": {}
+            },
+            {
+              "radio_description@settings_common.radio_description_panel": {}
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "radio_item_with_label_and_content_stack": {
+    "type": "stack_panel",
+    "orientation": "horizontal",
+    "size": [ "100%", "100%cm" ],
+    "layer": 1,
+    "$alpha|default": 1.0,
+    "$radio_label_bindings|default": [],
+    "$radio_label_color|default": "$main_header_text_color",
+    "$radio_label_font_type|default": "default",
+    "$no_radio_content|default": true,
+    "$no_label|default": false,
+    "controls": [
+      {
+        "initial_padding@common.empty_panel": {
+          "size": [ 5, "100%sm" ]
+        }
+      },
+      {
+        "radio_image_panel@settings_common.radio_with_label_and_content_stack_item": {
+          "controls": [
+            {
+              "image": {
+                "type": "image",
+                "texture": "$radio_texture",
+                "alpha": "$alpha",
+                "size": [ 10, 10 ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "radio_to_content_padding@common.empty_panel": {
+          "size": [ 5, "100%sm" ]
+        }
+      },
+      {
+        "radio_content_panel@settings_common.radio_with_label_and_content_stack_item": {
+          "ignored": "$no_radio_content",
+          "controls": [
+            { "radio_image@$radio_content_control": {} }
+          ]
+        }
+      },
+      {
+        "content_to_label_padding@common.empty_panel": {
+          "ignored": "$no_radio_content",
+          "size": [ 5, "100%sm" ]
+        }
+      },
+      {
+        "radio_label_panel@settings_common.radio_with_label_and_content_stack_item": {
+          "controls": [
+            {
+              "radio_label": {
+                "ignored": "($no_label)",
+                "type": "label",
+                "shadow": true,
+                "text": "$radio_label_text",
+                "font_type": "$radio_label_font_type",
+                "color": "$radio_label_color",
+                "size": [ "default", "default" ],
+                "alpha": "$alpha",
+                "bindings": "$radio_label_bindings"
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "radio_description_panel": {
+    "ignored":  "($no_description)",
+    "type": "panel",
+    "size": [ "100%", "100%c" ],
+    "layer":  1,
+    "$description_font_type": "smooth",
+    "$description_font_scale_factor": 1.333,
+    "controls": [
+      {
+        "description@settings_common.radio_description": {}
+      }
+    ]
+  },
+
+  "radio_description": {
+    "type": "label",
+    "color": "$main_header_text_color",
+    "size": [ "100% - 10px", "default" ],
+    "text": "$radio_label_desc",
+    "font_type": "$description_font_type",
+    "font_scale_factor": "$description_font_scale_factor",
+    "shadow": false,
+    "offset": [ 4, 2 ]
+  },
+
+  "radio_item_with_label_and_content": {
+    "$radio_background_unchecked_color": "$dropdown_radio_background_unchecked_color",
+    "$radio_background_checked_color": "$dropdown_radio_background_checked_color",
+    "$radio_background_hover_color": "$dropdown_radio_background_hover_color",
+
+    "$checked_control": "settings_common.radio_with_label_and_content_checked",
+    "$unchecked_control": "settings_common.radio_with_label_and_content_unchecked",
+    "$checked_hover_control": "settings_common.radio_with_label_and_content_checked_hover",
+    "$unchecked_hover_control": "settings_common.radio_with_label_and_content_unchecked_hover",
+    "$checked_locked_control": "settings_common.radio_with_label_and_content_checked_locked",
+    "$unchecked_locked_control": "settings_common.radio_with_label_and_content_unchecked_locked",
+    "$checked_locked_hover_control": "settings_common.radio_with_label_and_content_checked_locked",
+    "$unchecked_locked_hover_control": "settings_common.radio_with_label_and_content_unchecked_locked",
+
+    "type": "panel",
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "size": [ "100%", "100%cm" ],
+    "controls": [
+      { "radio_with_label_core@settings_common.radio_with_label_core": {} }
+    ]
+  },
+
   "option_slider_control": {
     "type": "panel",
     "size": [ "100% - 2px", 16 ],
@@ -514,11 +738,11 @@
           "size": [ "100%-8px", 10 ],
           "$slider_box_size": [ 10, 16 ],
           "offset": [ 1, 0 ],
-          
+
           "$option_label|default": "",
 
           "$slider_tts_header": "$option_label",
-          "$slider_tts_header_binding_type": "global",          
+          "$slider_tts_header_binding_type": "global",
 
           "enabled": "$enabled",
           "$slider_enabled_binding_name": "$option_enabled_binding_name",
@@ -540,8 +764,29 @@
     // new_button_state has a layer of 2
     "layer": 3,
     "orientation": "horizontal",
-    "size": [ "100% - 16px", "100% - 8px" ],
+    "$options_dropdown_toggle_button_state_content|default": [ "100%", "100% - 8px" ],
+    "size": "$options_dropdown_toggle_button_state_content",
+    "$options_dropdown_toggle_prelabel_content|default": "common.empty_panel",
+    "$options_dropdown_toggle_left_padding|default": [ 8, "100%" ],
+    "$options_dropdown_toggle_right_padding|default": [ 8, "100%" ],
     "controls": [
+      {
+        "left_padding@common.empty_panel": {
+          "size": "$options_dropdown_toggle_left_padding"
+        }
+      },
+      {
+        "option_content@$options_dropdown_toggle_prelabel_content": {
+          "$options_dropdown_toggle_prelabel_content_size|default": [ 0, "100%" ],
+          "size": "$options_dropdown_toggle_prelabel_content_size"
+        }
+      },
+      {
+        "option_content_padding@common.empty_panel": {
+          "$options_dropdown_toggle_prelabel_content_padding|default": [ 0, "100%" ],
+          "size": "$options_dropdown_toggle_prelabel_content_padding"
+        }
+      },
       {
         "label_panel": {
           "type": "panel",
@@ -560,6 +805,8 @@
                 "max_size": [ "100%", "100%" ],
                 "text": "$options_dropdown_toggle_label_binding",
                 "font_type": "$options_dropdown_toggle_label_font_type",
+                "$options_dropdown_toggle_label_shadow|default": false,
+                "shadow": "$options_dropdown_toggle_label_shadow",
                 "alpha": "$content_alpha",
 
                 "$options_dropdown_toggle_label_binding_type|default": "global",
@@ -594,6 +841,11 @@
               "dropdown_chevron_image@dropdown_chevron_image": {}
             }
           ]
+        }
+      },
+      {
+        "right_padding@common.empty_panel": {
+          "size": "$options_dropdown_toggle_right_padding"
         }
       }
     ]
@@ -642,6 +894,7 @@
     "$dropdown_background_control|default": "common.dropdown_background",
     "$option_dropdown_type|default": "common.dropdown",
     "$option_label|default": "",
+    "layer":  2,
     "controls": [
       {
         "dropdown@$option_dropdown_type": {
@@ -713,8 +966,8 @@
   "option_radio_dropdown_group": {
     "type": "panel",
     "size": [ "100% - 4px", "100%c + 4px" ],
-    "offset": [ 2, 2 ],
-    "$toggle_tts_header": "",    
+    "offset": [ 2, 1 ],
+    "$toggle_tts_header": "",
     "$toggle_tts_name": "accessibility.dropdown.listItem",
     "$toggle_tts_toggle_on_text": "accessibility.state.selected",
     "$toggle_tts_toggle_off_text": "accessibility.state.unselected",

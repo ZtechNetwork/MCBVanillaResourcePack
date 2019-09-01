@@ -1,0 +1,313 @@
+{
+  "namespace": "realmsPlus_faq",
+
+  "faq_image_section": {
+    "type": "image",
+    "size": [ 100, "72.6%x" ],
+    "$faq_texture|default": "",
+    "texture": "$faq_texture"
+  },
+
+  "faq_text_section_body": {
+    "type": "stack_panel",
+    "orientation": "vertical",
+    "size": [ "fill", "100%c" ],
+    "$faq_question|default": "",
+    "$faq_answer|default": ""
+  },
+
+  "faq_text_question": {
+    "type": "label",
+    "text": "$faq_question",
+    "size": [ "100%", "default" ],
+    "color": "$store_white_text_color"
+  },
+
+  "faq_text_section@realmsPlus_faq.faq_text_section_body": {
+    "controls": [
+      {
+        "faq_text_question@realmsPlus_faq.faq_text_question": {}
+      },
+      {
+        "faq_text_answer": {
+          "type": "label",
+          "text": "$faq_answer",
+          "size": [ "100%", "default" ],
+          "font_type": "smooth",
+          "font_scale_factor": 0.9,
+          "color": "$store_white_text_color"
+        }
+      }
+    ]
+  },
+
+  "faq_price_bound_text_section@realmsPlus_faq.faq_text_section_body": {
+    "controls": [
+      {
+        "faq_text_question@realmsPlus_faq.faq_text_question": {}
+      },
+      {
+        "faq_text_answer": {
+          "type": "label",
+          "text": "#faq_price_text",
+          "size": [ "100%", "default" ],
+          "font_type": "smooth",
+          "font_scale_factor": 0.9,
+          "color": "$store_white_text_color",
+          "bindings": [
+            {
+              "binding_name": "#faq_price_text"
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "faq_question_body": {
+    "type": "stack_panel",
+    "orientation": "horizontal",
+    "size": [ "100%", "100%cm" ]
+  },
+
+  "faq_question_body_horz_padding": {
+    "type": "panel",
+    "size": [ 4, 0 ]
+  },
+
+  "image_left_faq_question_body@realmsPlus_faq.faq_question_body": {
+    "controls": [
+      {
+        "faq_question_body_horz_padding_1@realmsPlus_faq.faq_question_body_horz_padding": {}
+      },
+      {
+        "faq_image_section@realmsPlus_faq.faq_image_section": {}
+      },
+      {
+        "faq_question_body_horz_padding_2@realmsPlus_faq.faq_question_body_horz_padding": {}
+      },
+      {
+        "faq_text_section@realmsPlus_faq.faq_text_section": {}
+      },
+      {
+        "faq_question_body_horz_padding_3@realmsPlus_faq.faq_question_body_horz_padding": {}
+      }
+    ]
+  },
+
+  "image_right_faq_question_body@realmsPlus_faq.faq_question_body": {
+    "controls": [
+      {
+        "faq_question_body_horz_padding_1@realmsPlus_faq.faq_question_body_horz_padding": {}
+      },
+      {
+        "faq_text_section@realmsPlus_faq.faq_text_section": {}
+      },
+      {
+        "faq_question_body_horz_padding_2@realmsPlus_faq.faq_question_body_horz_padding": {}
+      },
+      {
+        "faq_image_section@realmsPlus_faq.faq_image_section": {}
+      },
+      {
+        "faq_question_body_horz_padding_3@realmsPlus_faq.faq_question_body_horz_padding": {}
+      }
+    ]
+  },
+
+  "image_left_faq_price_bound@realmsPlus_faq.faq_question_body": {
+    "controls": [
+      {
+        "faq_question_body_horz_padding_1@realmsPlus_faq.faq_question_body_horz_padding": {}
+      },
+      {
+        "faq_image_section@realmsPlus_faq.faq_image_section": {}
+      },
+      {
+        "faq_question_body_horz_padding_2@realmsPlus_faq.faq_question_body_horz_padding": {}
+      },
+      {
+        "faq_text_section@realmsPlus_faq.faq_price_bound_text_section": {}
+      },
+      {
+        "faq_question_body_horz_padding_3@realmsPlus_faq.faq_question_body_horz_padding": {}
+      }
+    ]
+  },
+
+  "faq_section_header_space": {
+    "type": "panel",
+    "size": [ "100%", 8 ]
+  },
+
+  "faq_content_section@realmsPlus.section_base": {
+    "controls": [
+      {
+        "content_section_top_padding_1@realmsPlus.content_section_top_padding": {}
+      },
+      {
+        "faq_header": {
+          "type": "label",
+          "size": [ "100%", "default" ],
+          "text": "store.realmsPlus.faq.header",
+          "font_scale_factor": 1.2,
+          "text_alignment": "center",
+          "color": "$store_white_text_color",
+          "layer": 1
+        }
+      },
+      {
+        "content_section_top_padding_2@realmsPlus_faq.faq_section_header_space": {}
+      },
+      {
+        "faq_question_1@realmsPlus_faq.image_left_faq_question_body": {
+          "$faq_question": "store.realmsPlus.faq.question1",
+          "$faq_answer": "store.realmsPlus.faq.answer1",
+          "$faq_texture": "textures/ui/adventure_characters"
+        }
+      },
+      {
+        "faq_question_1_divider@common.section_divider": {}
+      },
+      {
+        "faq_question_2@realmsPlus_faq.image_right_faq_question_body": {
+          "$faq_question": "store.realmsPlus.faq.question2",
+          "$faq_answer": "store.realmsPlus.faq.answer2",
+          "$faq_texture": "textures/ui/nether_portal_small"
+        }
+      },
+      {
+        "faq_question_2_divider@common.section_divider": {}
+      },
+      {
+        "faq_question_3@realmsPlus_faq.image_left_faq_question_body": {
+          "$faq_question": "store.realmsPlus.faq.question3",
+          "$faq_answer": "store.realmsPlus.faq.answer3",
+          "$faq_texture": "textures/ui/creeper_forward"
+        }
+      },
+      {
+        "faq_question_3_divider@common.section_divider": {}
+      },
+      {
+        "faq_question_4@realmsPlus_faq.image_right_faq_question_body": {
+          "$faq_question": "store.realmsPlus.faq.question4",
+          "$faq_answer": "store.realmsPlus.faq.answer4",
+          "$faq_texture": "textures/ui/pig_forward"
+        }
+      },
+      {
+        "faq_question_4_divider@common.section_divider": {}
+      },
+      {
+        "faq_question_5@realmsPlus_faq.image_left_faq_price_bound": {
+          "$faq_question": "store.realmsPlus.faq.question5",
+          "$faq_texture": "textures/ui/wolf_forward"
+        }
+      },
+      {
+        "faq_question_5_divider@common.section_divider": {}
+      },
+      {
+        "faq_question_6@realmsPlus_faq.image_right_faq_question_body": {
+          "$faq_question": "store.realmsPlus.faq.question6",
+          "$faq_answer": "store.realmsPlus.faq.answer6",
+          "$faq_texture": "textures/ui/steve_forward"
+        }
+      },
+      {
+        "faq_question_6_divider@common.section_divider": {}
+      },
+      {
+        "faq_question_7@realmsPlus_faq.image_left_faq_question_body": {
+          "$faq_question": "store.realmsPlus.faq.question7",
+          "$faq_answer": "store.realmsPlus.faq.answer7",
+          "$faq_texture": "textures/ui/alex_forward"
+        }
+      },
+      {
+        "faq_question_7_divider@common.section_divider": {}
+      },
+      {
+        "faq_question_8@realmsPlus_faq.image_right_faq_question_body": {
+          "$faq_question": "store.realmsPlus.faq.question8",
+          "$faq_answer": "store.realmsPlus.faq.answer8",
+          "$faq_texture": "textures/ui/guardians"
+        }
+      },
+      {
+        "faq_question_8_divider@common.section_divider": {}
+      },
+      {
+        "faq_question_9@realmsPlus_faq.image_left_faq_question_body": {
+          "$faq_question": "store.realmsPlus.faq.question9",
+          "$faq_answer": "store.realmsPlus.faq.answer9",
+          "$faq_texture": "textures/ui/chicken_forward"
+        }
+      },
+      {
+        "faq_question_9_divider@common.section_divider": {}
+      },
+      {
+        "faq_question_10@realmsPlus_faq.image_right_faq_question_body": {
+          "$faq_question": "store.realmsPlus.faq.question10",
+          "$faq_answer": "store.realmsPlus.faq.answer10",
+          "$faq_texture": "textures/ui/alex_bow"
+        }
+      },
+      {
+        "faq_question_10_divider@common.section_divider": {}
+      },
+      {
+        "faq_question_11@realmsPlus_faq.image_left_faq_question_body": {
+          "$faq_question": "store.realmsPlus.faq.question11",
+          "$faq_answer": "store.realmsPlus.faq.answer11",
+          "$faq_texture": "textures/ui/cake_forward"
+        }
+      },
+      {
+        "faq_question_11_divider@common.section_divider": {}
+      },
+      {
+        "faq_question_12@realmsPlus_faq.image_right_faq_question_body": {
+          "$faq_question": "store.realmsPlus.faq.question12",
+          "$faq_answer": "store.realmsPlus.faq.answer12",
+          "$faq_texture": "textures/ui/creeper_forward"
+        }
+      },
+      {
+        "faq_question_12_divider@common.section_divider": {}
+      },
+      {
+        "faq_question_13@realmsPlus_faq.image_left_faq_question_body": {
+          "$faq_question": "store.realmsPlus.faq.question13",
+          "$faq_answer": "store.realmsPlus.faq.answer13",
+          "$faq_texture": "textures/ui/ender_dragon"
+        }
+      },
+      {
+        "faq_question_13_divider@common.section_divider": {}
+      },
+      {
+        "faq_question_14@realmsPlus_faq.image_right_faq_question_body": {
+          "$faq_question": "store.realmsPlus.faq.question14",
+          "$faq_answer": "store.realmsPlus.faq.answer14",
+          "$faq_texture": "textures/ui/steve_forward"
+        }
+      },
+      {
+        "faq_question_14_divider@common.section_divider": {}
+      },
+      {
+        "faq_question_15@realmsPlus_faq.image_left_faq_question_body": {
+          "$faq_question": "store.realmsPlus.faq.question15",
+          "$faq_answer": "store.realmsPlus.faq.answer15",
+          "$faq_texture": "textures/ui/pig_forward"
+        }
+      },
+      {
+        "content_section_top_padding_3@realmsPlus.content_section_top_padding": {}
+      }
+    ]
+  }
+}

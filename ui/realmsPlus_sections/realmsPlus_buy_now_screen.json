@@ -1,0 +1,386 @@
+{
+  "namespace": "realmsPlus_buy",
+
+  "buy_now_content": {
+    "type": "stack_panel",
+    "size": [ "100%", "100%c" ],
+    "controls": [
+      {
+        "start_trial_description@realmsPlus_buy.start_trial_description": {}
+      },
+      {
+        "padding_0": {
+          "type": "panel",
+          "size": [ "100%", 4 ]
+        }
+      },
+      {
+        "realm_name@realmsPlus_buy.realm_name_stack": {}
+      },
+      {
+        "padding_1": {
+          "type": "panel",
+          "size": [ "100%", 4 ]
+        }
+      },
+      {
+        "terms_and_conditions@realmsPlus_buy.terms_and_conditions": {}
+      },
+      {
+        "padding_2": {
+          "type": "panel",
+          "size": [ "100%", 4 ]
+        }
+      },
+      {
+        "buy_button@realmsPlus_buy.buy_button_panel": {}
+      },
+      {
+        "padding_3": {
+          "type": "panel",
+          "size": [ "100%", 4 ]
+        }
+      },
+      {
+        "platform_terms@realmsPlus_buy.content_text_section": {
+          "$text_description": "$terms_and_conditions",
+          "$text_binding_type": "none"
+        }
+      },
+      {
+        "padding_4": {
+          "type": "panel",
+          "size": [ "100%", 4 ]
+        }
+      },
+      {
+        "apple_specific_terms@realmsPlus_buy.content_text_section": {
+          "ignored": "(not $is_ios)",
+          "$text_description": "#ios_terms_and_conditions"
+        }
+      },
+      {
+        "padding_5": {
+          "type": "panel",
+          "size": [ "100%", 4 ],
+          "ignored": "(not $is_ios)"
+        }
+      }
+    ]
+  },
+
+  "content_text_section": {
+    "type": "stack_panel",
+    "size": [ "100%", "100%c" ],    
+    "controls": [
+      {
+        "text_description@realmsPlus_buy.content_description": {}
+      },
+      {
+        "toggle_section_divider@common.section_divider": {}
+      }
+    ]
+  },
+
+  "content_description": {
+    "type": "panel",
+    "size": [ "100%", "100%c" ],
+    "controls": [
+      {
+        "content_description_label": {
+          "type": "label",
+          "size": [ "100%", "default" ],
+          "text": "$text_description",
+          "color": "$body_text_color",
+          "font_type": "smooth",
+          "$text_binding_type|default": "global",
+          "bindings": [
+            {
+              "binding_type": "$text_binding_type",
+              "binding_name": "$text_description"
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "start_trial_description": {
+    "type": "stack_panel",
+    "orientation": "horizontal",
+    "size": [ "100%", "100%cm" ],
+    "controls": [
+      {
+        "description_stack@realmsPlus_buy.description_stack": {}
+      },
+      {
+        "realms_image": {
+          "type": "image",
+          "size": [ "40%", "117.465%x" ],
+          "texture": "textures/ui/realms_art_icon"
+        }
+      }
+    ]
+  },
+
+  "description_stack": {
+    "type": "stack_panel",
+    "orientation": "vertical",
+    "size": [ "fill", "100%c" ],
+    "controls": [
+      {
+        "title_text@common.minecraftTenLabel": {
+          "size": [ "100%", "default" ],
+          "text": "store.realmsPlus.startTrial.title",
+          "color": "$store_white_text_color"
+        }
+      },
+      {
+        "padding": {
+          "type": "panel",
+          "size": [ 2, 0 ]
+        }
+      },
+      {
+        "description_text": {
+          "type": "label",
+          "text": "#trial_desciption_text",
+          "color": "$store_white_text_color",
+          "size": [ "100%", "default" ],
+          "font_type": "smooth",
+          "bindings": [
+            {
+              "binding_name": "#trial_desciption_text"
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "realm_name_stack": {
+    "type": "stack_panel",
+    "orientation": "vertical",
+    "size": [ "100%", "100%c" ],
+    "controls": [
+      {
+        "realm_name_label@common.minecraftTenLabel": {
+          "size": [ "100%", "default" ],
+          "text": "realmsCreateScreen.nameHeader.name",
+          "color": "$store_white_text_color"
+        }
+      },
+      {
+        "realm_name_text_box@common.text_edit_box": {
+          "size": [ "100%", 30 ],
+          "$text_edit_box_label_anchor_point": "left_middle",
+          "$place_holder_text": "#placeholder_realm_name",
+          "$text_edit_box_placeholder_content_binding_name": "#placeholder_realm_name",
+          "$option_binding_name": "#realms_name_box",
+          "$text_box_name": "#realms_name_box",
+          "$text_edit_box_content_binding_name": "#realms_name_box",
+          "$text_edit_box_enabled_binding_type": "none",
+          "$focus_override_right": "FOCUS_OVERRIDE_STOP"
+        }
+      }
+    ]
+  },
+
+  "terms_and_conditions": {
+    "type": "panel",
+    "size": [ "100%", 45 ],
+    "controls": [
+      {
+        "terms_panel@realmsPlus_buy.terms_and_conditions_panel": {}
+      }
+    ]
+  },
+
+  "terms_and_conditions_panel": {
+    "type": "panel",
+    "size": [ "100%", "100% - 4px" ],
+    "controls": [
+      {
+        "name_label@common.minecraftTenLabel": {
+          "offset": [ 2, 0 ],
+          "text": "realmsCreateScreen.termsAndConditionsHeader",
+          "color": "$store_white_text_color",
+          "anchor_from": "top_left",
+          "anchor_to": "top_left",
+          "layer": 2
+        }
+      },
+      {
+        "terms_string_panel": {
+          "type": "panel",
+          "anchor_from": "left_middle",
+          "anchor_to": "left_middle",
+          "offset": [ 0, 6 ],
+          "size": [ "100%", "100% - 12px" ],
+          "$pressed_button_name_terms_conditions": "button.tos_hyperlink",
+          "$pressed_button_name_privacy_policy": "button.privpol_hyperlink",
+          "variables": [
+            {
+              // Stop-gap measure until we can get hyperlinks to work from VR and FireTV
+              "requires": "($is_holographic or $fire_tv)",
+              "$pressed_button_name_terms_conditions": "button.tos_popup"
+            },
+            {
+              // Stop-gap measure until we can get hyperlinks to work from VR and FireTV
+              "requires": "($is_holographic or $fire_tv or $nx_os)",
+              "$pressed_button_name_privacy_policy": "button.privpol_popup"
+            }
+          ],
+          "controls": [
+            {
+              "banner_fill": {
+                "type": "image",
+                "size": [ "100%", "100%" ],
+                "layer": 2,
+                "texture": "textures/ui/Black",
+                "keep_ratio": false
+              }
+            },
+            {
+              "buttons_stack_panel": {
+                "type": "stack_panel",
+                "orientation": "horizontal",
+                "size": [ "100%", "100%" ],
+                "variables": [
+                  {
+                    "requires": "(not $is_low_memory_device)",
+                    "$button_font_scale_factor": 1.39
+                  }
+                ],
+                "controls": [
+                  {
+                    "agree_panel": {
+                      "type": "panel",
+                      "size": [ 68, "100%" ],
+                      "anchor_from": "left_middle",
+                      "anchor_to": "left_middle",
+                      "layer": 3,
+                      "controls": [
+                        {
+                          "checkbox_control@common.checkbox": {
+                            "size": [ "50%", "100%" ],
+                            "offset": [ 0, 0 ],
+                            "anchor_from": "left_middle",
+                            "anchor_to": "left_middle",
+                            "$checkbox_alignment": "left_middle",
+                            "$checkbox_offset": [ 7, 0 ],
+                            "$toggle_name": "#agree_terms_and_conditions",
+                            "focus_change_up": "2users",
+                            "focus_identifier": "checkbox_control"
+                          }
+                        },
+                        {
+                          "i_agree_label": {
+                            "type": "label",
+                            "color": "$main_header_text_color",
+                            "text": "realmsCreateScreen.termsAndConditionsAgree",
+                            "offset": [ 22, 0 ],
+                            "size": [ "75%", "default" ],
+                            "layer": 3,
+                            "anchor_from": "left_middle",
+                            "anchor_to": "left_middle"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "view_terms_button@realmsPlus_buy.view_terms_button": {
+                      "size": [ "fill", "100%" ]
+                    }
+                  },
+                  {
+                    "privacy_policy_button@realmsPlus_buy.privacy_policy_button": {
+                      "size": [ "fill", "100%" ]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "view_terms_button@common_buttons.light_text_button": {
+    "$button_text": "store.realmsPlus.buyNow.viewTerms",
+    "$button_text_size": [ "100%", "default" ],
+    "$button_text_max_size": [ "100% - 10px", 35 ],    
+    "$font_type": "MinecraftTen",
+    "$pressed_button_name": "$pressed_button_name_terms_conditions",
+    "anchor_from": "right_middle",
+    "anchor_to": "right_middle"
+  },
+
+  "privacy_policy_button@common_buttons.light_text_button": {
+    "$button_text": "store.realmsPlus.buyNow.viewPrivacyPolicy",
+    "$button_text_size": [ "100%", "default" ],
+    "$button_text_max_size": [ "100% - 10px", 35 ],    
+    "$font_type": "MinecraftTen",
+    "$pressed_button_name": "$pressed_button_name_privacy_policy",
+    "anchor_from": "right_middle",
+    "anchor_to": "right_middle"
+  },
+
+  "buy_button_panel": {
+    "type": "panel",
+    "size": [ "100%", "100%c" ],
+    "controls": [
+      {
+        "buy_button@common_buttons.light_content_button": {
+          "size": [ "80%", 20 ],
+          "$pressed_button_name": "button.create_realm",
+          "$button_content": "realmsPlus_buy.buy_button_content",
+          "bindings": [
+            {
+              "binding_name": "#buy_now_button_enabled",
+              "binding_name_override": "#enabled"
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "buy_button_content": {
+    "type": "panel",
+    "size": [ "100%", "100%" ],
+    "controls": [
+      {
+        "button_chevron_panel": {
+          "type": "stack_panel",
+          "orientation": "horizontal",
+          "size": [ "100%c", "100%" ],
+          "anchor_from": "left_middle",
+          "anchor_to": "left_middle",
+          "offset": [ -2, -2 ],
+          "controls": [
+            {
+              "buy_button_chevron@realmsPlus.markdown_background_animated": {}
+            }
+          ]
+        }
+      },
+      {
+        "button_text@common.minecraftTenLabel": {
+          "text": "#buy_now_button_text",
+          "size": [ "default", "default" ],
+          "color": "$text_color",
+          "layer": 1,
+          "bindings": [
+            {
+              "binding_name": "#buy_now_button_text"
+            }
+          ]
+        }
+      }
+    ]
+  }
+
+}

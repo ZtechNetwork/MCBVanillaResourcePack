@@ -1493,31 +1493,57 @@
     ]
   },
 
+  "error_panel": {
+    "type": "panel",
+    "size": [ "100%", "100%c" ],
+    "controls": [
+      {
+        "black_background@resource_packs.black_image": {
+          "layer": 1,
+          "size": [ "100%", "100%c+2px" ],
+          "controls": [
+            {
+              "gray@resource_packs.gray_image": {
+                "size": [ "100%-2px", "100%c" ],
+                "layer": 2,
+                "controls": [
+                  {
+                    "panel": {
+                      "type": "panel",
+                      "size": [ "100%-10px", "100%c" ],
+                      "controls": [
+                        {
+                          "error_label": {
+                            "type": "label",
+                            "color": "$light_grid_item_text_color",
+                            "size": [ "100%", "default" ],
+                            "text": "$in_game_error_text",
+                            "anchor_from": "top_left",
+                            "anchor_to": "top_left",
+                            "layer": 3
+                          }
+                        }
+                      ]
+                    }
+                    
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+
   "selected_stack_panel": {
     "type": "stack_panel",
     "anchor_from": "top_left",
     "anchor_to": "top_left",
     "controls": [
       {
-        "error_panel": {
-          "type": "panel",
-          "visible": "(not $is_pregame)",
-          "size": [ "100%", 30 ],
-          "controls": [
-            { "panel_bg@resource_packs.panel_bg": {} },
-            {
-              "error_label": {
-                "type": "label",
-                "color": "$light_grid_item_text_color",
-                "offset": [ 5, 3 ],
-                "size": [ "100% - 10px", "100% - 6px" ],
-                "text": "$in_game_error_text",
-                "anchor_from": "top_left",
-                "anchor_to": "top_left",
-                "layer": 3
-              }
-            }
-          ]
+        "error_panel@resource_packs.error_panel": {
+          "visible": "(not $is_pregame)"
         }
       },
       {

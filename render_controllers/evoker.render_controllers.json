@@ -6,9 +6,9 @@
       "materials": [ { "*": "Material.default" } ],
       "part_visibility": [
         { "*": true },
-        { "arms": "!query.is_casting" },
-        { "leftarm": "query.is_casting" },
-        { "rightarm": "query.is_casting" }
+        { "arms": "!(query.is_casting || query.is_celebrating)" },
+        { "leftarm": "query.is_casting || query.is_celebrating" },
+        { "rightarm": "query.is_casting || query.is_celebrating" }
       ],
       "textures": [ "Texture.default" ]
     }

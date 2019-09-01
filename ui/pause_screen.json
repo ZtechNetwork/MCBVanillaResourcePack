@@ -19,7 +19,7 @@
     "layer": 3,
     "size": [ 24, 12 ]
   },
-
+  
   //---------------------------------------------------------------------------
   // Skins Panel
   //---------------------------------------------------------------------------
@@ -51,20 +51,55 @@
     ]
   },
 
+  "change_profile_button_panel": {
+    "type": "stack_panel",
+    "orientation": "horizontal",
+    "size": [ 70, 26 ],
+    "controls": [
+      {
+        "button_x@common.gamepad_helper_x": {
+          "$gamepad_helper_visible_binding_type": "none",
+          "layer": 3
+        }
+      },
+      {
+        "skin_icon_panel": {
+          "type": "panel",
+          "size": [ "100%c", 26 ],
+          "controls": [
+            {
+              "profile_label": {
+                "type": "label",
+                "text": "profileScreen.header",
+                "size": ["default", 10],
+                "color": "$light_button_default_text_color"
+              }      
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+
   "change_skin_button_gamepad@common_buttons.light_content_button": {
     "size": [ 49, 26 ],
-    "$pressed_button_name": "button.menu_skins",
+    "$pressed_button_name": "button.to_profile_or_skins_screen",
     "anchor_from": "bottom_middle",
     "anchor_to": "bottom_middle",
     "$button_content_offset": [ 3, 2 ],
     "$button_content": "pause.change_skin_panel",
     "$pressed_alpha": 0.65,
     "$hide_description": true,
-    "$visibility_binding_type|default": "global",    
+    "$visibility_binding_type|default": "global",
     "$button_tts_header": "accessibility.start.skinPicker",
     "variables": [
       {
         "requires": "$nx_os",
+        "$visibility_binding_type": "none"
+      },
+      {
+        "requires": "$is_berwick",
         "$visibility_binding_type": "none"
       }
     ],
@@ -78,15 +113,17 @@
   },
 
   "change_skin_button@common_buttons.light_glyph_button": {
-    "ignored": "$nx_os",
+    "ignored": "($nx_os or $is_berwick)",
     "size": [ 29, 26 ],
-    "$pressed_button_name": "button.menu_skins",
+    "$pressed_button_name": "button.to_profile_or_skins_screen",
     "anchor_from": "bottom_middle",
     "anchor_to": "bottom_middle",
     "$button_content_offset": [ 3, 2 ],
     "$button_content": "pause.change_skin_icon",
     "$pressed_alpha": 0.65,
     "$button_tts_header": "accessibility.start.skinPicker",
+    "$focus_id": "change_skin_button",
+    "focus_change_right": "FOCUS_OVERRIDE_STOP",
     "bindings": [
       {
         "binding_name": "(not #is_using_gamepad)",
@@ -95,12 +132,63 @@
     ]
   },
 
+  "change_profile_button_gamepad@common_buttons.light_content_button": {
+    "size": [ 70, 26 ],
+    "$pressed_button_name": "button.to_profile_or_skins_screen",
+    "anchor_from": "bottom_middle",
+    "anchor_to": "bottom_middle",
+    "$button_content_offset": [ 3, 2 ],
+    "$button_content": "pause.change_profile_button_panel",
+    "$pressed_alpha": 0.65,
+    "$hide_description": true,
+    "$visibility_binding_type|default": "global",
+    "$button_tts_header": "accessibility.start.profile",
+    "variables": [
+      {
+        "requires": "$nx_os",
+        "$visibility_binding_type": "none"
+      },
+      {
+        "requires": "$is_berwick",
+        "$visibility_binding_type": "none"
+      }
+    ],
+    "bindings": [
+      {
+        "binding_type": "$visibility_binding_type",
+        "binding_name": "#is_using_gamepad",
+        "binding_name_override": "#visible"
+      }
+    ]
+  },
+
+  "change_profile_button@common_buttons.light_text_form_fitting_button": {
+    "$pressed_button_name": "button.to_profile_or_skins_screen",
+    "size": [ "100%c", 26 ],
+    "anchor_from": "bottom_middle",
+    "anchor_to": "bottom_middle",
+    "$button_state_panel": "common_buttons.new_ui_width_fitting_button_panel",
+    "$button_text_size": [ "default", 10 ],
+    "$button_text": "profileScreen.header",
+    "$focus_id": "profile_button",
+    "$pressed_alpha": 0.65,
+    "$button_tts_header": "accessibility.start.profile",
+    "bindings": [
+      {
+        "binding_name": "(not #is_using_gamepad)",
+        "binding_name_override": "#visible"
+      }
+    ]
+  },
+
+
   "skin_viewer_panel": {
     "type": "input_panel",
     "anchor_from": "bottom_middle",
     "anchor_to": "bottom_middle",
     "size": [ "100%", "100% - 24px" ],
-    "offset": [ 0, -16 ],
+    "$skin_viewer_panel_offset|default": [ 0, -16 ],
+    "offset": "$skin_viewer_panel_offset",
     "gesture_tracking_button": "button.turn_doll",
     "button_mappings": [
       {
@@ -115,7 +203,8 @@
         "paper_doll_panel": {
           "type": "panel",
           "size": [ "100%", "100% - 10px" ],
-          "offset": [ 0, -22 ],
+          "$paper_doll_offset|default": [ 0, -22],
+          "offset": "$paper_doll_offset",
 
           "controls": [
             {
@@ -201,7 +290,35 @@
           "controls": [
             { "change_skin_button@pause.change_skin_button": {} },
             { "change_skin_button_gamepad@pause.change_skin_button_gamepad": {} }
+          ],
+          "bindings": [
+            {
+              "binding_name": "(not #persona_enabled)",
+              "binding_name_override": "#visible"
+            }
           ]
+        }
+      },
+      {
+        "change_profile_panel": {
+          "type": "panel",
+          "size": [ "100%c", "100%c" ],
+          "anchor_from": "bottom_middle",
+          "anchor_to": "bottom_middle",
+          "controls": [
+            { "profile_button@pause.change_profile_button": {} },
+            { "profile_button_gamepad@pause.change_profile_button_gamepad": {} }
+          ],
+          "bindings": [
+            {
+              "binding_name": "#persona_enabled",
+              "binding_name_override": "#visible"
+            },
+            {
+              "binding_name": "#can_access_profile",
+              "binding_name_override": "#enabled"
+            }
+          ] 
         }
       },
       { "viewer_panel@pause.skin_viewer_panel": {} }
@@ -225,7 +342,8 @@
     "anchor_to": "top_middle",
     "anchor_from": "top_middle",
     "$button_focus_precedence": 1,
-    "focus_change_up": "button.menu_quit"
+    "focus_change_up": "button.menu_quit",
+    "$focus_override_right": "change_skin_button"
   },
 
   "server_store_button@pause.pause_button_template": {
@@ -245,7 +363,8 @@
     "$pressed_button_name": "button.menu_settings",
     "$button_text": "menu.settings",
     "anchor_to": "top_middle",
-    "anchor_from": "top_middle"
+    "anchor_from": "top_middle",
+    "$focus_override_right": "change_skin_button"
   },
 
   "achievements_button@pause.pause_button_template": {
@@ -268,7 +387,8 @@
     "$button_text": "menu.howToPlay",
     "anchor_to": "top_middle",
     "anchor_from": "top_middle",
-    "ignored": "(not $education_edition)"
+    "ignored": "(not $education_edition or $education_edition_china)",
+    "$focus_override_right": "change_skin_button"
   },
 
   "feedback_button@pause.pause_button_template": {
@@ -283,7 +403,7 @@
     "$pressed_button_name": "button.menu_invite_players",
     "$button_text": "pauseScreen.invite",
     "focus_change_down": "FOCUS_OVERRIDE_STOP",
-    "focus_change_right": "FOCUS_OVERRIDE_STOP",
+    "$focus_override_right": "FOCUS_OVERRIDE_STOP",
     "bindings": [
       {
         "binding_name": "#invite_button_visible",
@@ -318,6 +438,7 @@
     "anchor_to": "top_middle",
     "anchor_from": "top_middle",
     "focus_change_down": "button.menu_continue",
+    "$focus_override_right": "change_skin_button",
     "variables": [
       {
         "requires": "$is_secondary_client",
@@ -333,7 +454,6 @@
     "anchor_to": "top_left",
     "anchor_from": "top_left"
   },
-
 
   "pause_screen@common.base_screen": {
     "cache_screen": true,
@@ -364,14 +484,23 @@
       },
       {
         "from_button_id": "button.controller_select",
-        "to_button_id": "button.menu_skins",
+        "to_button_id": "button.to_profile_or_skins_screen",
         "mapping_type": "global",
         "scope": "controller"
-      }
+      }      
     ],
 
-    "$screen_content": "pause.pause_screen_content",
-    "$screen_bg_content": "common.screen_background"
+    "variables": [
+      {
+        "requires": "(not $education_edition)",
+        "$screen_content": "pause.pause_screen_content",
+        "$screen_bg_content": "common.screen_background"
+      },
+      {
+        "requires": "$education_edition",
+        "$screen_content": "edu_pause.pause_screen_content"
+      }
+    ]
   },
 
   "pause_screen_content": {
@@ -394,7 +523,7 @@
     "$achievements_ignored|default": false,
     "controls": [
       { "menu@pause.pause_screen_menu": {} },
-      { "players@pause.player_panel": {} }
+      { "info_panel@pause.info_panel": {} }
     ]
   },
 
@@ -618,8 +747,11 @@
               }
             },
             { "feedback_button@pause.feedback_button": {} },
-            { "how_to_play_button@pause.how_to_play_button": {} },
-            { "how_to_play@pause.vertical_padding": {} },
+            {
+              "how_to_play@pause.vertical_padding": {
+                "ignored": "(not $education_edition or $education_edition_china)"
+              }
+            },
             { "quit_button@pause.quit_button": {} }
           ]
         }
@@ -627,29 +759,40 @@
     ]
   },
 
-  "player_list_scrolling_panel@common.scrolling_panel": {
-    "size": [ "100%", "100%" ],
-    "offset": [ 2, 0 ],
+
+  "info_panel_content_list": {
+    "type": "stack_panel",
     "anchor_from": "top_right",
     "anchor_to": "top_right",
-    "$show_background": false,
-    "$scroll_track_size": [ 5, "100% - 4px" ],
-    "$scroll_track_offset|default": [ -4, 2 ],
-    "$scrolling_content": "pause.player_lists"
-  },
-
-
-  "player_panel@pause.pause_screen_border": {
-    "size": [ 164, "100%" ],
-    "color": [ 0, 0, 0 ],
-    "anchor_from": "right_middle",
-    "anchor_to": "right_middle",
+    "size": [ "100% - 4px", "100%" ],
+    "orientation": "vertical",
     "controls": [
-      { "player_panel_background@pause.player_panel_background": {} }
+      { "player_list_scrolling_panel@pause.player_list_scrolling_panel": {} },
+      {
+        "vertical_padding@pause.vertical_padding": {
+          "size": [ 0, 8 ]
+        }
+      }
     ]
   },
 
-  "player_panel_background@transparent_background": {
+  "info_panel_background@pause.transparent_background": {
+    "size": [ "100%", "100%" ],
+    "anchor_from": "top_right",
+    "anchor_to": "top_right"
+  },
+
+  "info_panel@pause.pause_screen_border": {
+    "size": [ 150, "100%" ],
+    "anchor_from": "right_middle",
+    "anchor_to": "right_middle",
+    "controls": [
+      { "info_panel_background@pause.info_panel_background": {} },
+      { "info_panel_list@pause.info_panel_content_list": {} }
+    ]
+  },
+
+  "player_panel_background@pause.transparent_background": {
     "anchor_from": "center",
     "anchor_to": "center",
     "size": [ "100% - 2px", "100% - 2px" ],
@@ -662,7 +805,7 @@
     "type": "stack_panel",
     "anchor_from": "top_left",
     "anchor_to": "top_left",
-    "size": [ "100% - 4px", "100%c" ],
+    "size": [ "100%", "100%c" ],
     "focus_container": true,
     "use_last_focus": true,
     "focus_nagivation_mode_right": "contained",
@@ -673,14 +816,14 @@
         }
       },
       {
-        "ip_label@pause.ip_label": {
-          "ignored": "(not $education_edition)"
+        "players_label@pause.players_label": {
+          "ignored": "$education_edition"
         }
       },
-      { "players_label@pause.players_label": {} },
       {
         "vertical_padding_2@pause.vertical_padding": {
-          "size": [ 0, 3 ]
+          "size": [ 0, 3 ],
+          "ignored": "$education_edition"
         }
       },
       { "players_grid_panel@pause.players_grid": {} },
@@ -706,7 +849,7 @@
 
   "player_lists": {
     "type": "panel",
-    "size": [ "100% - 4px", "100%c" ],
+    "size": [ "100%", "100%c" ],
     "controls": [
       {
         "normal_list@pause.player_list": {
@@ -729,6 +872,17 @@
         }
       }
     ]
+  },
+
+  "player_list_scrolling_panel@common.scrolling_panel": {
+    "size": [ "100% - 4px", "100%" ],
+    "offset": [ 2, 0 ],
+    "anchor_from": "top_right",
+    "anchor_to": "top_right",
+    "$show_background": false,
+    "$scroll_track_size": [ 5, "100% - 4px" ],
+    "$scroll_track_offset|default": [ -4, 2 ],
+    "$scrolling_content": "pause.player_lists"
   },
 
   "disconnected_label": {
@@ -755,11 +909,11 @@
         }
       },
       {
-        "disconnected_from_nex_label@pause.disconnected_label": {
+        "disconnected_from_third_party_label@pause.disconnected_label": {
           "text": "pauseScreen.thirdPartyConsoleDisconnect",
           "bindings": [
             {
-              "binding_name": "#disconnected_from_nex_label_visible",
+              "binding_name": "#disconnected_from_third_party_label_visible",
               "binding_name_override": "#visible",
               "binding_type": "global"
             }
@@ -830,12 +984,13 @@
     ]
   },
 
+
   "players_label": {
     "type": "label",
     "text": "#worldname",
     "size": [ "100%", 10 ],
     "color": "$main_header_text_color",
-    "layer": 1,
+    "layer": 2,
     "bindings": [
       {
         "binding_name": "#worldname"
@@ -890,12 +1045,11 @@
             },
             {
               "player_permission_button_padding": {
-                "ignored": "$education_edition",
                 "type": "panel",
                 "size": [ 27, "100%" ],
                 "bindings": [
                   {
-                    "binding_name": "#permissions_visible",
+                    "binding_name": "#permissions_button_visible",
                     "binding_name_override": "#visible"
                   }
                 ]
@@ -906,7 +1060,6 @@
       },
       {
         "player_permission_button_panel": {
-          "ignored": "$education_edition",
           "type": "panel",
           "anchor_to": "top_right",
           "anchor_from": "top_right",
@@ -916,7 +1069,7 @@
           ],
           "bindings": [
             {
-              "binding_name": "#permissions_visible",
+              "binding_name": "#permissions_button_visible",
               "binding_name_override": "#visible"
             }
           ]
@@ -945,12 +1098,19 @@
       {
         "binding_type": "collection_details",
         "binding_collection_name": "players_collection"
+      },
+      {
+        "binding_name": "#permissions_button_enabled",
+        "binding_name_override": "#enabled",
+        "binding_type":  "collection",
+        "binding_collection_name":  "players_collection"
       }
     ]
   },
 
   "player_permission_button_content": {
     "type": "panel",
+    "size": [ 15, 15 ],
     "controls": [
       {
         "permission_icon_image": {
@@ -981,15 +1141,30 @@
   },
 
   "player_button_content": {
-    "type": "panel",
+    "type": "stack_panel",
+    "orientation":  "horizontal",
     "anchor_from": "left_middle",
     "anchor_to": "left_middle",
     "size": [ "100% - 4px", "100% - 4px" ],
     "offset": [ 4, 0 ],
     "layer": 3,
     "controls": [
-      { "player_pic_panel@pause.player_pic_panel": {} },
-      { "player_gamertag@pause.player_gamertag": {} }
+      {
+        "player_pic_panel@pause.player_pic_panel": {
+          "layer": 1
+        }
+      },
+      {
+        "player_gamertag@pause.gametag_wrapper": {
+          "size": [ "fill", "100%" ],
+          "layer": 1
+        }
+      },
+      {
+        "platform_icon@pause.platform_icon_panel": {
+          "layer": 1
+        }
+      }
     ]
   },
 
@@ -1041,10 +1216,11 @@
 
   "player_pic_panel": {
     "type": "panel",
-    "size": [ 20, 20 ],
+    "size": [ 20, "100%" ],
     "offset": [ 1, 0 ],
     "anchor_to": "left_middle",
     "anchor_from": "left_middle",
+    "ignored":  "$education_edition",
     "controls": [
       { "player_gamer_pic@pause.player_gamer_pic": {} },
       { "player_local_icon@pause.player_local_icon": {} }
@@ -1072,6 +1248,8 @@
     "size": [ 18, 18 ],
     "layer": 1,
     "texture_file_system": "#texture_source",
+    "anchor_from": "left_middle",
+    "anchor_to": "left_middle",
     "bindings": [
       {
         "binding_name": "#texture",
@@ -1103,20 +1281,62 @@
     ]
   },
 
+  "gametag_wrapper":  {
+    "type": "panel",
+    "size": [ "100%c", "100%" ],
+    "anchor_from": "left_middle",
+    "anchor_to": "left_middle",
+    "controls": [
+      {
+        "gamertag@pause.player_gamertag": {}
+      }
+    ]
+  },
+
+  "platform_icon_panel": {
+    "type": "panel",
+    "size": [ 15, 15 ],
+    "anchor_to": "right_middle",
+    "anchor_from": "right_middle",
+    "$icon_offset|default": [ -2, 4 ],
+    "controls": [
+      {
+        "platform_icon@pause.platform_icon": {
+          "layer": 1,
+          "offset": "$icon_offset",
+          "size": [ "100%-2px", "100%-2px" ]
+        }
+      }
+    ]
+  },
+
   "player_gamertag": {
     "type": "label",
     "color": "$main_header_text_color",
     "text": "#gamertag",
     "anchor_from": "left_middle",
     "anchor_to": "left_middle",
-    "size": [ "default", 10 ],
-    "offset": [ 24, 0 ],
+    "size": [ "100%", 10 ],
     "layer": 2,
     "bindings": [
       {
         "binding_name": "#gamertag",
         "binding_type": "collection",
         "binding_collection_name": "players_collection"
+      }
+    ]
+  },
+
+  "platform_icon": {
+    "ignored": "(not $platform_icons_visible)",
+    "type": "image",
+    "texture": "textures/ui/platform_icon",
+    "bindings": [
+      {
+        "binding_name": "#is_platform_icon_visible",
+        "binding_type": "collection",
+        "binding_collection_name": "players_collection",
+        "binding_name_override": "#visible"
       }
     ]
   },
@@ -1138,7 +1358,7 @@
       },
       {
         "focus_border_button@pause.focus_border_button": {
-          "tts_inherit_siblings": true,          
+          "tts_inherit_siblings": true,
           "layer": 5
         }
       }
@@ -1201,5 +1421,4 @@
       { "keyboard_helper_keys@common.keyboard_helper_keys": {} }
     ]
   }
-
 }

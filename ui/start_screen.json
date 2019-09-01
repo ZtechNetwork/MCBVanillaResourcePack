@@ -39,6 +39,12 @@
     "size": [ 11, 21 ]
   },
 
+  "marketplace_error_icon@common_store.marketplace_error_icon": {
+    "layer": 12,
+    "anchor_from": "top_left",
+    "anchor_to": "top_left"
+  },
+
   "sale_ribbon_icon": {
     "type": "image",
     "texture": "textures/ui/saleribbon",
@@ -113,6 +119,35 @@
   // Skins Panel
   //---------------------------------------------------------------------------
 
+  "skin_or_profile_panel": {
+    "type": "panel",
+    "size": [ "100%", 25 ],
+    "anchor_from": "bottom_middle",
+    "anchor_to": "bottom_middle",
+    "controls": [
+      {
+        "change_skin@start.change_skin_button": {
+          "bindings": [
+            {
+              "binding_name": "(not #persona_enabled)",
+              "binding_name_override": "#visible"
+            }
+          ]
+        }
+      },
+      {
+        "change_profile@start.profile_button": {
+          "bindings": [
+            {
+              "binding_name": "#persona_enabled",
+              "binding_name_override": "#visible"
+            }
+          ]
+        }
+      }
+    ]
+  },
+
   "change_skin_button@common_buttons.light_glyph_button": {
     "$pressed_button_name": "button.menu_skins",
     "size": [ 25, 25 ],
@@ -123,6 +158,19 @@
     "$pressed_alpha": 0.65,
     "$focus_id": "menu_skins_button",
     "$button_tts_header": "accessibility.start.skinPicker"
+  },
+
+  "profile_button@common_buttons.light_text_form_fitting_button": {
+    "$pressed_button_name": "button.to_profile_screen",
+    "size": [ "100%c", 25 ],
+    "anchor_from": "bottom_middle",
+    "anchor_to": "bottom_middle",
+    "$button_state_panel": "common_buttons.new_ui_width_fitting_button_panel",
+    "$button_text_size": [ "default", 10 ],
+    "$button_text": "profileScreen.header",
+    "$focus_id": "profile_button",
+    "$pressed_alpha": 0.65,
+    "$button_tts_header": "accessibility.start.profile"
   },
 
   "skin_viewer_panel": {
@@ -220,7 +268,7 @@
     "size": [ "50% - 75px", 124 ],
     "offset": [ 0, "-10% - 4px" ],
     "controls": [
-      { "change_skin_button@start.change_skin_button": {} },
+      { "change_profile_or_skin@start.skin_or_profile_panel": {} },
       { "viewer_panel@start.skin_viewer_panel": {} }
     ]
   },
@@ -262,22 +310,25 @@
 
   // Button will resize itself to length of the text
   "xbl_signin_button@common_buttons.light_text_form_fitting_button": {
+    "size": [ "100%c", 25 ],
     "$pressed_button_name": "button.signin",
+    "$button_state_panel": "common_buttons.new_ui_width_fitting_button_panel",
+    "$button_text_size": [ "default", 10 ],
     "$button_text_max_size": [ 80, 10 ], // longest localized string length will fit in this
     "$button_text": "xbox.signin",
     "$focus_id": "menu_xbox_signin_button"
   },
 
 
-  "nx_signin_button@common_buttons.light_text_button": {
+  "platform_signin_button@common_buttons.light_text_button": {
     "$pressed_button_name": "button.signin",
     "$button_text_max_size": [ "100%", 20 ],
     "$focus_id": "menu_xbox_signin_button",
-    "$button_text": "#nx_signin_text",
+    "$button_text": "#platform_signin_text",
     "$button_text_binding_type": "global",
     "bindings": [
       {
-        "binding_name": "#nx_signin_text"
+        "binding_name": "#platform_signin_text"
       }
     ]
   },
@@ -309,7 +360,7 @@
           "controls": [
             {
               "gamertag_pic_and_label": {
-                "ignored": "(not $nx_os)",
+                "ignored": "(not $nx_os and not $is_berwick)",
                 "type": "stack_panel",
                 "orientation": "horizontal",
                 "size": [ "100%c", 16 ],
@@ -413,7 +464,7 @@
             },
             {
               "xbl_btn@start.column_frame": {
-                "ignored": "($nx_os)",
+                "ignored": "($nx_os or $is_berwick)",
                 "size": [ 94, 32 ],
                 "max_size": [ "95%", 32 ],
                 "controls": [
@@ -428,13 +479,13 @@
               }
             },
             {
-              "nx_signin_btn@start.column_frame": {
-                "ignored": "(not $nx_os)",
+              "platform_signin_btn@start.column_frame": {
+                "ignored": "(not $nx_os and not $is_berwick)",
                 "size": [ 130, 32 ],
                 "max_size": [ "95%", 32 ],
                 "controls": [
                   {
-                    "nx_signin_button@start.nx_signin_button": {}
+                    "platform_signin_button@start.platform_signin_button": {}
                   }
                 ],
                 "bindings": [
@@ -488,13 +539,26 @@
   },
 
   "play_button@start.main_button": {
-    "$pressed_button_name": "button.menu_play",
+    "variables": [
+      {
+        "requires": "$education_edition",
+        "$pressed_button_name": "button.menu_edu_play"
+      },
+      {
+        "requires": "(not $education_edition)",
+        "$pressed_button_name": "button.menu_play"
+      }
+    ],
+
     "$button_text": "menu.play",
     "default_focus_precedence": 1,
-    "$focus_override_right": "menu_skins_button",
+    "$focus_override_right": "#play_button_right_focus",
     "bindings": [
       {
         "binding_name": "#focus_change_left"
+      },
+      {
+        "binding_name": "#play_button_right_focus"
       }
     ]
   },
@@ -502,11 +566,6 @@
   "course_button@start.main_button": {
     "$pressed_button_name": "button.menu_courses",
     "$button_text": "course.edu.courses"
-  },
-
-  "library_button@start.main_button": {
-    "$pressed_button_name": "button.menu_library",
-    "$button_text": "library.title"
   },
 
   "tutorial_button@start.main_button": {
@@ -530,12 +589,28 @@
     ]
   },
 
+  "launch_editions_button@start.main_button": {
+    "$pressed_button_name": "button.launch_editions",
+    "$button_text": "menu.editions"
+  },
+
   "settings_button@start.main_button": {
     "$pressed_button_name": "button.menu_settings",
     "$button_text": "menu.settings"
   },
 
   "store_button@common_buttons.light_content_button": {
+    "size": [ "100% - 2px", "100% - 2px" ],
+    "$pressed_button_name": "button.menu_store",
+    "$button_text": "menu.store",
+    "$button_content": "start.store_button_content",
+    "$button_text_binding_type": "none",
+    "$button_binding_condition": "none",
+    "$button_text_grid_collection_name": "",
+    "tts_inherit_siblings": true
+  },
+
+  "error_store_button@common_buttons.light_content_button": {
     "size": [ "100% - 2px", "100% - 2px" ],
     "$pressed_button_name": "button.menu_store",
     "$button_text": "menu.store",
@@ -597,6 +672,27 @@
     ]
   },
 
+  "store_error_image": {
+    "type": "image",
+    "texture": "textures/ui/ErrorGlyph",
+    "size": [15,15]
+  },
+
+  "store_error_content": {
+    "type": "image",
+    "texture": "textures/ui/disabledButton",
+    "layer": 9,
+    "controls": [
+      {
+        "marketplace_button_label": {
+          "type": "label",
+          "text": "hbui.MainMenu.store",
+          "color": "$light_button_locked_text_color"
+        }
+      }
+    ]
+  },
+
   "store_sale_label": {
     "type": "label",
     "size": [ "default", 10 ],
@@ -623,7 +719,7 @@
     "$title_offset_padding|default": [ "100%", "10%" ],
     "variables": [
       {
-        "requires": "$pocket_screen",
+        "requires": "($pocket_screen)",
         "$title_offset_padding": [ "100%", "5%" ]
       }
     ],
@@ -676,17 +772,7 @@
 
   "main_buttons_panel": {
     "type": "panel",
-    "size": "$main_panel_size",
-    "variables": [
-      {
-        "requires": "$education_edition",
-        "$main_panel_size": [ 175, "100%c" ]
-      },
-      {
-        "requires": "(not $education_edition)",
-        "$main_panel_size": [ 150, "100%c" ]
-      }
-    ],
+    "size": [ 150, "100%c" ],
     "controls": [
       {
         "stacked_rows": {
@@ -697,8 +783,17 @@
           "controls": [
             {
               "stacked_row_0@start.stacked_row": {
+                "ignored": "$education_edition_china",
                 "controls": [
                   { "play_button@start.play_button": {} }
+                ]
+              }
+            },
+            {
+              "course@start.stacked_row": {
+                "ignored": "(not $education_edition_china)",
+                "controls": [
+                  { "course_button@start.course_button": {} }
                 ]
               }
             },
@@ -790,37 +885,10 @@
               }
             },
             {
-              "library@start.stacked_row": {
-                "ignored": "(not $education_edition)",
+              "switch_accounts@start.stacked_row": {
+                "ignored": "(not $education_edition) or $education_edition_china",
                 "controls": [
-                  { "library_button@start.library_button": {} }
-                ]
-              }
-            },
-            {
-              "switch_accounts_or_educator_resources@start.stacked_row": {
-                "ignored": "(not $education_edition)",
-                "controls": [
-                  {
-                    "switch_accounts@start.switch_accounts_button": {
-                      "bindings": [
-                        {
-                          "binding_name": "(not #teacher_content_visible)",
-                          "binding_name_override": "#visible"
-                        }
-                      ]
-                    }
-                  },
-                  {
-                    "educator_resources_button@start.educator_resources_button": {
-                      "bindings": [
-                        {
-                          "binding_name": "#teacher_content_visible",
-                          "binding_name_override": "#visible"
-                        }
-                      ]
-                    }
-                  }
+                  { "switch_accounts@start.switch_accounts_button": {} }
                 ]
               }
             },
@@ -828,9 +896,15 @@
               "store@start.stacked_row": {
                 "ignored": "(($trial) or ($store_ignored))",
                 "controls": [
-                  {
+                   {
                     "store_button@start.store_button": {
-                      "enabled": "(not $store_disabled)"
+                      "enabled": "(not $store_disabled)",
+                      "bindings": [
+                        {
+                          "binding_name": "(not #has_marketplace_errors)",
+                          "binding_name_override": "#visible"
+                        }
+                      ]
                     }
                   },
                   {
@@ -858,6 +932,49 @@
                         }
                       ]
                     }
+                  },
+                  {
+                    "marketplace_error_button@common_buttons.static_tooltip_notification_panel": {
+                      "size": [ "100%", "100%" ],
+                      "button_mappings": [
+                        {
+                          "from_button_id": "button.menu_select",
+                          "to_button_id": "button.menu_store_error",
+                          "mapping_type": "pressed"
+                        },
+                        {
+                          "to_button_id": "button.is_hovered",
+                          "mapping_type": "pressed"
+                        }
+                      ],
+                      "consume_hover_events": false,
+                      "focus_enabled": true,
+                      "$static_tooltip_button_visibility_binding_name": "#has_marketplace_errors",
+                      "$tooltip_popup_visible_binding": "#marketplace_errors_tooltip_visible",
+                      "$override_tooltip_popup_image": true,
+                      "$tooltip_popup_override_image_panel": "start.store_error_image",
+                      "$tooltip_text_binding_name": "#marketplace_error_text",
+                      "$tooltip_panel_content": "start.store_error_content",
+                      "bindings": [
+                        {
+                          "binding_name": "#has_marketplace_errors",
+                          "binding_name_override": "#visible"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "marketplace_error_icon@start.marketplace_error_icon": {
+                      "anchor_from": "top_left",
+                      "anchor_to": "top_left",
+                      "offset": [ -2, 0 ],
+                      "bindings": [
+                        {
+                          "binding_name": "#has_marketplace_errors",
+                          "binding_name_override": "#visible"
+                        }
+                      ]
+                    }
                   }
                 ]
               }
@@ -870,6 +987,22 @@
                 "bindings": [
                   {
                     "binding_name": "#trial_game_mode",
+                    "binding_name_override": "#visible"
+                  }
+                ]
+              }
+            },
+            {
+              "launch_editions@start.stacked_row": {
+                "ignored": "($trial or not $supports_launching_legacy_version)",
+                "controls": [
+                  {
+                    "launch_editions_button@start.launch_editions_button": {}
+                  }
+                ],
+                "bindings": [
+                  {
+                    "binding_name": "#editions_visible",
                     "binding_name_override": "#visible"
                   }
                 ]
@@ -1016,6 +1149,12 @@
         "from_button_id": "button.controller_select",
         "to_button_id": "button.menu_offline",
         "mapping_type": "global"
+      },
+      {
+        "ignored": "(not $is_berwick)",
+        "from_button_id": "button.controller_secondary_select",
+        "to_button_id": "button.menu_crossplatform",
+        "mapping_type": "global"
       }
     ],
     "$screen_content": "start.start_screen_content"
@@ -1042,6 +1181,11 @@
       },
       {
         "requires": "$nx_os",
+        "$feedback_ignored": true
+      },
+      {
+        "requires": "(not $supports_xbl_achievements)",
+        "$achievements_ignored": true,
         "$feedback_ignored": true
       }
     ],

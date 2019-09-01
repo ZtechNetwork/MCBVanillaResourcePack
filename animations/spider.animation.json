@@ -2,6 +2,7 @@
 	"format_version" : "1.8.0",
 	"animations" : {
 		"animation.spider.default_leg_pose" : {
+			"loop" : true,
 			"bones" : {
 				"leg0" : {
 					"rotation" : [ 0.0, "45.0 - this", "-45.0 - this" ]
@@ -27,19 +28,19 @@
 				"leg7" : {
 					"rotation" : [ 0.0, "45.0 - this", "45.0 - this" ]
 				}
-			},
-			"loop" : true
+			}
 		},
 		"animation.spider.look_at_target" : {
+			"loop" : true,
 			"bones" : {
 				"head" : {
 					"rotation" : [ "query.target_x_rotation", "query.target_y_rotation", 0.0 ]
 				}
-			},
-			"loop" : true
+			}
 		},
 		"animation.spider.walk" : {
 			"anim_time_update" : "query.modified_distance_moved",
+			"loop" : true,
 			"bones" : {
 				"leg0" : {
 					"rotation" : [ 0.0, "-math.abs(math.cos(query.anim_time * 76.34 + 90 * 0) * 22.92)", "math.abs(math.sin(query.anim_time * 38.17 + 90 * 0) * 22.92)" ]
@@ -65,8 +66,7 @@
 				"leg7" : {
 					"rotation" : [ 0.0, "math.abs(math.cos(query.anim_time * 76.34 + 90 * 3) * 22.92)", "-math.abs(math.sin(query.anim_time * 38.17 + 90 * 3) * 22.92)" ]
 				}
-			},
-			"loop" : true
+			}
 		}
 	}
 }

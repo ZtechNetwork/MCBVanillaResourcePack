@@ -1,5 +1,5 @@
 {
-  "format_version": "1.8.0",
+  "format_version": "1.10.0",
   "minecraft:client_entity": {
     "description": {
       "identifier": "minecraft:evocation_illager",
@@ -14,18 +14,21 @@
         "default": "geometry.evoker.v1.8"
       },
       "scripts": {
-        "scale": "0.9375"
+        "scale": "0.9375",
+        "animate": [
+          "controller_general",
+          "controller_move"
+        ]
       },
       "animations": {
         "general": "animation.evoker.general",
         "casting": "animation.evoker.casting",
         "look_at_target": "animation.common.look_at_target",
-        "move": "animation.villager.move"
+        "move": "animation.villager.move",
+        "celebrating": "animation.humanoid.celebrating",
+        "controller_general": "controller.animation.evoker.general",
+        "controller_move": "controller.animation.villager.move"
       },
-      "animation_controllers": [
-        { "general": "controller.animation.evoker.general" },
-        { "move": "controller.animation.villager.move" }
-      ],
       "particle_effects": {
         "spell": "minecraft:evoker_spell"
       },

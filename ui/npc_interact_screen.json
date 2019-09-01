@@ -233,7 +233,7 @@
   // Basic Panel
   //---------------------------------------------------------------------------
   "name_edit@npc_interact.text_edit_control": {
-    "max_length": 32,
+    "max_length": 128,
     "size": [ "100%", 14 ],
     "$wrap": false,
     "$text_edit_box_content_binding_name": "#name_text",
@@ -412,7 +412,7 @@
   },
 
   "button_name_edit@npc_interact.text_edit_control": {
-    "max_length": 16,
+    "max_length": 128,
     "size": [ "100%", 14 ],
     "$wrap": false,
     "$text_edit_box_content_binding_type": "collection",
@@ -923,17 +923,49 @@
     "controls": [
       {
         "buttons": {
-          "type": "grid",
+          "type": "stack_panel",
+          "orientation": "horizontal",
           // A bit bigger than 100% so edges line up with other ui, as the buttons are -2px smaller for padding
-          "size": [ "100% + 2px", "default" ],
-          "anchor_from": "top_middle",
-          "anchor_to": "top_middle",
-          "grid_item_template": "npc_interact.student_button",
-          "grid_dimension_binding": "#student_button_grid_dimensions",
-          "collection_name": "student_buttons_collection",
-          "bindings": [
+          "size": [ "100% + 2px", "100%cm" ],
+          "controls": [
             {
-              "binding_name": "#student_button_grid_dimensions"
+              "actions": {
+                "type": "grid",
+                "size": [ "fill", "default" ],
+                "grid_item_template": "npc_interact.student_button",
+                "grid_dimension_binding": "#student_button_grid_dimensions",
+                "collection_name": "student_buttons_collection",
+                "bindings": [
+                  {
+                    "binding_name": "#student_button_grid_dimensions"
+                  }
+                ]
+              }
+            },
+            {
+              "immersive_reader_panel": {
+                "type": "panel",
+                // + 1px to size and offset to account for action button padding
+                "size": [ "100%c + 1px", "100%sm" ],
+                "min_size": [ "100%c + 1px", "100%c"],
+                "controls": [
+                  {
+                    "immersive_reader_button@im_reader.reader_button": {
+                      "anchor_from": "top_left",
+                      "anchor_to": "top_left",
+                      "size": [ 18, 18 ],
+                      "offset": [ 0, 1 ]
+                    }
+                  }
+                ],
+                "ignored": "($is_worldbuilder or not $education_edition)",
+                "bindings": [
+                  {
+                    "binding_name": "#im_reader_button_visible",
+                    "binding_name_override": "#visible"
+                  }
+                ]
+              }
             }
           ]
         }

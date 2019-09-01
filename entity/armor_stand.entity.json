@@ -1,5 +1,5 @@
 {
-  "format_version": "1.8.0",
+  "format_version": "1.10.0",
   "minecraft:client_entity": {
     "description": {
       "identifier": "minecraft:armor_stand",
@@ -24,12 +24,20 @@
         "cancan_a_pose": "animation.armor_stand.cancan_a_pose",
         "cancan_b_pose": "animation.armor_stand.cancan_b_pose",
         "hero_pose": "animation.armor_stand.hero_pose",
-        "wiggle": "animation.armor_stand.wiggle"
+        "wiggle": "animation.armor_stand.wiggle",
+        "controller.pose": "controller.animation.armor_stand.pose",
+        "controller.wiggling": "controller.animation.armor_stand.wiggle"
       },
-      "animation_controllers": [
-        { "pose": "controller.animation.armor_stand.pose" },
-        { "wiggling": "controller.animation.armor_stand.wiggle" }
-      ],
+      "scripts": {
+        "initialize": [
+          "variable.armor_stand.pose_index = 0;",
+          "variable.armor_stand.hurt_time = 0;"
+        ],
+        "animate": [
+          "controller.pose",
+          "controller.wiggling"
+        ]
+      },
       "geometry": {
         "default": "geometry.armor_stand"
       },

@@ -1,0 +1,263 @@
+/********************************************************
++*   (c) Mojang. All rights reserved                    *
++*   (c) Microsoft. All rights reserved.                *
++********************************************************/
+
+{
+	"namespace": "account_transfer_error",
+
+	"banner_fill": {
+		"type": "image",
+		"texture": "textures/ui/Banners"
+	},
+
+	"title_label": {
+		"type": "panel",
+		"anchor_from": "top_middle",
+		"anchor_to": "top_middle",
+		"$title_size|default": [ "100%c", 10 ],
+		"size": "$title_size",
+		"$title_offset|default": [ 0, 9 ],
+		"offset": "$title_offset",
+		"$use_custom_title_control|default": false,
+		"$custom_title_label|default": "common.empty_panel",
+		"$title_binding_condition|default": "always",
+		"$title_text_binding_type|default": "global",
+		"controls": [
+			{
+				"common_dialogs_0@common_dialogs.standard_title_label": {
+					"ignored": "$use_custom_title_control"
+				}
+			}
+		]
+	},
+
+	"padding": {
+		"type": "panel",
+		"size": [ "100%", 2 ]
+	},
+
+	"dialog_content": {
+		"type": "stack_panel",
+		"size": [ "100% - 4px", "100% - 4px" ],
+		"controls": [
+			{
+				"scrolling_panel@common.scrolling_panel": {
+					"$show_background": false,
+					"$scroll_box_visible_touch": true,
+					"size": [ "100%", "fill" ],
+					"$scrolling_content": "account_transfer_error.description_label_panel",
+					"$scroll_size": [ 5, "100%" ],
+					"$scrolling_pane_size": [ "100% - 1px", "100%" ],
+					"$scrolling_pane_offset": [ 1, 0 ],
+					"$scroll_bar_right_padding_size": [ 0, 0 ]
+				}
+			}
+		]
+	},
+
+	"description_label_panel": {
+		"type": "stack_panel",
+		"size": [ "100%", "100%c" ],
+		"layer": 1,
+		"$font_scale": 1.2,
+		"controls": [
+			{
+				"line1": {
+					"type": "label",
+					"size": [ "100%", "default" ],
+					"text": "#body_text",
+					"font_type": "smooth",
+					"color": "$body_text_color",
+					"bindings": [
+						{
+							"binding_name": "#body_text"
+						}
+					]
+				}
+			},
+			{
+				"padding_1@account_transfer_error.padding": {}
+			},
+			{
+				"button_panel": {
+					"type": "stack_panel",
+					"orientation": "horizontal",
+					"size": [ "100%", 30 ],
+					"controls": [
+						{
+							"button@common_buttons.light_text_button": {
+								"$pressed_button_name": "button.button",
+								"$button_text": "#button_text",
+								"size": [ "100% - 1px", 30 ],
+								"$button_text_max_size": [ "100%", 20 ],
+								"$button_text_binding_type": "global",
+								"bindings": [
+      								  {
+        							    "binding_name": "#button_enabled",
+        							    "binding_name_override": "#enabled"
+      								  }
+    								]
+							}
+						}
+					]
+				}
+			},
+			{
+				"padding_2@account_transfer_error.padding": {}
+			},
+			{
+				"line2": {
+					"type": "label",
+					"size": [ "100%", "default" ],
+					"text": "#error_title_text",
+					"font_type": "smooth",
+					"color": "$body_text_color",
+					"bindings": [
+						{
+							"binding_name": "#error_title_text"
+						}
+					]
+				}
+			},
+			{
+				"bg@account_transfer_error.banner_fill": {
+					"size": [ "100% - 1px", "100%c + 6px" ],
+					"layer": 1,
+					"offset": [ 0, 0 ],
+					"controls": [
+					{
+						"error_label_panel": {
+							"type": "stack_panel",
+							"size": [ "100% - 5px", "100%c" ],
+							"layer": 1,
+							"$font_scale": 1.2,
+							"controls": [
+							{
+								"line3": {
+									"type": "label",
+									"size": [ "100%", "default" ],
+									"text": "#error_number_label",
+									"layer": 2,
+									"font_type": "smooth",
+									"color": "$body_text_color",
+									"bindings": [
+									{
+										"binding_name": "#error_number_label"
+									}
+									]
+								}
+							},
+							{
+								"line4": {
+									"type": "label",
+									"size": [ "100%", "default" ],
+									"text": "#error_number",
+									"layer": 2,
+									"font_type": "smooth",
+									"color": "$body_text_color",
+									"bindings": [
+										{
+											"binding_name": "#error_number"
+										}
+									]
+								}
+							},
+							{
+								"padding_3@account_transfer_error.padding": {}
+							},
+							{
+								"line5": {
+									"type": "label",
+									"size": [ "100%", "default" ],
+									"text": "#correlation_id_label",
+									"font_type": "smooth",
+									"color": "$body_text_color",
+									"bindings": [
+										{
+											"binding_name": "#correlation_id_label"
+										}
+									]
+								}
+							},
+							{
+								"line6": {
+									"type": "label",
+									"size": [ "100%", "default" ],
+									"text": "#correlation_id",
+									"font_type": "smooth",
+									"color": "$body_text_color",
+									"bindings": [
+										{
+											"binding_name": "#correlation_id"
+										}
+									]
+								}
+							}
+							]
+						}
+					}
+					]
+				}
+			}
+		]
+	},
+
+	// -----------------------------------------------
+	//
+	//    screen
+	//
+	// -----------------------------------------------
+	"account_transfer_error_screen@common.base_screen": {
+		// When the player hits Esc or exit button (menu_cancel button), they can exit the screen
+		"button_mappings": [
+		  {
+			"from_button_id": "button.menu_cancel",
+			"to_button_id": "button.menu_exit",
+			"mapping_type": "global"
+		  }
+		],
+		"$screen_content": "account_transfer_error.account_transfer_error_screen_content"
+	},
+
+	"account_transfer_error_screen_content": {
+		"type": "panel",
+		"controls": [
+			{
+				"root_panel": {
+					"type": "panel",
+					"controls": [
+						{ "dialog@account_transfer_error.screen_dialog": { "layer": 1 } }
+					]
+				}
+			}
+		]
+	},
+
+	"screen_dialog@common_dialogs.main_panel_no_buttons": {
+		"$text_name": "#headline_text",
+		"$child_control": "account_transfer_error.dialog_content",
+		"$show_close_button": true,
+		"size": [ "50%", "70%" ],
+		"controls": [
+			{
+				"common_panel@common.common_panel": { "$dialog_background": "$custom_background" }
+			},
+			{
+				"title_label@account_transfer_error.title_label": {}
+			},
+			{
+				"panel_indent": {
+					"type": "panel",
+					"size": "$panel_indent_size",
+					"offset": [ 0, 23 ],
+					"anchor_from": "top_middle",
+					"anchor_to": "top_middle",
+					"controls": [
+						{ "inside_header_panel@$child_control": {} }
+					]
+				}
+			}
+		]
+	}
+}

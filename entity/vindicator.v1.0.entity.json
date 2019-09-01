@@ -7,10 +7,6 @@
       "textures": { "default": "textures/entity/vindicator" },
       "geometry": { "default": "geometry.vindicator" },
       "scripts": {
-        "pre_animation": [
-          "variable.attack = Math.sin(1.0 - (1.0 - variable.attack_time) * (1.0 - variable.attack_time)) * 180.0;",
-          "variable.attack2 = Math.sin(variable.attack_time * 180.0);"
-        ],
         "scale": "0.9375"
       },
       "animations": {
@@ -23,7 +19,7 @@
       },
       "animation_controllers": [
         { "look_at_target": "controller.animation.humanoid.look_at_target" },
-        { "vindicator_base": "controller.animation.vindicator.base" }
+        { "vindicator_base": "controller.animation.vindicator.base.v1.0" }
       ],
       "render_controllers": [ "controller.render.vindicator" ],
       "enable_attachables": true,

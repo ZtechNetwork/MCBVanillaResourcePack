@@ -570,6 +570,10 @@
                               }
                             ]
                           }
+                        },
+                        {
+                          "open_search_tab@game_tip.open_search_tab_factory": {
+                          }
                         }
                       ]
                     }
@@ -1960,6 +1964,8 @@
     "size": [ 15, 15 ],
     "layer": 5,
 
+    "visible": "(not $education_edition_china)",
+
     "$default_texture|default": "textures/ui/how_to_play_button_default_light",
     "$hover_texture|default": "textures/ui/how_to_play_button_hover_light",
     "$pressed_texture|default": "textures/ui/how_to_play_button_pressed_light",
@@ -2597,8 +2603,15 @@
       },
       {
         "game_tip@game_tip.game_tip_panel": {
-          "layer": 14,
-          "offset": [ 0, "80%" ]
+          "layer": 100,
+          "$offset|default": [ 0, 110 ],
+          "variables": [
+            {
+              "requires": "$game_pad",
+              "$offset": [ 0, "38%" ]
+            }
+          ],
+          "offset": "$offset"
         }
       },
       { "selected_item_details_factory@common.selected_item_details_factory": {} }

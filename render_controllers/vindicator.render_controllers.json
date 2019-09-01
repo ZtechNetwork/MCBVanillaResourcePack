@@ -5,10 +5,10 @@
       "rebuild_animation_matrices": true,
       "geometry": "Geometry.default",
       "part_visibility": [
-        { "rightArm": "query.is_angry" },
-        { "leftArm": "query.is_angry" },
+        { "rightArm": "query.is_angry || query.is_celebrating" },
+        { "leftArm": "query.is_angry || query.is_celebrating" },
         { "rightItem": "query.is_angry" },
-        { "arms": "!query.is_angry" }
+        { "arms": "!(query.is_angry || query.is_celebrating)" }
       ],
       "materials": [ { "*": "Material.default" } ],
       "textures": [ "Texture.default" ]

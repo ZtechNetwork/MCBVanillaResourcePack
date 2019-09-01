@@ -2,6 +2,7 @@
 	"format_version" : "1.8.0",
 	"animations" : {
 		"animation.creeper.legs" : {
+			"loop" : true,
 			"bones" : {
 				"leg0" : {
 					"rotation" : [ "variable.leg_rot - this", 0.0, 0.0 ]
@@ -15,19 +16,30 @@
 				"leg3" : {
 					"rotation" : [ "variable.leg_rot - this", 0.0, 0.0 ]
 				}
-			},
-			"loop" : true
+			}
 		},
 		"animation.creeper.swelling" : {
+			"loop" : true,
 			"bones" : {
 				"body" : {
-					"scale" : [ "variable.swelling_scale1 * variable.wobble", "variable.swelling_scale2 / variable.wobble", "variable.swelling_scale1 * variable.wobble" ]
+					"scale" : [ "variable.swelling_scale1", "variable.swelling_scale2", "variable.swelling_scale1" ]
 				},
 				"head" : {
-					"scale" : [ "variable.swelling_scale1 * variable.wobble", "variable.swelling_scale2 / variable.wobble", "variable.swelling_scale1 * variable.wobble" ]
+					"scale" : [ "variable.swelling_scale1", "variable.swelling_scale2", "variable.swelling_scale1" ]
+				},
+				"leg0" : {
+					"scale" : [ "variable.swelling_scale1", "variable.swelling_scale2", "variable.swelling_scale1" ]
+				},
+				"leg1" : {
+					"scale" : [ "variable.swelling_scale1", "variable.swelling_scale2", "variable.swelling_scale1" ]
+				},
+				"leg2" : {
+					"scale" : [ "variable.swelling_scale1", "variable.swelling_scale2", "variable.swelling_scale1" ]
+				},
+				"leg3" : {
+					"scale" : [ "variable.swelling_scale1", "variable.swelling_scale2", "variable.swelling_scale1" ]
 				}
-			},
-			"loop" : true
+			}
 		}
 	}
 }

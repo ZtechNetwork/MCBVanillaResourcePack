@@ -93,6 +93,12 @@
     ]
   },
 
+  "manage_subscriptions_button@settings_common.action_button": {
+    "$button_text": "realmsSettingsScreen.manageSubscriptionsButton",
+    "$pressed_button_name": "menu_realms_manage_subscriptions",
+    "visible": "($realms_plus_on)"
+  },
+
   "renew_subscription_button@settings_common.action_button": {
     "$button_text": "realmsSettingsScreen.renewRealmButton",
     "$pressed_button_name": "menu_realms_renew_subscription",
@@ -181,6 +187,21 @@
         }
       },
       {
+        "loading_failed_view": {
+          "type": "label",
+          "color": "$body_text_color",
+          "size": [ "default", "80px" ],
+          "offset": [ 0, 10 ],
+          "text": "realmsSettingsScreen.failedLoadingSubscription",
+          "bindings": [
+            {
+              "binding_name": "#realms_subscription_loading_failed_message_visible",
+              "binding_name_override": "#visible"
+            }
+          ]
+        }
+      },
+      {
         "loaded_view": {
           "type": "stack_panel",
           "anchor_from": "top_left",
@@ -208,7 +229,8 @@
                 "type": "panel",
                 "size": [ 0, 2 ]
               }
-            }
+            },
+            { "manage_subscriptions_button@realms_settings.manage_subscriptions_button": {} }
           ],
           "bindings": [
             {

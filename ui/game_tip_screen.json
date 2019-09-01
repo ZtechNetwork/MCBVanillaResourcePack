@@ -20,16 +20,26 @@
     "layer": 3,
     "text_alignment": "left",
     "color": "$body_text_color",
-    "text": "#text",
     "$tip_min_size|default": [ "default", "default" ],
     "size": [ "default", "default" ],
     "min_size": "$tip_min_size",
-    "$tip_max_size|default": [ 165, 36 ],
+    "$tip_max_size|default": [ 165, 40 ],
     "max_size": "$tip_max_size",
+    "line_padding": 1.5,
     "$animation|default": [
       "@game_tip.anim_game_tip_txt_wait"
     ],
-    "anims": "$animation"
+    "anims": "$animation",
+    "$label_text|default": "#text",
+    "$label_text_binding_type|default": "global",
+    "text": "$label_text",
+    "bindings": [
+      {
+        "binding_name": "$label_text",
+        "binding_name_override": "$label_text",
+        "binding_type": "$label_text_binding_type"
+      }
+    ]
   },
 
   "game_tip_item_panel": {
@@ -82,10 +92,11 @@
     "layer": 1,
     "size": [ "100%c + 8px", "100%c" ],
     "$tip_anchor_from|default": "center",
+    "$is_inventory_tip|default": false,
     "$fill_alpha|default": 0.6,
     "variables": [
       {
-        "requires": "$is_holographic",
+        "requires": "($is_holographic or $is_inventory_tip)",
         "$fill_alpha": 1.0
       }
     ],
@@ -259,6 +270,8 @@
     "$ignore_tip|default": false,
     "$up_enabled|default": false,
     "$is_recipe_book_tip|default": false,
+    "$is_hotbar_tip|default": false,
+    "$is_workbench_outputslot_tip|default": false,
     "variables": [
       {
         "requires": "$up_enabled",
@@ -269,6 +282,11 @@
       {
         "requires": "(not $up_enabled and ($is_recipe or $is_close))",
         "$chevron_offset": [ 0, -13 ]
+      },
+      {
+        "requires": "((not $up_enabled) and $is_workbench_outputslot_tip)",
+        "$offset_value": [ 0, 34 ],
+        "$chevron_offset": [ 0, -16 ]
       },
       {
         "requires": "((not $up_enabled) and $pocket_screen)",
@@ -288,6 +306,11 @@
       {
         "requires": "(($is_recipe_book_tip) and $pocket_screen)",
         "$offset_value": [ 0, 50 ]
+      },
+      {
+        "requires": "$is_hotbar_tip",
+        "$offset_value": [ 0, -30 ],
+        "$chevron_offset": [ 0, 14 ]
       }
     ],
     "offset": "$offset_value",
@@ -323,6 +346,7 @@
           "$right_enabled|default": false,
           "$is_close|default": false,
           "$is_recipe|default": false,
+          "$is_hotbar_tip|default": false,
           "$tip_min_size": [ 110, "default" ],
           "$offset|default": [ 0, 0 ],
           "variables": [
@@ -396,5 +420,33 @@
         "close_inventory_tip": "close_inventory_tip@game_tip.inventory_game_tip_panel"
       }
     }
+  },
+
+  "hud_item_game_tip": {
+    "type": "panel",
+    "factory": {
+      "name": "hud_item_game_tip_factory",
+      "max_children_size": 1,
+      "control_ids": {
+        "hud_item_game_tip": "hud_item_game_tip@game_tip.inventory_game_tip_panel"
+      }
+    }
+  },
+
+  "open_search_tab_factory": {
+    "type": "panel",
+    "$up_enabled": false,
+    "$is_multiline": false,
+    "factory": {
+      "name": "open_search_tab_factory",
+      "max_children_size": 5,
+      "control_ids": {
+        "visual_tip_item_1": "visual_tip_item_1@game_tip.cell_image_hint_tips",
+        "visual_tip_item_2": "visual_tip_item_2@game_tip.cell_image_hint_tips_2",
+        "visual_tip_item_3": "visual_tip_item_3@game_tip.cell_image_hint_tips_3",
+        "open_search_tab_tip": "open_search_tab_tip@game_tip.inventory_game_tip_panel"
+      }
+    }
   }
+
 }

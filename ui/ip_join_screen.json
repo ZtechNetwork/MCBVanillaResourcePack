@@ -1,0 +1,288 @@
+/********************************************************
+*   (c) Mojang. All rights reserved                     *
+*   (c) Microsoft. All rights reserved.                 *
+*********************************************************/
+{
+  "namespace": "ip_join",
+
+  "play_button@common_buttons.light_text_button": {
+    "$pressed_button_name": "button.join_server",
+    "$button_text": "course.edu.join",
+    "bindings": [
+      {
+        "binding_name": "#play_button_enabled",
+        "binding_name_override": "#enabled"
+      }
+    ]
+  },
+
+  "game_tip_item_panel": {
+    "type": "panel",
+    "size": [ "100%", "100%cm + 4px" ],
+    "controls": [
+      {
+        "offset_wrap": {
+          "type": "stack_panel",
+          "orientation": "horizontal",
+          "size": [ "100%", "100%cm" ],
+          "anchor_from": "left_middle",
+          "anchor_to": "left_middle",
+          "controls": [
+            {
+              "info_bulb": {
+                "type": "image",
+                "layer": 13,
+                "size": [ "100%y", "100%sm" ],
+                "texture": "textures/ui/infobulb"
+              }
+            },
+            {
+              "padding_1": {
+                "type": "panel",
+                "size": [ 2, 0 ]
+              }
+            },
+            {
+              "label@game_tip.game_tip_label": {
+                "size": [ "fill", 10 ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "focus_border@common.non_interact_focus_border_button": {
+          "size": [ "100%", "100%sm" ],
+          "consume_hover_events": false,
+          "tts_inherit_siblings": true,
+          // Expose a way for the parent to announce the tooltip in addition to the text from the label above
+          "$tts_tooltip_header|default": " ",
+          "tts_control_header": "$tts_tooltip_header",
+          "$focus_border_visible_binding|default": "#tts_enabled",
+          "bindings": [
+            {
+              "binding_name": "$focus_border_visible_binding",
+              "binding_name_override": "#visible"
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "ip_label_content@ip_join.game_tip_item_panel": {
+    "$label_text_binding_type": "none",
+    "$label_text": "course.edu.ipAddress",
+    "$animation": []
+  },
+
+  "port_label_content@ip_join.game_tip_item_panel": {
+    "$label_text_binding_type": "none",
+    "$label_text": "addExternalServerScreen.portTextBoxLabel",
+    "$animation": []
+  },
+
+  "hide_height_from_parent": {
+    "type": "panel",
+    "size": [ "100%", 0 ],
+    "controls": [
+      {
+        "content@$hidden_content": {
+          "anchor_from": "top_left",
+          "anchor_to": "bottom_left"
+        }
+      }
+    ]
+  },
+
+  "popup_notification_panel": {
+    "type": "input_panel",
+    "size": [ "100%", "100%cm" ],
+
+    "$tooltip_popup_image": "textures/ui/infobulb",
+    "$tooltip_button_content_size|default": [ "100%", "100%" ],
+    "$tooltip_button_binding_type|default": "global",
+    "$tooltip_button_collection_name|default": "",
+
+    "button_mappings": [
+      {
+        "to_button_id": "$hovered_button_id",
+        "mapping_type": "pressed"
+      }
+    ],
+    "controls": [
+      // Popup that appears when hovering. Don't want this to be considered for cm size calculation
+      {
+        "hide_wrapper@ip_join.hide_height_from_parent": {
+          "$hidden_content": "common.dynamic_tooltip_popup_with_image_and_text",
+          "$tool_tip_text_max_size": [ 200, "default" ],
+          "$tooltip_chevron_anchor": "bottom_left",
+          "$tooltip_popup_chevron_offset": [ "30%x", "100%y - 3px" ],
+          // Offset left towards the bulb icon and up so the chevron doesn't overlap with the label
+          "$tooltip_panel_offset": [ -10, -15 ]
+        }
+      },
+      // Static label for the hoverable area
+      { "tooltip_panel_content@$tooltip_panel_content": {} }
+    ]
+  },
+
+  "ip_address_tooltip_panel@ip_join.popup_notification_panel": {
+    "$hovered_button_id": "ip_tooltip.is_hovered",
+    "$tooltip_popup_visible_binding": "#is_ip_tooltip_hover_panel_visible",
+    "$tooltip_text_binding_name": "joincode.ip_entry.address.tooltip",
+    "$tts_tooltip_header": "$tooltip_text_binding_name",
+    "$tooltip_text_binding_type": "none",
+    "$tooltip_panel_content": "ip_join.ip_label_content"
+  },
+
+  "port_tooltip_panel@ip_join.popup_notification_panel": {
+    "$hovered_button_id": "port_tooltip.is_hovered",
+    "$tooltip_popup_visible_binding": "#is_port_tooltip_hover_panel_visible",
+    "$tooltip_text_binding_name": "joincode.ip_entry.port.tooltip",
+    "$tts_tooltip_header": "$tooltip_text_binding_name",
+    "$tooltip_text_binding_type": "none",
+    "$tooltip_panel_content": "ip_join.port_label_content"
+  },
+
+  "edit_label_and_box": {
+    "type": "stack_panel",
+    "size": [ "100%", "100%c" ],
+    "$label_focus_id|default": "",
+    "$edit_focus_id|default": "",
+    "$box_focus_override_right|default": "",
+    "$box_focus_override_right_binding_type|default": "none",
+    "$box_focus_override_left|default": "",
+
+    "controls": [
+      {
+        "tooltip_panel@$tooltip_panel": {
+          "$focus_id": "$label_focus_id",
+          // Default focus works fine between these two, only need to override behavior going out with right/left
+          "$focus_override_left": "$box_focus_override_left"
+        }
+      },
+      {
+        "edit_box@common.text_edit_box": {
+          "layer": 2,
+          "size": [ "100%", 20 ],
+          "$text_box_name": "$text_box_name",
+          "$text_edit_box_content_binding_name": "$content_binding_name",
+          "max_length": "$max_length",
+          "$place_holder_text": "$placeholder_label",
+          "$text_edit_box_binding_condition": "once",
+
+          "$focus_id": "$edit_focus_id",
+          "$focus_override_right": "$box_focus_override_right",
+          // Shouldn't be necessary but for some reason focus goes to the exit button without this
+          "$focus_override_left": "$label_focus_id",
+
+          "bindings": [
+            {
+              "binding_name": "$box_focus_override_right",
+              "binding_name_override": "#focus_change_right",
+              "binding_type": "$box_focus_override_right_binding_type"
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "ip_edit_label_and_box@ip_join.edit_label_and_box": {
+    "$placeholder_label": "course.edu.ipPlaceholder",
+    "$text_box_name": "#ip_text_box",
+    "$max_length": 256,
+    "$content_binding_name": "#ip_text_box_content",
+    "$tooltip_panel": "ip_join.ip_address_tooltip_panel"
+  },
+
+  "port_edit_label_and_box@ip_join.edit_label_and_box": {
+    "$placeholder_label": "",
+    "$max_length": 6,
+    "$text_edit_box_text_type": "NumberChars",
+    "$text_box_name": "#port_text_box",
+    "$content_binding_name": "#port_text_box_content",
+    "$tooltip_panel": "ip_join.port_tooltip_panel"
+  },
+
+  "horizontal_padding_4px@common.empty_panel": {
+    "size": [ "100%", 4 ]
+  },
+
+  "header_label_text@common.button_text": {
+    "size": [ "100%", "default" ],
+    "text": "#header_text",
+    "font_type": "smooth",
+    "font_scale_factor": 1.1,
+    "bindings": [
+      {
+        "binding_name": "#header_text"
+      }
+    ]
+  },
+
+  "header_label@common.tts_label_focus_wrapper": {
+    "$tts_label_panel": "ip_join.header_label_text"
+  },
+
+  "join_ip_content": {
+    "type": "panel",
+    "size": [ 225, "100%c" ],
+    "anchor_from": "top_middle",
+    "anchor_to": "top_middle",
+    "controls": [
+      {
+        "shrink_wrap": {
+          "type": "stack_panel",
+          "orientation": "vertical",
+          "size": [ "100% - 8px", "100%c" ],
+          "anchor_from": "top_middle",
+          "anchor_to": "top_middle",
+
+          "controls": [
+            { "header_pad@ip_join.horizontal_padding_4px": {} },
+            {
+              "header@ip_join.header_label": {
+                "$focus_id": "header"
+              }
+            },
+            { "body_pad@ip_join.horizontal_padding_4px": {} },
+            {
+              "ip_edit_label_and_box@ip_join.ip_edit_label_and_box": {
+                "$label_focus_id": "ip_label",
+                "$edit_focus_id": "ip_entry",
+                "$box_focus_override_right": "port_label",
+                "$box_focus_override_left": "header"
+              }
+            },
+            {
+              "pad@common.empty_panel": {
+                "size": [ "100%", 2 ]
+              }
+            },
+            {
+              "port_edit_label_and_box@ip_join.port_edit_label_and_box": {
+                "$label_focus_id": "port_label",
+                "$edit_focus_id": "port_entry",
+                "$box_focus_override_right": "#port_edit_focus_override_right",
+                "$box_focus_override_right_binding_type": "global",
+                "$box_focus_override_left": "ip_entry"
+              }
+            },
+            { "padding_center@course.horizontal_padding_4px": {} },
+            {
+              "play@ip_join.play_button": {
+                "size": [ "100%", 18 ],
+
+                "$focus_id": "play",
+                "$focus_override_right": "header"
+              }
+            },
+            { "padding_bottom@course.horizontal_padding_4px": {} }
+          ]
+        }
+      }
+    ]
+  }
+}
