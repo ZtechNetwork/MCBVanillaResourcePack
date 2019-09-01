@@ -2,6 +2,9 @@
 ## Repository Status
 ![GitHub All Releases](https://img.shields.io/github/downloads/ZtechNetwork/MCBVanillaResourcePack/total) ![GitHub release (latest by date)](https://img.shields.io/github/v/release/ZtechNetwork/MCBVanillaResourcePack?include_prereleases) ![GitHub last commit](https://img.shields.io/github/last-commit/ZtechNetwork/MCBVanillaResourcePack)
 
+## Game Music Warning
+Game music will no longer be included in our package for copyright reasons. If you need any reference to music, use the `sounds_definitions.json` in the `sounds` directory.
+
 ## Game Changelogs
 ### v1.13.0.9 [Beta]
 #### New Features
