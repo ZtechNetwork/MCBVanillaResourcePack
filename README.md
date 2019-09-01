@@ -6,7 +6,7 @@
 Game music will no longer be included in our package for copyright reasons. If you need any reference to music, use the `sounds_definitions.json` in the `sounds` directory.
 
 ## Game Changelogs
-### v1.13.0.9 [Beta]
+### **v1.13.0.9 [Beta]**
 #### *New Features:*
 - Added Wither Rose
 - Added Suspicious Stew
@@ -31,23 +31,23 @@ Game music will no longer be included in our package for copyright reasons. If y
 - Villagers can now heal if they have bread in their inventory
 - Added a "How to Play" section for Structure Blocks 
 
-### v1.13.0.6 [Beta]
+### **v1.13.0.6 [Beta]**
 - Bug Fixes.
 - See the full [changelog](https://feedback.minecraft.net/hc/en-us/articles/360031985392-Minecraft-Beta-1-13-0-6-Xbox-One-Windows-10-Android-) for more info.
 
-### v1.13.0.5 [Beta]
+### **v1.13.0.5 [Beta]**
 - Bug Fixes.
 - See the full [changelog](https://feedback.minecraft.net/hc/en-us/articles/360031774332-Minecraft-Beta-1-13-0-5-Xbox-One-Windows-10-Android-) for more info.
 
-### v1.13.0.4 [Beta]
+### **v1.13.0.4 [Beta]**
 - Bug Fixes.
 - See the full [changelog](https://feedback.minecraft.net/hc/en-us/articles/360031240811-Minecraft-Beta-1-13-0-4-Xbox-One-Windows-10-Android-) for more info.
 
-### v1.13.0.2 [Beta]
+### **v1.13.0.2 [Beta]**
 - Bug Fixes. 
 - See the full [changelog](https://feedback.minecraft.net/hc/en-us/articles/360030455372-Minecraft-Beta-1-13-0-2-Xbox-One-Windows-10-Android-) for more info.
 
-### v1.13.0.1 [Beta]
+### **v1.13.0.1 [Beta]**
 #### *New Features:*
 - Added the Fox!
     - Added the arctic Fox as a variant
@@ -64,7 +64,7 @@ Game music will no longer be included in our package for copyright reasons. If y
 - Minecraft on iOS will no longer show the "Do you want to Close Minecraft" pop-up since iOS doesn't support that app behaviour
 - Added new chat settings options to improve accessibility
 
-### v1.12.0
+### **v1.12.0**
 #### *Changes:*
 - Increased the frequency and volume of the ambient mob sounds made during raids, to make them easier to locate
 - Added new Wandering Trader sounds
