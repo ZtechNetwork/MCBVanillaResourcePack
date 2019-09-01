@@ -7,7 +7,7 @@ Game music will no longer be included in our package for copyright reasons. If y
 
 ## Game Changelogs
 ### v1.13.0.9 [Beta]
-#### New Features
+#### *New Features:*
 - Added Wither Rose
 - Added Suspicious Stew
 - Item Frames can now be placed on the floor and ceiling! 
@@ -23,7 +23,7 @@ Game music will no longer be included in our package for copyright reasons. If y
     - These can be viewed after defeating the Ender Dragon, and also through a new button found in the Settings menu
 - New note block sounds!
     - Added note block functionality for glowstone, haybale, block of emerald, pumpkin, soul sand, block of Iron, bone block, wool, packed ice, clay, and block of gold 
-#### Changes
+#### *Changes:*
 - Squid can now spawn in rivers!
 - Added Dead Coral Plants
 - Updated and added new Note Block sounds
@@ -48,7 +48,7 @@ Game music will no longer be included in our package for copyright reasons. If y
 - See the full [changelog](https://feedback.minecraft.net/hc/en-us/articles/360030455372-Minecraft-Beta-1-13-0-2-Xbox-One-Windows-10-Android-) for more info.
 
 ### v1.13.0.1 [Beta]
-#### New Features
+#### *New Features:*
 - Added the Fox!
     - Added the arctic Fox as a variant
     - Foxes now spawn as arctic variants when in snowy climates, and polar bears will attack them unprovoked
@@ -59,13 +59,13 @@ Game music will no longer be included in our package for copyright reasons. If y
 - Added new “PersistComponent” for mob persistence
 - Added new and improved Structure Blocks
 - Save and Load features are behind the Experimental Toggle
-#### Changes
+#### *Changes:*
 - Added a message that informs players whether a Marketplace pack is compatible with their version of Minecraft (specifically if it includes blocks from a newer version of the game)
 - Minecraft on iOS will no longer show the "Do you want to Close Minecraft" pop-up since iOS doesn't support that app behaviour
 - Added new chat settings options to improve accessibility
 
 ### v1.12.0
-#### Changes
+#### *Changes:*
 - Increased the frequency and volume of the ambient mob sounds made during raids, to make them easier to locate
 - Added new Wandering Trader sounds
 - Updated the main menu splash text
