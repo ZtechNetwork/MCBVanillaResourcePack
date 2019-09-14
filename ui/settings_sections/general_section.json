@@ -976,21 +976,30 @@
   "global_texture_pack_section@resource_packs.selected_stack_panel": {
     "$selected_pack_items": "#selected_pack_items_global",
     "$available_pack_items": "#available_pack_items_global",
+    "$realms_pack_items": "#realms_pack_items_global",
     "$unowned_pack_items": "#unowned_pack_items_global",
     "$selected_grid_dimensions": "#selected_grid_dimensions_global",
     "$available_grid_dimensions": "#available_grid_dimensions_global",
+    "$realms_grid_dimensions": "#realms_grid_dimensions_global",
     "$unowned_grid_dimensions": "#unowned_grid_dimensions_global",
     "$button.selected_pack": "button.selected_pack_global",
     "$button.deselected_pack": "button.deselected_pack_global",
     "$button.available_pack": "button.available_pack_global",
+    "$button.realms_pack": "button.realms_pack_global",
     "$button.unowned_pack": "button.unowned_pack_global",
     "$button.move_left": "button.move_left_global",
     "$button.sort_up": "button.sort_up_global",
     "$button.sort_down": "button.sort_down_global",
+    "$button.expand_selected": "button.expand_selected_global",
+    "$button.expand_available": "button.expand_available_global",
+    "$button.expand_realms": "button.expand_realms_global",
+    "$button.store": "button.store_global",
+    "$button.store_home": "button.store_home_global",
     "$button.report_errors": "button.report_errors_global",
     "$bottom_description_text": "resourcePack.description.bottom.global",
     "$selected_label_text": "resourcePack.selected.title.packs",
     "$available_label_text": "resourcePack.available.title.packs",
+    "$realms_label_text": "resourcePack.realmsPlus.title.packs",
     "$unowned_label_text": "resourcePack.suggestedContent.title",
     "$view_more_unowned_content_button_text": "resourcePack.suggestedContent.button.viewMore",
     "$default_item_texture": "#default_item_texture_global",
@@ -998,6 +1007,8 @@
     "$default_item_zip": "#default_item_zip_global",
     "$default_item_title": "resourcePack.vanilla.name",
     "$default_item_description": "resourcePack.vanilla.description",
+    "$read_more_label": "read_more_label_global",
+    "$read_less_label": "read_less_label_global",
     "$total_size_binding": "#total_size_binding_global",
     "$in_game_error_text": "resourcePack.error.ingame.packs",
     "$invalid_pack_items": "#invalid_pack_items_global",
@@ -1005,10 +1016,16 @@
     "$button.invalid_pack": "button.invalid_pack_global",
     "$button.pack_warning": "button.pack_warning_global",
     "$invalid_label_text": "resourcePack.invalid.title.packs",
+    "$view_in_store": "resourcePack.description.store",
+    "$errors_text": "resourcePack.errors",
+    "$warnings_text": "resourcePack.warnings",
+    "$expired_text": "resourcePack.realmsPlus.expired",
     "$top_label_box": false,
     "$show_checkbox": false,
     "$button.resource_pack_options_exit": "button.resource_pack_options_exit_global",
     "$button.pack_settings": "button.pack_settings_global",
+    "$button.add": "resourcePack.available.add",
+    "$button.remove": "resourcePack.selected.remove",
     "$options_slider_name": "content_tier_slider_global",
     "$display_suggested_content_offers": true,
     "$suggested_content_offers_collection": "#suggested_offers_collection_global",
@@ -1017,6 +1034,7 @@
     "$button.select_offer": "button.select_offer_global",
     "$suggested_content_offers_label_text": "#suggested_offers_title_global",
     "$no_available_packs_visibility_binding": "#no_available_packs_visibility_global",
+    "$no_realms_packs_visibility_binding": "#no_realms_packs_visibility_global",
     "$view_more_unowned_content_button_visibility_binding": "#suggested_content_visible_global",
     "bindings": [
       {
@@ -1906,10 +1924,9 @@
     "size": [ "100%", 70 ],
     "controls": [
       {
-        "realms_plus_image": {
-          "type": "image",
+        "realms_plus_image@common.service_repo_image_panel": {          
           "size": [ "177.8%y", "100%" ],
-          "texture": "textures/ui/content_phalanx_logo2"
+          "$repo_image_texture": "content_phalanx_logo2"
         }
       },
       {
@@ -1977,10 +1994,9 @@
     "size": [ "100%", 70 ],
     "controls": [
       {
-        "realms_plus_image": {
-          "type": "image",
+        "realms_plus_image@common.service_repo_image_panel": {
           "size": [ "177.8%y", "100%" ],
-          "texture": "textures/ui/content_phalanx_logo2"
+          "$repo_image_texture": "content_phalanx_logo2"          
         }
       },
       {
@@ -3776,71 +3792,71 @@
 
 
       {
-          "option_toggle_disable_render_terrain@settings_common.option_toggle": {
-            "$option_label": "options.dev_disableRenderTerrain",
-            "$option_binding_name": "#dev_disable_render_terrain",
-            "$option_enabled_binding_name": "#dev_disable_render_terrain_enabled",
-            "$toggle_name": "dev_disable_render_terrain"
-          }
-        },
-        {
-          "option_toggle_disable_render_entities@settings_common.option_toggle": {
-            "$option_label": "options.dev_disableRenderEntities",
-            "$option_binding_name": "#dev_disable_render_entities",
-            "$option_enabled_binding_name": "#dev_disable_render_entities_enabled",
-            "$toggle_name": "dev_disable_render_entities"
-          }
-        },
-        {
-          "option_toggle_disable_render_blockentities@settings_common.option_toggle": {
-            "$option_label": "options.dev_disableRenderBlockEntities",
-            "$option_binding_name": "#dev_disable_render_blockentities",
-            "$option_enabled_binding_name": "#dev_disable_render_blockentities_enabled",
-            "$toggle_name": "dev_disable_render_blockentities"
-          }
-        },
-        {
-          "option_toggle_disable_render_particles@settings_common.option_toggle": {
-            "$option_label": "options.dev_disableRenderParticles",
-            "$option_binding_name": "#dev_disable_render_particles",
-            "$option_enabled_binding_name": "#dev_disable_render_particles_enabled",
-            "$toggle_name": "dev_disable_render_particles"
-          }
-        },
-        {
-          "option_toggle_disable_render_sky@settings_common.option_toggle": {
-            "$option_label": "options.dev_disableRenderSky",
-            "$option_binding_name": "#dev_disable_render_sky",
-            "$option_enabled_binding_name": "#dev_disable_render_sky_enabled",
-            "$toggle_name": "dev_disable_render_sky"
-          }
-        },
-        {
-          "option_toggle_disable_render_weather@settings_common.option_toggle": {
-            "$option_label": "options.dev_disableRenderWeather",
-            "$option_binding_name": "#dev_disable_render_weather",
-            "$option_enabled_binding_name": "#dev_disable_render_weather_enabled",
-            "$toggle_name": "dev_disable_render_weather"
-          }
-        },
-        {
-          "option_toggle_disable_render_hud@settings_common.option_toggle": {
-            "$option_label": "options.dev_disableRenderHud",
-            "$option_binding_name": "#dev_disable_render_hud",
-            "$option_enabled_binding_name": "#dev_disable_render_hud_enabled",
-            "$toggle_name": "dev_disable_render_hud"
-          }
-        },
-        {
-          "option_toggle_disable_render_item_in_hand@settings_common.option_toggle": {
-            "$option_label": "options.dev_disableRenderItemInHand",
-            "$option_binding_name": "#dev_disable_render_item_in_hand",
-            "$option_enabled_binding_name": "#dev_disable_render_item_in_hand_enabled",
-            "$toggle_name": "dev_disable_render_item_in_hand"
-          }
-        },
+        "option_toggle_disable_render_terrain@settings_common.option_toggle": {
+          "$option_label": "options.dev_disableRenderTerrain",
+          "$option_binding_name": "#dev_disable_render_terrain",
+          "$option_enabled_binding_name": "#dev_disable_render_terrain_enabled",
+          "$toggle_name": "dev_disable_render_terrain"
+        }
+      },
+      {
+        "option_toggle_disable_render_entities@settings_common.option_toggle": {
+          "$option_label": "options.dev_disableRenderEntities",
+          "$option_binding_name": "#dev_disable_render_entities",
+          "$option_enabled_binding_name": "#dev_disable_render_entities_enabled",
+          "$toggle_name": "dev_disable_render_entities"
+        }
+      },
+      {
+        "option_toggle_disable_render_blockentities@settings_common.option_toggle": {
+          "$option_label": "options.dev_disableRenderBlockEntities",
+          "$option_binding_name": "#dev_disable_render_blockentities",
+          "$option_enabled_binding_name": "#dev_disable_render_blockentities_enabled",
+          "$toggle_name": "dev_disable_render_blockentities"
+        }
+      },
+      {
+        "option_toggle_disable_render_particles@settings_common.option_toggle": {
+          "$option_label": "options.dev_disableRenderParticles",
+          "$option_binding_name": "#dev_disable_render_particles",
+          "$option_enabled_binding_name": "#dev_disable_render_particles_enabled",
+          "$toggle_name": "dev_disable_render_particles"
+        }
+      },
+      {
+        "option_toggle_disable_render_sky@settings_common.option_toggle": {
+          "$option_label": "options.dev_disableRenderSky",
+          "$option_binding_name": "#dev_disable_render_sky",
+          "$option_enabled_binding_name": "#dev_disable_render_sky_enabled",
+          "$toggle_name": "dev_disable_render_sky"
+        }
+      },
+      {
+        "option_toggle_disable_render_weather@settings_common.option_toggle": {
+          "$option_label": "options.dev_disableRenderWeather",
+          "$option_binding_name": "#dev_disable_render_weather",
+          "$option_enabled_binding_name": "#dev_disable_render_weather_enabled",
+          "$toggle_name": "dev_disable_render_weather"
+        }
+      },
+      {
+        "option_toggle_disable_render_hud@settings_common.option_toggle": {
+          "$option_label": "options.dev_disableRenderHud",
+          "$option_binding_name": "#dev_disable_render_hud",
+          "$option_enabled_binding_name": "#dev_disable_render_hud_enabled",
+          "$toggle_name": "dev_disable_render_hud"
+        }
+      },
+      {
+        "option_toggle_disable_render_item_in_hand@settings_common.option_toggle": {
+          "$option_label": "options.dev_disableRenderItemInHand",
+          "$option_binding_name": "#dev_disable_render_item_in_hand",
+          "$option_enabled_binding_name": "#dev_disable_render_item_in_hand_enabled",
+          "$toggle_name": "dev_disable_render_item_in_hand"
+        }
+      },
 
-        {
+      {
         "leak_memory@settings_common.option_text_edit_with_text_button": {
           "$option_label": "Leak Memory",
           "$option_binding_name": "#leak_memory_value",
@@ -4095,6 +4111,34 @@
         }
       },
       {
+        "async_texture_loads_toggle@settings_common.option_toggle": {
+          "$option_label": "options.dev_asyncTextureLoads",
+          "$option_binding_name": "#async_texture_loads",
+          "$option_enabled_binding_name": "#async_texture_loads_enabled",
+          "$toggle_name": "async_texture_loads",
+          "bindings": [
+            {
+              "binding_name": "#show_async_texture_loads",
+              "binding_name_override": "#visible"
+            }
+          ]
+        }
+      },
+      {
+        "show_async_missing_texture_toggle@settings_common.option_toggle": {
+          "$option_label": "options.dev_showAsyncMissingTexture",
+          "$option_binding_name": "#async_missing_texture",
+          "$option_enabled_binding_name": "#async_missing_texture_enabled",
+          "$toggle_name": "async_missing_texture",
+          "bindings": [
+            {
+              "binding_name": "#show_async_missing_texture",
+              "binding_name_override": "#visible"
+            }
+          ]
+        }
+      },
+      {
         "filewatcher_rendering_toggle@settings_common.option_toggle": {
           "$option_label": "options.dev_file_watcher",
           "$option_binding_name": "#file_watcher",
@@ -4148,6 +4192,12 @@
         }
       },
       {
+        "option_delete_all_personas_button@settings_common.action_button": {
+          "$pressed_button_name": "dev_delete_all_personas",
+          "$button_text": "options.dev_deleteAllPersonas"
+        }
+      },
+      {
         "padding1": {
           "type": "panel",
           "size": [ "100%", 3 ]
@@ -4161,15 +4211,15 @@
         }
       },
       {
-          "padding2": {
-            "type": "panel",
-            "size": [ "100%", 3 ]
+        "padding2": {
+          "type": "panel",
+          "size": [ "100%", 3 ]
         }
       },
       {
-          "clear_purchase_inventory@settings_common.action_button": {
-            "$pressed_button_name": "button.clear_puchase_inventory",
-            "$button_text": "options.dev_clearPurchaseInventory"
+        "clear_purchase_inventory@settings_common.action_button": {
+          "$pressed_button_name": "button.clear_puchase_inventory",
+          "$button_text": "options.dev_clearPurchaseInventory"
         }
       },
       {
@@ -4193,49 +4243,49 @@
         }
       },
       {
-          "padding_reset_day_one": {
-            "type": "panel",
-            "size": [ "100%", 3 ]
-          }
-        },
-        {
+        "padding_reset_day_one": {
+          "type": "panel",
+          "size": [ "100%", 3 ]
+        }
+      },
+      {
         "reset_day_one_experience@settings_common.action_button": {
           "$pressed_button_name": "button.reset_day_one_experience",
           "$button_text": "options.dev_reset_day_one_experience"
-          }
-        },
-        {
-          "padding_core_ui": {
-            "type": "panel",
-            "size": [ "100%", 3 ]
-          }
-        },
-        {
-          "open_core_ui_tests@settings_common.action_button": {
-            "$pressed_button_name": "button.open_core_ui_tests",
-            "$button_text": "#dev_open_core_ui_tests_button_text",
-            "$button_text_binding_type": "global",
-            "$button_binding_condition": "visible",
-            "bindings": [
-              {
-                "binding_name": "#show_core_ui_shortcuts",
-                "binding_name_override": "#visible"
-              }
-            ]
-          }
-        },
-        {
-          "open_core_ui_docs@settings_common.action_button": {
-            "$pressed_button_name": "button.open_core_ui_docs",
-            "$button_text": "#dev_open_core_ui_docs_button_text",
-            "$button_text_binding_type": "global",
-            "$button_binding_condition": "visible",
-            "bindings": [
-              {
-                "binding_name": "#show_core_ui_shortcuts",
-                "binding_name_override": "#visible"
-              }
-            ]
+        }
+      },
+      {
+        "padding_core_ui": {
+          "type": "panel",
+          "size": [ "100%", 3 ]
+        }
+      },
+      {
+        "open_core_ui_tests@settings_common.action_button": {
+          "$pressed_button_name": "button.open_core_ui_tests",
+          "$button_text": "#dev_open_core_ui_tests_button_text",
+          "$button_text_binding_type": "global",
+          "$button_binding_condition": "visible",
+          "bindings": [
+            {
+              "binding_name": "#show_core_ui_shortcuts",
+              "binding_name_override": "#visible"
+            }
+          ]
+        }
+      },
+      {
+        "open_core_ui_docs@settings_common.action_button": {
+          "$pressed_button_name": "button.open_core_ui_docs",
+          "$button_text": "#dev_open_core_ui_docs_button_text",
+          "$button_text_binding_type": "global",
+          "$button_binding_condition": "visible",
+          "bindings": [
+            {
+              "binding_name": "#show_core_ui_shortcuts",
+              "binding_name_override": "#visible"
+            }
+          ]
         }
       },
       {

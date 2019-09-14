@@ -1,11 +1,16 @@
 # Minecraft: Bedrock Edition Resource Pack
 ## Repository Status
-![GitHub All Releases](https://img.shields.io/github/downloads/ZtechNetwork/MCBVanillaResourcePack/total) ![GitHub release (latest by date)](https://img.shields.io/github/v/release/ZtechNetwork/MCBVanillaResourcePack?include_prereleases) ![GitHub last commit](https://img.shields.io/github/last-commit/ZtechNetwork/MCBVanillaResourcePack)
+![GitHub All Releases](https://img.shields.io/github/downloads/ZtechNetwork/MCBVanillaResourcePack/total) ![GitHub release (latest by date)](https://img.shields.io/github/v/release/ZtechNetwork/MCBVanillaResourcePack?include_prereleases) ![GitHub last commit](https://img.shields.io/github/last-commit/ZtechNetwork/MCBVanillaResourcePack/beta)
 
 ## Game Music Warning
 Game music will no longer be included in our package for copyright reasons. If you need any reference to music, use the `sounds_definitions.json` in the `sounds` directory.
 
 ## Game Changelogs
+### v1.13.0.13 [Beta]
+- Bug Fixes.
+- See the full [changelog](https://feedback.minecraft.net/hc/en-us/articles/360033322932-Minecraft-Beta-1-13-0-13-Xbox-One-Windows-10-Android-) for more info.
+
+
 ### v1.13.0.9 [Beta]
 #### *New Features:*
 - Added Wither Rose

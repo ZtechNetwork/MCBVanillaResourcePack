@@ -75,7 +75,7 @@
 				"one_hand" : {
 					"animations" : [
 						{
-							"first_person_map_hold_main_hand" : "query.get_rendered_item_name == 'map'"
+							"first_person_map_hold_main_hand" : "query.get_equipped_item_name(0, 1) == 'map'"
 						},
 						{
 							"first_person_map_hold_off_hand" : "query.get_equipped_item_name('off_hand') == 'map' && (query.get_equipped_item_name == 'bow' ? !(variable.item_use_normalized > 0 && variable.item_use_normalized < 1.0) : 1.0)"
@@ -83,7 +83,7 @@
 					],
 					"transitions" : [
 						{
-							"default" : "query.get_rendered_item_name != 'map' && query.get_equipped_item_name('off_hand') != 'map'"
+							"default" : "query.get_equipped_item_name(0, 1) != 'map' && query.get_equipped_item_name('off_hand') != 'map'"
 						},
 						{
 							"two_hand" : "query.get_equipped_item_name('off_hand') != 'map' && query.get_equipped_item_name('off_hand') != 'shield'"
@@ -94,7 +94,7 @@
 					"animations" : [ "first_person_map_hold", "first_person_map_hold_attack" ],
 					"transitions" : [
 						{
-							"default" : "query.get_rendered_item_name != 'map' && query.get_equipped_item_name('off_hand') != 'map'"
+							"default" : "query.get_equipped_item_name(0, 1) != 'map' && query.get_equipped_item_name('off_hand') != 'map'"
 						},
 						{
 							"one_hand" : "query.get_equipped_item_name('off_hand') == 'map' || query.get_equipped_item_name('off_hand') == 'shield'"
@@ -113,13 +113,13 @@
 							"first_person_attack_controller" : "variable.attack_time > 0.0f && query.get_equipped_item_name != 'map'"
 						},
 						{
-							"first_person_base_pose" : "query.get_rendered_item_name != 'map'"
+							"first_person_base_pose" : "query.get_equipped_item_name(0, 1) != 'map'"
 						},
 						{
 							"first_person_walk" : "variable.bob_animation"
 						},
 						{
-							"first_person_map_controller" : "(query.get_rendered_item_name == 'map' || query.get_equipped_item_name('off_hand') == 'map')"
+							"first_person_map_controller" : "(query.get_equipped_item_name(0, 1) == 'map' || query.get_equipped_item_name('off_hand') == 'map')"
 						},
 						{
 							"first_person_crossbow_equipped" : "query.get_equipped_item_name == 'crossbow' && (variable.item_use_normalized > 0 && variable.item_use_normalized < 1.0)"
@@ -130,7 +130,23 @@
 							"paperdoll" : "variable.is_paperdoll"
 						},
 						{
-							"third_person" : "variable.is_third_person"
+							"map_player" : "variable.map_face_icon"
+						},
+						{
+							"third_person" : "!variable.is_first_person"
+						}
+					]
+				},
+				"map_player" : {
+					"transitions" : [
+						{
+							"paperdoll" : "variable.is_paperdoll"
+						},
+						{
+							"first_person" : "variable.is_first_person"
+						},
+						{
+							"third_person" : "!variable.map_face_icon && !variable.is_first_person"
 						}
 					]
 				},
@@ -141,7 +157,10 @@
 							"first_person" : "!variable.is_paperdoll && variable.is_first_person"
 						},
 						{
-							"third_person" : "!variable.is_paperdoll && variable.is_third_person"
+							"map_player" : "variable.map_face_icon"
+						},
+						{
+							"third_person" : "!variable.is_paperdoll && !variable.is_first_person"
 						}
 					]
 				},
@@ -214,6 +233,9 @@
 						},
 						{
 							"first_person" : "variable.is_first_person"
+						},
+						{
+							"map_player" : "variable.map_face_icon"
 						}
 					]
 				}

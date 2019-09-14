@@ -1140,8 +1140,13 @@
     "layer": 2,
     "texture": "textures/ui/focus_border_white"
   },
+
   "focus_border_yellow@common.focus_border_white": {
     "color": [ 1.0, 1.0, 0.0, 1.0 ]
+  },
+
+  "focus_border_black@common.focus_border_white": {
+    "color": [ 0.0, 0.0, 0.0, 1.0 ]
   },
 
   "non_interact_focus_border": {
@@ -1870,6 +1875,88 @@
     ]
   },
 
+  "horizontal_divider": {
+    "type": "panel",
+    "size": [ "100%", "100%c" ],
+    "$image_size|default": [ "100%", 1 ],
+    "controls": [
+      {
+        "divider_image": {
+          "type": "image",
+          "size": "$image_size",
+          "texture": "textures/ui/divider3",
+          "tiled": "x",
+          "alpha": 0.6
+        }
+      }
+    ]
+  },
+
+  "vertical_divider": {
+    "type": "panel",
+    "$size|default": [ "100%c", "100%" ],
+    "size": "$size",
+    "$image_size|default": [ 1, "100%" ],
+    "controls": [
+      {
+        "divider_image": {
+          "type": "image",
+          "size": "$image_size",
+          "texture": "textures/ui/divider3",
+          "tiled": "y",
+          "alpha": 0.6
+        }
+      }
+    ]
+  },
+
+  "underline": {
+    "type": "image",
+    "size": [ "100%", 1 ],
+    "$texture|default": "textures/ui/underline",
+    "texture": "$texture",
+    "alpha": 0.6,
+    "tiled": "x",
+    "anchor_from": "bottom_left",
+    "anchor_to": "bottom_left"
+  },
+
+  "single_line_label": {
+    "type": "panel",
+    "$size|default": [ "100%c", "100%c + 3px" ],
+    "size": "$size",
+    "$single_line_label_offset|default": [ 2, 1 ],
+    "$single_label_size|default": [ "default", 10 ],
+    "$underline_control|default": "common.empty_panel",
+    "$single_line_font_scale_factor|default": 1,
+    "$single_line_label_binding_condition|default": "once",
+    "$text|default": "$single_line_label_binding",
+    "controls": [
+      {
+        "label_panel": {
+          "type": "label",
+          "size": "$single_label_size",
+          "offset": "$single_line_label_offset",
+          "anchor_from": "top_left",
+          "anchor_to": "top_left",
+          "layer": 2,
+          "font_type": "smooth",
+          "enable_profanity_filter": false,
+
+          "font_scale_factor": "$single_line_font_scale_factor",
+
+          "$single_line_label_color|default": "$body_text_color",
+          "color": "$single_line_label_color",
+
+          "text_alignment": "left",
+          "text": "$text",
+
+          "controls": "$underline_control"
+        }
+      }
+    ]
+  },
+
   /////////////////////////////////////////////////////////////////////////////
   // Gamepad helper common
   /////////////////////////////////////////////////////////////////////////////
@@ -2470,6 +2557,7 @@
     "size": [ "100%", "100%c" ],
     "$top_padding_size|default": [ "100%", 2 ],
     "$bottom_padding_size|default": [ "100%", 2 ],
+    "$divider_size|default": [ "100% - 10px", 1 ],
     "controls": [
       {
         "padding1": {
@@ -2487,7 +2575,7 @@
                 "type": "image",
                 "texture": "textures/ui/divider2",
                 "alpha": 0.2,
-                "size": [ "100% - 10px", 1 ],
+                "size": "$divider_size",
                 "layer": 1
               }
             }
@@ -2508,6 +2596,7 @@
     "font_type": "MinecraftTen",
     "backup_font_type": "DefaultFont",
     "color": "$generic_button_text_color", // We have to specify a color for unit tests - expect to override this when used.
+
     "variables": [
       {
         "requires": "(not $is_low_memory_device and not $is_berwick)", // We don't load MinecraftTen in these cases so we need to revert to Mojangles.
@@ -3226,7 +3315,7 @@
 
           "anchor_to": "top_left",
           "anchor_from": "top_left",
-          "$scroll_view_stack_panel_size|default":  ["100%", "100%"],
+          "$scroll_view_stack_panel_size|default": [ "100%", "100%" ],
           "size": "$scroll_view_stack_panel_size",
           "controls": [
             { "background_and_viewport@common.scroll_background_and_viewport": {} },
@@ -3242,7 +3331,7 @@
           "anchor_from": "top_left",
           "$view_port_size|default": [ "100%", "100%" ],
           "$scroll_view_port_panel_size|default": [ "100%", "100%" ],
-          "size":  "$scroll_view_port_panel_size",
+          "size": "$scroll_view_port_panel_size",
           "controls": [
             { "background_and_viewport@common.scroll_background_and_viewport": {} },
             { "bar_and_track@common.scroll_bar_and_track": {} }
@@ -4783,6 +4872,7 @@
               "$sign_screen_size": [ 185, 90 ], // Sign Screen
               "$mob_effect_screen_size": [ "90%", "90%" ], // Mob Effect Screen
               "$purchase_coin_screen_size": [ "90%", "17%x + 82px" ], //Coin Purchase Screen
+              "$purchase_coin_screen_size_extended": [ "90%", "17%x + 117px" ], //Coin Purchase Screen, with FAQ
               "$choose_realm_screen_size": [ "70%", "85%" ], //Choose Realm Screen
               "$custom_templates_screen_size": [ "70%", "85%" ], //Custom Templates Screen
               "$world_modal_screen_size": [ 290, 100 ], // world convert and world loading modal progress screens
@@ -4824,6 +4914,7 @@
               "$sign_screen_size": [ 185, 90 ], // Sign Screen
               "$mob_effect_screen_size": [ "90%", "90%" ], // Mob Effect Screen
               "$purchase_coin_screen_size": [ "90%", "17%x + 82px" ], //Coin Purchase Screen
+              "$purchase_coin_screen_size_extended": [ "90%", "17%x + 117px" ], //Coin Purchase Screen, with FAQ
               "$choose_realm_screen_size": [ "70%", "85%" ], //Choose Realm Screen
               "$custom_templates_screen_size": [ "70%", "85%" ], //Custom Templates Screen
               "$world_modal_screen_size": [ 290, 100 ], // world convert and world loading modal progress screens
@@ -5102,6 +5193,10 @@
   "modal_screen@common.base_screen": {
     // necessary to have this screen as long as
     // ScreenChooser::isModalScreen() is hard coded to this name
+  },
+
+  "realms_error_modal_screen@common.modal_screen": {
+    "force_render_below": true
   },
 
   "modal_area_panel_base": {
@@ -5612,7 +5707,7 @@
     "controls": [
       {
         "above@common.empty_panel": {
-          "controls": [ { "content@dynamic_tooltip_popup_with_image_and_text": { } } ],
+          "controls": [ { "content@dynamic_tooltip_popup_with_image_and_text": {} } ],
           "bindings": [
             {
               "binding_name": "$tooltip_above_binding_name",
@@ -5625,7 +5720,7 @@
       },
       {
         "below@common.empty_panel": {
-          "controls": [ { "content@dynamic_tooltip_below": { } } ],
+          "controls": [ { "content@dynamic_tooltip_below": {} } ],
           "bindings": [
             {
               "binding_name": "(not $tooltip_above_binding_name)",
@@ -5670,19 +5765,67 @@
       }
     ]
   },
-  
-  
+
+
   ///////////////////////////////////////////////////////////////////////////
   // Common Icons //
   ///////////////////////////////////////////////////////////////////////////
 
-  "info_icon":  {
-    "type":  "image",
-    "texture":  "textures/ui/infobulb"
+  "info_icon": {
+    "type": "image",
+    "texture": "textures/ui/infobulb"
   },
 
   "error_glyph": {
     "type": "image",
     "texture": "textures/ui/ErrorGlyph"
+  },
+
+  "service_repo_image_panel": {
+    "type": "panel",
+    "controls": [
+      {
+        "service_repo_image": {
+          "type": "image",
+          "$repo_image_texture|default": "",
+          "$repo_image_tiled|default": "false",
+          "tiled": "$repo_image_tiled",
+          "property_bag": {
+            "#image_name": "$repo_image_texture"
+          },
+          "bindings": [
+            {
+              "binding_name": "#service_image_texture_filename",
+              "binding_name_override": "#texture"
+            },
+            {
+              "binding_name": "#service_image_texture_location",
+              "binding_name_override": "#texture_file_system"
+            },
+            {
+              "binding_name": "#service_image_repo_ready",
+              "binding_name_override": "#visible"
+            }
+          ]
+        }
+      },
+      {
+        "progress_loading@common_store.progress_loading": {
+          "size": [ "100%", 0 ],
+          "min_size": [ "100%", 10 ],
+          "inherit_max_sibling_height": true,
+          "layer": 3,
+          "$hide_failure_text": true,
+          "$hide_progress_loading_outline": true,
+          "bindings": [
+            {
+              "binding_name": "(not #service_image_repo_ready)",
+              "binding_name_override": "#visible"
+            }
+          ]
+        }
+      }
+    ]
   }
+
 }

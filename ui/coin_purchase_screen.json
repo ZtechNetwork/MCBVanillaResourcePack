@@ -59,7 +59,7 @@
       {
         "image": {
           "type": "image",
-          "size": [ "100%", "116.67%x" ],          
+          "size": [ "100%", "116.67%x" ],
           "anchor_from": "top_middle",
           "anchor_to": "top_middle",
           "layer": 2,
@@ -112,7 +112,7 @@
       {
         "plus_label": {
           "type": "panel",
-          "size": [ "100%", 10 ],          
+          "size": [ "100%", 10 ],
           "controls": [
             {
               "plus_label": {
@@ -260,7 +260,7 @@
               "currency_price_panel": {
                 "type": "image",
                 "size": [ "100% + 6px", 10 ],
-                "texture": "textures/ui/bonus_banner",                
+                "texture": "textures/ui/bonus_banner",
                 "controls": [
                   {
                     "price": {
@@ -328,26 +328,16 @@
     "$default_button_texture": "textures/ui/coin_button_borderless",
     "$hover_button_texture": "textures/ui/coin_button_borderless",
     "$pressed_button_texture": "textures/ui/coin_button_borderless_pressed",
+    "$grid_item_size": [ "fill", "100%" ],
     "controls": [
       { "offer_item@coin_purchase.offer_item": {} }
-    ],
-    "variables": [
-      {
-        "requires": "$show_need_more_coins_string",
-        "$grid_item_size": [ "fill", "100% - 11px" ]
-      },
-      {
-        "requires": "(not $show_need_more_coins_string)",
-        "$grid_item_size": [ "fill", "100%" ]
-      }
-
     ]
   },
 
   "not_enough_coins": {
     "type": "label",
     "size": [ "100%", "default" ],
-    "color": "$generic_button_text_color",
+    "color": "$store_white_text_color",
     "anchor_from": "top_middle",
     "anchor_to": "top_middle",
     "text_alignment": "center",
@@ -361,6 +351,34 @@
       {
         "binding_name": "#show_missing_coins",
         "binding_name_override": "#visible"
+      }
+    ]
+  },
+
+  "faq_button@common_buttons.light_text_button": {
+    "type": "button",
+    "size": [ "100%", "25px" ],
+    "$button_focus_precedence": 10,
+    "ignored": "(not $show_tokens_faq_button)",
+    "$pressed_button_name": "$button_action",
+    "$button_action": "button.faq_screen",
+    "$focus_id": "faq_button",
+    "$button_text": "store.tokens.faq"
+  },
+
+  "divider_panel": {
+    "type": "panel",
+    "size": [ "100%", "100%c" ],
+    "ignored": "(not $show_tokens_faq_button)",
+    "controls": [
+      {
+        "divider": {
+          "type": "image",
+          "size": [ "100% - 6px", 1 ],
+          "texture": "textures/ui/divider2",
+          "tiled": "x",
+          "alpha": 0.6
+        }
       }
     ]
   },
@@ -392,7 +410,7 @@
           "grid_item_template": "coin_purchase.offer_grid_item",
           "grid_dimension_binding": "#coin_offer_size",
           "collection_name": "coin_purchase_grid",
-          "size": [ "100%", "100%" ],
+          "size": [ "100%", "fill" ],
           "bindings": [
             {
               "binding_name": "#coin_offer_size"
@@ -402,8 +420,13 @@
               "binding_name_override": "#visible"
             }
           ]
-
         }
+      },
+      {
+        "divider_panel@coin_purchase.divider_panel": {}
+      },
+      {
+        "faq_button@coin_purchase.faq_button": {}
       }
     ]
   },
@@ -480,18 +503,29 @@
         "dialog@common_dialogs.main_panel_no_buttons": {
           "$title_panel": "common_dialogs.standard_title_label",
           "$title_size": [ "100% - 14px", 10 ],
-          "size": "$purchase_coin_screen_size",
           "$text_name": "#window_title_text",
           "$title_text_binding_type": "global",
           "$child_control": "coin_purchase.main_panel",
-          "layer": 2
+          "layer": 2,
+          "variables": [
+            {
+              "requires": "$show_tokens_faq_button",
+              "$window_size": "$purchase_coin_screen_size_extended"
+            },
+            {
+              "requires": "(not $show_tokens_faq_button)",
+              "$window_size": "$purchase_coin_screen_size"
+            }
+          ],
+          "size": "$window_size"
         }
       }
     ]
   },
 
-  "background@common.screen_background": {
-    "alpha": 0.65,
-    "layer": 1
+  "background@common.screen_background":
+      {
+        "alpha": 0.65,
+        "layer": 1
+      }
   }
-}

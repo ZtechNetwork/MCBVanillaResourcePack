@@ -19,7 +19,8 @@
       "scripts": {
         "scale": "0.9375",
         "initialize": [
-          "variable.is_holding_right = 0.0;"
+          "variable.is_holding_right = 0.0;",
+          "variable.is_blinking = 0.0;"
         ],
         "pre_animation": [
           "variable.helmet_layer_visible = 1.0;",
@@ -28,7 +29,6 @@
           "variable.chest_layer_visible = 1.0;",
           "variable.attack_body_rot_y = Math.sin(360*Math.sqrt(variable.attack_time)) * 5.0;",
           "variable.tcos0 = (math.cos(query.modified_distance_moved * 38.17) * query.modified_move_speed / variable.gliding_speed_value) * 57.3;",
-          "variable.is_third_person = !variable.is_first_person || variable.is_paperdoll;",
           "variable.first_person_rotation_factor = math.sin((1 - variable.attack_time) * 180.0);",
           "variable.hand_bob = query.life_time < 0.01 ? 0.0 : variable.hand_bob + ((query.is_on_ground && query.is_alive ? math.clamp(math.sqrt(math.pow(query.position_delta(0), 2.0) + math.pow(query.position_delta(2), 2.0)), 0.0, 0.1) : 0.0) - variable.hand_bob) * 0.02;",
 
@@ -90,7 +90,8 @@
       },
       "render_controllers": [
         { "controller.render.player.first_person": "variable.is_first_person" },
-        { "controller.render.player.third_person": "variable.is_third_person" }
+        { "controller.render.player.third_person": "!variable.is_first_person && !variable.map_face_icon" },
+        { "controller.render.player.map": "variable.map_face_icon" }
       ],
       "enable_attachables": true
     }

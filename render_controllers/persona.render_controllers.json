@@ -8,10 +8,10 @@
       "textures": [ "Texture.animated_face" ],
       "part_visibility": [
         { "*": false },
-        { "rightArm": "query.get_rendered_item_name == '' || query.get_rendered_item_name == 'map'" },
-        { "rightSleeve": "query.get_rendered_item_name == '' || query.get_rendered_item_name == 'map'" },
-        { "leftArm": "(query.get_rendered_item_name == 'map' && query.get_equipped_item_name('off_hand') != 'shield') || (query.get_equipped_item_name('off_hand') == 'map' && !query.item_is_charged) || (!query.item_is_charged && (variable.item_use_normalized > 0 && variable.item_use_normalized < 1.0))" },
-        { "leftSleeve": "(query.get_rendered_item_name == 'map' && query.get_equipped_item_name('off_hand') != 'shield') || (query.get_equipped_item_name('off_hand') == 'map' && !query.item_is_charged) || (!query.item_is_charged && (variable.item_use_normalized > 0 && variable.item_use_normalized < 1.0))" }
+        { "rightArm": "query.get_equipped_item_name(0, 1) == '' || query.get_equipped_item_name(0, 1) == 'map'" },
+        { "rightSleeve": "query.get_equipped_item_name(0, 1) == '' || query.get_equipped_item_name(0, 1) == 'map'" },
+        { "leftArm": "(query.get_equipped_item_name(0, 1) == 'map' && query.get_equipped_item_name('off_hand') != 'shield') || (query.get_equipped_item_name('off_hand') == 'map' && !query.item_is_charged) || (!query.item_is_charged && (variable.item_use_normalized > 0 && variable.item_use_normalized < 1.0))" },
+        { "leftSleeve": "(query.get_equipped_item_name(0, 1) == 'map' && query.get_equipped_item_name('off_hand') != 'shield') || (query.get_equipped_item_name('off_hand') == 'map' && !query.item_is_charged) || (!query.item_is_charged && (variable.item_use_normalized > 0 && variable.item_use_normalized < 1.0))" }
       ],
       "uv_anim": {
         "offset": [ 0.0, "variable.is_blinking * 0.5" ],
@@ -25,10 +25,10 @@
       "textures": [ "Texture.animated_32x32" ],
       "part_visibility": [
         { "*": false },
-        { "rightArm": "query.get_rendered_item_name == '' || query.get_rendered_item_name == 'map'" },
-        { "rightSleeve": "query.get_rendered_item_name == '' || query.get_rendered_item_name == 'map'" },
-        { "leftArm": "(query.get_rendered_item_name == 'map' && query.get_equipped_item_name('off_hand') != 'shield') || (query.get_equipped_item_name('off_hand') == 'map' && !query.item_is_charged) || (!query.item_is_charged && (variable.item_use_normalized > 0 && variable.item_use_normalized < 1.0))" },
-        { "leftSleeve": "(query.get_rendered_item_name == 'map' && query.get_equipped_item_name('off_hand') != 'shield') || (query.get_equipped_item_name('off_hand') == 'map' && !query.item_is_charged) || (!query.item_is_charged && (variable.item_use_normalized > 0 && variable.item_use_normalized < 1.0))" }
+        { "rightArm": "query.get_equipped_item_name(0, 1) == '' || query.get_equipped_item_name(0, 1) == 'map'" },
+        { "rightSleeve": "query.get_equipped_item_name(0, 1) == '' || query.get_equipped_item_name(0, 1) == 'map'" },
+        { "leftArm": "(query.get_equipped_item_name(0, 1) == 'map' && query.get_equipped_item_name('off_hand') != 'shield') || (query.get_equipped_item_name('off_hand') == 'map' && !query.item_is_charged) || (!query.item_is_charged && (variable.item_use_normalized > 0 && variable.item_use_normalized < 1.0))" },
+        { "leftSleeve": "(query.get_equipped_item_name(0, 1) == 'map' && query.get_equipped_item_name('off_hand') != 'shield') || (query.get_equipped_item_name('off_hand') == 'map' && !query.item_is_charged) || (!query.item_is_charged && (variable.item_use_normalized > 0 && variable.item_use_normalized < 1.0))" }
       ],
       "uv_anim": {
         "offset": [ 0.0, "Math.mod(Math.floor(query.life_time * 7),variable.animation_frames_32x32)/variable.animation_frames_32x32" ],
@@ -42,10 +42,10 @@
       "textures": [ "Texture.animated_128x128" ],
       "part_visibility": [
         { "*": false },
-        { "rightArm": "query.get_rendered_item_name == '' || query.get_rendered_item_name == 'map'" },
-        { "rightSleeve": "query.get_rendered_item_name == '' || query.get_rendered_item_name == 'map'" },
-        { "leftArm": "(query.get_rendered_item_name == 'map' && query.get_equipped_item_name('off_hand') != 'shield') || (query.get_equipped_item_name('off_hand') == 'map' && !query.item_is_charged) || (!query.item_is_charged && (variable.item_use_normalized > 0 && variable.item_use_normalized < 1.0))" },
-        { "leftSleeve": "(query.get_rendered_item_name == 'map' && query.get_equipped_item_name('off_hand') != 'shield') || (query.get_equipped_item_name('off_hand') == 'map' && !query.item_is_charged) || (!query.item_is_charged && (variable.item_use_normalized > 0 && variable.item_use_normalized < 1.0))" }
+        { "rightArm": "query.get_equipped_item_name(0, 1) == '' || query.get_equipped_item_name(0, 1) == 'map'" },
+        { "rightSleeve": "query.get_equipped_item_name(0, 1) == '' || query.get_equipped_item_name(0, 1) == 'map'" },
+        { "leftArm": "(query.get_equipped_item_name(0, 1) == 'map' && query.get_equipped_item_name('off_hand') != 'shield') || (query.get_equipped_item_name('off_hand') == 'map' && !query.item_is_charged) || (!query.item_is_charged && (variable.item_use_normalized > 0 && variable.item_use_normalized < 1.0))" },
+        { "leftSleeve": "(query.get_equipped_item_name(0, 1) == 'map' && query.get_equipped_item_name('off_hand') != 'shield') || (query.get_equipped_item_name('off_hand') == 'map' && !query.item_is_charged) || (!query.item_is_charged && (variable.item_use_normalized > 0 && variable.item_use_normalized < 1.0))" }
       ],
       "uv_anim": {
         "offset": [ 0.0, "Math.mod(Math.floor(query.life_time * 7),variable.animation_frames_128x128)/variable.animation_frames_128x128" ],

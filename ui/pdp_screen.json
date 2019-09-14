@@ -1374,28 +1374,12 @@
         }
       },
       { "pad_3@pdp.vertical_padding_2px": {} },
-      { "divider_3@pdp.section_divider": {} }
+      { "divider_3@common.horizontal_divider": { "$image_size": [ "100% - 6px", 1 ] } }
     ],
     "bindings": [
       {
         "binding_name": "$content_name",
         "binding_name_override": "#visible"
-      }
-    ]
-  },
-
-  "section_divider": {
-    "type": "panel",
-    "size": [ "100%", "100%c" ],
-    "controls": [
-      {
-        "divider_image": {
-          "type": "image",
-          "size": [ "100% - 6px", 1 ],
-          "texture": "textures/ui/divider3",
-          "tiled": "x",
-          "alpha": 0.6
-        }
       }
     ]
   },
@@ -1451,7 +1435,7 @@
         }
       },
       { "pad_3@pdp.vertical_padding_2px": {} },
-      { "divider_3@pdp.section_divider": {} }
+      { "divider_3@common.horizontal_divider": { "$image_size": [ "100% - 6px", 1 ] } }
     ]
   },
 
@@ -1468,7 +1452,7 @@
         }
       },
       { "pad_3@pdp.vertical_padding_2px": {} },
-      { "divider_3@pdp.section_divider": {} }
+      { "divider_3@common.horizontal_divider": { "$image_size": [ "100% - 6px", 1 ] } }
     ]
   },
 
@@ -1483,7 +1467,7 @@
         }
       },
       { "pad_3@pdp.vertical_padding_2px": {} },
-      { "divider_3@pdp.section_divider": {} }
+      { "divider_3@common.horizontal_divider": { "$image_size": [ "100% - 6px", 1 ] } }
     ]
   },
 
@@ -1521,7 +1505,7 @@
         }
       },
       { "pad_3@pdp.vertical_padding_2px": {} },
-      { "divider_3@pdp.section_divider": {} }
+      { "divider_3@common.horizontal_divider": { "$image_size": [ "100% - 6px", 1 ] } }
     ]
   },
 
@@ -1544,7 +1528,7 @@
         }
       },
       { "pad_3@pdp.vertical_padding_2px": {} },
-      { "divider_3@pdp.section_divider": {} }
+      { "divider_3@common.horizontal_divider": { "$image_size": [ "100% - 6px", 1 ] } }
     ]
   },
 
@@ -2422,67 +2406,6 @@
   // Summary Section
   //--------------------------------------------------------------------------------
 
-  "underline": {
-    "type": "image",
-    "size": [ "100%", 1 ],
-    "$texture|default": "textures/ui/underline",
-    "texture": "$texture",
-    "alpha": 0.6,
-    "tiled": "x",
-    "anchor_from": "bottom_left",
-    "anchor_to": "bottom_left"
-  },
-
-  "underline_button@common.button": {
-    "size": [ "100%c", "100%c" ],
-    "pressed_control": "hover",
-    "$single_label_size": [ "default", 8 ],
-    "$single_line_font_scale_factor": 0.8,
-    "$pressed_button_name|default": "",
-    "$mashup_collection_binding_type|default": "global",
-    "$mashup_collection_name|default": "",
-    "controls": [
-      {
-        "default": {
-          "type": "panel",
-          "size": [ "100%c", 10 ],
-          "controls": [
-            {
-              "label_default@pdp.single_line_label": {
-                "$single_line_label_color": "$dark_button_default_text_color",
-                "$underline_control": [
-                  {
-                    "underline_default@pdp.underline": {}
-                  }
-                ]
-              }
-            }
-          ]
-        }
-      },
-      {
-        "hover": {
-          "type": "panel",
-          "size": [ "100%c", 10 ],
-          "controls": [
-            {
-              "label_hover@pdp.single_line_label": {
-                "$single_line_label_color": [ 0.215, 0.839, 0.118 ],
-                "$underline_control": [
-                  {
-                    "underline_hover@pdp.underline": {
-                      "$texture": "textures/ui/underline_focus"
-                    }
-                  }
-                ]
-              }
-            }
-          ]
-        }
-      }
-    ]
-  },
-
   "play_button": {
     "type": "image",
     "layer": 4,
@@ -2736,7 +2659,7 @@
                                       }
                                     },
                                     {
-                                      "summary_rating_button@pdp.underline_button": {
+                                      "summary_rating_button@common_buttons.underline_button": {
                                         "$single_line_label_binding": "#rating_button_text",
                                         "$pressed_button_name": "button.scrollToRateContent",
                                         "property_bag": {
@@ -2748,25 +2671,6 @@
                                           }
                                         ]
                                       }
-                                    }
-                                  ]
-                                }
-                              },
-                              {
-                                "first_to_rate": {
-                                  "type": "label",
-                                  "size": [ "100%", "default" ],
-                                  "text": "store.mashup.title.ratings",
-                                  "color": "$body_text_color",
-                                  "text_alignment": "center",
-                                  "font_type": "smooth",
-                                  "bindings": [
-                                    {
-                                      "binding_type": "view",
-                                      "source_control_name": "ratings_display",
-                                      "source_property_name": "(not #visible)",
-                                      "target_property_name": "#visible",
-                                      "resolve_sibling_scope": true
                                     }
                                   ]
                                 }
@@ -2792,57 +2696,7 @@
     ]
   },
 
-  "single_line_label": {
-    "type": "panel",
-    "$size|default": [ "100%c", "100%c + 3px" ],
-    "size": "$size",
-    "$single_line_label_offset|default": [ 2, 1 ],
-    "$single_label_size|default": [ "default", 10 ],
-    "$underline_control|default": "common.empty_panel",
-    "$single_line_font_scale_factor|default": 1,
-    "$single_line_label_binding_condition|default": "once",
-    "$text|default": "$single_line_label_binding",
-    "controls": [
-      {
-        "label_panel": {
-          "type": "label",
-          "size": "$single_label_size",
-          "offset": "$single_line_label_offset",
-          "anchor_from": "top_left",
-          "anchor_to": "top_left",
-          "layer": 2,
-          "font_type": "smooth",
-          "enable_profanity_filter": false,
-
-          "font_scale_factor": "$single_line_font_scale_factor",
-
-          "$single_line_label_color|default": "$body_text_color",
-          "color": "$single_line_label_color",
-
-          "text_alignment": "left",
-          "text": "$text",
-
-          "controls": "$underline_control",
-
-          "bindings": [
-            {
-              "binding_type": "$store_factory_collection_details",
-              "binding_collection_name": "$store_factory_collection_name",
-              "binding_collection_prefix": "$store_factory_collection_prefix"
-            },
-            {
-              "binding_type": "$mashup_collection_binding_type",
-              "binding_collection_name": "$mashup_collection_name",
-              "binding_name": "$single_line_label_binding",
-              "binding_condition": "$single_line_label_binding_condition"
-            }
-          ]
-        }
-      }
-    ]
-  },
-
-  "offer_title_label@pdp.single_line_label": {
+  "offer_title_label@common.single_line_label": {
     "$single_line_label_binding": "#title_label"
   },
 
@@ -2872,7 +2726,7 @@
           "$mashup_collection_name|default": "",
           "controls": [
             {
-              "summary_author_button@pdp.underline_button": {
+              "summary_author_button@common_buttons.underline_button": {
                 "anchor_from": "top_left",
                 "anchor_to": "top_left",
                 "offset": [ 0, -4 ],
@@ -3380,10 +3234,15 @@
     "$button_text": "store.applyToRealm",
     "$button_text_max_size": [ "default", 8 ],
     "$default_text_color": "$store_realms_text_color",
-    "$default_button_texture": "textures/ui/realmsContent",
-    "$hover_button_texture": "textures/ui/realmsContentHover",
-    "$pressed_button_texture": "textures/ui/realmsContentPressed",
-    "$pressed_button_name": "button.apply_to_realm"
+    "$pressed_button_name": "button.apply_to_realm",
+    "variables": [
+      {
+        "requires": "$realms_plus_on",
+        "$default_button_texture": "textures/ui/realmsContent",
+        "$hover_button_texture": "textures/ui/realmsContentHover",
+        "$pressed_button_texture": "textures/ui/realmsContentPressed"
+      }
+    ]
   },
 
   "in_realms_plus_button_content": {
@@ -3516,21 +3375,9 @@
         }
       },
       {
-        "divider_panel": {
-          "type": "panel",
-          "size": [ 1, 0 ],
-          "inherit_max_sibling_height": true,
-          "controls": [
-            {
-              "divider": {
-                "type": "image",
-                "size": [ 1, "100%" ],
-                "texture": "textures/ui/divider3",
-                "tiled": "y",
-                "alpha": 0.6
-              }
-            }
-          ]
+        "divider_panel@common.vertical_divider": {
+          "$size": [ "100%c", 0 ],
+          "inherit_max_sibling_height": true
         }
       },
       {
@@ -3549,7 +3396,7 @@
       { "pad_top@pdp.vertical_padding_4px": {} },
       { "summary_content_whole_stack@pdp.summary_content_whole_stack_panel": {} },
       { "pad_3@pdp.vertical_padding_2px": {} },
-      { "divider_3@pdp.section_divider": {} }
+      { "divider_3@common.horizontal_divider": { "$image_size": [ "100% - 6px", 1 ] } }
     ]
   },
 
@@ -3760,7 +3607,7 @@
               }
             },
             {
-              "divider@pdp.section_divider": {}
+              "divider@common.horizontal_divider": { "$image_size": [ "100% - 6px", 1 ] }
             },
             {
               "description_text_small@pdp.description_section_panel": {
@@ -3800,62 +3647,41 @@
               }
             },
             {
-              "read_more_button_panel": {
-                "type": "panel",
-                "size": [ "100%", "100%c" ],
+              "read_more_button_panel@common_buttons.read_button": {
+                "$offset": [ -6, -2.5 ],
+                "$single_line_label_binding": "#read_more_label",
+                "$text": "store.mashup.readMore",
+                "$pressed_button_name": "button.read_toggle",
                 "bindings": [
                   {
                     "binding_name": "#is_read_more",
                     "binding_name_override": "#visible"
                   }
                 ],
-                "controls": [
+                "$bindings": [
                   {
-                    "read_more_button@pdp.underline_button": {
-                      "anchor_from": "bottom_right",
-                      "anchor_to": "bottom_right",
-                      "offset": [ -6, -2.5 ],
-                      "$single_line_label_binding": "#read_more_label",
-                      "$text": "store.mashup.readMore",
-                      "$pressed_button_name": "button.read_toggle",
-                      "visible": true,
-                      "bindings": [
-                        {
-                          "binding_type": "view",
-                          "source_property_name": "#using_ellipses",
-                          "target_property_name": "#visible"
-                        }
-                      ]
-                    }
+                    "binding_type": "view",
+                    "source_property_name": "#using_ellipses",
+                    "target_property_name": "#visible"
                   }
                 ]
               }
             },
             {
-              "read_less_button_panel": {
-                "type": "panel",
-                "size": [ "100%", "100%c" ],
-                "controls": [
+              "read_less_button_panel@common_buttons.read_button": {
+                "$offset": [ -6, -2.5 ],
+                "$single_line_label_binding": "#read_less_label",
+                "$text": "store.mashup.readLess",
+                "$pressed_button_name": "button.read_toggle",
+                "$bindings": [
                   {
-                    "read_less_button@pdp.underline_button": {
-                      "anchor_from": "bottom_right",
-                      "anchor_to": "bottom_right",
-                      "offset": [ -6, -2.5 ],
-                      "$single_line_label_binding": "#read_less_label",
-                      "$text": "store.maship.readLess",
-                      "$pressed_button_name": "button.read_toggle",
-                      "bindings": [
-                        {
-                          "binding_name": "#is_read_less",
-                          "binding_name_override": "#visible"
-                        },
-                        {
-                          "binding_type": "$store_factory_collection_details",
-                          "binding_collection_name": "$store_factory_collection_name",
-                          "binding_collection_prefix": "$store_factory_collection_prefix"
-                        }
-                      ]
-                    }
+                    "binding_name": "#is_read_less",
+                    "binding_name_override": "#visible"
+                  },
+                  {
+                    "binding_type": "$store_factory_collection_details",
+                    "binding_collection_name": "$store_factory_collection_name",
+                    "binding_collection_prefix": "$store_factory_collection_prefix"
                   }
                 ]
               }
@@ -4329,9 +4155,10 @@
         }
       },
       {
-        "divider_3@pdp.section_divider": {
+        "divider_3@common.horizontal_divider": {
           "anchor_from": "bottom_middle",
-          "anchor_to": "bottom_middle"
+          "anchor_to": "bottom_middle",
+          "$image_size": [ "100% - 6px", 1 ]
         }
       }
     ]
@@ -4448,7 +4275,7 @@
         }
       },
       {
-        "other_bundle_packs_label@pdp.single_line_label": {
+        "other_bundle_packs_label@common.single_line_label": {
           "size": [ "100%", "100%c" ],
           "$single_line_label_offset": [ 1.5, 0 ],
           "$single_line_label_color": "$dark_button_secondary_default_text_color",
@@ -4744,9 +4571,10 @@
         }
       },
       {
-        "divider_3@pdp.section_divider": {
+        "divider_3@common.horizontal_divider": {
           "anchor_from": "bottom_middle",
-          "anchor_to": "bottom_middle"
+          "anchor_to": "bottom_middle",
+          "$image_size": [ "100% - 6px", 1 ]
         }
       }
     ],

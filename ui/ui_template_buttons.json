@@ -499,6 +499,72 @@
     ]
   },
 
+  "underline_button@common.button": {
+    "size": [ "100%c", "100%c" ],
+    "pressed_control": "hover",
+    "$single_label_size": [ "default", 8 ],
+    "$single_line_font_scale_factor": 0.8,
+    "$pressed_button_name|default": "",
+    "$mashup_collection_binding_type|default": "global",
+    "$mashup_collection_name|default": "",
+    "controls": [
+      {
+        "default": {
+          "type": "panel",
+          "size": [ "100%c", 10 ],
+          "controls": [
+            {
+              "label_default@common.single_line_label": {
+                "$single_line_label_color": "$dark_button_default_text_color",
+                "$underline_control": [
+                  {
+                    "underline_default@common.underline": {}
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "hover": {
+          "type": "panel",
+          "size": [ "100%c", 10 ],
+          "controls": [
+            {
+              "label_hover@common.single_line_label": {
+                "$single_line_label_color": [ 0.215, 0.839, 0.118 ],
+                "$underline_control": [
+                  {
+                    "underline_hover@common.underline": {
+                      "$texture": "textures/ui/underline_focus"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "read_button": {
+    "type": "panel",
+    "size": [ "100%", "100%c" ],
+    "$offset|default": [ 0, 0 ],
+    "controls": [
+      {
+        "read_button_inner@common_buttons.underline_button": {
+          "anchor_from": "bottom_right",
+          "anchor_to": "bottom_right",
+          "offset": "$offset",
+          "visible": true,
+          "bindings": "$bindings"
+        }
+      }
+    ]
+  },
 
   /////////////////////////////////
   //
@@ -1820,8 +1886,113 @@
         "binding_type": "$tooltip_button_binding_type"
       }
     ]
-  }
+  },
+
+
+  "dynamic_tooltip_notification_panel@common.button": {
+    "size": [ "100%", "100%" ],
+    "sound_volume": 0.0,
+    "layer": 1,
+
+    // background textures
+    "$tooltip_button_default_texture|default": "textures/ui/tooltip_notification_default_background",
+    "$tooltip_button_pressed_texture|default": "textures/ui/tooltip_notification_default_background",
+    "$tooltip_button_hover_texture|default": "textures/ui/tooltip_notification_default_background",
+    "$tooltip_button_locked_texture|default": "textures/ui/tooltip_notification_default_background",
+
+    "$tooltip_button_content_size|default": [ "100%", "100%" ],
+
+    // binding vars (should be same for all children)
+    "$tooltip_button_binding_type|default": "global",
+    "$tooltip_button_collection_name|default": "",
+
+    "locked_control": "locked",
+
+    "$tooltip_hovered_to_button_id|default": "button.is_hovered",
+    "button_mappings": [
+      {
+        "from_button_id": "button.menu_select",
+        "to_button_id": "$pressed_button_name",
+        "mapping_type": "pressed"
+      },
+      {
+        "from_button_id": "button.menu_ok",
+        "to_button_id": "$pressed_button_name",
+        "mapping_type": "focused"
+      },
+      {
+        "to_button_id": "$tooltip_hovered_to_button_id",
+        "mapping_type": "pressed"
+      }
+    ],
+
+    "controls": [
+      {
+        "default@common.tooltip_button_content": {
+          "$tooltip_background_texture": "$tooltip_button_default_texture"
+        }
+      },
+      {
+        "pressed@common.tooltip_button_content": {
+          "$tooltip_background_texture": "$tooltip_button_pressed_texture"
+        }
+      },
+      {
+        "hover@common.tooltip_button_content": {
+          "$tooltip_background_texture": "$tooltip_button_hover_texture"
+        }
+      },
+      {
+        "locked@common.tooltip_button_content": {
+          "$tooltip_background_texture": "$tooltip_button_locked_texture"
+        }
+      },
+      { "dyanmic_tooltip_popup_panel@common.dynamic_tooltip_popup_with_image_and_text": {} }
+    ],
+    "bindings": [
+      {
+        "binding_name": "$_tooltip_button_visibility_binding_name",
+        "binding_name_override": "#visible",
+        "binding_collection_name": "$tooltip_button_collection_name",
+        "binding_type": "$tooltip_button_binding_type"
+      }
+    ]
+  },
 
   ///////////////////////////////////////////////////////////////////////////
 
+  "text_body_focus_border_for_controller_button@common.button": {
+    "$pressed_button_name": "button.no_interaction",
+    "sound_volume": 0.0,
+    "size": [ "100%", "100%cm" ],
+    "default_control": "",
+    "pressed_control": "hover",
+    "$text_control|default": "common.empty_panel",
+    "$text_control_size|default": [ "100%", "100%c" ],
+    "controls": [
+      {
+        "hover@common.empty_panel": {
+          "size": [ "100%", "100%sm" ],
+          "controls": [
+            {
+              "focus_border@achievement.focus_border": {
+                "size": [ "100%", "100% + 4px" ],
+                "bindings": [
+                  {
+                    "binding_name": "#is_using_gamepad",
+                    "binding_name_override": "#visible"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "text_control@$text_control": {
+          "size": "$text_control_size"
+        }
+      }
+    ]
+  }
 }
