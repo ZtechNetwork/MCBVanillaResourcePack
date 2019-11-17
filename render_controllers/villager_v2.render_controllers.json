@@ -66,15 +66,18 @@
       "arrays": {
         "textures": {
           "Array.levels": [
+            "Texture.level_stone",
             "Texture.level_iron",
             "Texture.level_gold",
+            "Texture.level_emerald",
             "Texture.level_diamond"
           ]
         }
       },
       "rebuild_animation_matrices": true,
       "geometry": "Geometry.default",
-      "part_visibility": [ { "*": "!query.is_baby" } ],
+      // If we are not babies, unskilled, or nitwits we can have a job level
+      "part_visibility": [ { "*": "!query.is_baby && variable.profession_index != 0 && variable.profession_index != 14" } ],
       "materials": [
         { "*": "Material.default" }
       ],

@@ -80,6 +80,8 @@
                 "$offer_collection_prefix": "offer",
                 "$offer_collection_name": "offer_collection",
 
+                "$realms_chevron_binding_name|default": "#realms_chevron_visibility",
+
                 "collection_name": "$offer_collection_name",
                 "bindings": [
                   {
@@ -167,8 +169,14 @@
     "controls": [
       {
         "seach_object@common_store.search_object": {
-          "layer": 6, // Make this on top so the loading bar shows
-          "$search_offer_content": "store_search.search_offer_content"
+          "layer": 4, // Make this on top so the loading bar shows
+          "$search_offer_content": "store_search.search_offer_content",
+          "bindings": [
+            {
+              "binding_name": "(not #trending_page_loading_visible)",
+              "binding_name_override": "#visible"
+            }
+          ]
         }
       },
       {

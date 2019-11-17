@@ -1,143 +1,142 @@
 {
-  "format_version": "1.8.0",
-  "geometry.armor_stand": {
-    "visible_bounds_width": 1.5,
-    "visible_bounds_height": 1,
-    "visible_bounds_offset": [ 0, 0.5, 0 ],
-    "texturewidth": 64,
-    "textureheight": 64,
-    "bones": [
-      {
-        "name": "body",
-        "pivot": [ 0, 24, 0 ],
-        "cubes": [
-          {
-            "origin": [ -6, 21, -1.5 ],
-            "size": [ 12, 3, 3 ],
-            "uv": [ 0, 26 ]
-          },
-          {
-            "origin": [ -3, 14, -1 ],
-            "size": [ 2, 7, 2 ],
-            "uv": [ 16, 0 ]
-          },
-          {
-            "origin": [ 1, 14, -1 ],
-            "size": [ 2, 7, 2 ],
-            "uv": [ 48, 16 ]
-          },
-          {
-            "origin": [ -4, 12, -1 ],
-            "size": [ 8, 2, 2 ],
-            "uv": [ 0, 48 ]
-          }
-        ],
-        "parent": "waist"
-      },
-      {
-        "name": "waist",
-        "neverRender": true,
-        "pivot": [ 0.0, 12.0, 0.0 ],
-        "parent": "basePlate"
-      },
-      {
-        "name": "head",
-        "pivot": [ 0, 24, 0 ],
-        "cubes": [
-          {
-            "origin": [ -1, 24, -1 ],
-            "size": [ 2, 7, 2 ],
-            "uv": [ 0, 0 ]
-          }
-        ],
-        "parent": "body"
-      },
-      {
-        "name": "hat",
-        "pivot": [ 0.0, 24.0, 0.0 ],
-        "cubes": [
-          {
-            "origin": [ -4.0, 24.0, -4.0 ],
-            "size": [ 8, 8, 8 ],
-            "uv": [ 32, 0 ],
-            "inflate": 0.5
-          }
-        ],
-        "neverRender": true,
-        "parent": "head"
-      },
-      {
-        "name": "rightArm",
-        "pivot": [ -5, 22, 0 ],
-        "cubes": [
-          {
-            "origin": [ -7, 12, -1 ],
-            "size": [ 2, 12, 2 ],
-            "uv": [ 24, 0 ]
-          }
-        ],
-        "parent": "body"
-      },
-      {
-        "name": "rightItem",
-        "pivot": [ -6, 14.5, 1 ],
-        "neverRender": false,
-        "parent": "rightArm"
-      },
-      {
-        "name": "leftArm",
-        "pivot": [ 5, 22, 0 ],
-        "cubes": [
-          {
-            "origin": [ 5, 12, -1 ],
-            "size": [ 2, 12, 2 ],
-            "uv": [ 32, 16 ]
-          }
-        ],
-        "parent": "body",
-        "mirror": true
-      },
-      {
-        "name": "leftItem",
-        "pivot": [ 6, 14.5, 1 ],
-        "neverRender": false,
-        "parent": "leftArm"
-      },
-      {
-        "name": "rightLeg",
-        "pivot": [ -1.9, 12, 0 ],
-        "cubes": [
-          {
-            "origin": [ -2.9, 1, -1 ],
-            "size": [ 2, 11, 2 ],
-            "uv": [ 8, 0 ]
-          }
-        ],
-        "parent": "body"
-      },
-      {
-        "name": "leftLeg",
-        "pivot": [ 1.9, 12, 0 ],
-        "cubes": [
-          {
-            "origin": [ 0.9, 1, -1 ],
-            "size": [ 2, 11, 2 ],
-            "uv": [ 40, 16 ]
-          }
-        ],
-        "parent": "body",
-        "mirror": true
-      },
-      {
-        "name": "basePlate",
-        "cubes": [
-          {
-            "origin": [ -6, 0, -6 ],
-            "size": [ 12, 1, 12 ],
-            "uv": [ 0, 32 ]
-          }
-        ]
-      }
-    ]
-  }
+	"format_version" : "1.12.0",
+	"minecraft:geometry" : [
+		{
+			"description" : {
+				"identifier" : "geometry.armor_stand",
+				"texture_width" : 64.0,
+				"texture_height" : 64.0,
+				"visible_bounds_offset" : [ 0.0, 0.5, 0.0 ],
+				"visible_bounds_width" : 1.5
+			},
+			"bones" : [
+				{
+					"name" : "baseplate",
+					"cubes" : [
+						{
+							"origin" : [ -6.0, 0.0, -6.0 ],
+							"size" : [ 12.0, 1.0, 12.0 ],
+							"uv" : [ 0.0, 32.0 ]
+						}
+					]
+				},
+				{
+					"name" : "waist",
+					"parent" : "baseplate",
+					"pivot" : [ 0.0, 12.0, 0.0 ]
+				},
+				{
+					"name" : "body",
+					"parent" : "waist",
+					"pivot" : [ 0.0, 24.0, 0.0 ],
+					"cubes" : [
+						{
+							"origin" : [ -6.0, 21.0, -1.5 ],
+							"size" : [ 12.0, 3.0, 3.0 ],
+							"uv" : [ 0.0, 26.0 ]
+						},
+						{
+							"origin" : [ -3.0, 14.0, -1.0 ],
+							"size" : [ 2.0, 7.0, 2.0 ],
+							"uv" : [ 16.0, 0.0 ]
+						},
+						{
+							"origin" : [ 1.0, 14.0, -1.0 ],
+							"size" : [ 2.0, 7.0, 2.0 ],
+							"uv" : [ 48.0, 16.0 ]
+						},
+						{
+							"origin" : [ -4.0, 12.0, -1.0 ],
+							"size" : [ 8.0, 2.0, 2.0 ],
+							"uv" : [ 0.0, 48.0 ]
+						}
+					]
+				},
+				{
+					"name" : "head",
+					"parent" : "body",
+					"pivot" : [ 0.0, 24.0, 0.0 ],
+					"cubes" : [
+						{
+							"origin" : [ -1.0, 24.0, -1.0 ],
+							"size" : [ 2.0, 7.0, 2.0 ],
+							"uv" : [ 0.0, 0.0 ]
+						}
+					]
+				},
+				{
+					"name" : "hat",
+					"parent" : "head",
+					"pivot" : [ 0.0, 24.0, 0.0 ],
+					"cubes" : [
+						{
+							"origin" : [ -4.0, 24.0, -4.0 ],
+							"size" : [ 8.0, 8.0, 8.0 ],
+							"uv" : [ 32.0, 0.0 ]
+						}
+					]
+				},
+				{
+					"name" : "leftarm",
+					"parent" : "body",
+					"mirror" : true,
+					"pivot" : [ 5.0, 22.0, 0.0 ],
+					"cubes" : [
+						{
+							"origin" : [ 5.0, 12.0, -1.0 ],
+							"size" : [ 2.0, 12.0, 2.0 ],
+							"uv" : [ 32.0, 16.0 ]
+						}
+					]
+				},
+				{
+					"name" : "leftitem",
+					"parent" : "leftarm",
+					"pivot" : [ 6.0, 15.0, 1.0 ]
+				},
+				{
+					"name" : "leftleg",
+					"parent" : "body",
+					"mirror" : true,
+					"pivot" : [ 1.9, 12.0, 0.0 ],
+					"cubes" : [
+						{
+							"origin" : [ 0.9, 1.0, -1.0 ],
+							"size" : [ 2.0, 11.0, 2.0 ],
+							"uv" : [ 40.0, 16.0 ]
+						}
+					]
+				},
+				{
+					"name" : "rightarm",
+					"parent" : "body",
+					"pivot" : [ -5.0, 22.0, 0.0 ],
+					"cubes" : [
+						{
+							"origin" : [ -7.0, 12.0, -1.0 ],
+							"size" : [ 2.0, 12.0, 2.0 ],
+							"uv" : [ 24.0, 0.0 ]
+						}
+					]
+				},
+				{
+					"name" : "rightitem",
+					"parent" : "rightarm",
+					"pivot" : [ -6.0, 15.0, 1.0 ]
+				},
+				{
+					"name" : "rightleg",
+					"parent" : "body",
+					"pivot" : [ -1.9, 12.0, 0.0 ],
+					"cubes" : [
+						{
+							"origin" : [ -2.9, 1.0, -1.0 ],
+							"size" : [ 2.0, 11.0, 2.0 ],
+							"uv" : [ 8.0, 0.0 ]
+						}
+					]
+				}
+			]
+		}
+	]
 }

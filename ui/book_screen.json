@@ -86,6 +86,7 @@
     "anchor_from": "bottom_middle",
     "anchor_to": "bottom_middle",
 
+    "$text_alignment": "center",
     "max_length": "$max_page_length"
   },
 
@@ -299,61 +300,46 @@
     ]
   },
 
-  "book_buttons_stack_panel_holder": {
+  "book_buttons_panel": {
     "type": "panel",
-    "size": [ "100%c", "100%c" ],
     "controls": [
       {
-        "book_buttons_stack_panel": {
-          "type": "stack_panel",
-          "orientation": "horizontal",
-          "size": [ "100%c", "100%c" ],
-          "controls": [
+        "sign_button@common_buttons.light_text_form_fitting_button": {
+          "$form_fitting_min_size": [ 100, 0 ],
+          "$pressed_button_name": "button.sign_book",
+          "$button_text": "book.signButton",
+
+          "bindings": [
             {
-              "sign_button@common_buttons.light_text_form_fitting_button": {
-                "$form_fitting_min_size": [ 100, 0 ],
-                "$pressed_button_name": "button.sign_book",
-                "$button_text": "book.signButton",
-
-                "bindings": [
-                  {
-                    "binding_name": "#editable",
-                    "binding_name_override": "#visible"
-                  }
-                ]
-              }
-            },
-            {
-              "padding_1": {
-                "type": "panel",
-                "size": [ 10, 0 ],
-                "ignored": "(not $education_edition)",
-
-                "bindings": [
-                  {
-                    "binding_name": "(not #editable)",
-                    "binding_name_override": "#visible"
-                  }
-                ]
-              }
-            },
-            {
-              "export_button@common_buttons.light_text_form_fitting_button": {
-                "ignored": "(not $education_edition)",
-
-                "$form_fitting_min_size": [ 100, 0 ],
-                "$pressed_button_name": "button.export_book",
-                "$button_text": "book.export",
-
-                "bindings": [
-                  {
-                    "binding_name": "(not #editable)",
-                    "binding_name_override": "#visible"
-                  }
-                ]
-              }
+              "binding_name": "#editable",
+              "binding_name_override": "#visible"
             }
           ]
+        }
+      },
+      {
+        "export_button@common_buttons.light_text_form_fitting_button": {
+          "ignored": "(not $education_edition)",
+
+          "$form_fitting_min_size": [ 100, 0 ],
+          "$pressed_button_name": "button.export_book",
+          "$button_text": "book.export",
+
+          "bindings": [
+            {
+              "binding_name": "(not #editable)",
+              "binding_name_override": "#visible"
+            }
+          ]
+        }
+      },
+      {
+        "im_content_button@im_reader.reader_button": {
+          "ignored": "(not $education_edition)",
+
+          "size": [ "100%y", "100%sm" ],
+          "anchor_from": "bottom_right",
+          "anchor_to": "bottom_right"
         }
       }
     ]
@@ -858,7 +844,7 @@
 
   "book_and_buttons_panel": {
     "type": "panel",
-    "size": [ "100%", "100%" ],
+    "size": [ "100%cm", "100%" ],
     "max_size": [ "100%", "228px" ],
 
     "controls": [
@@ -923,7 +909,8 @@
         }
       },
       {
-        "book_buttons_stack_panel_holder@book.book_buttons_stack_panel_holder": {
+        "book_buttons_panel@book.book_buttons_panel": {
+          "size": [ "100%sm", "100%cm" ],
           "anchor_from": "bottom_middle",
           "anchor_to": "bottom_middle"
         }

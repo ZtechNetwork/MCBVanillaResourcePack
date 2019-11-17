@@ -1,0 +1,601 @@
+/********************************************************
+*   (c) Mojang. All rights reserved                     *
+*   (c) Microsoft. All rights reserved.                 *
+*********************************************************/
+{
+  "namespace": "edu_world_templates",
+  /* Table of Contents
+    Misc Definitions
+    Template Creation Buttons
+    View More Button
+    Template Button
+    Template Grid
+    Screen
+  */
+
+  //---------------------------------------------------------------------------
+  // Misc Definitions
+  //---------------------------------------------------------------------------
+
+  "section_header": {
+    "type": "stack_panel",
+    "size": [ "100%", "100%c" ],
+    "controls": [
+      {
+        "header_text": {
+          "type": "label",
+          "color": "$main_header_text_color",
+          "text": "$header_text",
+          "$header_bindings|default": [],
+          "bindings": "$header_bindings"
+        }
+      },
+      { "padding@common.empty_panel": { "size": [ "100%", 3 ] } }
+    ]
+  },
+
+  "template_image": {
+    "type": "image",
+    "force_texture_reload": true,
+    "keep_ratio": false,
+    "property_bag": {
+      "is_local": "$is_local"
+    },
+    "bindings": [
+      {
+        "binding_type": "collection_details",
+        "binding_collection_name": "template_column",
+        "binding_collection_prefix": "column"
+      },
+      {
+        "binding_type": "collection_details",
+        "binding_collection_name": "template_row",
+        "binding_collection_prefix": "row"
+      },
+      {
+        "binding_name": "#template_texture",
+        "binding_name_override": "#texture",
+        "binding_type": "global"
+      },
+      {
+        "binding_name": "#template_texture_source",
+        "binding_name_override": "#texture_file_system",
+        "binding_type": "global"
+      },
+      {
+        "binding_name": "#template_texture_zip",
+        "binding_name_override": "#zip_folder",
+        "binding_type": "global"
+      }
+    ]
+  },
+
+  "template_label_def": {
+    "type": "label",
+    "text": "$text_binding",
+    "color": "$text_color",
+    "font_type": "smooth",
+
+    "property_bag": {
+      "is_local": "$is_local"
+    },
+    "bindings": [
+      {
+        "binding_type": "collection_details",
+        "binding_collection_name": "template_column",
+        "binding_collection_prefix": "column"
+      },
+      {
+        "binding_type": "collection_details",
+        "binding_collection_name": "template_row",
+        "binding_collection_prefix": "row"
+      },
+      {
+        "binding_name": "$text_binding",
+        "binding_type": "global"
+      }
+    ]
+  },
+
+  "template_name@edu_world_templates.template_label_def": {
+    "$text_binding": "#template_name",
+    "$text_color": "$dark_button_default_text_color",
+    "max_size": [ "100%", 30 ]
+  },
+
+  "template_subtext_1@edu_world_templates.template_label_def": {
+    "$text_binding": "#template_subtext_1",
+    "$text_color": "$light_button_secondary_default_text_color",
+    "max_size": [ "100%", 15 ]
+  },
+
+  "template_subtext_2@edu_world_templates.template_label_def": {
+    "$text_binding": "#template_subtext_2",
+    "$text_color": "$light_button_secondary_default_text_color",
+    "max_size": [ "100%", 15 ]
+  },
+
+  //---------------------------------------------------------------------------
+  // Template Creation Buttons
+  //---------------------------------------------------------------------------
+
+  "template_instantiation_button_def@common_buttons.light_text_button": {
+    "size": [ "100%", 14 ],
+    "$border_visible": false,
+    "$button_bindings": [
+      {
+        "binding_type": "collection_details",
+        "binding_collection_name": "template_column",
+        "binding_collection_prefix": "column"
+      },
+      {
+        "binding_type": "collection_details",
+        "binding_collection_name": "template_row",
+        "binding_collection_prefix": "row"
+      },
+      {
+        "binding_type": "collection_details",
+        "binding_collection_name": "creation_type",
+        "binding_collection_prefix": "type"
+      }
+    ]
+  },
+
+  "template_creation_buttons": {
+    "type": "stack_panel",
+    "size": [ "100% - 4px", "100%c" ],
+    "offset": [ 0, 2 ],
+    "anchor_from": "top_middle",
+    "anchor_to": "top_middle",
+    "collection_name": "creation_type",
+    "controls": [
+      {
+        "quick_play_nested_button@edu_world_templates.template_instantiation_button_def": {
+          "$button_text": "edu.templates.quick_play",
+          "$pressed_button_name": "button.templates.local_template",
+          "collection_index": 0
+        }
+      },
+      { "button_padding_1@edu_worlds.nested_button_padding": {} },
+      {
+        "host@edu_world_templates.template_instantiation_button_def": {
+          "$button_text": "edu.templates.host",
+          "$pressed_button_name": "button.templates.local_template",
+          "collection_index": 1
+        }
+      },
+      { "button_padding_2@edu_worlds.nested_button_padding": {} },
+      {
+        "create_new@edu_world_templates.template_instantiation_button_def": {
+          "$button_text": "edu.templates.create_new",
+          "$pressed_button_name": "button.templates.local_template",
+          "collection_index": 2
+        }
+      }
+    ]
+  },
+
+  //---------------------------------------------------------------------------
+  // View More Button
+  //---------------------------------------------------------------------------
+
+  "view_more_button@common_buttons.dark_nestable_button": {
+    "$pressed_button_name": "button.templates.view_more",
+
+    "$use_parent_size": true,
+    "$nestable_button_size": [ "100%", "100%" ],
+
+    "$nested_button_content_size": [ "100%", "fill" ],
+    "$nested_control_image": "textures/ui/color_plus",
+
+    "$nested_button_label_size": [ "100%", 31 ],
+    "$nested_label_max_size": [ "50%", "100% - 2px" ],
+    "$nested_label_text": "edu.templates.view_more",
+    "$nested_label_font_type": "smooth"
+  },
+
+  //---------------------------------------------------------------------------
+  // Template Button
+  //---------------------------------------------------------------------------
+
+  "template_button@common_buttons.transparent_label_nestable_button": {
+    "variables": [
+      {
+        "requires": "$is_local",
+        "$pressed_button_name": "button.templates.local_nestable",
+        "$has_special_nested_controls": true,
+        "$nested_content_controls": "edu_world_templates.template_creation_buttons",
+        "$special_nested_content_bindings": [
+          {
+            "binding_type": "collection_details",
+            "binding_collection_name": "template_column",
+            "binding_collection_prefix": "column"
+          },
+          {
+            "binding_type": "collection_details",
+            "binding_collection_name": "template_row",
+            "binding_collection_prefix": "row"
+          },
+          {
+            "binding_name": "#template_controls_visiblity",
+            "binding_name_override": "#visible",
+            "binding_type": "global"
+          }
+        ],
+        "$special_nested_button_bindings": [
+          {
+            "binding_type": "collection_details",
+            "binding_collection_name": "template_column",
+            "binding_collection_prefix": "column"
+          },
+          {
+            "binding_type": "collection_details",
+            "binding_collection_name": "template_row",
+            "binding_collection_prefix": "row"
+          },
+          {
+            "binding_name": "(not #template_controls_visiblity)",
+            "binding_name_override": "#enabled",
+            "binding_type": "global"
+          }
+        ]
+      },
+      {
+        "requires": "(not $is_local)",
+        "$pressed_button_name": "button.templates.featured_template",
+        "$has_special_button_bindings": true,
+        "$special_nested_button_bindings": [
+          {
+            "binding_type": "collection_details",
+            "binding_collection_name": "template_column",
+            "binding_collection_prefix": "column"
+          },
+          {
+            "binding_type": "collection_details",
+            "binding_collection_name": "template_row",
+            "binding_collection_prefix": "row"
+          }
+        ]
+      }
+    ],
+
+    "$use_parent_size": true,
+    "$nestable_button_size": [ "100%", "100%" ],
+
+    "$nested_button_content_size": [ "100%", "fill" ],
+    "$nested_content_control": "edu_world_templates.template_image",
+
+    "$nested_button_label_size": [ "100%", 30 ],
+    "$nested_label_control": "common_buttons.nested_six_part_label_control",
+    "$left_top_label_definition": "edu_world_templates.template_name",
+    "$left_bottom_label_definition": "edu_world_templates.template_subtext_1",
+    "$right_bottom_label_definition": "edu_world_templates.template_subtext_2",
+
+    "$transparent_label_color": [ 0, 0, 0 ],
+    "$transparent_label_hover_color": [ 0, 0.45, 0 ],
+    "$transparent_label_pressed_color": [ 0, 0.45, 0 ],
+    "$nested_transparent_label_alpha": 0.7
+  },
+
+  //---------------------------------------------------------------------------
+  // Template Grid
+  //---------------------------------------------------------------------------
+
+  "template_item_button": {
+    "type": "panel",
+    "$is_local|default": false,
+    "controls": [
+      {
+        "view_more_button@edu_world_templates.view_more_button": {
+          "property_bag": {
+            "is_local": "$is_local"
+          },
+          "bindings": [
+            {
+              "binding_type": "collection_details",
+              "binding_collection_name": "template_column",
+              "binding_collection_prefix": "column"
+            },
+            {
+              "binding_type": "collection_details",
+              "binding_collection_name": "template_row",
+              "binding_collection_prefix": "row"
+            },
+            {
+              "binding_name": "#is_view_more",
+              "binding_name_override": "#visible",
+              "binding_type": "global"
+            }
+          ]
+        }
+      },
+      {
+        "template@edu_world_templates.template_button": {
+          "property_bag": {
+            "is_local": "$is_local"
+          },
+          "bindings": [
+            {
+              "binding_type": "collection_details",
+              "binding_collection_name": "template_column",
+              "binding_collection_prefix": "column"
+            },
+            {
+              "binding_type": "collection_details",
+              "binding_collection_name": "template_row",
+              "binding_collection_prefix": "row"
+            },
+            {
+              "binding_name": "(not #is_view_more)",
+              "binding_name_override": "#visible",
+              "binding_type": "global"
+            }
+          ]
+        }
+      }
+    ],
+    "property_bag": {
+      "is_local": "$is_local"
+    },
+    "bindings": [
+      {
+        "binding_type": "collection_details",
+        "binding_collection_name": "template_column",
+        "binding_collection_prefix": "column"
+      },
+      {
+        "binding_type": "collection_details",
+        "binding_collection_name": "template_row",
+        "binding_collection_prefix": "row"
+      },
+      {
+        "binding_name": "#in_bounds",
+        "binding_name_override": "#visible",
+        "binding_type": "global"
+      }
+    ]
+  },
+
+  "template_item": {
+    "type": "stack_panel",
+    "orientation": "horizontal",
+    "size": [ "fill", "100%cm" ],
+    "controls": [
+      { "left_padding@common.empty_panel": { "size": [ 2, "100%sm" ] } },
+      // Since we scroll on y we will fill on x and set y size to screenshot ratio + label size
+      { "button@edu_world_templates.template_item_button": { "size": [ "fill", "56.25%x + 31px" ] } },
+      { "right_padding@common.empty_panel": { "size": [ 2, "100%sm" ] } }
+    ]
+  },
+
+  "template_row_panel": {
+    "type": "stack_panel",
+    "size": [ "100%", "100%c" ],
+    "anchor_to": "top_middle",
+    "anchor_from": "top_middle",
+    "controls": [
+      {
+        "template_row_item": {
+          "type": "panel",
+          "size": [ "100%", "100%c" ],
+          "controls": [
+            {
+              "template_row": {
+                "type": "stack_panel",
+                "orientation": "horizontal",
+                "size": [ "100% + 4px", "100%cm" ],
+                "collection_name": "template_column",
+                "factory": {
+                  "name": "template_item_factory",
+                  "control_name": "edu_world_templates.template_item"
+                },
+                "bindings": [
+                  {
+                    "binding_name": "#template_column_count",
+                    "binding_name_override": "#collection_length"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "divider": {
+          "type": "panel",
+          "size": [ "100%", 11 ],
+          "controls": [
+            {
+              "line": {
+                "type": "image",
+                "texture": "textures/ui/White",
+                "size": [ "100%", 1 ],
+                "alpha": 0.05
+              }
+            }
+          ],
+          "property_bag": {
+            "is_local": "$is_local"
+          },
+          "bindings": [
+            {
+              "binding_type": "collection_details",
+              "binding_collection_name": "template_row",
+              "binding_collection_prefix": "row"
+            },
+            {
+              "binding_name": "#divider_visible",
+              "binding_name_override": "#visible",
+              "binding_type": "global"
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "template_grid": {
+    "type": "stack_panel",
+    "size": [ "100%", "100%c" ],
+    "collection_name": "template_row",
+    "orientation": "vertical",
+    "factory": {
+      "name": "template_row_factory",
+      "control_name": "edu_world_templates.template_row_panel"
+    },
+    "property_bag": {
+      "is_local": "$is_local"
+    },
+    "bindings": [
+      {
+        "binding_name": "#template_row_count",
+        "binding_name_override": "#collection_length",
+        "binding_type": "global"
+      }
+    ]
+  },
+
+  //---------------------------------------------------------------------------
+  // Screen
+  //---------------------------------------------------------------------------
+
+  "local_section": {
+    "type": "stack_panel",
+    "size": [ "100%", "100%c" ],
+    "controls": [
+      {
+        "search@common.text_edit_box": {
+          "$text_box_name": "#template_search_box",
+          "$place_holder_text": "edu.templates.search_placeholder",
+          "$text_box_tts_name": "",
+          "size": [ "100%", 22 ],
+          "max_length": 100
+        }
+      },
+      { "search_padding@common.empty_panel": { "size": [ "100%", 5 ] } },
+      {
+        "local_header@edu_world_templates.section_header": {
+          "$header_text": "#local_templates_header",
+          "$header_bindings": [
+            {
+              "binding_name": "#local_templates_header"
+            }
+          ]
+        }
+      },
+      {
+        "local_worlds@edu_world_templates.template_grid": {
+          "$is_local": true
+        }
+      },
+      {
+        "divider": {
+          "type": "panel",
+          "size": [ "100%", 11 ],
+          "controls": [
+            {
+              "line": {
+                "type": "image",
+                "texture": "textures/ui/White",
+                "size": [ "100%", 1 ],
+                "alpha": 0.05
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "bindings": [
+      {
+        "binding_name": "#local_visible",
+        "binding_name_override": "#visible"
+      }
+    ]
+  },
+
+  "featured_section": {
+    "type": "stack_panel",
+    "size": [ "100%", "100%c" ],
+    "controls": [
+      {
+        "featured_header@edu_world_templates.section_header": {
+          "$header_text": "edu.templates.featured_header"
+        }
+      },
+      {
+        "local_worlds@edu_world_templates.template_grid": {
+          "$is_local": false
+        }
+      }
+    ]
+  },
+
+  "all_templates": {
+    "type": "stack_panel",
+    "size": [ "100% - 8px", "100%c" ],
+    "controls": [
+      { "local_templates@edu_world_templates.local_section": {} },
+      { "featured_templates@edu_world_templates.featured_section": {} },
+      { "bottom_padding@common.empty_panel": { "size": [ "100%", 11 ] } }
+    ]
+  },
+
+  "template_scroll_panel": {
+    "type": "panel",
+    "size": [ "100% - 8px", "100%" ],
+    "controls": [
+      {
+        "world_scroll@common.scrolling_panel": {
+          "size": [ "100%", "100%" ],
+          "$scrolling_content": "edu_world_templates.all_templates",
+          "$show_background": false,
+          "$scroll_bar_left_padding_size": [ 0, 0 ],
+          "$scroll_bar_right_padding_size": [ 1, 0 ],
+          "$scroll_size": [ 5, "100% - 11px" ],
+          "$scroll_size_touch": "$scroll_size",
+          "$scroll_track_anchor": "top_middle",
+          "$scrolling_content_anchor_from": "top_middle",
+          "$scrolling_content_anchor_to": "top_middle"
+        }
+      }
+    ]
+  },
+
+  "screen_content": {
+    "type": "stack_panel",
+    "anchor_from": "top_middle",
+    "anchor_to": "top_middle",
+    "size": [ "100%", "100%" ],
+    "controls": [
+      {
+        "title@edu_common.edu_screen_header": {
+          "$title_text": "edu.templates.title",
+          "$title_has_image": true,
+          "$title_texture": "textures/ui/worldsIcon"
+        }
+      },
+      { "top_padding@common.empty_panel": { "size": [ "100%", 8 ] } },
+      {
+        "template_scroll_panel_item": {
+          "type": "panel",
+          "size": [ "100%", "fill" ],
+          "controls": [
+            { "worlds@edu_world_templates.template_scroll_panel": {} }
+          ]
+        }
+      }
+    ]
+  },
+
+  "edu_world_templates_screen@common.base_screen": {
+    "$screen_content": "edu_world_templates.screen_content",
+    "$screen_bg_content": "common.screen_background",
+    "button_mappings": [
+      {
+        "from_button_id": "button.menu_cancel",
+        "to_button_id": "button.menu_exit",
+        "mapping_type": "global"
+      }
+    ]
+  }
+}

@@ -1,0 +1,493 @@
+/********************************************************
+*   (c) Mojang. All rights reserved                     *
+*   (c) Microsoft. All rights reserved.                 *
+*********************************************************/
+{
+  "namespace": "edu_worlds",
+  /* Table of Contents
+    Misc Definitions
+    New World Button
+    World Button
+    Worlds grid
+    Screen
+  */
+
+  //---------------------------------------------------------------------------
+  // Misc Definitions
+  //---------------------------------------------------------------------------
+
+  "nested_button_padding@common.empty_panel": {
+    "size": [ "100%", 1 ]
+  },
+
+  "nested_buttons_base_def": {
+    "type": "stack_panel",
+    "size": [ "100% - 4px", "100%c" ],
+    "offset": [ 0, 2 ],
+    "anchor_from": "top_middle",
+    "anchor_to": "top_middle"
+  },
+
+  "world_entry_button_def@common_buttons.light_text_button": {
+    "size": [ "100%", 14 ],
+    "$border_visible": false,
+    "$button_bindings": [
+      {
+        "binding_type": "collection_details",
+        "binding_collection_name": "world_column",
+        "binding_collection_prefix": "column"
+      },
+      {
+        "binding_type": "collection_details",
+        "binding_collection_name": "world_row",
+        "binding_collection_prefix": "row"
+      }
+    ]
+  },
+
+  "grid_label_def": {
+    "type": "label",
+    "text": "$text_binding",
+    "color": "$text_color",
+    "font_type": "smooth",
+    "max_size": [ "100%", 15 ],
+
+    "bindings": [
+      {
+        "binding_type": "collection_details",
+        "binding_collection_name": "world_column",
+        "binding_collection_prefix": "column"
+      },
+      {
+        "binding_type": "collection_details",
+        "binding_collection_name": "world_row",
+        "binding_collection_prefix": "row"
+      },
+      {
+        "binding_name": "$text_binding",
+        "binding_type": "global"
+      }
+    ]
+  },
+
+  //---------------------------------------------------------------------------
+  // New World Button
+  //---------------------------------------------------------------------------
+
+  "new_world_nested_buttons@edu_worlds.nested_buttons_base_def": {
+    "controls": [
+      {
+        "create_new_nested_button@common_buttons.light_text_button": {
+          "size": [ "100%", 14 ],
+          "$border_visible": false,
+          "$button_text": "edu.worlds_screen.new",
+          "$pressed_button_name": "button.worlds.new_world.new"
+        }
+      },
+      { "button_padding@edu_worlds.nested_button_padding": {} },
+      {
+        "from_template@common_buttons.light_text_button": {
+          "size": [ "100%", 14 ],
+          "$border_visible": false,
+          "$button_text": "edu.worlds_screen.templates",
+          "$pressed_button_name": "button.worlds.new_world.template"
+        }
+      }
+    ]
+  },
+
+  "new_world_button@common_buttons.dark_nestable_button": {
+    "$has_nested_controls": true,
+    "$pressed_button_name": "button.worlds.new_world",
+    "$nested_content_visibility_binding": "#create_new_visiblity",
+    "$nested_content_controls": "edu_worlds.new_world_nested_buttons",
+
+    "$use_parent_size": true,
+    "$nestable_button_size": [ "100%", "100%" ],
+
+    "$nested_button_content_size": [ "100%", "fill" ],
+    "$nested_control_image": "textures/ui/color_plus",
+
+    "$nested_button_label_size": [ "100%", 31 ],
+    "$nested_label_text": "edu.worlds_screen.new_world",
+    "$nested_label_font_type": "smooth"
+  },
+
+  //---------------------------------------------------------------------------
+  // World Button
+  //---------------------------------------------------------------------------
+
+  "world_image": {
+    "type": "image",
+    "force_texture_reload": true,
+    "keep_ratio": false,
+    "bindings": [
+      {
+        "binding_type": "collection_details",
+        "binding_collection_name": "world_column",
+        "binding_collection_prefix": "column"
+      },
+      {
+        "binding_type": "collection_details",
+        "binding_collection_name": "world_row",
+        "binding_collection_prefix": "row"
+      },
+      {
+        "binding_name": "#world_texture",
+        "binding_name_override": "#texture",
+        "binding_type": "global"
+      },
+      {
+        "binding_name": "#world_texture_source",
+        "binding_name_override": "#texture_file_system",
+        "binding_type": "global"
+      }
+    ]
+  },
+
+  "world_name@edu_worlds.grid_label_def": {
+    "$text_binding": "#world_name",
+    "$text_color": "$dark_button_default_text_color"
+  },
+
+  "world_type@edu_worlds.grid_label_def": {
+    "tts_override_control_value": " ",
+    "$text_binding": "#world_type",
+    "$text_color": "$light_button_secondary_default_text_color"
+  },
+
+  "world_date@edu_worlds.grid_label_def": {
+    "tts_override_control_value": " ",
+    "$text_binding": "#world_date",
+    "$text_color": "$light_button_secondary_default_text_color"
+  },
+
+  "world_size@edu_worlds.grid_label_def": {
+    "tts_override_control_value": " ",
+    "$text_binding": "#world_size",
+    "$text_color": "$light_button_secondary_default_text_color"
+  },
+
+  "world_entry_buttons@edu_worlds.nested_buttons_base_def": {
+    "controls": [
+      {
+        "play_nested_button@edu_worlds.world_entry_button_def": {
+          "$button_text": "edu.worlds_screen.play",
+          "$pressed_button_name": "button.worlds.entry.play"
+        }
+      },
+      { "button_padding_1@edu_worlds.nested_button_padding": {} },
+      {
+        "host@edu_worlds.world_entry_button_def": {
+          "$button_text": "edu.worlds_screen.host",
+          "$pressed_button_name": "button.worlds.entry.host"
+        }
+      },
+      { "button_padding_2@edu_worlds.nested_button_padding": {} },
+      {
+        "settings@edu_worlds.world_entry_button_def": {
+          "$button_text": "edu.worlds_screen.settings",
+          "$pressed_button_name": "button.worlds.entry.settings"
+        }
+      }
+    ]
+  },
+
+  "world_button@common_buttons.transparent_label_nestable_button": {
+    "$has_special_nested_controls": true,
+    "$pressed_button_name": "button.worlds.world_button",
+    "$nested_content_visibility_binding": "#world_controls_visiblity",
+    "$nested_content_controls": "edu_worlds.world_entry_buttons",
+    "$special_nested_content_bindings": [
+      {
+        "binding_type": "collection_details",
+        "binding_collection_name": "world_column",
+        "binding_collection_prefix": "column"
+      },
+      {
+        "binding_type": "collection_details",
+        "binding_collection_name": "world_row",
+        "binding_collection_prefix": "row"
+      },
+      {
+        "binding_name": "#world_controls_visiblity",
+        "binding_name_override": "#visible",
+        "binding_type": "global"
+      }
+    ],
+    "$special_nested_button_bindings": [
+      {
+        "binding_type": "collection_details",
+        "binding_collection_name": "world_column",
+        "binding_collection_prefix": "column"
+      },
+      {
+        "binding_type": "collection_details",
+        "binding_collection_name": "world_row",
+        "binding_collection_prefix": "row"
+      },
+      {
+        "binding_name": "(not #world_controls_visiblity)",
+        "binding_name_override": "#enabled",
+        "binding_type": "global"
+      }
+    ],
+
+    "$use_parent_size": true,
+    "$nestable_button_size": [ "100%", "100%" ],
+
+    "$nested_content_control": "edu_worlds.world_image",
+    "$nested_button_content_size": [ "100%", "fill" ],
+
+    "$nested_button_label_size": [ "100%", 30 ],
+    "$nested_label_control": "common_buttons.nested_six_part_label_control",
+    "$left_top_label_definition": "edu_worlds.world_name",
+    "$left_middle_label_definition": "edu_worlds.world_type",
+    "$left_bottom_label_definition": "edu_worlds.world_date",
+    "$right_bottom_label_definition": "edu_worlds.world_size",
+
+    "$transparent_label_color": [ 0, 0, 0 ],
+    "$transparent_label_hover_color": [ 0, 0.45, 0 ],
+    "$transparent_label_pressed_color": [ 0, 0.45, 0 ],
+    "$nested_transparent_label_alpha": 0.7
+  },
+
+  //---------------------------------------------------------------------------
+  // Worlds grid
+  //---------------------------------------------------------------------------
+
+  "world_item_button": {
+    "type": "panel",
+    "controls": [
+      {
+        "new_world@edu_worlds.new_world_button": {
+          "bindings": [
+            {
+              "binding_type": "collection_details",
+              "binding_collection_name": "world_column",
+              "binding_collection_prefix": "column"
+            },
+            {
+              "binding_type": "collection_details",
+              "binding_collection_name": "world_row",
+              "binding_collection_prefix": "row"
+            },
+            {
+              "binding_name": "#is_first",
+              "binding_name_override": "#visible",
+              "binding_type": "global"
+            }
+          ]
+        }
+      },
+      {
+        "world@edu_worlds.world_button": {
+          "bindings": [
+            {
+              "binding_type": "collection_details",
+              "binding_collection_name": "world_column",
+              "binding_collection_prefix": "column"
+            },
+            {
+              "binding_type": "collection_details",
+              "binding_collection_name": "world_row",
+              "binding_collection_prefix": "row"
+            },
+            {
+              "binding_name": "(not #is_first)",
+              "binding_name_override": "#visible",
+              "binding_type": "global"
+            }
+          ]
+        }
+      }
+    ],
+    "bindings": [
+      {
+        "binding_type": "collection_details",
+        "binding_collection_name": "world_column",
+        "binding_collection_prefix": "column"
+      },
+      {
+        "binding_type": "collection_details",
+        "binding_collection_name": "world_row",
+        "binding_collection_prefix": "row"
+      },
+      {
+        "binding_name": "#in_bounds",
+        "binding_name_override": "#visible",
+        "binding_type": "global"
+      }
+    ]
+  },
+
+  "world_item": {
+    "type": "stack_panel",
+    "orientation": "horizontal",
+    "size": [ "fill", "100%cm" ],
+    "controls": [
+      { "left_padding@common.empty_panel": { "size": [ 2, "100%sm" ] } },
+      // Since we scroll on y we will fill on x and set y size to screenshot ratio + label size
+      { "button@edu_worlds.world_item_button": { "size": [ "fill", "56.25%x + 31px" ] } },
+      { "right_padding@common.empty_panel": { "size": [ 2, "100%sm" ] } }
+    ]
+  },
+
+  "worlds_row_panel": {
+    "type": "stack_panel",
+    "size": [ "100%", "100%c" ],
+    "anchor_to": "top_middle",
+    "anchor_from": "top_middle",
+    "controls": [
+      {
+        "worlds_row_item": {
+          "type": "panel",
+          "size": [ "100%", "100%c" ],
+          "controls": [
+            {
+              "worlds_row": {
+                "type": "stack_panel",
+                "orientation": "horizontal",
+                "size": [ "100% + 4px", "100%cm" ],
+                "collection_name": "world_column",
+                "factory": {
+                  "name": "world_item_factory",
+                  "control_name": "edu_worlds.world_item"
+                },
+                "bindings": [
+                  {
+                    "binding_name": "#world_column_count",
+                    "binding_name_override": "#collection_length"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "divider": {
+          "type": "panel",
+          "size": [ "100%", 11 ],
+          "controls": [
+            {
+              "line": {
+                "type": "image",
+                "texture": "textures/ui/White",
+                "size": [ "100%", 1 ],
+                "alpha": 0.05
+              }
+            }
+          ],
+          "bindings": [
+            {
+              "binding_name": "#divider_visible",
+              "binding_name_override": "#visible",
+              "binding_type": "collection",
+              "binding_collection_name": "world_row"
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "worlds_grid": {
+    "type": "stack_panel",
+    "size": [ "100%", "100%c" ],
+    "collection_name": "world_row",
+    "orientation": "vertical",
+    "factory": {
+      "name": "world_row_factory",
+      "control_name": "edu_worlds.worlds_row_panel"
+    },
+    "bindings": [
+      {
+        "binding_name": "#world_row_count",
+        "binding_name_override": "#collection_length"
+      }
+    ]
+  },
+
+  //---------------------------------------------------------------------------
+  // Screen
+  //---------------------------------------------------------------------------
+
+  "search_and_worlds": {
+    "type": "stack_panel",
+    "size": [ "100% - 8px", "100%c" ],
+    "controls": [
+      {
+        "search@common.text_edit_box": {
+          "$text_box_name": "#world_search_box",
+          "$place_holder_text": "edu.worlds_screen.search_placeholder",
+          "$text_box_tts_name": "",
+          "size": [ "100%", 22 ],
+          "max_length": 100
+        }
+      },
+      { "search_to_grid_padding@common.empty_panel": { "size": [ "100%", 7 ] } },
+      { "world_row_item@edu_worlds.worlds_grid": {} },
+      { "bottom_padding@common.empty_panel": { "size": [ "100%", 11 ] } }
+    ]
+  },
+
+  "world_scroll_panel": {
+    "type": "panel",
+    "size": [ "100% - 8px", "100%" ],
+    "controls": [
+      {
+        "world_scroll@common.scrolling_panel": {
+          "size": [ "100%", "100%" ],
+          "$scrolling_content": "edu_worlds.search_and_worlds",
+          "$show_background": false,
+          "$scroll_bar_left_padding_size": [ 0, 0 ],
+          "$scroll_bar_right_padding_size": [ 1, 0 ],
+          "$scroll_size": [ 5, "100% - 11px" ],
+          "$scroll_size_touch": "$scroll_size",
+          "$scroll_track_anchor": "top_middle",
+          "$scrolling_content_anchor_from": "top_middle",
+          "$scrolling_content_anchor_to": "top_middle"
+        }
+      }
+    ]
+  },
+
+  "screen_content": {
+    "type": "stack_panel",
+    "anchor_from": "top_middle",
+    "anchor_to": "top_middle",
+    "size": [ "100%", "100%" ],
+    "controls": [
+      {
+        "title@edu_common.edu_screen_header": {
+          "$title_text": "edu.worlds_screen.title",
+          "$title_has_image": true,
+          "$title_texture": "textures/ui/worldsIcon"
+        }
+      },
+      { "top_padding@common.empty_panel": { "size": [ "100%", 8 ] } },
+      {
+        "world_scroll_panel_item": {
+          "type": "panel",
+          "size": [ "100%", "fill" ],
+          "controls": [
+            { "worlds@edu_worlds.world_scroll_panel": {} }
+          ]
+        }
+      }
+    ]
+  },
+
+  "edu_worlds_screen@common.base_screen": {
+    "$screen_content": "edu_worlds.screen_content",
+    "$screen_bg_content": "common.screen_background",
+    "button_mappings": [
+      {
+        "from_button_id": "button.menu_cancel",
+        "to_button_id": "button.menu_exit",
+        "mapping_type": "global"
+      }
+    ]
+  }
+}

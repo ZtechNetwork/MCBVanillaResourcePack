@@ -1,0 +1,391 @@
+/********************************************************
+*   (c) Mojang. All rights reserved                      *
+*   (c) Microsoft. All rights reserved.                  *
+*********************************************************/
+{
+  "namespace": "multiplayer_lesson",
+
+  "vertical_stack_item": {
+    "type": "panel",
+    "size": [ "100%", "100%c" ]
+  },
+
+  "join_ip_button@common_buttons.light_text_button": {
+    "$button_text_binding_type": "none"
+  },
+
+  "play_button@common_buttons.light_text_button": {
+    "$pressed_button_name": "button.active_lesson.join_server",
+    "$button_text": "course.edu.join",
+    "bindings": [
+      {
+        "binding_name": "#play_button_enabled",
+        "binding_name_override": "#enabled"
+      }
+    ]
+  },
+
+  "popup_dialog@popup_dialog.popup_dialog": {
+    "size": [ "60%", "80%" ],
+    "$fill_alpha": 1.0,
+    "controls": [
+      {
+        "background@common.common_panel": {
+          "$show_close_button": true,
+          "$close_button_to_button_id": "button.active_lesson.popup_close"
+        }
+      },
+      {
+        "content": {
+          "type": "panel",
+          "$popup_controls|default": [],
+          "controls": "$popup_controls"
+        }
+      }
+    ],
+    "button_mappings": [
+      {
+        "from_button_id": "button.menu_cancel",
+        "to_button_id": "button.active_lesson.popup_close",
+        "mapping_type": "global"
+      }
+    ]
+  },
+
+  "popup_message": {
+    "type": "label",
+    "layer": 1,
+    "anchor_from": "top_middle",
+    "anchor_to": "top_middle",
+    "offset": [ 0, 25 ],
+    "color": "$body_text_color",
+    "size": [ "100% - 20px", "default" ]
+  },
+
+  "popup_title": {
+    "type": "label",
+    "anchor_from": "top_middle",
+    "anchor_to": "top_middle",
+    "layer": 2,
+    "offset": [ 0, 8 ],
+    "color": "$title_text_color",
+    "size": [ "default", 20 ]
+  },
+
+  "loading_animation_and_text": {
+    "type": "stack_panel",
+    "size": [ 128, "100%c" ],
+    "controls": [
+      {
+        "loading_animation_item@multiplayer_lesson.vertical_stack_item": {
+          "controls": [
+            {
+              "loading_animation@edu_common.edu_loading_animation": {
+                "anchor_from": "top_middle",
+                "anchor_to": "top_middle",
+                "size": [ 64, 64 ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "bottom_text_padding@common.empty_panel": {
+          "size": [ 0, 4 ]
+        }
+      },
+      {
+        "loading_text_item@multiplayer_lesson.vertical_stack_item": {
+          "controls": [
+            {
+              "searching_text": {
+                "type": "label",
+                "text": "$bottom_text",
+                "anchor_from": "top_middle",
+                "anchor_to": "top_middle",
+                "color": "$text_box_text_color"
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "friends_scroll_panel@play.common_scroll_pane": {
+    "controls": [
+      {
+        "stack_panel": {
+          "type": "stack_panel",
+          "orientation": "vertical",
+          "size": [ "95%", "100%c - 1px" ],
+          "offset": [ 0, 0 ],
+          "$add_friend_visible": true,
+          "$add_friend_not_visible": false,
+          "controls": [
+            {
+              "lan_grid@play.label_content_template": {
+                "$label_content_label": "",
+                "$label_content_content": "play.network_world_item_grid",
+                "$network_world_grid_item_template": "play.network_world_item",
+                "$network_world_icon": "play.lan_icon",
+                "$network_world_item_grid_dimension_binding": "#lan_network_world_item_grid_dimension",
+                "$collection_name": "lan_network_worlds",
+                "$tts_section_header": "$label_content_label"
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "join_list_content@play.common_content": {
+    "controls": [
+      {
+        "scrolling_panel@play.scrolling_offsets": {
+          "layer": 1,
+          "$scrolling_content": "multiplayer_lesson.friends_scroll_panel"
+        }
+      },
+      {
+        "searching_anim": {
+          "type": "panel",
+          "size": [ "100%", "100%" ],
+          "offset": [ 0, -2 ],
+          "anchor_from": "center",
+          "anchor_to": "center",
+          "controls": [
+            {
+              "loading_animation_and_text@multiplayer_lesson.loading_animation_and_text": {
+                "$bottom_text": "course.edu.searching"
+              }
+            }
+          ],
+          "bindings": [
+            {
+              "binding_name": "(not #has_worlds)",
+              "binding_name_override": "#visible"
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "join_list_content_panel": {
+    "type": "stack_panel",
+    "orientation": "vertical",
+    "controls": [
+      {
+        "join_list_content@multiplayer_lesson.join_list_content": {
+          "size": [ "100% -10px", "fill" ]
+        }
+      },
+      { "padding_center@course.horizontal_padding_4px": {} },
+      {
+        "join_ip_button_panel@common.empty_panel": {
+          "size": [ "100%", "100%c" ],
+          "anchor_to": "bottom_middle",
+          "anchor_from": "bottom_middle",
+          "controls": [
+            {
+              "join_ip_button@multiplayer_lesson.join_ip_button": {
+                "size": [ "50%-8px", 25 ],
+                "$pressed_button_name": "button.active_lesson.join_ip",
+                "$button_text": "course.edu.noLessonFoundJoinIp"
+              }
+            }
+          ]
+        }
+      },
+      { "padding_bottom@course.horizontal_padding_4px": {} }
+    ]
+  },
+
+  "ip_label_content@game_tip.game_tip_item_panel": {
+    "$label_text_binding_type": "none",
+    "$label_text": "course.edu.ipAddress",
+    "$animation": [],
+    "anchor_from": "top_left",
+    "anchor_to": "top_left"
+  },
+
+  "port_label_content@game_tip.game_tip_item_panel": {
+    "$label_text_binding_type": "none",
+    "$label_text": "addExternalServerScreen.portTextBoxLabel",
+    "$animation": [],
+    "anchor_from": "top_left",
+    "anchor_to": "top_left"
+  },
+
+  "popup_notification_panel@common_buttons.static_tooltip_notification_panel": {
+    "$tooltip_popup_image": "textures/ui/infobulb",
+    "$tooltip_button_default_texture": "textures/ui/Black",
+    "$tooltip_button_pressed_texture": "textures/ui/Black",
+    "$tooltip_button_hover_texture": "textures/ui/Black",
+    "$tooltip_button_locked_texture": "textures/ui/Black",
+    "button_mappings": [],
+    "bindings": [],
+    "consume_hover_events": false,
+    "focus_enabled": false
+  },
+
+  "tooltip_panel": {
+    "type": "input_panel",
+    "size": [ "100%", 15 ],
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "button_mappings": [
+      {
+        "to_button_id": "$hovered_button_id",
+        "mapping_type": "pressed"
+      }
+    ],
+    "controls": [
+      {
+        "notification_section": {
+          "type": "panel",
+          "controls": [
+            {
+              "notification_panel@multiplayer_lesson.popup_notification_panel": {}
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "ip_address_tooltip_panel@multiplayer_lesson.tooltip_panel": {
+    "$hovered_button_id": "ip_tooltip.is_hovered",
+    "$tooltip_popup_visible_binding": "#is_ip_tooltip_hover_panel_visible",
+    "$tooltip_text_binding_name": "#ip_tooltip_hover_label",
+    "$tooltip_panel_content": "multiplayer_lesson.ip_label_content"
+  },
+
+  "port_tooltip_panel@multiplayer_lesson.tooltip_panel": {
+    "$hovered_button_id": "port_tooltip.is_hovered",
+    "$tooltip_popup_visible_binding": "#is_port_tooltip_hover_panel_visible",
+    "$tooltip_text_binding_name": "#port_tooltip_hover_label",
+    "$tooltip_panel_content": "multiplayer_lesson.port_label_content"
+  },
+
+  "edit_label_and_box@add_external_server.text_edit_group": {
+    "controls": [
+      {
+        "tooltip_panel@$tooltip_panel": {}
+      },
+      {
+        "edit_box@common.text_edit_box": {
+          "layer": 2,
+          "anchor_from": "top_left",
+          "anchor_to": "top_left",
+          "size": [ "100%", 20 ],
+          "$text_box_name": "$text_box_name",
+          "$text_edit_box_content_binding_name": "$content_binding_name",
+          "max_length": "$max_length",
+          "$text_edit_box_text_type": "$text_type",
+          "$place_holder_text": "$placeholder_label",
+          "$text_edit_box_binding_condition": "once"
+        }
+      }
+    ]
+  },
+
+  "ip_edit_label_and_box@multiplayer_lesson.edit_label_and_box": {
+    "$placeholder_label": "course.edu.ipPlaceholder",
+    "$text_box_name": "#ip_text_box",
+    "$max_length": 256,
+    "$content_binding_name": "#ip_text_box_content",
+    "$tooltip_panel": "multiplayer_lesson.ip_address_tooltip_panel"
+  },
+
+  "port_edit_label_and_box@multiplayer_lesson.edit_label_and_box": {
+    "$placeholder_label": "",
+    "$max_length": 6,
+    "$text_type": "NumberChars",
+    "$text_box_name": "#port_text_box",
+    "$content_binding_name": "#port_text_box_content",
+    "$tooltip_panel": "multiplayer_lesson.port_tooltip_panel"
+  },
+
+  "join_ip_content": {
+    "type": "stack_panel",
+    "orientation": "vertical",
+    "controls": [
+      {
+        "edit_boxes_panel@common.empty_panel": {
+          "size": [ "100%", "fill" ],
+          "anchor_to": "top_middle",
+          "anchor_from": "top_middle",
+          "controls": [
+            {
+              "edit_boxes_stack_panel": {
+                "size": [ "90%", "100%" ],
+                "type": "stack_panel",
+                "orientation": "vertical",
+                "controls": [
+                  {
+                    "ip_edit_label_and_box@multiplayer_lesson.ip_edit_label_and_box": {}
+                  },
+                  {
+                    "port_edit_label_and_box@multiplayer_lesson.port_edit_label_and_box": {}
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      { "padding_center@course.horizontal_padding_4px": {} },
+      {
+        "join_lesson_button_panel@common.empty_panel": {
+          "size": [ "100%", "100%c" ],
+          "anchor_to": "bottom_middle",
+          "anchor_from": "bottom_middle",
+          "controls": [
+            {
+              "play@multiplayer_lesson.play_button": {
+                "size": [ "50%-8px", 25 ]
+              }
+            }
+          ]
+        }
+      },
+      { "padding_bottom@course.horizontal_padding_4px": {} }
+    ]
+  },
+
+  "popup_dialog_join_multiplayer@multiplayer_lesson.popup_dialog": {
+    "$dialog_background": "dialog_background_hollow_3",
+    "$popup_controls": [
+      {
+        "popup_title@multiplayer_lesson.popup_title": {
+          "text": "course.edu.joinLesson"
+        }
+      },
+      {
+        "popup_message@multiplayer_lesson.popup_message": {
+          "text": "$popup_message"
+        }
+      },
+      {
+        "popup_join_list_content@$popup_content": {
+          "size": [ "95%", "100%-60px" ],
+          "offset": [ 0, 25 ]
+        }
+      }
+    ]
+  },
+
+  "popup_dialog_join_lesson_list@multiplayer_lesson.popup_dialog_join_multiplayer": {
+    "$popup_message": "$join_lesson_label",
+    "$popup_content": "multiplayer_lesson.join_list_content_panel"
+  },
+
+  "popup_dialog_join_ip@multiplayer_lesson.popup_dialog_join_multiplayer": {
+    "$popup_message": "course.edu.enterIp",
+    "$popup_content": "multiplayer_lesson.join_ip_content",
+    "size": [ 300, 180 ]
+  }
+}

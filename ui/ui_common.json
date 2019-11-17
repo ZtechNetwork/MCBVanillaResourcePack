@@ -24,6 +24,9 @@
     "$button_focus_precedence|default": 0,
     "default_focus_precedence": "$button_focus_precedence",
 
+    "$persona_focus_precedence|default": 0,
+    "persona_focus_precedence": "$persona_focus_precedence",
+
     "$button_tts_name|default": "accessibility.button.tts.title",
     "$button_tts_header|default": "",
     "$tts_section_header|default": "",
@@ -109,6 +112,7 @@
     "$button_binding_condition|default": "none",
     "$button_text_grid_collection_name|default": "",
     "$button_tts_header|default": "accessibility.button.back",
+    "$back_button_pressed_button_name|default": "button.menu_exit",
     "bindings": [
       {
         "binding_name": "(not #is_using_gamepad)",
@@ -122,12 +126,12 @@
     "button_mappings": [
       {
         "from_button_id": "button.menu_select",
-        "to_button_id": "button.menu_exit",
+        "to_button_id": "$back_button_pressed_button_name",
         "mapping_type": "pressed"
       },
       {
         "from_button_id": "button.menu_ok",
-        "to_button_id": "button.menu_exit",
+        "to_button_id": "$back_button_pressed_button_name",
         "mapping_type": "focused"
       }
     ]
@@ -1136,8 +1140,13 @@
     "layer": 2,
     "texture": "textures/ui/focus_border_white"
   },
+
   "focus_border_yellow@common.focus_border_white": {
     "color": [ 1.0, 1.0, 0.0, 1.0 ]
+  },
+
+  "focus_border_black@common.focus_border_white": {
+    "color": [ 0.0, 0.0, 0.0, 1.0 ]
   },
 
   "non_interact_focus_border": {
@@ -1151,10 +1160,14 @@
     "sound_volume": 0.0,
     "$pressed_button_name|default": "button.focus_filler", // This event is not intended to be handled anywhere
     "$button_tts_name": "", // We don't want TTS to say "button" here
+    "$default_focus_border_control|default": "common.empty_panel",
+    "$hover_focus_border_control|default": "common.non_interact_focus_border",
+    "$pressed_focus_border_control|default": "common.non_interact_focus_border",
+
     "controls": [
-      { "default@common.empty_panel": {} },
-      { "hover@common.non_interact_focus_border": {} },
-      { "pressed@common.non_interact_focus_border": {} }
+      { "default@$default_focus_border_control": {} },
+      { "hover@$hover_focus_border_control": {} },
+      { "pressed@$pressed_focus_border_control": {} }
     ]
   },
 
@@ -1165,6 +1178,7 @@
     "$focus_border_anchor|default": "center",
     "$focus_border_offset|default": [ 0, 0 ],
     "$focus_border_precedence|default": 0,
+    "$focus_border_consume_hover_events|default": true,
     "size": [ "100%", "100%cm" ],
     "controls": [
       {
@@ -1179,10 +1193,14 @@
           "offset": "$focus_border_offset",
           "default_focus_precedence": "$focus_border_precedence",
           "$focus_border_visible_binding|default": "#tts_enabled",
+          "$focus_border_visible_binding_override|default": "#visible",
+          "$focus_border_visible_binding_type|default": "global",
+          "consume_hover_events": "$focus_border_consume_hover_events",
           "bindings": [
             {
+              "binding_type": "$focus_border_visible_binding_type",
               "binding_name": "$focus_border_visible_binding",
-              "binding_name_override": "#visible"
+              "binding_name_override": "$focus_border_visible_binding_override"
             }
           ]
         }
@@ -1857,6 +1875,89 @@
     ]
   },
 
+  "horizontal_divider": {
+    "type": "panel",
+    "size": [ "100%", "100%c" ],
+    "$image_size|default": [ "100%", 1 ],
+    "controls": [
+      {
+        "divider_image": {
+          "type": "image",
+          "size": "$image_size",
+          "texture": "textures/ui/divider3",
+          "tiled": "x",
+          "alpha": 0.6
+        }
+      }
+    ]
+  },
+
+  "vertical_divider": {
+    "type": "panel",
+    "$size|default": [ "100%c", "100%" ],
+    "size": "$size",
+    "$image_size|default": [ 1, "100%" ],
+    "controls": [
+      {
+        "divider_image": {
+          "type": "image",
+          "size": "$image_size",
+          "texture": "textures/ui/divider3",
+          "tiled": "y",
+          "alpha": 0.6
+        }
+      }
+    ]
+  },
+
+  "underline": {
+    "type": "image",
+    "size": [ "100%", 1 ],
+    "$texture|default": "textures/ui/underline",
+    "texture": "$texture",
+    "alpha": 0.6,
+    "tiled": "x",
+    "anchor_from": "bottom_left",
+    "anchor_to": "bottom_left"
+  },
+
+  "single_line_label": {
+    "type": "panel",
+    "$size|default": [ "100%c", "100%c + 3px" ],
+    "size": "$size",
+    "$single_line_label_offset|default": [ 2, 1 ],
+    "$single_label_size|default": [ "default", 10 ],
+    "$underline_control|default": "common.empty_panel",
+    "$single_line_font_scale_factor|default": 1,
+    "controls": [
+      {
+        "label_panel": {
+          "type": "label",
+          "size": "$single_label_size",
+          "offset": "$single_line_label_offset",
+          "anchor_from": "top_left",
+          "anchor_to": "top_left",
+          "layer": 2,
+          "font_type": "smooth",
+          "enable_profanity_filter": false,
+
+          "font_scale_factor": "$single_line_font_scale_factor",
+
+          "$single_line_label_color|default": "$body_text_color",
+          "color": "$single_line_label_color",
+
+          "text_alignment": "left",
+          "$single_line_label_text|default": "",
+          "text": "$single_line_label_text",
+
+          "controls": "$underline_control",
+          "$label_text_bindings|default": [],
+          "bindings": "$label_text_bindings"
+        }
+      }
+    ]
+  },
+
   /////////////////////////////////////////////////////////////////////////////
   // Gamepad helper common
   /////////////////////////////////////////////////////////////////////////////
@@ -2377,28 +2478,52 @@
     "texture": "textures/ui/dialog_background_opaque"
   },
 
+  // Title area has space for text
+  // Area under hollow available for controls
   "dialog_background_hollow_1@dialog_background_hollow_common": {
     "texture": "textures/ui/dialog_background_hollow_1"
   },
 
+  // Title area has space for text
+  // Area under hollow available for buttons
   "dialog_background_hollow_2@dialog_background_hollow_common": {
     "texture": "textures/ui/dialog_background_hollow_2"
   },
 
+  // Title area has space for text
+  // No other area available besides hollow area
   "dialog_background_hollow_3@dialog_background_hollow_common": {
     "texture": "textures/ui/dialog_background_hollow_3"
   },
 
+  // No area available besides hollow area
+  // Good for tabbed content areas
   "dialog_background_hollow_4@dialog_background_hollow_common": {
     "texture": "textures/ui/dialog_background_hollow_4"
   },
 
+  // Title area has space for text (smaller than hollow 2)
+  // Area under hollow available for buttons
   "dialog_background_hollow_5@dialog_background_hollow_common": {
     "texture": "textures/ui/dialog_background_hollow_5"
   },
 
+  // Title area has space for text
+  // Area under hollow available for controls (larger than hollow 1)
   "dialog_background_hollow_6@dialog_background_hollow_common": {
     "texture": "textures/ui/dialog_background_hollow_6"
+  },
+
+  // Title area has space for controls
+  // No other area available besides hollow area
+  "dialog_background_hollow_7@dialog_background_hollow_common": {
+    "texture": "textures/ui/dialog_background_hollow_7"
+  },
+
+  // Title Area has no space for controls
+  // small icon button area in bottom right corner, size of icon button area does not change with scaling
+  "dialog_background_hollow_8@dialog_background_hollow_common": {
+    "texture": "textures/ui/dialog_background_hollow_8"
   },
 
   "dialog_divider": {
@@ -2425,6 +2550,61 @@
     "anchor_from": "top_left",
     "anchor_to": "top_left",
     "color": "$title_text_color"
+  },
+
+  "section_divider": {
+    "type": "stack_panel",
+    "orientation": "vertical",
+    "size": [ "100%", "100%c" ],
+    "$top_padding_size|default": [ "100%", 2 ],
+    "$bottom_padding_size|default": [ "100%", 2 ],
+    "$divider_size|default": [ "100% - 10px", 1 ],
+    "controls": [
+      {
+        "padding1": {
+          "type": "panel",
+          "size": "$top_padding_size"
+        }
+      },
+      {
+        "divider_parent": {
+          "type": "panel",
+          "size": [ "100%", 1 ],
+          "controls": [
+            {
+              "divider": {
+                "type": "image",
+                "texture": "textures/ui/divider2",
+                "alpha": 0.2,
+                "size": "$divider_size",
+                "layer": 1
+              }
+            }
+          ]
+        }
+      },
+      {
+        "padding2": {
+          "type": "panel",
+          "size": "$bottom_padding_size"
+        }
+      }
+    ]
+  },
+
+  "minecraftTenLabel": {
+    "type": "label",
+    "font_type": "MinecraftTen",
+    "backup_font_type": "DefaultFont",
+    "color": "$generic_button_text_color", // We have to specify a color for unit tests - expect to override this when used.
+
+    "variables": [
+      {
+        "requires": "(not $is_low_memory_device and not $is_berwick)", // We don't load MinecraftTen in these cases so we need to revert to Mojangles.
+        "font_scale_factor": 1.39,
+        "offset": [ 0, -2 ] // Because of how the font is rendered it looks like it is offset down from the center of the render area
+      }
+    ]
   },
 
   "close_button_image": {
@@ -3051,8 +3231,11 @@
                     "centered_panel": {
                       "type": "panel",
                       "size": "$scroll_size",
-                      "anchor_from": "center",
-                      "anchor_to": "center",
+                      "$scroll_track_anchor|default": "center",
+                      "anchor_from": "$scroll_track_anchor",
+                      "anchor_to": "$scroll_track_anchor",
+                      "$scroll_track_offset|default": [ 0, 0 ],
+                      "offset": "$scroll_track_offset",
                       "controls": [
                         {
                           "track@common.scrollbar_track": {
@@ -3133,7 +3316,8 @@
 
           "anchor_to": "top_left",
           "anchor_from": "top_left",
-          "size": [ "100%", "100%" ],
+          "$scroll_view_stack_panel_size|default": [ "100%", "100%" ],
+          "size": "$scroll_view_stack_panel_size",
           "controls": [
             { "background_and_viewport@common.scroll_background_and_viewport": {} },
             { "bar_and_track@common.scroll_bar_and_track": {} }
@@ -3147,6 +3331,8 @@
           "anchor_to": "top_left",
           "anchor_from": "top_left",
           "$view_port_size|default": [ "100%", "100%" ],
+          "$scroll_view_port_panel_size|default": [ "100%", "100%" ],
+          "size": "$scroll_view_port_panel_size",
           "controls": [
             { "background_and_viewport@common.scroll_background_and_viewport": {} },
             { "bar_and_track@common.scroll_bar_and_track": {} }
@@ -4687,8 +4873,13 @@
               "$sign_screen_size": [ 185, 90 ], // Sign Screen
               "$mob_effect_screen_size": [ "90%", "90%" ], // Mob Effect Screen
               "$purchase_coin_screen_size": [ "90%", "17%x + 82px" ], //Coin Purchase Screen
+              "$purchase_coin_screen_size_extended": [ "90%", "17%x + 117px" ], //Coin Purchase Screen, with FAQ
               "$choose_realm_screen_size": [ "70%", "85%" ], //Choose Realm Screen
-              "$world_modal_screen_size": [ 290, 100 ] // world convert and world loading modal progress screens
+              "$custom_templates_screen_size": [ "70%", "85%" ], //Custom Templates Screen
+              "$world_modal_screen_size": [ 290, 100 ], // world convert and world loading modal progress screens
+              "$day_one_experience_intro_screen_size": [ "60%", "85%" ], // Day One Experience intro popup
+              "$day_one_experience_import_progress_screen_size": [ "80%", "90%" ], // Day One Experience import progress modal screen
+              "$world_conversion_complete_screen_size": [ 290, 160 ] // World Conversion complete modal screen
             },
             // PE edition and VR
             {
@@ -4724,8 +4915,13 @@
               "$sign_screen_size": [ 185, 90 ], // Sign Screen
               "$mob_effect_screen_size": [ "90%", "90%" ], // Mob Effect Screen
               "$purchase_coin_screen_size": [ "90%", "17%x + 82px" ], //Coin Purchase Screen
+              "$purchase_coin_screen_size_extended": [ "90%", "17%x + 117px" ], //Coin Purchase Screen, with FAQ
               "$choose_realm_screen_size": [ "70%", "85%" ], //Choose Realm Screen
-              "$world_modal_screen_size": [ 290, 100 ] // world convert and world loading modal progress screens
+              "$custom_templates_screen_size": [ "70%", "85%" ], //Custom Templates Screen
+              "$world_modal_screen_size": [ 290, 100 ], // world convert and world loading modal progress screens
+              "$day_one_experience_intro_screen_size": [ "60%", "85%" ], // Day One Experience intro popup
+              "$day_one_experience_import_progress_screen_size": [ "80%", "90%" ], // Day One Experience import progress modal screen
+              "$world_conversion_complete_screen_size": [ 290, 160 ] // World Conversion complete modal screen
             }
           ],
           "button_mappings": [
@@ -5000,6 +5196,10 @@
     // ScreenChooser::isModalScreen() is hard coded to this name
   },
 
+  "realms_error_modal_screen@common.modal_screen": {
+    "force_render_below": true
+  },
+
   "modal_area_panel_base": {
     "type": "input_panel",
     "layer": 1,
@@ -5233,6 +5433,8 @@
 
   "tooltip_button_content@common.tooltip_background": {
     "size": "$tooltip_button_content_size",
+    "$tooltip_panel_content_background_alpha|default": 1.0,
+    "alpha": "$tooltip_panel_content_background_alpha",
     "controls": [
       {
         "tooltip_panel_content@$tooltip_panel_content": {}
@@ -5247,8 +5449,9 @@
     "$ignore_tooltip_popup_chevron|default": false,
     "$tooltip_popup_visible_binding|default": "",
     "$tooltip_panel_offset|default": [ 0, "-100%c - 2px" ],
+    "$tooltip_panel_size|default": [ "100%", "100%cm + 8px" ],
 
-    "size": [ "100%", "100%cm + 8px" ],
+    "size": "$tooltip_panel_size",
     "offset": "$tooltip_panel_offset",
     "layer": 200, // always on top
     "anchor_to": "top_middle",
@@ -5318,11 +5521,14 @@
                 "text": "$tooltip_text_binding_name",
                 "$tooltip_text_color|default": "$f_color_format",
                 "color": "$tooltip_text_color",
+                "$tooltip_text_font_type|default": "default",
+                "font_type": "$tooltip_text_font_type",
+                "$tooltip_text_binding_type|default": "$tooltip_button_binding_type",
                 "bindings": [
                   {
                     "binding_name": "$tooltip_text_binding_name",
                     "binding_collection_name": "$tooltip_button_collection_name",
-                    "binding_type": "$tooltip_button_binding_type",
+                    "binding_type": "$tooltip_text_binding_type",
                     "binding_condition": "visibility_changed"
                   }
                 ]
@@ -5359,6 +5565,176 @@
     ]
   },
 
+  // Tool tip with centered chevron
+  // $tool_tip_text_max_size defines how text wraps (x wraps with a '-' and y will cut off with '...')
+  "dynamic_tooltip_popup_with_image_and_text@common.tooltip_background": {
+    "$override_tooltip_popup_image|default": false,
+    "$tooltip_popup_image|default": "",
+    "$ignore_tooltip_popup_image|default": false,
+    "$ignore_tooltip_popup_chevron|default": false,
+    "$tooltip_popup_visible_binding|default": "",
+    "$tooltip_panel_offset|default": [ 0, -2 ],
+
+    "min_size": [ 25, "default" ],
+    "size": [ "100%c - 6px", "100%cm + 8px" ],
+    "offset": "$tooltip_panel_offset",
+    "layer": 200, // always on top
+    "anchor_from": "top_middle",
+    "anchor_to": "bottom_middle",
+    "controls": [
+      {
+        "image_and_text_stack_panel": {
+          "type": "stack_panel",
+          "orientation": "horizontal",
+          "size": [ "100%c", "100%cm" ],
+          "offset": [ 0.5, 0 ],
+          "layer": 2,
+          "controls": [
+            {
+              "tooltip_text_image_panel": {
+                "ignored": "$ignore_tooltip_popup_image",
+                "type": "panel",
+                "size": [ "100%y", "100%sm" ],
+                "min_size": [ 8, 8 ],
+                // The max y is 200 due to the fact that we have no way to say use inherited max sibling height
+                //   - 200 was used in thoughts that whatever text was used would not need more that 200px
+                //     allowing the image to grow and string with the height of the text object
+                "max_size": [ 12, 200 ],
+                "controls": [
+                  {
+                    "tooltip_image_panel": {
+                      "type": "panel",
+                      "size": [ "100%", "100%x" ],
+                      "$tooltip_popup_image_control_array|default": [
+                        {
+                          "tooltip_popup_image_panel": {
+                            "type": "image",
+                            "texture": "$tooltip_popup_image"
+                          }
+                        }
+                      ],
+                      "variables": [
+                        {
+                          "requires": "$override_tooltip_popup_image",
+                          "$tooltip_popup_image_control_array": [
+                            {
+                              "tooltip_popup_override_image_panel@$tooltip_popup_override_image_panel": {
+                                "size": [ "100%", "100%" ]
+                              }
+                            }
+                          ]
+                        }
+                      ],
+                      "controls": "$tooltip_popup_image_control_array"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "padding": {
+                "ignored": "$ignore_tooltip_popup_image",
+                "type": "panel",
+                "size": [ 3, 0 ]
+              }
+            },
+            {
+              "tooltip_text": {
+                "type": "label",
+                "$tool_tip_text_max_size|default": [ "default", "default" ],
+                "max_size": "$tool_tip_text_max_size",
+                "size": [ "default", "default" ],
+                "$tooltip_text_binding_name|default": "#tooltip_text",
+                "$tooltip_text_binding_type|default": "$tooltip_button_binding_type",
+                "text": "$tooltip_text_binding_name",
+                "$tooltip_text_color|default": "$f_color_format",
+                "color": "$tooltip_text_color",
+                "bindings": [
+                  {
+                    "binding_name": "$tooltip_text_binding_name",
+                    "binding_collection_name": "$tooltip_button_collection_name",
+                    "binding_type": "$tooltip_text_binding_type",
+                    "binding_condition": "visibility_changed"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "tooltip_chevron": {
+          "ignored": "$ignore_tooltip_popup_chevron",
+          "type": "image",
+          "layer": 2,
+          "$tooltip_popup_chevron_size|default": [ 19, 13 ],
+          "size": "$tooltip_popup_chevron_size",
+          "$tooltip_popup_chevron_offset|default": [ 0, "100%y - 3px" ],
+          "offset": "$tooltip_popup_chevron_offset",
+          "$tooltip_chevron_anchor|default": "bottom_middle",
+          "anchor_to": "$tooltip_chevron_anchor",
+          "anchor_from": "$tooltip_chevron_anchor",
+          "$tooltip_popup_chevron_texture|default": "textures/ui/tooltip_default_chevron",
+          "texture": "$tooltip_popup_chevron_texture"
+        }
+      }
+    ],
+    "bindings": [
+      {
+        "binding_name": "$tooltip_popup_visible_binding",
+        "binding_name_override": "#visible",
+        "binding_collection_name": "$tooltip_button_collection_name",
+        "binding_type": "$tooltip_button_binding_type"
+      }
+    ]
+  },
+
+  // Helper for tooltips intended to be below control
+  "dynamic_tooltip_below@dynamic_tooltip_popup_with_image_and_text": {
+    "$tooltip_panel_offset": [ 0, 2 ],
+    "anchor_to": "top_middle",
+    "anchor_from": "bottom_middle",
+    "$tooltip_chevron_anchor": "top_middle",
+    "$tooltip_popup_chevron_offset": [ 0, "-100%y + 3px" ],
+    "$tooltip_popup_chevron_texture": "textures/ui/tooltip_inverted_chevron"
+  },
+
+  // Helper for tooltips with dynamic positioning
+  "dynamic_tooltip": {
+    "type": "panel",
+    "$tooltip_above_binding_name|default": "",
+    "$tooltip_above_binding_collection_name|default": "",
+    "$tooltip_above_binding_type|default": "none",
+    "controls": [
+      {
+        "above@common.empty_panel": {
+          "controls": [ { "content@dynamic_tooltip_popup_with_image_and_text": {} } ],
+          "bindings": [
+            {
+              "binding_name": "$tooltip_above_binding_name",
+              "binding_name_override": "#visible",
+              "binding_collection_name": "$tooltip_above_binding_collection_name",
+              "binding_type": "$tooltip_above_binding_type"
+            }
+          ]
+        }
+      },
+      {
+        "below@common.empty_panel": {
+          "controls": [ { "content@dynamic_tooltip_below": {} } ],
+          "bindings": [
+            {
+              "binding_name": "(not $tooltip_above_binding_name)",
+              "binding_name_override": "#visible",
+              "binding_collection_name": "$tooltip_above_binding_collection_name",
+              "binding_type": "$tooltip_above_binding_type"
+            }
+          ]
+        }
+      }
+    ]
+  },
+
   ///////////////////////////////////////////////////////////////////////////
 
 
@@ -5389,5 +5765,68 @@
         "binding_name_override": "#visible"
       }
     ]
+  },
+
+
+  ///////////////////////////////////////////////////////////////////////////
+  // Common Icons //
+  ///////////////////////////////////////////////////////////////////////////
+
+  "info_icon": {
+    "type": "image",
+    "texture": "textures/ui/infobulb"
+  },
+
+  "error_glyph": {
+    "type": "image",
+    "texture": "textures/ui/ErrorGlyph"
+  },
+
+  "service_repo_image_panel": {
+    "type": "panel",
+    "controls": [
+      {
+        "service_repo_image": {
+          "type": "image",
+          "$repo_image_texture|default": "",
+          "$repo_image_tiled|default": "false",
+          "tiled": "$repo_image_tiled",
+          "property_bag": {
+            "#image_name": "$repo_image_texture"
+          },
+          "bindings": [
+            {
+              "binding_name": "#service_image_texture_filename",
+              "binding_name_override": "#texture"
+            },
+            {
+              "binding_name": "#service_image_texture_location",
+              "binding_name_override": "#texture_file_system"
+            },
+            {
+              "binding_name": "#service_image_repo_ready",
+              "binding_name_override": "#visible"
+            }
+          ]
+        }
+      },
+      {
+        "progress_loading@common_store.progress_loading": {
+          "size": [ "100%", 0 ],
+          "min_size": [ "100%", 10 ],
+          "inherit_max_sibling_height": true,
+          "layer": 3,
+          "$hide_failure_text": true,
+          "$hide_progress_loading_outline": true,
+          "bindings": [
+            {
+              "binding_name": "(not #service_image_repo_ready)",
+              "binding_name_override": "#visible"
+            }
+          ]
+        }
+      }
+    ]
   }
+
 }

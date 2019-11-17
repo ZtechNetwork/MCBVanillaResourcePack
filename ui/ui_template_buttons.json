@@ -61,6 +61,8 @@
   },
 
   "focus_border": {
+    "$focus_border_size|default": [ "100%", "100%" ],
+    "size": "$focus_border_size",
     "type": "image",
     "texture": "textures/ui/focus_border_white"
   },
@@ -79,6 +81,10 @@
     "$image_offset|default": [ 0, 0 ],
     "$border_visible|default": true,
     "$border_alpha|default": 1,
+    "$button_anchor_to|default": "center",
+    "$button_anchor_from|default": "center",
+    "anchor_to": "$button_anchor_to",
+    "anchor_from": "$button_anchor_from",
     "controls": [
       {
         "$button_image@$button_image": {
@@ -305,6 +311,7 @@
     "$button_pressed_offset|default": [ 0, 1 ],
     "$button_text|default": "",
     "$button_font_size|default": "normal",
+    "$button_font_scale_factor|default": 1.0,
     "$pressed_alpha|default": 1,
     "$default_button_alpha|default": 1,
     "$default_hover_alpha|default": 1,
@@ -470,6 +477,8 @@
     "$font_type|default": "default",
     "font_type": "$font_type",
     "font_size": "$button_font_size",
+    "$button_font_scale_factor|default": 1.0,
+    "font_scale_factor": "$button_font_scale_factor",
     "$button_font_size|default": "normal",
     "$new_ui_label_offset|default": "$button_offset",
     "offset": "$new_ui_label_offset",
@@ -494,6 +503,72 @@
     ]
   },
 
+  "underline_button@common.button": {
+    "size": [ "100%c", "100%c" ],
+    "pressed_control": "hover",
+    "$single_label_size": [ "default", 8 ],
+    "$single_line_font_scale_factor": 0.8,
+    "$pressed_button_name|default": "",
+    "$mashup_collection_binding_type|default": "global",
+    "$mashup_collection_name|default": "",
+    "controls": [
+      {
+        "default": {
+          "type": "panel",
+          "size": [ "100%c", 10 ],
+          "controls": [
+            {
+              "label_default@common.single_line_label": {
+                "$single_line_label_color": "$dark_button_default_text_color",
+                "$underline_control": [
+                  {
+                    "underline_default@common.underline": {}
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "hover": {
+          "type": "panel",
+          "size": [ "100%c", 10 ],
+          "controls": [
+            {
+              "label_hover@common.single_line_label": {
+                "$single_line_label_color": [ 0.215, 0.839, 0.118 ],
+                "$underline_control": [
+                  {
+                    "underline_hover@common.underline": {
+                      "$texture": "textures/ui/underline_focus"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "read_button": {
+    "type": "panel",
+    "size": [ "100%", "100%c" ],
+    "$offset|default": [ 0, 0 ],
+    "controls": [
+      {
+        "read_button_inner@common_buttons.underline_button": {
+          "anchor_from": "bottom_right",
+          "anchor_to": "bottom_right",
+          "offset": "$offset",
+          "visible": true,
+          "bindings": "$bindings"
+        }
+      }
+    ]
+  },
 
   /////////////////////////////////
   //
@@ -1073,6 +1148,677 @@
     }
   },
 
+  /////////////////////////////////
+  //
+  //  Content button with label and
+  //  nested buttons
+  //
+  /////////////////////////////////
+  // Main control:
+  // -nestable_button
+  //
+  // Helper controls:
+  // -dark_nestable_button
+  // -transparent_label_nestable_button
+  //
+  // Helper labels:
+  // -nested_centered_label_control
+  // -nested_label_with_image_control
+  // -nested_six_part_label_control
+
+  // General Assets //
+
+  // Base definition for state driven assets
+  //
+  // <state> - expands to default, hover, pressed, and locked
+  //
+  // -- Required Variables --
+  // $nested_asset_<state>_texture - The image for each state
+  //
+  // -- Optional Variables --
+  // $nested_asset_<state>_alpha - The alpha for each state
+  // $nested_asset_<state>_color - The color tint for each state
+  //
+  "nested_button_assets": {
+    "type": "image",
+    "texture": "$nested_asset_texture",
+    "alpha": "$nested_asset_alpha",
+    "color": "$nested_asset_color",
+    "$nested_asset_texture|default": "",
+
+    "$nested_asset_alpha|default": "$nested_default_alpha",
+    "$nested_asset_default_alpha|default": "$nested_default_alpha",
+    "$nested_asset_hover_alpha|default": "$nested_default_alpha",
+    "$nested_asset_pressed_alpha|default": "$nested_default_alpha",
+    "$nested_asset_locked_alpha|default": "$nested_default_alpha",
+
+    "$nested_asset_color|default": "$nested_default_color",
+    "$nested_asset_default_color|default": "$nested_default_color",
+    "$nested_asset_hover_color|default": "$nested_default_color",
+    "$nested_asset_pressed_color|default": "$nested_default_color",
+    "$nested_asset_locked_color|default": "$nested_default_color",
+    "variables": [
+      {
+        "requires": "$default_state",
+        "$nested_asset_texture": "$nested_asset_default_texture",
+        "$nested_asset_alpha": "$nested_asset_default_alpha",
+        "$nested_asset_color": "$nested_asset_default_color"
+      },
+      {
+        "requires": "$hover_state",
+        "$nested_asset_texture": "$nested_asset_hover_texture",
+        "$nested_asset_alpha": "$nested_asset_hover_alpha",
+        "$nested_asset_color": "$nested_asset_hover_color"
+      },
+      {
+        "requires": "$pressed_state",
+        "$nested_asset_texture": "$nested_asset_pressed_texture",
+        "$nested_asset_alpha": "$nested_asset_pressed_alpha",
+        "$nested_asset_color": "$nested_asset_pressed_color"
+      },
+      {
+        "requires": "$locked_state",
+        "$nested_asset_texture": "$nested_asset_locked_texture",
+        "$nested_asset_alpha": "$nested_asset_locked_alpha",
+        "$nested_asset_color": "$nested_asset_locked_color"
+      }
+    ]
+  },
+
+  // Subtle light overlay
+  "nested_overlay_assets@common_buttons.nested_button_assets": {
+    "$nested_asset_default_texture": "textures/ui/clickable_overlay",
+    "$nested_asset_default_alpha": "$nested_overlay_clickable_alpha",
+    "$nested_asset_hover_texture": "textures/ui/clickable_overlay",
+    "$nested_asset_hover_alpha": "$nested_overlay_clickable_alpha",
+    "$nested_asset_pressed_texture": "textures/ui/clickable_overlay_inverse",
+    "$nested_asset_pressed_alpha": "$nested_overlay_clickable_alpha",
+    "$nested_asset_locked_texture": "textures/ui/clickable_overlay",
+    "$nested_asset_locked_alpha": "$nested_overlay_clickable_alpha"
+  },
+
+  // Label Assets //
+
+  // Dark label background with green hover
+  "nested_label_content_background_assets@common_buttons.nested_button_assets": {
+    "$nested_asset_default_texture": "textures/ui/White",
+    "$nested_asset_default_color": "$nested_dark_label_default_color",
+    "$nested_asset_hover_texture": "textures/ui/White",
+    "$nested_asset_hover_color": "$nested_dark_label_hover_color",
+    "$nested_asset_pressed_texture": "textures/ui/White",
+    "$nested_asset_pressed_color": "$nested_dark_label_pressed_color",
+    "$nested_asset_locked_texture": "textures/ui/White",
+    "$nested_asset_locked_color": "$nested_dark_label_default_color"
+  },
+
+  // Background for label content control
+  "nested_label_background_assets@common_buttons.nested_button_assets": {
+    "$nested_asset_default_texture": "textures/ui/black_border",
+    "$nested_asset_hover_texture": "textures/ui/slider_border",
+    "$nested_asset_pressed_texture": "textures/ui/slider_border",
+    "$nested_asset_locked_texture": "textures/ui/black_border"
+  },
+
+  // Semitransparent background for label content control
+  //
+  // -- Optional Variables --
+  // $transparent_label_color - The color when not pressed
+  // $transparent_label_pressed_color - The color when pressed
+  //
+  "nested_transparent_label_content_background_assets": {
+    "type": "panel",
+    "$transparent_label_color|default": "$nested_transparent_label_default_color",
+    "$transparent_label_hover_color|default": "$transparent_label_color",
+    "$transparent_label_pressed_color|default": "$nested_transparent_label_default_pressed_color",
+
+    "controls": [
+      {
+        "assets@common_buttons.nested_button_assets": {
+
+          "$nested_asset_default_texture": "textures/ui/White",
+          "$nested_asset_default_color": "$transparent_label_color",
+          "$nested_asset_default_alpha": "$nested_transparent_label_alpha",
+          "$nested_asset_hover_texture": "textures/ui/White",
+          "$nested_asset_hover_color": "$transparent_label_hover_color",
+          "$nested_asset_pressed_texture": "textures/ui/White",
+          "$nested_asset_pressed_color": "$transparent_label_pressed_color",
+          "$nested_asset_locked_texture": "textures/ui/White",
+          "$nested_asset_locked_color": "$transparent_label_color"
+        }
+      }
+    ]
+  },
+
+  // Basic label bindings and variables
+  //
+  // -- Required Variables --
+  // $nested_label_text - Label text
+  //
+  // -- Optional Variables --
+  // $nested_label_font_type - Label font type (default: mojangles)
+  // $nested_label_bindings - Label bindings for dynamic text/type
+  // $nested_label_color - Label color
+  // $nested_label_locked_color - Label color when locked
+  //
+  "nested_base_label": {
+    "type": "label",
+    "shadow": true,
+    "text_alignment": "center",
+    "$nested_label_color|default": "$generic_button_text_color",
+    "color": "$nested_label_color",
+
+    "$nested_label_text|default": "",
+    "text": "$nested_label_text",
+
+    "$nested_label_font_type|default": "default",
+    "font_type": "$nested_label_font_type",
+
+    "$nested_label_bindings|default": [],
+    "bindings": "$nested_label_bindings"
+  },
+
+  // Centered label
+  //
+  // -- Required Variables --
+  // See common_buttons.nested_base_label for more
+  //
+  // -- Optional Variables --
+  // $nested_label_max_size - For clipping label text
+  //
+  "nested_centered_label_control": {
+    "type": "panel",
+    "controls": [
+      {
+        "label@common_buttons.nested_base_label": {
+          "$nested_label_max_size|default": [ "100% - 2px", "100% - 2px" ],
+          "max_size": "$nested_label_max_size"
+        }
+      }
+    ]
+  },
+
+  // Label left justified with image prefix
+  //
+  // -- Required Variables --
+  // $nested_label_image - Prefix image
+  // See common_buttons.nested_base_label for more
+  //
+  // -- Optional Variables --
+  // $nested_label_max_size - For clipping label text (should be fine as is)
+  //
+  "nested_label_with_image_control": {
+    "type": "stack_panel",
+    "orientation": "horizontal",
+    "size": [ "100% - 6px", "100% - 3px" ],
+    "offset": [ 0, -0.5 ],
+    "controls": [
+      {
+        "image": {
+          "type": "image",
+          "$nested_label_image|default": "",
+          "texture": "$nested_label_image",
+          "size": [ "100%y", "100%" ]
+        }
+      },
+      {
+        "image_to_label_padding@common.empty_panel": {
+          "size": [ 4, "100%" ]
+        }
+      },
+      {
+        "label_panel": {
+          "type": "panel",
+          "size": [ "fill", "100%" ],
+          "controls": [
+            {
+              "label@common_buttons.nested_base_label": {
+                "anchor_from": "left_middle",
+                "anchor_to": "left_middle",
+                "$nested_label_max_size|default": [ "100%", "100%" ],
+                "max_size": "$nested_label_max_size"
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  // Empty definition for a six part label
+  "nested_six_part_empty_definition": {
+    "type": "label",
+    "text": "",
+    "color": "$generic_button_text_color"
+  },
+
+  // Label in each corner of the label control
+  //
+  // -- Optional Variables --
+  // <side> - Expands to left/right
+  // <anchor> - Expands to top/middle/bottom
+  // $<side>_<anchor>_label_definition - Json object that defines all required label variables (needs "type: label" and at least text and color)
+  //
+  "nested_six_part_label_control": {
+    "type": "panel",
+    "size": [ "100% - 6px", "100% - 2px" ],
+    "offset": [ 0, -1 ],
+    "$left_top_label_definition|default": "common_buttons.nested_six_part_empty_definition",
+    "$left_middle_label_definition|default": "common_buttons.nested_six_part_empty_definition",
+    "$left_bottom_label_definition|default": "common_buttons.nested_six_part_empty_definition",
+    "$right_top_label_definition|default": "common_buttons.nested_six_part_empty_definition",
+    "$right_middle_label_definition|default": "common_buttons.nested_six_part_empty_definition",
+    "$right_bottom_label_definition|default": "common_buttons.nested_six_part_empty_definition",
+    "controls": [
+      {
+        "left_top_label@$left_top_label_definition": {
+          "anchor_from": "top_left",
+          "anchor_to": "top_left"
+        }
+      },
+      {
+        "left_middle_label@$left_middle_label_definition": {
+          "anchor_from": "left_middle",
+          "anchor_to": "left_middle"
+        }
+      },
+      {
+        "left_bottom_label@$left_bottom_label_definition": {
+          "anchor_from": "bottom_left",
+          "anchor_to": "bottom_left"
+        }
+      },
+      {
+        "right_top_label@$right_top_label_definition": {
+          "anchor_from": "top_right",
+          "anchor_to": "top_right"
+        }
+      },
+      {
+        "right_middle_label@$right_middle_label_definition": {
+          "anchor_from": "right_middle",
+          "anchor_to": "right_middle"
+        }
+      },
+      {
+        "right_bottom_label@$right_bottom_label_definition": {
+          "anchor_from": "bottom_right",
+          "anchor_to": "bottom_right"
+        }
+      }
+    ]
+  },
+
+  // Content Assets //
+
+  // Solid color content assets
+  "nested_dark_button_assets@common_buttons.nested_button_assets": {
+    "$nested_asset_default_texture": "textures/ui/White",
+    "$nested_asset_default_color": "$nested_dark_content_default_color",
+    "$nested_asset_hover_texture": "textures/ui/White",
+    "$nested_asset_hover_color": "$nested_dark_content_hover_color",
+    "$nested_asset_pressed_texture": "textures/ui/White",
+    "$nested_asset_pressed_color": "$nested_dark_content_pressed_color",
+    "$nested_asset_locked_texture": "textures/ui/White",
+    "$nested_asset_locked_color": "$nested_dark_content_default_color"
+  },
+
+  // Background for button content control
+  "nested_content_background_assets@common_buttons.nested_button_assets": {
+    "$nested_asset_default_texture": "textures/ui/Black",
+    "$nested_asset_hover_texture": "textures/ui/White",
+    "$nested_asset_pressed_texture": "textures/ui/White",
+    "$nested_asset_locked_texture": "textures/ui/Black"
+  },
+
+  // Darkened overlay for unselected buttons
+  "nested_content_overlay_assets@common_buttons.nested_button_assets": {
+    "$nested_asset_default_texture": "textures/ui/Black",
+    "$nested_asset_default_alpha": "$nested_content_unfocused_overlay_alpha",
+    "$nested_asset_hover_texture": "",
+    "$nested_asset_pressed_texture": "",
+    "$nested_asset_locked_texture": ""
+  },
+
+  // Solid color background with image in center
+  //
+  // -- Required Variables --
+  // $nested_control_image - The texture for the center image
+  //
+  // -- Optional Variables --
+  // $nested_control_image_size - The size of the image (default: [ 22, 22 ])
+  //
+  "nested_dark_control_with_image": {
+    "type": "panel",
+    "controls": [
+      { "background@common_buttons.nested_dark_button_assets": {} },
+      {
+        "image_panel": {
+          "type": "panel",
+          "size": [ 22, 22 ],
+          "offset": [ 0, 1.5 ],
+          "layer": 1,
+          "controls": [
+            {
+              "image": {
+                "type": "image",
+                "$nested_control_image_size": [ "100%", "100%" ],
+                "size": "$nested_control_image_size",
+                "$nested_control_image|default": "",
+                "texture": "$nested_control_image"
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  // Controls //
+
+  // NESTED BUTTON DOCUMENTATION:
+  //
+  // -- For Nested Content --
+  // If using nested content all variables in this section required
+  // setUpCallbacksForNestedButton(
+  //   $pressed_button_name,
+  //   $nested_content_visibility_binding, - The binding name for nested visibility
+  //   firstControlName - The name of the control that will recieve focus after the base button is pressed
+  //   ignoredButtons - (optional) A vector of button names to ignore (default: { StringHash("button.scrollbar_touch") })
+  // );
+  // $nested_content_controls - The nested controls (parent size based on its sibling)
+  // $has_nested_controls - Set to true to use
+  //
+  // -- Advanced Nested Content --
+  // For factory built nestable buttons
+  // $has_special_nested_controls - Set to true to use
+  // $nested_content_controls - The nested controls (parent size based on its sibling)
+  // $special_nested_content_bindings - Bindings array for the nested controls
+  // $special_nested_button_bindings - Bindings array for the button
+  //
+  //
+  // -- Required Variables --
+  // $pressed_button_name, - The button name for the base button
+  //
+  // $nested_button_content_size - The size for the upper control
+  // $nested_content_control - The control for the upper part of the button (can make use of $default_state, $hover_state, $pressed_state, $locked_state)
+  //
+  // $nested_button_label_size - The size for the label control (can use "100%sm" for the x to keep consistent with top control)
+  // $nested_label_control_background: The background behind the label control
+  // $nested_label_control: The control for the background of the label (can make use of $default_state, $hover_state, $pressed_state, $locked_state)
+  //
+  // -- Other Variables --
+  // any common.button variable
+  //
+  // $nested_button_overlay - The overlay for the entire button (default: common_buttons.nested_overlay_assets)
+  // $nested_content_background_assets - The assets behind the button content control (default: common_buttons.nested_background_assets)
+  // $nested_content_overlay_assets - The assets to overlay the content (default: common.empty_panel)
+  // $nested_content_label_padding - If true adds a single texel gap between content and label (default: false)
+  // $nested_label_background_assets - The assets behind the label control (default: common_buttons.nested_label_background_assets)
+  // $nested_content_dark_alpha - The black overlay to display when nested content is shown
+  //
+  // $use_parent_size - If true will use parent size to size buttons (still needs $nested_button_content_size
+  //                    and $nested_button_label_size, will also need to set $nestable_button_size)
+  //                    If false uses content size (default: false)
+  // $nestable_button_size - The size of the button (default: [ "100%cm", "100%cm" ]
+  //
+  "nestable_button": {
+    "$use_parent_size|default": false,
+    "$nestable_button_size|default": [ "100%cm", "100%cm" ],
+    "size": "$nestable_button_size",
+
+    "type": "panel",
+    "$has_nested_controls|default": false,
+    "$has_special_nested_controls|default": false,
+    "$has_special_button_bindings|default": false,
+    "$has_padding_for_content_and_label|default": false,
+    "$nested_content_visibility_binding|default": "",
+    "controls": [
+      {
+        "nested_controls_panel": {
+          "ignored": "(not $has_nested_controls and not $has_special_nested_controls)",
+          "$nested_content_dark_alpha|default": 0.8,
+          "type": "input_panel",
+          "size": [ "100%sm", "100%sm" ],
+          "layer": 10,
+          "button_mappings": [
+            {
+              "from_button_id": "button.menu_select",
+              "to_button_id": "button.nested_background",
+              "mapping_type": "pressed"
+            },
+            {
+              "from_button_id": "button.menu_ok",
+              "to_button_id": "button.nested_background",
+              "mapping_type": "focused"
+            }
+          ],
+          "$_nested_content_visibility_binding|default": [
+            {
+              "binding_name": "$nested_content_visibility_binding",
+              "binding_name_override": "#visible"
+            }
+          ],
+          "variables": [
+            {
+              "requires": "$has_special_nested_controls",
+              "$_nested_content_visibility_binding": "$special_nested_content_bindings"
+            }
+          ],
+          "bindings": "$_nested_content_visibility_binding",
+          "controls": [
+            {
+              "locked_overlay": {
+                "type": "image",
+                "texture": "textures/ui/Black",
+                "alpha": "$nested_content_dark_alpha"
+              }
+            },
+            { "nested_controls@$nested_content_controls": {} }
+          ]
+        }
+      },
+      {
+        "base_button@common.button": {
+          "locked_control": "locked",
+
+          "layer": 1,
+
+          "$default_state|default": false,
+          "$hover_state|default": false,
+          "$pressed_state|default": false,
+          "$locked_state|default": false,
+
+          "variables": [
+            {
+              "requires": "$has_nested_controls",
+              "$button_bindings": [
+                {
+                  "binding_name": "(not $nested_content_visibility_binding)",
+                  "binding_name_override": "#enabled"
+                }
+              ]
+            },
+            {
+              "requires": "($has_special_nested_controls or $has_special_button_bindings)",
+              "$button_bindings": "$special_nested_button_bindings"
+            },
+            {
+              "requires": "$use_parent_size",
+              "$_nested_button_size": [ "100%", "100%" ]
+            }
+          ],
+          "$_nested_button_size|default": [ "100%c", "100%c" ],
+          "size": "$_nested_button_size",
+
+          "controls": [
+            {
+              "default@common_buttons.nested_button_base": {
+                "$default_state": true
+              }
+            },
+            {
+              "hover@common_buttons.nested_button_base": {
+                "$hover_state": true
+              }
+            },
+            {
+              "pressed@common_buttons.nested_button_base": {
+                "$pressed_state": true
+              }
+            },
+            {
+              "locked@common_buttons.nested_button_base": {
+                "$locked_state": true
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  // The base button control for the nested button
+  //
+  // Variables documented in parent control
+  //
+  "nested_button_base": {
+    "type": "panel",
+    "$nested_button_overlay|default": "common_buttons.nested_overlay_assets",
+    "controls": [
+      {
+        "button_overlay@$nested_button_overlay": {
+          "size": [ "100%sm", "100%sm" ],
+          "layer": 3
+        }
+      },
+      {
+        "button_control": {
+          "type": "stack_panel",
+          "orientation": "vertical",
+          "layer": 1,
+          "controls": [
+            {
+              "control_area": {
+                "type": "panel",
+                "size": "$nested_button_content_size",
+
+                "$nested_content_background_assets|default": "common_buttons.nested_content_background_assets",
+                "$nested_content_overlay_assets|default": "common.empty_panel",
+                "controls": [
+                  {
+                    "background@$nested_content_background_assets": {
+                      "layer": -1,
+                      "size": [ "100%sm + 2px", "100%sm + 1px" ],
+                      "offset": [ 0, -0.5 ]
+                    }
+                  },
+                  { "control@$nested_content_control": {} },
+                  { "overlay@$nested_content_overlay_assets": { "layer": 1 } }
+                ]
+              }
+            },
+            {
+              "button_stack_padding@common.empty_panel": {
+                "$nested_content_label_padding|default": false,
+                "$_content_to_label_padding_size|default": "$nested_no_padding",
+                "size": "$_content_to_label_padding_size",
+                "variables": [
+                  {
+                    "requires": "$nested_content_label_padding",
+                    "$_content_to_label_padding_size": "$nested_one_pixel_padding"
+                  }
+                ]
+              }
+            },
+            {
+              "label_area": {
+                "type": "panel",
+                "size": "$nested_button_label_size",
+
+                "$nested_label_background_assets|default": "common_buttons.nested_label_background_assets",
+                "controls": [
+                  {
+                    "background@$nested_label_background_assets": {
+                      "layer": -1,
+                      "size": [ "100%sm + 2px", "100%sm + 2px" ]
+                    }
+                  },
+                  { "control_background@$nested_label_control_background": {} },
+                  { "control@$nested_label_control": { "layer": 1 } }
+                ]
+              }
+            }
+          ],
+
+          "$_nested_button_control_size|default": [ "100%cm", "100%c" ],
+          "size": "$_nested_button_control_size",
+          "variables": [
+            {
+              "requires": "$use_parent_size",
+              "$_nested_button_control_size": [ "100%", "100%" ]
+            }
+          ]
+        }
+      }
+    ],
+
+    "$_nested_button_base_size|default": [ "100%cm + 2px", "100%cm + 2px" ],
+    "size": "$_nested_button_base_size",
+    "variables": [
+      {
+        "requires": "$use_parent_size",
+        "$_nested_button_base_size": [ "100% - 2px", "100% - 2px" ]
+      }
+    ]
+  },
+
+  // Helpers //
+
+  // Solid button with image and centered label
+  //
+  // -- Required Variables --
+  // $pressed_button_name - The button name for the base button
+  //
+  // $nested_button_content_size - Content control size
+  // $nested_control_image - Content image
+  //
+  // $nested_button_label_size - Label control size
+  // $nested_label_text - Label text
+  //
+  "dark_nestable_button@common_buttons.nestable_button": {
+    "$nested_content_control": "common_buttons.nested_dark_control_with_image",
+
+    "$nested_label_control_background": "common_buttons.nested_label_content_background_assets",
+    "$nested_label_control": "common_buttons.nested_centered_label_control"
+  },
+
+  // Content control is user defined
+  // Label has a semi transparent background with a image prefix before the label
+  //
+  // -- Required Variables --
+  // $pressed_button_name - The button name for the base button
+  //
+  // $nested_button_content_size - Content control size
+  // $nested_content_control - The upper content control
+  //
+  // $nested_button_label_size - Label control size
+  // $nested_label_control - The label content control
+  //
+  // -- Optional Variables --
+  // $nested_content_overlay_assets - The assets to overlay the content (default: common.nested_content_overlay_assets)
+  //
+  // $nested_label_control_background - The background behind the label control (default: common_buttons.nested_transparent_label_content_background_assets)
+  // $transparent_label_color - The color of the label when not pressed (can use if default $nested_label_control_background)
+  // $transparent_label_pressed_color - The color of the label when pressed (can use if default $nested_label_control_background)
+  // $nested_transparent_label_alpha - The alpha of the label background (default: 0.8, can use if default $nested_label_control_background)
+  //
+  "transparent_label_nestable_button@common_buttons.nestable_button": {
+    "$nested_content_overlay_assets": "common_buttons.nested_content_overlay_assets",
+
+    "$nested_content_label_padding": true,
+
+    "$nested_label_control_background": "common_buttons.nested_transparent_label_content_background_assets"
+  },
 
   //////////  Tool Tip Types  //////////
 
@@ -1144,8 +1890,113 @@
         "binding_type": "$tooltip_button_binding_type"
       }
     ]
-  }
+  },
+
+
+  "dynamic_tooltip_notification_panel@common.button": {
+    "size": [ "100%", "100%" ],
+    "sound_volume": 0.0,
+    "layer": 1,
+
+    // background textures
+    "$tooltip_button_default_texture|default": "textures/ui/tooltip_notification_default_background",
+    "$tooltip_button_pressed_texture|default": "textures/ui/tooltip_notification_default_background",
+    "$tooltip_button_hover_texture|default": "textures/ui/tooltip_notification_default_background",
+    "$tooltip_button_locked_texture|default": "textures/ui/tooltip_notification_default_background",
+
+    "$tooltip_button_content_size|default": [ "100%", "100%" ],
+
+    // binding vars (should be same for all children)
+    "$tooltip_button_binding_type|default": "global",
+    "$tooltip_button_collection_name|default": "",
+
+    "locked_control": "locked",
+
+    "$tooltip_hovered_to_button_id|default": "button.is_hovered",
+    "button_mappings": [
+      {
+        "from_button_id": "button.menu_select",
+        "to_button_id": "$pressed_button_name",
+        "mapping_type": "pressed"
+      },
+      {
+        "from_button_id": "button.menu_ok",
+        "to_button_id": "$pressed_button_name",
+        "mapping_type": "focused"
+      },
+      {
+        "to_button_id": "$tooltip_hovered_to_button_id",
+        "mapping_type": "pressed"
+      }
+    ],
+
+    "controls": [
+      {
+        "default@common.tooltip_button_content": {
+          "$tooltip_background_texture": "$tooltip_button_default_texture"
+        }
+      },
+      {
+        "pressed@common.tooltip_button_content": {
+          "$tooltip_background_texture": "$tooltip_button_pressed_texture"
+        }
+      },
+      {
+        "hover@common.tooltip_button_content": {
+          "$tooltip_background_texture": "$tooltip_button_hover_texture"
+        }
+      },
+      {
+        "locked@common.tooltip_button_content": {
+          "$tooltip_background_texture": "$tooltip_button_locked_texture"
+        }
+      },
+      { "dyanmic_tooltip_popup_panel@common.dynamic_tooltip_popup_with_image_and_text": {} }
+    ],
+    "bindings": [
+      {
+        "binding_name": "$_tooltip_button_visibility_binding_name",
+        "binding_name_override": "#visible",
+        "binding_collection_name": "$tooltip_button_collection_name",
+        "binding_type": "$tooltip_button_binding_type"
+      }
+    ]
+  },
 
   ///////////////////////////////////////////////////////////////////////////
 
+  "text_body_focus_border_for_controller_button@common.button": {
+    "$pressed_button_name": "button.no_interaction",
+    "sound_volume": 0.0,
+    "size": [ "100%", "100%cm" ],
+    "default_control": "",
+    "pressed_control": "hover",
+    "$text_control|default": "common.empty_panel",
+    "$text_control_size|default": [ "100%", "100%c" ],
+    "controls": [
+      {
+        "hover@common.empty_panel": {
+          "size": [ "100%", "100%sm" ],
+          "controls": [
+            {
+              "focus_border@achievement.focus_border": {
+                "size": [ "100%", "100% + 4px" ],
+                "bindings": [
+                  {
+                    "binding_name": "#is_using_gamepad",
+                    "binding_name_override": "#visible"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "text_control@$text_control": {
+          "size": "$text_control_size"
+        }
+      }
+    ]
+  }
 }

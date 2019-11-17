@@ -2,6 +2,7 @@
 	"format_version" : "1.8.0",
 	"animations" : {
 		"animation.vex.attack.rotations.v1.0" : {
+			"loop" : true,
 			"bones" : {
 				"body" : {
 					"rotation" : [ 0.0, "variable.attackbodyroty - this", 0.0 ]
@@ -12,11 +13,11 @@
 				"rightarm" : {
 					"rotation" : [ "math.sin(1.0 - math.pow(1.0 - variable.attack_time, 3.0) * 180.0) * (variable.is_brandishing_spear ? -1.0 : 1.0 )", "(variable.is_brandishing_spear ? 0.0 : variable.attackbodyroty * 2.0) + variable.attackbodyroty", 0.0 ]
 				}
-			},
-			"loop" : true
+			}
 		},
 		"animation.vex.move" : {
 			"anim_time_update" : "query.modified_distance_moved",
+			"loop" : true,
 			"bones" : {
 				"leftwing" : {
 					"position" : [ 0.0, "-1.0 - this", "2.0 - this" ],
@@ -32,8 +33,7 @@
 					"position" : [ 0.0, "-1.0 - this", "2.0 - this" ],
 					"rotation" : [ "27.0 - this", "27.0 + math.cos(query.life_time * 916.8) * 9.0 - this", "27.0 - this" ]
 				}
-			},
-			"loop" : true
+			}
 		}
 	}
 }

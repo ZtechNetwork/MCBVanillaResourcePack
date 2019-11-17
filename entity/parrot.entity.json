@@ -17,8 +17,8 @@
       "scripts": {
         "pre_animation": [
           "variable.state = query.is_dancing ? 3 : (query.is_sitting ? 2 : (!query.is_on_ground && !query.is_jumping && !query.is_riding ? 0 : 1));",
-          "variable.dance.x = Math.cos(query.life_time*57.3*30.0);",
-          "variable.dance.y = Math.sin(query.life_time*57.3*30.0);",
+          "variable.dance.x = Math.cos(query.life_time * 57.3 * 20.0);",
+          "variable.dance.y = -Math.sin(query.life_time * 57.3 * 20.0);",
           "variable.wing_flap = ((math.sin(query.wing_flap_position * 57.3) + 1) * query.wing_flap_speed);"
         ]
       },

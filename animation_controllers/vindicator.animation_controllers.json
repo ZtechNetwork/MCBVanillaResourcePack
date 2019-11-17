@@ -1,16 +1,38 @@
 {
-  "format_version": "1.8.0",
-  "animation_controllers": {
+	"format_version" : "1.10.0",
+	"animation_controllers" : {
     "controller.animation.vindicator.base": {
+      "initial_state": "default",
       "states": {
         "default": {
-          "animations": [
-            { "vindicator_base": [] },
-            { "vindicator_attack": [] },
-            { "vindicator_walk": [] }
+          "blend_transition": 0.2,
+          "blend_via_shortest_path": true,
+          "animations": [ "vindicator_base", "vindicator_attack", "vindicator_walk" ],
+          "transitions": [
+            {
+              "celebrating": "query.is_celebrating"
+            }
+          ]
+        },
+        "celebrating": {
+          "animations": [ "celebrating" ],
+          "blend_transition": 0.2,
+          "blend_via_shortest_path": true,
+          "transitions": [
+            {
+              "default": "!query.is_celebrating"
+            }
           ]
         }
       }
-    }
-  }
+    },
+    "controller.animation.vindicator.base.v1.0" : {
+			"initial_state" : "default",
+			"states" : {
+        "default": {
+          "animations": [ "vindicator_base", "vindicator_attack", "vindicator_walk" ]
+        }
+			}
+		}
+	}
 }

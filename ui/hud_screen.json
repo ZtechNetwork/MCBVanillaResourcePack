@@ -465,6 +465,20 @@
         "mapping_type": "pressed"
       }
     ],
+    "controls": [
+      {
+        "hud_item_game_tip@game_tip.hud_item_game_tip": {
+          "bindings": [
+            {
+              "binding_name": "#game_tip_visible",
+              "binding_name_override": "#visible",
+              "binding_type": "collection",
+              "binding_collection_name": "$hotbar_collection_name"
+            }
+          ]
+        }
+      }
+    ],
     "bindings": [
       {
         "binding_collection_name": "$hotbar_collection_name",
@@ -478,7 +492,7 @@
     "type": "image",
     "size": [ "100%c + 6px", "100%c + 2px" ],
     "texture": "textures/ui/Black",
-    "alpha": 0.5,
+    "alpha": 0.7,
     "controls": [
       {
         "player_position_text": {
@@ -1765,11 +1779,11 @@
       { "curor_rend@cursor_renderer": {} },
       {
         "game_tip@game_tip.game_tip_panel": {
-          "$offset": [ 0, "-80px" ],
+          "$offset": [ 0, "-90px" ],
           "variables": [
             {
               "requires": "$pocket_screen",
-              "$offset": [ 0, "-50px" ]
+              "$offset": [ 0, "-60px" ]
             }
           ],
           "offset": "$offset"
@@ -2030,9 +2044,7 @@
         "root_panel@hud.root_panel": {}
       },
       {
-        "camera_renderer@camera_renderer": {
-          "ignored": "(not $education_edition)"
-        }
+        "camera_renderer@camera_renderer": {}
       },
       { "inventory_selected_icon_button@common.inventory_selected_icon_button": {} }
     ]

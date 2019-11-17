@@ -158,12 +158,8 @@
         }
       },
       {
-        "ip_label@pause.ip_label": {
-          "ignored": "(not $education_edition)"
-        }
-      },
-      {
         "permissions_button@common_buttons.dark_text_button": {
+          "ignored": "$education_edition",
           "size": [ "100%", 24 ],
           "$button_text": "permissions.title",
           "$pressed_button_name": "button.menu_permission"
@@ -171,6 +167,7 @@
       },
       {
         "vertical_padding_1@pause.vertical_padding": {
+          "ignored": "$education_edition",
           "size": [ "100%", 4 ]
         }
       },
@@ -275,6 +272,7 @@
     "controls": [
       {
         "player_icon": {
+          "ignored": "$education_edition",
           "type": "image",
           "size": [ "80%", "80%" ],
           "controls": [
@@ -297,6 +295,21 @@
               "binding_type": "collection",
               "binding_collection_name": "$sb_collection_name",
               "binding_name_override": "#texture_file_system"
+            }
+          ]
+        }
+      },
+      {
+        "permission_icon": {
+          "ignored": "(not $education_edition)",
+          "type": "image",
+          "size": [ "80%", "80%" ],
+          "bindings": [
+            {
+              "binding_name": "#permission_icon",
+              "binding_type": "collection",
+              "binding_collection_name": "$sb_collection_name",
+              "binding_name_override": "#texture"
             }
           ]
         }
@@ -404,6 +417,12 @@
         "binding_type": "collection",
         "binding_collection_name": "$sb_collection_name",
         "binding_name_override": "#visible"
+      },
+      {
+        "binding_name": "#can_click_player_button",
+        "binding_type": "collection",
+        "binding_collection_name": "$sb_collection_name",
+        "binding_name_override": "#enabled"
       },
       {
         "binding_type": "collection_details",

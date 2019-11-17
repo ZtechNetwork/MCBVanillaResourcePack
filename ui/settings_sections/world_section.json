@@ -6,7 +6,6 @@
 {
   "namespace": "world_section",
 
-  // selector pane content
   "selector_pane_content": {
     "type": "stack_panel",
 
@@ -21,7 +20,7 @@
           "ignored": "(not $is_pregame)",
           "type": "panel",
           "size": [ "100%", "100%c + 2px" ],
-          "controls": [
+           "controls": [
             {
               "thumbnail": {
                 "type": "image",
@@ -32,6 +31,7 @@
                 "anchor_from": "top_middle",
                 "anchor_to": "top_middle",
                 "offset": [ 0, 1 ],
+                "fill": true,
                 "controls": [
                   {
                     "border": {
@@ -60,19 +60,14 @@
         }
       },
       {
-        "create_or_play_button@settings_common.action_button": {
-          "ignored": "(not $is_pregame)",
-          "size": [ "100%", 30 ],
-          "$button_text": "menu.play",
-          "default_focus_precedence": 1,
-          "$pressed_button_name": "play_world_button",
-          "$focus_override_up": "FOCUS_OVERRIDE_STOP",
-          "variables": {
-            "requires": "(not $is_world_edit)",
-            "$button_text": "createWorldScreen.create",
-            "$pressed_button_name": "create_world_button"
-          }
+        "play_or_create_panel@world_section.play_or_create_stack_bedrock":  {
+          "ignored": "(not $is_pregame or $education_edition)",
+          "$button_text_max_size": [ "100%", 20 ]
         }
+      },
+      {
+      
+        "play_or_host_panel@world_section.play_or_host_stack_edu":  {}
       },
       {
         "spacer": {
@@ -83,7 +78,6 @@
       {
         "server_settings_visibility_panel": {
           "type": "stack_panel",
-
           "bindings": [
             {
               "binding_name": "#server_settings_visible",
@@ -121,6 +115,7 @@
       {
         "game_button@world_section.game_button": {
           "ignored": "($nx_os)",
+          "visible": "(not $education_edition_china)",
           "$toggle_group_forced_index": "$game_forced_index"
         }
       },
@@ -134,15 +129,106 @@
       },
       {
         "multiplayer_button@world_section.multiplayer_button": {
+          "visible": "(not $education_edition)",
           "$toggle_group_forced_index": "$multiplayer_forced_index"
         }
       }
     ]
   },
 
+  "launch_world_button_stack_def": {
+    "type": "stack_panel",
+    "size": [ "100%", 30 ],
+    "orientation": "horizontal"
+  },
+
+  "play_or_create_stack_bedrock@world_section.launch_world_button_stack_def": {
+    "ignored": "(not $is_pregame or $education_edition)",
+    "controls": [
+      {
+        "create_or_play_button@settings_common.action_button": {
+          "size": [ "fill", 30 ],
+          "$button_text": "menu.play",
+          "default_focus_precedence": 1,
+          "$pressed_button_name": "play_world_button",
+          "$focus_override_up": "FOCUS_OVERRIDE_STOP",
+          "variables": {
+            "requires": "(not $is_world_edit)",
+            "$button_text": "createWorldScreen.create",
+            "$pressed_button_name": "create_world_button"
+          }
+        }
+      },
+      {
+        "play_on_realm_button@settings_common.action_button": {
+          "size": [ "50%", 30 ],
+          "ignored": "(not $is_pregame or $education_edition)",
+          "$button_text_max_size": [ "100%", 20 ],
+          "$button_text": "menu.playOnRealms",
+          "$pressed_button_name": "play_world_on_realm_button",
+          "$focus_override_up": "FOCUS_OVERRIDE_STOP",
+          "variables": [
+            {
+              "requires": "(not $is_world_edit)",
+              "$button_text": "createWorldScreen.createOnRealms",
+              "$pressed_button_name": "create_world_on_realm_button"
+            },
+            {
+              "requires": "$realms_plus_on",
+              "$default_button_texture": "textures/ui/realmsContent",
+              "$hover_button_texture": "textures/ui/realmsContentHover",
+              "$pressed_button_texture": "textures/ui/realmsContentPressed"
+            }
+          ],          
+          "bindings": [
+            {
+              "binding_name": "#create_on_realm_visible",
+              "binding_name_override": "#visible"
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "edu_play_host_button@settings_common.action_button": {
+    "size": [ "fill", 30 ],
+    "$pressed_button_name": "play_world_edu_button",
+    "$focus_override_up": "FOCUS_OVERRIDE_STOP",
+    "property_bag": {
+      "#should_host": "$should_host"
+    },
+    "variables": {
+      "requires": "(not $is_world_edit)",
+      "$pressed_button_name": "create_world_edu_button"
+    }
+  },
+
+  "play_or_host_stack_edu@world_section.launch_world_button_stack_def": {
+    "ignored": "(not $is_pregame or not $education_edition)",
+    "controls": [
+      {
+        "edu_play_button@world_section.edu_play_host_button": {
+          "$button_text": "menu.play",
+          "default_focus_precedence": 1,
+          "$should_host": false
+        }
+      },
+      {
+        "edu_host_button@world_section.edu_play_host_button": {
+          "$button_text": "menu.host",
+          "default_focus_precedence": 2,
+          "$should_host": true
+        }
+      }
+    ]
+  },
+  
+
   "addons_selector_panel": {
     "type": "stack_panel",
     "$tts_section_header": "options.category.addons",
+    "visible": "(not $education_edition_china)",
     "controls": [
       {
         "selector_group_label_2@settings_common.selector_group_label": {
@@ -347,6 +433,8 @@
           "$dropdown_name": "world_game_mode_dropdown",
           "$options_dropdown_toggle_label_binding": "#world_game_mode_dropdown_toggle_label",
           "$option_enabled_binding_name": "#world_game_mode_dropdown_enabled",
+          "$selection_highlight_offset": [ -2, 1 ],
+          "$selection_highlight_size": [ "100%", "100% + 1px" ],          
           "$focus_override_right": "FOCUS_OVERRIDE_STOP"
         }
       },
@@ -413,7 +501,6 @@
       {
         "option_dropdown_permissions@settings_common.option_dropdown": {
           "$tts_section_header": "createWorldScreen.worldPreferences",
-          "ignored": "$education_edition",
           "$option_label": "permissions.title.settings",
           "$dropdown_content": "permissions.permission_level_dropdown_content",
           "$dropdown_area": "content_area",
@@ -428,6 +515,12 @@
             {
               "binding_name": "#show_permissions_dropdown",
               "binding_name_override": "#visible"
+            }
+          ],
+          "variables": [
+            {
+              "requires": "$education_edition",
+              "$option_label": "permissions.title.settings.edu"
             }
           ]
         }
@@ -474,7 +567,7 @@
           "ignored": "($education_edition or $is_seeds_enabled)",
           "$option_label": "createWorldScreen.levelSeed",
           "$option_binding_name": "#world_seed",
-          "$option_enabled_binding_name": "#world_seed_enabled",          
+          "$option_enabled_binding_name": "#world_seed_enabled",
           "$pressed_button_name": "button.redirect_to_upsell"
         }
       },
@@ -592,6 +685,17 @@
           "$toggle_name": "doimmediaterespawn",
           "$focus_override_right": "FOCUS_OVERRIDE_STOP",
           "$toggle_binding_condition": "always_when_visible"
+        }
+      },
+      {
+        "respawn_radius@settings_common.option_text_edit": {
+          "$option_label": "createWorldScreen.respawnRadius",
+          "$option_binding_name": "#respawn_radius",
+          "$option_enabled_binding_name": "#respawn_radius_enabled",
+          "$text_box_name": "respawn_radius_text_box",
+          "$focus_override_right": "FOCUS_OVERRIDE_STOP",
+          "$max_text_edit_length": 8,
+          "$text_edit_box_text_type": "NumberChars"
         }
       },
       {
@@ -988,6 +1092,30 @@
         }
       },
       {
+        "clear_player_data_panel": {
+          "ignored": "(not $is_world_edit or $is_mp_client or $trial or not $is_pregame or $export_template_disabled or $education_edition or $is_publish)",
+          "type": "stack_panel",
+
+          "controls": [
+            {
+              "padding": {
+                "type": "panel",
+                "size": [ "100%", 2 ]
+              }
+            },
+            {
+              "clear_player_data_button@settings_common.action_button": {
+                "size": [ "100%", 30 ],
+                "anchor_from": "bottom_left",
+                "anchor_to": "bottom_left",
+                "$button_text": "createWorldScreen.clearPlayerData.button",
+                "$pressed_button_name": "clear_player_data"
+              }
+            }
+          ]
+        }
+      },
+      {
         "copy_world_panel": {
           "ignored": "(not $is_world_edit or $is_mp_client or $trial or not $is_pregame or $export_disabled)",
           "type": "panel",
@@ -1001,6 +1129,20 @@
                 "$button_text": "gui.copyWorld",
                 "$pressed_button_name": "copy_world_button"
               }
+            }
+          ]
+        }
+      },
+      {
+        "base_game_version_debug_text": {
+          "ignored": "$is_publish",
+          "type": "label",
+          "color": "$body_text_color",
+          "text": "#text",
+          "bindings": [
+            {
+              "binding_name": "#base_game_version_debug_text",
+              "binding_name_override": "#text"
             }
           ]
         }
@@ -1025,6 +1167,7 @@
   "level_texture_pack_section@resource_packs.selected_stack_panel": {
     "$selected_pack_items": "#selected_pack_items_level",
     "$available_pack_items": "#available_pack_items_level",
+    "$realms_pack_items": "#realms_pack_items_level",
     "$unowned_pack_items": "#unowned_pack_items_level",
     "$default_item_texture": "#default_item_texture_level",
     "$default_item_file_system": "#default_item_file_system_level",
@@ -1033,20 +1176,30 @@
     "$default_item_description": "resourcePack.description.default.level",
     "$selected_grid_dimensions": "#selected_grid_dimensions_level",
     "$available_grid_dimensions": "#available_grid_dimensions_level",
+    "$realms_grid_dimensions": "#realms_grid_dimensions_level",
     "$unowned_grid_dimensions": "#unowned_grid_dimensions_level",
     "$button.selected_pack": "button.selected_pack_level",
     "$button.deselected_pack": "button.deselected_pack_level",
     "$button.available_pack": "button.available_pack_level",
+    "$button.realms_pack": "button.realms_pack_level",
     "$button.unowned_pack": "button.unowned_pack_level",
     "$button.move_left": "button.move_left_level",
     "$button.sort_up": "button.sort_up_level",
     "$button.sort_down": "button.sort_down_level",
+    "$button.expand_selected": "button.expand_selected_level",
+    "$button.expand_available": "button.expand_available_level",
+    "$button.expand_realms": "button.expand_realms_level",
+    "$button.store": "button.store_level",
+    "$button.store_home": "button.store_home_level",
     "$button.report_errors": "button.report_errors_level",
     "$bottom_description_text": "resourcePack.description.bottom.level",
     "$selected_label_text": "resourcePack.selected.title.packs",
     "$available_label_text": "resourcePack.available.title.packs",
+    "$realms_label_text": "resourcePack.realmsPlus.title.packs",
     "$unowned_label_text": "resourcePack.suggestedContent.title",
     "$view_more_unowned_content_button_text": "resourcePack.suggestedContent.button.viewMore",
+    "$read_more_label": "read_more_label_level",
+    "$read_less_label": "read_less_label_level",
     "$total_size_binding": "#total_size_binding_level",
     "$in_game_error_text": "resourcePack.error.ingame.packs",
     "$invalid_pack_items": "#invalid_pack_items_level",
@@ -1054,10 +1207,16 @@
     "$button.invalid_pack": "button.invalid_pack_level",
     "$button.pack_warning": "button.pack_warning_level",
     "$invalid_label_text": "resourcePack.invalid.title.packs",
+    "$view_in_store": "resourcePack.description.store",
+    "$errors_text": "resourcePack.errors",
+    "$warnings_text": "resourcePack.warnings",
+    "$expired_text": "resourcePack.realmsPlus.expired",
     "$top_label_box": true,
     "$show_checkbox": true,
     "$button.resource_pack_options_exit": "button.resource_pack_options_exit_level",
     "$button.pack_settings": "button.pack_settings_level",
+    "$button.add": "resourcePack.available.add",
+    "$button.remove": "resourcePack.selected.remove",
     "$options_slider_name": "content_tier_slider_level",
     "$display_suggested_content_offers": true,
     "$suggested_content_offers_collection": "#suggested_offers_collection_level",
@@ -1066,6 +1225,7 @@
     "$button.select_offer": "button.select_offer_level",
     "$suggested_content_offers_label_text": "#suggested_offers_title_level",
     "$no_available_packs_visibility_binding": "#no_available_packs_visibility_level",
+    "$no_realms_packs_visibility_binding": "#no_realms_packs_visibility_level",
     "$view_more_unowned_content_button_visibility_binding": "#suggested_content_visible_level",
     "$force_pack_download_binding_type": "global",
     "bindings": [
@@ -1097,9 +1257,11 @@
     "anchor_to": "top_left",
     "$selected_pack_items": "#selected_pack_items_addon",
     "$available_pack_items": "#available_pack_items_addon",
+    "$realms_pack_items": "#realms_pack_items_addon",
     "$unowned_pack_items": "#unowned_pack_items_addon",
     "$selected_grid_dimensions": "#selected_grid_dimensions_addon",
     "$available_grid_dimensions": "#available_grid_dimensions_addon",
+    "$realms_grid_dimensions": "#realms_grid_dimensions_addon",
     "$unowned_grid_dimensions": "#unowned_grid_dimensions_addon",
     "$default_item_texture": "#default_item_texture_addon",
     "$default_item_file_system": "#default_item_file_system_addon",
@@ -1109,16 +1271,25 @@
     "$button.selected_pack": "button.selected_pack_addon",
     "$button.deselected_pack": "button.deselected_pack_addon",
     "$button.available_pack": "button.available_pack_addon",
+    "$button.realms_pack": "button.realms_pack_addon",
     "$button.unowned_pack": "button.unowned_pack_addon",
     "$button.move_left": "button.move_left_addon",
     "$button.sort_up": "button.sort_up_addon",
     "$button.sort_down": "button.sort_down_addon",
+    "$button.expand_selected": "button.expand_selected_addon",
+    "$button.expand_available": "button.expand_available_addon",
+    "$button.expand_realms": "button.expand_realms_addon",
+    "$button.store": "button.store_addon",
+    "$button.store_home": "button.store_home_addon",
     "$button.report_errors": "button.report_errors_addon",
     "$bottom_description_text": "resourcePack.description.bottom.behaviorPacks",
-    "$selected_label_text": "resourcePack.selected.title.behaviorPacks",
-    "$available_label_text": "resourcePack.available.title.behaviorPacks",
+    "$selected_label_text": "resourcePack.selected.title.packs",
+    "$available_label_text": "resourcePack.available.title.packs",
+    "$realms_label_text": "resourcePack.realmsPlus.title.packs",
     "$unowned_label_text": "resourcePack.suggestedContent.title",
     "$view_more_unowned_content_button_text": "resourcePack.suggestedContent.button.viewMore",
+    "$read_more_label": "read_more_label_addon",
+    "$read_less_label": "read_less_label_addon",
     "$total_size_binding": "#total_size_binding_addon",
     "$in_game_error_text": "resourcePack.error.ingame.behaviorPacks",
     "$invalid_pack_items": "#invalid_pack_items_addon",
@@ -1126,10 +1297,16 @@
     "$button.invalid_pack": "button.invalid_pack_addon",
     "$button.pack_warning": "button.pack_warning_addon",
     "$invalid_label_text": "resourcePack.invalid.title.packs",
+    "$view_in_store": "resourcePack.description.store",
+    "$errors_text": "resourcePack.errors",
+    "$warnings_text": "resourcePack.warnings",
+    "$expired_text": "resourcePack.realmsPlus.expired",
     "$top_label_box": true,
     "$show_checkbox": false,
     "$button.resource_pack_options_exit": "button.resource_pack_options_exit_addon",
     "$button.pack_settings": "button.pack_settings_addon",
+    "$button.add": "resourcePack.available.add",
+    "$button.remove": "resourcePack.selected.remove",
     "$options_slider_name": "content_tier_slider_addon",
     "$display_suggested_content_offers": false,
     "$suggested_content_offers_collection": "#suggested_offers_collection_addon",
@@ -1138,6 +1315,7 @@
     "$button.select_offer": "button.select_offer_addon",
     "$suggested_content_offers_label_text": "#suggested_offers_title_addon",
     "$no_available_packs_visibility_binding": "#no_available_packs_visibility_addon",
+    "$no_realms_packs_visibility_binding": "#no_realms_packs_visibility_addon",
     "$view_more_unowned_content_button_visibility_binding": "#suggested_content_visible_addon",
     "bindings": [
       {
@@ -1212,12 +1390,18 @@
   "platform_broadcast_dropdown_content@settings_common.option_radio_dropdown_group": {
     "size": [ "100%", "100%c" ],
     "$radio_buttons": [
-      //{
-      //  "invite_only_toggle@settings_common.radio_with_label": {
-      //    "$toggle_state_binding_name": "#platform_broadcast_invite_only",
-      //    "$radio_label_text": "options.xboxliveBroadcast.inviteOnly"
-      //  }
-      //},
+      {
+        "invite_only_toggle@settings_common.radio_with_label": {
+          "$toggle_state_binding_name": "#platform_broadcast_invite_only",
+          "$radio_label_text": "options.xboxliveBroadcast.inviteOnly",
+          "bindings": [
+            {
+              "binding_name": "#platform_toggle_visible_invite_only",
+              "binding_name_override": "#visible"
+            }
+          ]
+        }
+      },
       {
         "friends_only_toggle@settings_common.radio_with_label": {
           "$toggle_state_binding_name": "#platform_broadcast_friends_only",
@@ -1385,7 +1569,7 @@
       },
       {
         "platform_settings_dropdown@settings_common.option_dropdown": {
-          "ignored": "(not $nx_os)",
+          "ignored": "(not $nx_os and not $is_berwick)",
           "$show_option_label": true,
           "$option_label": "options.thirdPartyConsoleVisible",
           "$dropdown_content": "world_section.platform_broadcast_dropdown_content",
@@ -1396,7 +1580,7 @@
           "$dropdown_scroll_content_size": [ "100%", 60 ],
           "bindings": [
             {
-              "binding_name": "#can_be_nex_enabled",
+              "binding_name": "#can_be_platform_network_enabled",
               "binding_name_override": "#enabled"
             }
           ]
@@ -1414,7 +1598,7 @@
           "$dropdown_scroll_content_size": [ "100%", 60 ],
           "variables": [
             {
-              "requires": "$nx_os",
+              "requires": "($nx_os or $is_berwick)",
               "$option_label": "options.xboxliveBroadcastSettingsForCrossplatform",
               "$show_option_label": true
             }
@@ -1438,6 +1622,10 @@
             {
               "binding_name": "#can_be_server_visible",
               "binding_name_override": "#visible"
+            },
+            {
+              "binding_name": "#can_be_server_enabled",
+              "binding_name_override": "#enabled"
             }
           ]
         }
@@ -1458,7 +1646,7 @@
       },
       {
         "platform_multiplayer_warning_label@world_section.cross_platform_warning_label": {
-          "ignored": "(not $nx_os)",
+          "ignored": "(not $nx_os and not $is_berwick)",
           "text": "#platform_multiplayer_warning_text",
           "bindings": [
             {

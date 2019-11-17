@@ -4,12 +4,12 @@
     "controller.render.rabbit": {
       "arrays": {
         "textures": {
-          "Array.skins": [ "Texture.brown", "Texture.white", "Texture.black", "Texture.white_splotched", "Texture.gold", "Texture.salt", "Texture.toast" ]
+          "Array.skins": [ "Texture.brown", "Texture.white", "Texture.black", "Texture.white_splotched", "Texture.gold", "Texture.salt" ]
         }
       },
       "geometry": "Geometry.default",
       "materials": [ { "*": "Material.default" } ],
-      "textures": [ "Array.skins[query.variant]" ]
+      "textures": [ "query.get_name == 'toast' ? Texture.toast : Array.skins[query.variant]" ]
     }
   }
 }

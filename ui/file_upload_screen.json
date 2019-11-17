@@ -71,19 +71,6 @@
             }
           ]
         }
-      },
-      {
-        "infinite_loading_bar_icon@feed_common.progress_loading_bars": {
-          "layer": 3,
-          "visible": "#infinite_progress_visible",
-          "size": [ "50%", 150 ],
-          "bindings": [
-            {
-              "binding_name": "#infinite_progress_visible",
-              "binding_name_override": "#visible"
-            }
-          ]
-        }
       }
     ]
   },
@@ -130,6 +117,30 @@
       {
         "binding_name": "#progress_text_visible",
         "binding_name_override": "#visible"
+      }
+    ]
+  },
+
+  "message_text_panel": {
+    "type": "panel",
+    "visible": "#message_text_visible",
+    "controls": [
+      {
+        "message_text@file_upload.common_label": {
+          "layer": 1,
+          "anchor_from": "center",
+          "anchor_to": "center",
+          "$label_binding_name": "#message_text"
+        }
+      }
+    ],
+    "bindings": [
+      {
+        "binding_name": "#message_text_visible",
+        "binding_name_override": "#visible"
+      },
+      {
+        "binding_name": "#message_text"
       }
     ]
   },
@@ -273,6 +284,13 @@
     "orientation": "vertical",
     "size": [ "100%", "100%c" ],
     "controls": [
+      {
+        "message@message_text_panel": {
+          "layer": 1,
+          "size": [ "100%", 10 ]
+        }
+
+      },
       {
         "description@progress_text_panel": {
           "layer": 1,

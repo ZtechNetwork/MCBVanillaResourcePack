@@ -49,6 +49,8 @@
           "size": [ "100%", 25 ],
           "$text_box_name": "#realms_name_box",
           "$text_edit_box_content_binding_name": "#realms_name_textbox",
+          "$place_holder_text": "#placeholder_realm_name",
+          "$text_edit_box_placeholder_content_binding_name": "#placeholder_realm_name",
           "max_length": 64
         }
       }
@@ -184,7 +186,7 @@
                 "$selected_option_binding_name": "#player_count_2",
                 "$pressed_button_name": "button.realms_player_count_2",
                 "$toggle_name": "#player_count_2",
-                "$button_text": "realmsCreateScreen.usersTwo"
+                "$button_text": "realmsCreateScreen.usersTwo"                
               }
             },
             {
@@ -196,7 +198,8 @@
                 "$selected_option_binding_name": "#player_count_10",
                 "$pressed_button_name": "button.realms_player_count_10",
                 "$toggle_name": "#player_count_10",
-                "$button_text": "realmsCreateScreen.usersTen"
+                "$button_text": "realmsCreateScreen.usersTen",
+                "visible": "(not $realms_plus_on)"
               }
             }
           ]
@@ -254,7 +257,7 @@
             },
             {
               // Stop-gap measure until we can get hyperlinks to work from VR and FireTV
-              "requires": "($is_holographic or $fire_tv or $nx_os)",
+              "requires": "($is_holographic or $fire_tv or $thirdpartyconsole)",
               "$pressed_button_name_privacy_policy": "button.privpol_popup"
             }
           ],
@@ -589,6 +592,14 @@
             }
           ]
         }
+      },
+      {
+        "popup_dialog_factory": {
+          "type": "factory",
+          "control_ids": {
+            "play_on_realm": "@realms_common.popup_dialog__play_on_realm"
+          }
+        }
       }
     ]
   },
@@ -604,7 +615,7 @@
         "from_button_id": "button.controller_select",
         "to_button_id": "button.coin_wallet",
         "mapping_type": "global",
-        "ignored": "(not $nx_os)"
+        "ignored": "(not $allow_coin_purchase)"
       }
     ],
     "$screen_content": "realms_create.realms_create_content",

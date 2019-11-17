@@ -2,9 +2,14 @@
   "format_version": "1.8.0",
   "render_controllers": {
     "controller.render.enderman": {
-      "geometry": "Geometry.default",
-      "materials": [ { "*": "Material.default" } ],
-      "textures": [ "Texture.default" ]
+      "arrays": {
+        "materials": {
+          "Array.materials": [ "Material.default", "Material.invisible" ]
+        }
+      },
+       "geometry": "Geometry.default",
+       "materials": [ { "*": "Array.materials[query.is_invisible]" } ],
+       "textures": [ "Texture.default" ]
     }
   }
 }

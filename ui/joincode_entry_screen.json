@@ -1,0 +1,783 @@
+/********************************************************
+*   (c) Mojang. All rights reserved                     *
+*   (c) Microsoft. All rights reserved.                 *
+*********************************************************/
+{
+  "namespace": "joincode",
+
+  // Put this in the base screen
+  "joincode_popup_factory": {
+    "type": "factory",
+    "control_ids": {
+      "joincode_entry": "@joincode.entry_popup",
+      "connecting": "@joincode.connecting_popup",
+      "error": "@joincode.error_popup",
+      "server_found": "@joincode.found_popup",
+      "ip_entry": "@joincode.ip_popup"
+    }
+  },
+
+  //---------------------------------------------------------------------------
+  // Common Elements
+  //---------------------------------------------------------------------------
+
+  "horizontal_padding": {
+    "type": "panel",
+    "size": [ 6, "100%sm" ]
+  },
+
+  "vertical_stack_item": {
+    "type": "panel",
+    "size": [ "100%", "100%c" ]
+  },
+
+  "popup_window_with_joincode@popup_dialog.modal_input_panel": {
+    "controls": [
+      { "background@common.screen_background": {} },
+      { "content@joincode.popup_window_with_joincode_control": {} }
+    ]
+  },
+
+  "popup_window_with_joincode_control": {
+    "type": "panel",
+    "size": [ 240, 222 ],
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "layer": 6,
+    "controls": [
+      {
+        "background@common.dialog_background_hollow_7": {
+          "size": [ "100%", "100%" ],
+          "layer": -2,
+          "$fill_alpha": 0.8
+        }
+      },
+      {
+        "title": {
+          "type": "label",
+          "text": "$title",
+          "anchor_from": "top_middle",
+          "anchor_to": "top_middle",
+          "offset": [ 0, 7 ],
+          "color": "$light_button_default_text_color"
+        }
+      },
+      {
+        "close@common.close_button": {
+          "$close_button_offset": [ -1, 1 ]
+        }
+      },
+      { "header_content@joincode.entered_content": {} },
+      {
+        "hollow_content_panel": {
+          "type": "panel",
+          "size": [ "100% - 16px", "100% - 74px" ],
+          "offset": [ 0, 66 ],
+          "anchor_to": "top_middle",
+          "anchor_from": "top_middle",
+          "controls": [
+            { "hollow_content@$contents": {} }
+          ]
+        }
+      }
+    ]
+  },
+
+  "loading_animation_and_text": {
+    "type": "stack_panel",
+    "size": [ 128, "100%c" ],
+    "controls": [
+      {
+        "loading_animation_item@joincode.vertical_stack_item": {
+          "controls": [
+            {
+              "loading_animation@edu_common.edu_loading_animation": {
+                "anchor_from": "top_middle",
+                "anchor_to": "top_middle",
+                "size": [ 64, 64 ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "bottom_text_padding@common.empty_panel": {
+          "size": [ "100%", 4 ]
+        }
+      },
+      {
+        "loading_text_item@joincode.vertical_stack_item": {
+          "controls": [
+            {
+              "searching_text": {
+                "type": "label",
+                "text": "$bottom_text",
+                "anchor_from": "top_middle",
+                "anchor_to": "top_middle",
+                "color": "$text_box_text_color"
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  //---------------------------------------------------------------------------
+  // Entry Button
+  //---------------------------------------------------------------------------
+
+  "entry_button_contents": {
+    "type": "panel",
+    "controls": [
+      {
+        "background": {
+          "type": "image",
+          "size": [ 38, 38 ],
+          "texture": "textures/ui/joincode_button_background"
+        }
+      },
+      {
+        "entry_image": {
+          "type": "image",
+          "size": [ 26, 26 ],
+          "layer": 2,
+          "bindings": [
+            {
+              "binding_name": "#icon",
+              "binding_name_override": "#texture",
+              "binding_type": "collection",
+              "binding_collection_name": "$collection_name"
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "entry_button_border": {
+    "type": "image",
+    "texture": "textures/ui/button_select_corner",
+    "size": [ "100%", "100%" ],
+    "layer": 1
+  },
+
+  "entry_button": {
+    "type": "panel",
+    "$button_size|default": [ 38, 38 ],
+    "size": "$button_size",
+    "$button_type|default": "",
+    "controls": [
+      {
+        "internal_button@common.button": {
+          "size": [ 38, 38 ],
+          // The tooltip reads the value inside so we just want to read the button type
+          "$button_tts_name": "$button_type",
+
+          // For using a binding for the button type we need to have the binding here
+          // but we don't want to always use a binding so we have these
+          "$button_tts_binding_type|default": "none",
+          "$button_tts_binding_collection|default": "",
+
+          "controls": [
+            { "default@joincode.entry_button_contents": {} },
+            { "pressed@joincode.entry_button_contents": {} },
+            {
+              "hover": {
+                "type": "panel",
+                "controls": [
+                  {
+                    "tooltip@common.dynamic_tooltip": {
+                      "$ignore_tooltip_popup_image": true,
+                      "$tooltip_text_binding_name": "#entry_button_tooltip",
+                      "$tooltip_button_collection_name": "$collection_name",
+                      "$tooltip_button_binding_type": "collection",
+                      "$tooltip_popup_visible_binding": "#entry_button_tooltip_visible",
+
+                      "$tooltip_above_binding_name": "#tooltip_above",
+                      "$tooltip_above_binding_collection_name": "$collection_name",
+                      "$tooltip_above_binding_type": "collection"
+                    }
+                  },
+                  { "button@joincode.entry_button_contents": {} },
+                  { "hover@joincode.entry_button_border": { "layer": 3 } }
+                ]
+              }
+            }
+          ],
+          "button_mappings": [
+            {
+              "from_button_id": "button.menu_select",
+              "to_button_id": "$pressed_button_name",
+              "mapping_type": "pressed"
+            },
+            {
+              "from_button_id": "button.menu_ok",
+              "to_button_id": "$pressed_button_name",
+              "mapping_type": "focused"
+            },
+            {
+              "to_button_id": "$pressed_button_name",
+              "mapping_type": "pressed"
+            }
+          ],
+          "bindings": [
+            {
+              "binding_type": "collection_details",
+              "binding_collection_name": "$collection_name",
+              "binding_collection_prefix": "$collection_name"
+            },
+            // For using bindings to set the tts type
+            {
+              "binding_name": "$button_tts_name",
+              "binding_name_override": "$button_tts_name",
+              "binding_type": "$button_tts_binding_type",
+              "binding_collection_name": "$button_tts_binding_collection"
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  //---------------------------------------------------------------------------
+  // Entry Selection Header
+  //---------------------------------------------------------------------------
+
+  "entered_button": {
+    "type": "stack_panel",
+    "orientation": "horizontal",
+    "size": [ "100%c", "100%cm" ],
+    "$final_button|default": false,
+    "controls": [
+      {
+        "button_with_hover@common.empty_panel": {
+          "size": [ 38, 38 ],
+          "controls": [
+            {
+              "button@joincode.entry_button": {
+                "$button_type": "#entry_selection_tts_header",
+                "$button_tts_binding_type": "collection",
+                "$button_tts_binding_collection": "$collection_name"
+              }
+            },
+            {
+              "hover@joincode.entry_button_border": {
+                "layer": 3,
+                "bindings": [
+                  {
+                    "binding_name": "#border_visible",
+                    "binding_collection_name": "$collection_name",
+                    "binding_name_override": "#visible",
+                    "binding_type": "collection"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "padding@joincode.horizontal_padding": {
+          "ignored": "($final_button)"
+        }
+      }
+    ]
+  },
+
+  "entered_content": {
+    "type": "stack_panel",
+    "orientation": "horizontal",
+    "anchor_from": "top_middle",
+    "anchor_to": "top_middle",
+    "size": [ "100%c", "100%cm" ],
+    "offset": [ 0, 22 ],
+    "$collection_name": "entry_selection",
+    "collection_name": "$collection_name",
+    "$pressed_button_name": "button.entered_entries",
+    "$code_entry_enabled|default": true,
+    "enabled": "$code_entry_enabled",
+    "controls": [
+      {
+        "entry_selection_1@joincode.entered_button": {
+          "collection_index": 0
+        }
+      },
+      {
+        "entry_selection_2@joincode.entered_button": {
+          "collection_index": 1
+        }
+      },
+      {
+        "entry_selection_3@joincode.entered_button": {
+          "collection_index": 2
+        }
+      },
+      {
+        "entry_selection_4@joincode.entered_button": {
+          "collection_index": 3,
+          "$final_button": true
+        }
+      }
+    ]
+  },
+
+  //---------------------------------------------------------------------------
+  // Entry Input Panel
+  //---------------------------------------------------------------------------
+
+  "ip_entry_button_content": {
+    "type": "image",
+    "texture": "textures/ui/elipses"
+  },
+
+  "entry_input_button_grid": {
+    "type": "grid",
+    "$button_type": "joincode.entry_popup.icon_button",
+    "grid_item_template": "joincode.entry_button",
+    "grid_dimensions": [ 5, 3 ],
+    "$collection_name": "entry_grid",
+    "collection_name": "$collection_name",
+    "$pressed_button_name": "button.entry_grid_button"
+  },
+
+  "entry_padding": {
+    "type": "panel",
+    "size": [ 3, "100%sm" ]
+  },
+
+  "entry_input_clear_confirm_panel": {
+    "type": "stack_panel",
+    "orientation": "horizontal",
+    "controls": [
+      {
+        "clear_button@common_buttons.light_text_button": {
+          "size": [ "fill", "100%" ],
+          "$pressed_button_name": "button.entry_clear",
+          "$button_text": "gui.clear",
+          "bindings": [
+            {
+              "binding_name": "#can_clear",
+              "binding_name_override": "#enabled"
+            }
+          ]
+        }
+      },
+      { "horizontal_padding@joincode.entry_padding": {} },
+      {
+        "confirm_button@common_buttons.light_text_button": {
+          "size": [ "fill", "100%" ],
+          "$pressed_button_name": "button.entry_confirm",
+          "$button_text": "gui.confirm",
+          "bindings": [
+            {
+              "binding_name": "#can_confirm",
+              "binding_name_override": "#enabled"
+            }
+          ]
+        }
+      },
+      { "ip_padding@joincode.entry_padding": {} },
+      {
+        "ip_entry@common_buttons.light_content_button": {
+          "size": [ 20, "100%" ],
+          "$button_tts_header": "joincode.ip_entry.button_tts",
+          "$pressed_button_name": "button.entry_ip",
+          "$button_content": "joincode.ip_entry_button_content"
+        }
+      }
+    ]
+  },
+
+  "entry_input_panel_content": {
+    "type": "stack_panel",
+    "max_size": [ "100%", "100%" ],
+    "size": [ "100%", "100%c" ],
+    "anchor_to": "top_middle",
+    "anchor_from": "top_middle",
+
+    "controls": [
+      {
+        "top_padding@common.empty_panel": {
+          "size": [ "100%", 1.5 ]
+        }
+      },
+      {
+        "entry_input_button_grid@joincode.vertical_stack_item": {
+          "controls": [
+            {
+              "contents@joincode.entry_input_button_grid": {
+                "$button_size": [ 44, 41 ],
+                "size": [ "100%c", "100%c" ],
+                "anchor_from": "top_middle",
+                "anchor_to": "top_middle"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "grid_to_button_padding@common.empty_panel": {
+          "size": [ "100%", 2.5 ]
+        }
+      },
+      {
+        "clear_confirm@joincode.vertical_stack_item": {
+          "controls": [
+            {
+              "contents@joincode.entry_input_clear_confirm_panel": {
+                "size": [ "100% - 12px", 18 ]
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  //---------------------------------------------------------------------------
+  // Entry Popup
+  //---------------------------------------------------------------------------
+
+  "entry_popup@joincode.popup_window_with_joincode": {
+    "$title": "joincode.entry_popup.title",
+    "$popup_dialog_escape_button_name": "button.entry_close",
+    "$close_button_to_button_id": "button.entry_close",
+    "$contents": "joincode.entry_input_panel_content"
+  },
+
+  //---------------------------------------------------------------------------
+  // Connecting Popup
+  //---------------------------------------------------------------------------
+
+  "connecting_content": {
+    "type": "panel",
+    "size": [ "100% - 4px", "100% - 4px" ],
+    "controls": [
+      {
+        "loading_animation_and_text@joincode.loading_animation_and_text": {
+          "offset": [ 0, -12 ],
+          "$bottom_text": "joincode.connecting.lower_text"
+        }
+      },
+      {
+        "cancel_button@common_buttons.light_text_button": {
+          "size": [ "100%", 18 ],
+          "anchor_from": "bottom_middle",
+          "anchor_to": "bottom_middle",
+          "$pressed_button_name": "button.connecting_cancel",
+          "$button_text": "gui.cancel"
+        }
+      }
+    ]
+  },
+
+  "connecting_popup@joincode.popup_window_with_joincode": {
+    "$title": "joincode.connecting.title",
+    "$contents": "joincode.connecting_content",
+    "$popup_dialog_escape_button_name": "button.connecting_close",
+    "$close_button_to_button_id": "button.connecting_close"
+  },
+
+  //---------------------------------------------------------------------------
+  // Server Found Popup
+  //---------------------------------------------------------------------------
+
+  "found_text_label": {
+    "type": "stack_panel",
+    "size": [ "100%", "100%c" ],
+    "controls": [
+      {
+        "found_message_top": {
+          "size": [ "100%", "default" ],
+          "type": "label",
+          "text": "joincode.found.message",
+          "color": "$body_text_color"
+        }
+      },
+      {
+        "top_to_info_padding@common.empty_panel": {
+          "size": [ "100%", 4 ]
+        }
+      },
+      {
+        "world_name": {
+          "size": [ "100%", "default" ],
+          "type": "label",
+          "text": "#found_world_name",
+          "color": "$light_button_secondary_default_text_color",
+          "bindings": [
+            {
+              "binding_name": "#found_world_name"
+            }
+          ]
+        }
+      },
+      {
+        "world_to_host_padding@common.empty_panel": {
+          "size": [ "100%", 2 ]
+        }
+      },
+      {
+        "host_name": {
+          "size": [ "100%", "default" ],
+          "type": "label",
+          "text": "#found_host_name",
+          "color": "$light_button_secondary_default_text_color",
+          "bindings": [
+            {
+              "binding_name": "#found_host_name"
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "found_content": {
+    "type": "stack_panel",
+    "size": [ 218, "100%c" ],
+    "controls": [
+      {
+        "found_text@common.tts_label_focus_wrapper": {
+          "size": [ "100%", "100%cm" ],
+          "$tts_label_panel": "joincode.found_text_label"
+        }
+      },
+      {
+        "text_to_button_padding@common.empty_panel": {
+          "size": [ "100%", 18 ]
+        }
+      },
+      {
+        "confirm_button@common_buttons.light_text_button": {
+          "size": [ "100%", 18 ],
+          "$pressed_button_name": "button.join_world",
+          "$button_text": "gui.confirm"
+        }
+      },
+      {
+        "confirm_to_cancel_padding@common.empty_panel": {
+          "size": [ "100%", 2 ]
+        }
+      },
+      {
+        "cancel_button@common_buttons.light_text_button": {
+          "size": [ "100%", 18 ],
+          "$pressed_button_name": "button.found_cancel",
+          "$button_text": "gui.cancel"
+        }
+      }
+    ]
+  },
+
+  "found_popup@popup_dialog.form_fit_modal_dialog_popup": {
+    "$modal_title": "joincode.found.title",
+    "$modal_contents": "joincode.found_content",
+    "$modal_contents_padding": [ 6, 6 ],
+    "$popup_dialog_escape_button_name": "button.server_found_close"
+  },
+
+  //---------------------------------------------------------------------------
+  // Error Popup
+  //---------------------------------------------------------------------------
+
+  "error_debug_buttons": {
+    "type": "stack_panel",
+    "size": [ "100%", "100%c" ],
+    "bindings": [
+      {
+        "binding_name": "#show_debug",
+        "binding_name_override": "#visible"
+      }
+    ],
+    "controls": [
+      {
+        "debug_error_buttons_row1": {
+          "type": "stack_panel",
+          "size": [ "100%", 18 ],
+          "orientation": "horizontal",
+          "collection_name": "error_debug",
+          "$pressed_button_name": "button.debug_button",
+          "controls": [
+            {
+              "no_match@common_buttons.light_text_button": {
+                "size": [ "33%", "100%" ],
+                "$button_text": "No Match",
+                "collection_index": 0,
+                "bindings": [
+                  {
+                    "binding_type": "collection_details",
+                    "binding_collection_name": "error_debug",
+                    "binding_collection_prefix": "error_debug"
+                  }
+                ]
+              }
+            },
+            {
+              "no_response@common_buttons.light_text_button": {
+                "size": [ "fill", "100%" ],
+                "$button_text": "Timeout",
+                "collection_index": 1,
+                "bindings": [
+                  {
+                    "binding_type": "collection_details",
+                    "binding_collection_name": "error_debug",
+                    "binding_collection_prefix": "error_debug"
+                  }
+                ]
+              }
+            },
+            {
+              "service_error@common_buttons.light_text_button": {
+                "size": [ "33%", "100%" ],
+                "$button_text": "Service",
+                "collection_index": 2,
+                "bindings": [
+                  {
+                    "binding_type": "collection_details",
+                    "binding_collection_name": "error_debug",
+                    "binding_collection_prefix": "error_debug"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "debug_error_buttons_row2": {
+          "type": "stack_panel",
+          "size": [ "100%", 18 ],
+          "orientation": "horizontal",
+          "collection_name": "error_debug",
+          "$pressed_button_name": "button.debug_button",
+          "controls": [
+            {
+              "hide@common_buttons.light_text_button": {
+                "size": [ "50%", "100%" ],
+                "$button_text": "Hide",
+                "collection_index": 3,
+                "bindings": [
+                  {
+                    "binding_type": "collection_details",
+                    "binding_collection_name": "error_debug",
+                    "binding_collection_prefix": "error_debug"
+                  }
+                ]
+              }
+            },
+            {
+              "show_found@common_buttons.light_text_button": {
+                "size": [ "50%", "100%" ],
+                "$button_text": "Found Server",
+                "collection_index": 4,
+                "bindings": [
+                  {
+                    "binding_type": "collection_details",
+                    "binding_collection_name": "error_debug",
+                    "binding_collection_prefix": "error_debug"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "error_text_label": {
+    "size": [ "100%", "default" ],
+    "type": "label",
+    "text": "#error_message",
+    "color": "$body_text_color",
+    "bindings": [
+      {
+        "binding_name": "#error_message"
+      }
+    ]
+  },
+
+  "error_content": {
+    "type": "stack_panel",
+    "size": [ 218, "100%c" ],
+    "controls": [
+      {
+        "error_text@common.tts_label_focus_wrapper": {
+          "size": [ "100%", "100%cm" ],
+          "$tts_label_panel": "joincode.error_text_label"
+        }
+      },
+      {
+        "text_to_button_padding@common.empty_panel": {
+          "size": [ "100%", 3 ]
+        }
+      },
+      {
+        "try_again_button@common_buttons.light_text_button": {
+          "size": [ "100%", 18 ],
+          "$pressed_button_name": "button.error_try_again",
+          "$button_text": "gui.tryAgain"
+        }
+      },
+      { "debug_buttons@joincode.error_debug_buttons": {} }
+    ]
+  },
+
+  "error_popup@popup_dialog.form_fit_modal_dialog_popup": {
+    "$modal_title": "joincode.error.title",
+    "$modal_contents": "joincode.error_content",
+    "$modal_contents_padding": [ 6, 6 ],
+    "$popup_dialog_escape_button_name": "button.error_close"
+  },
+
+  //---------------------------------------------------------------------------
+  // IP Entry Popup
+  //---------------------------------------------------------------------------
+
+  // If ip entry is reached by pushing the button it's not supposed to have the join code entry frame,
+  // but for service errors it is supposed to have the frame.
+  "ip_popup": {
+    "type": "panel",
+    "controls": [
+      {
+        "plain@joincode.ip_popup_plain": {
+          "bindings": [
+            {
+              "binding_name": "(not #is_ip_fallback)",
+              "binding_name_override": "#visible",
+              "binding_condition": "once"
+            }
+          ]
+        }
+      },
+      {
+        "with_code@joincode.ip_popup_with_code": {
+          "bindings": [
+            {
+              "binding_name": "#is_ip_fallback",
+              "binding_name_override": "#visible",
+              "binding_condition": "once"
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "ip_popup_plain@popup_dialog.form_fit_modal_dialog_popup": {
+    "layer": 18,
+    "$modal_title": "joincode.found.title",
+    "$popup_dialog_escape_button_name": "button.close_to_code_entry",
+    "$modal_contents": "ip_join.join_ip_content"
+  },
+
+  "ip_popup_with_code@joincode.popup_window_with_joincode": {
+    "$title": "joincode.entry_popup.title",
+    "$code_entry_enabled": false,
+    "$close_button_to_button_id": "button.popup_escape",
+    "$popup_dialog_escape_button_name": "button.popup_escape",
+    "$contents": "ip_join.join_ip_content"
+  }
+}

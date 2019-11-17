@@ -10,7 +10,7 @@
     "$right_button_press": "button.deny_packs", //"button.close_dialog",
     "$right_button_text": "gui.close", //"progress.resourcepack.cancel",
     "controls": [
-      { "background@popup_dialog.popup_dialog_bg": { } },
+      { "background@popup_dialog.popup_dialog_bg": {} },
       {
         "scrolling_panel@common.scrolling_panel": {
           "layer": 1,
@@ -78,7 +78,7 @@
     "type": "panel",
     "size": [ "100%", 20 ],
     "$text_alpha|default": 1.0,
-    "$checkbox_label_bindings|default": [ ],
+    "$checkbox_label_bindings|default": [],
     "controls": [
       {
         "$toggle_visual@$toggle_visual": {
@@ -149,7 +149,7 @@
     "offset": [ 3, 0 ],
     "$enabled|default": true,
     "controls": [
-      { "checkbox_with_label_core@progress.checkbox_with_label_core": { } }
+      { "checkbox_with_label_core@progress.checkbox_with_label_core": {} }
     ]
   },
 
@@ -521,7 +521,7 @@
       }
     ]
   },
-  
+
   "progress_bar": {
     "type": "custom",
     "renderer": "progress_bar_renderer",
@@ -541,6 +541,52 @@
       {
         "binding_name": "#loading_bar_current_amount",
         "binding_name_override": "#progress_bar_current_amount"
+      }
+    ]
+  },
+
+  "thick_progress_bar_icon_base": {
+    "type": "image",
+    "texture": "textures/ui/progress_bar_simple",
+    "color": "$day_one_experience_import_progress_bar_fill",
+    "clip_direction": "left",
+    "clip_pixelperfect": false
+  },
+
+  "thick_progress_bar_icon_empty": {
+    "type": "image",
+    "texture": "textures/ui/progress_bar_simple",
+    "color": "$day_one_experience_import_progress_bar_empty"
+  },
+
+  "thick_progress_bar": {
+    "type": "panel",
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "size": [ "90%", 14 ],
+    "layer": 5,
+    "controls": [
+      {
+        "full_progress_bar_icon@progress.thick_progress_bar_icon_base": {
+          "layer": 2,
+          "bindings": [
+            {
+              "binding_name": "#loading_bar_percentage",
+              "binding_name_override": "#clip_ratio"
+            }
+          ]
+        }
+      },
+      {
+        "empty_progress_bar_icon@progress.thick_progress_bar_icon_empty": {
+          "layer": 1
+        }
+      }
+    ],
+    "bindings": [
+      {
+        "binding_name": "#loading_bar_visible",
+        "binding_name_override": "#visible"
       }
     ]
   },
@@ -569,10 +615,10 @@
         }
       },
       {
-        "progress_bar_text@progress.progress_bar_text": { }
+        "progress_bar_text@progress.progress_bar_text": {}
       },
       {
-        "progress_bar@progress.progress_bar": { }
+        "progress_bar@progress.progress_bar": {}
       }
     ]
   },
@@ -585,7 +631,7 @@
     "layer": 2,
     "controls": [
       {
-        "cancel_button@progress.cancel_button": { }
+        "cancel_button@progress.cancel_button": {}
       }
     ]
   },
@@ -628,7 +674,7 @@
         "common_panel@common.common_panel": {
           "$dialog_background": "dialog_background_hollow_4",
           "$fill_alpha": "$background_fill_alpha",
-          "$show_close_button": false          
+          "$show_close_button": false
         }
       },
       {
@@ -641,10 +687,10 @@
           "offset": [ 6, 6 ],
           "controls": [
             {
-              "title_panel@progress.title_panel": { }
+              "title_panel@progress.title_panel": {}
             },
             {
-              "progress_loading_bars@progress.progress_loading_bars": { }
+              "progress_loading_bars@progress.progress_loading_bars": {}
             }
           ]
         }
@@ -660,7 +706,7 @@
       {
         "common_panel@common.common_panel": {
           "$dialog_background": "dialog_background_hollow_2",
-          "$fill_alpha": "$background_fill_alpha",          
+          "$fill_alpha": "$background_fill_alpha",
           "$show_close_button": false
         }
       },
@@ -674,10 +720,10 @@
           "offset": [ 6, 20 ],
           "controls": [
             {
-              "title_panel@progress.title_panel": { }
+              "title_panel@progress.title_panel": {}
             },
             {
-              "progress_loading_bars@progress.progress_loading_bars": { }
+              "progress_loading_bars@progress.progress_loading_bars": {}
             }
           ]
         }
@@ -697,13 +743,13 @@
     "size": [ "100%", "100%" ],
     "controls": [
       {
-        "progress_loading_bars@progress.progress_loading_bars": { }
+        "progress_loading_bars@progress.progress_loading_bars": {}
       },
       {
-        "title_panel@progress.title_panel": { }
+        "title_panel@progress.title_panel": {}
       },
       {
-        "button_panel@progress.button_panel": { }
+        "button_panel@progress.button_panel": {}
       }
     ]
   },
@@ -755,7 +801,7 @@
 
   "nether_loading_background@world_loading_screen_background": {
     "texture": "textures/blocks/netherrack",
-    "color": [0.5, 0.5, 0.5],
+    "color": [ 0.5, 0.5, 0.5 ],
     "controls": [
       {
         "background_gradient": {
@@ -848,8 +894,8 @@
       }
     ],
     "controls": [
-      { "progress_content_panel@progress.progress_content_panel": { } },
-      { "popup_dialog_factory@progress.popup_dialog_factory": { } }
+      { "progress_content_panel@progress.progress_content_panel": {} },
+      { "popup_dialog_factory@progress.popup_dialog_factory": {} }
     ]
   },
 
@@ -857,10 +903,10 @@
     "type": "panel",
     "controls": [
       {
-        "progress_panel@progress.progress_panel": { }
+        "progress_panel@progress.progress_panel": {}
       },
       {
-        "gamepad_helpers@progress.gamepad_helpers": { }
+        "gamepad_helpers@progress.gamepad_helpers": {}
       }
     ]
   },
@@ -904,7 +950,7 @@
       }
     ]
   },
-  
+
   "world_modal_progress_panel": {
     "type": "panel",
     "size": "$world_modal_screen_size",
@@ -980,7 +1026,7 @@
                 ]
               }
             },
-            
+
             {
               "vertical_padding": {
                 "type": "panel",

@@ -71,6 +71,7 @@
 
     "$tab_view_binding_name|default": "tab",
     "$tab_panel|default": "common_tabs.tab_panel",
+    "$is_checked_state|default": false,
 
     "controls": [
       {
@@ -126,6 +127,7 @@
                 "$glyph_color": "$checked_glyph_color",
                 "$tab_texture": "$checked_default_image",
                 "$tab_state": "checked",
+                "$is_checked_state": true,
                 "layer": 2
               }
             },
@@ -136,6 +138,7 @@
                 "$glyph_color": "$checked_hover_glyph_color",
                 "$tab_texture": "$checked_hover_image",
                 "$tab_state": "checked_hover",
+                "$is_checked_state": true,
                 "layer": 2
               }
             },
@@ -146,6 +149,7 @@
                 "$glyph_color": "$checked_locked_glyph_color",
                 "$tab_texture": "$checked_locked_image",
                 "$tab_state": "checked_locked",
+                "$is_checked_state": true,
                 "layer": 2
               }
             },
@@ -156,6 +160,7 @@
                 "$glyph_color": "$checked_locked_hover_glyph_color",
                 "$tab_texture": "$checked_locked_hover_image",
                 "$tab_state": "checked_locked_hover",
+                "$is_checked_state": true,
                 "layer": 2
               }
             }
@@ -365,7 +370,7 @@
 
   "tab_close_and_help_button": {
     "type": "image",
-    "size": [ "100%", 42 ],
+    "size": [ "100%", "100%c + 7px" ],
     "texture": "textures/ui/TabRightBackTopMost",
 
     "controls": [
@@ -380,7 +385,8 @@
         "help_button@common.help_button": {
           "anchor_from": "bottom_middle",
           "anchor_to": "bottom_middle",
-          "offset": [ 0, -6 ]
+          "offset": [ 0, -6 ],
+          "visible": "(not $education_edition_china)"
         }
       }
     ]

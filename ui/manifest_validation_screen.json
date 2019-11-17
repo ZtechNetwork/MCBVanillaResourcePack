@@ -14,8 +14,6 @@
 
   "clipboard_icon_wrapper": {
     "type": "panel",
-    "anchor_from": "top_left",
-    "anchor_to": "top_left",
     "size": [ "100% - 2px", "100% - 2px" ],
     "controls": [
       {
@@ -102,6 +100,22 @@
   // CONTROLS
   //---------------------------------------------------------------------------
 
+  "section_divider": {
+    "type": "panel",
+    "size": [ "100% - 5px", "100%c" ],
+    "controls": [
+      {
+        "divider_image": {
+          "type": "image",
+          "size": [ "100%", 1 ],
+          "texture": "textures/ui/divider3",
+          "tiled": "x",
+          "alpha": 0.4
+        }
+      }
+    ]
+  },
+
   "text_label": {
     "type": "label",
     "color": "$main_header_text_color",
@@ -152,91 +166,119 @@
     "color": [ 0.7, 0.7, 0.7, 1.0 ]
   },
 
-  "background_indent@achievement.main_banner": {
-
-  },
-
-  "background_indent_no_top": {
+  "background": {
     "type": "image",
-    "texture": "textures/ui/background_indent_no_top"
+    "texture": "textures/ui/BannersLight"
   },
 
-  "black_background_fill@resource_packs.black_image": {
+  "black_background_fill@resource_packs.black_image": {},
 
-  },
-
-  "error_pack_header_layout": {
+  "error_pack_secondary_layout": {
     "type": "panel",
-    "size": [ "100%", 48 ],
+    "size": [ "100%", "100%c" ],
     "controls": [
       {
-        "background@manifest_validation.background_indent": {
+        "black@manifest_validation.background": {
           "layer": 1,
           "anchor_from": "top_left",
           "anchor_to": "top_left",
-          "size": [ "100%", "100%" ],
+          "size": [ "100%", "100%c" ],
           "controls": [
             {
               "stack_panel": {
-                "type": "stack_panel",
-                "orientation": "horizontal",
+                "layer": 1,
+                "type": "panel",
                 "anchor_from": "top_left",
                 "anchor_to": "top_left",
-                "size": [ "100% - 2px", "100% - 2px" ],
-                "offset": [ 1, 1 ],
+                "size": [ "100%", "100%c + 2px" ],
                 "controls": [
                   {
-                    "icon_background@manifest_validation.black_background_fill": {
-                      "layer": 1,
-                      "size": [ "100%c + 1px", "100%" ],
+                    "stack_panel": {
+                      "type": "stack_panel",
+                      "orientation": "horizontal",
+                      "anchor_from": "top_left",
+                      "anchor_to": "top_left",
+                      "size": [ "100%", 50 ],
                       "controls": [
                         {
-                          "icon@manifest_validation.icon_image": {
+                          "icon_background@manifest_validation.black_background_fill": {
                             "layer": 1,
-                            "anchor_from": "top_left",
-                            "anchor_to": "top_left",
-                            "size": [ 44, 44 ]
-                          }
-                        }
-                      ]
-                    }
-                  },
-                  {
-                    "pack_info": {
-                      "type": "panel",
-                      "size": [ "fill", "100%" ],
-                      "controls": [
-                        {
-                          "top": {
-                            "type": "stack_panel",
-                            "anchor_from": "top_left",
-                            "anchor_to": "top_left",
-                            "orientation": "horizontal",
-                            "size": [ "100% - 4px", 10 ],
-                            "offset": [ 2, 2 ],
+                            "size": [ "100%c + 2px", "100%" ],
                             "controls": [
                               {
-                                "title@manifest_validation.text_label": {
+                                "icon@manifest_validation.icon_image": {
                                   "layer": 1,
-                                  "size": [ "fill", "100%" ],
-                                  "$text_label": "#pack_header_title"
+                                  "size": [ 44, 44 ]
                                 }
-                              },
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "pack_info": {
+                            "type": "panel",
+                            "size": [ "fill", "100%" ],
+                            "controls": [
                               {
-                                "padding": {
-                                  "type": "panel",
-                                  "size": [ 2, "100%" ]
-                                }
-                              },
-                              {
-                                "pack_size@manifest_validation.text_label": {
-                                  "layer": 1,
-                                  "size": [ "default", "100%" ],
-                                  "$text_label": "#pack_header_size",
-                                  "bindings": [
+                                "top": {
+                                  "type": "stack_panel",
+                                  "anchor_from": "top_left",
+                                  "anchor_to": "top_left",
+                                  "orientation": "horizontal",
+                                  "size": [ "100% - 5px", 10 ],
+                                  "offset": [ 2, 2 ],
+                                  "controls": [
                                     {
-                                      "binding_name": "#pack_header_size_visible",
-                                      "binding_name_override": "#visible"
+                                      "title@manifest_validation.text_label": {
+                                        "layer": 1,
+                                        "size": [ "fill", "100%" ],
+                                        "$text_label": "#pack_header_title"
+                                      }
+                                    },
+                                    {
+                                      "padding": {
+                                        "type": "panel",
+                                        "size": [ 2, "100%" ]
+                                      }
+                                    },
+                                    {
+                                      "pack_size@manifest_validation.text_label": {
+                                        "layer": 1,
+                                        "size": [ "default", "100%" ],
+                                        "$text_label": "#pack_header_size",
+                                        "bindings": [
+                                          {
+                                            "binding_name": "#pack_header_size_visible",
+                                            "binding_name_override": "#visible"
+                                          }
+                                        ]
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "bottom": {
+                                  "type": "stack_panel",
+                                  "anchor_from": "bottom_left",
+                                  "anchor_to": "bottom_left",
+                                  "orientation": "horizontal",
+                                  "size": [ "100% - 5px", 35 ],
+                                  "offset": [ 2, -1 ],
+                                  "controls": [
+                                    {
+                                      "description@manifest_validation.text_label": {
+                                        "layer": 1,
+                                        "size": [ "fill", 30 ],
+                                        "font_type": "smooth",
+                                        "$text_label": "#pack_header_description"
+                                      }
+                                    },
+                                    {
+                                      "padding": {
+                                        "type": "panel",
+                                        "size": [ 2, "100%" ]
+                                      }
                                     }
                                   ]
                                 }
@@ -245,60 +287,24 @@
                           }
                         },
                         {
-                          "padding": {
-                            "type": "panel",
-                            "size": [ 2, "100%" ]
-                          }
-                        },
-                        {
-                          "bottom": {
+                          "button_panel": {
                             "type": "stack_panel",
-                            "anchor_from": "bottom_left",
-                            "anchor_to": "bottom_left",
-                            "orientation": "horizontal",
-                            "size": [ "100% - 4px", 30 ],
-                            "offset": [ 2, -2 ],
+                            "orientation": "vertical",
+                            "size": [ 80, "100%" ],
                             "controls": [
                               {
-                                "description@manifest_validation.text_label": {
-                                  "layer": 1,
-                                  "size": [ "fill", 30 ],
-                                  "$text_label": "#pack_header_description"
-                                }
-                              },
-                              {
-                                "padding": {
+                                "top_pad": {
                                   "type": "panel",
-                                  "size": [ 2, "100%" ]
-                                }
-                              },
-                              {
-                                "clipboard": {
-                                  "type": "panel",
-                                  "size": [ "100%c", "100%" ],
-                                  "controls": [
-                                    {
-                                      "button@manifest_validation.clipboard_button": {
-                                        "layer": 1
-                                      }
-                                    }
-                                  ],
-                                  "bindings": [
-                                    {
-                                      "binding_name": "#clipboard_visible",
-                                      "binding_name_override": "#visible",
-                                      "binding_condition": "once"
-                                    }
-                                  ]
+                                  "size": [ "100%", 4 ]
                                 }
                               },
                               {
                                 "refresh": {
                                   "type": "panel",
-                                  "size": [ "100%c", "100%" ],
+                                  "size": [ "100%", "100%c" ],
                                   "controls": [
                                     {
-                                      "button@manifest_validation.refresh_button": {
+                                      "button@manifest_validation.refresh_text_button": {
                                         "layer": 1
                                       }
                                     }
@@ -313,12 +319,18 @@
                                 }
                               },
                               {
+                                "pad": {
+                                  "type": "panel",
+                                  "size": [ "100%", 5 ]
+                                }
+                              },
+                              {
                                 "delete": {
                                   "type": "panel",
-                                  "size": [ "100%c", "100%" ],
+                                  "size": [ "100%", "100%c" ],
                                   "controls": [
                                     {
-                                      "button@manifest_validation.delete_button": {
+                                      "button@manifest_validation.delete_text_button": {
                                         "layer": 1
                                       }
                                     }
@@ -334,71 +346,166 @@
                               }
                             ]
                           }
+                        },
+                        {
+                          "pad": {
+                            "type": "panel",
+                            "size": [ 3, "100%" ]
+                          }
                         }
                       ]
                     }
-                  }
-                ]
-              }
-            }
-          ]
-        }
-      }
-    ]
-  },
-
-  "error_pack_secondary_layout": {
-    "type": "panel",
-    "size": [ "100%", "100%c" ],
-    "controls": [
-      {
-        "black@manifest_validation.background_indent_no_top": {
-          "layer": 1,
-          "anchor_from": "top_left",
-          "anchor_to": "top_left",
-          "size": [ "100%", "100%c" ],
-          "controls": [
-            {
-              "stack_panel": {
-                "layer": 1,
-                "type": "stack_panel",
-                "orientation": "vertical",
-                "anchor_from": "top_left",
-                "anchor_to": "top_left",
-                "size": [ "100% - 8px", "100%c + 7px" ],
-                "offset": [ 4, 3 ],
-                "controls": [
-                  {
-                    "title@manifest_validation.text_label": {
-                      "layer": 1,
-                      "size": [ "100%", "default" ],
-                      "$text_label": "#pack_id"
-                    }
                   },
                   {
-                    "padding_0": {
-                      "type": "panel",
-                      "size": [ "100%", 2 ]
-                    }
-                  },
-                  {
-                    "version@manifest_validation.text_label": {
-                      "layer": 1,
-                      "size": [ "100%", "default" ],
-                      "$text_label": "#pack_version"
-                    }
-                  },
-                  {
-                    "padding_1": {
-                      "type": "panel",
-                      "size": [ "100%", 2 ]
-                    }
-                  },
-                  {
-                    "description@manifest_validation.text_label": {
-                      "layer": 1,
-                      "size": [ "100%", "default" ],
-                      "$text_label": "#pack_path"
+                    "secondary_panel": {
+                      "type": "stack_panel",
+                      "orientation": "vertical",
+                      "size": [ "100% - 8px", "100%c + 4px" ],
+                      "anchor_from": "bottom_middle",
+                      "anchor_to": "bottom_middle",
+                      "controls": [
+                        {
+                          "padding_0@manifest_validation.section_divider": {}
+                        },
+                        {
+                          "title_panel": {
+                            "type": "stack_panel",
+                            "orientation": "horizontal",
+                            "size": [ "100%", "100%cm" ],
+                            "controls": [
+                              {
+                                "title_text@common.minecraftTenLabel": {
+                                  "size": [ "default", "default" ],
+                                  "text": "manifestvalidation.packid",
+                                  "color": "$main_header_text_color"
+                                }
+                              },
+                              {
+                                "space": {
+                                  "type": "panel",
+                                  "size": [ 2, 2 ]
+                                }
+                              },
+                              {
+                                "offset": {
+                                  "type": "panel",
+                                  "size": [ "fill", "100%c" ],
+                                  "controls": [
+                                    {
+                                      "title@manifest_validation.text_label": {
+                                        "layer": 1,
+                                        "size": [ "100%", "default" ],
+                                        "offset": [ 0, 1 ],
+                                        "$text_label": "#pack_id",
+                                        "font_type": "smooth",
+                                        "font_scale_factor": 1.1
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "pad_0": {
+                            "type": "panel",
+                            "size": [ "100%", 2 ]
+                          }
+                        },
+                        {
+                          "padding_1@manifest_validation.section_divider": {}
+                        },
+                        {
+                          "version_panel": {
+                            "type": "stack_panel",
+                            "orientation": "horizontal",
+                            "size": [ "100%", "100%cm" ],
+                            "controls": [
+                              {
+                                "version_text@common.minecraftTenLabel": {
+                                  "size": [ "default", "default" ],
+                                  "text": "manifestvalidation.packversion",
+                                  "color": "$main_header_text_color"
+                                }
+                              },
+                              {
+                                "space": {
+                                  "type": "panel",
+                                  "size": [ 2, 2 ]
+                                }
+                              },
+                              {
+                                "offset": {
+                                  "type": "panel",
+                                  "size": [ "fill", "100%c" ],
+                                  "controls": [
+                                    {
+                                      "version@manifest_validation.text_label": {
+                                        "layer": 1,
+                                        "size": [ "100%", "default" ],
+                                        "offset": [ 0, 1 ],
+                                        "$text_label": "#pack_version",
+                                        "font_type": "smooth",
+                                        "font_scale_factor": 1.1
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "pad_1": {
+                            "type": "panel",
+                            "size": [ "100%", 2 ]
+                          }
+                        },
+                        {
+                          "padding_2@manifest_validation.section_divider": {}
+                        },
+                        {
+                          "path_panel": {
+                            "type": "stack_panel",
+                            "orientation": "horizontal",
+                            "size": [ "100%", "100%cm" ],
+                            "controls": [
+                              {
+                                "path_text@common.minecraftTenLabel": {
+                                  "size": [ "default", "default" ],
+                                  "text": "manifestvalidation.filelocation",
+                                  "color": "$main_header_text_color"
+                                }
+                              },
+                              {
+                                "space": {
+                                  "type": "panel",
+                                  "size": [ 2, 2 ]
+                                }
+                              },
+                              {
+                                "offset": {
+                                  "type": "panel",
+                                  "size": [ "fill", "100%c" ],
+                                  "controls": [
+                                    {
+                                      "description@manifest_validation.text_label": {
+                                        "layer": 1,
+                                        "size": [ "100%", "default" ],
+                                        "offset": [ 0, 1 ],
+                                        "font_type": "smooth",
+                                        "font_scale_factor": 1.1,
+                                        "$text_label": "#pack_path"
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
                     }
                   }
                 ]
@@ -415,7 +522,7 @@
     "size": [ "100%", "100%c" ],
     "controls": [
       {
-        "black@manifest_validation.background_indent_no_top": {
+        "black@manifest_validation.background": {
           "layer": 1,
           "anchor_from": "top_left",
           "anchor_to": "top_left",
@@ -423,26 +530,185 @@
           "controls": [
             {
               "error_panel": {
-                "type": "panel",
-                "anchor_from": "top_left",
-                "anchor_to": "top_left",
-                "size": [ "100%", "100%c + 8px" ],
+                "type": "stack_panel",
+                "orientation": "vertical",
+                "size": [ "100% - 8px", "100%c + 8px" ],
                 "controls": [
                   {
-                    "error_label": {
-                      "type": "label",
-                      "color": "$main_header_text_color",
-                      "size": [ "100% - 8px", "default" ],
-                      "offset": [ 4, 4 ],
-                      "anchor_from": "top_left",
-                      "anchor_to": "top_left",
-                      "layer": 1,
-                      "shadow": false,
-                      "text": "#error_content_label",
+                    "error_header_panel": {
+                      "type": "panel",
+                      "size": [ "100%", "100%cm + 2px" ],
+                      "controls": [
+                        {
+                          "error_type_panel": {
+                            "type": "label",
+                            "size": [ "default", "default" ],
+                            "anchor_from": "left_middle",
+                            "anchor_to": "left_middle",
+                            "offset": [ 2, 2 ],
+                            "text": "#error_type_label",
+                            "font_type": "smooth",
+                            "font_scale_factor": 1.2,
+                            "color": "$main_header_text_color",
+                            "bindings": [
+                              {
+                                "binding_collection_name": "pack_errors",
+                                "binding_name": "#error_type_label",
+                                "binding_type": "collection"
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "button@manifest_validation.clipboard_button": {
+                            "anchor_from": "right_middle",
+                            "anchor_to": "right_middle",
+                            "offset": [ -2, 2 ],
+                            "bindings": [
+                              {
+                                "binding_name": "#has_errors_or_warnings",
+                                "binding_name_override": "#visible"
+                              },
+                              {
+                                "binding_collection_name": "pack_errors",
+                                "binding_type": "collection_details"
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "padding_0@manifest_validation.section_divider": {
                       "bindings": [
                         {
-                          "binding_name": "#error_content_label",
-                          "binding_condition": "visible"
+                          "binding_name": "#has_errors_or_warnings",
+                          "binding_name_override": "#visible"
+                        }
+                      ]
+                    }
+                  },
+                  //TODO: integrate backend to have separate section for file name [Bug 249941]
+                  //{
+                  //  "file_text_panel": {
+                  //    "type": "stack_panel",
+                  //    "orientation": "horizontal",
+                  //    "size": [ "100%", "100%cm" ],
+                  //    "controls": [
+                  //      {
+                  //        "file_text": {
+                  //          "type": "label",
+                  //          "size": [ "default", "default" ],
+                  //          "text": "manifestvalidation.file",
+                  //          "font_type": "MinecraftTen",
+                  //          "color": "$main_header_text_color"
+                  //        }
+                  //      },
+                  //      {
+                  //        "space": {
+                  //          "type": "panel",
+                  //          "size": [ 2, 2 ]
+                  //        }
+                  //      },
+                  //      {
+                  //        "offset": {
+                  //          "type": "panel",
+                  //          "size": [ "fill", "100%c" ],
+                  //          "controls": [
+                  //            {
+                  //              "file_label": {
+                  //                "type": "label",
+                  //                "color": "$main_header_text_color",
+                  //                "size": [ "100% - 8px", "default" ],
+                  //                "font_type": "smooth",
+                  //                "offset": [ 4, 4 ],
+                  //                "anchor_from": "top_left",
+                  //                "anchor_to": "top_left",
+                  //                "layer": 1,
+                  //                "shadow": false,
+                  //                "text": "#file_label",
+                  //                "bindings": [
+                  //                  {
+                  //                    "binding_name": "#file_label",
+                  //                    "binding_condition": "visible"
+                  //                  }
+                  //                ]
+                  //              }
+                  //            }
+                  //          ]
+                  //        }
+                  //      }
+                  //    ],
+                  //    "bindings": [
+                  //      {
+                  //        "binding_name": "#file_error",
+                  //        "binding_name_override": "#visible"
+                  //      }
+                  //    ]
+                  //  }
+                  //},
+                  //{
+                  //  "padding_1@manifest_validation.section_divider": {
+                  //    "bindings": [
+                  //      {
+                  //        "binding_name": "#file_error",
+                  //        "binding_name_override": "#visible"
+                  //      }
+                  //    ]
+                  //  }
+                  //},
+                  {
+                    "error_text_panel": {
+                      "type": "stack_panel",
+                      "orientation": "horizontal",
+                      "size": [ "100%", "100%cm" ],
+                      "controls": [
+                        {
+                          "error_text@common.minecraftTenLabel": {
+                            "size": [ 30, 10 ],
+                            "text": "manifestvalidation.issue",
+                            "color": "$main_header_text_color"
+                          }
+                        },
+                        {
+                          "space": {
+                            "type": "panel",
+                            "size": [ 2, 2 ]
+                          }
+                        },
+                        {
+                          "offset": {
+                            "type": "panel",
+                            "size": [ "fill", "100%c" ],
+                            "controls": [
+                              {
+                                "error_label": {
+                                  "type": "label",
+                                  "color": "$main_header_text_color",
+                                  "size": [ "100% - 8px", "default" ],
+                                  "font_type": "smooth",
+                                  "offset": [ 0, 2 ],
+                                  "anchor_from": "top_left",
+                                  "anchor_to": "top_left",
+                                  "text": "#error_content_label",
+                                  "bindings": [
+                                    {
+                                      "binding_collection_name": "pack_errors",
+                                      "binding_name": "#error_content_label",
+                                      "binding_type": "collection"
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ],
+                      "bindings": [
+                        {
+                          "binding_name": "#has_errors_or_warnings",
+                          "binding_name_override": "#visible"
                         }
                       ]
                     }
@@ -472,8 +738,20 @@
     ]
   },
 
+  "delete_text_button@common_buttons.light_text_button": {
+    "size": [ "100%", 20 ],
+    "$pressed_button_name": "button.delete_manifest",
+    "$button_text": "manifestvalidation.delete",
+    "bindings": [
+      {
+        "binding_name": "(not #is_working)",
+        "binding_name_override": "#enabled"
+      }
+    ]
+  },
+
   "clipboard_button@common_buttons.light_content_button": {
-    "size": [ 30, 30 ],
+    "size": [ 25, 25 ],
     "$pressed_button_name": "button.copy_to_clipboard",
     "$button_content": "manifest_validation.clipboard_icon_wrapper",
     "bindings": [
@@ -496,49 +774,14 @@
     ]
   },
 
-  //---------------------------------------------------------------------------
-  // PACK TYPE HEADER
-  //---------------------------------------------------------------------------
-
-  "pack_type_header": {
-    "type": "panel",
-    "size": [ "100%", "100%c" ],
-    "controls": [
+  "refresh_text_button@common_buttons.light_text_button": {
+    "size": [ "100%", 20 ],
+    "$pressed_button_name": "button.refresh_manifest",
+    "$button_text": "selectServer.refresh",
+    "bindings": [
       {
-        "pack_type_label": {
-          "type": "label",
-          "color": "$main_header_text_color",
-          "size": [ "100%", "default" ],
-          "anchor_from": "top_left",
-          "anchor_to": "top_left",
-          "layer": 1,
-          "shadow": false,
-          "text": "#pack_type_label",
-          "bindings": [
-            {
-              "binding_name": "#pack_type_label",
-              "binding_condition": "visible"
-            }
-          ]
-        }
-      }
-    ]
-  },
-
-  //---------------------------------------------------------------------------
-  // PACK HEADER
-  //---------------------------------------------------------------------------
-
-  "pack_header": {
-    "type": "panel",
-    "size": [ "100%", "100%c" ],
-    "anchor_from": "top_left",
-    "anchor_to": "top_left",
-    "controls": [
-      {
-        "layout@manifest_validation.error_pack_header_layout": {
-
-        }
+        "binding_name": "(not #is_working)",
+        "binding_name_override": "#enabled"
       }
     ]
   },
@@ -565,16 +808,21 @@
   // ERROR CONTENT ITEM
   //---------------------------------------------------------------------------
 
-  "error_content": {
-    "type": "panel",
+  "error_content_grid": {
+    "type": "stack_panel",
+    "orientation": "vertical",
     "size": [ "100%", "100%c" ],
     "anchor_from": "top_left",
     "anchor_to": "top_left",
-    "controls": [
+    "factory": {
+      "name": "pack_error_factory",
+      "control_name": "manifest_validation.error_pack_content_layout"
+    },
+    "collection_name": "pack_errors",
+    "bindings": [
       {
-        "layout@manifest_validation.error_pack_content_layout": {
-          "size": [ "100% - 4px", "100%c" ]
-        }
+        "binding_name": "#error_grid_dimensions",
+        "binding_name_override": "#collection_length"
       }
     ]
   },
@@ -591,19 +839,28 @@
     "anchor_to": "top_left",
     "controls": [
       {
-        "header@manifest_validation.pack_header": {
-
+        "secondary@manifest_validation.pack_secondary_info": {}
+      },
+      {
+        "error_header": {
+          "type": "panel",
+          "size": [ "100%", "100%c + 3px" ],
+          "controls": [
+            {
+              "error_text@common.minecraftTenLabel": {
+                "size": [ "100%", "default" ],
+                "anchor_from": "left_middle",
+                "anchor_to": "left_middle",
+                "offset": [ 2, 0 ],
+                "text": "manifestvalidation.errorlist",
+                "color": "$main_header_text_color"
+              }
+            }
+          ]
         }
       },
       {
-        "secondary@manifest_validation.pack_secondary_info": {
-
-        }
-      },
-      {
-        "error@manifest_validation.error_content": {
-
-        }
+        "error@manifest_validation.error_content_grid": {}
       }
     ]
   },
@@ -618,14 +875,13 @@
     "size": [ "100%", "100%c" ],
     "controls": [
       {
-        "type_header@manifest_validation.pack_type_header": {
-
+        "top_padding": {
+          "type": "panel",
+          "size": [ "100%", 10 ]
         }
       },
       {
-        "errors@manifest_validation.pack_error_item": {
-
-        }
+        "errors@manifest_validation.pack_error_item": {}
       },
       {
         "padding": {
@@ -700,6 +956,9 @@
   //---------------------------------------------------------------------------
 
   "manifest_validation_screen@common.base_screen": {
+    "force_render_below": true,
+    "$screen_background_control": "common.screen_background",
+    "$screen_background_alpha": 0.65,
     "button_mappings": [
       {
         "from_button_id": "button.menu_cancel",
@@ -721,12 +980,14 @@
     ],
     "$screen_content": "manifest_validation.manifest_validation_screen_content"
   },
+
   "manifest_validation_screen_content": {
     "type": "panel",
     "size": "$extra_large_screen_size",
     "controls": [
       {
         "background@common_dialogs.main_panel_no_buttons": {
+          "$fill_alpha": 1,
           "$text_name": "manifestvalidation.title",
           "$child_control": "manifest_validation.manifest_validation_scroll_content",
           "$show_close_button": true

@@ -1,0 +1,204 @@
+/********************************************************
+*   (c) Mojang. All rights reserved                     *
+*   (c) Microsoft. All rights reserved.                 *
+*********************************************************/
+{
+  "namespace": "edu_play",
+
+  "picture_background": {
+    "type": "image",
+    "texture": "$picture_background_texture",
+    "keep_ratio": false
+  },
+
+  "top_button_definitions@common_buttons.transparent_label_nestable_button": {
+    "$use_parent_size": true,
+    "$nestable_button_size": [ "fill", "100%" ],
+    "$nested_button_content_size": [ "100%", "fill" ],
+    "$nested_button_label_size": [ "100%", 23 ],
+    "$nested_content_control": "edu_play.picture_background",
+    "$nested_label_control": "common_buttons.nested_label_with_image_control"
+  },
+
+  "top_panel": {
+    "type": "stack_panel",
+    "orientation": "horizontal",
+    "max_size": [ "100%", 152 ],
+    "size": [ "100%", "100% - 64px" ],
+    "controls": [
+      {
+        "view_worlds@edu_play.top_button_definitions": {
+          "$pressed_button_name": "button.view_worlds",
+
+          "$picture_background_texture": "textures/ui/view_worlds_background",
+
+          "$nested_label_image": "textures/ui/worldsIcon",
+          "$nested_label_text": "edu.play_screen.view_worlds",
+
+          "$transparent_label_color": "$nested_transparent_green_label_color",
+          "$transparent_label_pressed_color": "$nested_transparent_green_label_pressed_color"
+        }
+      },
+      { "padding@common.empty_panel": { "size": [ 6, "100%" ] } },
+      {
+        "view_library@edu_play.top_button_definitions": {
+          "$pressed_button_name": "button.view_library",
+
+          "$picture_background_texture": "textures/ui/view_library_background",
+
+          "$nested_label_image": "textures/ui/icon_bookshelf",
+          "$nested_label_text": "edu.play_screen.view_library",
+
+          "$transparent_label_color": "$nested_transparent_green_label_color",
+          "$transparent_label_pressed_color": "$nested_transparent_green_label_pressed_color"
+        }
+      }
+    ]
+  },
+
+  "divider": {
+    "type": "panel",
+    "size": [ "100%", 12 ],
+    "controls": [
+      {
+        "line": {
+          "size": [ "100%", 1 ],
+          "anchor_from": "top_middle",
+          "anchor_to": "top_middle",
+          "offset": [ 0, 6 ],
+          "type": "image",
+          "alpha": 0.05,
+          "texture": "textures/ui/White"
+        }
+      }
+    ]
+  },
+
+  "create_new_nested_buttons": {
+    "type": "stack_panel",
+    "size": [ "100% - 4px", "100%c" ],
+    "offset": [ 0, 2 ],
+    "anchor_from": "top_middle",
+    "anchor_to": "top_middle",
+    "controls": [
+      {
+        "create_new_nested_button@common_buttons.light_text_button": {
+          "size": [ "100%", 14 ],
+          "$border_visible": false,
+          "$button_text": "edu.play_screen.new",
+          "$pressed_button_name": "button.create_new.new"
+        }
+      },
+      { "button_padding@common.empty_panel": { "size": [ "100%", 1 ] } },
+      {
+        "from_template@common_buttons.light_text_button": {
+          "size": [ "100%", 14 ],
+          "$border_visible": false,
+          "$button_text": "edu.play_screen.from_template",
+          "$pressed_button_name": "button.create_new.from_template"
+        }
+      }
+    ]
+  },
+
+  "bottom_button_definitions@common_buttons.dark_nestable_button": {
+    "$use_parent_size": true,
+    "$nested_button_content_size": [ "100%", "fill" ],
+    "$nested_button_label_size": [ "100%", 19 ]
+  },
+
+  "bottom_panel": {
+    "type": "stack_panel",
+    "orientation": "horizontal",
+    "size": [ "100%", 52 ],
+    "controls": [
+      {
+        "create_new@edu_play.bottom_button_definitions": {
+          "$pressed_button_name": "button.create_new",
+          "$nestable_button_size": [ "fill", "100%" ],
+
+          "$nested_control_image": "textures/ui/color_plus",
+          "$nested_label_text": "edu.play_screen.create_new",
+
+          "$has_nested_controls": true,
+          "$nested_content_controls": "edu_play.create_new_nested_buttons",
+          "$nested_content_visibility_binding": "#create_new_nested_visiblity"
+        }
+      },
+      { "padding_1@common.empty_panel": { "size": [ 3, "100%" ] } },
+      {
+        "join_world@edu_play.bottom_button_definitions": {
+          "$pressed_button_name": "button.join_world_popup",
+          "$nestable_button_size": [ "fill", "100%" ],
+
+          "$nested_control_image": "textures/ui/icon_multiplayer",
+          "$nested_label_text": "edu.play_screen.join_world"
+        }
+      },
+      { "padding_2@common.empty_panel": { "size": [ 3, "100%" ] } },
+      {
+        "import@edu_play.bottom_button_definitions": {
+          "$pressed_button_name": "button.import",
+          "$nestable_button_size": [ "fill", "100%" ],
+
+          "$nested_control_image": "textures/ui/icon_import",
+          "$nested_label_text": "edu.play_screen.import"
+        }
+      }
+    ]
+  },
+
+  "screen_content": {
+    "type": "panel",
+    "controls": [
+      {
+        "main_control": {
+          "type": "stack_panel",
+          "size": [ "100%", "100%" ],
+          "controls": [
+            {
+              "header@edu_common.edu_screen_header": {
+                "$title_text": "menu.play"
+              }
+            },
+            {
+              "screen_contents": {
+                "type": "panel",
+                "size": [ "100%", "fill" ],
+                "controls": [
+                  {
+                    "useable_space": {
+                      "type": "stack_panel",
+                      "max_size": [ 428, "100% - 12px" ],
+                      "size": [ "100% - 16px", "100%" ],
+                      "controls": [
+                        { "fill_top@common.empty_panel": { "size": [ "100%", "fill" ] } },
+                        { "top@edu_play.top_panel": {} },
+                        { "divider@edu_play.divider": {} },
+                        { "bottom@edu_play.bottom_panel": {} },
+                        { "fill_bottom@common.empty_panel": { "size": [ "100%", "fill" ] } }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      { "joincode_popup_factory@joincode.joincode_popup_factory": {} }
+    ]
+  },
+
+  "edu_play_screen@common.base_screen": {
+    "$screen_content": "edu_play.screen_content",
+    "$screen_bg_content": "common.screen_background",
+    "button_mappings": [
+      {
+        "from_button_id": "button.menu_cancel",
+        "to_button_id": "button.menu_exit",
+        "mapping_type": "global"
+      }
+    ]
+  }
+}

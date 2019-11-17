@@ -103,23 +103,37 @@
   },
 
   "toast_label": {
+    "$toast_font_type|default": "default",
     "type": "label",
     "color": "$toast_text_color",
     "layer": 1,
     "shadow": false,
     "font_size": "normal",
-    "offset": [ 0, 5 ]
+    "offset": [ 0, 5 ],
+    "$toast_text_alignment|default": "left",
+    "text_alignment": "$toast_text_alignment",
+    "anims": "$alpha_anims",
+    "font_type": "$toast_font_type"
   },
 
   "popup@common.input_panel": {
-    "anchor_from": "top_middle",
-    "anchor_to": "bottom_middle",
+    "$toast_anchor_from|default": "top_middle",
+    "$toast_anchor_to|default": "bottom_middle",
+    "$toast_offset|default": [ 0, 0 ],
+    "anchor_from": "$toast_anchor_from",
+    "anchor_to": "$toast_anchor_to",
     "size": "$popup_size",
+    "offset": "$toast_offset",
+    "$offset_anims|default": [
+      "@toast_screen.popup_anim_start"
+    ],
+    "$alpha_anims|default": [],
     "controls": [
       {
         "background": {
           "type": "image",
-          "texture": "textures/ui/greyBorder"
+          "texture": "textures/ui/greyBorder",
+          "anims": "$alpha_anims"
         }
       },
       {
@@ -188,16 +202,15 @@
         }
       }
     ],
-    "anims": [
-      "@toast_screen.popup_anim_start"
-    ]
+    "anims": "$offset_anims"
   },
 
 
   "text_stack_panel": {
     "type": "stack_panel",
     "size": [ "100%", 20 ],
-    "offset": [ 0, 1 ],
+    "$toast_text_offset|default": [ 0, 1 ],
+    "offset": "$toast_text_offset",
     "controls": [
       {
         "title@toast_screen.toast_label": {
@@ -330,7 +343,8 @@
       }
     },
     "controls": [
-      { "content_log_panel@content_log.content_log_panel": {} }
+      { "content_log_panel@content_log.content_log_panel": {} },
+      { "perf_turtle_panel@perf_turtle.perf_turtle_panel": {} }
     ]
   }
 }
