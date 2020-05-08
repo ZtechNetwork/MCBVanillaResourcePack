@@ -1284,7 +1284,7 @@
           "anchor_to": "top_left",
           "layer": 1,
           "$label_offset|default": [ 1, 0 ],
-          "$label_size|default": [ "100%", 10 ],
+          "$label_size|default": [ "100%", "default" ],
           "visible": "$label_panel_visible",
           "controls": [
             {
@@ -1859,12 +1859,7 @@
                       "type": "label",
                       "layer": 1,
                       "color": "$dark_button_default_text_color",
-                      "text": "#worlds_diskspace",
-                      "bindings": [
-                        {
-                          "binding_name": "#worlds_diskspace"
-                        }
-                      ]
+                      "text": "playscreen.worldsStorage"
                     }
                   },
                   {
@@ -2963,14 +2958,18 @@
       },
       {
         "worlds_crossplatform_disabled_panel@play.crossplatform_disabled_panel": {
+          "ignored": "(not $is_realms_enabled)",
           "$cross_platform_information_text": "crossPlatformToggle.crossPlatformDisabled.realms"
         }
       },
       {
-        "worlds_crossplatform_disable_spacer@play.crossplatform_disable_spacer": {}
+        "worlds_crossplatform_disable_spacer@play.crossplatform_disable_spacer": {
+          "ignored": "(not $is_realms_enabled)"
+        }
       },
       {
         "realms_panel": {
+          "ignored": "(not $is_realms_enabled)",
           "type": "stack_panel",
           "size": [ "100%", "100%c" ],
           "bindings": [
@@ -3115,6 +3114,7 @@
       },
       {
         "realms_multiplayer_blocked_panel@play.label_content_template": {
+          "ignored": "(not $is_realms_enabled)",
           "$label_content_label": "playscreen.header.realms",
           "$label_content_content": "play.information_panel",
           "$information_panel_label_text": "#multiplayer_sessions",
@@ -3269,21 +3269,6 @@
         }
       },
       {
-        "legacy_worlds_auto_sync_failed_label@play.label_content_template": {
-          "ignored": "(not $auto_fetch_legacy_worlds)",
-          "$label_content_label": "",
-          "$label_panel_visible": false,
-          "$label_content_content": "play.information_panel",
-          "$information_panel_label_text": "playscreen.failedToAutoSyncLegacyWorlds",
-          "bindings": [
-            {
-              "binding_name": "#legacy_worlds_auto_sync_failed_visible",
-              "binding_name_override": "#visible"
-            }
-          ]
-        }
-      },
-      {
         "legacy_world_item_grid@play.legacy_world_item_grid": {
           "$tts_section_header": "playscreen.upgradeLegacyWorlds"
         }
@@ -3317,8 +3302,7 @@
                 "$label_offset": [ 1, 0 ],
                 "$label_content_label": "localWorld.no_local_worlds_present",
                 "$label_content_content": "play.storage_location_dropdown_panel",
-                "$information_panel_label_text": "localWorld.no_local_worlds_present",
-                "$label_size": [ "100%", "default" ]
+                "$information_panel_label_text": "localWorld.no_local_worlds_present"
               }
             }
           ]
@@ -3556,11 +3540,14 @@
             },
             {
               "friends_crossplatform_disabled_panel@play.crossplatform_disabled_panel": {
+                "ignored": "(not $is_realms_enabled)",
                 "$cross_platform_information_text": "crossPlatformToggle.crossPlatformDisabled.friends"
               }
             },
             {
-              "friends_crossplatform_disable_spacer@play.crossplatform_disable_spacer": {}
+              "friends_crossplatform_disable_spacer@play.crossplatform_disable_spacer": {
+                "ignored": "(not $is_realms_enabled)"
+              }
             },
             {
               "joinable_realms_panel": {
@@ -3892,23 +3879,6 @@
             {
               "servers_crossplatform_disabled_panel@play.crossplatform_disabled_panel": {
                 "$cross_platform_information_text": "crossPlatformToggle.crossPlatformDisabled.servers"
-              }
-            },
-            {
-              "no_third_party_connection@play.label_content_template": {
-                "$label_content_label": "networkWorld.joinable_third_party_servers",
-                "$label_content_content": "play.information_panel",
-                "$information_panel_label_text": "#internet_connection_text",
-                "$information_panel_label_text_binding_type": "global",
-                "$information_panel_label_text_binding_condition": "always_when_visible",
-                "ignored": "(not $is_berwick)",
-                "$tts_section_header": "$label_content_label",
-                "bindings": [
-                  {
-                    "binding_name": "(not #is_network_available)",
-                    "binding_name_override": "#visible"
-                  }
-                ]
               }
             },
             {

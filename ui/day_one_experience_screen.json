@@ -74,8 +74,8 @@
         "arrows": {
           "type": "stack_panel",
           "orientation": "horizontal",
-          "size": [ "25%", "15%" ],
-          "offset": [ "33%", "39%" ],
+          "size": [ "28%", "15%" ],
+          "offset": [ "33%", "41%" ],
           "layer": 7,
           "controls": [
             {
@@ -145,6 +145,7 @@
           "controls": [
             {
               "image_section@common_dialogs.main_panel_no_title_no_buttons": {
+                "$show_close_button": false,
                 "size": [ "209%y - 18px", "100%" ],
                 "$child_control": "day_one_experience.skins_tip_image",
                 "anchor_from": "top_middle",
@@ -214,11 +215,13 @@
                 "bindings": [
                   {
                     "binding_name": "#is_skin_retrieval_finished",
-                    "binding_name_override": "#visible"
+                    "binding_name_override": "#visible",
+                    "binding_condition": "always"
                   },
                   {
                     "binding_name": "#legacy_skin",
-                    "binding_type": "global"
+                    "binding_type": "global",
+                    "binding_condition": "always_when_visible"
                   }
                 ]
               }
@@ -258,7 +261,8 @@
           "bindings": [
             {
               "binding_name": "#is_skin_retrieval_finished",
-              "binding_name_override": "#visible"
+              "binding_name_override": "#visible",
+              "binding_condition": "always"
             }
           ]
         }
@@ -286,6 +290,7 @@
                 "controls": [
                   {
                     "skin_viewer@common_dialogs.main_panel_no_title_no_buttons": {
+                      "$show_close_button": false,
                       "$child_control": "day_one_experience.skin_viewer_panel"
                     }
                   }
@@ -300,6 +305,7 @@
             },
             {
               "skins_tip_panel_container@common.common_panel": {
+                "$show_close_button": false,
                 "size": [ "fill", "100%" ],
                 "controls": [
                   {
@@ -476,7 +482,8 @@
           "$scrolling_pane_size": [ "100% - 1px", "100%" ],
           "$scrolling_content": "day_one_experience.world_picker_scrolling_content",
           "$scroll_size": [ 5, "100% - 4px" ],
-          "$show_background": false
+          "$show_background": false,
+          "$show_close_button": false
         }
       }
     ]
@@ -490,6 +497,7 @@
       {
         "world_picker@common_dialogs.main_panel_no_buttons": {
           "size": [ "default", "fill" ],
+          "$show_close_button": false,
           "$text_name": "dayOneExperience.world_picker_title",
           "$child_control": "day_one_experience.world_picker_content"
         }

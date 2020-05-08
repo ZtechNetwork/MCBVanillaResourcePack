@@ -1,4 +1,4 @@
-{
+﻿{
   "namespace": "start",
 
   "feedback_icon": {
@@ -323,7 +323,7 @@
 
   "platform_signin_button@common_buttons.light_text_button": {
     "$pressed_button_name": "button.signin",
-    "$button_text_max_size": [ "100%", 20 ],
+    "$button_text_max_size": [ "100%", 26 ],
     "$focus_id": "menu_xbox_signin_button",
     "$button_text": "#platform_signin_text",
     "$button_text_binding_type": "global",
@@ -482,8 +482,7 @@
             {
               "platform_signin_btn@start.column_frame": {
                 "ignored": "(not $nx_os and not $is_berwick)",
-                "size": [ 130, 32 ],
-                "max_size": [ "95%", 32 ],
+                "size": [ "90% - 6px", 32 ],
                 "controls": [
                   {
                     "platform_signin_button@start.platform_signin_button": {}
@@ -500,7 +499,7 @@
             {
               "signingin": {
                 "size": [ "default", "100%" ],
-                "max_size": [ 120, "100%" ],
+                "max_size": [ 150, "100%" ],
                 "type": "label",
                 "color": "$main_header_text_color",
                 "text": "#signingin_text",
@@ -814,7 +813,7 @@
             },
             {
               "stacked_row_2@start.stacked_row": {
-                "ignored": "(not $trial)",
+                "ignored": "(not $trial or $use_single_column_for_buttons)",
                 "controls": [
                   {
                     "stacked_columns": {
@@ -879,7 +878,7 @@
             },
             {
               "settings@start.stacked_row": {
-                "ignored": "$trial",
+                "ignored": "($trial and not $use_single_column_for_buttons)",
                 "controls": [
                   { "settings_button@start.settings_button": {} }
                 ]
@@ -895,7 +894,7 @@
             },
             {
               "store@start.stacked_row": {
-                "ignored": "(($trial) or ($store_ignored))",
+                "ignored": "(($trial and not $use_single_column_for_buttons) or ($store_ignored))",
                 "controls": [
                   {
                     "store_button@start.store_button": {
@@ -1150,12 +1149,6 @@
         "ignored": "(not $nx_os)",
         "from_button_id": "button.controller_select",
         "to_button_id": "button.menu_offline",
-        "mapping_type": "global"
-      },
-      {
-        "ignored": "(not $is_berwick)",
-        "from_button_id": "button.controller_secondary_select",
-        "to_button_id": "button.menu_crossplatform",
         "mapping_type": "global"
       }
     ],

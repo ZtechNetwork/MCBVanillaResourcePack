@@ -73,11 +73,15 @@
     "$tab_panel|default": "common_tabs.tab_panel",
     "$is_checked_state|default": false,
 
+    "$top_tab_tts_name|default": "accessibility.tab.tts.title",
+
     "controls": [
       {
         "$tab_view_binding_name@common.toggle": {
-          "$toggle_tts_name": "accessibility.tab.tts.title",
+          "$toggle_tts_name": "$top_tab_tts_name",
           "$toggle_tts_enabled_binding_type": "global",
+          "$toggle_reset_on_focus_lost|default": true,
+          "reset_on_focus_lost": "$toggle_reset_on_focus_lost",
 
           "controls": [
             {

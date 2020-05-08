@@ -1,6 +1,36 @@
 {
   "namespace": "store_inventory",
 
+  "sign_in_button@common_buttons.light_text_form_fitting_button": {
+    "size": [ "100%c", "100%" ],
+    "$anchor": "top_left",
+    "$pressed_button_name": "button.signin",
+    "$button_text": "store.xbl.signin",
+    "$button_state_panel": "common_buttons.new_ui_width_fitting_button_panel",
+    "$button_type_panel": "common_buttons.width_fitting_button_content_panel",
+    "$button_content": "common_buttons.new_ui_binding_button_label",
+    "$button_size_override": [ "100%c", "100%" ],
+    "$button_offset": [ 0, -0.5 ],
+    "bindings": [
+      {
+        "binding_name": "#show_signin_button",
+        "binding_name_override": "#visible"
+      }
+    ],
+    "button_mappings": [
+      {
+        "from_button_id": "button.menu_select",
+        "to_button_id": "$pressed_button_name",
+        "mapping_type": "pressed"
+      },
+      {
+        "from_button_id": "button.menu_ok",
+        "to_button_id": "$pressed_button_name",
+        "mapping_type": "focused"
+      }
+    ]
+  },
+
   "no_xbl_and_local_content_warning_panel": {
     "type": "panel",
     "size": [ "100% - 2px", "100%c" ],
@@ -87,7 +117,7 @@
                                         "visible": "$is_pregame",
                                         "controls": [
                                           {
-                                            "sign_in_button@common_store.sign_in_button": {
+                                            "sign_in_button@store_inventory.sign_in_button": {
                                               "anchor_from": "top_right",
                                               "anchor_to": "top_right",
                                               "focus_enabled": true,
@@ -264,6 +294,7 @@
                                           },
                                           {
                                             "warning_label_line_4": {
+                                              "ignored": "$use_short_upsell_message",
                                               "type": "label",
                                               "max_size": [ "90%", "100%c" ],
                                               "text": "store.sign_in_warning.no_xbl_and_no_local_content.line4",
@@ -284,7 +315,7 @@
                                               "visible": "$is_pregame",
                                               "controls": [
                                                 {
-                                                  "sigh_in_button@common_store.sign_in_button": {
+                                                  "sigh_in_button@store_inventory.sign_in_button": {
                                                     "size": [ "70%", "100%c" ],
                                                     "min_size": [ "70%", 30 ],
                                                     "focus_enabled": true,
@@ -370,7 +401,7 @@
       },
       {
         "progress_loading@common_store.progress_loading": {
-          "layer": 15,
+          "layer": 100,
           "bindings": [
             {
               "binding_name": "#inventory_page_loading_visible",

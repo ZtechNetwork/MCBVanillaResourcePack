@@ -23,7 +23,7 @@
       },
       {
         "message_label_panel": {
-          "type": "panel",
+          "type": "stack_panel",
           "size": [ "100%", "100%c" ],
           "controls": [
             {
@@ -31,12 +31,45 @@
                 "type": "label",
                 "size": [ "100%", "default" ],
                 "text": "xbox.signin.message",
-                "anchor_from": "center",
-                "anchor_to": "center",
+                "anchor_from": "top_left",
+                "anchor_to": "top_left",
                 "layer": 2,
-                "text_alignment": "center",
+                "text_alignment": "left",
                 "color": "$xbl_signin_text_color",
                 "font_type": "smooth"
+              }
+            },
+            {
+              "padding": {
+                "type": "panel",
+                "size": [ "100%", 4 ],
+                "visible": "#message_line2_visible",
+                "bindings": [
+                  {
+                    "binding_name": "#message_line2_visible",
+                    "binding_name_override": "#visible"
+                  }
+                ]
+              }
+            },
+            {
+              "message_label_line2": {
+                "type": "label",
+                "size": [ "100%", "default" ],
+                "text": "xbox.signin.message.line2",
+                "anchor_from": "top_left",
+                "anchor_to": "top_left",
+                "layer": 2,
+                "text_alignment": "left",
+                "color": "$xbl_signin_text_color",
+                "font_type": "smooth",
+                "visible": "#message_line2_visible",
+                "bindings": [
+                  {
+                    "binding_name": "#message_line2_visible",
+                    "binding_name_override": "#visible"
+                  }
+                ]
               }
             }
           ]
@@ -73,7 +106,7 @@
                 "text_alignment": "center",
                 "color": "$xbl_signin_text_color",
                 "font_type": "smooth",
-                "font_scale_factor": 2,
+                "font_scale_factor": "$xbl_signin_font_scale_factor",
                 "bindings": [
                   {
                     "binding_name": "#url"
@@ -115,7 +148,7 @@
                 "text_alignment": "center",
                 "color": "$xbl_signin_text_color",
                 "font_type": "smooth",
-                "font_scale_factor": 2,
+                "font_scale_factor": "$xbl_signin_font_scale_factor",
                 "bindings": [
                   {
                     "binding_name": "#code"
@@ -137,7 +170,7 @@
         "gamepad_helper_b@common.gamepad_helper_b": {
           "anchor_from": "bottom_middle",
           "anchor_to": "bottom_middle",
-          "offset": [ 0, "-10%" ]
+          "offset": [ 0, "-5%" ]
         }
       }
     ]

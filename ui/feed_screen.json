@@ -26,7 +26,7 @@
     "anchor_from": "top_left",
     "$show_background": false,
     "$scroll_size": [ 5, "100% - 4px" ],
-    "$scrolling_content": "feed.grid_panel",
+    "$scrolling_content": "feed.factory_scrolling_content_stack",
     "$feed_panel_size": [ "100%", "100%c" ]
   },
 
@@ -35,13 +35,14 @@
     "size": [ "100%", 20 ]
   },
 
-  "grid_panel": {
+  "factory_scrolling_content_stack": {
     "type": "stack_panel",
     "anchor_from": "top_left",
     "anchor_to": "top_left",
     "orientation": "vertical",
     "size": "$feed_panel_size",
     "offset": [ 0, 0 ],
+
     "controls": [
       {
         "top_spacing_gap@feed_common.spacing_gap": {
@@ -49,7 +50,9 @@
         }
       },
       { "feed_loading_grid_item@feed.feed_loading_grid_item": {} },
-      { "feed_grid_instance@feed.feed_grid": {} },
+      {
+        "factory_feed_content@feed.feed_stack_panel_factory_content": {}
+      },
       { "spacing_gap2@feed.spacing_gap": {} },
       {
         "pagination_panel@feed.pagination_panel": {
@@ -92,23 +95,41 @@
     ]
   },
 
-  "feed_grid": {
-    "type": "grid",
-    "size": [ "100%", "default" ],
-    "grid_item_template": "feed.feed_grid_item",
-    "grid_dimension_binding": "#feed_grid_dimension",
-    "$collection_binding_name": "feed_collection",
-    "collection_name": "feed_collection",
+  "feed_stack_panel_factory_content": {
+    "type": "stack_panel",
+    "orientation": "vertical",
+    "size": [ "100%", "100%c" ],
     "anchor_to": "top_left",
     "anchor_from": "top_left",
+
+    "factory": {
+      "name": "factory",
+      "control_ids": {
+        "xbox_live": "@feed.feed_xbox_live_account",
+        "linked": "@feed.feed_linked_account"
+      },
+      "factory_variables": [
+        "$feed_factory_collection_details",
+        "$feed_factory_binding_type",
+        "$feed_factory_collection_prefix",
+        "$collection_binding_name"
+      ]
+    },
+    "$feed_factory_collection_details|default": "collection_details",
+    "$feed_factory_binding_type|default": "collection",
+    "$feed_factory_collection_prefix|default": "factory",
+    "collection_name": "feed_collection",
+    "$collection_binding_name": "feed_collection",
+
     "bindings": [
       {
-        "binding_name": "#feed_grid_dimension"
+        "binding_name": "#feed_page_collection_length",
+        "binding_name_override": "#collection_length"
       }
     ]
   },
 
-  "feed_grid_item": {
+  "feed_linked_account": {
     "type": "stack_panel",
     "orientation": "horizontal",
     "anchor_from": "top_left",
@@ -121,7 +142,7 @@
         }
       },
       {
-        "spacing_gap0": {
+        "spacing_gap_00": {
           "type": "panel",
           "size": [ 10, "100%" ]
         }
@@ -135,7 +156,205 @@
           "size": [ "100%", 190 ],
           "controls": [
             {
-              "spacing_gap1": {
+              "spacing_gap_01": {
+                "type": "panel",
+                "size": [ "100%", "10%" ]
+              }
+            },
+            {
+              "player_and_time": {
+                "type": "stack_panel",
+                "orientation": "horizontal",
+                "anchor_from": "top_left",
+                "anchor_to": "top_left",
+                "size": [ "100%", "30%" ],
+                "controls": [
+                  {
+                    "gamer_pic_panel": {
+                      "type": "stack_panel",
+                      "orientation": "vertical",
+                      "anchor_from": "top_left",
+                      "anchor_to": "top_left",
+                      "size": [ 20, "100%" ],
+                      "controls": [
+                        {
+                          "player_platform_pic@feed.player_platform_pic_panel": {
+                            "layer": 0
+                          }
+                        },
+                        {
+                          "account_link_icon@feed_common.account_link_icon": {}
+                        },
+                        {
+                          "player_pic_panel_instance@feed.player_pic_panel": {
+                            "layer": 0
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "spacing_gap_03": {
+                      "type": "panel",
+                      "size": [ 5, "100%" ]
+                    }
+                  },
+                  {
+                    "tag_and_date": {
+                      "type": "stack_panel",
+                      "orientation": "vertical",
+                      "anchor_from": "top_left",
+                      "anchor_to": "top_left",
+                      "size": [ 100, "100%" ],
+                      "controls": [
+                        {
+                          "feed_platformtag_instance@feed_common.item_label": {
+                            "size": [ 100, 10 ],
+                            "font_size": "normal",
+                            "text": "#platform_tag",
+                            "bindings": [
+                              {
+                                "binding_name": "#platform_tag",
+                                "binding_type": "collection",
+                                "binding_collection_name": "feed_collection"
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "spacing_gap_04": {
+                            "type": "panel",
+                            "size": [ "100%", 15 ]
+                          }
+                        },
+                        {
+                          "feed_gamertag_instance@feed_common.item_label": {
+                            "size": [ 100, 10 ],
+                            "font_size": "normal",
+                            "text": "#gamertag",
+                            "bindings": [
+                              {
+                                "binding_name": "#gamertag",
+                                "binding_type": "collection",
+                                "binding_collection_name": "feed_collection"
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "feed_timesince_instance@feed_common.item_label": {
+                            "size": [ 100, 10 ],
+                            "font_size": "normal",
+                            "alpha": 0.5,
+                            "text": "#time_since_feed_post",
+                            "bindings": [
+                              {
+                                "binding_name": "#time_since_feed_post",
+                                "binding_type": "collection",
+                                "binding_collection_name": "feed_collection"
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "spacing_gap_02": {
+                      "type": "panel",
+                      "size": [ 2, "100%" ]
+                    }
+                  },
+                  {
+                    "platform_icon@feed_common.platform_icon_panel": {}
+                  }
+                ]
+              }
+            },
+            {
+              "feed_text_instance@feed_common.item_label": {
+                "size": [ 100, 30 ],
+                "font_size": "normal",
+                "text": "#content",
+                "bindings": [
+                  {
+                    "binding_name": "#content",
+                    "binding_type": "collection",
+                    "binding_collection_name": "feed_collection"
+                  },
+                  {
+                    "binding_name": "#feed_text_visible",
+                    "binding_name_override": "#visible",
+                    "binding_type": "collection",
+                    "binding_collection_name": "feed_collection"
+                  }
+                ]
+              }
+            },
+            {
+              "like_comment_label_instance@feed_common.item_label": {
+                "size": [ 150, 10 ],
+                "font_size": "normal",
+                "alpha": 0.5,
+                "text": "#likes_and_comments",
+                "bindings": [
+                  {
+                    "binding_name": "#likes_and_comments",
+                    "binding_type": "collection",
+                    "binding_collection_name": "feed_collection"
+                  }
+                ]
+              }
+            },
+            {
+              "spacing_gap_05": {
+                "type": "panel",
+                "size": [ "100%", 2 ]
+              }
+            },
+            { "feed_buttons_panel@feed.feed_buttons_panel": {} }
+          ]
+        }
+      }
+    ],
+    "$visible_binding_name|default": "(not #loading_bars_animation_visible)",
+
+    "bindings": [
+      {
+        "binding_name": "$visible_binding_name",
+        "binding_name_override": "#visible"
+      }
+    ]
+  },
+
+  "feed_xbox_live_account": {
+    "type": "stack_panel",
+    "orientation": "horizontal",
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "size": [ "100%", 190 ],
+    "controls": [
+      {
+        "image_panel_instance@feed.image_panel": {
+          "size": [ "60%", "80%" ]
+        }
+      },
+      {
+        "spacing_gap_00": {
+          "type": "panel",
+          "size": [ 10, "100%" ]
+        }
+      },
+      {
+        "player_and_comment_and_buttons": {
+          "type": "stack_panel",
+          "orientation": "vertical",
+          "anchor_from": "center",
+          "anchor_to": "center",
+          "size": [ "100%", 190 ],
+          "controls": [
+            {
+              "spacing_gap_01": {
                 "type": "panel",
                 "size": [ "100%", "10%" ]
               }
@@ -149,12 +368,23 @@
                 "size": [ "100%", "20%" ],
                 "controls": [
                   {
-                    "player_pic_panel_instance@feed.player_pic_panel": {
-                      "layer": 0
+                    "gamer_pic_panel": {
+                      "type": "stack_panel",
+                      "orientation": "vertical",
+                      "anchor_from": "top_left",
+                      "anchor_to": "top_left",
+                      "size": [ 20, "100%" ],
+                      "controls": [
+                        {
+                          "player_pic_panel_instance@feed.player_gamerpic_panel": {
+                            "layer": 0
+                          }
+                        }
+                      ]
                     }
                   },
                   {
-                    "spacing_gap1": {
+                    "spacing_gap_03": {
                       "type": "panel",
                       "size": [ 5, "100%" ]
                     }
@@ -238,7 +468,7 @@
               }
             },
             {
-              "spacing_gap2": {
+              "spacing_gap_05": {
                 "type": "panel",
                 "size": [ "100%", 2 ]
               }
@@ -246,6 +476,14 @@
             { "feed_buttons_panel@feed.feed_buttons_panel": {} }
           ]
         }
+      }
+    ],
+    "$visible_binding_name|default": "(not #loading_bars_animation_visible)",
+
+    "bindings": [
+      {
+        "binding_name": "$visible_binding_name",
+        "binding_name_override": "#visible"
       }
     ]
   },
@@ -350,7 +588,7 @@
                     }
                   },
                   {
-                    "spacing_gap1": {
+                    "spacing_gap_01": {
                       "type": "panel",
                       "size": [ 5, "100%" ]
                     }
@@ -749,12 +987,12 @@
         "new_post_stack_panel": {
           "type": "stack_panel",
           "orientation": "vertical",
-          "size": ["100%c", "100%c"],
+          "size": [ "100%c", "100%c" ],
           "controls": [
             {
               "padding_panel": {
                 "type": "panel",
-                "size": [0, 8]
+                "size": [ 0, 8 ]
               }
             },
             {
@@ -770,7 +1008,7 @@
             }
           ]
         }
-      }      
+      }
     ]
   },
 
@@ -888,6 +1126,19 @@
   // player related
   //--------------------------------------------------------------------------------
 
+  "player_gamerpic_panel": {
+    "type": "panel",
+    "size": [ 20, 20 ],
+    "anchor_to": "center",
+    "anchor_from": "center",
+    "controls": [
+      {
+        "player_gamer_pic_instance@feed.player_gamer_pic": {
+          "layer": 0
+        }
+      }
+    ]
+  },
 
   "player_pic_panel": {
     "type": "panel",
@@ -895,31 +1146,61 @@
     "anchor_to": "center",
     "anchor_from": "center",
     "controls": [
-      { "player_gamer_pic_instance@feed.player_gamer_pic": {} }
+      {
+        "player_gamer_pic_instance@feed.player_gamer_pic": {
+          "layer": 0
+        }
+      },
+      {
+        "bevel_bg@feed_common.player_pic_bevel": {
+          "layer": 1
+        }
+      }
+    ]
+  },
+
+  "player_platform_pic_panel": {
+    "type": "panel",
+    "size": [ 20, 20 ],
+    "anchor_to": "center",
+    "anchor_from": "center",
+    "controls": [
+      {
+        "player_gamer_pic_instance@feed.player_platform_pic": {
+          "layer": 0
+        }
+      },
+      {
+        "bevel_bg@feed_common.player_pic_bevel": {
+          "layer": 1
+        }
+      }
     ]
   },
 
   "player_gamer_pic": {
     "type": "image",
-    "texture": "#gamerpic_texture",
+    "$texture_path|default": "#gamerpic_texture",
+    "$texture_source|default": "#gamerpic_texture_source",
+    "$is_picture_visible|default": "#gamerpic_visible",
+    "texture": "$texture_path",
     "size": [ 18, 18 ],
-    "layer": 0,
-    "texture_file_system": "#gamerpic_texture_source",
+    "texture_file_system": "$texture_source",
     "bindings": [
       {
-        "binding_name": "#gamerpic_texture",
+        "binding_name": "$texture_path",
         "binding_name_override": "#texture",
         "binding_type": "collection",
         "binding_collection_name": "feed_collection"
       },
       {
-        "binding_name": "#gamerpic_texture_source",
+        "binding_name": "$texture_source",
         "binding_name_override": "#texture_file_system",
         "binding_type": "collection",
         "binding_collection_name": "feed_collection"
       },
       {
-        "binding_name": "#gamerpic_visible",
+        "binding_name": "$is_picture_visible",
         "binding_type": "collection",
         "binding_collection_name": "feed_collection",
         "binding_name_override": "#visible"
@@ -927,7 +1208,11 @@
     ]
   },
 
-
+  "player_platform_pic@feed.player_gamer_pic": {
+    "$texture_path": "#platform_profile_pic_texture",
+    "$texture_source": "#platform_profile_pic_texture_source",
+    "$is_picture_visible": "#platform_pic_visible"
+  },
 
   //--------------------------------------------------------------------------------
   // New Post Dialog Popup

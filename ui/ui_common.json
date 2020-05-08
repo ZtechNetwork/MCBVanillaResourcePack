@@ -1149,7 +1149,7 @@
     "color": [ 0.0, 0.0, 0.0, 1.0 ]
   },
 
-  "non_interact_focus_border": {
+  "non_interact_focus_border": {    
     "type": "image",
     "texture": "textures/ui/square_image_border_white",
     "color": "$non_interact_border_color"
@@ -1163,11 +1163,26 @@
     "$default_focus_border_control|default": "common.empty_panel",
     "$hover_focus_border_control|default": "common.non_interact_focus_border",
     "$pressed_focus_border_control|default": "common.non_interact_focus_border",
+    "$content_inside|default": "common.empty_panel",
+    "$border_size|default": [ "100%", "100%" ],
 
     "controls": [
-      { "default@$default_focus_border_control": {} },
-      { "hover@$hover_focus_border_control": {} },
-      { "pressed@$pressed_focus_border_control": {} }
+      {
+        "default@$default_focus_border_control": {
+          "size": "$border_size"
+        }
+      },
+      {
+        "hover@$hover_focus_border_control": {
+          "size": "$border_size"
+        }
+      },
+      {
+        "pressed@$pressed_focus_border_control": {
+          "size": "$border_size"
+        }
+      },
+      { "content@$content_inside": {} }
     ]
   },
 
@@ -2600,7 +2615,7 @@
 
     "variables": [
       {
-        "requires": "(not $is_low_memory_device and not $is_berwick)", // We don't load MinecraftTen in these cases so we need to revert to Mojangles.
+        "requires": "(not $is_low_memory_device)", // We don't load MinecraftTen in these cases so we need to revert to Mojangles.
         "font_scale_factor": 1.39,
         "offset": [ 0, -2 ] // Because of how the font is rendered it looks like it is offset down from the center of the render area
       }
@@ -4831,6 +4846,7 @@
     ],
     "$use_loading_bars|default": true,
     "$is_full_screen_layout|default": false,
+    "$safezone_screen_matrix_layer|default": 2,
     "controls": [
       {
         "variables_button_mappings_and_controls": {
@@ -4879,7 +4895,8 @@
               "$world_modal_screen_size": [ 290, 100 ], // world convert and world loading modal progress screens
               "$day_one_experience_intro_screen_size": [ "60%", "85%" ], // Day One Experience intro popup
               "$day_one_experience_import_progress_screen_size": [ "80%", "90%" ], // Day One Experience import progress modal screen
-              "$world_conversion_complete_screen_size": [ 290, 160 ] // World Conversion complete modal screen
+              "$world_conversion_complete_screen_size": [ 290, 160 ], // World Conversion complete modal screen
+              "$gamepad_disconnect_screen_size": [300, 100] //custom gamepad disconnected modal size, to contain all languages in title
             },
             // PE edition and VR
             {
@@ -4921,7 +4938,8 @@
               "$world_modal_screen_size": [ 290, 100 ], // world convert and world loading modal progress screens
               "$day_one_experience_intro_screen_size": [ "60%", "85%" ], // Day One Experience intro popup
               "$day_one_experience_import_progress_screen_size": [ "80%", "90%" ], // Day One Experience import progress modal screen
-              "$world_conversion_complete_screen_size": [ 290, 160 ] // World Conversion complete modal screen
+              "$world_conversion_complete_screen_size": [ 290, 160 ], // World Conversion complete modal screen
+              "$gamepad_disconnect_screen_size": [ 300, 100 ] //custom gamepad disconnected modal size, to contain all languages in title
             }
           ],
           "button_mappings": [
@@ -4966,7 +4984,7 @@
                 "animation_reset_name": "screen_animation_reset",
                 "propagate_alpha": true,
                 "disable_anim_fast_forward": true,
-                "layer": 2
+                "layer": "$safezone_screen_matrix_layer"
               }
             },
             {

@@ -4,6 +4,7 @@
   //--------------------------------------------------------------------------------
   // Options Dialog Popup
   //--------------------------------------------------------------------------------
+
   "popup_dialog__options@popup_dialog.popup_dialog": {
     "size": [ "100%", "100%" ],
     "controls": [
@@ -237,7 +238,7 @@
     "$scrolling_content": "comment.grid_panel",
     "$comment_panel_size": [ "100% - 1px", "100%c" ]
   },
-  
+
   "grid_panel": {
     "type": "stack_panel",
     "anchor_from": "top_left",
@@ -290,22 +291,40 @@
   },
 
   "comment_grid": {
-    "type": "grid",
-    "size": [ "100%", "default" ],
+    "type": "stack_panel",
+    "size": [ "100%", "100%c" ],
+    "orientation": "vertical",
     "anchor_to": "top_left",
     "anchor_from": "top_left",
-    "grid_item_template": "comment.comment_grid_item",
-    "grid_dimension_binding": "#comment_grid_dimension",
+
+    "factory": {
+      "name": "factory",
+      "control_ids": {
+        "xbox_live": "@comment.comment_msa_item",
+        "linked": "@comment.comment_linked_account_item"
+      },
+      "factory_variables": [
+        "$feed_factory_collection_details",
+        "$feed_factory_binding_type",
+        "$feed_factory_collection_prefix",
+        "$collection_binding_name"
+      ]
+    },
+    "$feed_factory_collection_details|default": "collection_details",
+    "$feed_factory_binding_type|default": "collection",
+    "$feed_factory_collection_prefix|default": "factory",
     "$collection_binding_name": "comment_collection",
-    "collection_name": "comment_collection",
+    "collection_name": "$collection_binding_name",
+
     "bindings": [
       {
-        "binding_name": "#comment_grid_dimension"
+        "binding_name": "#feed_comment_page_collection_length",
+        "binding_name_override": "#collection_length"
       }
     ]
   },
 
-  "comment_grid_item": {
+  "comment_msa_item": {
     "type": "stack_panel",
     "anchor_from": "top_left",
     "anchor_to": "top_left",
@@ -317,6 +336,37 @@
       },
       {
         "textpanel@comment.textpanel": {}
+      }
+    ]
+  },
+
+  "comment_linked_account_item": {
+    "type": "stack_panel",
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "orientation": "vertical",
+    "size": [ "100%", "100%c + 85px" ],
+    "controls": [
+      {
+        "player_buttons_stack_panel@comment.linked_player_buttons_stack_panel": {}
+      },
+      {
+        "spacing_gap@feed_common.spacing_gap": {
+          "size": [ "100%", 5 ]
+        }
+      },
+      {
+        "text_post_spacer": {
+          "type": "panel",
+          "size": [ "100%", "100%cm" ],
+          "controls": [
+            {
+              "textpanel@comment.textpanel": {
+                "offset": [ 17, 0 ]
+              }
+            }
+          ]
+        }
       }
     ]
   },
@@ -353,7 +403,6 @@
     "orientation": "horizontal",
     "size": [ "100%", 25 ],
     "controls": [
-
       {
         "comment_player_panel@comment.comment_player_panel": {}
       },
@@ -363,21 +412,32 @@
     ]
   },
 
-  "feed_item_content_stack_panel": {
+  "linked_player_buttons_stack_panel": {
     "type": "stack_panel",
-    "orientation": "horizontal",
-    "anchor_to": "top_left",
     "anchor_from": "top_left",
-    "size": [ "100%", "50%" ],
+    "anchor_to": "top_left",
+    "orientation": "horizontal",
+    "size": [ "100%", 50 ],
     "controls": [
       {
-        "image_panel_instance@comment.image_panel": {
-          "size": [ "50%", "100%" ]
+        "comment_player_panel@comment.linked_comment_player_panel": {}
+      },
+      {
+        "spacing_gap@feed_common.spacing_gap": {
+          "size": [ 2, "100%" ]
         }
       },
-      { "feed_item_content_panel@comment.feed_item_content_panel": {} }
+      {
+        "platform_icon@feed_common.platform_icon_panel": {
+          "$icon_offset": [0, 4]
+        }
+      },
+      {
+        "like_options_comment_feed_stack_panel@comment.like_options_comment_feed_stack_panel": {}
+      }
     ]
   },
+
 
   "like_options_stack_panel": {
     "type": "stack_panel",
@@ -415,7 +475,7 @@
   "like_options_comment_feed_stack_panel": {
     "type": "stack_panel",
     "orientation": "horizontal",
-    "size": [ 100, 50 ],
+    "size": [ 140, 50 ],
     "anchor_to": "top_right",
     "anchor_from": "top_right",
     "controls": [
@@ -459,9 +519,41 @@
     "orientation": "vertical",
     "anchor_from": "top_left",
     "anchor_to": "top_left",
+    "size": [ 140, 155 ],
     "controls": [
       {
-        "author_player_panel@comment.author_player_panel": {}
+        "author_player_panel@comment.author_player_panel": {
+          "bindings": [
+            {
+              "binding_name": "(not #is_author_linked_account)",
+              "binding_name_override": "#visible"
+            }
+          ]
+        }
+
+      },
+      {
+        "linked_author_player_panel@comment.linked_account_author_player_panel": {
+          "visible": false,
+          "bindings": [
+            {
+              "binding_name": "#is_author_linked_account",
+              "binding_name_override": "#visible"
+            }
+          ]
+        }
+      },
+      {
+        "spacing_gap@feed_common.spacing_gap": {
+          "size": [ "100%", 5 ],
+          "visible": false,
+          "bindings": [
+            {
+              "binding_name": "#is_author_linked_account",
+              "binding_name_override": "#visible"
+            }
+          ]
+        }
       },
       {
         "comment_text_instance@feed_common.item_label": {
@@ -476,6 +568,18 @@
             },
             {
               "binding_name": "#text_visible",
+              "binding_name_override": "#visible"
+            }
+          ]
+        }
+      },
+      {
+        "spacing_gap_02@feed_common.spacing_gap": {
+          "size": [ "100%", 5 ],
+          "visible": false,
+          "bindings": [
+            {
+              "binding_name": "#is_author_linked_account",
               "binding_name_override": "#visible"
             }
           ]
@@ -629,48 +733,29 @@
   // player related
   //--------------------------------------------------------------------------------
 
-
-  "player_pic_panel": {
-    "type": "panel",
-    "size": [ 20, 20 ],
-    "anchor_to": "top_left",
-    "anchor_from": "top_left",
-    "offset": [ 20, 23 ],
-    "controls": [
-      { "player_gamer_pic@comment.player_gamer_pic": {} }
-    ]
-  },
-
-  "player_comment_pic_panel": {
-    "type": "panel",
-    "size": [ 20, 20 ],
-    "anchor_to": "top_left",
-    "anchor_from": "top_left",
-    "controls": [
-      { "player_gamer_pic@comment.player_comment_gamer_pic": {} }
-    ]
-  },
-
   "player_gamer_pic": {
     "type": "image",
-    "texture": "#gamerpic_texture",
+    "$texture_path|default": "#gamerpic_texture",
+    "$texture_source|default": "#gamerpic_texture_source",
+    "$is_picture_visible|default": "#gamerpic_visible",
+    "texture": "$texture_path",
     "size": [ 18, 18 ],
-    "texture_file_system": "#gamerpic_texture_source",
+    "texture_file_system": "$texture_source",
     "bindings": [
       {
-        "binding_name": "#gamerpic_texture",
+        "binding_name": "$texture_path",
         "binding_name_override": "#texture",
         "binding_type": "collection",
         "binding_collection_name": "comment_collection"
       },
       {
-        "binding_name": "#texture_source",
+        "binding_name": "$texture_source",
         "binding_name_override": "#texture_file_system",
         "binding_type": "collection",
         "binding_collection_name": "comment_collection"
       },
       {
-        "binding_name": "#gamerpic_visible",
+        "binding_name": "$is_picture_visible",
         "binding_type": "collection",
         "binding_collection_name": "comment_collection",
         "binding_name_override": "#visible"
@@ -680,24 +765,27 @@
 
   "player_comment_gamer_pic": {
     "type": "image",
-    "texture": "#comment_gamerpic_texture",
+    "$texture_path|default": "#comment_gamerpic_texture",
+    "$texture_source|default": "#comment_gamerpic_texture_source",
+    "$is_picture_visible|default": "#comment_gamerpic_visible",
+    "texture": "$texture_path",
     "size": [ 18, 18 ],
-    "texture_file_system": "#comment_gamerpic_texture_source",
+    "texture_file_system": "$texture_source",
     "bindings": [
       {
-        "binding_name": "#comment_gamerpic_texture",
+        "binding_name": "$texture_path",
         "binding_name_override": "#texture",
         "binding_type": "collection",
         "binding_collection_name": "comment_collection"
       },
       {
-        "binding_name": "#comment_texture_source",
+        "binding_name": "$texture_source",
         "binding_name_override": "#texture_file_system",
         "binding_type": "collection",
         "binding_collection_name": "comment_collection"
       },
       {
-        "binding_name": "#comment_gamerpic_visible",
+        "binding_name": "$is_picture_visible",
         "binding_type": "collection",
         "binding_collection_name": "comment_collection",
         "binding_name_override": "#visible"
@@ -705,18 +793,149 @@
     ]
   },
 
+  "player_platform_pic@comment.player_gamer_pic": {
+    "$texture_path": "#platform_profile_pic_texture",
+    "$texture_source": "#platform_profile_pic_texture_source",
+    "$is_picture_visible": "#platform_pic_visible"
+  },
+
+  "player_comment_platform_pic@comment.player_comment_gamer_pic": {
+    "$texture_path": "#comment_platform_profile_pic_texture",
+    "$texture_source": "#comment_platform_profile_pic_texture_source",
+    "$is_picture_visible": "#comment_platform_pic_visible"
+  },
+
+  "player_gamerpic_panel": {
+    "type": "panel",
+    "size": [ 20, 20 ],
+    "controls": [
+      {
+        "player_gamer_pic_instance@comment.player_gamer_pic": {
+          "layer": 0
+        }
+      }
+    ]
+  },
+
+  "player_pic_panel": {
+    "type": "panel",
+    "size": [ 20, 20 ],
+    "controls": [
+      {
+        "player_gamer_pic_instance@comment.player_gamer_pic": {
+          "layer": 0
+        }
+      },
+      {
+        "bevel_bg@feed_common.player_pic_bevel": {
+          "layer": 1
+        }
+      }
+    ]
+  },
+
+  "player_comment_gamerpic_panel": {
+    "type": "panel",
+    "size": [ 20, 20 ],
+    "controls": [
+      {
+        "player_gamer_pic_instance@comment.player_comment_gamer_pic": {
+          "layer": 0
+        }
+      }
+    ]
+  },
+
+
+  "player_comment_pic_panel": {
+    "type": "panel",
+    "size": [ 20, 20 ],
+    "controls": [
+      {
+        "player_gamer_pic_instance@comment.player_comment_gamer_pic": {
+          "layer": 0
+        }
+      },
+      {
+        "bevel_bg@feed_common.player_pic_bevel": {
+          "layer": 1
+        }
+      }
+    ]
+  },
+
+  "player_platform_pic_panel": {
+    "type": "panel",
+    "size": [ 20, 20 ],
+    "controls": [
+      {
+        "player_platform_pic_instance@comment.player_platform_pic": {
+          "layer": 0
+        }
+      },
+      {
+        "bevel_bg@feed_common.player_pic_bevel": {
+          "layer": 1
+        }
+      }
+    ]
+  },
+
+
+  "player_comment_platform_pic_panel": {
+    "type": "panel",
+    "size": [ 20, 20 ],
+    "controls": [
+      {
+        "player_platform_pic_instance@comment.player_comment_platform_pic": {
+          "layer": 0
+        }
+      },
+      {
+        "bevel_bg@feed_common.player_pic_bevel": {
+          "layer": 1
+        }
+      }
+    ]
+  },
+
+  "author_linked_accounts_pics": {
+    "type": "stack_panel",
+    "orientation": "vertical",
+    "$platform_account|default": "comment.player_platform_pic_panel",
+    "$xboxlive_account|default": "comment.player_pic_panel",
+
+    "size": [ 20, 45 ],
+    "controls": [
+      {
+        "player_platform_pic_panel_instance@$platform_account": {
+        }
+      },
+      {
+        "account_link_icon@feed_common.account_link_icon": {
+        }
+      },
+      {
+        "player_gamerpic_panel_instance@$xboxlive_account": {}
+      }
+    ]
+  },
+
+  "linked_accounts_comment_pics@comment.author_linked_accounts_pics": {
+    "$platform_account": "comment.player_comment_platform_pic_panel",
+    "$xboxlive_account": "comment.player_comment_pic_panel"
+  },
+
   "author_player_panel": {
     "type": "stack_panel",
     "orientation": "horizontal",
-    "anchor_from": "top_left",
-    "anchor_to": "top_left",
     "size": [ "100%", 25 ],
     "controls": [
       {
-        "player_pic_panel_instance@comment.player_pic_panel": {}
+        "player_pic_panel_instance@comment.player_gamerpic_panel": {}
       },
       {
-        "spacing_gap@feed_common.spacing_gap": {
+        "spacing_gap_02@feed_common.spacing_gap": {
           "size": [ 5, "100%" ]
         }
       },
@@ -726,15 +945,47 @@
     ]
   },
 
+  "linked_account_author_player_panel": {
+    "type": "stack_panel",
+    "orientation": "horizontal",
+    "size": [ "100%", 45 ],
+    "controls": [
+      {
+        "player_pic_panel_instance@comment.author_linked_accounts_pics": {
+
+        }
+      },
+      {
+        "spacing_gap_02@feed_common.spacing_gap": {
+          "size": [ 5, "100%" ]
+        }
+      },
+      {
+        "author_gamertag_panel@comment.author_linked_account_tags_panel": {
+
+        }
+      },
+      {
+        "spacing_gap_01@feed_common.spacing_gap": {
+          "size": [ 2, "100%" ]
+        }
+      },
+      {
+        "platform_icon@feed_common.platform_icon_panel": {
+
+        }
+      }
+    ]
+  },
+
+
   "comment_player_panel": {
     "type": "stack_panel",
     "orientation": "horizontal",
-    "anchor_from": "top_left",
-    "anchor_to": "top_left",
-    "size": [ 100, 50 ],
+    "size": [ 140, 50 ],
     "controls": [
       {
-        "player_pic_panel_instance@comment.player_comment_pic_panel": {}
+        "player_pic_panel_instance@comment.player_comment_gamerpic_panel": {}
       },
       {
         "spacing_gap@feed_common.spacing_gap": {
@@ -747,14 +998,53 @@
     ]
   },
 
-  "comment_gamertag_panel": {
+  "linked_comment_player_panel": {
+    "type": "stack_panel",
+    "orientation": "horizontal",
+    "size": [ 125, 50 ],
+    "controls": [
+      {
+        "player_pic_panel_instance@comment.linked_accounts_comment_pics": {}
+      },
+      {
+        "spacing_gap@feed_common.spacing_gap": {
+          "size": [ 5, "100%" ]
+        }
+      },
+      {
+        "comment_gamertag_panel@comment.comment_linked_account_tags_panel": {}
+      }
+    ]
+  },
+
+  "comment_linked_account_tags_panel": {
     "type": "stack_panel",
     "orientation": "vertical",
     "size": [ "50%", "100%" ],
     "controls": [
       {
+        "feed_platformtag_instance@feed_common.item_label": {
+          "size": [ "100%", 10 ],
+          "font_size": "normal",
+          "text": "#comment_platform_tag",
+          "bindings": [
+            {
+              "binding_name": "#comment_platform_tag",
+              "binding_type": "collection",
+              "binding_collection_name": "comment_collection"
+            }
+          ]
+        }
+      },
+      {
+        "spacing_gap_04": {
+          "type": "panel",
+          "size": [ "100%", 15 ]
+        }
+      },
+      {
         "comment_gamertag_instance@feed_common.item_label": {
-          "size": [ 77, 10 ],
+          "size": [ "100%", 10 ],
           "font_size": "normal",
           "text": "#comment_gamertag",
           "bindings": [
@@ -773,7 +1063,49 @@
       },
       {
         "grid_comment_timesince@feed_common.item_label": {
-          "size": [ 77, 10 ],
+          "size": [ "100%", 10 ],
+          "font_size": "normal",
+          "alpha": 0.5,
+          "text": "#likes_and_time_since_comment_post",
+          "bindings": [
+            {
+              "binding_name": "#likes_and_time_since_comment_post",
+              "binding_type": "collection",
+              "binding_collection_name": "comment_collection"
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "comment_gamertag_panel": {
+    "type": "stack_panel",
+    "orientation": "vertical",
+    "size": [ "50%", "100%" ],
+    "controls": [
+      {
+        "comment_gamertag_instance@feed_common.item_label": {
+          "size": [ "100%", 10 ],
+          "font_size": "normal",
+          "text": "#comment_gamertag",
+          "bindings": [
+            {
+              "binding_name": "#comment_gamertag",
+              "binding_type": "collection",
+              "binding_collection_name": "comment_collection"
+            }
+          ]
+        }
+      },
+      {
+        "spacing_gap@feed_common.spacing_gap": {
+          "size": [ "100%", 2 ]
+        }
+      },
+      {
+        "grid_comment_timesince@feed_common.item_label": {
+          "size": [ "100%", 10 ],
           "font_size": "normal",
           "alpha": 0.5,
           "text": "#likes_and_time_since_comment_post",
@@ -792,11 +1124,68 @@
   "author_gamertag_panel": {
     "type": "stack_panel",
     "orientation": "vertical",
-    "size": [ "70%", "100%" ],
+    "size": [ 140, "100%" ],
     "controls": [
       {
         "author_gamertag_instance@feed_common.item_label": {
-          "size": [ 100, 10 ],
+          "size": [ "100%", 10 ],
+          "font_size": "normal",
+          "text": "#author_gamertag",
+          "bindings": [
+            {
+              "binding_name": "#author_gamertag",
+              "binding_type": "collection",
+              "binding_collection_name": "comment_collection"
+            }
+          ]
+        }
+      },
+      {
+        "feed_item_timesince@feed_common.item_label": {
+          "size": [ "100%", 10 ],
+          "font_size": "normal",
+          "alpha": 0.5,
+          "text": "#time_since_feed_post",
+          "bindings": [
+            {
+              "binding_name": "#time_since_feed_post",
+              "binding_type": "collection",
+              "binding_collection_name": "comment_collection"
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "author_linked_account_tags_panel": {
+    "type": "stack_panel",
+    "orientation": "vertical",
+    "size": [ "70%", "100%" ],
+    "controls": [
+      {
+        "feed_platformtag_instance@feed_common.item_label": {
+          "size": [ "100%", 10 ],
+          "font_size": "normal",
+          "text": "#author_platform_tag",
+          "bindings": [
+            {
+              "binding_name": "#author_platform_tag",
+              "binding_type": "collection",
+              "binding_collection_name": "comment_collection"
+            }
+          ]
+        }
+      },
+      {
+        "spacing_gap_04": {
+          "type": "panel",
+          "size": [ "100%", 15 ]
+        }
+      },
+      {
+        "author_gamertag_instance@feed_common.item_label": {
+          "size": [ "100%", 10 ],
           "font_size": "normal",
           "text": "#author_gamertag",
           "bindings": [
@@ -815,7 +1204,7 @@
       },
       {
         "feed_item_timesince@feed_common.item_label": {
-          "size": [ 100, 10 ],
+          "size": [ "100%", 10 ],
           "font_size": "normal",
           "alpha": 0.5,
           "text": "#time_since_feed_post",
@@ -830,7 +1219,6 @@
       }
     ]
   },
-
   //--------------------------------------------------------------------------------
   // Root Controls
   //--------------------------------------------------------------------------------

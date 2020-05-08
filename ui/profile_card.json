@@ -583,11 +583,10 @@
           ]
         }
       },
-      // This button is only on switch for now, to improve the add / remove friend experience
       {
         "remove_friend_button@common_buttons.light_text_button": {
           "size": [ "100%", 30 ],
-          "ignored": "($is_current_profile or (not $nx_os))",
+          "ignored": "($is_current_profile or (not $nx_os and not $is_berwick))",
           "$pressed_button_name": "button.remove_friend",
           "$button_text": "#remove_friend_button_text",
           "$button_text_binding_type": "global",
@@ -758,6 +757,7 @@
     "$toggle_name|default": "",
     "$option_enabled_binding_name|default": "",
     "$enabled|default": true,
+    "$toggle_tts_header": "$toggle_label",
     "controls": [
       {
         "label_panel": {

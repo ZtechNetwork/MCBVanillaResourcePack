@@ -592,14 +592,6 @@
             }
           ]
         }
-      },
-      {
-        "popup_dialog_factory": {
-          "type": "factory",
-          "control_ids": {
-            "play_on_realm": "@realms_common.popup_dialog__play_on_realm"
-          }
-        }
       }
     ]
   },
@@ -618,13 +610,29 @@
         "ignored": "(not $allow_coin_purchase)"
       }
     ],
-    "$screen_content": "realms_create.realms_create_content",
+    "$screen_content": "realms_create.realms_create_content_and_factory",
     "$default_text_color": [ 0.3, 0.3, 0.3 ]
   },
 
-  "realms_create_content@common_dialogs.main_panel_no_buttons": {
-    "$text_name": "$title_text",
-    "$child_control": "realms_create.content",
-    "size": "$realms_create_screen_size"
+  "realms_create_content_and_factory": {
+    "type": "panel",
+    "controls": [
+      {
+        "realms_create_content@common_dialogs.main_panel_no_buttons": {
+          "$text_name": "$title_text",
+          "$child_control": "realms_create.content",
+          "size": "$realms_create_screen_size"
+        }
+      },
+      {
+        "popup_dialog_factory": {
+
+          "type": "factory",
+          "control_ids": {
+            "play_on_realm": "@realms_common.popup_dialog__play_on_realm"
+          }
+        }
+      }
+    ]
   }
 }

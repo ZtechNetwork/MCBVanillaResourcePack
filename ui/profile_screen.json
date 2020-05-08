@@ -700,13 +700,30 @@
     "focus_change_right": "FOCUS_OVERRIDE_STOP"
   },
 
+  /////////////////////////////
+  //// sides padding panel ////
+  "sides_padding_panel": {
+    "type": "panel",
+    "variables": [
+      {
+        "requires": "$supports_xbl_achievements",
+        "$sides_padding_size": [ "7%", "100%" ]
+      },
+      {
+        "requires": "(not $supports_xbl_achievements)",
+        "$sides_padding_size": [ "27%", "100%" ]
+      }
+    ],
+    "size": "$sides_padding_size"
+  },
+
   "lower_button_section": {
     "type": "stack_panel",
     "orientation": "horizontal",
     "size": [ "100%", 25 ],
     "layer": 250,
     "controls": [
-      { "left_padding@profile.horizontal_7p": {} },
+      { "left_padding@profile.sides_padding_panel": {} },
       { "edit_button@profile.edit_appearance_button": {} },
       { "delete_button@profile.delete_appearance_button": {} },
       // { "random_button@profile.random_appearance_button": {} },
@@ -722,7 +739,7 @@
         }
       },
       { "settings_button@profile.settings_button": {} },
-      { "right_padding@profile.horizontal_7p": {} }
+      { "right_padding@profile.sides_padding_panel": {} }
     ]
   },
 
@@ -797,7 +814,9 @@
   },
 
   "title_bar": {
-    "type": "panel",
+    "type": "image",
+    "texture": "textures/ui/White",
+    "alpha": "$dressing_room_profile_title_bar_alpha",
     "layer": 2,
     "size": [ "100%", "100%cm" ],
     "controls": [
@@ -807,7 +826,6 @@
 
   "information_and_selection_panel": {
     "type": "panel",
-
     "$info_title_control_left|default": "common.empty_panel",
     "$info_title_control_right|default": "common.empty_panel",
     "$info_content_control_left|default": "common.empty_panel",
@@ -845,7 +863,11 @@
                   {
                     "title_bar_left@profile.title_bar": {
                       "controls": [
-                        { "dressing_room_title@$info_title_control_left": {} }
+                        {
+                          "dressing_room_title@$info_title_control_left": {
+                            "layer": 5
+                          }
+                        }
                       ]
                     }
                   },
@@ -874,7 +896,11 @@
                   {
                     "title_bar_left@profile.title_bar": {
                       "controls": [
-                        { "dressing_room_title@$info_title_control_right": {} }
+                        {
+                          "dressing_room_title@$info_title_control_right": {
+                            "layer": 5
+                          }
+                        }
                       ]
                     }
                   },
@@ -936,6 +962,7 @@
           "type": "panel",
           "size": [ "100% - 4px", "100% - 4px" ],
           "$info_panel_prefix": "featured",
+          "$cycle_button_panel_size": [ 17, "100%" ],
           "controls": [
             { "right_info_content@persona.category_featured_offer_panel": {} }
           ]
@@ -950,7 +977,8 @@
       {
         "info_panel": {
           "type": "panel",
-          "size": [ "100% - 4px", "100% - 4px" ],
+          "size": [ "100% - 4px", "100% - 6px" ],
+          "$cycle_button_panel_size": [ 17, "100%" ],
           "$info_panel_prefix": "classic_skin_featured",
           "controls": [
             { "right_info_content@persona.right_panel_classic_skin_featured": {} }
@@ -1050,7 +1078,6 @@
     "controls": [
       {
         "main_panel@common_store.store_header_with_coins": {
-          "layer": 2,
           "$child_control": "profile.profile_screen_main_panel",
           "$back_button_pressed_button_name": "button.try_exiting"
         }
@@ -1071,6 +1098,7 @@
   },
 
   "profile_screen@common.base_screen": {
+    "$safezone_screen_matrix_layer": 20,
     "button_mappings": [
       {
         "from_button_id": "button.menu_cancel", // controller_B
@@ -1142,7 +1170,7 @@
         "alex_warning": {
           "type": "image",
           "texture": "textures/ui/warning_alex",
-          "size": [ 44, 95 ],
+          "size": [ 47, 67 ],
           "offset": [ 4, -12 ],
           "anchor_from": "left_middle",
           "anchor_to": "left_middle",

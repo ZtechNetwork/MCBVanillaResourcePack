@@ -85,6 +85,8 @@
     "$button_anchor_from|default": "center",
     "anchor_to": "$button_anchor_to",
     "anchor_from": "$button_anchor_from",
+    "$button_image_fill|default": false,
+    "$button_image_color|default": [ 1.0, 1.0, 1.0 ],
     "controls": [
       {
         "$button_image@$button_image": {
@@ -93,7 +95,9 @@
           "offset": "$image_offset",
           "anchor_from": "$image_anchor",
           "anchor_to": "$image_anchor",
-          "layer": 1
+          "layer": 1,
+          "fill": "$button_image_fill",
+          "color": "$button_image_color"
         }
       },
       {
@@ -668,11 +672,13 @@
     "$pressed_state_border_visible|default": true,
     "$locked_state_border_visible|default": true,
 
+    "$default_text_color|default": "$light_button_default_text_color",
+
     "controls": [
       {
         "default@$button_state_panel": {
           "$new_ui_button_texture": "$default_button_texture",
-          "$text_color": "$light_button_default_text_color",
+          "$text_color": "$default_text_color",
           "$content_alpha": "$default_content_alpha",
           "$secondary_text_color": "$light_button_secondary_default_text_color",
           "$glyph_color": "$light_glyph_default_color",
@@ -750,6 +756,10 @@
     "$pressed_state|default": false,
     "$locked_state|default": false,
 
+    "$hover_button_image_fill|default": false,
+    "$hover_content_alpha|default": 1,
+    "$hover_button_image_color|default": [ 1.0, 1.0, 1.0 ],
+
     "controls": [
       {
         "default@$button_state_panel": {
@@ -770,11 +780,13 @@
           "$text_color": "$dark_button_hover_text_color",
           "$secondary_text_color": "$dark_button_secondary_hover_text_color",
           "$glyph_color": "$dark_glyph_hover_color",
-          "$content_alpha": 1,
+          "$content_alpha": "$hover_content_alpha",
           "$border_color": "$dark_border_hover_color",
           "$border_layer": 3,
           "$hover_state": true,
-          "layer": 2
+          "layer": 2,
+          "$button_image_fill": "$hover_button_image_fill",
+          "$button_image_color": "$hover_button_image_color"
         }
       },
       {

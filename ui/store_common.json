@@ -1171,7 +1171,19 @@
                       "size": [ 5, "100%" ]
                     }
                   },
-                  { "status_and_coins@common_store.status_with_coins": {} },
+                  {
+                    "status_and_coins@common_store.status_with_coins": {
+                      "$top_status_and_coins_visible_binding_type|default": "none",
+                      "$top_status_and_coins_visible_binding|default": "",
+                      "bindings": [
+                        {
+                          "binding_type": "$top_status_and_coins_visible_binding_type",
+                          "binding_name": "$top_status_and_coins_visible_binding",
+                          "binding_name_override": "#visible"
+                        }
+                      ]
+                    }
+                  },
                   {
                     "padding5": {
                       "type": "panel",
@@ -1435,41 +1447,6 @@
           "offset": "$coin_icon_offset",
           "layer": 3
         }
-      }
-    ]
-  },
-
-  "sign_in_button@common_buttons.light_text_form_fitting_button": {
-    "size": [ "100%c", "100%" ],
-    "$anchor": "top_left",
-    "$pressed_button_name": "button.signin",
-    "$button_text": "store.xbl.signin",
-    "$button_state_panel": "common_buttons.new_ui_width_fitting_button_panel",
-    "$button_type_panel": "common_buttons.width_fitting_button_content_panel",
-    "$button_content": "common_buttons.new_ui_binding_button_label",
-    "$button_size_override": [ "100%c", "100%" ],
-    "$button_offset": [ 0, -0.5 ],
-    "bindings": [
-      {
-        "binding_name": "#show_signin_button",
-        "binding_name_override": "#visible"
-      }
-    ],
-    "button_mappings": [
-      {
-        "from_button_id": "button.controller_select",
-        "to_button_id": "button.signin",
-        "mapping_type": "global"
-      },
-      {
-        "from_button_id": "button.menu_select",
-        "to_button_id": "$pressed_button_name",
-        "mapping_type": "pressed"
-      },
-      {
-        "from_button_id": "button.menu_ok",
-        "to_button_id": "$pressed_button_name",
-        "mapping_type": "focused"
       }
     ]
   },
@@ -2347,8 +2324,7 @@
     "type": "stack_panel",
     "orientation": "vertical",
     "size": [ "100%", "100%c + 4px" ],
-    "$is_hero_offer": true,
-    "$ignore_durable_status_content": true,
+    "$ignore_creator": true,
     "$pressed_button_name": "button.select_offer",
     "controls": [
       {
@@ -2368,7 +2344,7 @@
                 // Formula as follows: ((100%x) * (100/177.78)/3) + 27px
                 "size": [ "100% - 4px", "18.7498%x + 22px" ],
                 "clip_state_change_event": "$store_factory_clipping_event",
-                "$offer_size": [ "fill", "100%" ],
+                "$offer_size": [ "33.333% - 2px", "100%" ],
                 "$offer_collection_details": "collection_details",
                 "$offer_binding_type": "collection",
                 "$offer_collection_prefix": "offer",

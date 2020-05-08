@@ -63,6 +63,61 @@
   //
   /////////////////////////////////
 
+  "main_panel_three_buttons": {
+    "type": "panel",
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "$text_name|default": "",
+    "$top_button_panel|default": "common.empty_panel",
+    "$middle_button_panel|default": "common.empty_panel",
+    "$bottom_button_panel|default": "common.empty_panel",
+    "controls": [
+      {
+        "common_panel@common.common_panel": { "$dialog_background": "dialog_background_hollow_6" }
+      },
+      {
+        "title_label@common_dialogs.title_label": {}
+      },
+      {
+        "panel_indent": {
+          "type": "panel",
+          // Fit to the hole in dialog_background_hollow_1 exactly
+          "size": [ "100% - 16px", "100% - 131px" ],
+          "offset": [ 0, 23 ],
+          "anchor_from": "top_middle",
+          "anchor_to": "top_middle",
+          "controls": [
+            { "inside_header_panel@$child_control": {} }
+          ]
+        }
+      },
+      {
+        "top_button_panel@$top_button_panel": {
+          "size": [ "100% - 14px", 30 ],
+          "offset": [ 0, -71 ],
+          "anchor_from": "bottom_middle",
+          "anchor_to": "bottom_middle"
+        }
+      },
+      {
+        "middle_button_panel@$middle_button_panel": {
+          "size": [ "100% - 14px", 30 ],
+          "offset": [ 0, -39 ],
+          "anchor_from": "bottom_middle",
+          "anchor_to": "bottom_middle"
+        }
+      },
+      {
+        "bottom_button_panel@$bottom_button_panel": {
+          "size": [ "100% - 14px", 30 ],
+          "offset": [ 0, -7 ],
+          "anchor_from": "bottom_middle",
+          "anchor_to": "bottom_middle"
+        }
+      }
+    ]
+  },
+
   "main_panel_two_buttons": {
     "type": "panel",
     "anchor_from": "center",
@@ -406,6 +461,11 @@
   "dialog_background_hollow_4@common_dialogs.dialog_background_hollow_common": {
     "size": [ "100%", "100%c" ],
     "texture": "textures/ui/dialog_background_hollow_4"
+  },
+
+  "dialog_background_hollow_6@common_dialogs.dialog_background_hollow_common:": {
+    "size": [ "100%", "100%c" ],
+    "texture": "dialog_background_hollow_6"
   },
 
   "full_screen_background": {

@@ -83,13 +83,18 @@
 
     "$hide_failure_text|default": false,
     "$use_sibling_scope|default": true,
-    "$hide_progress_loading_outline|default": false,
     "$baseLayer|default": 2,
 
     "controls": [
       {
         "progress_loading_outline@common_store.banner_fill": {
-          "visible": "(not $hide_progress_loading_outline)"
+          "bindings": [
+            {
+              "binding_name": "#progress_loading_visibility",
+              "binding_name_override": "#visible",
+              "binding_condition": "always"
+            }
+          ]
         }
       },
       {

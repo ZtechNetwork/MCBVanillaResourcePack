@@ -51,29 +51,57 @@
     ]
   },
 
+  "profile_skin_icon_panel": {
+    "type": "panel",
+    "controls": [
+      {
+        "profile_label": {
+          "type": "label",
+          "text": "profileScreen.header",
+          "size": [ "default", 10 ],
+          "color": "$light_button_default_text_color"
+        }
+      }
+    ]
+  },
+
   "change_profile_button_panel": {
-    "type": "stack_panel",
-    "orientation": "horizontal",
+    "type": "panel",
     "size": [ 70, 26 ],
     "controls": [
       {
-        "button_x@common.gamepad_helper_x": {
-          "$gamepad_helper_visible_binding_type": "none",
-          "layer": 3
+        "enabled_panel": {
+          "type": "stack_panel",
+          "orientation": "horizontal",
+          "size": [ "100%", "100%" ],
+          "controls": [
+            {
+              "button_x@common.gamepad_helper_x": {
+          	    "$gamepad_helper_visible_binding_type": "none",
+                  "layer": 3
+                }
+            },
+            {
+              "skin_icon_panel@pause.profile_skin_icon_panel": {
+                "size": [ "100%c", 26 ]
+              }
+            }
+          ],
+          "bindings": [
+            {
+              "binding_name": "#can_change_skin",
+              "binding_name_override": "#visible"
+            }
+          ]
         }
       },
       {
-        "skin_icon_panel": {
-          "type": "panel",
-          "size": [ "100%c", 26 ],
-          "controls": [
+        "disabled_panel@pause.profile_skin_icon_panel": {
+          "size": [ "100%", 26 ],
+          "bindings": [
             {
-              "profile_label": {
-                "type": "label",
-                "text": "profileScreen.header",
-                "size": ["default", 10],
-                "color": "$light_button_default_text_color"
-              }      
+              "binding_name": "(not #can_change_skin)",
+              "binding_name_override": "#visible"
             }
           ]
         }
@@ -97,10 +125,6 @@
       {
         "requires": "$nx_os",
         "$visibility_binding_type": "none"
-      },
-      {
-        "requires": "$is_berwick",
-        "$visibility_binding_type": "none"
       }
     ],
     "bindings": [
@@ -113,7 +137,7 @@
   },
 
   "change_skin_button@common_buttons.light_glyph_button": {
-    "ignored": "($nx_os or $is_berwick)",
+    "ignored": "$nx_os",
     "size": [ 29, 26 ],
     "$pressed_button_name": "button.to_profile_or_skins_screen",
     "anchor_from": "bottom_middle",
@@ -146,10 +170,6 @@
     "variables": [
       {
         "requires": "$nx_os",
-        "$visibility_binding_type": "none"
-      },
-      {
-        "requires": "$is_berwick",
         "$visibility_binding_type": "none"
       }
     ],
@@ -313,6 +333,10 @@
             {
               "binding_name": "#persona_enabled",
               "binding_name_override": "#visible"
+            },
+            {
+              "binding_name": "#can_change_skin",
+              "binding_name_override": "#enabled"
             }
           ] 
         }
@@ -1292,16 +1316,15 @@
 
   "platform_icon_panel": {
     "type": "panel",
-    "size": [ 15, 15 ],
-    "anchor_to": "right_middle",
-    "anchor_from": "right_middle",
-    "$icon_offset|default": [ -2, 4 ],
+    "$icon_panel_size|default": [ "100%c + 4px", "100%" ],
+    "size": "$icon_panel_size",
     "controls": [
       {
         "platform_icon@pause.platform_icon": {
           "layer": 1,
-          "offset": "$icon_offset",
-          "size": [ "100%-2px", "100%-2px" ]
+          "anchor_from": "left_middle",
+          "anchor_to": "left_middle",
+          "size": [ 15, 15 ]
         }
       }
     ]

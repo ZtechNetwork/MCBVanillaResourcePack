@@ -46,7 +46,7 @@
   //---------------------------------------------------------------------------
   // Text Panel
   //---------------------------------------------------------------------------
-  
+
   "label_panel": {
     "type": "panel",
     "controls": [
@@ -67,7 +67,7 @@
   "text_panel": {
     "type": "stack_panel",
     "orientation": "vertical",
-    "size": [ "100%", "default" ],
+    "size": [ "100% - 2px", "default" ],
     "controls": [
       {
         "tab_content_title_panel@tabbed_upsell.label_panel": {
@@ -134,13 +134,21 @@
       {
         "scrolling_panel@common.scrolling_panel": {
           "size": [ "60% - 5px", "100%" ],
-          "$scrolling_content": "tabbed_upsell.text_panel",
+          "$scrolling_content": "tabbed_upsell.scroll_text",
           "$show_background": false,
           "$scroll_size": [ "5px", "100% - 4px" ],
-          "$scroll_bar_left_padding_size": [ 1, 0 ]
+          "$scroll_bar_left_padding_size": [ 1, 0 ],
+          "layer": 3
         }
       }
     ]
+  },
+
+  "scroll_text@common.non_interact_focus_border_button": {
+    "$content_inside": "tabbed_upsell.text_panel",
+    "$border_size": [ "100%", "100%sm + 2px" ],
+    "size": [ "100%", "100%cm" ],
+    "$focus_id": "text_container"
   },
 
   "image_panel": {
@@ -508,7 +516,8 @@
       },
       {
         "buy_now_button@tabbed_upsell.tabbed_upsell_buy_now_button": {
-          "size": [ "100% - 4px", "100%" ]
+          "size": [ "100% - 4px", "100%" ],
+          "$focus_override_up": "text_container"
         }
       },
       {

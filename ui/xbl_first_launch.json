@@ -22,9 +22,9 @@
   "button_label": {
     "type": "label",
     "size": [ "100%-30px", "default" ],
-    "offset": [ -2, 0 ],
-    "anchor_from": "right_middle",
-    "anchor_to": "right_middle",
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "text_alignment": "center",
     "text": "xbox.signinFree",
     "color": "$text_color"
   },
@@ -60,6 +60,12 @@
     "size": [ "100%", "100%" ],
     "text": "#message",
     "font_type": "smooth",
+    "$message_scale_factor|default": 1.0,
+    "variables": {
+      "requires": "$has_platform_specific_prompt",
+      "$message_scale_factor": 0.85
+    },
+    "font_scale_factor": "$message_scale_factor",
     "layer": 2,
     "color": "$body_text_color",
     "bindings": [

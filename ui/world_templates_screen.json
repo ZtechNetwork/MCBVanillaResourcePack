@@ -730,12 +730,6 @@
           "anchor_from": "top_left",
           "anchor_to": "top_left"
         }
-      },
-      {
-        "header_panel_bottom_padding": {
-          "type": "panel",
-          "size": [ "100%", 5 ]
-        }
       }
     ]
   },
@@ -743,39 +737,6 @@
   //---------------------------------------------------------------------------
   // SCREEN CONTENT
   //---------------------------------------------------------------------------
-
-  "header_panel": {
-    "type": "stack_panel",
-    "size": [ "100%", 30 ],
-    "orientation": "horizontal",
-    "ignored": "$hide_top_bar",
-    "visible": "(not $realms_plus_on)",
-    "controls": [
-      {
-        "new_world_panel": {
-          "type": "panel",
-          "size": [ "fill", "100% + 1px" ],
-          "controls": [
-            { "new_world_toggle@world_templates.new_world_toggle": {} }
-          ]
-        }
-      },
-      {
-        "new_realm_panel": {
-          "type": "panel",
-          "size": [ "50% - 50%y", "100% + 1px" ],
-          "controls": [
-            { "new_realm_toggle@world_templates.new_realm_toggle": {} }
-          ]
-        }
-      },
-      {
-        "help_button@world_templates.help_button": {
-          "size": [ "100%y", "100%  + 1px" ]
-        }
-      }
-    ]
-  },
 
   "world_template_screen_content_stack_panel": {
     "type": "stack_panel",
@@ -786,13 +747,6 @@
         "padding_0": {
           "type": "panel",
           "size": [ "100%", 2 ]
-        }
-      },
-      { "header_panel@world_templates.header_panel": {} },
-      {
-        "header_panel_bottom_padding": {
-          "type": "panel",
-          "size": [ "100%", 4 ]
         }
       },
       {
@@ -916,6 +870,12 @@
                 "type": "panel",
                 "size": [ "100%", 4 ]
               }
+            }
+          ],
+          "bindings": [
+            {
+              "binding_name": "#realms_plus_list_visible",
+              "binding_name_override": "#visible"
             }
           ]
         }

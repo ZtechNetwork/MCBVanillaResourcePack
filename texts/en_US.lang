@@ -60,6 +60,8 @@ accessibility.state.unchecked=: unchecked
 accessibility.state.selected=: selected
 accessibility.state.unselected=: unselected
 
+accessibility.index = %s of %s  # This is numbering, which number out of the total number of objects is available for interaction. Example: 1 of 3
+
 accessibility.slider.tts.percentValue=%s percent
 
 accessibility.play.editWorld=Edit World
@@ -97,6 +99,7 @@ accessibility.settings.chooseSeed=Choose Seed
 accessibility.start.feedback=Submit Feedback
 accessibility.start.new=New
 accessibility.start.profile=Choose Profile
+accessibility.start.skinPicker=Choose Skin
 
 accessibility.store.tag=Tag
 
@@ -354,10 +357,16 @@ attribute.name.zombie.spawnReinforcements=Zombie Reinforcements
 attribution.goBack=Go Back
 attribution.viewAttribution=To view attributions, please visit https://minecraft.net/attribution in any web browser.
 
+authentication.demo.body.default=Starting the demo experience...
+authentication.demo.body.error=We're sorry, but this lesson is not currently available.
+authentication.demo.title=Loading the Demo
+authentication.demo.title.error=Lesson Not Available
 authentication.pleaseSignIn=You must sign in with your School account in order to play Minecraft: Education Edition.
 authentication.loggingin=Signing in...
 authentication.signIn=Sign in
+authentication.signIn.tryAgain=Try again
 authentication.signingInTo=Signing into %s
+authentication.unableToConnect=Unable to Connect
 authentication.unauthenticated=This account is not eligible to use Minecraft: Education Edition.
 authentication.location=For more information:
 authentication.hyperlink=http://education.minecraft.net/eligibility
@@ -372,7 +381,7 @@ authentication.trialEndedTitle=Trial Ended
 authentication.clickToPurchaseMessage=Ask your Educator to purchase a license for you at: 
 authentication.clickToPurchaseStudent=http://aka.ms/meestore
 authentication.clickToPurchaseTeacher=Purchase license
-authentication.adalException=We can't connect to the service you need right now. Check your network connection or try this again later.
+authentication.adalException=We can't connect to the service you need right now. Please check your internet connection and try again.
 authentication.buyMinecraft=Go to the App Store
 authentication.educationOnly=If you are not an education user, go to the app store to download the standard version.
 authentication.minecraftInstead=App Store
@@ -1711,6 +1720,12 @@ realmsCreateScreen.playNowMessage2=Otherwise, you can find it anytime in the Wor
 realmsCreateScreen.playWithFriends=Play with Friends
 realmsCreateScreen.playSolo=Play Solo
 realmsCreateScreen.goBack=Back to Store
+realmsCreateScreen.purchaseConfirmation.title=Purchase Realm?
+realmsCreateScreen.purchaseConfirmation.create.message=Are you sure you want to create a Realm?
+realmsCreateScreen.purchaseConfirmation.extend.message=Are you sure you want to extend a Realm?
+realmsCreateScreen.purchaseConfirmation.renew.message=Are you sure you want to renew a Realm?
+realmsCreateScreen.purchaseConfirmation.continue=Confirm Purchase
+realmsCreateScreen.purchaseConfirmation.cancel=Cancel
 
 realmsCreateScreen.title=Create a Realm
 realmsCreateScreen.nameHeader=Realm Name
@@ -1893,6 +1908,7 @@ realmsSettingsScreen.windowsStoreDisplayName=Windows Store
 realmsSettingsScreen.xboxOneStoreDisplayName=Xbox Store
 realmsSettingsScreen.amazonStoreDisplayName=Amazon Appstore
 realmsSettingsScreen.oculusStoreDisplayName=Oculus Store
+realmsSettingsScreen.berwickStoreDisplayName="PlayStation Store"
 realmsSettingsScreen.unknownStoreDisplayName=unknown store
 realmsSettingsScreen.extendingRealm=Extending Realm...
 realmsSettingsScreen.offerError.title=Purchase Pending
@@ -1918,8 +1934,8 @@ realmsSettingsScreen.extendConsumableButton.180=Extend by 180 Days
 xblLogin.LoginMessageTitle=Microsoft Account
 xblLogin.LoginMessage=Connecting…
 
-xbl.savePurchase.description.line1=Do you want to play with whatever you buy from any device? Sign in with a Microsoft Account and your Minecoins, Skins, Texture Packs, Maps, and Mash-ups will be there for you on any device where you play Minecraft.
-xbl.savePurchase.description.line2=Purchases left on your device may be lost if you lose your device or uninstall Minecraft.
+xbl.savePurchase.description.line1=Do you want to play with whatever you buy from any Minecraft Store enabled system? Sign in with a FREE Microsoft account and sync your purchased Skins, Textures, Maps, and Mash-ups to use and play in Minecraft!
+xbl.savePurchase.description.line2=If you lose your system or uninstall Minecraft, your purchases will still be synced and accessible on any system when you use your Microsoft account.
 xbl.savePurchase.leaveOnDevice=Leave on Device
 xbl.savePurchase.title=Save purchases to a Microsoft Account?
 xbl.savePurchase.saveButton=Save to Microsoft Account
@@ -1979,9 +1995,15 @@ date.formatted=%s %d %d
 dayOneExperience.carousel.title=Welcome to New Minecraft!
 dayOneExperience.carousel.welcome_text=There's a lot of exciting new stuff in this new version of Minecraft! Check out the Marketplace, create a Realm, and play online with Cross-Platform friends!
 dayOneExperience.carousel.marketplace=The Minecraft Marketplace is a place to find new skins, worlds, textures, and mash-up packs by various talented creators.
-dayOneExperience.carousel.cross_platform=Cross-Platform play lets you connect with players on different platforms. Sign in to your Microsoft Account to play with all your Minecraft friends!
+dayOneExperience.carousel.cross_platform=Cross-platform play lets you connect with players on different platforms. Sign in to your Microsoft Account to play with all your Minecraft friends!
 dayOneExperience.carousel.realms=Realms are servers run by us, just for you and your friends. Keep your Minecraft world online and always accessible, even when you log-off.
 dayOneExperience.carousel.villager=New Minecraft is the only place to receive future updates containing new features, mobs, items, blocks and much more!
+
+dayOneExperience.tab.landing=What's New
+dayOneExperience.tab.marketplace=Marketplace
+dayOneExperience.tab.crossplatform=Cross-platform Play
+dayOneExperience.tab.realms=Realms
+dayOneExperience.tab.villager=More Content
 
 dayOneExperience.finish=Finish
 dayOneExperience.next=Next
@@ -1992,11 +2014,12 @@ dayOneExperience.intro_body_2=Would you like help importing your saves, settings
 dayOneExperience.intro_welcome_1=You've updated to the latest version of Minecraft!
 dayOneExperience.intro_welcome_2=If you would like to return to the previous version of Minecraft, you can find it on the main menu
 dayOneExperience.editions_launch_warning=This is not the latest version of Minecraft, are you sure you want to launch the previous version of Minecraft?
+dayOneExperience.editions_title=Launch Previous Version?
 dayOneExperience.settings_imported=We've imported your settings for you!
 dayOneExperience.settings_skin_imported=We've imported your skin and settings for you!
 dayOneExperience.skin_current=Current Skin
 dayOneExperience.skin_default=Default Skin
-dayOneExperience.skin_tip=You can change your skin by selecting the coat hanger icon on the main menu:
+dayOneExperience.skin_tip=You can change your skin by selecting the Profile button on the main menu.
 dayOneExperience.skip_title=Skip Conversion?
 dayOneExperience.skip_body=Old Worlds can be converted at any time from the Play Game - Worlds menu.
 dayOneExperience.world_import_time=Tip: Conversion time will vary based on the size of the world.
@@ -2112,6 +2135,8 @@ disconnect.quitting=Quitting
 disconnect.spam=Kicked for spamming
 disconnect.timeout=Timed out
 
+disconnectionScreen.header.realms_hidden=Multiplayer Invitation
+disconnectionScreen.body.realms_hidden=Unable to join this specific server.
 disconnectionScreen.cantConnect=Unable to connect to world.
 disconnectionScreen.cantConnectToRealm=Unable to connect to realm.
 disconnectionScreen.cantConnectToRealms=Unable to connect to realms.
@@ -2192,6 +2217,7 @@ edu.worlds_screen.search_placeholder=Search
 edu.worlds_screen.play=PLAY
 edu.worlds_screen.host=HOST
 edu.worlds_screen.settings=SETTINGS
+edu.worlds_screen.courses_title=My Courses
 
 edu.templates.title=My Templates
 edu.templates.local_header=MY TEMPLATES: %1
@@ -2202,6 +2228,8 @@ edu.templates.created_by=By %1
 edu.templates.quick_play=PLAY
 edu.templates.host=HOST
 edu.templates.create_new=CREATE NEW
+
+edu.pause.multiplayer.disabled=Multiplayer is not available in this lesson.
 
 effect.badOmen=Bad Omen
 effect.villageHero=Hero of the Village
@@ -2258,6 +2286,7 @@ entity.area_effect_cloud.name=Area Effect Cloud
 entity.armor_stand.name=Armor Stand
 entity.arrow.name=Arrow
 entity.bat.name=Bat
+entity.bee.name=Bee
 entity.blaze.name=Blaze
 entity.boat.name=Boat
 entity.cat.name=Cat
@@ -2512,7 +2541,7 @@ gameTip.outputSlotCraftTable.controller=Press :_gamepad_face_button_down: to cra
 gameTip.selectHotBar.craftTable=Put the crafting table in the hotbar to use it.
 gameTip.closeInventory.keyboard=Press :_input_key.inventory: or :light_mouse_left_button: here to close the inventory.
 gameTip.closeInventory.touch=Tap here to close the inventory.
-gameTip.closeInventory.controller=Press :_input_key.sneak: to close the inventory.
+gameTip.closeInventory.controller=Press :_gamepad_face_button_right: to close the inventory.
 gameTip.needMoreMaterials=You need 2 Wood to make a Wooden Pickaxe.
 gameTip.selectItemInHotBar.keyboard=Use the :light_mouse_middle_button: or number keys to select items.
 gameTip.selectItemInHotBar.touch=Tap the hotbar to select items.
@@ -2580,6 +2609,7 @@ gui.pickLoc.successMessage=Copied localization
 gui.pickLoc.failedMessage=Error: File picked wasn't languages.json
 gui.pickIcon.successMessage=Copied world icon
 gui.pickIcon.failedMessage=Error: Invalid file format
+gui.previous=Previous
 gui.copyWorld=Copy World
 gui.copyWorld.failedMessage=Failed to create a copy of your world.
 gui.goBack=Go Back
@@ -2589,6 +2619,7 @@ gui.minecraftWorld=Minecraft World
 gui.minecraftBundle=Minecraft Bundle
 gui.login=Login
 gui.logout=Logout
+gui.next=Next
 gui.no=No
 gui.none=None
 gui.ok=OK
@@ -2617,10 +2648,12 @@ gui.edu.exitGameWarningCaption=Minecraft: Education Edition	## Use Minecraft 教
 gui.edu.exitGameWarningMessage=Exit Minecraft: Education Edition?	## Use 离开 Minecraft 教育版? in zh_CN translation
 
 updateScreen.update=Update
+updateScreen.updateRequired=Update Required
 updateScreen.title=Version Out of Date
 updateScreen.body=Update to the latest version to access all the new features, play with friends online, or see what's new in the Marketplace.
 updateScreen.commerceNotSupported.title=Can't Access Marketplace
 updateScreen.commerceNotSupported.body=This version of Minecraft can no longer access the Minecraft Marketplace. Update to the latest version to restore Marketplace access.
+updateScreen.packs.updateRequired=Please update to the latest version to download your pack purchased in the Minecraft Marketplace.
 updateScreen.patchVersion=Version %s Patch Notes:
 
 hostOption.codeBuilder=Code Builder
@@ -3393,9 +3426,9 @@ howtoplay.theStore.header.1=Explore Content
 howtoplay.theStore.text.2=Try a new skin for a fresh new look!
 howtoplay.theStore.text.3=Check out worlds to unlock new maps and challenges that you will want to play again and again!
 howtoplay.theStore.text.4=Give your old game a new look with texture packs that can be layered over your current worlds and Realms!
-howtoplay.theStore.text.4.norealms=Give your old game a new look with texture packs that can be layered over your current worlds and Realms!
+howtoplay.theStore.text.4.norealms=Give your old game a new look with texture packs that can be layered over your current worlds!
 howtoplay.theStore.text.5=Or try them all with mash-up packs which are curated collections of skins, worlds, and textures that, when combined, will transform your worlds and Realms!
-howtoplay.theStore.text.5.norealms=Or try them all with mash-up packs which are curated collections of skins, worlds, and textures that, when combined, will transform your worlds and Realms!
+howtoplay.theStore.text.5.norealms=Or try them all with mash-up packs which are curated collections of skins, worlds, and textures that, when combined, will transform your worlds!
 
 howtoplay.tools=Tools
 howtoplay.tools.title=How to Play : Tools
@@ -3487,6 +3520,7 @@ invite.realm.add_member=Add Realm Members
 invite.notification.title=Game Invite
 invite.notification.description=%s has invited you to play Minecraft
 invite.confirmation.description=%s has invited you to play Minecraft
+invite.pageCounter=%d/%d
 
 inventory.binSlot=Destroy Item
 
@@ -4364,6 +4398,8 @@ item.golden_hoe.name=Golden Hoe
 item.iron_hoe.name=Iron Hoe
 item.stone_hoe.name=Stone Hoe
 item.wooden_hoe.name=Wooden Hoe
+item.honey_bottle.name=Honey Bottle
+item.honeycomb.name=Honeycomb
 item.horsearmordiamond.name=Diamond Horse Armor
 item.horsearmorgold.name=Gold Horse Armor
 item.horsearmoriron.name=Iron Horse Armor
@@ -4394,6 +4430,7 @@ item.minecartFurnace.name=Minecart with Furnace
 item.hopper_minecart.name=Minecart with Hopper
 item.tnt_minecart.name=Minecart with TNT
 item.spawn_egg.entity.agent.name=Spawn Agent
+item.spawn_egg.entity.bee.name=Spawn Bee
 item.spawn_egg.entity.cat.name=Spawn Cat
 item.spawn_egg.entity.chicken.name=Spawn Chicken
 item.spawn_egg.entity.cow.name=Spawn Cow
@@ -4638,8 +4675,8 @@ itemGroup.name.wood=Woods
 itemGroup.name.banner_pattern=Banner Patterns
 
 ##EDU Joincode
-joincode.entry_popup.icon_button=Joincode Button
-joincode.entry_popup.icon_entry=Joincode Entry %1
+joincode.entry_popup.icon_button=%1 join code button		# Example: Apple join code button
+joincode.entry_popup.icon_entry=%3 join code entry %1 of %2	# Example: Apple join code entry 2 of 5
 joincode.entry_popup.title=Enter Join Code
 joincode.connecting.title=Join World
 joincode.connecting.lower_text=Searching for world...
@@ -4667,6 +4704,9 @@ joincode.icon_text.12=Apple
 joincode.icon_text.13=Carrot
 joincode.icon_text.14=Panda
 joincode.icon_text.15=Sign
+joincode.icon_text.16=Potion
+joincode.icon_text.17=Map
+joincode.icon_text.18=Llama
 joincode.ip_entry.button_tts=More Options
 joincode.ip_entry.address.tooltip=To find the IP Address, ask the host to pause their game. The IP Address and Port number can be found on the multiplayer tab of the pause screen.
 joincode.ip_entry.port.tooltip=To find the Port number, ask the host to pause their game. The IP Address and Port number can be found on the multiplayer tab of the pause screen.
@@ -4920,27 +4960,14 @@ lanServer.start=Start LAN World
 lanServer.title=LAN World
 lanServer.restart=This server has restarted!
 
-library.connection.failed.body=We're unable to connect to the library. Maybe check your internet connection?
 library.prompt.inGameLink=This will save and quit your current game and any multiplayer connections, are you sure you want to quit?
 library.fetchingItem=Connecting to library...
 library.fetchingItem.failed=Sorry, we weren't able to find that item in the Library.
-library.findMoreWorlds=Find More Worlds
-library.leaveFeedback=Leave Feedback
-library.title=Library
 library.welcome.1=Welcome to the Minecraft: Education Edition Library!
 library.welcome.2=The Library is a new feature we've created to make it easy for teachers and students to find and import educational content directly in the game. In this release, you'll find a list of some of our most popular worlds to import and use, along with a link to the full world library on our website.
 library.welcome.3=We're working on adding support for more types of content and functionality in the coming months. Please let us know what you think by clicking the feedback button.
-library.item.createdBy=By %s
-library.item.launch=Create World
-library.item.button.share=Share
 library.item.sharepopup.title=Share Link
 library.item.sharepopup.body=Share a link to this world.
-library.item.button.share=Share
-library.item.sharepopup.title=Share Link
-library.item.sharepopup.body=Share a link to this world.
-library.item.progress.body=Preparing to import new world. This could take a few minutes.
-library.item.description=Description:
-
 library.item.share.toast.title=Link copied to your clipboard.
 
 licensed_content.goBack=Go Back
@@ -5064,6 +5091,7 @@ npcscreen.help.url.a=Click this button to add a URL hyperlink in the NPC dialog 
 npcscreen.help.url.b=Link opens in the player's default browser.
 npcscreen.learnmore=Learn More
 npcscreen.name=Name
+npcscreen.npc=NPC
 npcscreen.requiresop=OP Required
 
 offer.category.skinpack=Skin Packs
@@ -5152,6 +5180,7 @@ options.dev_ad_show_debug_panel=Show EDU Sign In Debug Panel
 options.dev_ad_token_refresh_threshold=EDU Sign In Token Refresh Threshold Seconds
 options.dev_assertions_debug_break=Assertions break in the debugger
 options.dev_assertions_show_dialog=Assertions show a modal dialog
+options.dev_eduDemo=Edu Demo (Requires re-sign-in)
 options.dev_enableDebugUI=Enable Debug UI
 options.dev_createRealmWithoutPurchase=Create realm without purchase
 options.dev_flushOrphanedRealmsPurchases=Flush orphaned Realms purchases
@@ -5561,6 +5590,7 @@ options.edgeHighlightEnable=Edge Highlight
 options.bloomEnable=Bloom
 options.terrainShadowsEnable=Terrain Shadows
 options.superFancyWaterEnable=Super Fancy Water
+options.onlyTrustedSkinsAllowed=Only Allow Trusted Skins
 
 options.autoUpdateEnabled=Auto Update Unlocked Packs
 options.autoUpdateMode=Auto Update Unlocked Packs
@@ -5607,6 +5637,20 @@ options.enableEducation.message=Enables Education Edition chemistry features. Ed
 options.enableEducationCreate.message=Enables Education Edition chemistry features. This cannot be disabled after your world is created. Please note these features are best experienced on desktop devices with moderate to high memory.
 options.goBack=Go Back
 options.managePrivacy=To manage privacy settings, please visit https://account.xbox.com/Settings in any web browser.
+options.unlink_msa.button=Unlink Microsoft Account
+options.unlink_msa.confirm.title=Unlink Microsoft Account?
+options.unlink_msa.confirm.warning=WARNING: You will no longer be able to store progression or purchases made on your "PlayStation 4" System on your account %s after unlinking.
+options.unlink_msa.confirm.checkbox1=I will no longer be able to access any in-game Store content when I play on other platforms.
+options.unlink_msa.confirm.checkbox2=I will no longer be able to play cross-platform games with my friends on other platforms.
+options.unlink_msa.confirm.checkbox3=I will no longer be able to access Realms, including Realms subscriptions that are currently active.
+options.unlink_msa.confirm.checkbox4=I understand the above, and I would like to continue with unlinking.
+options.unlink_msa.confirm.button=Unlink
+options.unlink_msa.progress.title=Unlinking
+options.unlink_msa.progress.body=Unlinking your accounts...
+options.unlink_msa.success.title=Unlink Successful
+options.unlink_msa.success.body=Your accounts have been unlinked.
+options.unlink_msa.failure.title=Something Went Wrong
+options.unlink_msa.failure.body=Your accounts were not able to be unlinked. Maybe check your internet connection?
 
 patchNotes.continue=Continue
 patchNotes.unlock=Unlock
@@ -5630,6 +5674,7 @@ pauseScreen.title=Game Paused
 pauseScreen.betaFeedback=Beta Feedback
 pauseScreen.xboxLiveDisconnect=Oops! Your Microsoft Account was disconnected. To invite more players, sign in on the Main Menu and restart your world.
 pauseScreen.joinCode.Label=JOIN CODE
+pauseScreen.joinCode.Icon=%3 join code icon, %1 of %2	# Example: Apple join code icon, 2 of 5
 
 feedbackScreen.button=Feedback
 feedbackScreen.title=Have Feedback?
@@ -5685,6 +5730,7 @@ hudScreen.tooltip.pick=Pick
 hudScreen.tooltip.placeBook=Place Book
 hudScreen.tooltip.readBook=Read Book
 hudScreen.tooltip.removeBook=Remove Book
+hudScreen.tooltip.shear=Shear
 
 playscreen.fileSize.MB=MB
 playscreen.fileSize.GB=GB
@@ -5699,7 +5745,7 @@ playscreen.lastPlayed.weeksAgo=%1 weeks ago
 playscreen.lastPlayed.yesterday=Yesterday
 playscreen.new=New
 playscreen.remoteWorld=Remote world at:
-playscreen.realmsTrialWorld=30 Day Free Trial
+playscreen.realmsTrialWorld=Try Realms Plus free for 30 days
 playscreen.realmsCreateFirstWorld=Create your first realm
 playscreen.checkingRealmsCompatibility=Checking Realms compatibility...
 playscreen.fetchingRealms=Fetching Realms...
@@ -5720,7 +5766,7 @@ playscreen.noLegacyWorldsFound.body=No worlds from other versions of Minecraft d
 playscreen.failedToAutoSyncLegacyWorlds=Unable to fetch Old Worlds. Clear up additional storage space in order to manage Old Worlds.
 playscreen.lockedSkin=The skin that you have equipped is from a content pack that is not allowed in cross-platform multiplayer. Continuing will disable cross-platform multiplayer for this world.
 playscreen.multiplayerLockedSkin=The skin that you have equipped is from a content pack that is not allowed in multiplayer. Continuing will disable multiplayer for this world.
-playscreen.worldsStorage=Worlds Storage: %s/%s
+playscreen.worldsStorage=Storage
 playscreen.delete.legacy.content=Are you sure you want to delete the selected old world? This world will be lost forever! (A long time!)
 playscreen.delete.legacy.title=Delete %s permanently?
 playscreen.delete.legacy.confirm=Delete
@@ -5901,7 +5947,6 @@ progressScreen.title.connectingLAN=Connecting to multiplayer game
 progressScreen.title.connectingExternal=Connecting to external server
 progressScreen.title.connectingRealms=Connecting to Realm
 progressScreen.title.copyingWorld=World Copy
-progressScreen.title.skin_loading=Loading Skin...
 progressScreen.message.copyingWorld=Copying World... %d%%
 progressScreen.message.building=Building terrain
 progressScreen.message.done=Done!
@@ -5932,7 +5977,6 @@ progressScreen.message.leaveLevel=Your game is being saved. Please do not turn o
 progressScreen.message.genericMayTakeAMoment=This may take a few moments
 progressScreen.message.unkownError=An error occured
 progressScreen.message.forbiddenContent=You do not own one or more of the applied packs
-progressScreen.message.skin_loading=Your selected skin is still loading.
 progressScreen.dialog.title.resourcePack=Download World Resource Packs?
 progressScreen.dialog.title.behaviorAndResourcePack=Download World Behavior & Resource Packs?
 progressScreen.dialog.title.onlyBehavior=Download World Behavior Packs?
@@ -6435,7 +6479,7 @@ store.realmsPlus.faq=FAQ
 store.realmsPlus.buyFor=BUY FOR %s
 store.realmsPlus.buyNow=BUY NOW
 store.realmsPlus.errorNoOffer=ERROR NO OFFER FOUND
-store.realmsPlus.manageSubscrpition=MANAGE SUBSCRIPTION
+store.realmsPlus.manageSubscription=MANAGE SUBSCRIPTION
 store.realmsPlus.viewAllPacksTitle=A GREAT VALUE - PACKS WORTH OVER §g$150 (USD)!§r
 
 store.realmsPlus.nowActive=Realms Plus is now active for this device. You now have access to 50+ content packs from the marketplace at no additional cost. Up to 10 players can play on your Realms at one time, and get access to all the subscriber content in your Realm - for free!
@@ -6446,8 +6490,15 @@ store.realmsPlus.buyNow.viewPrivacyPolicy=PRIVACY POLICY
 
 store.realmsPlus.buyNow.title=Start your Realms Plus Subscription
 store.realmsPlus.startTrial.title=Start your FREE 30 day trial now!
-store.realmsPlus.startTrial.description=Your Realm and 50+ marketplace packs will be immediately available. Up to 10 players can play at one time, and they get access to all the subscriber content in your Realm - for free! Your first month will be free, and you'll be billed %s/month afterwards and can cancel at any time.
+store.realmsPlus.startTrial.description=Your Realm and 50+ marketplace packs will be immediately available. Up to 10 players can play at one time, and they get access to the worlds in your Realm for free! Your first month will be free, and you'll be billed %s/month afterwards and can cancel at any time.
+store.realmsPlus.noTrial.description=Your Realm and 50+ marketplace packs will be immediately available. Up to 10 players can play at one time, and they get access to the worlds in your Realm for free! Your subscription will be available for 30 days at the price of %s:minecoin:.
+store.realmsPlus.noTrial.description.iap=Your Realm and 50+ marketplace packs will be immediately available. Up to 10 players can play at one time, and they get access to the worlds in your Realm for free! Your subscription will be available for 30 days at the price of %s.
 store.realmsPlus.realmName.placeholder=%s's Realm		#The string passed in here is the gamertag of the player to indicate the name of the player's world.
+
+store.realmsPlus.recurring.offerTrial=Your Realm and 50+ marketplace packs will be immediately available. Up to 10 players can play at one time, and they get access to the worlds in your Realm for free! Your first month will be free, and you'll be billed %s/month afterwards and can cancel at any time.
+store.realmsPlus.recurring.withoutTrial=Your Realm and 50+ marketplace packs will be immediately available. Up to 10 players can play at one time, and they get access to the worlds in your Realm for free! You'll be billed %s/month and can cancel at any time.
+store.realmsPlus.consumable.offerTrial=Your Realm and 50+ marketplace packs will be immediately available. Up to 10 players can play at one time, and they get access to the worlds in your Realm for free! Your first 30 days will be free and you can renew for 30 days at the price of %s afterwards.
+store.realmsPlus.consumable.withoutTrial=Your Realm and 50+ marketplace packs will be immediately available. Up to 10 players can play at one time, and they get access to the worlds in your Realm for free! Your subscription will be available for 30 days at the price of %s.
 
 store.realmsPlus.landing.header=Subscription Includes:
 
@@ -6456,7 +6507,7 @@ store.realmsPlus.landing.info1.line2=- Your own personal Realm server
 store.realmsPlus.landing.info1.line3=- Friends play for free in your Realm
 
 store.realmsPlus.landing.info2.line1=- Secure cloud storage
-store.realmsPlus.landing.info2.line2=- Play on any device with the Minecraft Marketplace
+store.realmsPlus.landing.info2.line2=- Play on any device with Realms and the Minecraft Marketplace
 store.realmsPlus.landing.info2.line3=- Support the Minecraft Community
 store.realmsPlus.landing.info2.line4=- Free 1 month trial
 
@@ -6466,9 +6517,9 @@ store.realmsPlus.faq.answer1=For one low monthly price, enjoy unlimited access t
 store.realmsPlus.faq.question2=Can I use my Realms Plus packs offline?
 store.realmsPlus.faq.answer2=You don’t need to be online to enjoy Realms Plus. Packs included in the subscription can either be played online on your personal Realm or played on a local device. You just need to come online once every 30 days to validate that your subscription is active.
 store.realmsPlus.faq.question3=Do my friends need to have Realms Plus to play on my Realm?
-store.realmsPlus.faq.answer3=Your friends don’t need a Realms Plus subscription to join a Realm. You can invite any friend to join your Realm for free.
-store.realmsPlus.faq.question4=Can I host my Realms Plus worlds, texture packs, skins, and mash-ups on my Realm?
-store.realmsPlus.faq.answer4=Yes! You can upload any worlds, texture packs, skins, and mash-ups from the Realms Plus catalog or your purchases from the Minecraft Marketplace to your Realm and invite your friends to join for free.
+store.realmsPlus.faq.answer3=Your friends don’t need a Realms Plus subscription to join a Realm. You can invite any friend that has access to Realms to join your Realm for free.
+store.realmsPlus.faq.question4=Can I host my Realms Plus worlds, texture packs, and mash-ups on my Realm?
+store.realmsPlus.faq.answer4=Yes! You can upload any worlds, texture packs, and mash-ups from the Realms Plus catalog or your purchases from the Minecraft Marketplace to your Realm and invite your friends to join for free.
 store.realmsPlus.faq.question5=How much does a Realms Plus subscription cost?
 store.realmsPlus.faq.answer5=%s per month. That’s the same price as before Realms was magically transformed into Realms Plus!
 store.realmsPlus.faq.question6=How often are new packs added to Realms Plus?
@@ -6480,7 +6531,7 @@ store.realmsPlus.faq.answer8=The different packs in Realms Plus are created by a
 store.realmsPlus.faq.question9=Which editions of Minecraft support Realms Plus?
 store.realmsPlus.faq.answer9=Realms Plus is currently available for Minecraft on mobile, Windows 10, the Xbox One consoles as well as the Nintendo Switch.
 store.realmsPlus.faq.question10=Can I use my Realms Plus on any Bedrock device?
-store.realmsPlus.faq.answer10=Yes! If you purchase Realms Plus on one Bedrock device, you can access all the packs, personal server, and storage from any Minecraft Bedrock version as long as you’re signed into your Minecraft account.
+store.realmsPlus.faq.answer10=Yes! If you purchase Realms Plus on any Realms enabled Bedrock device, you can access all the packs, personal servers, and storage from any Minecraft Bedrock version that has Realms available and you’re signed into your Minecraft account.
 store.realmsPlus.faq.question11=How many world templates can I play with Realms Plus?
 store.realmsPlus.faq.answer11=You can play and save all the packs included in Realms Plus on your local device. You can also host one of your world templates on a Realm for your friends to join for free! You can change which world you load on your Realm at any time.
 store.realmsPlus.faq.question12=What happens to my Realms and worlds when my subscription to Realms Plus ends?
@@ -6496,7 +6547,8 @@ store.realmsPlus.content.mashupDescription=Try a bit of everything in mash-ups!
 
 store.realmsPlus.content.popularPacks=Popular Packs in Realms Plus:
 store.realmsPlus.content.viewAllPacks=VIEW ALL PACKS
-store.realmsPlus.content.contentDescription=Tap into the source of amazing Minecraft content! With Realms Plus, you get instant access to 50+ marketplace items like mash-ups, worlds, skin packs and epic adventures – with new additions each month. Your content is stored on your own personal server, and made available on any platform where you enjoy Minecraft Marketplace. Up to 10 players can play at one time, and they get access to all the subscriber content in your Realm – for free!
+store.realmsPlus.content.contentDescription=Tap into the source of amazing Minecraft content! With Realms Plus, you get instant access to 50+ marketplace items like mash-ups, worlds, skin packs and epic adventures – with new additions each month. Your content is stored on your own personal server, and made available on any platform where you enjoy both Realms and the Minecraft Marketplace. Up to 10 players can play at one time, and they get access to the worlds in your Realm for free!
+
 
 store.realmsPlus.freeTrial=START 1 MONTH FREE TRIAL
 
@@ -6504,6 +6556,7 @@ store.inventory.button=Inventory
 store.inventory.title=Inventory
 
 store.free=Free
+store.redeem=Get
 store.incompatible=Incompatible
 store.incompatibleOnDevice=Incompatible on Device
 store.itemIsIncompatible=This item is not compatible with your device.
@@ -6644,6 +6697,7 @@ store.mashup.purchase.generalContent=Purchase content for %s:minecoin:
 store.mashup.last_updated=Last Updated: %s
 store.mashup.up_to_date=Pack is up to date
 store.mashup.out_of_date_tooltip=This pack may not have skins for items/blocks released after its latest update
+store.mashup.description=DESCRIPTION
 
 store.new.icon=New
 
@@ -6935,6 +6989,8 @@ tile.beacon.primary=Primary Power
 tile.beacon.secondary=Secondary Power
 tile.beacon.primary.pocket=Primary
 tile.beacon.secondary.pocket=Secondary
+tile.beehive.name=Beehive
+tile.bee_nest.name=Bee Nest
 tile.bed.name=Bed
 tile.bed.noSleep=You can only sleep at night
 tile.bed.notSafe=You may not rest now, there are monsters nearby
@@ -6982,6 +7038,8 @@ tile.chalkboard.threeByTwo.name=Board
 tile.chest.name=Chest
 tile.ender_chest.name=Ender Chest
 tile.jigsaw.name=Jigsaw Block
+tile.honey_block.name=Honey Block
+tile.honeycomb_block.name=Honeycomb Block
 tile.trapped_chest.name=Trapped Chest
 tile.shulkerBoxWhite.name=White Shulker Box
 tile.shulkerBoxOrange.name=Orange Shulker Box
@@ -7774,6 +7832,9 @@ trial.tabbed_upsell.addon.description=Want to make wolves act like bunnies? Turn
 trial.tabbed_upsell.seeds.title=SEEDS
 trial.tabbed_upsell.seeds.description=Unlock the full Minecraft experience and get access to Seeds! Seeds help you discover new biomes - survive on ice plains, ascend extreme hills, or trek across deserts. Start with unique templates or explore random new worlds! Access Seeds, Creative Mode, Multiplayer and more by buying Minecraft today!
 
+trial.tabbed_upsell.navleft=Navigate Tab Left
+trial.tabbed_upsell.navRight=Navigate Tab Right
+
 ## Trial Collection content:
 trial.starter.collection.title=Minecraft Starter Collection
 trial.master.collection.title=Minecraft Master Collection
@@ -7806,6 +7867,16 @@ trial.collection.11.description=Customize your character with this selection of 
 trial.collection.12.title=Villains Skin Pack
 trial.collection.12.description=Dress as a Cake Maniac, Frankencrafter, or Worse!
 trial.includes=Includes
+
+## Trial Game content:
+trial.survival.mode.title=SURVIVAL
+trial.creative.mode.title=CREATIVE
+trial.survival.mode.1.intro_description=The original Minecraft experience: collect resources to craft tools and build structures, find and farm food to manage your hunger, battle dangerous mobs, and explore a vast world.
+trial.survival.mode.2.intro_description=Start by collecting some wood and dirt for a makeshift home to help you survive the first night! From there it's all up to you.
+trial.creative.mode.1.intro_description=Build anything you can imagine in Creative Mode. Take no damage, fly through the skies, and enjoy instant access to every block in the game! This mode lets you focus on crafting and gives you everything you need to build something beautiful!
+trial.creative.mode.2.intro_description=You'll also have access to Inspiration Island, a tutorial world and introduction to Creative mode that'll teach you how to be a master builder in no time! You can find more great worlds like this in the Minecraft Marketplace.
+trial.tour.marketplace=TOUR THE MARKETPLACE
+trial.world.title=Which Trial World?
 
 ## Edu Tutorial strings
 tutorial.edu.menuTitle=Learn to Play
@@ -7957,7 +8028,6 @@ pack.authors.none=Unknown
 ## manifest pack validation
 manifestvalidation.title=Pack Info
 manifestvalidation.error=Error
-manifestvalidation.errorlist=Error List:
 manifestvalidation.info=Info
 manifestvalidation.noerror=No errors were found
 manifestvalidation.warning=Warning
@@ -7969,6 +8039,7 @@ manifestvalidation.delete.confirm_goBack=Go Back
 manifestvalidation.packid=Pack ID:
 manifestvalidation.packversion=Pack Version:
 manifestvalidation.filelocation=File Location:
+manifestvalidation.errorlist=Error List
 manifestvalidation.file=File:
 manifestvalidation.issue=Issue:
 manifestvalidation.unkown.packtype=Unknown Pack Type
@@ -8283,6 +8354,7 @@ dr.classic_skins.select_skin=Choose the correct model type for your skin
 dr.classic_skins.select_skin.title=Skin Type
 dr.classic_skins.upsellWithoutStore=You must purchase the skin pack to use that skin, and we can't connect to the Marketplace.
 dr.header.capes=Capes
+dr.zooming=Zooming
 dr.header.classic_skins=Classic Skins
 dr.header.customization=Character Creator
 dr.header.featured=Featured Items
@@ -8343,3 +8415,9 @@ dr.default.steve.mouth=Steve's Mouth
 dr.default.steve.shoes=Steve's Shoes
 dr.default.steve.skin=Steve
 dr.default.steve.top=Steve's Shirt
+
+onlinePlay.notRated=Online play is not rated
+onlinePlay.message=During online play you may be exposed to chat messages or other types of user generated content that has not been rated, and may not be suitable for all ages.
+onlinePlay.doNotShowAgain=Do not show this screen again
+onlinePlay.proceed=Proceed
+onlinePlay.Back=Back

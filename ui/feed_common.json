@@ -27,11 +27,11 @@
   },
 
   "smooth_label@feed_common.label": {
-    "size": [ "100%", "default" ],    
+    "size": [ "100%", "default" ],
     "font_type": "smooth",
     "text_alignment": "center"
   },
-    
+
 
   "share_label@feed_common.smooth_label": {
     "text": "feed.share",
@@ -382,6 +382,64 @@
   "spacing_gap": {
     "type": "panel",
     "size": [ "100%", 20 ]
+  },
+
+  "platform_icon": {
+    "type": "image",
+    "texture": "textures/ui/platform_icon",
+    "size": [ 15, 15 ]
+  },
+
+  "platform_icon_panel": {
+    "type": "panel",
+    "size": [ 15, 15 ],
+    "$icon_offset|default": [ 0, 2 ],
+    "controls": [
+      {
+        "platform_icon@feed_common.platform_icon": {
+          "layer": 1,
+          "offset": "$icon_offset",
+          "size": [ "100%-2px", "100%-2px" ]
+        }
+      }
+    ]
+  },
+
+  "account_link_image": {
+    "type": "image",
+    "texture": "textures/ui/control_white"
+  },
+
+  "account_link_icon": {
+    "type": "stack_panel",
+    "orientation": "horizontal",
+    "size": [ "100%", 5 ],
+    "layer": 1,
+    "controls": [
+      {
+        "space_01": {
+          "type": "panel",
+          "size": [ 9, "100%" ]
+        }
+      },
+      {
+        "account_link_image@feed_common.account_link_image": {
+          "size": [ 2, "100%" ]
+        }
+      },
+      {
+        "space_02": {
+          "type": "panel",
+          "size": [ 9, "100%" ]
+        }
+      }
+    ]
+  },
+
+  "player_pic_bevel": {
+    "type": "image",
+    "texture": "textures/ui/focus_border_white",
+    "size": [ "100%", "100%" ]
   },
 
   "no_feed_item_content": {

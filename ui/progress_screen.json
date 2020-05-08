@@ -240,6 +240,37 @@
     "$top_button_press|default": "",
     "$top_button_text|default": "",
     "$button_size": [ "100%", 30 ],
+    "button_mappings": [
+      {
+        "from_button_id": "button.menu_cancel",
+        "to_button_id": "modal.escape",
+        "mapping_type": "global"
+      },
+      {
+        "from_button_id": "button.menu_up",
+        "to_button_id": "button.menu_up",
+        "mapping_type": "global",
+        "scope": "view"
+      },
+      {
+        "from_button_id": "button.menu_down",
+        "to_button_id": "button.menu_down",
+        "mapping_type": "global",
+        "scope": "view"
+      },
+      {
+        "from_button_id": "button.menu_left",
+        "to_button_id": "button.menu_left",
+        "mapping_type": "global",
+        "scope": "view"
+      },
+      {
+        "from_button_id": "button.menu_right",
+        "to_button_id": "button.menu_right",
+        "mapping_type": "global",
+        "scope": "view"
+      }
+    ],
 
     "controls": [
       {
@@ -418,6 +449,114 @@
     "$bottom_button_press": "button.leave",
     "$bottom_button_text": "progressScreen.dialog.button.leave"
   },
+
+  "online_safety_proceed_button@popup_dialog.popup_dialog_button": {
+    "size": "$button_size",
+    "$pressed_button_name": "button.proceed",
+    "$button_text": "onlinePlay.proceed"
+  },
+
+  "online_safety_back_button@popup_dialog.popup_dialog_button": {
+    "size": "$button_size",
+    "$pressed_button_name": "button.back",
+    "$button_text": "onlinePlay.Back"
+  },
+
+  "online_safety_description": {
+    "type": "label",
+    "size": [ "100%-4px", "default" ],
+    "color": "$body_text_color",
+    "text": "onlinePlay.message"
+  },
+
+  "online_safety_label_panel@common.scrolling_panel": {
+    "$scrolling_pane_size": [ "100% - 1px", "100% - 3px" ],
+    "$scrolling_pane_offset": [ 2, 2 ],
+    "$scrolling_content": "progress.online_safety_description",
+    "$scroll_size": [ 5, "100% - 4px" ],
+    "$show_background": false,
+    "layer": 1,
+    "anchor_from": "top_middle",
+    "anchor_to": "top_middle",
+    "$always_handle_scrolling": true
+  },
+
+  "do_not_show_checkbox@common.checkbox": {
+    "size": [ "100%", 30 ],
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "$toggle_name": "online_safety_do_not_show_again",
+    "$toggle_state_binding_name": "#online_safety_do_not_show_again",
+
+    "tts_control_type_order_priority": 100,
+    "tts_value_order_priority": 101,
+    "$toggle_enabled_binding_type": "global",
+
+    "controls": [
+      {
+        "header_description_stack_panel": {
+          "type": "stack_panel",
+          "orientation": "horizontal",
+          "size": [ "100%", "100%" ],
+          "anchor_from": "top_left",
+          "anchor_to": "top_left",
+
+          "controls": [
+            {
+              "checkbox_visuals@common.toggle_visuals": {
+                "size": [ 30, "100%" ],
+                "anchor_from": "left_middle",
+                "anchor_to": "left_middle"
+              }
+            },
+            {
+              "buffer_panel": {
+                "type": "panel",
+                "layer": 3,
+                "size": [ "fill", "100%" ],
+                "controls": [
+                  {
+                    "label": {
+                      "type": "label",
+                      "color": "$light_button_default_text_color",
+                      "text": "onlinePlay.doNotShowAgain",
+
+                      "size": [ "default", "default" ],
+                      "anchor_from": "center",
+                      "anchor_to": "center"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "another_panel": {
+                "type": "panel",
+                "size": [ 30, "100%" ]
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "online_safety_dialog@common_dialogs.main_panel_three_buttons": {
+    "size": [ 300, 200 ],
+    "$fill_alpha": 1,
+
+    "layer": 101,
+    "$text_name": "onlinePlay.notRated",
+    "$description_text": "onlinePlay.message",
+    "$button_size": [ "100%", 30 ],
+
+    "$show_close_button": false,
+    "$child_control": "progress.online_safety_label_panel",
+    "$top_button_panel": "progress.do_not_show_checkbox",
+    "$middle_button_panel": "progress.online_safety_proceed_button",
+    "$bottom_button_panel": "progress.online_safety_back_button"
+  },
+
   //--------------------------------------------------------------------------------
 
   "normal_stroke_button": {
@@ -873,7 +1012,8 @@
       "add_on_with_optional_texture_pack": "add_on_only@progress.add_on_with_optional_texture_pack",
       "add_on_with_texture_pack": "add_on_only@progress.add_on_with_texture_pack",
       "texture_pack_optional": "add_on_only@progress.texture_pack_optional",
-      "texture_pack_required": "add_on_only@progress.texture_pack_required"
+      "texture_pack_required": "add_on_only@progress.texture_pack_required",
+      "online_safety_dialog": "online_safety_dialog@progress.online_safety_dialog"
     }
   },
 
