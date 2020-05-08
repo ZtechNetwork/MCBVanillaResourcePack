@@ -28,9 +28,8 @@ Game music will no longer be included in our package for copyright reasons. If y
 
 ### v1.14.0 - Buzzy Bee Update
 #### New Features:
-
 - **PlayStation®4**
-Welcome PlayStation®4 players to the Bedrock version of Minecraft! All Bedrock platforms can now cross-play with PS4™ consoles. More information can be found in the [Minecraft for PlayStation®4 FAQ](https://help.minecraft.net/hc/en-us/articles/360037725571-Minecraft-for-PlayStation-TM-4-FAQ).
+    - Welcome PlayStation®4 players to the Bedrock version of Minecraft! All Bedrock platforms can now cross-play with PS4™ consoles. More information can be found in the [Minecraft for PlayStation®4 FAQ](https://help.minecraft.net/hc/en-us/articles/360037725571-Minecraft-for-PlayStation-TM-4-FAQ).
 - **Bees!**
     - Bees are cute, fuzzy, neutral mobs
     - Don’t hurt them, they don’t want to hurt you
@@ -56,8 +55,8 @@ Welcome PlayStation®4 players to the Bedrock version of Minecraft! All Bedrock 
     - Bee our guest - Use a Campfire to collect Honey from a Beehive using a Bottle without aggravating the bees (15G)
     - Total Beelocation - Move and place a Bee Nest, with 3 bees inside, using Silk Touch (30G)
     - Sticky Situation - Slide down a honey block to slow your fall (30G)
-#### Changes:
 
+#### Changes:
 - Updated to a fresh menu background full of bees
 - Leads can now be used on Polar Bears, Parrots, Ocelots, and Dolphins
 - Dispensers can now fill bottles with water and honey
