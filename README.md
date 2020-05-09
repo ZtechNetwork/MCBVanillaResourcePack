@@ -8,23 +8,23 @@ Game music will no longer be included in our package for copyright reasons. If y
 ## Game Changelogs
 ### v1.14.60
 - Bug Fixes.
-- See the full[changelog](https://feedback.minecraft.net/hc/en-us/articles/360041875292-Minecraft-1-14-60-Bedrock-) for more info.
+- See the full [changelog](https://feedback.minecraft.net/hc/en-us/articles/360041875292-Minecraft-1-14-60-Bedrock-) for more info.
 
 ### v1.14.41 (PS4 Only)
 - Bug Fixes.
-- See the full[changelog](https://feedback.minecraft.net/hc/en-us/articles/360040449071-Minecraft-1-14-41-PS4-Only-) for more info.
+- See the full [changelog](https://feedback.minecraft.net/hc/en-us/articles/360040449071-Minecraft-1-14-41-PS4-Only-) for more info.
 
 ### v1.14.30
 - Bug Fixes.
-- See the full[changelog](https://feedback.minecraft.net/hc/en-us/articles/360039685691-Minecraft-1-14-30-Bedrock-) for more info.
+- See the full [changelog](https://feedback.minecraft.net/hc/en-us/articles/360039685691-Minecraft-1-14-30-Bedrock-) for more info.
 
 ### v1.14.20
 - Bug Fixes.
-- See the full[changelog](https://feedback.minecraft.net/hc/en-us/articles/360038848252-Minecraft-1-14-20-Bedrock-) for more info.
+- See the full [changelog](https://feedback.minecraft.net/hc/en-us/articles/360038848252-Minecraft-1-14-20-Bedrock-) for more info.
 
 ### v1.14.1
 - Bug Fixes.
-- See the full[changelog](https://feedback.minecraft.net/hc/en-us/articles/360037581632-Minecraft-1-14-1-Bedrock-) for more info.
+- See the full [changelog](https://feedback.minecraft.net/hc/en-us/articles/360037581632-Minecraft-1-14-1-Bedrock-) for more info.
 
 ### v1.14.0 - Buzzy Bee Update
 #### New Features:
@@ -67,7 +67,7 @@ Game music will no longer be included in our package for copyright reasons. If y
 
 ### v1.13.3 (iOS Only)
 - Bug Fixes.
-- See the full[changelog](https://feedback.minecraft.net/hc/en-us/articles/360036461291-Minecraft-1-13-3-iOS-Only-) for more info.
+- See the full [changelog](https://feedback.minecraft.net/hc/en-us/articles/360036461291-Minecraft-1-13-3-iOS-Only-) for more info.
 
 ### v1.13.2 (iOS Only)
 - Bug Fixes.
