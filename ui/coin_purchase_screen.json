@@ -263,21 +263,16 @@
                 "texture": "textures/ui/bonus_banner",
                 "controls": [
                   {
-                    "price": {
-                      "type": "label",
-                      "size": [ "default", 10 ],
-                      "color": "$coin_bonus_price_color",
-                      "text": "#price_text",
-                      "layer": 5,
-                      "text_alignment": "center",
-                      "font_type": "smooth",
-                      "bindings": [
-                        {
-                          "binding_type": "collection",
-                          "binding_collection_name": "coin_purchase_grid",
-                          "binding_name": "#price_text"
-                        }
-                      ]
+                    "price@coin_purchase.price": {
+                      "$price_color": "$coin_bonus_price_color",
+                      "$price_visible": "(not #debug_price_visible)"
+                    }
+                  },
+                  {
+                    "debug_price@coin_purchase.price": {
+                      "$price_color": "$c_color_format", // Red
+                      "$price_visible": "#debug_price_visible"
+
                     }
                   }
                 ]
@@ -291,6 +286,29 @@
           "type": "panel",
           "size": [ "100%", 1 ]
         }
+      }
+    ]
+  },
+
+  "price": {
+    "type": "label",
+    "size": [ "default", 10 ],    
+    "color": "$price_color",
+    "text": "#price_text",
+    "layer": 5,
+    "text_alignment": "center",
+    "font_type": "smooth",
+    "bindings": [
+      {
+        "binding_name": "$price_visible",
+        "binding_name_override": "#visible",
+        "binding_collection_name": "coin_purchase_grid",
+        "binding_type": "collection"
+      },
+      {
+        "binding_type": "collection",
+        "binding_collection_name": "coin_purchase_grid",
+        "binding_name": "#price_text"
       }
     ]
   },
@@ -523,9 +541,8 @@
     ]
   },
 
-  "background@common.screen_background":
-      {
-        "alpha": 0.65,
-        "layer": 1
-      }
+  "background@common.screen_background": {
+    "alpha": 0.65,
+    "layer": 1
   }
+}

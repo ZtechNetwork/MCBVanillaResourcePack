@@ -123,6 +123,26 @@
         "offset": [ 0.0, "Math.mod(Math.floor(query.life_time * 7),variable.animation_frames_128x128)/variable.animation_frames_128x128" ],
         "scale": [ 1.0, 1.0 ]
       }
+    },
+    "controller.render.player.map.persona": {
+      "arrays": {
+        "geometries": {
+          "Array.geos": [ "Geometry.default", "Geometry.animated_face" ]
+        }
+      },
+      "geometry": "Array.geos[query.is_persona_or_premium_skin]",
+      "materials": [ { "*": "Material.animated" } ],
+      "textures": [ "Texture.animated_face" ],
+      "part_visibility": [
+        { "*": false },
+        { "head": true },
+        { "hat": true },
+        { "helmet": true }
+      ],
+      "uv_anim": {
+        "offset": [ 0.0, "variable.is_blinking * 0.5" ],
+        "scale": [ 1.0, 1.0 ]
+      }
     }
   }
 }

@@ -39,7 +39,8 @@
                       "bindings": [
                         {
                           "binding_name": "#download_info_text",
-                          "binding_name_override": "#text"
+                          "binding_name_override": "#text",
+                          "binding_condition" : "always_when_visible"
                         }
                       ]
                     }
@@ -66,8 +67,9 @@
                       "anchor_to": "center",
                       "$progress_bindings": [
                         {
-                          "binding_name": "#download_progress_bar_percentage",
-                          "binding_name_override": "#clip_ratio"
+                          "binding_name": "#download_progress",
+                          "binding_name_override": "#clip_ratio",
+                          "binding_condition": "always_when_visible"
                         }
                       ]
                     }
@@ -180,7 +182,8 @@
                       "bindings": [
                         {
                           "binding_name": "#download_info_text",
-                          "binding_name_override": "#text"
+                          "binding_name_override": "#text",
+                          "binding_condition": "always_when_visible"
                         }
                       ]
                     }
@@ -208,7 +211,8 @@
                       "$progress_bindings": [
                         {
                           "binding_name": "#download_progress_bar_percentage",
-                          "binding_name_override": "#clip_ratio"
+                          "binding_name_override": "#clip_ratio",
+                          "binding_condition": "always_when_visible"
                         }
                       ]
                     }
@@ -309,7 +313,14 @@
           "$button_content": "pdp.large_button_coin_purchase_label",
           "$markdown_size": [ "100% + 2px", "100% + 4px" ],
           "$is_purchase_button": true,
-          "$ignore_markdown_filler_panel": "#is_on_sale"
+          "$ignore_markdown_filler_panel": "#is_on_sale",
+          "enabled": false,
+          "bindings": [
+            {
+              "binding_name": "#purchase_panel_enabled",
+              "binding_name_override": "#enabled"
+            }
+          ]
         }
       },
       {
@@ -340,7 +351,14 @@
                 "$button_action": "button.purchase_with_currency",
                 "$focus_id": "$interact_button_id",
                 "$button_size_override": [ "100% - 2px", "100%" ],
-                "$button_content": "pdp.currency_purchase_label"
+                "$button_content": "pdp.currency_purchase_label",
+                "enabled": false,
+                "bindings": [
+                  {
+                    "binding_name": "#purchase_panel_enabled",
+                    "binding_name_override": "#enabled"
+                  }
+                ]
               }
             }
           ]
@@ -351,10 +369,6 @@
       {
         "binding_name": "$purchase_button_visible",
         "binding_name_override": "#visible"
-      },
-      {
-        "binding_name": "#purchase_panel_enabled",
-        "binding_name_override": "#enabled"
       }
     ]
   },
@@ -465,10 +479,6 @@
       {
         "binding_name": "#purchase_panel_visible",
         "binding_name_override": "#visible"
-      },
-      {
-        "binding_name": "#purchase_panel_enabled",
-        "binding_name_override": "#enabled"
       }
     ],
     "controls": [
@@ -489,7 +499,14 @@
                 "$interact_button_id|default": "button.purchase_with_coins",
                 "$focus_id": "$interact_button_id",
                 "$button_content": "pdp.smooth_coin_purchase_label_formfitting",
-                "$is_purchase_button": true
+                "$is_purchase_button": true,
+                "enabled": false,
+                "bindings": [
+                  {
+                    "binding_name": "#purchase_panel_enabled",
+                    "binding_name_override": "#enabled"
+                  }
+                ]
               }
             }
           ]
@@ -532,7 +549,14 @@
                 "$button_action": "button.purchase_with_currency",
                 "$focus_id": "$interact_button_id",
                 "$button_content": "pdp.currency_purchase_label",
-                "$text_size": [ "100%", "100%" ]
+                "$text_size": [ "100%", "100%" ],
+                "enabled": false,
+                "bindings": [
+                  {
+                    "binding_name": "#purchase_panel_enabled",
+                    "binding_name_override": "#enabled"
+                  }
+                ]
               }
             }
           ]
@@ -2315,6 +2339,7 @@
   "realms_plus_expiration": {
     "type": "panel",
     "size": [ "100%", "20% + 1px" ],
+    "offset": [ 0, 0.5 ],
     "anchor_from": "bottom_middle",
     "anchor_to": "bottom_middle",
     "controls": [
@@ -2326,7 +2351,7 @@
           "anchor_to": "bottom_middle",
           "texture": "textures/ui/purple_gradient",
           "tiled": "y",
-          "layer": 1
+          "layer": 3
         }
       },
       {
@@ -2337,7 +2362,7 @@
           "anchor_from": "left_middle",
           "anchor_to": "left_middle",
           "offset": [ 2, 0 ],
-          "layer": 3
+          "layer": 5
         }
       },
       {
@@ -2348,11 +2373,11 @@
           "anchor_from": "left_middle",
           "anchor_to": "left_middle",
           "offset": [ 18, 0 ],
-          "text": "#realms_expiration_label",
-          "layer": 4,
+          "text": "#item_realms_expiration_label",
+          "layer": 6,
           "bindings": [
             {
-              "binding_name": "#realms_expiration_label",
+              "binding_name": "#item_realms_expiration_label",
               "binding_type": "global"
             }
           ]
@@ -2366,7 +2391,7 @@
           "anchor_from": "right_middle",
           "anchor_to": "right_middle",
           "offset": [ -10, 0 ],
-          "layer": 2
+          "layer": 4
         }
       }
     ],
@@ -2416,7 +2441,9 @@
                                 }
                               },
                               {
-                                "realms_plus_expiration_banner@pdp.realms_plus_expiration": {}
+                                "realms_plus_expiration_banner@pdp.realms_plus_expiration": {
+                                  "layer": 5
+                                }
                               },
                               {
                                 "video_overlay_button@common.button": {
@@ -2585,7 +2612,7 @@
             {
               "bottom": {
                 "type": "panel",
-                "size": [ "100%", 20 ]
+                "size": [ "100%", 5 ]
               }
             }
           ]
@@ -3091,35 +3118,7 @@
         }
       },
       {
-        "disclaimer_panel": {
-          "type": "panel",
-          "size": [ "100%", "100%c" ],
-          "controls": [
-            {
-              "legal_text_label": {
-                "type": "label",
-                "size": [ "100% - 2px", "default" ],
-                "offset": [ 2, -1 ],
-                "layer": 10,
-                "color": "$body_text_color",
-                "font_type": "smooth",
-                "font_scale_factor": 0.68,
-                "text": "#purchase_with_currency_disclaimer",
-                "bindings": [
-                  {
-                    "binding_name": "#purchase_with_currency_disclaimer"
-                  }
-                ]
-              }
-            }
-          ],
-          "bindings": [
-            {
-              "binding_name": "#currency_purchase_visible",
-              "binding_name_override": "#visible"
-            }
-          ]
-        }
+        "disclaimer_panel@common_store.disclaimer_panel": {}
       },
       {
         "pad_1": {

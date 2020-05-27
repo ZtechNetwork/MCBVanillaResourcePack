@@ -1,0 +1,263 @@
+{
+  "namespace": "smithing_table_pocket",
+
+  // Backgrounds //
+
+  "ingot_image@smithing_table.smithing_image": {
+    "anchor_to": "center",
+    "anchor_from": "center",
+    "size": [ 16, 16 ],
+    "texture": "textures/ui/ingot_image"
+  },
+
+  "background_image": {
+    "type": "image",
+    "size": [ "100%", "100%" ],
+    "texture": "textures/ui/background_panel"
+  },
+
+  // Arrow //
+
+  "arrow_icon": {
+    "type": "image",
+    "texture": "textures/ui/arrow_icon",
+    "size": [ 24, 16 ]
+  },
+
+  // Labels //
+
+  "upgrade_label": {
+    "type": "label",
+    "color": "$pocket_title_text_color",
+    "layer": 1,
+    "text": "container.smithing_table.upgrade",
+    "anchor_from": "center",
+    "anchor_to": "center"
+  },
+
+  // Text Edit //
+
+  "smithing_table_title_and_text_panel": {
+    "type": "panel",
+    "anchor_from": "left_middle",
+    "anchor_to": "left_middle",
+    "controls": [
+      {
+        "upgrade_label@smithing_table_pocket.upgrade_label": {
+          "layer": 1,
+          "offset": [ 5, -8 ]
+        }
+      }
+    ]
+  },
+
+  // Slots //
+
+  "slots_panel": {
+    "type": "panel",
+    "anchor_from": "left_middle",
+    "anchor_to": "left_middle",
+    "controls": [
+      {
+        "input_slot@common.pocket_ui_large_container_item": {
+          "offset": [ 0, 0 ],
+          "anchor_from": "left_middle",
+          "anchor_to": "left_middle",
+          "$item_collection_name": "smithing_table_input_items"
+        }
+      },
+      {
+        "material_slot@common.pocket_ui_large_container_item": {
+          "offset": [ 48, 0 ],
+          "anchor_from": "left_middle",
+          "anchor_to": "left_middle",
+          "$item_collection_name": "smithing_table_material_items",
+          "$cell_overlay_ref": "smithing_table_pocket.ingot_image"
+        }
+      },
+      {
+        "result_slot@common.pocket_ui_large_container_item": {
+          "offset": [ 109, 0 ],
+          "anchor_from": "left_middle",
+          "anchor_to": "left_middle",
+          "$item_collection_name": "smithing_table_result_items",
+          "$button_ref": "smithing_table.smithing_table_output_slot_button"
+        }
+      },
+      {
+        "plus_sign@smithing_table_pocket.upgrade_label": {
+          "text": "+",
+          "offset": [ 38, 0 ],
+          "anchor_from": "left_middle",
+          "anchor_to": "left_middle",
+          "layer": 1
+        }
+      },
+      {
+        "arrow": {
+          "type": "image",
+          "texture": "textures/ui/arrow_inactive",
+          "size": [ 22, 15 ],
+          "anchor_from": "left_middle",
+          "anchor_to": "left_middle",
+          "offset": [ 83, 0 ],
+          "controls": [
+            {
+              "cross_out": {
+                "type": "image",
+                "layer": 1,
+                "texture": "textures/ui/crossout",
+                "bindings": [
+                  {
+                    "binding_name": "#cross_out_icon",
+                    "binding_name_override": "#visible"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  // smithing_table Panel //
+
+  "smithing_table_contents_panel": {
+    "type": "panel",
+    "size": [ "100%", "100%" ],
+    "controls": [
+      {
+        "slots_panel@smithing_table_pocket.slots_panel": {
+          "offset": [ 0, -2 ]
+        }
+      },
+      {
+        "smithing_table_title_and_text_panel@smithing_table_pocket.smithing_table_title_and_text_panel": {
+          "offset": [ -108, -30 ]
+        }
+      }
+    ]
+  },
+
+  // Inventory Grids //
+
+  "inventory_grid": {
+    "type": "grid",
+    "grid_rescaling_type": "horizontal",
+    "anchor_to": "top_left",
+    "anchor_from": "top_left",
+    "size": [ "100%", "default" ],
+    "maximum_grid_items": 36,
+    "collection_name": "combined_hotbar_and_inventory_items",
+    "grid_item_template": "common.pocket_ui_container_item",
+    "$item_collection_name": "combined_hotbar_and_inventory_items"
+  },
+
+  "inventory_content": {
+    "type": "panel",
+    "size": [ "80%", "95%" ],
+    "anchor_to": "center",
+    "anchor_from": "center",
+    "controls": [
+      {
+        "scrolling_panel@common.scrolling_panel": {
+          "layer": 1,
+          "$scrolling_pane_size": [ "100%", "100%-2px" ],
+          "$scrolling_content": "smithing_table_pocket.inventory_grid",
+          "$scroll_box_mouse_image_control": "common-classic.button_state_default",
+          "$scroll_size": [ "8px", "100%" ]
+        }
+      }
+    ]
+  },
+
+  // Half Screens //
+
+  "half_screen": {
+    "type": "input_panel",
+    "size": [ "50%", "100%-31px" ],
+    "offset": [ 0, 27 ],
+    "anchor_from": "top_left",
+    "anchor_to": "top_left"
+  },
+  "inventory_half_screen@smithing_table_pocket.half_screen": {
+    "size": [ "32%", "100%-35px" ],
+    "offset": [ 9, 31 ],
+
+    "controls": [
+      { "inventory_content@smithing_table_pocket.inventory_content": {} }
+    ]
+  },
+  "smithing_table_half_screen@smithing_table_pocket.half_screen": {
+    "anchor_from": "top_right",
+    "anchor_to": "top_right",
+    "size": [ "68%", "default" ],
+    "offset": [ 10, 0 ],
+    "controls": [
+      {
+        "smithing_table_contents_panel@smithing_table_pocket.smithing_table_contents_panel": {
+          "layer": 2
+        }
+      }
+    ]
+  },
+
+  // Header //
+
+  "header": {
+    "type": "panel",
+    "size": [ "100%", 28 ],
+    "anchor_from": "top_middle",
+    "anchor_to": "top_middle",
+    "controls": [
+      {
+        "header_background": {
+          "type": "image",
+          "texture": "textures/ui/header_bar"
+        }
+      },
+      { "legacy_pocket_close_button@common.legacy_pocket_close_button": {} },
+      {
+        "panel": {
+          "type": "panel",
+          "anchor_from": "center",
+          "anchor_to": "center",
+          "controls": [
+            {
+              "title_label@smithing_table_pocket.upgrade_label": {
+                "text": "tile.smithing_table.name",
+                "layer": 1
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  // smithing_table Screen //
+
+  "smithing_table_panel": {
+    "type": "panel",
+    "controls": [
+      { "header@smithing_table_pocket.header": { "layer": 2 } },
+      { "bg@smithing_table_pocket.background_image": {} },
+      { "root_panel@common.root_panel": {} },
+      {
+        "inventory@smithing_table_pocket.inventory_half_screen": {
+          "layer": 1,
+          "$container_size": 36,
+          "$pane_collection": "combined_hotbar_and_inventory_items"
+        }
+      },
+      { "smithing_table_half_screen@smithing_table_pocket.smithing_table_half_screen": {} },
+
+      { "container_gamepad_helpers@common.container_gamepad_helpers": { "layer": 2 } },
+      { "inventory_selected_icon_button@common.inventory_selected_icon_button": {} },
+      { "hold_icon@common.inventory_take_progress_icon_button": {} },
+      { "flying_item_renderer@common.flying_item_renderer": {} },
+      { "selected_item_details_factory@common.selected_item_details_factory": {} }
+    ]
+  }
+}

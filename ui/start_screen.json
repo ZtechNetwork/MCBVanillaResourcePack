@@ -170,7 +170,8 @@
     "$button_text": "profileScreen.header",
     "$focus_id": "profile_button",
     "$pressed_alpha": 0.65,
-    "$button_tts_header": "accessibility.start.profile"
+    "$button_tts_header": "accessibility.start.profile",
+    "tts_index": 5
   },
 
   "skin_viewer_panel": {
@@ -180,6 +181,7 @@
     "size": [ "100%", "100% - 24px" ],
     "offset": [ 0, -16 ],
     "gesture_tracking_button": "button.turn_doll",
+    "tts_ignore_count": true,
     "button_mappings": [
       {
         "from_button_id": "button.menu_select",
@@ -199,6 +201,8 @@
               "paper_doll": {
                 "type": "custom",
                 "renderer": "paper_doll_renderer",
+                "camera_tilt_degrees": -10,
+                "starting_rotation": 30,
                 "layer": 2,
                 "anchor_from": "bottom_middle",
                 "anchor_to": "bottom_middle",
@@ -228,7 +232,7 @@
                   {
                     "binding_name": "#is_appearance_visible",
                     "binding_name_override": "#visible",
-                    "binding_condition":  "always"
+                    "binding_condition": "always"
                   }
                 ]
               }
@@ -303,7 +307,7 @@
     "type": "panel",
     "$button_tts_header": "accessibility.start.feedback",
     "controls": [
-      { "edu_feedback_button@start.edu_feedback_button": { "ignored": "(not $education_edition)" } },
+      { "edu_feedback_button@start.edu_feedback_button": { "ignored": "$edu_feedback_ignored" } },
       { "release_feedback_button@start.release_feedback_button": { "ignored": "($pre_release or $education_edition)" } },
       { "pre_release_feedback_button@start.pre_release_feedback_button": { "ignored": "(not $pre_release or $education_edition)" } }
     ]
@@ -317,7 +321,8 @@
     "$button_text_size": [ "default", 10 ],
     "$button_text_max_size": [ 80, 10 ], // longest localized string length will fit in this
     "$button_text": "xbox.signin",
-    "$focus_id": "menu_xbox_signin_button"
+    "$focus_id": "menu_xbox_signin_button",
+    "tts_index": 4
   },
 
 
@@ -327,6 +332,7 @@
     "$focus_id": "menu_xbox_signin_button",
     "$button_text": "#platform_signin_text",
     "$button_text_binding_type": "global",
+    "tts_index": 4,
     "bindings": [
       {
         "binding_name": "#platform_signin_text"
@@ -361,7 +367,7 @@
           "controls": [
             {
               "gamertag_pic_and_label": {
-                "ignored": "(not $nx_os and not $is_berwick)",
+                "ignored": "(not $nx_os and not $is_ps4)",
                 "type": "stack_panel",
                 "orientation": "horizontal",
                 "size": [ "100%c", 16 ],
@@ -465,7 +471,7 @@
             },
             {
               "xbl_btn@start.column_frame": {
-                "ignored": "($nx_os or $is_berwick)",
+                "ignored": "($nx_os or $is_ps4)",
                 "size": [ 94, 32 ],
                 "max_size": [ "95%", 32 ],
                 "controls": [
@@ -481,7 +487,7 @@
             },
             {
               "platform_signin_btn@start.column_frame": {
-                "ignored": "(not $nx_os and not $is_berwick)",
+                "ignored": "(not $nx_os and not $is_ps4)",
                 "size": [ "90% - 6px", 32 ],
                 "controls": [
                   {
@@ -539,28 +545,10 @@
   },
 
   "play_button@start.main_button": {
-    "variables": [
-      {
-        "requires": "$education_edition",
-        "$pressed_button_name": "button.menu_edu_play"
-      },
-      {
-        "requires": "(not $education_edition)",
-        "$pressed_button_name": "button.menu_play"
-      }
-    ],
-
+    "$pressed_button_name": "$play_button_target",
     "$button_text": "menu.play",
-    "default_focus_precedence": 1,
-    "$focus_override_right": "#play_button_right_focus",
-    "bindings": [
-      {
-        "binding_name": "#focus_change_left"
-      },
-      {
-        "binding_name": "#play_button_right_focus"
-      }
-    ]
+    "$focus_override_right": "profile_button",
+    "tts_index": 1
   },
 
   "course_button@start.main_button": {
@@ -571,6 +559,11 @@
   "tutorial_button@start.main_button": {
     "$pressed_button_name": "button.menu_tutorial",
     "$button_text": "tutorial.edu.menuTitle"
+  },
+
+  "featured_world_button@start.main_button": {
+    "$pressed_button_name": "button.featured_world",
+    "$button_text": "start_screen.start_demo"
   },
 
   "switch_accounts_button@start.main_button": {
@@ -596,7 +589,9 @@
 
   "settings_button@start.main_button": {
     "$pressed_button_name": "button.menu_settings",
-    "$button_text": "menu.settings"
+    "$button_text": "menu.settings",
+    "$focus_override_right": "profile_button",
+    "tts_index": 2
   },
 
   "store_button@common_buttons.light_content_button": {
@@ -607,7 +602,9 @@
     "$button_text_binding_type": "none",
     "$button_binding_condition": "none",
     "$button_text_grid_collection_name": "",
-    "tts_inherit_siblings": true
+    "tts_inherit_siblings": true,
+    "$focus_override_right": "profile_button",
+    "tts_index": 3
   },
 
   "error_store_button@common_buttons.light_content_button": {
@@ -686,7 +683,7 @@
       {
         "marketplace_button_label": {
           "type": "label",
-          "text": "hbui.MainMenu.store",
+          "text": "menu.store",
           "color": "$light_button_locked_text_color"
         }
       }
@@ -783,7 +780,7 @@
           "controls": [
             {
               "stacked_row_0@start.stacked_row": {
-                "ignored": "$education_edition_china",
+                "ignored": "(not $play_button_visible)",
                 "controls": [
                   { "play_button@start.play_button": {} }
                 ]
@@ -791,9 +788,17 @@
             },
             {
               "course@start.stacked_row": {
-                "ignored": "(not $education_edition_china)",
+                "ignored": "$courses_ignored",
                 "controls": [
                   { "course_button@start.course_button": {} }
+                ]
+              }
+            },
+            {
+              "featured_world@start.stacked_row": {
+                "ignored": "$featured_world_ignored",
+                "controls": [
+                  { "featured_world_button@start.featured_world_button": {} }
                 ]
               }
             },
@@ -885,8 +890,8 @@
               }
             },
             {
-              "switch_accounts@start.stacked_row": {
-                "ignored": "(not $education_edition) or $education_edition_china",
+              "switch_accounts_row@start.stacked_row": {
+                "ignored": "$switch_accounts_ignored",
                 "controls": [
                   { "switch_accounts@start.switch_accounts_button": {} }
                 ]
@@ -987,7 +992,7 @@
                 ],
                 "bindings": [
                   {
-                    "binding_name": "#trial_game_mode",
+                    "binding_name": "#buy_game_visible",
                     "binding_name_override": "#visible"
                   }
                 ]

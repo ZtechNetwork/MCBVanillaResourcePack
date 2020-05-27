@@ -57,6 +57,24 @@
     "$toast_texture": "textures/ui/achievement_third_party"
   },
 
+  "persona_icon@common.empty_panel": {
+    "$item_display_size": [ "100%y", "100% - 3px" ],
+    "size": "$item_display_size",
+    "$is_loading": false,
+    "$item_texture_file_system_binding_name": "#icon_file_system",
+    "$item_texture_path_binding_name": "#icon_path",
+    "$ignore_background": true,
+    "$ignore_rarity_bar": true,
+    "controls": [
+      {
+        "item@persona_common.item_display": {
+          "anchor_from": "bottom_middle",
+          "anchor_to": "bottom_middle"
+        }
+      }
+    ]
+  },
+
   "resource_pack_icon": {
     "type": "panel",
     "size": [ "100%c", "100%" ],
@@ -160,7 +178,8 @@
                     "third_party_achievement_icon": "@toast_screen.third_party_achievement_icon",
                     "third_party_invite_icon": "@toast_screen.third_party_invite_icon",
                     "icon_resource_pack": "@toast_screen.resource_pack_icon",
-                    "key_art_image": "@toast_screen.key_art_image"
+                    "key_art_image": "@toast_screen.key_art_image",
+                    "persona_icon": "@toast_screen.persona_icon"
                   },
                   "factory_variables": [
                     "$hide_xbox_live_icon"
@@ -244,7 +263,6 @@
                 "controls": [
                   {
                     "gamer_score_icon@toast_screen.gamer_score_icon": {
-                      "offset": [ 0, 1 ],
                       "layer": 1,
                       "anchor_from": "left_middle",
                       "anchor_to": "left_middle"
@@ -254,16 +272,25 @@
               }
             },
             {
-              "subtext@toast_screen.toast_label": {
+              "subtext_offset@common.empty_panel": {
                 "size": [ "fill", 10 ],
-                "text": "#toast_subtitle",
-                "bindings": [
+                "controls": [
                   {
-                    "binding_name": "#toast_subtitle"
-                  },
-                  {
-                    "binding_name": "#toast_subtitle_visible",
-                    "binding_name_override": "#visible"
+                    "subtext@toast_screen.toast_label": {
+                      "size": [ "100%", "100%" ],
+                      "offset": [ 0, -2 ],
+                      "text": "#toast_subtitle",
+                      "$toast_font_type": "smooth",
+                      "bindings": [
+                        {
+                          "binding_name": "#toast_subtitle"
+                        },
+                        {
+                          "binding_name": "#toast_subtitle_visible",
+                          "binding_name_override": "#visible"
+                        }
+                      ]
+                    }
                   }
                 ]
               }

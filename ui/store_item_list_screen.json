@@ -92,12 +92,11 @@
     "$store_offer_grid_prefix|default": "list",
     "$store_offer_grid_collection_name|default": "list_collection",
     "collection_name": "$store_offer_grid_collection_name",
-    
+
     "property_bag": {
       "#collection_name": "$store_offer_grid_collection_name"
     },
-
-    "bindings": [
+    "$store_offer_grid_bindings|default": [
       {
         "binding_type": "$store_factory_collection_details",
         "binding_collection_name": "$store_factory_collection_name",
@@ -111,7 +110,8 @@
         "binding_name": "#grid_list_visible",
         "binding_name_override": "#visible"
       }
-    ]
+    ],
+    "bindings": "$store_offer_grid_bindings"
   },
 
   "store_offer_title": {
@@ -137,7 +137,8 @@
 
   "store_offer_grid_item": {
     "type": "panel",
-    "size": [ "25%", "56.25%x + 36px" ],
+    "$store_offer_grid_item_size|default": [ "25%", "56.25%x + 36px" ],
+    "size": "$store_offer_grid_item_size",
 
     "$offer_category_collection_details|default": "none",
     "$offer_category_collection_name|default": "",
@@ -168,6 +169,12 @@
                       "size": [ "100% + 2px", "100% + 2px" ],
                       "color": [ 0, 0, 0 ],
                       "layer": 2
+                    }
+                  },
+                  {
+                    "realms_plus_expiration_banner@common_store.realms_plus_expiration": {
+                      "$realm_expiration_banner_visible": "#realm_expiration_banner_visible",
+                      "$realms_expiration_label": "#realms_expiration_label"
                     }
                   }
                 ]

@@ -97,6 +97,7 @@
     "text_alignment": "$title_text_alignment",
     "layer": 2,
     "text": "#text",
+    "text_tts": "#tts_text",
     "color": "$title_text_color",
     "shadow": false,
     "bindings": [
@@ -105,6 +106,12 @@
         "source_control_name": "$visibility_source_control_name",
         "source_property_name": "#modal_title_text",
         "target_property_name": "#text"
+      },
+      {
+        "binding_type": "view",
+        "source_control_name": "$visibility_source_control_name",
+        "source_property_name": "#modal_title_tts",
+        "target_property_name": "#tts_text"
       }
     ]
   },
@@ -131,6 +138,7 @@
           "anchor_from": "top_middle",
           "layer": 2,
           "text": "#text",
+          "text_tts": "#tts_text",
           "color": "$body_text_color",
           "font_type": "smooth",
           "shadow": false,
@@ -140,6 +148,12 @@
               "source_control_name": "$visibility_source_control_name",
               "source_property_name": "#modal_label_text",
               "target_property_name": "#text"
+            },
+            {
+              "binding_type": "view",
+              "source_control_name": "$visibility_source_control_name",
+              "source_property_name": "#modal_label_tts",
+              "target_property_name": "#tts_text"
             }
           ]
         }
@@ -482,7 +496,16 @@
                     "header_content": {
                       "type": "label",
                       "text": "$modal_title",
-                      "color": "$light_button_default_text_color"
+                      "$modal_title_binding_type|default": "none",
+                      "$modal_title_binding_condition|default": "none",
+                      "color": "$light_button_default_text_color",
+                      "bindings": [
+                        {
+                          "binding_name": "$modal_title",
+                          "binding_type": "$modal_title_binding_type",
+                          "binding_condition": "$modal_title_binding_condition"
+                        }
+                      ]
                     }
                   }
                 ]

@@ -231,6 +231,8 @@
               "paper_doll": {
                 "type": "custom",
                 "renderer": "paper_doll_renderer",
+                "camera_tilt_degrees": -10,
+                "starting_rotation": 30,
                 "layer": 2,
                 "anchor_from": "bottom_middle",
                 "anchor_to": "bottom_middle",
@@ -507,17 +509,29 @@
         "to_button_id": "button.to_profile_or_skins_screen",
         "mapping_type": "global",
         "scope": "controller"
-      }      
+      },
+      {
+        "from_button_id": "button.menu_tab_left",
+        "to_button_id": "button.menu_tab_left",
+        "mapping_type": "global",
+        "scope": "view"
+      },
+      {
+        "from_button_id": "button.menu_tab_right",
+        "to_button_id": "button.menu_tab_right",
+        "mapping_type": "global",
+        "scope": "view"
+      }
     ],
 
     "variables": [
       {
-        "requires": "(not $education_edition)",
+        "requires": "$ignore_edu_pause",
         "$screen_content": "pause.pause_screen_content",
         "$screen_bg_content": "common.screen_background"
       },
       {
-        "requires": "$education_edition",
+        "requires": "(not $ignore_edu_pause)",
         "$screen_content": "edu_pause.pause_screen_content"
       }
     ]
@@ -1029,7 +1043,9 @@
     "anchor_from": "top_left",
     "bindings": [
       {
-        "binding_name": "#players_grid_dimension"
+        "binding_name": "#players_grid_dimension",
+        // Necessary do to a bug with grid item bindings not refreshing when the grid is inside a stack panel
+        "binding_condition": "always"
       }
     ]
   },
@@ -1119,12 +1135,6 @@
       {
         "binding_type": "collection_details",
         "binding_collection_name": "players_collection"
-      },
-      {
-        "binding_name": "#permissions_button_enabled",
-        "binding_name_override": "#enabled",
-        "binding_type":  "collection",
-        "binding_collection_name":  "players_collection"
       }
     ]
   },
@@ -1372,7 +1382,12 @@
       {
         "player_grid_banner_no_focus@pause.player_grid_banner_no_focus": {
           "controls": [
-            { "player_button_content@pause.player_button_content": {} }
+            {
+              "player_button_content@pause.player_button_content": {
+                "offset": [ 7, 0 ],
+                "size": [ "92%", "90%" ]
+              }
+            }
           ]
         }
       },

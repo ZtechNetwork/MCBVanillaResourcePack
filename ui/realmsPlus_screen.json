@@ -268,7 +268,7 @@
 
     "variables": [
       {
-        "requires": "(not $is_low_memory_device and not $is_berwick)", // We don't load MinecraftTen in these cases so we need to revert to Mojangles.
+        "requires": "(not $is_low_memory_device and not $is_ps4)", // We don't load MinecraftTen in these cases so we need to revert to Mojangles.
         "font_scale_factor": 1.2,
         "offset": [ 0, -4 ] // Because of how the font is rendered it looks like it is offset down from the center of the render area
       }
@@ -473,7 +473,7 @@
       {
         "realms_banner@realmsPlus.markdown_background": {
           "size": [ "100%c", "100%" ],
-          "$banner_size": [ "13px", "100%" ],
+          "$banner_size": [ 13, "100%" ],
           "$triangle_offset": [ 0, 0 ],
           "$use_animated_icon": true,
           "layer": 9
@@ -518,19 +518,19 @@
     "size": [ "100%c", "100%" ],
     "anchor_from": "bottom_left",
     "anchor_to": "bottom_left",
-    "$banner_size|default": [ "100%c - 2px", "100%" ],
+    "$banner_size|default": [ 10, "100%" ],
     "$icon_color": "$store_sales_banner_text_color",
     "$default_state|default": false,
     "$hover_state|default": false,
     "$pressed_state|default": false,
-    "$banner_texture": "textures/ui/pinkflag",
-    "$triangle_texture": "textures/ui/pinkflagtriangle",
-    "$triangle_offset": [ -0.25, 0 ],
+    "$banner_texture": "textures/ui/realmflagSmooth",
+    "$triangle_texture": "textures/ui/realmflagtriangleSmooth",
+    "$triangle_offset": [ -1, 0 ],
     "variables": [
       {
         "requires": "$pressed_state",
         "$banner_offset": [ 0, -1 ],
-        "$triangle_offset": [ -0.25, -1 ]
+        "$triangle_offset": [ -1, -1 ]
       }
     ],
     "controls": [
@@ -541,23 +541,39 @@
           "controls": [
             {
               "banner@common_store.markdown_banner": {
-                "size": "$banner_size",
-                "layer": 1,
+                "size": [ "100%c", "100%" ],
                 "$banner_offset|default": [ 0, 0 ],
                 "offset": "$banner_offset",
                 "$use_animated_icon|default": false,
+                "layer": 1,
                 "controls": [
                   {
-                    "realms_icon": {
-                      "type": "image",
-                      "ignored": "$use_animated_icon",
-                      "texture": "textures/ui/realms_plus_normal",
-                      "size": [ "100%y", "100%" ],
-                      "uv_size": [ 19, 19 ],
-                      "uv": "@realmsPlus.realms_static_single_frame_animation",
-                      "offset": [ 0, -0.5 ],
+                    "banner_stack_panel": {
+                      "type": "stack_panel",
+                      "orientation": "horizontal",
+                      "size": "$banner_size",
+                      "layer": 2,
+                      "controls": "$banner_content"
+                    }
+                  }
+                ],
+                "$banner_content|default": [
+                  {
+                    "realms_icon_panel": {
+                      "type": "panel",
+                      "size": "$banner_size",
                       "layer": 1,
-                      "bilinear": true
+                      "controls": [
+                        {
+                          "realms_icon": {
+                            "type": "image",
+                            "ignored": "$use_animated_icon",
+                            "texture": "textures/ui/realmPortalSmall",
+                            "size": [ 8, 10 ],
+                            "layer": 1
+                          }
+                        }
+                      ]
                     }
                   }
                 ]

@@ -1,0 +1,159 @@
+/********************************************************
++*   (c) Mojang. All rights reserved                    *
++*   (c) Microsoft. All rights reserved.                *
++********************************************************/
+
+{
+  "namespace": "account_banned",
+
+  "banner_fill": {
+    "type": "image",
+    "texture": "textures/ui/Banners"
+  },
+
+  "Hammer_image": {
+    "type": "image",
+    "texture": "textures/ui/hammersmashedits",
+    "size": [ 140, 109 ],
+    "uv_size": [ 140, 109 ],
+    "uv": "@account_banned.Hammer_animation",
+    "disable_anim_fast_forward": true
+  },
+
+  "Hammer_animation": {
+    "anim_type": "flip_book",
+    "initial_uv": [ 0, 0 ],
+    "frame_count": 7,
+    "frame_step": 7,
+    "fps": 14,
+    "reversible": false,
+    "easing": "linear"
+  },
+
+  "padding": {
+    "type": "panel",
+    "size": [ "100%", 2 ]
+  },
+
+  "dialog_content": {
+    "type": "stack_panel",
+    "size": [ "100% - 4px", "100% - 4px" ],
+    "controls": [
+      {
+        "content_panel@account_banned.description_panel": {
+          "size": [ "100%", "fill" ],
+          "orientation": "horizontal",
+          "anchor_from": "center",
+          "anchor_to": "center"
+        }
+      },
+      {
+        "more_info_panel@account_banned.more_info_panel": {
+          "size": [ "100%", "20%" ],
+          "$show_background": true,
+          "anchor_from": "bottom_middle",
+          "anchor_to": "bottom_middle"
+        }
+      }
+    ]
+  },
+
+  "description_panel": {
+    "type": "stack_panel",
+    "orientation": "horizontal",
+    "size": [ "100%", "100%" ],
+    "layer": 1,
+    "controls": [
+      {
+        "hammer_animation_panel@account_banned.animation_panel": {
+          "size": [ "30%", "100%" ],
+          "anchor_from": "left_middle",
+          "anchor_to": "left_middle"
+        }
+      },
+      {
+        "scrolling_panel@common.scrolling_panel": {
+          "$show_background": false,
+          "$scroll_box_visible_touch": true,
+          "size": [ "70%", "100%" ],
+          "$scrolling_content": "account_banned.description_label_panel",
+          "$scroll_size": [ 5, "100%" ],
+          "$scrolling_pane_size": [ "100% - 1px", "100%" ],
+          "$scrolling_pane_offset": [ 1, 0 ],
+          "$scroll_bar_right_padding_size": [ 0, 0 ]
+        }
+      }
+    ]
+  },
+
+  "animation_panel": {
+    "type": "stack_panel",
+    "controls": [
+      {
+        "animated_layer@account_banned.Hammer_image": {
+          "size": [ "100%", "78%" ],
+          "anchor_from": "center",
+          "anchor_to": "center"
+        }
+      }
+    ]
+  },
+
+  "description_label_panel": {
+    "type": "stack_panel",
+    "size": [ "100%", "100%c" ],
+    "$font_scale": 1.2,
+    "controls": [
+      {
+        "line1": {
+          "type": "label",
+          "size": [ "100%", "default" ],
+          "text": "playfab.account.banned.body",
+          "font_type": "smooth",
+          "color": "$body_text_color"
+        }
+      }
+    ]
+  },
+
+  "view_more_info_button@common_buttons.hyperlink_button": {
+    "$button_text": "playfab.account.banned.body.button",
+    "property_bag": {
+      "#hyperlink": "https://aka.ms/MCBanned"
+    }
+  },
+
+  "more_info_panel": {
+    "type": "stack_panel",
+    "layer": 1,
+    "controls": [
+      {
+        "view_info_button@view_more_info_button": {}
+      }
+    ]
+  },
+
+  // -----------------------------------------------
+  //
+  //    screen
+  //
+  // -----------------------------------------------
+  "account_banned_screen@common.base_screen": {
+    // When the player hits Esc or exit button (menu_cancel button), they can exit the screen
+    "button_mappings": [
+      {
+        "from_button_id": "button.menu_cancel",
+        "to_button_id": "button.menu_exit",
+        "mapping_type": "global"
+      }
+    ],
+    "$screen_content": "account_banned.screen_dialog"
+  },
+
+  "screen_dialog@common_dialogs.main_panel_no_buttons": {
+    "$text_name": "playfab.account.banned.title",
+    "$child_control": "account_banned.dialog_content",
+    "$show_close_button": true,
+    "size": [ "50%", "50%" ]
+  }
+}

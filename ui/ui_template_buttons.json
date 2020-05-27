@@ -541,7 +541,7 @@
           "controls": [
             {
               "label_hover@common.single_line_label": {
-                "$single_line_label_color": [ 0.215, 0.839, 0.118 ],
+                "$single_line_label_color|default": [ 0.215, 0.839, 0.118 ],
                 "$underline_control": [
                   {
                     "underline_hover@common.underline": {
@@ -1315,7 +1315,8 @@
   "nested_base_label": {
     "type": "label",
     "shadow": true,
-    "text_alignment": "center",
+    "$nested_label_alignment|default": "center",
+    "text_alignment": "$nested_label_alignment",
     "$nested_label_color|default": "$generic_button_text_color",
     "color": "$nested_label_color",
 
@@ -1369,7 +1370,9 @@
           "type": "image",
           "$nested_label_image|default": "",
           "texture": "$nested_label_image",
-          "size": [ "100%y", "100%" ]
+          "size": [ "100%y", "100%" ],
+          "$nested_label_image_bindings|default": [],
+          "bindings": "$nested_label_image_bindings"
         }
       },
       {

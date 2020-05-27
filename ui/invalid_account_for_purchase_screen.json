@@ -1,0 +1,63 @@
+{
+  "namespace": "invalid_account",
+
+  "get_help_button@common_buttons.hyperlink_button": {
+    "$button_text": "store.invalidAccount.getHelp",
+    "property_bag": {
+      "#hyperlink": "https://aka.ms/MCWin10Purchases"
+    }
+  },
+
+  "go_back_button@common_buttons.light_text_button": {
+    "$pressed_button_name": "button.go_back",
+    "$button_text": "gui.goBack"
+  },
+
+  "message": {
+    "type": "label",
+    "size": [ "100% - 4px", "100%" ],
+    "text": "store.invalidAccount.description",
+    "color": "$body_text_color"
+  },
+
+  "content_panel": {
+    "type": "panel",
+    "controls": [
+      {
+        "main_panel@common_dialogs.main_panel_two_buttons": {
+          "$text_name": "store.invalidAccount.title",
+          "$child_control": "invalid_account.message",
+          "$top_button_panel": "invalid_account.get_help_button",
+          "$bottom_button_panel": "invalid_account.go_back_button",
+          "size": [ 250, 200 ]
+        }
+      }
+    ]
+  },
+
+
+  "invalid_account_for_purchase_screen@common.base_screen": {
+    "button_mappings": [
+      {
+        "from_button_id": "button.menu_cancel",
+        "to_button_id": "button.menu_exit",
+        "mapping_type": "global"
+      }
+    ],
+    "$screen_animations": [
+      "@common.screen_exit_animation_push_fade",
+      "@common.screen_exit_animation_pop_fade",
+      "@common.screen_entrance_animation_push_fade",
+      "@common.screen_entrance_animation_pop_fade"
+    ],
+    "$background_animations": [
+      "@common.screen_exit_animation_push_fade",
+      "@common.screen_exit_animation_pop_fade",
+      "@common.screen_entrance_animation_push_fade",
+      "@common.screen_entrance_animation_pop_fade"
+    ],
+    "force_render_below": true,
+    "$screen_background_control": "coin_purchase.background",
+    "$screen_content": "invalid_account.content_panel"
+  }
+}

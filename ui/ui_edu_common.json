@@ -333,7 +333,9 @@
                     "image": {
                       "size": [ "100%y", "100% - 4px" ],
                       "type": "image",
-                      "texture": "$title_texture"
+                      "texture": "$title_texture",
+                      "$title_image_bindings|default": [],
+                      "bindings": "$title_image_bindings"
                     }
                   }
                 ]
@@ -350,7 +352,9 @@
                       "color": "$title_text_color",
                       "text": "$title_text",
                       "anchor_from": "left_middle",
-                      "anchor_to": "left_middle"
+                      "anchor_to": "left_middle",
+                      "$title_text_bindings|default": [],
+                      "bindings": "$title_text_bindings"
                     }
                   }
                 ]
@@ -387,7 +391,9 @@
           "$close_button_offset": [ 5, 0 ],
           "anchor_from": "right_middle",
           "anchor_to": "right_middle",
-          "$close_button_to_button_id": "button.close_share_popup"
+          "$close_button_to_button_id": "button.close_share_popup",
+          "$button_tts_name": "controllerLayoutScreen.button",
+          "$button_tts_header": "accessibility.button.close"
         }
       }
     ]
@@ -412,7 +418,12 @@
     "layer": 5,
     "size": [ "100%", "100%c" ],
     "controls": [
-      { "body_text@edu_common.share_dialog_body_text": {} },
+      {
+        "description@common.tts_label_focus_wrapper": {
+          "$tts_label_panel": "edu_common.share_dialog_body_text",
+          "$focus_border_size": [ "100%", "100%sm + 3px"]
+        }
+      },
       { "padding_middle@common.empty_panel": { "size": [ "100%sm", 4 ] } },
       { "copy_link_panel@edu_common.copy_link_stack_panel": {} }
     ]
@@ -453,7 +464,7 @@
             {
               "requires": "($apple_os and $supports_share)",
               "$share_icon_texture": "textures/ui/share_apple",
-              "$share_icon_offset": [ 3.5, -1.5 ],
+              "$share_icon_offset": [ 2.5, -1.5 ],
               "$share_icon_size": [ 11, 15 ]
             },
             {
@@ -499,6 +510,8 @@
           "$text_edit_box_enabled_binding_type": "none",
           "$place_holder_text": "$library_item_share_link",
           "$place_holder_text_color": "$body_text_color",
+          "$button_tts_name": "realmsInvitationScreen.shareDialogCopyButton",
+          "$button_tts_header": "controllerLayoutScreen.button",
           "$locked_text_alpha": 1.0
         }
       },
@@ -506,6 +519,8 @@
         "copy_button@common_buttons.light_content_button": {
           "$button_content": "edu_common.share_label",
           "$pressed_button_name": "button.copy_share_link",
+          "$button_tts_name": "controllerLayoutScreen.button",
+          "$button_tts_header": "realmsInvitationScreen.shareDialogCopyButton",
           "size": [ 22, 22 ]
         }
       }
@@ -533,14 +548,48 @@
     ],
     "button_mappings": [
       {
+        "from_button_id": "button.menu_select",
+        "to_button_id": "button.menu_select",
+        "mapping_type": "pressed"
+      },
+      {
+        "from_button_id": "button.menu_secondary_select",
+        "to_button_id": "button.menu_secondary_select",
+        "mapping_type": "pressed"
+      },
+      {
+        "from_button_id": "button.menu_ok",
+        "to_button_id": "button.menu_ok",
+        "mapping_type": "pressed"
+      },
+      {
         "from_button_id": "button.menu_cancel",
         "to_button_id": "button.close_share_popup",
         "mapping_type": "global"
       },
       {
-        "from_button_id": "button.menu_exit",
-        "to_button_id": "button.close_share_popup",
-        "mapping_type": "global"
+        "from_button_id": "button.menu_up",
+        "to_button_id": "button.menu_up",
+        "mapping_type": "global",
+        "scope": "view"
+      },
+      {
+        "from_button_id": "button.menu_down",
+        "to_button_id": "button.menu_down",
+        "mapping_type": "global",
+        "scope": "view"
+      },
+      {
+        "from_button_id": "button.menu_left",
+        "to_button_id": "button.menu_left",
+        "mapping_type": "global",
+        "scope": "view"
+      },
+      {
+        "from_button_id": "button.menu_right",
+        "to_button_id": "button.menu_right",
+        "mapping_type": "global",
+        "scope": "view"
       }
     ]
   },
@@ -550,5 +599,191 @@
     "control_ids": {
       "share_link_popup": "@edu_common.edu_share_text_popup"
     }
+  },
+
+  "vertical_divider": {
+    "type": "panel",
+    "size": [ 8, "100%" ],
+    "controls": [
+      {
+        "divider": {
+          "type": "image",
+          "texture": "textures/ui/vertical_divider",
+          "alpha": 0.1,
+          "keep_ratio": false,
+          "size": [ 2, "100%" ]
+        }
+      }
+    ]
+  },
+
+  "horizontal_divider": {
+    "type": "panel",
+    "size": [ "100%", 8 ],
+    "controls": [
+      {
+        "divider": {
+          "type": "image",
+          "texture": "textures/ui/horizontal_divider",
+          "alpha": 0.1,
+          "keep_ratio": false,
+          "size": [ "100%", 2 ]
+        }
+      }
+    ]
+  },
+
+  "stack_panel_grid_slot": {
+    "type": "panel",
+    "size": [ "fill", "100%c" ],
+    "controls": [
+      {
+        "stack_panel_grid_item_panel": {
+          "type": "panel",
+          "size": [ "100%", "100%c" ],
+          "controls": [
+            { "stack_panel_grid_item@$stack_grid_item": {} }
+          ],
+          "bindings": [
+            {
+              "binding_type": "collection_details",
+              "binding_collection_name": "($grid_collection_prefix + '_column_collection')",
+              "binding_collection_prefix": "($grid_collection_prefix + '_column')"
+            },
+            {
+              "binding_type": "collection_details",
+              "binding_collection_name": "($grid_collection_prefix + '_row_collection')",
+              "binding_collection_prefix": "($grid_collection_prefix + '_row')"
+            },
+            {
+              "binding_name": "('#' + $grid_collection_prefix + '_item_visible')",
+              "binding_name_override": "#visible",
+              "binding_type": "global"
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "stack_panel_grid_row": {
+    "type": "stack_panel",
+    "size": [ "100%", "100%c" ],
+    "anchor_to": "top_middle",
+    "anchor_from": "top_middle",
+    "controls": [
+      {
+        "stack_panel_grid_row_item": {
+          "type": "panel",
+          "size": [ "100%", "100%c" ],
+          "controls": [
+            {
+              "row": {
+                "type": "stack_panel",
+                "orientation": "horizontal",
+                "size": [ "100% + 4px", "100%cm" ],
+                "collection_name": "($grid_collection_prefix + '_column_collection')",
+                "factory": {
+                  "name": "($grid_collection_prefix + '_row_item_factory')",
+                  "control_name": "edu_common.stack_panel_grid_slot"
+                },
+                "bindings": [
+                  {
+                    "binding_name": "('#' + $grid_collection_prefix + '_column_count')",
+                    "binding_name_override": "#collection_length"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "divider": {
+          "type": "panel",
+          "size": [ "100%", 11 ],
+          "controls": [
+            {
+              "line": {
+                "type": "image",
+                "texture": "textures/ui/White",
+                "size": [ "100%", 1 ],
+                "alpha": 0.05
+              }
+            }
+          ],
+          "bindings": [
+            {
+              "binding_name": "('#' + $grid_collection_prefix + '_divider_visible')",
+              "binding_name_override": "#visible",
+              "binding_type": "collection",
+              "binding_collection_name": "($grid_collection_prefix + '_row_collection')"
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  // Requires
+  // - $grid_collection_prefix
+  // - $stack_grid_item
+  // - To get position in grid add collection detail bindings for row and column
+  // -- "binding_collection_name": "($grid_collection_prefix + '_<row/column>_collection')",
+  // -- "binding_collection_prefix": "($grid_collection_prefix + '_<row/column>')"
+  //
+  "stack_panel_grid": {
+    "type": "stack_panel",
+    "size": [ "100%", "100%c" ],
+    "collection_name": "($grid_collection_prefix + '_row_collection')",
+    "orientation": "vertical",
+    "factory": {
+      "name": "($grid_collection_prefix + '_row_factory')",
+      "control_name": "edu_common.stack_panel_grid_row"
+    },
+    "bindings": [
+      {
+        "binding_name": "('#' + $grid_collection_prefix + '_row_count')",
+        "binding_name_override": "#collection_length"
+      }
+    ]
+  },
+
+  // Requires
+  // - $ignore_page_description
+  // - $page_description
+  "description_panel": {
+    "type": "image",
+    "texture": "textures/ui/purpleBorder",
+    "ignored": "$ignore_page_description",
+    "size": [ "100%", "100%cm + 10px" ],
+    "controls": [
+      {
+        "description_stack": {
+          "type": "stack_panel",
+          "orientation": "horizontal",
+          "size": [ "100% - 10px", "100%cm" ],
+          "controls": [
+            {
+              "icon": {
+                "type": "image",
+                "texture": "textures/ui/infobulb",
+                "anchor_from": "top_left",
+                "anchor_to": "top_left",
+                "size": [ 9, 12 ],
+                "layer": 1
+              }
+            },
+            { "icon_label_padding@common.empty_panel": { "size": [ 3, "100%sm" ] } },
+            {
+              "label@library.base_label": {
+                "text": "$page_description",
+                "size": [ "fill", "default" ]
+              }
+            }
+          ]
+        }
+      }
+    ]
   }
 }

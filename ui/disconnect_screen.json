@@ -73,7 +73,7 @@
   "check_store_button@disconnect.menu_button_template": {
     "$pressed_button_name": "button.menu_check_store",
     "$button_text": "gui.store",
-    "ignored": "($is_holographic or $nx_os or $is_berwick)"
+    "ignored": "($is_holographic or $nx_os or $is_ps4)"
   },
 
   "exit_button@disconnect.menu_button_template": {
@@ -86,14 +86,49 @@
     "$button_text": "gui.ok"
   },
 
+  "open_uri_button@disconnect.open_account_setting_button": {
+    "size": [ 200, 26 ]
+  },
+
+  "cancel_button@disconnect.menu_button_template": {
+    "size": [ 256, "100%" ],
+    "$pressed_button_name": "button.cancel_join_realm",
+    "$button_text": "gui.cancel"
+  },
 
   "button_panel": {
-    "type": "panel",
-    "size": [ "100%c", 0 ],
-    "anchor_from": "center",
-    "anchor_to": "center",
+    "type": "stack_panel",
+    "orientation": "vertical",
+    "anchor_from": "bottom_middle",
+    "anchor_to": "bottom_middle",
+    "offset": [ 0, "-20%" ],
     "controls": [
-      { "ok_button@ok_button": {} }
+      {
+        "open_uri_button_panel": {
+          "type": "panel",
+          "size": [ "100%", 30 ],
+          "ignored": "$is_holographic",
+          "visible": false,
+          "bindings": [
+            {
+              "binding_name": "#open_uri_button_visible",
+              "binding_name_override": "#visible"
+            }
+          ],
+          "controls": [
+            { "open_uri_button@disconnect.open_uri_button": {} }
+          ]
+        }
+      },
+      {
+        "open_button_panel": {
+          "type": "panel",
+          "size": [ "100%", 26 ],
+          "controls": [
+            { "ok_button@disconnect.ok_button": {} }
+          ]
+        }
+      }
     ]
   },
 
@@ -113,6 +148,11 @@
 
   "disconnect_screen@common.base_screen": {
     "button_mappings": [
+      {
+        "from_button_id": "button.menu_select",
+        "to_button_id": "button.menu_select",
+        "mapping_type": "pressed"
+      },
       {
         "from_button_id": "button.menu_cancel",
         "to_button_id": "button.menu_leave_screen",
@@ -138,7 +178,6 @@
     "size": [ 5, 0 ]
   },
 
-
   // Realms Disconnect Screen
 
   "realms_disconnect_screen@disconnect.disconnect_screen": {
@@ -160,16 +199,50 @@
 
   "realms_disconnect_button_panel": {
     "type": "stack_panel",
-    "size": [ "100%c", 0 ],
-    "orientation": "horizontal",
+    "orientation": "vertical",
+    "offset": [ 0, 30 ],
+    "size": [ "100%", "100%c" ],
     "controls": [
-      { "check_store_button@disconnect.check_store_button": {} },
       {
-        "spacing_gap@disconnect.spacing_gap": {
-          "ignored": "$is_holographic"
+        "open_uri_button_panel": {
+          "type": "panel",
+          "size": [ "100%", 30 ],
+          "ignored": "$is_holographic",
+          "visible": false,
+          "bindings": [
+            {
+              "binding_name": "#open_uri_button_visible",
+              "binding_name_override": "#visible"
+            }
+          ],
+          "controls": [
+            { "open_uri_button@disconnect.open_uri_button": {} }
+          ]
         }
       },
-      { "exit_button@disconnect.exit_button": {} }
+      {
+        "realm_buttons_panel": {
+          "type": "panel",
+          "size": [ "100%", 30 ],
+          "controls": [
+            {
+              "realm_buttons": {
+                "type": "stack_panel",
+                "orientation": "horizontal",
+                "controls": [
+                  { "check_store_button@disconnect.check_store_button": {} },
+                  {
+                    "spacing_gap@disconnect.spacing_gap": {
+                      "ignored": "$is_holographic"
+                    }
+                  },
+                  { "exit_button@disconnect.exit_button": {} }
+                ]
+              }
+            }
+          ]
+        }
+      }
     ]
   },
 
@@ -192,16 +265,55 @@
 
   "realms_warning_button_panel": {
     "type": "stack_panel",
-    "size": [ "100%c", 0 ],
-    "orientation": "horizontal",
+    "orientation": "vertical",
+    "offset": [ 0, 30 ],
+    "size": [ "100%", "100%c" ],
     "controls": [
-      { "check_store_button@disconnect.check_store_button": {} },
       {
-        "spacing_gap@disconnect.spacing_gap": {
-          "ignored": "$is_holographic"
+        "continue_button_panel": {
+          "type": "panel",
+          "size": [ "100%", 26 ],
+          "controls": [
+            {
+              "continue_button_stack_panel": {
+                "type": "stack_panel",
+                "orientation": "horizontal",
+                "controls": [
+                  { "check_store_button@disconnect.check_store_button": {} },
+                  {
+                    "spacing_gap@disconnect.spacing_gap": {
+                      "ignored": "$is_holographic"
+                    }
+                  },
+                  { "continue_button@disconnect.continue_button": {} }
+                ]
+              }
+            }
+          ]
         }
       },
-      { "continue_button@disconnect.continue_button": {} }
+      {
+        "realms_warning_button_gap@disconnect.spacing_gap": {
+          "type": "panel",
+          "size": [ "100%", 5 ]
+        }
+      },
+      {
+        "cancel_button_panel": {
+          "type": "panel",
+          "size": [ "100%", 26 ],
+          "controls": [
+            { "cancel_button@disconnect.cancel_button": {} }
+          ]
+        }
+      }
     ]
-  }
+  },
+
+    "open_account_setting_button@common_buttons.hyperlink_button": {
+        "$button_text": "permissions.open.account.help.button",
+        "property_bag": {
+            "#hyperlink": "https://aka.ms/MCMultiplayerHelp"
+        }
+    }
 }

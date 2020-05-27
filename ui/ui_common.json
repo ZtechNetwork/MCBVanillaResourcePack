@@ -24,18 +24,17 @@
     "$button_focus_precedence|default": 0,
     "default_focus_precedence": "$button_focus_precedence",
 
-    "$persona_focus_precedence|default": 0,
-    "persona_focus_precedence": "$persona_focus_precedence",
-
     "$button_tts_name|default": "accessibility.button.tts.title",
     "$button_tts_header|default": "",
     "$tts_section_header|default": "",
     "$button_tts_control_type_order_priority|default": 100,
+    "$button_tts_index_priority|default": 150,
 
     "tts_name": "$button_tts_name",
     "tts_control_header": "$button_tts_header",
     "tts_section_header": "$tts_section_header",
     "tts_control_type_order_priority": "$button_tts_control_type_order_priority",
+    "tts_index_priority": "$button_tts_index_priority",
 
     "layer": 1,
     "sound_name": "random.click",
@@ -354,6 +353,7 @@
     "$toggle_tts_toggle_on_text|default": "accessibility.state.on",
     "$toggle_tts_toggle_off_text|default": "accessibility.state.off",
     "$toggle_tts_type_priority|default": -100,
+    "$toggle_tts_index_priority|default": 150,
     "$tts_section_header|default": "",
 
     "radio_toggle_group": "$radio_toggle_group",
@@ -380,6 +380,7 @@
     "tts_section_header": "$tts_section_header",
     "tts_override_control_value": "$toggle_tts_override_toggle_value",
     "tts_control_type_order_priority": "$toggle_tts_type_priority",
+    "tts_index_priority": "$toggle_tts_index_priority",
 
     "button_mappings": [
       {
@@ -1031,6 +1032,7 @@
           "property_bag": {
             "#is_dropdown": true
           },
+          "ttsSectionContainer": true,
           "$dropdown_content_controls|default": [
             {
               "scroll@common.scrolling_panel": {
@@ -1140,7 +1142,7 @@
     "layer": 2,
     "texture": "textures/ui/focus_border_white"
   },
-
+  
   "focus_border_yellow@common.focus_border_white": {
     "color": [ 1.0, 1.0, 0.0, 1.0 ]
   },
@@ -1287,7 +1289,7 @@
     "$text_edit_box_binding_type": "global",
     "$text_edit_box_binding_collection_name": "",
 
-    "$text_box_tts_name|default": "accessibility.textbox.tts.title",
+    "$text_box_tts_name|default": "",
     "tts_name": "$text_box_tts_name",
 
     "property_bag": {
@@ -1397,6 +1399,8 @@
     "tts_name": "$text_edit_type_name",
     "tts_control_header": "$text_box_tts_header",
     "tts_section_header": "$tts_section_header",
+    "$tts_override_control_value|default": " ",
+    "tts_override_control_value": "$tts_override_control_value",
 
     "bindings": [
       {
@@ -1431,6 +1435,9 @@
     "max_length": 14,
     "$text_edit_box_text_type|default": "ExtendedASCII",
     "text_type": "$text_edit_box_text_type",
+
+    "$virtual_keyboard_buffer_control|default": "",
+    "virtual_keyboard_buffer_control": "$virtual_keyboard_buffer_control",
 
     "$text_edit_text_control|default": "display_text",
     "text_control": "$text_edit_text_control",
@@ -1703,7 +1710,8 @@
                 "font_size": "$font_size",
                 "$text_alpha|default": "$alpha",
                 "$locked_text_alpha|default": "$disabled_alpha",
-                "$locked_color|default": "$disabled_color"
+                "$locked_color|default": "$disabled_color",
+                "$text_box_tts_name": "accessibility.textbox.tts.title"
               }
             },
             {
@@ -2482,7 +2490,7 @@
           "type": "image",
           "texture": "$dialog_background_texture",
           "layer": -1,
-          "size": [ "100% - 16px", "100% - 16px" ],
+          "size": [ "100% - 8px", "100% - 8px" ],
           "alpha": "$fill_alpha"
         }
       }
@@ -2515,6 +2523,9 @@
   // Good for tabbed content areas
   "dialog_background_hollow_4@dialog_background_hollow_common": {
     "texture": "textures/ui/dialog_background_hollow_4"
+  },
+  "dialog_background_hollow_4_thin@dialog_background_hollow_common": {
+    "texture": "textures/ui/dialog_background_hollow_4_thin"
   },
 
   // Title area has space for text (smaller than hollow 2)
@@ -3031,6 +3042,12 @@
         "binding_name": "#shield_is_active",
         "binding_type": "collection",
         "binding_collection_name": "$item_collection_name"
+      },
+      {
+        "binding_name": "#item_lodestone_tracking_handle",
+        "binding_condition": "visible",
+        "binding_type": "collection",
+        "binding_collection_name": "$item_collection_name"
       }
     ]
   },
@@ -3083,6 +3100,11 @@
       },
       {
         "binding_name": "#banner_type",
+        "binding_type": "collection",
+        "binding_collection_name": "$item_collection_name"
+      },
+      {
+        "binding_name": "#item_lodestone_tracking_handle",
         "binding_type": "collection",
         "binding_collection_name": "$item_collection_name"
       }
@@ -3466,12 +3488,15 @@
     "type": "input_panel",
     "anchor_to": "top_left",
     "anchor_from": "top_left",
+    "$scroll_panel_consume_hover_events|default": true,
+    "consume_hover_events": "$scroll_panel_consume_hover_events",
     "$scroll_view_name|default": "scroll_view",
     "controls": [
       { "$scroll_view_name@common.scroll_view_control": {} }
     ],
     "$scrolling_panel_base_button_mappings|default": [],
-    "button_mappings": "$scrolling_panel_base_button_mappings"
+    "button_mappings": "$scrolling_panel_base_button_mappings",
+    "tts_ignore_count": true
   },
 
   "scrolling_panel": {
@@ -4853,6 +4878,7 @@
           "type": "input_panel",
           "hover_enabled": false,
           "prevent_touch_input": false,
+          "ttsSectionContainer": true,
           "variables": [
             // Screen sizes - you should be using one of these unless explicitly told otherwise - in which case that size should be added as a variable here
             // Win10
@@ -4877,7 +4903,8 @@
               "$max_upsell_screen_size": [ 250, 259.125 ],
               "$rating_prompt_screen_size": [ 250, 87 ],
               "$max_skin_pack_screen_size": [ 310, "56.25%x - 65.25px + 118.5px" ],
-              "$extra_large_screen_size": [ 370, "100% - 50px" ], // Skin Picker
+              "$extra_large_screen_size": [ "100% - 4px", "100% - 4px" ], // Skin Picker, Command Block screen
+              "$extra_large_max_screen_size": [ 370, "100% - 50px" ],
               "$xbl_optional_signin_screen_size": [ 317, 158 ], // XBL Optional Signin Popup
               "$xbl_console_signin_screen_size": [ 316, 161 ], // XBL Console Signin Popup
               "$xbl_console_signin_succeeded_screen_size": [ 230, "100% - 50px" ], // XBL Console Signin Succeeded Popup
@@ -4896,7 +4923,7 @@
               "$day_one_experience_intro_screen_size": [ "60%", "85%" ], // Day One Experience intro popup
               "$day_one_experience_import_progress_screen_size": [ "80%", "90%" ], // Day One Experience import progress modal screen
               "$world_conversion_complete_screen_size": [ 290, 160 ], // World Conversion complete modal screen
-              "$gamepad_disconnect_screen_size": [300, 100] //custom gamepad disconnected modal size, to contain all languages in title
+              "$gamepad_disconnect_screen_size": [ 300, 100 ] //custom gamepad disconnected modal size, to contain all languages in title
             },
             // PE edition and VR
             {
@@ -4919,7 +4946,8 @@
               "$max_resource_pack_screen_size": [ 313.3, 206 ],
               "$max_upsell_screen_size": [ "100% - 76px", "56.25%x + 118.5px" ],
               "$max_skin_pack_screen_size": [ "100% - 4px", "56.25%x - 65.25px + 118.5px" ],
-              "$extra_large_screen_size": [ "100% - 4px", "100% - 4px" ], // Skin Picker
+              "$extra_large_screen_size": [ "100% - 4px", "100% - 4px" ], // Skin Picker, Command Block screen
+              "$extra_large_max_screen_size": [ 370, "100% - 50px" ],
               "$xbl_optional_signin_screen_size": [ 316, 153 ], // XBL Optional Signin Popup
               "$xbl_console_signin_screen_size": [ 316, 161 ], // XBL Console Signin Popup
               "$xbl_console_signin_succeeded_screen_size": [ 230, "100% - 4px" ], // XBL Console Signin Succeeded Popup
@@ -5664,15 +5692,16 @@
                 "size": [ "default", "default" ],
                 "$tooltip_text_binding_name|default": "#tooltip_text",
                 "$tooltip_text_binding_type|default": "$tooltip_button_binding_type",
+                "$tts_override_control_value|default": "$tooltip_text_binding_name",
                 "text": "$tooltip_text_binding_name",
+                "tts_override_control_value": "$tts_override_control_value",
                 "$tooltip_text_color|default": "$f_color_format",
                 "color": "$tooltip_text_color",
                 "bindings": [
                   {
                     "binding_name": "$tooltip_text_binding_name",
                     "binding_collection_name": "$tooltip_button_collection_name",
-                    "binding_type": "$tooltip_text_binding_type",
-                    "binding_condition": "visibility_changed"
+                    "binding_type": "$tooltip_text_binding_type"
                   }
                 ]
               }

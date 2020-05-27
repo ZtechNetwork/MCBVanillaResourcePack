@@ -15,7 +15,8 @@
     "$is_world_create": false,
     "$is_template_create": false,
     "$is_world_edit": false,
-    "$include_world_section": false,
+    "$_include_world_section": false,
+    "$include_world_section": "($_include_world_section and $may_include_world_section)",
     "$include_realm_section": false,
     "$include_controls_and_settings_sections": false,
     "$is_global_texture_packs_visible|default": true
@@ -25,21 +26,21 @@
     "$is_world_create": true,
     "$is_template_create": false,
     "$is_world_edit": false,
-    "$include_world_section": true
+    "$_include_world_section": true
   },
 
   "screen_template_create@settings_screen_base": {
     "$is_world_create": false,
     "$is_template_create": true,
     "$is_world_edit": false,
-    "$include_world_section": true
+    "$_include_world_section": true
   },
 
   "screen_world_edit@settings_screen_base": {
     "$is_world_create": false,
     "$is_template_create": false,
     "$is_world_edit": true,
-    "$include_world_section": true
+    "$_include_world_section": true
   },
 
   "screen_controls_and_settings@settings_screen_base": {
@@ -47,7 +48,7 @@
   },
 
   "screen_world_controls_and_settings@settings_screen_base": {
-    "$include_world_section": true,
+    "$_include_world_section": true,
     "$include_controls_and_settings_sections": true
   },
 
@@ -66,6 +67,7 @@
     "anchor_to": "top_left",
     "orientation": "vertical",
     "$default_selector_toggle_index": 0,
+    "ttsSectionContainer": true,
     "controls": [
 
       {
@@ -202,6 +204,7 @@
             },
             {
               "global_texture_pack_button@general_section.global_texture_pack_button": {
+                "ignored": "$ignore_global_resources_section",
                 "$toggle_group_forced_index": "$global_texture_pack_forced_index",
                 "visible": "($is_global_texture_packs_visible)",
                 "$tts_section_header": "$general_section_header"
@@ -209,6 +212,7 @@
             },
             {
               "storage_management_button@general_section.storage_management_button": {
+                "ignored": "$ignore_storage_section",
                 "$toggle_group_forced_index": "$storage_management_forced_index",
                 "$tts_section_header": "$general_section_header"
               }
@@ -224,6 +228,13 @@
               "debug_button@general_section.debug_button": {
                 "ignored": "$is_publish",
                 "$toggle_group_forced_index": "$debug_forced_index",
+                "$tts_section_header": "$general_section_header"
+              }
+            },
+            {
+              "flighting_debug_button@general_section.flighting_debug_button": {
+                "ignored": "$is_publish",
+                "$toggle_group_forced_index": "$flighting_debug_forced_index",
                 "$tts_section_header": "$general_section_header"
               }
             },
@@ -275,7 +286,13 @@
           "controls": [
             { "game_section@world_section.game_section": {} },
             { "server_section@world_section.server_section": {} },
-            { "multiplayer_section@world_section.multiplayer_section": {} }
+            { "multiplayer_section@world_section.multiplayer_section": {} },
+            {
+              "debug_section@world_section.debug_section": {
+                "ignored": "$is_publish",
+                "visible": false
+              }
+            }
           ]
         }
       },
@@ -319,8 +336,18 @@
               }
             },
             { "profile_section@general_section.profile_section": { "visible": false } },
-            { "global_texture_pack_section@general_section.global_texture_pack_section": { "visible": false } },
-            { "storage_management_section@general_section.storage_management_section": { "visible": false } },
+            {
+              "global_texture_pack_section@general_section.global_texture_pack_section": {
+                "visible": false,
+                "ignored": "$ignore_global_resources_section"
+              }
+            },
+            {
+              "storage_management_section@general_section.storage_management_section": {
+                "visible": false,
+                "ignored": "$ignore_storage_section"
+              }
+            },
             { "video_section@general_section.video_section": { "visible": false } },
             { "view_subscriptions_section@general_section.view_subscriptions_section": { "ignored": "$education_edition", "visible": false } },
             {
@@ -338,6 +365,12 @@
             },
             {
               "debug_section@general_section.debug_section": {
+                "ignored": "$is_publish",
+                "visible": false
+              }
+            },
+            {
+              "flighting_debug_section@general_section.flighting_debug_section": {
                 "ignored": "$is_publish",
                 "visible": false
               }
@@ -383,7 +416,11 @@
           "size": ["100%", "100%c"],
           "ignored": "(not $include_controls_and_settings_sections)",
           "controls": [
-            { "storage_management_header@general_section.storage_management_header": { } }
+            {
+              "storage_management_header@general_section.storage_management_header": {
+                "ignored": "$ignore_storage_section"
+              }
+            }
           ]
         }
       }
@@ -412,7 +449,11 @@
           "size": ["100%", "100%c"],
           "ignored": "(not $include_controls_and_settings_sections)",
           "controls": [
-            { "storage_management_footer@general_section.storage_management_footer": { } }
+            {
+              "storage_management_footer@general_section.storage_management_footer": {
+                "ignored": "$ignore_storage_section"
+              }
+            }
           ]
         }
       }

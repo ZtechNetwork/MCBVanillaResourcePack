@@ -1,0 +1,207 @@
+{
+  "namespace": "persona_common",
+
+  /* ============================================================
+  RARITY BAR 
+
+  Requires:
+    - #rarity_bar_texture
+    - #rarity_bar_visible
+    - $item_binding_type
+    - $item_collection_name
+
+  Bindings:
+    - #rarity_bar_texture
+        Texture to use for the rarity bar.
+    - #rarity_bar_visible
+        If the bar is visible or not
+  */
+  "rarity_bar": {
+    "type": "image",
+    "size": [ "100%", 3 ],
+    "anchor_to": "bottom_middle",
+    "anchor_from": "bottom_middle",
+    "texture": "#rarity_bar_texture",
+    "bindings": [
+      {
+        "binding_type": "$item_binding_type",
+        "binding_collection_name": "$item_collection_name",
+        "binding_name": "#rarity_bar_texture",
+        "binding_name_override": "#texture"
+      },
+      {
+        "binding_type": "$item_binding_type",
+        "binding_collection_name": "$item_collection_name",
+        "binding_name": "#rarity_bar_visible",
+        "binding_name_override": "#visible"
+      }
+    ]
+  },
+
+  /* ============================================================
+  RARITY BACKGROUND
+
+  Requires:
+    - #rarity_color
+
+  Variables:
+    - $rarity_color_background_texture
+        Optional override for texture. Defaults to white texture.
+    - $rarity_binding_type
+        The binding type for the `#rarity_color` binding. Defaults to `global`
+    - $rarity_collection_name
+        Optional collection name for the `#rarity_color` binding. Defaults to `none`
+
+  Bindings:
+    - #rarity_color
+        The color to tint the texture with.
+
+  */
+  "item_rarity_color_background": {
+    "type": "image",
+    "$rarity_color_background_texture|default": "textures/ui/White",
+    "texture": "$rarity_color_background_texture",
+    "alpha": 0.4,
+
+    "property_bag": {
+      "#common": "$rarity_common_bg_color",
+      "#uncommon": "$rarity_uncommon_bg_color",
+      "#rare": "$rarity_rare_bg_color",
+      "#epic": "$rarity_epic_bg_color",
+      "#legendary": "$rarity_legendary_bg_color"
+    },
+
+    "$rarity_binding_type|default": "global",
+    "$rarity_collection_name|default": "none",
+    "bindings": [
+      {
+        "binding_type": "$rarity_binding_type",
+        "binding_collection_name": "$rarity_collection_name",
+        "binding_name": "#rarity_color",
+        "binding_name_override": "#color"
+      }
+    ]
+  },
+
+
+  /* ============================================================
+  PERSONA ITEM DISPLAY
+
+  Requires:
+    - #rarity_color
+    - #rarity_bar_texture
+    - #rarity_bar_visible
+    
+  Variables:
+    - $item_display_size
+        The size of the control. Default is `[ "100%", "100%" ]`
+    - $is_loading
+        If the item is still loading or not (doesn't have image). Default is `false`
+    - $item_content_control
+        Child control to be placed over the image. (Extra icons, status symbols,
+        ...). Default is empty panel.
+    - $item_binding_type
+        The binding type for all the bindings in this control. Default is `global`
+    - $item_collection_name
+        The collection name to use for all bindings in this control. Default is `none`
+    - $item_texture_file_system_binding_name
+        Binding name for the file system binding. Default is 
+        `#persona_item_image_file_system`
+    - $item_texture_path_binding_name
+        Binding name for the texture path binding. Default is `#persona_item_image_path`
+    - $ignore_background
+        If you want the background or not. Default is `false`
+    - $ignore_rarity_bar
+        If you want the rarity bar or not. Default is `false`
+  
+  Bindings:
+    - #rarity_color
+        The color to tint the texture with.
+    - #rarity_bar_texture
+        Texture to use for the rarity bar.
+    - #rarity_bar_visible
+        If the bar is visible or not
+  */
+  "item_display@common.empty_panel": {
+    "$item_display_size|default": [ "100%", "100%" ],
+    "size": "$item_display_size",
+    "$is_loading|default": false,
+    "$item_content_control|default": "common.empty_panel",
+    "$item_binding_type|default": "global",
+    "$item_collection_name|default": "none",
+    "$item_texture_file_system_binding_name|default": "#persona_item_image_file_system",
+    "$item_texture_path_binding_name|default": "#persona_item_image_path",
+    "$ignore_background|default": false,
+    "$ignore_rarity_bar|default": false,
+    "controls": [
+      {
+        "item_renderer@common.empty_panel": {
+          "visible": "(not $is_loading)",
+          "controls": [
+            {
+              "background@persona_common.item_rarity_color_background": {
+                "ignored": "$ignore_background",
+                "$rarity_color_background_texture": "textures/ui/button_borderless_light",
+                "$rarity_binding_type": "$item_binding_type",
+                "$rarity_collection_name": "$item_collection_name"
+              }
+            },
+            {
+              "item_image": {
+                "type": "image",
+                "layer": 2,
+                "size": [ "100% - 3px", "100% - 3px" ],
+                "offset": [ 0, 1 ],
+                "anchor_to": "top_middle",
+                "anchor_from": "top_middle",
+                "bindings": [
+                  {
+                    "binding_type": "$item_binding_type",
+                    "binding_collection_name": "$item_collection_name",
+                    "binding_name": "$item_texture_file_system_binding_name",
+                    "binding_name_override": "#texture_file_system"
+                  },
+                  {
+                    "binding_type": "$item_binding_type",
+                    "binding_collection_name": "$item_collection_name",
+                    "binding_name": "$item_texture_path_binding_name",
+                    "binding_name_override": "#texture"
+                  }
+                ]
+              }
+            },
+            {
+              "rarity_bar_panel@persona_common.rarity_bar": {
+                "ignored": "$ignore_rarity_bar",
+                "layer": 3
+              }
+            },
+            {
+              "extra_control@common.empty_panel": {
+                "layer": 4,
+                "controls": [
+                  { "control_instance@$item_content_control": {} }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "loading_progress_bars": {
+          "type": "image",
+          "layer": 2,
+          "texture": "textures/ui/loading_bar",
+          "anchor_from": "center",
+          "anchor_to": "center",
+          "offset": [ 0, 6 ],
+          "size": [ 64, 8 ],
+          "uv_size": [ 64, 8 ],
+          "uv": "@progress.bar_animation",
+          "color": [ 0.7, 0.7, 0.7, 1.0 ],
+          "visible": "$is_loading"
+        }
+      }
+    ]
+  }
+}

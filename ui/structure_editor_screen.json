@@ -6,6 +6,11 @@
 {
   "namespace": "structure_editor",
 
+  "small_padding": {
+    "type": "panel",
+    "size": [ "100%", "3px" ]
+  },
+
   "help_icon": {
     "type": "image",
     "texture": "textures/ui/how_to_play_button_default",
@@ -164,6 +169,11 @@
     ]
   },
 
+  "detect_button@common_buttons.light_text_button": {
+    "$pressed_button_name": "button.structure_detect",
+    "$button_text": "structure_block.detect"
+  },
+
   "reset_button@common_buttons.light_text_button": {
     "$pressed_button_name": "button.structure_reset",
     "$button_text": "structure_block.reset"
@@ -272,11 +282,16 @@
     ]
   },
 
-
   "show_bounding_box_panel": {
     "type": "stack_panel",
     "orientation": "vertical",
     "size": [ "100%", "100%c" ],
+    "bindings": [
+      {
+        "binding_name": "#bounding_toggle_visible",
+        "binding_name_override": "#visible"
+      }
+    ],
     "controls": [
       {
         "label@structure_editor.common_text_label": {
@@ -489,6 +504,15 @@
             }
           ]
         }
+      },
+      {
+        "detect_offset": {
+          "type": "panel",
+          "size": [ "100%", 4 ]
+        }
+      },
+      {
+        "detect@structure_editor.detect_button_wrapper": {}
       },
       {
         "include_entities_offset": {
@@ -776,6 +800,23 @@
           "type": "panel",
           "size": [ "100%", 2 ]
         }
+      }
+    ]
+  },
+
+  "corner_mode_panel": {
+    "type": "stack_panel",
+    "orientation": "vertical",
+    "size": [ "100%", "100%c" ],
+    "bindings": [
+      {
+        "binding_name": "#corner_mode_panel_visible",
+        "binding_name_override": "#visible"
+      }
+    ],
+    "controls": [
+      {
+        "structure_name@structure_editor.structure_name_wrapper": {}
       }
     ]
   },
@@ -1085,17 +1126,6 @@
     "anchor_to": "left_middle",
     "controls": [
       {
-        "divider": {
-          "type": "panel",
-          "size": [ "4px", "100%" ]
-        }
-      },
-      {
-        "reset@structure_editor.reset_button": {
-          "size": [ "100% - 2px", "100%" ]
-        }
-      },
-      {
         "reset_divider": {
           "type": "panel",
           "size": [ "2px", "100%" ]
@@ -1104,7 +1134,7 @@
     ],
     "bindings": [
       {
-        "binding_name": "#data_mode_panel_visible",
+        "binding_name": "#corner_mode_panel_visible",
         "binding_name_override": "#visible"
       }
     ]
@@ -1141,6 +1171,12 @@
               "save_panel_no_export@structure_editor.save_button_panel_no_export": {
                 "layer": 3,
                 "ignored": "($file_picking_supported)"
+              }
+            },
+            {
+              "corner_panel@structure_editor.corner_button_panel": {
+                "layer": 3,
+                "ignored": "(not $file_picking_supported)"
               }
             },
             {
@@ -1240,33 +1276,40 @@
     ]
   },
 
+  "detect_button_wrapper": {
+    "type": "panel",
+    "size": [ "100%", "100%c + 4px" ],
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "controls": [
+      {
+        "detect@structure_editor.detect_button": {
+          "size": [ "100% - 4px", 20 ],
+          "layer": 3
+        }
+      },
+      {
+        "detect_offset": {
+          "type": "panel",
+          "size": [ "100%", 2 ]
+        }
+      }
+    ]
+  },
+
   "mode_dropdown_content@settings_common.option_radio_dropdown_group": {
     "$show_option_label": false,
     "$radio_buttons": [
       {
         "structure_save_mode@settings_common.radio_with_label": {
           "$toggle_state_binding_name": "#structure_save_mode",
-          "$radio_label_text|default": "structure_block.mode.save",
-          "variables": [
-            {
-              "requires": "(not $save_support)",
-              "$radio_label_text": "structure_block.mode.save.experimental"
-
-            }
-          ]
+          "$radio_label_text|default": "structure_block.mode.save"
         }
       },
       {
         "structure_load_mode@settings_common.radio_with_label": {
           "$toggle_state_binding_name": "#structure_load_mode",
-          "$radio_label_text|default": "structure_block.mode.load",
-          "variables": [
-            {
-              "requires": "(not $load_support)",
-              "$radio_label_text": "structure_block.mode.load.experimental"
-
-            }
-          ]
+          "$radio_label_text|default": "structure_block.mode.load"
         }
       },
       {
@@ -1274,6 +1317,14 @@
           "ignored": "(not $data_support)",
           "$toggle_state_binding_name": "#structure_data_mode",
           "$radio_label_text": "structure_block.mode.data"
+        }
+      },
+      {
+
+        "structure_corner_mode@settings_common.radio_with_label": {
+          "ignored": "(not $data_support)",
+          "$toggle_state_binding_name": "#structure_corner_mode",
+          "$radio_label_text": "structure_block.mode.corner"
         }
       },
       {
@@ -1294,19 +1345,6 @@
     "$option_enabled_binding_name": "#mode_dropdown_enabled",
     "$options_dropdown_toggle_label_binding": "#mode_dropdown_toggle_label",
     "$dropdown_scroll_content_size": [ "100%", "200%" ]
-  },
-
-  "experimental_warning_label": {
-    "type": "label",
-    "text": "structure_block.experimental",
-    "color": "$body_text_color",
-    "size": [ "100%", "default" ],
-    "bindings": [
-      {
-        "binding_name": "$warning_label_visible_binding",
-        "binding_name_override": "#visible"
-      }
-    ]
   },
 
   "scrolling_panel_wrapper@common.dialog_background_hollow_4": {
@@ -1364,28 +1402,19 @@
             },
             {
               "save_mode_panel@structure_editor.save_mode_panel": {
-                "ignored": "(not $save_support)"
-              }
-            },
-            {
-              "save_mode_experimental_warning_label@structure_editor.experimental_warning_label": {
-                "ignored": "$save_support",
-                "$warning_label_visible_binding": "#save_mode_panel_visible"
               }
             },
             {
               "load_mode_panel@structure_editor.load_mode_panel": {
-                "ignored": "(not $load_support)"
-              }
-            },
-            {
-              "load_mode_experimental_warning_label@structure_editor.experimental_warning_label": {
-                "ignored": "$load_support",
-                "$warning_label_visible_binding": "#load_mode_panel_visible"
               }
             },
             {
               "data_mode_panel@structure_editor.data_mode_panel": {
+                "ignored": "(not $data_support)"
+              }
+            },
+            {
+              "corner_mode_panel@structure_editor.corner_mode_panel": {
                 "ignored": "(not $data_support)"
               }
             },
@@ -1402,12 +1431,6 @@
               "show_bounding_box_offset": {
                 "type": "panel",
                 "size": [ "100%", 2 ]
-              }
-            },
-            {
-              "data_mode_experimental_warning_label@structure_editor.experimental_warning_label": {
-                "ignored": "$data_support",
-                "$warning_label_visible_binding": "#data_mode_panel_visible"
               }
             },
             {
@@ -1455,7 +1478,7 @@
           "anchor_to": "bottom_middle",
           "text_alignment": "center",
           "layer": 7,
-          "color": "$tool_tip_text",
+          "color": "$structure_editor_text",
           "text": "structure_block.save.successful",
           "shadow": true,
           "alpha": "@structure_editor.anim_save_message_text_alpha"
@@ -1470,7 +1493,7 @@
     "anchor_to": "bottom_middle",
     "text_alignment": "left",
     "layer": 7,
-    "color": "$tool_tip_text",
+    "color": "$structure_editor_text",
     "text": "structure_block.export.disabled_message",
     "shadow": true,
     "bindings": [
@@ -1505,6 +1528,17 @@
     ]
   },
 
+  "corner_text@common.dialog_background_hollow_4": {
+    "layer": 2,
+    "controls": [
+      {
+        "image_panel@structure_editor.corner_text_section": {
+          "size": [ "100% - 16px", "100% - 16px" ]
+        }
+      }
+    ]
+  },
+
   "image_panel": {
     "type": "panel",
     "controls": [
@@ -1534,6 +1568,15 @@
             {
               "structure_renderer@structure_editor.structure_renderer": {
                 "layer": 3
+              }
+            },
+            {
+              "text_corner@structure_editor.corner_text_panel": {
+                "size": [ "100% - 6px", "100%" ],
+                "layer": 3,
+                "anchor_from": "top_left",
+                "anchor_to": "top_left",
+                "offset": [ 4, 2 ]
               }
             },
             {
@@ -1616,6 +1659,30 @@
     "ignored": "$is_holographic"
   },
 
+  "corner_text_panel": {
+    "type": "stack_panel",
+    "orientation": "vertical",
+    "size": [ "100%", "100%c" ],
+    "bindings": [
+      {
+        "binding_name": "#corner_text_visible",
+        "binding_name_override": "#visible"
+      }
+    ],
+    "controls": [
+      {
+        "paragraph_1_corner@how_to_play_common.paragraph": {
+          "$text": "structure_block.corner.text.1.title"
+        }
+      },
+      { "padding_1@structure_editor.small_padding": {} },
+      {
+        "paragraph_2_corner@how_to_play_common.paragraph": {
+          "$text": "structure_block.corner.text.2.paragraph"
+        }
+      }
+    ]
+  },
 
   "structure_renderer": {
     "type": "input_panel",
@@ -1650,6 +1717,10 @@
             "#remove_blocks": false,
             "#include_players": false
           },
+          "anims": [
+            "@common.screen_exit_size_animation_push",
+            "@common.screen_exit_size_animation_pop"
+          ],
           "bindings": [
             {
               "binding_name": "#has_focus",
@@ -1711,7 +1782,13 @@
   "rotation_arrows": {
     "type": "image",
     "texture": "textures/ui/Rotate",
-    "color": [ 0.6, 0.6, 0.6 ]
+    "color": [ 0.6, 0.6, 0.6 ],
+    "bindings": [
+      {
+        "binding_name": "#rotation_arrows_visible",
+        "binding_name_override": "#visible"
+      }
+    ]
   },
 
   "right_divider_content": {

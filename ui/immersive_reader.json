@@ -200,6 +200,26 @@
     ]
   },
 
+  "screen_exit_upwards_animation_pop_offset": {
+    "anim_type": "offset",
+    "easing": "out_cubic",
+    "duration": "$transition_time_pop",
+    "from": [ 0, 0 ],
+    "to": [ 0, "-100%" ],
+    "play_event": "screen.exit_pop",
+    "end_event": "screen.exit_end"
+  },
+
+  "screen_entrance_downwards_animation_push_offset": {
+    "anim_type": "offset",
+    "easing": "out_cubic",
+    "duration": "$transition_time_push",
+    "from": [ 0, "-100%" ],
+    "to": [ 0, 0 ],
+    "play_event": "screen.entrance_push",
+    "end_event": "screen.entrance_end"
+  },
+
   "immersive_reader_screen@common.base_screen": {
     "$screen_content": "im_reader.immersive_reader_screen_content",
     "$screen_bg_content": "common.screen_background",
@@ -212,8 +232,8 @@
     ],
     "$screen_animations": [
       "@common.screen_exit_animation_push_offset",
-      "@code.screen_exit_upwards_animation_pop_offset",
-      "@code.screen_entrance_downwards_animation_push_offset",
+      "@im_reader.screen_exit_upwards_animation_pop_offset",
+      "@im_reader.screen_entrance_downwards_animation_push_offset",
       "@common.screen_entrance_animation_pop_offset",
       "@common.screen_exit_animation_push_fade",
       "@common.screen_exit_animation_pop_fade",

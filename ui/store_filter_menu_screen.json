@@ -239,8 +239,15 @@
     "size": "$filter_button_panel_size"
   },
 
-  "filter_checkbox_no_icon_toggle@filter_menu.filter_checkbox_toggle": {
-    "$ignore_content_toggle_image": true
+  "filter_checkbox_no_icon_toggle": {
+    "type": "panel",
+    "size": "$filter_button_panel_size",
+    "$ignore_content_toggle_image": true,
+    "controls": [
+      {
+        "filter_checkbox_no_icon_toggle@filter_menu.filter_checkbox_toggle": {}
+      }
+    ]
   },
 
 
@@ -304,12 +311,9 @@
                     "world_template_type_filters@common_store.filter_sort_grid_panel": {
                       "visible": false,
 
-                      "$filter_sort_grid_size": [ "100% - 16px", "default" ],
-                      "$filter_sort_grid_item": "filter_menu.filter_checkbox_no_icon_toggle",
+                      "$filter_sort_grid_size": [ "100% - 16px", "default" ],                      
                       "bindings": [
                         {
-                          //"binding_name": "#world_template_type_filters_visible",
-                          //"binding_name_override": "#visible"
                           "binding_type": "view",
                           "source_control_name": "this_toggle",
                           "source_property_name": "#toggle_state",
@@ -344,7 +348,7 @@
     "easing": "linear"
   },
 
- 
+
   "offer_type_sub_menu_panel": {
     "type": "stack_panel",
     "orientation": "vertical",
@@ -366,9 +370,20 @@
         }
       },
       {
+        "realms_plus_filter@filter_menu.realms_plus_filter": {
+          "collection_index": 1
+        }
+      }
+    ]
+  },
+
+  "realms_plus_filter": {
+    "type": "panel",
+    "size": "$filter_button_panel_size",
+    "controls": [
+      {
         "realms_plus_filter@filter_menu.filter_checkbox_toggle": {
-          "collection_index": 1,
-          "$content_toggle_image_uv": "@portal_animation",
+          "$content_toggle_image_uv": "@filter_menu.portal_animation",
           "$content_toggle_image_uv_size": [ 19, 19 ],
 
           "$button_content": "filter_menu.gradient_content_panel",
@@ -453,8 +468,7 @@
   },
 
   "filter_section_content_dynamic@filter_menu.filter_variables_panel": {
-    "$filter_sort_grid_size": [ "100%", "default" ],
-    "$filter_sort_grid_item": "filter_menu.filter_checkbox_no_icon_toggle",
+    "$filter_sort_grid_size": [ "100%", "default" ],    
     "controls": [
       {
         "filter_section_content@filter_menu.filter_section_content": {}
@@ -483,6 +497,7 @@
       },
       {
         "pack_type_button@filter_menu.filter_main_menu_options_button_panel": {
+          "ignored": "$is_inventory_screen",
           "$filter_sort_prefix": "pack_type",
           "$filter_type_label": "store.search.filter.pack_type",
           "$filter_selected_text": "#filter_selected_packtype",
@@ -516,15 +531,15 @@
       },
       {
         "filter_main_menu_filter_toggles_section": {
+          "ignored": "$is_inventory_screen",
           "type": "panel",
           "size": [ "100%", "100%c" ],
           "$filter_sort_prefix": "main_menu_filter_toggles",
-          "$filter_sort_grid_item": "filter_menu.filter_checkbox_no_icon_toggle",
           "$filter_sections_content_panel_visible": "#non_dropdown_filter_section_visible",
           "controls": [
             {
               "filter_main_menu_filter_toggle_grid_panel@common_store.filter_sort_grid_panel": {
-                "size": [ "100% - 16px", "100%c" ],
+                "$filter_sort_grid_size": [ "100% - 16px", "100%c" ],
                 "anchor_to": "right_middle",
                 "anchor_from": "right_middle"
               }
@@ -601,7 +616,8 @@
   "filter_type_section@filter_menu.filter_section_content_panel": {
     "$is_main_menu": false,
     "$filter_section_screen_content": "filter_menu.filter_section_content_dynamic",
-    "$filter_section_sub_menu_panel": "common_store.filter_sort_grid_panel"
+    "$filter_section_sub_menu_panel": "common_store.filter_sort_grid_panel",
+    "$filter_sort_grid_size": [ "100% - 16px", "100%c" ]
   },
 
   "filter_menu_panel": {
