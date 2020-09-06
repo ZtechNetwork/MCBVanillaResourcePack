@@ -259,6 +259,8 @@
     "$text_name|default": "",
     "$button_panel|default": "common.empty_panel",
     "$show_close_button": false,
+    "$button_panel_size|default": [ "100% - 14px", 30 ],
+    "$main_panel_size|default": [ "100% - 16px", "100% - 59px" ],
     "controls": [
       {
         "common_panel@common.common_panel": { "$dialog_background": "dialog_background_hollow_5" }
@@ -271,7 +273,7 @@
       {
         "panel_indent": {
           "type": "panel",
-          "size": [ "100% - 16px", "100% - 59px" ],
+          "size": "$main_panel_size",
           "offset": [ 0, 17 ],
           "anchor_from": "top_middle",
           "anchor_to": "top_middle",
@@ -282,7 +284,7 @@
       },
       {
         "bottom_button_panel@$button_panel": {
-          "size": [ "100% - 14px", 30 ],
+          "size": "$button_panel_size",
           "offset": [ 0, -7 ],
           "anchor_from": "bottom_middle",
           "anchor_to": "bottom_middle"

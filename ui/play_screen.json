@@ -2668,7 +2668,8 @@
               "top_panel": {
                 "type": "stack_panel",
                 "orientation": "horizontal",
-                "size": [ "100% - 8px", 40 ],
+                "min_size": [ "100% - 8px", 30 ],
+                "size": [ "100% - 8px", "100%cm" ],
                 "offset": [ 0, 2 ],
                 "anchor_from": "top_middle",
                 "anchor_to": "top_middle",
@@ -2677,13 +2678,13 @@
                   {
                     "game_image_panel": {
                       "type": "panel",
-                      "size": [ "50%", "100%" ],
+                      "min_size": [ "50%", 30 ],
+                      "size": [ "50%", "100%sm" ],
                       "controls": [
                         {
                           "game_image": {
                             "type": "image",
                             "size": [ "100%", "100%" ],
-                            "offset": [ 0, -4 ],
                             "bindings": [
                               {
                                 "binding_name": "#available_game_image",
@@ -2716,14 +2717,15 @@
                   {
                     "padding": {
                       "type": "panel",
-                      "size": [ 4, "100%" ]
+                      "size": [ 4, "100%sm" ]
                     }
                   },
                   {
                     "game_title_panel": {
                       "type": "stack_panel",
                       "orientation": "vertical",
-                      "size": [ "fill", "100%" ],
+                      "min_size": [ "fill", 30 ],
+                      "size": [ "fill", "100%c" ],
                       "controls": [
                         {
                           "game_title": {
@@ -2767,10 +2769,9 @@
             {
               "bottom_panel": {
                 "type": "panel",
-                "size": [ "100% - 8px", "100%c" ],
+                "size": [ "100% - 8px", "100%c + 4px" ],
                 "anchor_from": "bottom_middle",
                 "anchor_to": "bottom_middle",
-                "offset": [ 0, -4 ],
                 "layer": 2,
                 "controls": [
                   {
@@ -4246,7 +4247,103 @@
       }
     ]
   },
+  "game_tip_item_panel": {
+    "type": "stack_panel",
+    "orientation": "horizontal",
+    "size": [ "100% - 8px", "100%cm + 6px" ],
+    "$game_tip_text|default": "",
+    "$label_text": "$game_tip_text",
+    "controls": [
+      {
+        "info_bulb": {
+          "type": "image",
+          "layer": 13,
+          "size": [ 15, 19 ],
+          "texture": "textures/ui/infobulb"
+        }
+      },
+      {
+        "padding_1": {
+          "type": "panel",
+          "size": [ 2, 0 ]
+        }
+      },
+      {
+        "label_panel": {
+          "type": "stack_panel",
+          "orientation": "vertical",
+          "size": [ "fill", "100%c" ],
+          "controls": [
+            {
+              "padding_vertical": {
+                "type": "panel",
+                "size": [ 0, 1 ]
+              }
+            },
+            {
+              "realms_warning_text": {
+                "type": "label",
+                "size": [ "100%", "default" ],
+                "$label_text|default": "#label_text",
+                "$label_text_binding_type|default": "global",
+                "text": "$label_text",
+                "color": "$body_text_color",
+                "layer": 3,
+                "bindings": [
+                  {
+                    "binding_name": "$label_text",
+                    "binding_name_override": "$label_text",
+                    "binding_type": "$label_text_binding_type"
+                  }
+                ]
 
+              }
+            },
+            {
+              "padding_vertical_1": {
+                "type": "panel",
+                "size": [ 0, 1 ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "more_info_button@common_buttons.light_text_form_fitting_button": {
+          "$pressed_button_name": "button.realms_warning_more_info",
+          "$button_text": "playscreen.realmsWarning.moreinfo"
+        }
+      }
+    ]
+  },
+
+  "realm_warning_tip": {
+    "type": "image",
+    "texture": "textures/ui/greyBorder",
+    "layer": 1,
+    "size": [ "100%", "100%cm" ],
+    "$realms_warning_text|default": "#realms_warning_text",
+    "controls": [
+      {
+        "padding_vertical": {
+          "type": "panel",
+          "size": [ 0, 8 ]
+        }
+      },
+      {
+        "info_panel@play.game_tip_item_panel": {
+          "$game_tip_text": "$realms_warning_text",
+          "offset": [ 0, 4 ]
+        }
+      }
+    ],
+    "bindings": [
+      {
+        "binding_name": "#device_sunsetting",
+        "binding_name_override": "#visible"
+      }
+    ]
+  },
   "worlds_stack_panel": {
     "type": "stack_panel",
     "orientation": "vertical",
@@ -4257,6 +4354,9 @@
           "type": "panel",
           "size": [ "100%", 2 ]
         }
+      },
+      {
+        "play_screen_warning@play.realm_warning_tip": {}
       },
       {
         "header_button": {
@@ -4469,7 +4569,7 @@
               }
             },
             {
-              "open_uri_button@play.open_account_setting_button": { }
+              "open_uri_button@play.open_account_setting_button": {}
             }
           ]
         }
@@ -4868,6 +4968,9 @@
               }
             },
             {
+              "friends_screen_warning@play.realm_warning_tip": {}
+            },
+            {
               "header_button": {
                 "type": "stack_panel",
                 "layer": 1,
@@ -5249,7 +5352,7 @@
                     }
                   },
                   {
-                    "open_uri_button@play.open_account_setting_button": { }
+                    "open_uri_button@play.open_account_setting_button": {}
                   }
                 ]
               }
@@ -5539,56 +5642,88 @@
     ]
   },
 
+  "show_servers_panel": {
+    "type": "stack_panel",
+    "orientation": "horizontal",
+    "size": [ "100%", "fill" ],
+    "bindings": [
+      {
+        "binding_name": "(not #feature_server_message_visible)",
+        "binding_name_override": "#visible"
+      }
+    ],
+    "controls": [
+      {
+        "left_panel": {
+          "type": "panel",
+          "size": [ "50% - 1px", "100%" ],
+          "controls": [
+            {
+              "scrolling_panel@play.scrolling_offsets": {
+                "size": [ "100%", "100% - 4px" ],
+                "offset": [ 0, 2 ],
+                "layer": 1,
+                "$scrolling_content": "play.server_scroll_panel"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "divider_panel": {
+          "type": "panel",
+          "size": [ 3, "100%" ],
+          "controls": [
+            {
+              "main_divider": {
+                "type": "image",
+                "size": [ 3, "100% - 4px" ],
+                "tiled": "y",
+                "texture": "textures/ui/HowToPlayDivider",
+                "layer": 10
+              }
+            }
+          ]
+        }
+      },
+      {
+        "right_panel@play.server_content_area": {}
+      }
+    ]
+  },
+
+
   "server_scroll_content@play.common_content": {
     "size": [ "100% - 4px", "100% - 4px" ],
     "controls": [
       {
-        "show_servers_panel": {
+        "severs_panel": {
           "type": "stack_panel",
-          "orientation": "horizontal",
+          "orientation": "vertical",
           "size": [ "100%", "100%" ],
-          "bindings": [
-            {
-              "binding_name": "(not #feature_server_message_visible)",
-              "binding_name_override": "#visible"
-            }
-          ],
           "controls": [
             {
-              "left_panel": {
+              "offset_panel": {
                 "type": "panel",
-                "size": [ "50% - 1px", "100%" ],
+                "size": [ "100% - 4px", "100%cm" ],
                 "controls": [
                   {
-                    "scrolling_panel@play.scrolling_offsets": {
-                      "size": [ "100%", "100% - 4px" ],
-                      "offset": [ 0, 2 ],
-                      "layer": 1,
-                      "$scrolling_content": "play.server_scroll_panel"
+                    "servers_sunsetting_warning@play.realm_warning_tip": {
+                      "size": [ "100% - 2px", "100%cm - 2px" ],
+                      "offset": [ 2, 2 ]
                     }
+                  }
+                ],
+                "bindings": [
+                  {
+                    "binding_name": "#device_sunsetting",
+                    "binding_name_override": "#visible"
                   }
                 ]
               }
             },
             {
-              "divider_panel": {
-                "type": "panel",
-                "size": [ 3, "100%" ],
-                "controls": [
-                  {
-                    "main_divider": {
-                      "type": "image",
-                      "size": [ 3, "100% - 4px" ],
-                      "tiled": "y",
-                      "texture": "textures/ui/HowToPlayDivider",
-                      "layer": 10
-                    }
-                  }
-                ]
-              }
-            },
-            {
-              "right_panel@play.server_content_area": {}
+              "show_servers_panel@play.show_servers_panel": {}
             }
           ]
         }
@@ -6555,23 +6690,23 @@
       }
     ]
   },
-    "open_account_setting_button@common_buttons.hyperlink_button": {
-        "$button_text": "permissions.open.account.help.button",
-        "property_bag": {
-            "#hyperlink": "https://aka.ms/MCMultiplayerHelp"
-        },
-        "size": [ "100%", 30 ],
-        "ignored": "$is_holographic",
-        "visible": false,
-        "bindings": [
-            {
-                "binding_name": "#open_uri_button_visible",
-                "binding_name_override": "#visible"
-            }
-        ]
+  "open_account_setting_button@common_buttons.hyperlink_button": {
+    "$button_text": "permissions.open.account.help.button",
+    "property_bag": {
+      "#hyperlink": "https://aka.ms/MCMultiplayerHelp"
+    },
+    "size": [ "100%", 30 ],
+    "ignored": "$is_holographic",
+    "visible": false,
+    "bindings": [
+      {
+        "binding_name": "#open_uri_button_visible",
+        "binding_name_override": "#visible"
+      }
+    ]
   },
-  
-  
+
+
   //---------------------------------------------------------------------------
   // High Ping Warning Dialog Popup
   //---------------------------------------------------------------------------
@@ -6609,7 +6744,7 @@
     "$child_control": "play.high_ping_popup_content_stack_panel",
     "controls": [
       {
-        "common_panel@common.common_panel": {"$dialog_background": "dialog_background_hollow_2"}
+        "common_panel@common.common_panel": { "$dialog_background": "dialog_background_hollow_2" }
       },
       {
         "title_label@common_dialogs.title_label": {}
@@ -6778,6 +6913,6 @@
       }
     ],
     "$button_text": "gui.cancel"
-    }
+  }
 
 }

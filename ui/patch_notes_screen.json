@@ -279,7 +279,7 @@
         "scrolling_panel@common.scrolling_panel": {
           "$scrolling_content": "patch_notes.scroll_content",
           "$show_background": false,
-          "$scroll_size": [ 4, "100%-4px" ],
+          "$scroll_size": [ 4, "100% - 4px" ],
           "$scrolling_pane_size|default": [ "100%", "default" ],
           "$always_handle_scrolling": true
         }
@@ -307,5 +307,89 @@
 
   "patch_notes_screen@common.base_screen": {
     "$screen_content": "patch_notes.patch_notes_dialog"
+  },
+
+  "sunsetting_button_panel": {
+    "type": "stack_panel",
+    "orientation": "vertical",
+    "size": [ "100%", "60px" ],
+    "controls": [
+      {
+        "padding_0": {
+          "type": "panel",
+          "size": [ "100%", 10 ]
+        }
+      },
+      {
+        "more_info_button@common_buttons.light_text_button": {
+          "$button_text": "sunsetting.popup.moreInfo",
+          "$pressed_button_name": "sunsetting.moreInfo",
+          "$button_focus_precedence": 1,
+          "size": [ "100%", "20px" ]
+        }
+      },
+      {
+        "padding_1": {
+          "type": "panel",
+          "size": [ "100%", 1 ]
+        }
+      },
+      {
+        "continue_button@common_buttons.light_text_button": {
+          "$button_text": "patchNotes.continue",
+          "$pressed_button_name": "button.menu_exit",
+          "$button_focus_precedence": 2,
+          "size": [ "100%", "20px" ]
+        }
+      },
+
+      {
+        "padding_2": {
+          "type": "panel",
+          "size": [ "100%", 1 ]
+        }
+      },
+      {
+        "sunsetting_toggle_panel@progress.do_not_show_checkbox": {
+          "$toggle_name": "sunsetting_do_not_show_again",
+          "$toggle_state_binding_name": "#sunsetting_do_not_show_again",
+          "$toggle_label_text": "sunsetting.popup.dontshow",
+          "size": [ "100%", 10 ]
+        }
+      }
+    ]
+  },
+
+  "sunsetting_content": {
+    "type": "panel",
+    "controls": [
+      {
+        "scrolling_panel@common.scrolling_panel": {
+          "$scrolling_content": "patch_notes.scroll_content",
+          "$show_background": false,
+          "$scroll_size": [ 4, "100% - 4px" ],
+          "$scrolling_pane_size|default": [ "100%", "92%" ],
+          "$main_panel_size": [ "100% - 16px", "100% - 89px" ],
+          "$always_handle_scrolling": true
+        }
+      }
+    ]
+  },
+
+  "sunsetting_dialog@common_dialogs.main_panel_small_title_one_button": {
+    "size": "$patch_notes_screen_size",
+
+    "$custom_title_label": "common_dialogs.standard_title_label",
+    "$text_name": "#dialog_title",
+    "$title_text_binding_type": "global",
+    "$use_custom_title_control": true,
+
+    "$child_control": "patch_notes.sunsetting_content",
+    "$button_panel": "patch_notes.sunsetting_button_panel",
+    "$button_panel_size": [ "100% - 14px", 60 ]
+  },
+
+  "sunsetting_screen@common.base_screen": {
+    "$screen_content": "patch_notes.sunsetting_dialog"
   }
 }

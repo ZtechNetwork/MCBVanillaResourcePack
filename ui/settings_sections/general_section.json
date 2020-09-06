@@ -1890,7 +1890,7 @@
       }
     ]
   },
-  
+
   /*
   "appearance_status_image_panel": {
     "type": "image",
@@ -2068,6 +2068,13 @@
           "$button_content": "general_section.right_button_label",
           "$pressed_button_name": "$right_pressed_button_name",
           "bindings": [
+            {
+              "binding_name": "#right_button_visible",
+              "binding_name_override": "#visible",
+              "binding_type": "collection",
+              "binding_collection_name": "$realm_collection_name",
+              "binding_condition": "once"
+            },
             {
               "binding_collection_name": "$realm_collection_name",
               "binding_type": "collection_details"
@@ -2434,6 +2441,11 @@
       }
     ],
     "controls": [
+      {
+        "sunsetting_label@play.realm_warning_tip": {
+          "$realms_warning_text": "#device_sunsetting_text"
+        }
+      },
       {
         "failed_loading_subscriptions_label": {
           "type": "label",
@@ -3786,12 +3798,12 @@
 
   "debug_override_progressions_panel": {
     "type": "panel",
-    "size": ["100%", "100%c"],
+    "size": [ "100%", "100%c" ],
     "controls": [
       {
         "override_progressions_panel_background": {
           "type": "stack_panel",
-          "size": ["90%", "100%c"],
+          "size": [ "90%", "100%c" ],
           "controls": [
             {
               "option_toggle_progression_override@settings_common.option_toggle": {
@@ -3807,13 +3819,13 @@
             {
               "spacer_0": {
                 "type": "panel",
-                "size": ["100%", 4]
+                "size": [ "100%", 4 ]
               }
             },
             {
               "override_progression_options_panel": {
                 "type": "stack_panel",
-                "size": ["100%", "100%c"],
+                "size": [ "100%", "100%c" ],
                 "bindings": [
                   {
                     "binding_name": "#dev_show_override_progressions",
@@ -3824,12 +3836,12 @@
                   {
                     "add_progressions_panel": {
                       "type": "stack_panel",
-                      "size": ["100%", 40],
+                      "size": [ "100%", 40 ],
                       "orientation": "horizontal",
                       "controls": [
                         {
                           "text_edit_progression@settings_common.option_text_edit": {
-                            "$option_generic_panel_size": ["fill", "100%c"],
+                            "$option_generic_panel_size": [ "fill", "100%c" ],
                             "$option_label": "options.dev_addProgressionId",
                             "$text_box_name": "dev_progression_id",
                             "$option_binding_name": "#dev_progression_id",
@@ -3840,13 +3852,13 @@
                         {
                           "add_button_panel": {
                             "type": "panel",
-                            "size": [40, "100%"],
+                            "size": [ 40, "100%" ],
                             "controls": [
                               {
                                 "add_button@common_buttons.light_text_button": {
                                   "$pressed_button_name": "button.add_progression_by_name",
-                                  "size": [40, 30],
-                                  "offset": [0, 1],
+                                  "size": [ 40, 30 ],
+                                  "offset": [ 0, 1 ],
                                   "anchor_from": "bottom_right",
                                   "anchor_to": "bottom_right",
                                   "$button_text": "options.dev_addLabel"
@@ -3862,18 +3874,18 @@
                     "progression_cache_management_panel": {
                       "type": "stack_panel",
                       "orientation": "horizontal",
-                      "size": ["100%", 30],
+                      "size": [ "100%", 30 ],
                       "controls": [
                         {
                           "reset_to_default@common_buttons.light_text_button": {
-                            "size": ["50%", "100%"],
+                            "size": [ "50%", "100%" ],
                             "$pressed_button_name": "button.reset_to_default_progressions",
                             "$button_text": "options.dev_resetToDefault"
                           }
                         },
                         {
                           "clear_progressions@common_buttons.light_text_button": {
-                            "size": ["50%", "100%"],
+                            "size": [ "50%", "100%" ],
                             "$pressed_button_name": "button.clear_progression_list",
                             "$button_text": "options.dev_clearFlights"
                           }
@@ -3887,7 +3899,7 @@
             {
               "progression_grid": {
                 "type": "grid",
-                "size": ["100%", "100%c"],
+                "size": [ "100%", "100%c" ],
                 "grid_item_template": "general_section.progression_grid_item",
                 "grid_dimension_binding": "#progressions_grid_dimension",
                 "collection_name": "progression_collection",
@@ -4879,6 +4891,70 @@
           "$dropdown_scroll_content_size": [ "100%", "200%" ]
         }
       },
+
+      {
+        "sunsetting_use_overrides_toggle@settings_common.option_toggle": {
+          "$option_label": "options.dev_sunset_overrides",
+          "$option_binding_name": "#dev_use_sunset_overrides",
+          "$option_enabled_binding_name": "#dev_use_sunset_overrides_enabled",
+          "$toggle_name": "dev_use_sunset_overrides",
+          "$dropdown_scroll_content_size": [ "100%", "150%" ]
+        }
+      },
+      {
+        "padding_sunsetting": {
+          "type": "panel",
+          "size": [ "100%", 3 ],
+          "bindings": [
+            {
+              "binding_name": "#sunsetting_override_enabled",
+              "binding_name_override": "#visible"
+            }
+          ]
+        }
+      },
+      {
+        "sunseting_state_toggle@settings_common.option_toggle": {
+          "$option_label": "options.dev_sunset_state",
+          "$option_binding_name": "#dev_sunset_state",
+          "$option_enabled_binding_name": "#dev_sunset_state_enabled",
+          "$toggle_name": "dev_sunset_state",
+          "bindings": [
+            {
+              "binding_name": "#sunsetting_override_enabled",
+              "binding_name_override": "#visible"
+            }
+          ]
+        }
+      },
+      {
+        "sunsetting_tier_dropdown@settings_common.option_dropdown": {
+          "$option_label": "options.dev_sunsetting_tier",
+          "$dropdown_content": "general_section.dev_sunsetting_tier_dropdown_content",
+          "$dropdown_area": "content_area",
+          "$dropdown_name": "dev_sunsetting_tier_dropdown",
+          "$options_dropdown_toggle_label_binding": "#dev_sunsetting_tier_dropdown_toggle_label",
+          "$option_enabled_binding_name": "#dev_sunsetting_tier_dropdown_enabled",
+          "bindings": [
+            {
+              "binding_name": "#sunsetting_override_enabled",
+              "binding_name_override": "#visible"
+            }
+          ]
+        }
+      },
+      {
+        "padding_sunsetting_2": {
+          "type": "panel",
+          "size": [ "100%", 3 ],
+          "bindings": [
+            {
+              "binding_name": "#sunsetting_override_enabled",
+              "binding_name_override": "#visible"
+            }
+          ]
+        }
+      },
       {
         "option_clear_store_cache_button@settings_common.action_button": {
           "$pressed_button_name": "dev_clear_store_cache_button",
@@ -5067,7 +5143,7 @@
     "$toggle_view_binding_name": "flighting_debug_button_toggle",
     "$glyph_texture": "textures/ui/local_only_storage",
     "$glyph_color_texture": "textures/ui/cloud_only_storage",
-    "$glyph_size": [15, 15],
+    "$glyph_size": [ 15, 15 ],
     "$button_text": "options.flighting_debug",
     "$toggle_property_bag": {
       "#panel_title": "options.debugTitle"
@@ -5076,7 +5152,7 @@
 
   "flighting_debug_section": {
     "type": "stack_panel",
-    "size": ["100%", "100%c"],
+    "size": [ "100%", "100%c" ],
     "anchor_from": "top_left",
     "anchor_to": "top_left",
     "bindings": [
@@ -5091,7 +5167,7 @@
       {
         "treatment_override_panel": {
           "type": "stack_panel",
-          "size": ["100%", "100%c"],
+          "size": [ "100%", "100%c" ],
           "orientation": "vertical",
           "controls": [
             {
@@ -5111,7 +5187,7 @@
       {
         "progression_override_panel": {
           "type": "stack_panel",
-          "size": ["100%", "100%c"],
+          "size": [ "100%", "100%c" ],
           "orientation": "vertical",
           "controls": [
             {
@@ -5541,6 +5617,22 @@
         "identity_environment_prod@settings_common.radio_with_label": {
           "$toggle_state_binding_name": "#identity_environment_prod",
           "$radio_label_text": "options.dev_identity_environment.prod"
+        }
+      }
+    ]
+  },
+  "dev_sunsetting_tier_dropdown_content@settings_common.option_radio_dropdown_group": {
+    "$radio_buttons": [
+      {
+        "sunsetting_tier1@settings_common.radio_with_label": {
+          "$toggle_state_binding_name": "#sunsetting_tier1",
+          "$radio_label_text": "options.dev_sunsetting_tier.one"
+        }
+      },
+      {
+        "sunsetting_not_pending@settings_common.radio_with_label": {
+          "$toggle_state_binding_name": "#sunsetting_not_pending",
+          "$radio_label_text": "options.dev_sunsetting_tier.not_pending"
         }
       }
     ]
