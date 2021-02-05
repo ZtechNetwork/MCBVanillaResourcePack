@@ -293,7 +293,13 @@
                             "$checkbox_offset": [ 7, 0 ],
                             "$toggle_name": "#agree_terms_and_conditions",
                             "focus_change_up": "2users",
-                            "focus_identifier": "checkbox_control"
+                            "focus_identifier": "checkbox_control",
+                            "bindings": [
+                              {
+                                "binding_name": "#has_checked_tos",
+                                "binding_name_override": "#toggle_state"
+                              }
+                            ]
                           }
                         },
                         {
@@ -340,7 +346,13 @@
         "create_realms_button@common_buttons.light_content_button": {
           "$pressed_button_name": "button.create_realm",
           "$button_content": "realms_create.create_realms_stack_panel",
-          "size": [ "100%", "100%" ]
+          "size": [ "100%", "100%" ],
+          "bindings": [
+            {
+              "binding_name": "#has_checked_tos",
+              "binding_name_override": "#enabled"
+            }
+          ]
         }
       }
     ]
@@ -496,18 +508,6 @@
           "$used_fonttype": "smooth",
           "$show_option_label": false,
           "$show_for_ios|default": false,
-          "layer": 3,
-          "size": [ "100% - 4px", "100%c" ]
-        }
-      },
-      {
-        "realms_ios_terms_info@settings_common.option_info_label": {
-          "$container_text_binding_name": "#realms_purchase_info",
-          "$used_fontsize": "normal",
-          "$used_fonttype": "smooth",
-          "$show_option_label": false,
-          "$show_for_ios|default": false,
-          "ignored": "(not $is_ios)",
           "layer": 3,
           "size": [ "100% - 4px", "100%c" ]
         }

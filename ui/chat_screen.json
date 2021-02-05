@@ -121,6 +121,10 @@
       {
         "binding_name": "#keyboard_button_focus_override_down",
         "binding_name_override": "#focus_change_down"
+      },
+      {
+        "binding_name": "#keyboard_button_visible",
+        "binding_name_override": "#visible"
       }
     ]
   },
@@ -140,11 +144,14 @@
     "focus_enabled": "$tts_enabled",
 
     "$button_type_panel": "chat.send_panel",
-    "$button_tts_header": "accessibility.chat.tts.sendChatMessage",
+    "$button_tts_header": "#send_button_accessibility_text",
     "bindings": [
       {
         "binding_name": "#send_button_visible",
         "binding_name_override": "#enabled"
+      },
+      {
+        "binding_name": "#send_button_accessibility_text"
       }
     ]
   },
@@ -162,6 +169,7 @@
           "localize": false,
           "size": [ "100%", "default" ],
           "text": "#text",
+          "text_tts": "#text_tts",
           "font_type": "$chat_font_type",
           "font_scale_factor": "$chat_font_scale_factor",
           "line_padding": "$chat_line_spacing"
@@ -544,11 +552,15 @@
       },
       {
         "gamepad_back_helper": {
-          "type": "panel",
+          "type": "input_panel",
           "size": [ "100%c", 26 ],
           "offset": [ -4, -1 ],
           "$gamepad_helper_icon_description_text_color": "$light_glyph_default_color",
           "$gamepad_helper_icon_description_shadow": false,
+
+          "tts_name": "accessibility.button.tts.title",
+          "tts_control_header": "#back_button_accessibility_text",
+
           "controls": [
             {
               "gamepad_helper_button@common.gamepad_helper_b": {

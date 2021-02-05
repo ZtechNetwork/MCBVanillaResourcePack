@@ -20,7 +20,7 @@
           "ignored": "(not $is_pregame)",
           "type": "panel",
           "size": [ "100%", "100%c + 2px" ],
-           "controls": [
+          "controls": [
             {
               "thumbnail": {
                 "type": "image",
@@ -60,14 +60,13 @@
         }
       },
       {
-        "play_or_create_panel@world_section.play_or_create_stack_bedrock":  {
+        "play_or_create_panel@world_section.play_or_create_stack_bedrock": {
           "ignored": "(not $is_pregame or $education_edition)",
           "$button_text_max_size": [ "100%", 20 ]
         }
       },
       {
-      
-        "play_or_host_panel@world_section.play_or_host_stack_edu":  {}
+        "play_or_host_panel@world_section.play_or_host_stack_edu": {}
       },
       {
         "spacer": {
@@ -184,7 +183,7 @@
               "$hover_button_texture": "textures/ui/realmsContentHover",
               "$pressed_button_texture": "textures/ui/realmsContentPressed"
             }
-          ],          
+          ],
           "bindings": [
             {
               "binding_name": "#create_on_realm_visible",
@@ -228,7 +227,6 @@
       }
     ]
   },
-  
 
   "addons_selector_panel": {
     "type": "stack_panel",
@@ -439,7 +437,7 @@
           "$options_dropdown_toggle_label_binding": "#world_game_mode_dropdown_toggle_label",
           "$option_enabled_binding_name": "#world_game_mode_dropdown_enabled",
           "$selection_highlight_offset": [ -2, 1 ],
-          "$selection_highlight_size": [ "100%", "100% + 1px" ],          
+          "$selection_highlight_size": [ "100%", "100% + 1px" ],
           "$focus_override_right": "FOCUS_OVERRIDE_STOP"
         }
       },
@@ -704,18 +702,26 @@
         }
       },
       {
-        "experimental_gameplay_toggle@settings_common.option_toggle": {
-          "$tts_section_header": "createWorldScreen.worldSettings",
+        "experimental_toggles_label@settings_common.option_group_label": {
+          "$text": "createWorldScreen.experimentalgameplay"
+        }
+      },
+      {
+        "experimental_toggles": {
           "ignored": "$education_edition",
-          "$option_label": "createWorldScreen.experimentalgameplay",
-          "$option_binding_name": "#experimental_gameplay",
-          "$option_enabled_binding_name": "#experimental_gameplay_enabled",
-          "$toggle_name": "experimental_gameplay",
-          "$focus_override_right": "FOCUS_OVERRIDE_STOP",
+          "type": "stack_panel",
+          "orientation": "vertical",
+          "size": [ "100%", "100%c" ],
+          "factory": {
+            "name": "experimental_toggle_factory",
+            "control_name": "world_section.experimental_toggle"
+          },
+
+          "collection_name": "experimental_toggles",
           "bindings": [
             {
-              "binding_name": "#show_experimental_gameplay",
-              "binding_name_override": "#visible"
+              "binding_name": "#experimental_toggle_count",
+              "binding_name_override": "#collection_length"
             }
           ]
         }
@@ -1556,7 +1562,7 @@
     }
   },
 
-  "cross_platform_warning_label@pause.disconnected_label": { 
+  "cross_platform_warning_label@pause.disconnected_label": {
     "text": ""
   },
 
@@ -1732,13 +1738,49 @@
     ]
   },
 
-    "open_account_setting_button@common_buttons.hyperlink_button": {
-        "$button_text": "permissions.open.account.help.button",
-        "property_bag": {
-            "#hyperlink": "https://aka.ms/MCMultiplayerHelp"
-        }
-    },
-    
+  "experimental_toggle@settings_common.option_toggle": {
+    "$tts_section_header": "createWorldScreen.worldSettings",
+    "$toggle_tts_header_binding_type": "collection",
+    "$toggle_tts_header_binding_collection_name": "experimental_toggles",
+    "ignored": "$education_edition",
+    "$option_label": "#text",
+    "$option_binding_name": "#experimental_toggle_value",
+    "$option_enabled_binding_name": "#experimental_toggle_enabled",
+    "$toggle_name": "experimental_toggle",
+    "$toggle_grid_collection_name": "experimental_toggles",
+    "$toggle_collection_details_type": "collection_details",
+    "$toggle_collection_detail_name": "experimental_toggles",
+    "$toggle_binding_type": "collection",
+    "$focus_override_right": "FOCUS_OVERRIDE_STOP",
+    "bindings": [
+      {
+        "binding_name": "#show_experimental_toggle",
+        "binding_name_override": "#visible"
+      },
+      {
+        "binding_name": "#experimental_toggle_enabled",
+        "binding_type": "collection",
+        "binding_name_override": "#enabled",
+        "binding_collection_name": "experimental_toggles"
+      }
+    ],
+    "$label_bindings": [
+      {
+        "binding_name": "#experimental_toggle_text",
+        "binding_name_override": "#text",
+        "binding_type": "collection",
+        "binding_collection_name": "experimental_toggles"
+      }
+    ]
+  },
+
+  "open_account_setting_button@common_buttons.hyperlink_button": {
+    "$button_text": "permissions.open.account.help.button",
+    "property_bag": {
+      "#hyperlink": "https://aka.ms/MCMultiplayerHelp"
+    }
+  },
+
   // Debug section and button
 
   "debug_button@settings_common.section_toggle_base": {
@@ -1795,6 +1837,19 @@
           "$dropdown_name": "debug_spawn_biome_dropdown",
           "$options_dropdown_toggle_label_binding": "#debug_spawn_biome_dropdown_toggle_label",
           "$option_enabled_binding_name": "#debug_spawn_biome_dropdown_enabled",
+          "$selection_highlight_offset": [ -2, 1 ],
+          "$selection_highlight_size": [ "100%", "100% + 1px" ],
+          "$focus_override_right": "FOCUS_OVERRIDE_STOP"
+        }
+      },
+      {
+        "biome_override_dropdown@settings_common.option_dropdown": {
+          "$option_label": "Biome override",
+          "$dropdown_content": "world_section.debug_biome_override_dropdown_content",
+          "$dropdown_area": "content_area",
+          "$dropdown_name": "debug_biome_override_dropdown",
+          "$options_dropdown_toggle_label_binding": "#debug_biome_override_dropdown_toggle_label",
+          "$option_enabled_binding_name": "#debug_biome_override_dropdown_dropdown_enabled",
           "$selection_highlight_offset": [ -2, 1 ],
           "$selection_highlight_size": [ "100%", "100% + 1px" ],
           "$focus_override_right": "FOCUS_OVERRIDE_STOP"
@@ -2263,6 +2318,454 @@
       {
         "@settings_common.radio_with_label": {
           "$toggle_state_binding_name": "#debug_spawn_in_plains",
+          "$radio_label_text": "plains"
+        }
+      }
+    ]
+  },
+  "debug_biome_override_dropdown_content@settings_common.option_radio_dropdown_group": {
+    "$radio_buttons": [
+      {
+        "@settings_common.radio_with_label": {
+          "$toggle_state_binding_name": "#debug_biome_override_random_biome",
+          "$radio_label_text": "random_biome"
+        }
+      },
+      {
+        "@settings_common.radio_with_label": {
+          "$toggle_state_binding_name": "#debug_biome_override_basalt_deltas",
+          "$radio_label_text": "basalt_deltas"
+        }
+      },
+      {
+        "@settings_common.radio_with_label": {
+          "$toggle_state_binding_name": "#debug_biome_override_soulsand_valley",
+          "$radio_label_text": "soulsand_valley"
+        }
+      },
+      {
+        "@settings_common.radio_with_label": {
+          "$toggle_state_binding_name": "#debug_biome_override_crimson_forest",
+          "$radio_label_text": "crimson_forest"
+        }
+      },
+      {
+        "@settings_common.radio_with_label": {
+          "$toggle_state_binding_name": "#debug_biome_override_warped_forest",
+          "$radio_label_text": "warped_forest"
+        }
+      },
+      {
+        "@settings_common.radio_with_label": {
+          "$toggle_state_binding_name": "#debug_biome_override_hell",
+          "$radio_label_text": "hell"
+        }
+      },
+      {
+        "@settings_common.radio_with_label": {
+          "$toggle_state_binding_name": "#debug_biome_override_desert",
+          "$radio_label_text": "desert"
+        }
+      },
+      {
+        "@settings_common.radio_with_label": {
+          "$toggle_state_binding_name": "#debug_biome_override_extreme_hills",
+          "$radio_label_text": "extreme_hills"
+        }
+      },
+      {
+        "@settings_common.radio_with_label": {
+          "$toggle_state_binding_name": "#debug_biome_override_forest",
+          "$radio_label_text": "forest"
+        }
+      },
+      {
+        "@settings_common.radio_with_label": {
+          "$toggle_state_binding_name": "#debug_biome_override_taiga",
+          "$radio_label_text": "taiga"
+        }
+      },
+      {
+        "@settings_common.radio_with_label": {
+          "$toggle_state_binding_name": "#debug_biome_override_swampland",
+          "$radio_label_text": "swampland"
+        }
+      },
+      {
+        "@settings_common.radio_with_label": {
+          "$toggle_state_binding_name": "#debug_biome_override_river",
+          "$radio_label_text": "river"
+        }
+      },
+      {
+        "@settings_common.radio_with_label": {
+          "$toggle_state_binding_name": "#debug_biome_override_frozen_river",
+          "$radio_label_text": "frozen_river"
+        }
+      },
+      {
+        "@settings_common.radio_with_label": {
+          "$toggle_state_binding_name": "#debug_biome_override_ice_plains",
+          "$radio_label_text": "ice_plains"
+        }
+      },
+      {
+        "@settings_common.radio_with_label": {
+          "$toggle_state_binding_name": "#debug_biome_override_ice_mountains",
+          "$radio_label_text": "ice_mountains"
+        }
+      },
+      {
+        "@settings_common.radio_with_label": {
+          "$toggle_state_binding_name": "#debug_biome_override_mushroom_island",
+          "$radio_label_text": "mushroom_island"
+        }
+      },
+      {
+        "@settings_common.radio_with_label": {
+          "$toggle_state_binding_name": "#debug_biome_override_mushroom_island_shore",
+          "$radio_label_text": "mushroom_island_shore"
+        }
+      },
+      {
+        "@settings_common.radio_with_label": {
+          "$toggle_state_binding_name": "#debug_biome_override_beach",
+          "$radio_label_text": "beach"
+        }
+      },
+      {
+        "@settings_common.radio_with_label": {
+          "$toggle_state_binding_name": "#debug_biome_override_desert_hills",
+          "$radio_label_text": "desert_hills"
+        }
+      },
+      {
+        "@settings_common.radio_with_label": {
+          "$toggle_state_binding_name": "#debug_biome_override_forest_hills",
+          "$radio_label_text": "forest_hills"
+        }
+      },
+      {
+        "@settings_common.radio_with_label": {
+          "$toggle_state_binding_name": "#debug_biome_override_taiga_hills",
+          "$radio_label_text": "taiga_hills"
+        }
+      },
+      {
+        "@settings_common.radio_with_label": {
+          "$toggle_state_binding_name": "#debug_biome_override_extreme_hills_edge",
+          "$radio_label_text": "extreme_hills_edge"
+        }
+      },
+      {
+        "@settings_common.radio_with_label": {
+          "$toggle_state_binding_name": "#debug_biome_override_jungle",
+          "$radio_label_text": "jungle"
+        }
+      },
+      {
+        "@settings_common.radio_with_label": {
+          "$toggle_state_binding_name": "#debug_biome_override_jungle_hills",
+          "$radio_label_text": "jungle_hills"
+        }
+      },
+      {
+        "@settings_common.radio_with_label": {
+          "$toggle_state_binding_name": "#debug_biome_override_jungle_edge",
+          "$radio_label_text": "jungle_edge"
+        }
+      },
+      {
+        "@settings_common.radio_with_label": {
+          "$toggle_state_binding_name": "#debug_biome_override_stone_beach",
+          "$radio_label_text": "stone_beach"
+        }
+      },
+      {
+        "@settings_common.radio_with_label": {
+          "$toggle_state_binding_name": "#debug_biome_override_cold_beach",
+          "$radio_label_text": "cold_beach"
+        }
+      },
+      {
+        "@settings_common.radio_with_label": {
+          "$toggle_state_binding_name": "#debug_biome_override_birch_forest",
+          "$radio_label_text": "birch_forest"
+        }
+      },
+      {
+        "@settings_common.radio_with_label": {
+          "$toggle_state_binding_name": "#debug_biome_override_birch_forest_hills",
+          "$radio_label_text": "birch_forest_hills"
+        }
+      },
+      {
+        "@settings_common.radio_with_label": {
+          "$toggle_state_binding_name": "#debug_biome_override_roofed_forest",
+          "$radio_label_text": "roofed_forest"
+        }
+      },
+      {
+        "@settings_common.radio_with_label": {
+          "$toggle_state_binding_name": "#debug_biome_override_cold_taiga",
+          "$radio_label_text": "cold_taiga"
+        }
+      },
+      {
+        "@settings_common.radio_with_label": {
+          "$toggle_state_binding_name": "#debug_biome_override_cold_taiga_hills",
+          "$radio_label_text": "cold_taiga_hills"
+        }
+      },
+      {
+        "@settings_common.radio_with_label": {
+          "$toggle_state_binding_name": "#debug_biome_override_mega_taiga",
+          "$radio_label_text": "mega_taiga"
+        }
+      },
+      {
+        "@settings_common.radio_with_label": {
+          "$toggle_state_binding_name": "#debug_biome_override_mega_taiga_hills",
+          "$radio_label_text": "mega_taiga_hills"
+        }
+      },
+      {
+        "@settings_common.radio_with_label": {
+          "$toggle_state_binding_name": "#debug_biome_override_extreme_hills_plus_trees",
+          "$radio_label_text": "extreme_hills_plus_trees"
+        }
+      },
+      {
+        "@settings_common.radio_with_label": {
+          "$toggle_state_binding_name": "#debug_biome_override_savanna",
+          "$radio_label_text": "savanna"
+        }
+      },
+      {
+        "@settings_common.radio_with_label": {
+          "$toggle_state_binding_name": "#debug_biome_override_savanna_plateau",
+          "$radio_label_text": "savanna_plateau"
+        }
+      },
+      {
+        "@settings_common.radio_with_label": {
+          "$toggle_state_binding_name": "#debug_biome_override_mesa",
+          "$radio_label_text": "mesa"
+        }
+      },
+      {
+        "@settings_common.radio_with_label": {
+          "$toggle_state_binding_name": "#debug_biome_override_mesa_plateau_stone",
+          "$radio_label_text": "mesa_plateau_stone"
+        }
+      },
+      {
+        "@settings_common.radio_with_label": {
+          "$toggle_state_binding_name": "#debug_biome_override_mesa_plateau",
+          "$radio_label_text": "mesa_plateau"
+        }
+      },
+      {
+        "@settings_common.radio_with_label": {
+          "$toggle_state_binding_name": "#debug_biome_override_ocean",
+          "$radio_label_text": "ocean"
+        }
+      },
+      {
+        "@settings_common.radio_with_label": {
+          "$toggle_state_binding_name": "#debug_biome_override_deep_ocean",
+          "$radio_label_text": "deep_ocean"
+        }
+      },
+      {
+        "@settings_common.radio_with_label": {
+          "$toggle_state_binding_name": "#debug_biome_override_warm_ocean",
+          "$radio_label_text": "warm_ocean"
+        }
+      },
+      {
+        "@settings_common.radio_with_label": {
+          "$toggle_state_binding_name": "#debug_biome_override_deep_warm_ocean",
+          "$radio_label_text": "deep_warm_ocean"
+        }
+      },
+      {
+        "@settings_common.radio_with_label": {
+          "$toggle_state_binding_name": "#debug_biome_override_lukewarm_ocean",
+          "$radio_label_text": "lukewarm_ocean"
+        }
+      },
+      {
+        "@settings_common.radio_with_label": {
+          "$toggle_state_binding_name": "#debug_biome_override_deep_lukewarm_ocean",
+          "$radio_label_text": "deep_lukewarm_ocean"
+        }
+      },
+      {
+        "@settings_common.radio_with_label": {
+          "$toggle_state_binding_name": "#debug_biome_override_cold_ocean",
+          "$radio_label_text": "cold_ocean"
+        }
+      },
+      {
+        "@settings_common.radio_with_label": {
+          "$toggle_state_binding_name": "#debug_biome_override_deep_cold_ocean",
+          "$radio_label_text": "deep_cold_ocean"
+        }
+      },
+      {
+        "@settings_common.radio_with_label": {
+          "$toggle_state_binding_name": "#debug_biome_override_frozen_ocean",
+          "$radio_label_text": "frozen_ocean"
+        }
+      },
+      {
+        "@settings_common.radio_with_label": {
+          "$toggle_state_binding_name": "#debug_biome_override_deep_frozen_ocean",
+          "$radio_label_text": "deep_frozen_ocean"
+        }
+      },
+      {
+        "@settings_common.radio_with_label": {
+          "$toggle_state_binding_name": "#debug_biome_override_bamboo_jungle",
+          "$radio_label_text": "bamboo_jungle"
+        }
+      },
+      {
+        "@settings_common.radio_with_label": {
+          "$toggle_state_binding_name": "#debug_biome_override_bamboo_jungle_hills",
+          "$radio_label_text": "bamboo_jungle_hills"
+        }
+      },
+      {
+        "@settings_common.radio_with_label": {
+          "$toggle_state_binding_name": "#debug_biome_override_sunflower_plains",
+          "$radio_label_text": "sunflower_plains"
+        }
+      },
+      {
+        "@settings_common.radio_with_label": {
+          "$toggle_state_binding_name": "#debug_biome_override_swampland_mutated",
+          "$radio_label_text": "swampland_mutated"
+        }
+      },
+      {
+        "@settings_common.radio_with_label": {
+          "$toggle_state_binding_name": "#debug_biome_override_ice_plains_spikes",
+          "$radio_label_text": "ice_plains_spikes"
+        }
+      },
+      {
+        "@settings_common.radio_with_label": {
+          "$toggle_state_binding_name": "#debug_biome_override_cold_taiga_mutated",
+          "$radio_label_text": "cold_taiga_mutated"
+        }
+      },
+      {
+        "@settings_common.radio_with_label": {
+          "$toggle_state_binding_name": "#debug_biome_override_savanna_mutated",
+          "$radio_label_text": "savanna_mutated"
+        }
+      },
+      {
+        "@settings_common.radio_with_label": {
+          "$toggle_state_binding_name": "#debug_biome_override_savanna_plateau_mutated",
+          "$radio_label_text": "savanna_plateau_mutated"
+        }
+      },
+      {
+        "@settings_common.radio_with_label": {
+          "$toggle_state_binding_name": "#debug_biome_override_roofed_forest_mutated",
+          "$radio_label_text": "roofed_forest_mutated"
+        }
+      },
+      {
+        "@settings_common.radio_with_label": {
+          "$toggle_state_binding_name": "#debug_biome_override_desert_mutated",
+          "$radio_label_text": "desert_mutated"
+        }
+      },
+      {
+        "@settings_common.radio_with_label": {
+          "$toggle_state_binding_name": "#debug_biome_override_flower_forest",
+          "$radio_label_text": "flower_forest"
+        }
+      },
+      {
+        "@settings_common.radio_with_label": {
+          "$toggle_state_binding_name": "#debug_biome_override_taiga_mutated",
+          "$radio_label_text": "taiga_mutated"
+        }
+      },
+      {
+        "@settings_common.radio_with_label": {
+          "$toggle_state_binding_name": "#debug_biome_override_jungle_mutated",
+          "$radio_label_text": "jungle_mutated"
+        }
+      },
+      {
+        "@settings_common.radio_with_label": {
+          "$toggle_state_binding_name": "#debug_biome_override_jungle_edge_mutated",
+          "$radio_label_text": "jungle_edge_mutated"
+        }
+      },
+      {
+        "@settings_common.radio_with_label": {
+          "$toggle_state_binding_name": "#debug_biome_override_mesa_bryce",
+          "$radio_label_text": "mesa_bryce"
+        }
+      },
+      {
+        "@settings_common.radio_with_label": {
+          "$toggle_state_binding_name": "#debug_biome_override_mesa_plateau_stone_mutated",
+          "$radio_label_text": "mesa_plateau_stone_mutated"
+        }
+      },
+      {
+        "@settings_common.radio_with_label": {
+          "$toggle_state_binding_name": "#debug_biome_override_mesa_plateau_mutated",
+          "$radio_label_text": "mesa_plateau_mutated"
+        }
+      },
+      {
+        "@settings_common.radio_with_label": {
+          "$toggle_state_binding_name": "#debug_biome_override_birch_forest_mutated",
+          "$radio_label_text": "birch_forest_mutated"
+        }
+      },
+      {
+        "@settings_common.radio_with_label": {
+          "$toggle_state_binding_name": "#debug_biome_override_birch_forest_hills_mutated",
+          "$radio_label_text": "birch_forest_hills_mutated"
+        }
+      },
+      {
+        "@settings_common.radio_with_label": {
+          "$toggle_state_binding_name": "#debug_biome_override_redwood_taiga_mutated",
+          "$radio_label_text": "redwood_taiga_mutated"
+        }
+      },
+      {
+        "@settings_common.radio_with_label": {
+          "$toggle_state_binding_name": "#debug_biome_override_extreme_hills_mutated",
+          "$radio_label_text": "extreme_hills_mutated"
+        }
+      },
+      {
+        "@settings_common.radio_with_label": {
+          "$toggle_state_binding_name": "#debug_biome_override_extreme_hills_plus_trees_mutated",
+          "$radio_label_text": "extreme_hills_plus_trees_mutated"
+        }
+      },
+      {
+        "@settings_common.radio_with_label": {
+          "$toggle_state_binding_name": "#debug_biome_override_redwood_taiga_hills_mutated",
+          "$radio_label_text": "redwood_taiga_hills_mutated"
+        }
+      },
+      {
+        "@settings_common.radio_with_label": {
+          "$toggle_state_binding_name": "#debug_biome_override_plains",
           "$radio_label_text": "plains"
         }
       }

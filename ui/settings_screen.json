@@ -83,6 +83,18 @@
           "ignored": "(not $include_controls_and_settings_sections)"
         }
       },
+      {
+        "vr_button@general_section.vr_button": {
+          "$toggle_group_forced_index": "$vr_forced_index",
+          "ignored": "(not $is_holographic or not $include_controls_and_settings_sections)"
+        }
+      },
+      {
+        "how_to_play_button@general_section.how_to_play_button": {
+          "$toggle_group_forced_index": "$how_to_play_index",
+          "ignored": "(not $include_controls_and_settings_sections)"
+        }
+      },
 
       // the list of selection toggle buttons, add yours here...
       {
@@ -190,13 +202,6 @@
               }
             },
             {
-              "vr_button@general_section.vr_button": {
-                "ignored": "(not $is_holographic)",
-                "$toggle_group_forced_index": "$vr_forced_index",
-                "$tts_section_header": "$general_section_header"
-              }
-            },
-            {
               "sound_button@general_section.sound_button": {
                 "$toggle_group_forced_index": "$sound_forced_index",
                 "$tts_section_header": "$general_section_header"
@@ -249,12 +254,6 @@
               "broadcast_button@general_section.broadcast_button": {
                 "ignored": "(not $can_support_broadcast or $education_edition)",
                 "$toggle_group_forced_index": "$broadcast_forced_index",
-                "$tts_section_header": "$general_section_header"
-              }
-            },
-            {
-              "how_to_play_button@general_section.how_to_play_button": {
-                "$toggle_group_forced_index": "$how_to_play_index",
                 "$tts_section_header": "$general_section_header"
               }
             }

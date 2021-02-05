@@ -86,7 +86,19 @@
       {
         "top_padding": {
           "type": "panel",
-          "size": [ "100%", "fill" ]
+          "size": [ "100%", "fill" ],
+          "controls": [
+            {
+              "screen_header": {
+                "type": "label",
+                "size": [ "50%", "50%" ],
+                "color": "$generic_button_text_color",
+                "text_alignment": "center",
+                "text": "emotes.header_text",
+                "shadow": true
+              }
+            }
+          ]
         }
       },
       {
@@ -292,6 +304,7 @@
     "shadow": true,
     "color": "$dark_button_default_text_color",
     "font_type": "MinecraftTen",
+    "tts_skip_message": true,
     "bindings": [
       {
         "binding_name": "#is_touch_mode",
@@ -445,11 +458,11 @@
     "button_name": "$button_name",
     "iterate_left_button_name": "$iterate_left_button_name",
     "iterate_right_button_name": "$iterate_right_button_name",
-
+    "initial_button_slice": 0,
     "$button_focus_precedence|default": 0,
     "default_focus_precedence": "$button_focus_precedence",
 
-    "$button_tts_name|default": "accessibility.button.tts.title",
+    "$button_tts_name|default": "",
     "$button_tts_header|default": "",
     "$tts_section_header|default": "",
     "$button_tts_control_type_order_priority|default": 100,
@@ -458,6 +471,7 @@
     "tts_control_header": "$button_tts_header",
     "tts_section_header": "$tts_section_header",
     "tts_control_type_order_priority": "$button_tts_control_type_order_priority",
+    "tts_skip_message": true,
 
     "layer": 1,
     "sound_name": "random.click",
@@ -535,7 +549,7 @@
       }
     ],
     "property_bag": {
-      "#hover_slice": -1
+      "#hover_slice": 0
     },
     "$selection_wheel_bindings|default": [],
     "bindings": "$selection_wheel_bindings"

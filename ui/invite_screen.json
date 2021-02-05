@@ -1654,9 +1654,14 @@
   "no_xbox_live_friends_frame_label@invite.frame_label": {
     "size": [ "default", 30 ],
     "max_size": [ "100% - 14px", 30 ],
-    "text": "invite.noFriends",
+    "text": "#no_xbox_live_friends_text",
     "anchor_from": "bottom_middle",
-    "anchor_to": "bottom_middle"
+    "anchor_to": "bottom_middle",
+    "bindings": [
+      {
+        "binding_name": "#no_xbox_live_friends_text"
+      }
+    ]
   },
 
   "no_platform_friends_frame_label@invite.frame_label": {
@@ -1715,6 +1720,7 @@
     "type": "panel",
     "size": [ "100%", "100%" ],
     "layer": 2,
+    "$label_color|default": "$light_button_default_text_color",
     "controls": [
       {
         "gameplay_helper@$gamepad_helper": {
@@ -1723,7 +1729,7 @@
           "$gamepad_description_size": [ "100%", "default" ],
           "$gamepad_description_max_size": [ "100%", "100%" ],
           "$icon_description_bind": "$button_text",
-          "$gamepad_helper_icon_description_text_color": "$light_button_default_text_color",
+          "$gamepad_helper_icon_description_text_color": "$label_color",
           "$gamepad_helper_icon_description_shadow": false,
           "$icon_description_bind_condition": "none"
         }
@@ -1733,7 +1739,7 @@
           "type": "label",
           "text": "$button_text",
           "layer": 3,
-          "color": "$light_button_default_text_color",
+          "color": "$label_color",
           "text_alignment": "center",
           "$invite_label_binding_type|default": "none",
           "bindings": [
@@ -1750,11 +1756,22 @@
       }
     ]
   },
-
-  "add_friend_button@common_buttons.light_content_button": {
+  "invite_button_content_hover@invite.invite_button_content": {
+    "$label_color|default": "$light_button_hover_text_color"
+  },
+  "invite_button_content_pressed@invite.invite_button_content": {
+    "$label_color|default": "$light_button_pressed_text_color"
+  },
+  "invite_button_content_locked@invite.invite_button_content": {
+    "$label_color|default": "$light_button_locked_text_color"
+  },
+  "add_friend_button@common_buttons.light_content_button_control_content": {
     "ignored": "($is_inviting_to_realm or (not $supports_add_friend))",
     "$pressed_button_name": "button.add_friend",
     "$button_content": "invite.invite_button_content",
+    "$button_content_hover": "invite.invite_button_content_hover",
+    "$button_content_pressed": "invite.invite_button_content_pressed",
+    "$button_content_locked": "invite.invite_button_content_locked",
     "$button_text|default": "networkWorld.add_friend",
     "$icon_description_bind_type": "none",
     "$gamepad_helper": "common.gamepad_helper_y",
@@ -1769,10 +1786,13 @@
     ]
   },
 
-  "add_member_button@common_buttons.light_content_button": {
+  "add_member_button@common_buttons.light_content_button_control_content": {
     "ignored": "(not $is_realm_owner)",
     "$pressed_button_name": "button.add_member",
     "$button_content": "invite.invite_button_content",
+    "$button_content_hover": "invite.invite_button_content_hover",
+    "$button_content_pressed": "invite.invite_button_content_pressed",
+    "$button_content_locked": "invite.invite_button_content_locked",
     "$button_text": "invite.realm.add_member",
     "$icon_description_bind_type": "none",
     "$gamepad_helper": "common.gamepad_helper_y",
@@ -1783,9 +1803,12 @@
     "button_mappings": "$add_button_mappings"
   },
 
-  "send_button@common_buttons.light_content_button": {
+  "send_button@common_buttons.light_content_button_control_content": {
     "$pressed_button_name": "button.send_invites",
     "$button_content": "invite.invite_button_content",
+    "$button_content_hover": "invite.invite_button_content_hover",
+    "$button_content_pressed": "invite.invite_button_content_pressed",
+    "$button_content_locked": "invite.invite_button_content_locked",
     "$button_text": "#send_button",
     "$invite_label_binding_type": "global",
     "$gamepad_helper": "common.gamepad_helper_x",

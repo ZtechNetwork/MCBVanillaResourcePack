@@ -797,6 +797,7 @@
   "npc_message@npc_interact.multiline_text_edit_control": {
     "$enabled": true,
     "size": [ "100%", "100%cm" ],
+    "min_size": [ "100%", "90px" ],
     "enabled": "$enabled",
     "anchor_from": "top_left",
     "anchor_to": "top_left",
@@ -843,6 +844,8 @@
         "visibility_panel": {
           "type": "panel",
           "size": [ "100%", "100%c" ],
+          "anchor_from": "top_left",
+          "anchor_to": "top_left",
           "controls": [
             {
               "place_holder@common.text_edit_box_place_holder_label": {
@@ -1255,6 +1258,16 @@
     "$show_close_button": false
   },
 
+  "gamepad_helper_exit_text": {
+    "type": "label",
+    "text": "controller.buttonTip.exit",
+    "color": "$gamepad_description_text_color"
+  },
+
+  "close_text@common.gamepad_helper_b": {
+    "$gamepad_description": "npc_interact.gamepad_helper_exit_text"
+  },
+
   "npc_screen_contents": {
     "type": "panel",
     "controls": [
@@ -1290,6 +1303,13 @@
               "binding_type": "global"
             }
           ]
+        }
+      },
+      {
+        "npc_screen_close@npc_interact.close_text": {
+          "anchor_to": "bottom_left",
+          "anchor_from": "bottom_left",
+          "offset": [ 20, 0 ]
         }
       }
     ]

@@ -61,7 +61,8 @@
     "type": "image",
     "$rarity_color_background_texture|default": "textures/ui/White",
     "texture": "$rarity_color_background_texture",
-    "alpha": 0.4,
+    "$rarity_background_alpha|default": 0.4,
+    "alpha": "$rarity_background_alpha",
 
     "property_bag": {
       "#common": "$rarity_common_bg_color",
@@ -73,14 +74,15 @@
 
     "$rarity_binding_type|default": "global",
     "$rarity_collection_name|default": "none",
-    "bindings": [
+    "$rarity_background_bindings|default": [
       {
         "binding_type": "$rarity_binding_type",
         "binding_collection_name": "$rarity_collection_name",
         "binding_name": "#rarity_color",
         "binding_name_override": "#color"
       }
-    ]
+    ],
+    "bindings": "$rarity_background_bindings"
   },
 
 

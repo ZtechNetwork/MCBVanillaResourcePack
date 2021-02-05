@@ -278,26 +278,23 @@
 
   "pause_logo_panel": {
     "type": "input_panel",
-    "size": "$title_panel_size",
+    "size": [ "100%", "100%c + 2px" ],
     "variables": [
       {
         "requires": "$win10_edition",
         "$title_panel": "common_art.title_image",
-        "$title_panel_size": [ "100%", "2.85%x" ],
         "$logo_max_size": [ 275, "18.85%x" ],
         "$logo_size": [ "90%", "18.85%x" ]
       },
       {
         "requires": "$osx_edition",
         "$title_panel": "common_art.title_image",
-        "$title_panel_size": [ "100%", "3.37%x" ],
         "$logo_max_size": [ 275, "19.37%x" ],
         "$logo_size": [ "90%", "19.37%x" ]
       },
       {
         "requires": "($education_edition and not $education_edition_china)",
         "$title_panel": "common_art.title_image_edu",
-        "$title_panel_size": [ "100%", "6.355%x" ],
         "$logo_max_size": [ 275, "24.355%x" ],
         "$logo_size": [ "90%", "24.355%x" ],
         "$achievements_ignored": true
@@ -305,7 +302,6 @@
       {
         "requires": "$education_edition_china",
         "$title_panel": "common_art.title_image_edu_china",
-        "$title_panel_size": [ "100%", "6.355%x" ],
         "$logo_max_size": [ 275, "24.355%x" ],
         "$logo_size": [ "90%", "24.355%x" ],
         "$achievements_ignored": true
@@ -313,21 +309,18 @@
       {
         "requires": "($pocket_edition  or $console_edition)",
         "$title_panel": "common_art.title_image",
-        "$title_panel_size": [ "100%", "5.769%x" ],
         "$logo_max_size": [ 260, "21.769%x" ],
         "$logo_size": [ "90%", "21.769%x" ]
       },
       {
         "requires": "$fire_tv",
         "$title_panel": "common_art.title_image",
-        "$title_panel_size": [ "100%", "3.37%x" ],
         "$logo_max_size": [ 275, "19.37%x" ],
         "$logo_size": [ "90%", "19.37%x" ]
       },
       {
         "requires": "$gear_vr",
         "$title_panel": "common_art.title_image",
-        "$title_panel_size": [ "100%", "3.37%x" ],
         "$logo_max_size": [ 275, "19.37%x" ],
         "$logo_size": [ "90%", "19.37%x" ]
       }
@@ -336,9 +329,7 @@
       {
         "logo@$title_panel": {
           "size": "$logo_size",
-          "max_size": "$logo_max_size",
-          "anchor_from": "center",
-          "anchor_to": "center"
+          "max_size": "$logo_max_size"
         }
       }
     ]

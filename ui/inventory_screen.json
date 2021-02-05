@@ -1017,9 +1017,14 @@
     "type": "label",
     "anchor_from": "top_left",
     "anchor_to": "top_left",
-    "text": "container.crafting",
+    "text": "#crafting_label_text",
     "color": "$title_text_color",
-    "layer": 2
+    "layer": 2,
+    "bindings": [
+      {
+        "binding_name": "#crafting_label_text"
+      }
+    ]
   },
 
   "inventory_label": {
@@ -1545,7 +1550,8 @@
       { "cell_invert@crafting.cell_image_invert": {} },
       { "cell_red@crafting.cell_image_red": {} },
       { "cell_selected@crafting.cell_image_selected": {} },
-      { "cell_hint@game_tip.cell_image_classic_hint": {} }
+      { "cell_hint@game_tip.cell_image_classic_hint": {} },
+      { "cell_darkgrey@crafting.cell_image_darkgrey": {}}
     ],
     "bindings": [
       {
@@ -1641,6 +1647,21 @@
     ]
   },
 
+  "cell_image_darkgrey@crafting.cell_image": {
+    "texture": "textures/ui/cell_image_darkgrey",
+    "$cell_image_size|default": [ "default", "default" ],
+    "size": "$cell_image_size",
+    "bindings": [
+      {
+        "binding_type": "view",
+        "source_control_name": "$background_image_control_name",
+        "resolve_sibling_scope": true,
+        "source_property_name": "(#container_item_background = 7)",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+
   "container_overlay_images": {
     "type": "panel",
     "controls": [
@@ -1703,6 +1724,7 @@
         "item_cell": {
           "type": "panel",
           "size": "$cell_image_size",
+          "layer": 0,
           "controls": [
             {
               "$background_image_control_name@$background_images": {
@@ -1713,10 +1735,11 @@
               "item": {
                 "type": "panel",
                 "size": "$item_renderer_panel_size",
+                "layer": 0,
                 "controls": [
                   {
                     "stack_count_label@common.stack_count_label": {
-                      "layer": 8
+                      "layer": 10
                     }
                   },
                   {
@@ -1725,7 +1748,7 @@
                       "offset": "$item_renderer_offset",
                       "anchor_to": "center",
                       "anchor_from": "center",
-                      "layer": 5
+                      "layer": 7
                     }
                   }
                 ]
@@ -1733,12 +1756,12 @@
             },
             {
               "durability_bar@common.durability_bar": {
-                "layer": 6
+                "layer": 8
               }
             },
             {
               "$overlay_image_control_name@$overlay_images": {
-                "layer": 7
+                "layer": 9
               }
             }
           ]
@@ -1746,17 +1769,31 @@
       },
       {
         "item_cell_overlay_ref@$cell_overlay_ref": {
-          "layer": 2
-        }
-      },
-      {
-        "item_selected_image@common.slot_selected": {
           "layer": 3
         }
       },
       {
-        "item_button_ref@$button_ref": {
+        "item_selected_image@common.slot_selected": {
           "layer": 4
+        }
+      },
+      {
+        "item_button_ref@$button_ref": {
+          "layer": 5
+        }
+      },
+      {
+        "container_item_lock_overlay@common.container_item_lock_overlay": {
+          "size": "$item_renderer_size",
+          "offset": [ 1, 1 ],
+          "anchor_to": "top_left",
+          "anchor_from": "top_left",
+          "layer": 6
+        }
+      },
+      {
+        "item_lock_cell_image@common.item_lock_cell_image": {
+          "layer": 2
         }
       }
     ]
@@ -2324,7 +2361,7 @@
                       "controls": [
                         {
                           "close_button@common.light_close_button": {
-                           "offset": [ 0, 0 ],
+                            "offset": [ 0, 0 ],
                             "anchor_from": "center",
                             "anchor_to": "center"
                           }

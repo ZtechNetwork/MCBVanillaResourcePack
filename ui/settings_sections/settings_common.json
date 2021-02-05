@@ -24,6 +24,64 @@
     "alpha": "$alpha"
   },
 
+  "subsection_title": {
+    "type": "stack_panel",
+    "orientation": "vertical",
+    "size": [ "100%", "100%c + 10px" ],
+    "$text|default": "",
+    "controls": [
+      {
+        "spacer_0": {
+          "type": "panel",
+          "size": [ "100%", 4 ]
+        }
+      },
+      {
+        "sizer_0": {
+          "type": "panel",
+          "size": [ "100%", "100%c" ],
+          "controls": [
+            {
+              "title": {
+                "type": "label",
+                "color": "$main_header_text_color",
+                "text_alignment": "center",
+                "anchor_from": "center",
+                "anchor_to": "center",
+                "layer": 3,
+                "text": "$text"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "spacer_1": {
+          "type": "panel",
+          "size": [ "100%", 2 ]
+        }
+      },
+      {
+        "sizer_1": {
+          "type": "panel",
+          "size": [ "100%", "100%c" ],
+          "controls": [
+            {
+              "section_divider": {
+                "type": "image",
+                "size": [ "100% - 4px", 1 ],
+                "anchor_from": "center",
+                "anchor_to": "center",
+                "layer": 3,
+                "texture": "textures/ui/list_item_divider_line_light"
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+
   "action_button@common_buttons.light_text_button": {
     "$pressed_button_name|default": "unset_button_name",
     "$button_text|default": "unset $button_text",
@@ -1169,8 +1227,8 @@
           "control_ids": {
             "purchase_failed": "@realms_create.popup_dialog__purchase_failed",
             "purchase_in_progress": "@realms_create.popup_dialog__purchase_in_progress",
-            "share_by_link": "@realms_whitelist.popup_dialog__share_by_link",
-            "options_modal": "@realms_whitelist.popup_dialog__options",
+            "share_by_link": "@realms_allowlist.popup_dialog__share_by_link",
+            "options_modal": "@realms_allowlist.popup_dialog__options",
             "backups_modal": "@realms_settings.popup_dialog__backups"
           }
         }

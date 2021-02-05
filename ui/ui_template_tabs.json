@@ -72,6 +72,7 @@
     "$tab_view_binding_name|default": "tab",
     "$tab_panel|default": "common_tabs.tab_panel",
     "$is_checked_state|default": false,
+    "$is_hover_state|default": false,
 
     "$top_tab_tts_name|default": "accessibility.tab.tts.title",
 
@@ -101,6 +102,7 @@
                 "$glyph_color": "$unchecked_hover_glyph_color",
                 "$tab_texture": "$unchecked_hover_image",
                 "$tab_state": "unchecked_hover",
+                "$is_hover_state": true,
                 "layer": 1
               }
             },
@@ -143,6 +145,7 @@
                 "$tab_texture": "$checked_hover_image",
                 "$tab_state": "checked_hover",
                 "$is_checked_state": true,
+                "$is_hover_state": true,
                 "layer": 2
               }
             },
@@ -182,36 +185,36 @@
       {
         "requires": "($is_left_most_tab and not $is_right_most_tab)",
         "$unchecked_default_image": "textures/ui/TabTopBackLeftMost",
-        "$unchecked_hover_image": "textures/ui/TabTopBackLeftMost",
+        "$unchecked_hover_image": "textures/ui/TabTopBackLeftMostHover",
         "$unchecked_locked_image": "textures/ui/TabTopBackLeftMost",
         "$unchecked_locked_hover_image": "textures/ui/TabTopBackLeftMost",
 
         "$checked_default_image": "textures/ui/TabTopFrontLeftMost",
-        "$checked_hover_image": "textures/ui/TabTopFrontLeftMost",
+        "$checked_hover_image": "textures/ui/TabTopFrontLeftMostHover",
         "$checked_locked_image": "textures/ui/TabTopFrontLeftMost",
         "$checked_locked_hover_image": "textures/ui/TabTopFrontLeftMost"
       },
       {
         "requires": "($is_right_most_tab and not $is_left_most_tab)",
         "$unchecked_default_image": "textures/ui/TabTopBackRightMost",
-        "$unchecked_hover_image": "textures/ui/TabTopBackRightMost",
+        "$unchecked_hover_image": "textures/ui/TabTopBackRightMostHover",
         "$unchecked_locked_image": "textures/ui/TabTopBackRightMost",
         "$unchecked_locked_hover_image": "textures/ui/TabTopBackRightMost",
 
         "$checked_default_image": "textures/ui/TabTopFrontRightMost",
-        "$checked_hover_image": "textures/ui/TabTopFrontRightMost",
+        "$checked_hover_image": "textures/ui/TabTopFrontRightMostHover",
         "$checked_locked_image": "textures/ui/TabTopFrontRightMost",
         "$checked_locked_hover_image": "textures/ui/TabTopFrontRightMost"
       }
     ],
 
     "$unchecked_default_image": "textures/ui/TabTopBack",
-    "$unchecked_hover_image": "textures/ui/TabTopBack",
+    "$unchecked_hover_image": "textures/ui/TabTopBackHover",
     "$unchecked_locked_image": "textures/ui/TabTopBack",
     "$unchecked_locked_hover_image": "textures/ui/TabTopBack",
 
     "$checked_default_image|default": "textures/ui/TabTopFront",
-    "$checked_hover_image|default": "textures/ui/TabTopFront",
+    "$checked_hover_image|default": "textures/ui/TabTopFrontHover",
     "$checked_locked_image|default": "textures/ui/TabTopFront",
     "$checked_locked_hover_image|default": "textures/ui/TabTopFront"
   },
@@ -224,24 +227,24 @@
       {
         "requires": "($is_bottom_most_tab and not $is_top_most_tab)",
         "$unchecked_default_image": "textures/ui/TabLeftBackBottomMost",
-        "$unchecked_hover_image": "textures/ui/TabLeftBackBottomMost",
+        "$unchecked_hover_image": "textures/ui/TabLeftBackBottomMostHover",
         "$unchecked_locked_image": "textures/ui/TabLeftBackBottomMost",
         "$unchecked_locked_hover_image": "textures/ui/TabLeftBackBottomMost",
 
         "$checked_default_image": "textures/ui/TabLeftFrontBottomMost",
-        "$checked_hover_image": "textures/ui/TabLeftFrontBottomMost",
+        "$checked_hover_image": "textures/ui/TabLeftFrontBottomMostHover",
         "$checked_locked_image": "textures/ui/TabLeftFrontBottomMost",
         "$checked_locked_hover_image": "textures/ui/TabLeftFrontBottomMost"
       },
       {
         "requires": "($is_top_most_tab and not $is_bottom_most_tab)",
         "$unchecked_default_image": "textures/ui/TabLeftBackTopMost",
-        "$unchecked_hover_image": "textures/ui/TabLeftBackTopMost",
+        "$unchecked_hover_image": "textures/ui/TabLeftBackTopMostHover",
         "$unchecked_locked_image": "textures/ui/TabLeftBackTopMost",
         "$unchecked_locked_hover_image": "textures/ui/TabLeftBackTopMost",
 
         "$checked_default_image": "textures/ui/TabLeftFrontTopMost",
-        "$checked_hover_image": "textures/ui/TabLeftFrontTopMost",
+        "$checked_hover_image": "textures/ui/TabLeftFrontTopMostHover",
         "$checked_locked_image": "textures/ui/TabLeftFrontTopMost",
         "$checked_locked_hover_image": "textures/ui/TabLeftFrontTopMost"
       }
@@ -249,12 +252,12 @@
 
 
     "$unchecked_default_image": "textures/ui/TabLeftBack",
-    "$unchecked_hover_image": "textures/ui/TabLeftBack",
+    "$unchecked_hover_image": "textures/ui/TabLeftBackHover",
     "$unchecked_locked_image": "textures/ui/TabLeftBack",
     "$unchecked_locked_hover_image": "textures/ui/TabLeftBack",
 
     "$checked_default_image|default": "textures/ui/TabLeftFront",
-    "$checked_hover_image|default": "textures/ui/TabLeftFront",
+    "$checked_hover_image|default": "textures/ui/TabLeftFrontHover",
     "$checked_locked_image|default": "textures/ui/TabLeftFront",
     "$checked_locked_hover_image|default": "textures/ui/TabLeftFront"
   },
@@ -267,36 +270,36 @@
       {
         "requires": "($is_bottom_most_tab and not $is_top_most_tab)",
         "$unchecked_default_image": "textures/ui/TabRightBackBottomMost",
-        "$unchecked_hover_image": "textures/ui/TabRightBackBottomMost",
+        "$unchecked_hover_image": "textures/ui/TabRightBackBottomMostHover",
         "$unchecked_locked_image": "textures/ui/TabRightBackBottomMost",
         "$unchecked_locked_hover_image": "textures/ui/TabRightBackBottomMost",
 
         "$checked_default_image": "textures/ui/TabRightFrontBottomMost",
-        "$checked_hover_image": "textures/ui/TabRightFrontBottomMost",
+        "$checked_hover_image": "textures/ui/TabRightFrontBottomMostHover",
         "$checked_locked_image": "textures/ui/TabRightFrontBottomMost",
         "$checked_locked_hover_image": "textures/ui/TabRightFrontBottomMost"
       },
       {
         "requires": "($is_top_most_tab and not $is_bottom_most_tab)",
         "$unchecked_default_image": "textures/ui/TabRightBackTopMost",
-        "$unchecked_hover_image": "textures/ui/TabRightBackTopMost",
+        "$unchecked_hover_image": "textures/ui/TabRightBackTopMostHover",
         "$unchecked_locked_image": "textures/ui/TabRightBackTopMost",
         "$unchecked_locked_hover_image": "textures/ui/TabRightBackTopMost",
 
         "$checked_default_image": "textures/ui/TabRightFrontTopMost",
-        "$checked_hover_image": "textures/ui/TabRightFrontTopMost",
+        "$checked_hover_image": "textures/ui/TabRightFrontTopMostHover",
         "$checked_locked_image": "textures/ui/TabRightFrontTopMost",
         "$checked_locked_hover_image": "textures/ui/TabRightFrontTopMost"
       }
     ],
 
     "$unchecked_default_image": "textures/ui/TabRightBack",
-    "$unchecked_hover_image": "textures/ui/TabRightBack",
+    "$unchecked_hover_image": "textures/ui/TabRightBackHover",
     "$unchecked_locked_image": "textures/ui/TabRightBack",
     "$unchecked_locked_hover_image": "textures/ui/TabRightBack",
 
     "$checked_default_image|default": "textures/ui/TabRightFront",
-    "$checked_hover_image|default": "textures/ui/TabRightFront",
+    "$checked_hover_image|default": "textures/ui/TabRightFrontHover",
     "$checked_locked_image|default": "textures/ui/TabRightFront",
     "$checked_locked_hover_image|default": "textures/ui/TabRightFront"
   },

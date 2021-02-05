@@ -24,6 +24,14 @@
     "size": [ 24, 16 ]
   },
 
+  "smithing_icon": {
+    "type": "image",
+    "texture": "textures/ui/smithing_icon",
+    "size": [ 30, 30 ],
+    "anchor_from": "bottom_left",
+    "anchor_to": "bottom_left"
+  },
+
   // Labels //
 
   "upgrade_label": {
@@ -37,15 +45,32 @@
 
   // Text Edit //
 
+  "smithing_icon_panel": {
+    "type": "panel",
+    "controls": [
+      { "smithing_icon@smithing_table_pocket.smithing_icon": {} }
+    ]
+  },
+
   "smithing_table_title_and_text_panel": {
     "type": "panel",
-    "anchor_from": "left_middle",
-    "anchor_to": "left_middle",
+    "anchor_from": "bottom_left",
+    "anchor_to": "bottom_left",
     "controls": [
       {
-        "upgrade_label@smithing_table_pocket.upgrade_label": {
+        "smithing_icon_panel@smithing_table_pocket.smithing_icon_panel": {
           "layer": 1,
-          "offset": [ 5, -8 ]
+          "anchor_from": "bottom_left",
+          "anchor_to": "bottom_left",
+          "offset": [ -5, -10 ]
+        }
+      },
+      {
+        "upgrade_label@smithing_table_pocket.upgrade_label": {
+          "anchor_from": "bottom_left",
+          "anchor_to": "bottom_left",
+          "layer": 1,
+          "offset": [ 40, -20 ]
         }
       }
     ]
@@ -55,22 +80,22 @@
 
   "slots_panel": {
     "type": "panel",
-    "anchor_from": "left_middle",
-    "anchor_to": "left_middle",
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
     "controls": [
       {
         "input_slot@common.pocket_ui_large_container_item": {
           "offset": [ 0, 0 ],
-          "anchor_from": "left_middle",
-          "anchor_to": "left_middle",
+          "anchor_from": "top_left",
+          "anchor_to": "top_left",
           "$item_collection_name": "smithing_table_input_items"
         }
       },
       {
         "material_slot@common.pocket_ui_large_container_item": {
           "offset": [ 48, 0 ],
-          "anchor_from": "left_middle",
-          "anchor_to": "left_middle",
+          "anchor_from": "top_left",
+          "anchor_to": "top_left",
           "$item_collection_name": "smithing_table_material_items",
           "$cell_overlay_ref": "smithing_table_pocket.ingot_image"
         }
@@ -78,8 +103,8 @@
       {
         "result_slot@common.pocket_ui_large_container_item": {
           "offset": [ 109, 0 ],
-          "anchor_from": "left_middle",
-          "anchor_to": "left_middle",
+          "anchor_from": "top_left",
+          "anchor_to": "top_left",
           "$item_collection_name": "smithing_table_result_items",
           "$button_ref": "smithing_table.smithing_table_output_slot_button"
         }
@@ -87,9 +112,9 @@
       {
         "plus_sign@smithing_table_pocket.upgrade_label": {
           "text": "+",
-          "offset": [ 38, 0 ],
-          "anchor_from": "left_middle",
-          "anchor_to": "left_middle",
+          "offset": [ 38, 11 ],
+          "anchor_from": "top_left",
+          "anchor_to": "top_left",
           "layer": 1
         }
       },
@@ -98,9 +123,9 @@
           "type": "image",
           "texture": "textures/ui/arrow_inactive",
           "size": [ 22, 15 ],
-          "anchor_from": "left_middle",
-          "anchor_to": "left_middle",
-          "offset": [ 83, 0 ],
+          "anchor_from": "top_left",
+          "anchor_to": "top_left",
+          "offset": [ 83, 8 ],
           "controls": [
             {
               "cross_out": {
@@ -124,17 +149,17 @@
   // smithing_table Panel //
 
   "smithing_table_contents_panel": {
-    "type": "panel",
+    "type": "stack_panel",
     "size": [ "100%", "100%" ],
     "controls": [
       {
-        "slots_panel@smithing_table_pocket.slots_panel": {
-          "offset": [ 0, -2 ]
+        "smithing_table_title_and_text_panel@smithing_table_pocket.smithing_table_title_and_text_panel": {
+          "size": [ "100%", "50%" ]
         }
       },
       {
-        "smithing_table_title_and_text_panel@smithing_table_pocket.smithing_table_title_and_text_panel": {
-          "offset": [ -108, -30 ]
+        "slots_panel@smithing_table_pocket.slots_panel": {
+          "size": [ "100%", "50%" ]
         }
       }
     ]

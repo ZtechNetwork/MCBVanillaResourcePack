@@ -340,12 +340,33 @@
         "pdp_background@expanded_skin_pack.purchase_pack_panel_background": {}
       },
       {
-        "purchase_buttons@pdp.purchase_buttons_panel": {
-          "size": [ "100%", 26 ],
-          "$button_action": "button.purchase",
-          "$button_focus_precedence": 6
+        "purchase_buttons_panel@pdp.purchase_buttons_panel": {
+          "bindings": [
+            {
+              "binding_name": "(not #button_panel_purchase_disallowed)",
+              "binding_name_override": "#visible"
+            },
+            {
+              "binding_name": "(not #button_panel_purchase_disallowed)",
+              "binding_name_override": "#enabled"
+            }
+          ]
         }
       },
+      {
+        "deactivated_purchase_buttons_panel@pdp.deactivated_purchase_buttons_panel": {
+          "bindings": [
+            {
+              "binding_name": "#button_panel_purchase_disallowed",
+              "binding_name_override": "#visible"
+            },
+            {
+              "binding_name": "#button_panel_purchase_disallowed",
+              "binding_name_override": "#enabled"
+            }
+          ]
+        }
+	},
       {
         "disclaimer_panel": {
           "type": "panel",

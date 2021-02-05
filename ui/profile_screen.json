@@ -125,7 +125,14 @@
   "edit_appearance_preset_button@common_buttons.light_text_button": {
     "size": [ "100%", 23 ],
     "$pressed_button_name": "button.edit_appearance_preset",
-    "$button_text": "gui.edit"
+    "$button_text": "gui.edit",
+    "bindings": [
+      {
+        "binding_name": "#enable_edit_appearance",
+        "binding_name_override": "#enabled",
+        "binding_condition": "always"
+      }
+    ]
   },
 
   "delete_appearance_preset_button@common_buttons.light_text_button": {
@@ -372,6 +379,13 @@
               "from_button_id": "button.menu_ok",
               "to_button_id": "$select_preset_to_button_id",
               "mapping_type": "focused"
+            }
+          ],
+          "bindings": [
+            {
+              "binding_name": "#enable_edit_appearance",
+              "binding_name_override": "#enabled",
+              "binding_condition": "always"
             }
           ]
         }
@@ -706,7 +720,14 @@
     "$button_font_scale_factor": 1.0,
     "$new_ui_label_offset": [ 0, 2 ],
     "$button_text_size": [ "100%", "100%" ],
-    "$button_text_max_size": [ "100%", "100%" ]
+    "$button_text_max_size": [ "100%", "100%" ],
+    "bindings": [
+      {
+        "binding_name": "#enable_achievement_button",
+        "binding_name_override": "#enabled",
+        "binding_condition": "always"
+      }
+    ]
   },
 
   /////////////////////////

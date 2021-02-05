@@ -350,11 +350,64 @@
         }
       },
       {
-        "sunsetting_toggle_panel@progress.do_not_show_checkbox": {
+        "sunsetting_toggle_panel@common.checkbox": {
           "$toggle_name": "sunsetting_do_not_show_again",
           "$toggle_state_binding_name": "#sunsetting_do_not_show_again",
-          "$toggle_label_text": "sunsetting.popup.dontshow",
-          "size": [ "100%", 10 ]
+          "$toggle_label_text|default": "sunsetting.popup.dontshow",
+          "size": [ "100%", 10 ],
+          "anchor_from": "top_left",
+          "anchor_to": "top_left",
+      
+          "tts_control_type_order_priority": 100,
+          "tts_value_order_priority": 101,
+          "$toggle_enabled_binding_type": "global",
+      
+          "controls": [
+            {
+              "header_description_stack_panel": {
+                "type": "stack_panel",
+                "orientation": "horizontal",
+                "size": [ "100%", "100%" ],
+                "anchor_from": "top_left",
+                "anchor_to": "top_left",
+      
+                "controls": [
+                  {
+                    "checkbox_visuals@common.toggle_visuals": {
+                      "size": [ 30, "100%" ],
+                      "anchor_from": "left_middle",
+                      "anchor_to": "left_middle"
+                    }
+                  },
+                  {
+                    "buffer_panel": {
+                      "type": "panel",
+                      "layer": 3,
+                      "size": [ "fill", "100%" ],
+                      "controls": [
+                        {
+                          "label": {
+                            "type": "label",
+                            "color": "$light_button_default_text_color",
+                            "text": "$toggle_label_text",
+                            "size": [ "default", "default" ],
+                            "anchor_from": "center",
+                            "anchor_to": "center"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "another_panel": {
+                      "type": "panel",
+                      "size": [ 30, "100%" ]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
         }
       }
     ]
