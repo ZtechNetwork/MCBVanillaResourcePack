@@ -3,13 +3,53 @@
 ![GitHub All Releases](https://img.shields.io/github/downloads/ZtechNetwork/MCBVanillaResourcePack/total) ![GitHub release (latest by date)](https://img.shields.io/github/v/release/ZtechNetwork/MCBVanillaResourcePack) ![GitHub last commit](https://img.shields.io/github/last-commit/ZtechNetwork/MCBVanillaResourcePack/master)
 
 ## Game Music Warning
-Game music will no longer be included in our package for copyright reasons. If you need any reference to music, use the `sounds_definitions.json` in the `sounds` directory.
+Game music will no longer be included in our package for copyright reasons. If you need any reference to music, use the `sounds_definitions.json` file in the `sounds` directory.
 
 ## Resource Pack Changelogs
 Specific changelogs for resource packs will now be included for every release on the [releases](https://github.com/ZtechNetwork/MCBVanillaResourcePack/releases) page.
 To prevent a long list of game changelogs, the list will only go back 2 major versions.
 
 ## Game Changelogs
+### v1.16.201
+- Fixed the game failing to launch on multiple Windows 10 devices.
+- Double Chests placed at chunk borders no longer become partially invisible and don't crash the game when they are opened.
+- Shulker boxes no longer lose everything inside their inventory when undyed using a cauldron.
+- Fixed main menu buttons being invisible on older AMD graphics cards.
+- Fixed a crash that could occur after suspending and resuming while creating new world on Android.
+
+### v1.16.200
+#### New Features:
+- The new RenderDragon graphics engine is now available on Windows 10.
+- Minecraft with Ray Tracing is now available on Windows 10 devices with compatible graphics hardware.
+- Minecraft on Windows 10 now uses OpenXR to support Windows MR and Oculus VR.
+- Added a variety of volume sliders for sound categories. (eg. hostile, blocks, weather etc.)
+- Bug fixes and parity changes, for more details [visit here](https://feedback.minecraft.net/hc/en-us/articles/360052712132-Minecraft-1-16-200-Bedrock-).
+
+### v1.16.101
+- Fixed players unable to connect to Realms when playing on cellular data on mobile devices.
+- Fixed Minecoins not appearing after purchase until after restarting the game.
+
+### v1.16.100
+- Realms and Featured Servers are now available on PlayStation®.
+- Added a new Achievements screen design and brand new achievement artwork.
+- Over a dozen new Character Creator items have been added and can be unlocked with achievements.
+- Added several new experimental toggles to enable previews of upcoming engine technology and support Add-Ons and Marketplace content.
+- Added the new Mojang Studios logo splash screen on Android devices.
+- Lots of bug fixes and parity changes, for more details [click here](https://feedback.minecraft.net/hc/en-us/articles/360052592091-Minecraft-1-16-100-Bedrock-).
+
+### v1.16.61 (PS4 Only)
+- Fixed additional crashes when signing into a Microsoft account.
+- Fixed an issue where launching PS VR with Supersampling enabled caused crashes in VR Mode.
+
+### v1.16.60 (PS4 Only)
+- Improved stability and reduced crashes on PlayStation 4.
+
+### v1.16.50 (iOS Only)
+- Improved stability and reduced crashes on iOS devices.
+
+### v1.16.42 (Playstation® VR)
+- Playstation VR Support.
+
 ### v1.16.40
 - Fixed the Microsoft account sign-in screen repeatedly appearing after losing internet connection on Nintendo Switch.
 - Fixed account linking occurring every time the game is launched after playing another game on PlayStation 4.
