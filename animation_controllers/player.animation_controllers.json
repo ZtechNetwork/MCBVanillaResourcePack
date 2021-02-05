@@ -103,6 +103,72 @@
 				}
 			}
 		},
+		"controller.animation.player.hudplayer" : {
+			"initial_state" : "default",
+			"states" : {
+				"default" : {
+					"animations" : [
+						"humanoid_base_pose",
+						{
+							"look_at_target": "!query.is_sleeping && !query.is_emoting"
+						},
+						"move.arms",
+						"move.legs",
+						"cape",
+						{
+							"riding.arms" : "query.is_riding"
+						},
+						{
+							"riding.legs" : "query.is_riding"
+						},
+						"holding",
+						{
+							"brandish_spear" : "variable.is_brandishing_spear"
+						},
+						{
+							"charging" : "query.is_charging"
+						},
+						{
+							"sneaking" : "query.is_sneaking && !query.is_sleeping"
+						},
+						"bob",
+						{
+							"damage_nearby_mobs" : "variable.damage_nearby_mobs"
+						},
+						{
+							"swimming" : "variable.swim_amount > 0.0"
+						},
+						{
+							"swimming.legs" : "variable.swim_amount > 0.0"
+						},
+						{
+							"use_item_progress" : "( variable.use_item_interval_progress > 0.0 ) || ( variable.use_item_startup_progress > 0.0 ) && !variable.is_brandishing_spear"
+						},
+						{
+							"sleeping" : "query.is_sleeping && query.is_alive"
+						},
+						{
+							"attack.positions" : "variable.attack_time >= 0.0"
+						},
+						{
+							"attack.rotations" : "variable.attack_time >= 0.0"
+						},
+						{
+							"shield_block_main_hand" : "query.blocking && query.get_equipped_item_name('off_hand') != 'shield' && query.get_equipped_item_name == 'shield'"
+						},
+						{
+							"shield_block_off_hand" : "query.blocking && query.get_equipped_item_name('off_hand') == 'shield' && !(variable.item_use_normalized > 0 && variable.item_use_normalized < 1.0)"
+						},
+						{
+							"crossbow_controller" : "query.get_equipped_item_name == 'crossbow'"
+						},
+						{
+							"third_person_bow_equipped" : "query.get_equipped_item_name == 'bow' && (variable.item_use_normalized > 0 && variable.item_use_normalized < 1.0)"
+						}
+					]
+				}
+			}
+		},
 		"controller.animation.player.root" : {
 			"initial_state" : "first_person",
 			"states" : {
@@ -115,9 +181,6 @@
 						"first_person_base_pose",
 						{
 							"first_person_empty_hand" : "query.get_equipped_item_name(0, 1) != 'map'"
-						},
-						{
-							"first_person_walk" : "variable.bob_animation"
 						},
 						{
 							"first_person_map_controller" : "(query.get_equipped_item_name(0, 1) == 'map' || query.get_equipped_item_name('off_hand') == 'map')"
@@ -152,7 +215,15 @@
 					]
 				},
 				"paperdoll" : {
-					"animations" : [ "humanoid_base_pose", "look_at_target_ui", "move.arms", "move.legs", "cape" ],
+					"animations" : [
+						"humanoid_base_pose",
+						{
+							"look_at_target_ui" : "variable.should_look_at_target_ui"
+						},
+						"move.arms",
+						"move.legs",
+						"cape"
+          ],
 					"transitions" : [
 						{
 							"first_person" : "!variable.is_paperdoll && variable.is_first_person"
@@ -169,7 +240,7 @@
 					"animations" : [
 						"humanoid_base_pose",
 						{
-							"look_at_target" : "!query.is_sleeping"
+							"look_at_target" : "!query.is_sleeping && !query.is_emoting"
 						},
 						"move.arms",
 						"move.legs",
@@ -195,9 +266,6 @@
 							"damage_nearby_mobs" : "variable.damage_nearby_mobs"
 						},
 						{
-							"bow_and_arrow" : "query.has_target"
-						},
-						{
 							"swimming" : "variable.swim_amount > 0.0"
 						},
 						{
@@ -205,6 +273,9 @@
 						},
 						{
 							"use_item_progress" : "( variable.use_item_interval_progress > 0.0 ) || ( variable.use_item_startup_progress > 0.0 ) && !variable.is_brandishing_spear"
+						},
+						{
+							"fishing_rod" : "query.get_equipped_item_name == 'fishing_rod'"
 						},
 						{
 							"sleeping" : "query.is_sleeping && query.is_alive"
@@ -219,7 +290,7 @@
 							"shield_block_main_hand" : "query.blocking && query.get_equipped_item_name('off_hand') != 'shield' && query.get_equipped_item_name == 'shield'"
 						},
 						{
-							"shield_block_off_hand" : "query.blocking && query.get_equipped_item_name('off_hand') == 'shield'"
+							"shield_block_off_hand" : "query.blocking && query.get_equipped_item_name('off_hand') == 'shield' && !(variable.item_use_normalized > 0 && variable.item_use_normalized < 1.0)"
 						},
 						{
 							"crossbow_controller" : "query.get_equipped_item_name == 'crossbow'"

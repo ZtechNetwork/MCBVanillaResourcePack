@@ -16,12 +16,12 @@
       },
       "minecraft:emitter_shape_point": {
       },
-      "minecraft:particle_initial_speed": [ "variable.velocity.x * 20 + Math.random(-1, 1)", "variable.velocity.y * 20 + Math.random(-1, 1)", "variable.velocity.z * 20 + Math.random(-1, 1)" ],
+      "minecraft:particle_initial_speed": [ 0, 0, 0 ],
       "minecraft:particle_lifetime_expression": {
-        "max_lifetime": "4 / Math.Random(1, 5) + 0.1"
+        "max_lifetime": "3 / Math.Random(1, 5) + 0.1"
       },
       "minecraft:particle_motion_dynamic": {
-        "linear_acceleration": [ 0, 2, 0 ],
+        "linear_acceleration": [ "variable.acceleration.x * 15", "variable.acceleration.y", "variable.acceleration.z * 15" ],
         "linear_drag_coefficient": 2.5
       },
       "minecraft:particle_motion_collision": {
@@ -47,7 +47,7 @@
         }
       },
       "minecraft:particle_appearance_tinting": {
-        "color": [ "variable.particle_random_1 * 0.3 + 0.7", "variable.particle_random_1 * 0.3 + 0.7", "variable.particle_random_1 * 0.3 + 0.7", 0.0 ]
+        "color": [ "variable.particle_random_1 * 0.6 + 0.4", "(variable.particle_random_1 * 0.6 + 0.4) * 0.3", "(variable.particle_random_1 * 0.6 + 0.4) * 0.9", 1.0 ]
       },
       "minecraft:particle_appearance_lighting": {}
     }

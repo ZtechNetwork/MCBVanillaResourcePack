@@ -8,7 +8,10 @@
 					"animations" : [ "attack" ],
 					"transitions" : [
 						{
-							"default" : "variable.attack_animation_tick <= 0.0"
+							"default" : "!query.has_target && variable.attack_animation_tick <= 0.0"
+						},
+						{
+							"has_target" : "query.has_target && variable.attack_animation_tick <= 0.0"
 						}
 					]
 				},
@@ -20,6 +23,9 @@
 						},
 						{
 							"flower" : "variable.offer_flower_tick"
+						},
+						{
+							"has_target" : "query.has_target"
 						}
 					]
 				},
@@ -31,6 +37,23 @@
 						},
 						{
 							"default" : "variable.offer_flower_tick <= 0.0"
+						},
+						{
+							"has_target" : "query.has_target"
+						}
+					]
+				},
+				"has_target" : {
+					"animations" : [ "move_to_target" ],
+					"transitions" : [
+						{
+							"attack" : "variable.attack_animation_tick > 0.0"
+						},
+						{
+							"default" : "!query.has_target"
+						},
+						{
+							"flower" : "variable.offer_flower_tick"
 						}
 					]
 				}
@@ -43,8 +66,24 @@
 					"animations" : [
 						{
 							"walk" : "query.modified_move_speed"
-						},
-						"look_at_target"
+						}
+					],
+					"transitions" : [
+						{
+							"has_target" : "query.has_target"
+						}
+					]
+				},
+				"has_target" : {
+					"animations" : [
+						{
+							"walk_to_target" : "query.modified_move_speed"
+						}
+					],
+					"transitions" : [
+						{
+							"default" : "!query.has_target"
+						}
 					]
 				}
 			}

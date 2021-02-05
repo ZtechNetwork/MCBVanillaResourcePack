@@ -10,27 +10,32 @@
 				}
 			}
 		},
-		"animation.phantom.move" : {
-			"loop" : true,
-			"bones" : {
-				"tail" : {
-					"rotation" : [ "variable.tailrotx", 0.0, 0.0 ]
+		"animation.phantom.move": {
+			"loop": true,
+			"start_delay": "math.random(0, 2.417)",
+			"animation_length": 2.417,
+			"bones": {
+				"tail": {
+					"rotation": [ "-5.0 * Math.cos(297.9380535 * query.anim_time) - 5.0", 0.0, 0.0 ]
 				},
-				"tailtip" : {
-					"rotation" : [ "variable.tailrotx", 0.0, 0.0 ]
+				"tailtip": {
+					"rotation": [ "-5.0 * Math.cos(297.9380535 * query.anim_time) - 5.0", 0.0, 0.0 ]
 				},
-				"wing0" : {
-					"rotation" : [ 0.0, 0.0, "variable.wingrotz" ]
+				"wing0": {
+					"rotation": [ 0.0, 0.0, "16.0 * Math.cos(148.9690267 * query.anim_time)" ]
 				},
-				"wing1" : {
-					"rotation" : [ 0.0, 0.0, "-variable.wingrotz" ]
+				"wing1": {
+					"rotation": [ 0.0, 0.0, "-16.0 * Math.cos(148.9690267 * query.anim_time)" ]
 				},
-				"wingtip0" : {
-					"rotation" : [ 0.0, 0.0, "variable.wingrotz" ]
+				"wingtip0": {
+					"rotation": [ 0.0, 0.0, "16.0 * Math.cos(148.9690267 * query.anim_time)" ]
 				},
-				"wingtip1" : {
-					"rotation" : [ 0.0, 0.0, "-variable.wingrotz" ]
+				"wingtip1": {
+					"rotation": [ 0.0, 0.0, "-16.0 * Math.cos(148.9690267 * query.anim_time)" ]
 				}
+			},
+			"sound_effects": {
+				"1.4": { "effect": "flap" }
 			}
 		}
 	}

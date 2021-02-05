@@ -1,0 +1,41 @@
+{
+    "format_version": "1.10.0",
+    "particle_effect": {
+        "description": {
+        "identifier": "minecraft:crop_growth_emitter",
+            "basic_render_parameters": {
+                "material": "particles_alpha",
+                "texture": "textures/particle/particles"
+            }
+        },
+        "components": {
+            "minecraft:emitter_initialization": {
+                "creation_expression": "variable.size = 0.1;variable.lifetime = 3;"
+            },
+            "minecraft:emitter_rate_instant": {
+                "num_particles": 15
+            },
+            "minecraft:emitter_lifetime_once": {
+                "active_time": 1
+            },
+            "minecraft:emitter_shape_box": {
+                "half_dimensions": [0.5, 0.5, 0.5],
+                "direction": "outwards"
+            },
+            "minecraft:particle_lifetime_expression": {
+                "max_lifetime": "variable.particle_random_1*variable.lifetime"
+            },
+            "minecraft:particle_initial_speed": 0.4,
+            "minecraft:particle_appearance_billboard": {
+                "size": ["variable.size", "variable.size"],
+                "facing_camera_mode": "rotate_xyz",
+                "uv": {
+                "texture_width": 128,
+                    "texture_height": 128,
+                    "uv": [16, 40],
+                    "uv_size": [8, 8]
+                }
+            }
+        }
+    }
+}

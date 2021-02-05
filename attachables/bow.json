@@ -1,0 +1,35 @@
+{
+  "format_version": "1.10",
+  "minecraft:attachable": {
+    "description": {
+      "identifier": "minecraft:bow",
+      "materials": {
+        "default": "entity_alphatest",
+        "enchanted": "entity_alphatest_glint"
+      },
+      "textures": {
+        "default": "textures/items/bow_standby",
+        "bow_pulling_0": "textures/items/bow_pulling_0",
+        "bow_pulling_1": "textures/items/bow_pulling_1",
+        "bow_pulling_2": "textures/items/bow_pulling_2",
+        "enchanted": "textures/misc/enchanted_item_glint"
+      },
+      "geometry": {
+        "default": "geometry.bow_standby",
+        "bow_pulling_0": "geometry.bow_pulling_0",
+        "bow_pulling_1": "geometry.bow_pulling_1",
+        "bow_pulling_2": "geometry.bow_pulling_2"
+      },
+      "scripts": {
+        "initialize": [
+          "variable.anim_frame = 0;"
+        ],
+        "pre_animation": [
+          "variable.anim_frame = (query.item_remaining_use_duration / query.item_max_use_duration);",
+          "variable.anim_frame = math.min(((variable.anim_frame * variable.anim_frame) + variable.anim_frame * 2.0), 2.0);"
+        ]
+      },
+      "render_controllers": [ "controller.render.bow" ]
+    }
+  }
+}

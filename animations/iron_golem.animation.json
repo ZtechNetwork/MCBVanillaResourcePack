@@ -24,14 +24,42 @@
 			"loop" : true,
 			"bones" : {
 				"arm0" : {
-					"rotation" : [ "7.4 - ((1.5 * math.abs(math.mod(query.modified_distance_moved, 13) - 6.5) - 3.25) / 3.25) * query.modified_move_speed * 23.75", 0.0, 0.0 ]
+					"rotation": [ "-variable.modified_tcos0 * 2.0", 0.0, 0.0 ]
 				},
 				"arm1" : {
-					"rotation" : [ "7.4 - ((1.5 * math.abs(math.mod(query.modified_distance_moved, 13) - 6.5) - 3.25) / 3.25) * -query.modified_move_speed * 23.75", 0.0, 0.0 ]
+					"rotation": [ "variable.modified_tcos0 * 2.0", 0.0, 0.0 ]
+				}
+			}
+		},
+		"animation.iron_golem.move_to_target" : {
+			"loop" : true,
+			"bones" : {
+				"arm0" : {
+					"rotation" : [ "((math.abs(math.mod(query.modified_distance_moved, 13) - 6.5) - 3.25) / 2.25) * 30.0", 0.0, 0.0 ]
+				},
+				"arm1" : {
+					"rotation" : [ "((math.abs(math.mod(query.modified_distance_moved, 13) - 6.5) - 3.25) / 2.25) * -30.0", 0.0, 0.0 ]
 				}
 			}
 		},
 		"animation.iron_golem.walk" : {
+			"loop" : true,
+			"bones" : {
+				"body" : {
+					"rotation": [ 0.0, 0.0, "variable.modified_tcos0 / 1.5" ]
+				},
+				"head" : {
+					"rotation": [ 0.0, 0.0, "variable.modified_tcos0 / 1.5" ]
+				},
+				"leg0" : {
+					"rotation": [ "variable.modified_tcos0 * 6.0", 0.0, 0.0 ]
+				},
+				"leg1" : {
+					"rotation": [ "-variable.modified_tcos0 * 6.0", 0.0, 0.0 ]
+				}
+			}
+		},
+		"animation.iron_golem.walk_to_target" : {
 			"loop" : true,
 			"bones" : {
 				"body" : {
