@@ -1676,7 +1676,16 @@
     "size": "$large_screen_size",
     "$button_panel": "invite.horizontal_button_stack_panel",
     "$child_control": "invite.scrolling_area",
-    "$text_name": "invite.title"
+    "variables": [
+      {
+        "requires": "$is_inviting_to_realm",
+        "$text_name": "invite.titleRealms"
+      },
+      {
+        "requires": "(not $is_inviting_to_realm)",
+        "$text_name": "invite.title"
+      }
+    ]
   },
 
   "vertical_invite_panel@common_dialogs.main_panel_two_buttons": {
@@ -1684,7 +1693,16 @@
     "$top_button_panel": "invite.vertical_buttons_top_panel",
     "$bottom_button_panel": "invite.vertical_buttons_bottom_panel",
     "$child_control": "invite.scrolling_area",
-    "$text_name": "invite.title",
+    "variables": [
+      {
+        "requires": "$is_inviting_to_realm",
+        "$text_name": "invite.titleRealms"
+      },
+      {
+        "requires": "(not $is_inviting_to_realm)",
+        "$text_name": "invite.title"
+      }
+    ],
     "$add_button_mappings": [
       {
         "from_button_id": "button.controller_secondary_select",

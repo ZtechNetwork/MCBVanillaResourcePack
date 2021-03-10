@@ -1,5 +1,5 @@
 {
-  "format_version": "1.10",
+  "format_version": "1.10.0",
   "minecraft:attachable": {
     "description": {
       "identifier": "minecraft:bow",
@@ -20,13 +20,16 @@
         "bow_pulling_1": "geometry.bow_pulling_1",
         "bow_pulling_2": "geometry.bow_pulling_2"
       },
+      "animations": {
+        "wield": "animation.bow.wield",
+        "wield_first_person_pull": "animation.bow.wield_first_person_pull"
+      },
       "scripts": {
-        "initialize": [
-          "variable.anim_frame = 0;"
-        ],
-        "pre_animation": [
-          "variable.anim_frame = (query.item_remaining_use_duration / query.item_max_use_duration);",
-          "variable.anim_frame = math.min(((variable.anim_frame * variable.anim_frame) + variable.anim_frame * 2.0), 2.0);"
+        "animate": [
+          "wield",
+          {
+            "wield_first_person_pull": "query.main_hand_item_use_duration > 0.0f && c.is_first_person"
+          }
         ]
       },
       "render_controllers": [ "controller.render.bow" ]

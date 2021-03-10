@@ -686,22 +686,70 @@
     "anchor_to": "top_middle",
     "controls": [
       {
-        "offers@common.scrolling_panel": {
-          "anchor_from": "top_left",
-          "anchor_to": "top_left",
-          "size": [ "100% - 2px", "100%" ],
-          "$scrolling_pane_size": [ "100%", "100%" ],
-          "$scrolling_pane_offset": [ 0, 0 ],
-          "$scroll_size": [ 5, "100% - 8px" ],
-          "$scrolling_content": "store_layout.scrolling_content_stack",
-          "$scroll_bar_left_padding_size": [ 0, 0 ],
-          "$show_background": false,
-          "$bar_visible": false,
+        "main_panel_content": {
+          "type": "panel",
+          "size": [ "100%", "100%" ],
           "bindings": [
             {
               "binding_name": "(not #page_loading_visible)",
               "binding_name_override": "#visible",
               "binding_condition": "always"
+            }
+          ],
+          "controls": [
+            {
+              "offers@common.scrolling_panel": {
+                "anchor_from": "top_left",
+                "anchor_to": "top_left",
+                "size": [ "100% - 2px", "100%" ],
+                "$scrolling_pane_size": [ "100%", "100%" ],
+                "$scrolling_pane_offset": [ 0, 0 ],
+                "$scroll_size": [ 5, "100% - 8px" ],
+                "$scrolling_content": "store_layout.scrolling_content_stack",
+                "$scroll_bar_left_padding_size": [ 0, 0 ],
+                "$show_background": false,
+                "$bar_visible": false
+              }
+            },
+            {
+              "filter_menu_panel": {
+                "type": "panel",
+                "visible": false,
+                "property_bag": {
+                  "#visible": false 
+                },
+                "controls": [
+                  {
+                    "filter_menu@filter_menu.filter_menu_screen_content": {}
+                  }
+                ],
+                "bindings": [
+                  {
+                    "binding_name": "#filter_screen_visible",
+                    "binding_name_override": "#visible"
+                  }
+                ]
+              }
+            },
+            {
+              "sort_menu_panel": {
+                "type": "panel",
+                "visible": false,
+                "property_bag": {
+                  "#visible": false
+                },
+                "controls": [
+                  {
+                    "sort_menu@sort_menu.sort_menu_screen_content": {}
+                  }
+                ],
+                "bindings": [
+                  {
+                    "binding_name": "#sort_screen_visible",
+                    "binding_name_override": "#visible"
+                  }
+                ]
+              }
             }
           ]
         }

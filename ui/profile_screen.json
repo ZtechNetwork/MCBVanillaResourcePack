@@ -224,7 +224,7 @@
   "preset_arrow_button_panel": {
     "type": "panel",
     "size": [ 24, "100%" ],
-    "$arrow_button_focus_id|default": "", 
+    "$arrow_button_focus_id|default": "",
     "$arrow_button_focus_override_left|default": "",
     "$arrow_button_focus_override_right|default": "",
     "controls": [
@@ -522,6 +522,61 @@
     ]
   },
 
+  "debug_skin_view": {
+    "type": "stack_panel",
+    "orientation": "vertical",
+    "size": [ "100%", "fill" ],
+    "controls": [
+      {
+        "skin_name": {
+          "type": "label",
+          "font_scale_factor": 0.75,
+          "size": [ "100%", "25%" ],
+          "layer": 15,
+          "font_type": "smooth",
+          "color": "$dressing_room_right_side_default_text_color",
+          "text": "#selected_skin_name",
+          "bindings": [
+            {
+              "binding_name": "#selected_skin_name"
+            }
+          ]
+        }
+      },
+      {
+        "debug_skin": {
+          "type": "panel",
+          "size": [ "25%", "75%" ],
+          "controls": [
+            {
+              "skin_model": {
+                "offset": [ 0, -10 ],
+                "type": "custom",
+                "renderer": "paper_doll_renderer",
+                "layer": 5,
+                "use_selected_skin": false,
+                "use_skin_gui_scale": true,
+                "animation_reset_name": "screen_animation_reset",
+                "anims": [
+                  "@common.screen_exit_size_animation_push",
+                  "@common.screen_exit_size_animation_pop",
+                  "@common.screen_entrance_size_animation_push",
+                  "@common.screen_entrance_size_animation_pop"
+                ],
+                "bindings": [
+                  {
+                    "binding_type": "global",
+                    "binding_name": "#selected_skin"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+
   "persona_main_preset_panel": {
     "type": "input_panel",
     "size": [ "100%c", "100%" ],
@@ -663,6 +718,7 @@
     "$button_binding_condition": "always",
     "$button_text_size": [ "100%", "100%" ],
     "$button_text_max_size": [ "100%", "100%" ],
+    "tts_play_on_unchanged_focus_control": true,
     "bindings": [
       {
         "binding_name": "#enable_edit_appearance",
@@ -691,6 +747,8 @@
     "$button_content": "profile.profile_button_image_content",
     "$button_image_content_size": [ 13, 14 ],
     "$profile_button_image": "textures/ui/icon_trash",
+    "tts_control_header": "profileScreen.delete_button",
+    "tts_play_on_unchanged_focus_control": true,
     "bindings": [
       {
         "binding_name": "#delete_button_enabled",
@@ -721,6 +779,7 @@
     "$new_ui_label_offset": [ 0, 2 ],
     "$button_text_size": [ "100%", "100%" ],
     "$button_text_max_size": [ "100%", "100%" ],
+    "tts_play_on_unchanged_focus_control": true,
     "bindings": [
       {
         "binding_name": "#enable_achievement_button",
@@ -737,7 +796,9 @@
     "$pressed_button_name": "button.settings",
     "$button_content": "profile.profile_button_image_content",
     "$button_image_content_size": [ 14, 14 ],
-    "$profile_button_image": "textures/ui/icon_setting"
+    "$profile_button_image": "textures/ui/icon_setting",
+    "tts_control_header": "profileScreen.settings_button",
+    "tts_play_on_unchanged_focus_control": true
   },
 
   /////////////////////////////
@@ -1038,7 +1099,26 @@
           "size": [ "100%", "100%" ],
           "controls": [
             { "persona_preset_section@profile.persona_preset_section_panel": {} },
-            { "mid_padding@profile.vertical_fill_padding": {} },
+            {
+              "debug_view@profile.debug_skin_view": {
+                "bindings": [
+                  {
+                    "binding_name": "#is_using_dressing_room_debugging",
+                    "binding_name_override": "#visible"
+                  }
+                ]
+              }
+            },
+            {
+              "mid_padding@profile.vertical_fill_padding": {
+                "bindings": [
+                  {
+                    "binding_name": "(not #is_using_dressing_room_debugging)",
+                    "binding_name_override": "#visible"
+                  }
+                ]
+              }
+            },
             {
               "lower_button_section@profile.lower_button_section": {
                 "focus_container": true,

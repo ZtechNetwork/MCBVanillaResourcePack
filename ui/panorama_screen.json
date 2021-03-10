@@ -1,14 +1,20 @@
 {
-  "namespace": "world_panorama",
+  "namespace": "panorama",
 
   // This is what is referenced in the mashup screen
-  "map_pack_tab_content": {
+  "panorama_view": {
     "type": "panel",
     "size": [ "100%", "100%" ],
+    "$cycle_pack_button_factory_collection_details": "$store_factory_collection_details",
+    "$cycle_pack_button_factory_collection_prefix": "$store_factory_collection_prefix",
+    "$cycle_pack_button_factory_collection_name": "$store_factory_collection_name",
+
+    "$ignore_cycle_buttons": false,
+
     "controls": [
-      { "pan_left@world_panorama.pan_left_button": {} },
-      { "screenshot@world_panorama.panorama_input_panel": {} },
-      { "pan_right@world_panorama.pan_right_button": {} }
+      { "pan_left@panorama.pan_left_button": {} },
+      { "screenshot@panorama.panorama_input_panel": {} },
+      { "pan_right@panorama.pan_right_button": {} }
     ]
   },
 
@@ -33,7 +39,7 @@
           "layer": 4,
           "controls": [
             {
-              "key_art": {
+              "panorama_key_art": {
                 "type": "custom",
                 "renderer": "panorama_renderer",
                 "rotation": "gesture_x",
@@ -41,20 +47,21 @@
                 "bilinear": true,
                 "bindings": [
                   {
+                    "binding_type": "$store_factory_binding_type",
+                    "binding_collection_name": "$store_factory_collection_name",
                     "binding_name": "#panorama_texture",
                     "binding_name_override": "#texture"
                   },
                   {
+                    "binding_type": "$store_factory_binding_type",
+                    "binding_collection_name": "$store_factory_collection_name",
                     "binding_name": "#panorama_texture_file_system",
                     "binding_name_override": "#texture_file_system"
                   },
                   {
-                    "binding_name": "#panorama_view",
-                    "binding_type": "global"
-                  },
-                  {
-                    "binding_name": "#panorama_view",
-                    "binding_type": "global"
+                    "binding_type": "$store_factory_binding_type",
+                    "binding_collection_name": "$store_factory_collection_name",
+                    "binding_name": "#panorama_view"
                   },
                   {
                     "binding_type": "view",
@@ -68,7 +75,7 @@
             {
               "progress_loading@common_store.progress_loading": {
                 "layer": 2,
-                "$source_control_name": "key_art",
+                "$source_control_name": "panorama_key_art",
                 "$source_property_name": "(#texture = '')"
               }
             }
@@ -85,9 +92,12 @@
     "anchor_to": "top_left",
     "$chevron_image_name": "textures/ui/chevron_left",
     "$pressed_button_name": "button.pan_left",
-    "$cycle_pack_button_collection_type|default": "none",
-    "$cycle_pack_button_collection|default": "",
     "$gamepad_helper_icon_size": [ 15, 15 ],
+
+    "$cycle_pack_enabled_source_control_name": "panorama_key_art",
+    "$cycle_pack_enabled_source_property_name": "#can_scroll_left",
+    "$cycle_pack_enabled_use_sibling_scope": true,
+
     "button_mappings": [
       {
         "from_button_id": "button.menu_select",
@@ -116,9 +126,12 @@
     "anchor_to": "top_right",
     "$chevron_image_name": "textures/ui/chevron_right",
     "$pressed_button_name": "button.pan_right",
-    "$cycle_pack_button_collection_type|default": "none",
-    "$cycle_pack_button_collection|default": "",
     "$gamepad_helper_icon_size": [ 15, 15 ],
+
+    "$cycle_pack_enabled_source_control_name": "panorama_key_art",
+    "$cycle_pack_enabled_source_property_name": "#can_scroll_right",
+    "$cycle_pack_enabled_use_sibling_scope": true,
+
     "button_mappings": [
       {
         "from_button_id": "button.menu_select",

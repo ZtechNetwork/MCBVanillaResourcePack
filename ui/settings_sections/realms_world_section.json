@@ -16,21 +16,22 @@
     "$max_text_edit_length": 64
   },
 
-  "club_description_edit@settings_common.option_text_edit": {
-    "$option_label": "feed.clubdescription",
-    "$option_binding_name": "#club_description",
+  // This used to be based on the club, not the realm
+  "realm_description_edit@settings_common.option_text_edit": {
+    "$option_label": "feed.clubdescription", // this localization string was not updated, for simplicity
+    "$option_binding_name": "#realm_description",
     "$option_enabled_binding_name": "#realm_name_enabled",
     "$option_place_holder_text": "realmsSettingsScreen.realmDescriptionEditPlaceholder",
-    "$text_box_name": "club_description_text_box",
+    "$text_box_name": "realm_description_text_box",
     "$allow_data_binding": true,
     "$max_text_edit_length": 499,
     "bindings": [
       {
-        "binding_name": "#club_description_enabled",
+        "binding_name": "#realm_description_enabled",
         "binding_name_override": "#enabled"
       },
       {
-        "binding_name": "#club_description_visible",
+        "binding_name": "#realm_description_visible",
         "binding_name_override": "#visible"
       }
     ]
@@ -142,7 +143,7 @@
         }
       },
       { "realm_name_edit@realms_world_section.realm_name_edit": {} },
-      { "club_description_edit@realms_world_section.club_description_edit": {} },
+      { "realm_description_edit@realms_world_section.realm_description_edit": {} },
       { "difficulty_dropdown@realms_world_section.difficulty_dropdown": {} },
       { "game_mode_dropdown@realms_world_section.game_mode_dropdown": {} },
       {

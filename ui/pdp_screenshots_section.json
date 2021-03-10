@@ -8,63 +8,77 @@
 
   "screenshot_carousel": {
     "type": "panel",
-    "size": [ "100%", "100%cm" ],
-    "clips_children": true,
+    "size": [ "100%", "100%c" ],
+
+    "$store_factory_collection_details|default": "none",
+    "$store_factory_collection_prefix|default": "",
+    "$store_factory_collection_name|default": "",
+
     "controls": [
       {
-        "cycle_pack_left_button@common_store.cycle_pack_left_button": {
-          "$pressed_button_name": "button.cycle_screenshots_left",
-          "$cycle_pack_button_collection_type": "global",
-          "$cycle_pack_button_collection": "",
-          "$cycle_pack_button_enabled": "#mashup_cycle_pack_left_button_enabled",
-          "$gamepad_helper_icon_size": [ 15, 15 ],
-          "size": [ 20, 1 ],
-          "inherit_max_sibling_height": true,
-          "anchor_from": "top_left",
-          "anchor_to": "top_left",
-          "button_mappings": [
+        "screenshot_carousel_content": {
+          "type": "panel",
+          "size": [ "100%", "100%cm" ],
+          "clips_children": true,
+
+          "$cycle_pack_button_factory_collection_details": "$store_factory_collection_details",
+          "$cycle_pack_button_factory_collection_prefix": "$store_factory_collection_prefix",
+          "$cycle_pack_button_factory_collection_name": "$store_factory_collection_name",
+
+          "$ignore_cycle_buttons": false,
+
+          "controls": [
             {
-              "from_button_id": "button.menu_select",
-              "to_button_id": "$pressed_button_name",
-              "mapping_type": "pressed",
-              "button_up_right_of_first_refusal": true
+              "cycle_pack_left_button@common_store.cycle_pack_left_button": {
+                "$pressed_button_name": "button.cycle_screenshots_left",
+                "$cycle_pack_button_enabled": "#cycle_screenshots_left_button_enabled",
+                "$gamepad_helper_icon_size": [ 15, 15 ],
+                "size": [ 20, "100%sm" ],
+                "anchor_from": "top_left",
+                "anchor_to": "top_left",
+                "button_mappings": [
+                  {
+                    "from_button_id": "button.menu_select",
+                    "to_button_id": "$pressed_button_name",
+                    "mapping_type": "pressed",
+                    "button_up_right_of_first_refusal": true
+                  },
+                  {
+                    "from_button_id": "button.menu_ok",
+                    "to_button_id": "$pressed_button_name",
+                    "mapping_type": "focused",
+                    "button_up_right_of_first_refusal": true
+                  }
+                ]
+              }
             },
             {
-              "from_button_id": "button.menu_ok",
-              "to_button_id": "$pressed_button_name",
-              "mapping_type": "focused",
-              "button_up_right_of_first_refusal": true
-            }
-          ]
-        }
-      },
-      {
-        "screenshots_grid@pdp_screenshots.screenshots_grid": {
-        }
-      },
-      {
-        "cycle_pack_right_button@common_store.cycle_pack_right_button": {
-          "$pressed_button_name": "button.cycle_screenshots_right",
-          "$cycle_pack_button_collection_type": "global",
-          "$cycle_pack_button_collection": "",
-          "$cycle_pack_button_enabled": "#mashup_cycle_pack_right_button_enabled",
-          "$gamepad_helper_icon_size": [ 15, 15 ],
-          "size": [ 20, 1 ],
-          "inherit_max_sibling_height": true,
-          "anchor_from": "top_right",
-          "anchor_to": "top_right",
-          "button_mappings": [
-            {
-              "from_button_id": "button.menu_select",
-              "to_button_id": "$pressed_button_name",
-              "mapping_type": "pressed",
-              "button_up_right_of_first_refusal": true
+              "screenshots_grid@pdp_screenshots.screenshots_grid": {
+              }
             },
             {
-              "from_button_id": "button.menu_ok",
-              "to_button_id": "$pressed_button_name",
-              "mapping_type": "focused",
-              "button_up_right_of_first_refusal": true
+              "cycle_pack_right_button@common_store.cycle_pack_right_button": {
+                "$pressed_button_name": "button.cycle_screenshots_right",
+                "$cycle_pack_button_enabled": "#cycle_screenshots_right_button_enabled",
+                "$gamepad_helper_icon_size": [ 15, 15 ],
+                "size": [ 20, "100%sm" ],
+                "anchor_from": "top_right",
+                "anchor_to": "top_right",
+                "button_mappings": [
+                  {
+                    "from_button_id": "button.menu_select",
+                    "to_button_id": "$pressed_button_name",
+                    "mapping_type": "pressed",
+                    "button_up_right_of_first_refusal": true
+                  },
+                  {
+                    "from_button_id": "button.menu_ok",
+                    "to_button_id": "$pressed_button_name",
+                    "mapping_type": "focused",
+                    "button_up_right_of_first_refusal": true
+                  }
+                ]
+              }
             }
           ]
         }
@@ -79,28 +93,28 @@
     "anchor_to": "center",
     "size": [ "100%", "100%cm" ],
     "offset": [ "-40%", 0 ],
+
+    "$screenshot_grid_collection_name|default": "screenshot_collection",
+    "collection_name": "$screenshot_grid_collection_name",
     "controls": [
       {
         "left_image_panel@pdp_screenshots.screenshots_grid_item": {
+          "collection_index": 0,
           "alpha": 0.4,
-          "propagate_alpha": true,
-          "$screenshot_name": "#left_world_screenshot_texture_name",
-          "$screenshot_location": "#left_world_screenshot_file_system"
+          "propagate_alpha": true
         }
       },
       {
         "middle_image_panel@pdp_screenshots.screenshots_grid_item": {
-          "$screenshot_name": "#middle_world_screenshot_texture_name",
-          "$screenshot_location": "#middle_world_screenshot_file_system",
+          "collection_index": 1,
           "$is_middle": true
         }
       },
       {
         "right_image_panel@pdp_screenshots.screenshots_grid_item": {
+          "collection_index": 2,
           "alpha": 0.4,
-          "propagate_alpha": true,
-          "$screenshot_name": "#right_world_screenshot_texture_name",
-          "$screenshot_location": "#right_world_screenshot_file_system"
+          "propagate_alpha": true
         }
       }
     ]
@@ -141,6 +155,13 @@
                     "mapping_type": "focused"
                   }
                 ],
+                "bindings": [
+                  {
+                    "binding_type": "$store_factory_collection_details",
+                    "binding_collection_name": "$store_factory_collection_name",
+                    "binding_collection_prefix": "$store_factory_collection_prefix"
+                  }
+                ],
                 "controls": [
                   {
                     "hover@common.square_image_border_white": {
@@ -163,11 +184,20 @@
           "size": [ "100% - 2px", "100%" ],
           "bindings": [
             {
-              "binding_name": "$screenshot_name",
+              "binding_type": "$store_factory_collection_details",
+              "binding_collection_name": "$store_factory_collection_name",
+              "binding_collection_prefix": "$store_factory_collection_prefix"
+            },
+            {
+              "binding_type": "collection",
+              "binding_collection_name": "$screenshot_grid_collection_name",
+              "binding_name": "#screenshot_texture",
               "binding_name_override": "#texture"
             },
             {
-              "binding_name": "$screenshot_location",
+              "binding_type": "collection",
+              "binding_collection_name": "$screenshot_grid_collection_name",
+              "binding_name": "#screenshot_texture_file_system",
               "binding_name_override": "#texture_file_system"
             }
           ]

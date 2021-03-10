@@ -528,12 +528,20 @@
           "layer": 2,
           "variables": [
             {
-              "requires": "$show_tokens_faq_button",
-              "$window_size": "$purchase_coin_screen_size_extended"
+              "requires": "($show_tokens_faq_button and $show_need_more_coins_string)",
+              "$window_size": "$purchase_coin_screen_size_extended_not_enough"
             },
             {
-              "requires": "(not $show_tokens_faq_button)",
+              "requires": "(not $show_tokens_faq_button and not $show_need_more_coins_string)",
               "$window_size": "$purchase_coin_screen_size"
+            },
+            {
+              "requires": "(not $show_tokens_faq_button and $show_need_more_coins_string)",
+              "$window_size": "$purchase_coin_screen_size_not_enough"
+            },
+            {
+              "requires": "($show_tokens_faq_button and not $show_need_more_coins_string)",
+              "$window_size": "$purchase_coin_screen_size_extended"
             }
           ],
           "size": "$window_size"

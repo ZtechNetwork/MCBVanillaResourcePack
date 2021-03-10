@@ -1087,12 +1087,7 @@
     "orientation": "horizontal",
     "size": [ "100%c", 21 ],
     "controls": [
-      { "member_settings@realms_allowlist.member_settings": {} },
-      {
-        "undo_button@realms_allowlist.undo_button": {
-          "layer": 4
-        }
-      }
+      { "member_settings@realms_allowlist.member_settings": {} }
     ]
   },
 
@@ -1360,42 +1355,6 @@
     "$toggle_enabled_binding_type": "global"
   },
 
-  "undo_button@common_buttons.light_text_button": {
-    "size": [ 60, 21 ],
-    "ignored": "($collection_binding_name = $uninvited_collection_name)",
-    "anchor_from": "right_middle",
-    "anchor_to": "right_middle",
-    "$button_text": "realmsInvitationScreen.undo",
-    "button_mappings": [
-      {
-        "from_button_id": "button.menu_select",
-        "to_button_id": "button.realms_invite_undo",
-        "mapping_type": "pressed"
-      },
-      {
-        "from_button_id": "button.menu_ok",
-        "to_button_id": "button.realms_invite_undo",
-        "mapping_type": "focused"
-      }
-    ],
-    "bindings": [
-      {
-        "binding_type": "collection_details",
-        "binding_collection_name": "$collection_binding_name"
-      },
-      {
-        "binding_name": "#undo_action_visible",
-        "binding_name_override": "#visible",
-        "binding_type": "collection",
-        "binding_collection_name": "$collection_binding_name"
-      },
-      {
-        "binding_name": "#members_list_enabled", // a hack: you cannot set "enabled":false directly on a ui control
-        "binding_name_override": "#enabled"
-      }
-    ]
-  },
-
   "find_friends_button@common_buttons.light_text_button": {
     "anchor_from": "left_middle",
     "anchor_to": "left_middle",
@@ -1428,7 +1387,6 @@
     "anchor_to": "right_middle",
     "size": [ "100%", 30 ],
     "layer": 2,
-    "$button_text": "realmsInvitationScreen.shareByLink",
     "button_mappings": [
       {
         "from_button_id": "button.menu_select",
@@ -1445,6 +1403,16 @@
       {
         "binding_name": "#members_list_enabled", // a hack: you cannot set "enabled":false directly on a ui control
         "binding_name_override": "#enabled"
+      }
+    ],
+    "variables": [
+      {
+        "requires": "$is_console",
+        "$button_text": "realmsInvitationScreen.shareByCode"
+      },
+      {
+        "requires": "(not $is_console)",
+        "$button_text": "realmsInvitationScreen.shareByLink"
       }
     ]
   },
@@ -1834,13 +1802,20 @@
 
   "share_popup_content": {
     "type": "panel",
-    "size": [ 300, 140 ],
+    "$share_popup_content_size|default": [ 340, 140 ],
     "controls": [
       { "popup_dialog_bg@realms_common.popup_dialog_bg": {} },
       { "share_popup_dialog_header@realms_allowlist.share_popup_dialog_header": {} },
       { "share_popup_dialog_upper_body@realms_allowlist.share_popup_dialog_upper_body": {} },
       { "share_popup_dialog_lower_body@realms_allowlist.share_popup_dialog_lower_body": {} }
-    ]
+    ],
+    "variables": [
+      {
+        "requires": "$is_console",
+        "$share_popup_content_size": [ 255, 140 ]
+      }
+    ],
+    "size": "$share_popup_content_size"
   },
 
   "share_popup_dialog_header": {
@@ -1875,12 +1850,22 @@
 
   "share_popup_dialog_header_text": {
     "type": "label",
-    "text": "realmsInvitationScreen.shareLinkToRealm",
     "font_size": "normal",
     "color": "$title_text_color",
     "anchor_from": "center",
     "anchor_to": "center",
-    "offset": [ 0, 2 ]
+    "offset": [ 0, 2 ],
+    "variables": [
+      {
+        "requires": "$is_console",
+        "$text": "realmsInvitationScreen.shareCodeToRealm"
+      },
+      {
+        "requires": "(not $is_console)",
+        "$text": "realmsInvitationScreen.shareLinkToRealm"
+      }
+    ],
+    "text": "$text"
   },
 
   "share_popup_dialog_upper_body": {
@@ -1964,7 +1949,6 @@
 
   "link_url_text": {
     "type": "label",
-    "size": [ 168, "default" ],
     "text": "#linkurl",
     "text_alignment": "center",
     "font_size": "normal",
@@ -1979,7 +1963,15 @@
         "binding_name": "#linkurl",
         "binding_type": "global"
       }
-    ]
+    ],
+    "$link_url_text_size|default": [ 208, "default" ],
+    "variables": [
+      {
+        "requires": "$is_console",
+        "$link_url_text_size": [ 163, "default" ]
+      }
+    ],
+    "size": "$link_url_text_size"
   },
 
   "empty_image": {
@@ -2072,7 +2064,6 @@
     "size": [ "50% - 2px", "90%" ],
     "anchor_from": "bottom_right",
     "anchor_to": "bottom_right",
-    "$button_text": "realmsInvitationScreen.shareDialogNewLinkButton",
     "button_mappings": [
       {
         "from_button_id": "button.menu_select",
@@ -2083,6 +2074,16 @@
         "from_button_id": "button.menu_ok",
         "to_button_id": "button.realms_invite_new_link",
         "mapping_type": "focused"
+      }
+    ],
+    "variables": [
+      {
+        "requires": "$is_console",
+        "$button_text": "realmsInvitationScreen.shareDialogNewCodeButton"
+      },
+      {
+        "requires": "(not $is_console)",
+        "$button_text": "realmsInvitationScreen.shareDialogNewLinkButton"
       }
     ]
   },
@@ -2130,7 +2131,16 @@
     "controls": [
       {
         "info_text@realms_allowlist.share_popup_text": {
-          "$text": "realmsInvitationScreen.shareInfoMessage"
+          "variables": [
+            {
+              "requires": "$is_console",
+              "$text": "realmsInvitationScreen.shareInfoMessageCode"
+            },
+            {
+              "requires": "(not $is_console)",
+              "$text": "realmsInvitationScreen.shareInfoMessage"
+            }
+          ]
         }
       }
     ]
@@ -2148,7 +2158,16 @@
           "anchor_to": "top_middle",
           "size": [ "75%", "50% - 2px" ],
           "offset": [ 0, 7 ],
-          "$text": "realmsInvitationScreen.refreshLinkInfoMessage"
+          "variables": [
+            {
+              "requires": "$is_console",
+              "$text": "realmsInvitationScreen.refreshCodeInfoMessage"
+            },
+            {
+              "requires": "(not $is_console)",
+              "$text": "realmsInvitationScreen.refreshLinkInfoMessage"
+            }
+          ]
         }
       },
       {

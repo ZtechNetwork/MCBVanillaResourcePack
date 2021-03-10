@@ -901,28 +901,32 @@
         "from_button_id": "button.menu_left",
         "to_button_id": "$slider_small_decrease_button",
         "mapping_type": "pressed",
-        "input_mode_condition": "not_gaze"
+        "input_mode_condition": "not_gaze",
+        "ignore_input_scope": true
       },
       {
         "ignored": "($slider_direction = 'horizontal')",
         "from_button_id": "button.menu_up",
         "to_button_id": "$slider_small_decrease_button",
         "mapping_type": "pressed",
-        "input_mode_condition": "not_gaze"
+        "input_mode_condition": "not_gaze",
+        "ignore_input_scope": true
       },
       {
         "ignored": "($slider_direction = 'vertical')",
         "from_button_id": "button.menu_right",
         "to_button_id": "$slider_small_increase_button",
         "mapping_type": "pressed",
-        "input_mode_condition": "not_gaze"
+        "input_mode_condition": "not_gaze",
+        "ignore_input_scope": true
       },
       {
         "ignored": "($slider_direction = 'horizontal')",
         "from_button_id": "button.menu_down",
         "to_button_id": "$slider_small_increase_button",
         "mapping_type": "pressed",
-        "input_mode_condition": "not_gaze"
+        "input_mode_condition": "not_gaze",
+        "ignore_input_scope": true
       }
     ],
     "controls": [
@@ -3180,6 +3184,67 @@
     "to": 0
   },
 
+  "anim_item_lock_notification_background_alpha": {
+    "anim_type": "alpha",
+    "easing": "in_quint",
+    "destroy_at_end": "selected_item_details",
+    "duration": 2,
+    "from": 0.6,
+    "to": 0
+  },
+
+  "anim_item_lock_notification_text_alpha": {
+    "anim_type": "alpha",
+    "easing": "in_quint",
+    "destroy_at_end": "selected_item_details",
+    "duration": 2,
+    "from": 1.0,
+    "to": 0
+  },
+
+  "item_lock_notification": {
+    "type": "panel",
+    "size": [ "100%c", "100%c" ],
+    "layer": 30,
+    "anchor_to": "top_middle",
+    "anchor_from": "top_middle",
+    "offset": "$offset",
+
+    "$offset|default": [ 0, "12%" ],
+    "$alpha_anim_background|default": "@common.anim_item_lock_notification_background_alpha",
+    "$alpha_anim_text|default": "@common.anim_item_lock_notification_text_alpha",
+
+    "controls": [
+      {
+        "notification_background_image": {
+          "type": "image",
+          "size": [ "100%c + 12px", "100%c + 5px" ],
+          "layer": 30,
+
+          "alpha": "$alpha_anim_background",
+          "texture": "textures/ui/hud_tip_text_background",
+
+          "controls": [
+            {
+              "notification_text_label": {
+                "type": "label",
+                "layer": 1,
+                "alpha": "$alpha_anim_text",
+                "text": "#notification_text",
+                "color": "$item_lock_notification_text_color"
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "item_lock_notification_factory": {
+    "type": "factory",
+    "control_name": "@common.item_lock_notification"
+  },
+
   //---------------------------------------------------------------------------
   // Scroll
   //---------------------------------------------------------------------------
@@ -4455,7 +4520,8 @@
     "controls": [
       { "default@inventory_icon_panel": {} },
       { "pressed@inventory_icon_panel": {} },
-      { "hover@inventory_icon_panel": {} }
+      { "hover@inventory_icon_panel": {} },
+      { "durability_bar_grabbed@common.durability_bar_grabbed": {} }
     ]
   },
 
@@ -5018,6 +5084,8 @@
               "$mob_effect_screen_size": [ "90%", "90%" ], // Mob Effect Screen
               "$purchase_coin_screen_size": [ "90%", "17%x + 82px" ], //Coin Purchase Screen
               "$purchase_coin_screen_size_extended": [ "90%", "17%x + 117px" ], //Coin Purchase Screen, with FAQ
+              "$purchase_coin_screen_size_not_enough": [ "90%", "17%x + 97px" ], //Coin Purchase Screen, when not enough coins for current purchase
+              "$purchase_coin_screen_size_extended_not_enough": [ "90%", "17%x + 132px" ], //Coin Purchase Screen, when not enough coins for current purchase, with FAQ
               "$choose_realm_screen_size": [ "70%", "85%" ], //Choose Realm Screen
               "$custom_templates_screen_size": [ "70%", "85%" ], //Custom Templates Screen
               "$world_modal_screen_size": [ 290, 100 ], // world convert and world loading modal progress screens
@@ -5062,6 +5130,8 @@
               "$mob_effect_screen_size": [ "90%", "90%" ], // Mob Effect Screen
               "$purchase_coin_screen_size": [ "90%", "17%x + 82px" ], //Coin Purchase Screen
               "$purchase_coin_screen_size_extended": [ "90%", "17%x + 117px" ], //Coin Purchase Screen, with FAQ
+              "$purchase_coin_screen_size_not_enough": [ "90%", "17%x + 97px" ], //Coin Purchase Screen, when not enough coins for current purchase
+              "$purchase_coin_screen_size_extended_not_enough": [ "90%", "17%x + 132px" ], //Coin Purchase Screen, when not enough coins for current purchase, with FAQ
               "$choose_realm_screen_size": [ "70%", "85%" ], //Choose Realm Screen
               "$custom_templates_screen_size": [ "70%", "85%" ], //Custom Templates Screen
               "$world_modal_screen_size": [ 290, 100 ], // world convert and world loading modal progress screens

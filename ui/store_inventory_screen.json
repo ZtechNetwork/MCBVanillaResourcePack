@@ -895,7 +895,8 @@
           "$category_label": "gui.all",
           "$category_icon": "textures/ui/glyph_mashup_pack",
           "$category_count": "#collection_count",
-          "$category_pressed_button_name": "button.all"
+          "$category_pressed_button_name": "button.all",
+          "$icon_visible" : "#collections_icon_visible"
         }
       },
       {
@@ -908,7 +909,8 @@
           "$category_label": "store.search.filter.skinPacks",
           "$category_icon": "textures/ui/glyph_skin_pack",
           "$category_count": "#skins_count",
-          "$category_pressed_button_name": "button.skins"
+          "$category_pressed_button_name": "button.skins",
+          "$icon_visible" : "#category_skins_icon_visible"
         }
       },
       {
@@ -921,7 +923,8 @@
           "$category_label": "store.search.filter.worldTemplates",
           "$category_icon": "textures/ui/glyph_world_template",
           "$category_count": "#worlds_count",
-          "$category_pressed_button_name": "button.worlds"
+          "$category_pressed_button_name": "button.worlds",
+          "$icon_visible" : "#category_worlds_icon_visible"
         }
       },
       {
@@ -934,7 +937,8 @@
           "$category_label": "store.search.filter.texturePacks",
           "$category_icon": "textures/ui/glyph_resource_pack",
           "$category_count": "#textures_count",
-          "$category_pressed_button_name": "button.textures"
+          "$category_pressed_button_name": "button.textures",
+          "$icon_visible" : "#category_textures_icon_visible"
         }
       },
       {
@@ -947,7 +951,8 @@
           "$category_label": "store.search.filter.mashupPacks",
           "$category_icon": "textures/ui/glyph_mashup_pack",
           "$category_count": "#mashups_count",
-          "$category_pressed_button_name": "button.mashups"
+          "$category_pressed_button_name": "button.mashups",
+          "$icon_visible" : "#category_mashups_icon_visible"
         }
       },
       {
@@ -1020,7 +1025,16 @@
           "type": "image",
           "size": [ 10, 10 ],
           "texture": "$category_icon",
-          "color": "$color"
+          "color": "$color",
+          "visible" : "$icon_visible",
+          "bindings": [
+            {
+              "binding_type": "collection",
+              "binding_collection_name": "$dropdown_collection_name",
+              "binding_name": "$icon_visible",
+              "binding_name_override": "#visible"
+            }
+          ]
         }
       },
       {
@@ -1053,37 +1067,96 @@
   // Right Side
   //--------------------------------------------------------------------------------
 
+  "filter_sort_menu_panel": {
+    "type": "panel",
+    "visible": false,
+    "property_bag": {
+      "#visible": false
+    },
+    "controls": [
+      {
+        "filter_sort_menu@$menu_control": {}
+      }
+    ],
+    "bindings": [
+      {
+        "binding_name": "$menu_visible_binding",
+        "binding_name_override": "#visible"
+      }
+    ]
+  },
+
+  "seach_object@common_store.search_object": {
+    "$has_section_above_search_panel": true,
+    "$upper_section_conent": "store_inventory.inventory_sign_in_panel",
+    "$store_offer_grid_prefix": "",
+    "$store_offer_grid_item_size": [ "33.3333%", "56.25%x + 36px" ],
+    "$store_offer_grid_bindings": [
+      {
+        "binding_type": "collection",
+        "binding_collection_name": "$store_offer_grid_collection_name",
+        "binding_name": "#max_grid_offers",
+        "binding_name_override": "#maximum_grid_items"
+      },
+      {
+        "binding_type": "collection",
+        "binding_collection_name": "$store_offer_grid_collection_name",
+        "binding_name": "#grid_list_visible",
+        "binding_name_override": "#visible"
+      }
+    ],
+    "$search_label_panel_bindings": [
+      {
+        "binding_type": "collection",
+        "binding_collection_name": "$store_offer_grid_collection_name",
+        "binding_name": "#inventory_search_results_text",
+        "binding_name_override": "$search_label_text"
+      }
+    ]
+  },
+
   "list_panel": {
     "type": "input_panel",
     "anchor_from": "top_left",
     "anchor_to": "top_left",
     "controls": [
       {
-        "seach_object@common_store.search_object": {
-          "$has_section_above_search_panel": true,
-          "$upper_section_conent": "store_inventory.inventory_sign_in_panel",
-          "$store_offer_grid_prefix": "",
-          "$store_offer_grid_item_size": [ "33.3333%", "56.25%x + 36px" ],
-          "$store_offer_grid_bindings": [
+        "list_panel_content": {
+          "type": "panel",
+          "bindings": [
             {
-              "binding_type": "collection",
-              "binding_collection_name": "$store_offer_grid_collection_name",
-              "binding_name": "#max_grid_offers",
-              "binding_name_override": "#maximum_grid_items"
-            },
-            {
-              "binding_type": "collection",
-              "binding_collection_name": "$store_offer_grid_collection_name",
-              "binding_name": "#grid_list_visible",
-              "binding_name_override": "#visible"
+              "binding_type": "view",
+              "source_control_name": "progress_loading",
+              "source_property_name": "(not #visible)",
+              "target_property_name": "#visible",
+              "resolve_sibling_scope": true
             }
           ],
-          "$search_label_panel_bindings": [
+          "controls": [
             {
-              "binding_type": "collection",
-              "binding_collection_name": "$store_offer_grid_collection_name",
-              "binding_name": "#inventory_search_results_text",
-              "binding_name_override": "$search_label_text"
+              "filter_menu_panel@store_inventory.filter_sort_menu_panel": {
+                "$menu_control": "filter_menu.filter_menu_screen_content",
+                "$menu_visible_binding": "#filter_screen_visible"
+              }
+            },
+            {
+              "sort_menu_panel@store_inventory.filter_sort_menu_panel": {
+                "$menu_control": "sort_menu.sort_menu_screen_content",
+                "$menu_visible_binding": "#sort_screen_visible"
+              }
+            },
+            {
+              "search_and_offers_grid_scroll_panel@common.scrolling_panel": {
+                "anchor_from": "top_left",
+                "anchor_to": "top_left",
+                "$scrolling_pane_size": [ "100%", "100%" ],
+                "$scroll_size": [ 5, "100% - 8px" ],
+                "$scrolling_content": "store_inventory.seach_object",
+                "$scroll_bar_left_padding_size": [ 2, 0 ],
+                "$scroll_bar_right_padding_size": [ 0, 0 ],
+                "$show_background": false,
+                "$bar_visible": true
+              }
             }
           ]
         }
@@ -1218,7 +1291,6 @@
   //--------------------------------------------------------------------------------
   // Screen
   //--------------------------------------------------------------------------------
-
   "main_panel": {
     "type": "stack_panel",
     "orientation": "horizontal",
@@ -1300,6 +1372,7 @@
     "alpha": "@common_store.screen_fade_in_alpha_anim",
     "propagate_alpha": true,
     "disable_anim_fast_forward": true,
+    "$store_factory_clipping_event": "#inventory_grid_clip_event",
     "controls": [
       {
         "main_panel@common_store.store_header_with_coins": {

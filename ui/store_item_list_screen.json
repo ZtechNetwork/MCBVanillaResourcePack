@@ -93,9 +93,6 @@
     "$store_offer_grid_collection_name|default": "list_collection",
     "collection_name": "$store_offer_grid_collection_name",
 
-    "property_bag": {
-      "#collection_name": "$store_offer_grid_collection_name"
-    },
     "$store_offer_grid_bindings|default": [
       {
         "binding_type": "$store_factory_collection_details",
@@ -103,12 +100,10 @@
         "binding_collection_prefix": "$store_factory_collection_prefix"
       },
       {
+        "binding_type": "$store_factory_binding_type",
+        "binding_collection_name": "$store_factory_collection_name",
         "binding_name": "#max_grid_offers",
         "binding_name_override": "#maximum_grid_items"
-      },
-      {
-        "binding_name": "#grid_list_visible",
-        "binding_name_override": "#visible"
       }
     ],
     "bindings": "$store_offer_grid_bindings"

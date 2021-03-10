@@ -10,6 +10,20 @@ Specific changelogs for resource packs will now be included for every release on
 To prevent a long list of game changelogs, the list will only go back 2 major versions.
 
 ## Game Changelogs
+### v1.16.210
+#### Parity Changes:
+- Players now experience ambient sounds in the Nether.
+    - Mobile players need to update the Minecraft Original Music Pack via the Marketplace to hear these new sounds.
+- Using bone meal in warm ocean biomes now only generates sea grass, coral, and coral fans.
+#### Changes:
+- Added F11 as a keyboard shortcut for Full Screen mode.
+- Added text-to-speech volume slider in Audio Settings.
+- Android Devices
+    - Our ability to support Android devices on KitKat OS or below is coming to an end. For more information, please [click here](https://help.minecraft.net/hc/en-us/articles/360045863292-What-are-the-Device-Requirements-to-run-Minecraft-).
+    - Players running this KitKat OS or below are not able to purchase a Realm from that device.
+- Added the `fogs` folder to the resource pack.
+- Bug fixes, for more details [visit here](https://feedback.minecraft.net/hc/en-us/articles/360057677072).
+
 ### v1.16.201
 - Fixed the game failing to launch on multiple Windows 10 devices.
 - Double Chests placed at chunk borders no longer become partially invisible and don't crash the game when they are opened.

@@ -42,7 +42,14 @@
 			"initial_state" : "default",
 			"states" : {
 				"default" : {
-					"animations" : [ "first_person_attack_rotation" ],
+					"animations": [
+						{
+							"first_person_attack_rotation": "variable.is_holding_right <= 0.0"
+						},
+						{
+							"first_person_attack_rotation_item": "variable.is_holding_right > 0.0"
+						}
+					],
 					"transitions" : [
 						{
 							"vr_attack" : "variable.is_using_vr"
@@ -50,7 +57,14 @@
 					]
 				},
 				"vr_attack" : {
-					"animations" : [ "first_person_vr_attack_rotation" ],
+					"animations": [
+						{
+							"first_person_vr_attack_rotation": "variable.is_holding_right <= 0.0"
+						},
+						{
+							"first_person_attack_rotation_item": "variable.is_holding_right > 0.0"
+						}
+					],
 					"transitions" : [
 						{
 							"default" : "!variable.is_using_vr"
@@ -183,10 +197,19 @@
 							"first_person_empty_hand" : "query.get_equipped_item_name(0, 1) != 'map'"
 						},
 						{
+							"first_person_walk" : "!variable.bob_animation"
+						},
+						{
 							"first_person_map_controller" : "(query.get_equipped_item_name(0, 1) == 'map' || query.get_equipped_item_name('off_hand') == 'map')"
 						},
 						{
-							"first_person_crossbow_equipped" : "query.get_equipped_item_name == 'crossbow' && (variable.item_use_normalized > 0 && variable.item_use_normalized < 1.0)"
+							"first_person_crossbow_equipped": "query.get_equipped_item_name == 'crossbow' && (variable.item_use_normalized > 0 && variable.item_use_normalized < 1.0)"
+						},
+						{
+							"first_person_crossbow_hold": "query.get_equipped_item_name == 'crossbow' && query.item_is_charged"
+						},
+						{
+							"first_person_breathing_bob": "variable.attack_time <= 0.0"
 						}
 					],
 					"transitions" : [

@@ -237,6 +237,13 @@
               }
             },
             {
+              "ui_debug_button@general_section.ui_debug_button": {
+                "ignored": "$is_publish",
+                "$toggle_group_forced_index": "$ui_debug_forced_index",
+                "$tts_section_header": "$general_section_header"
+              }
+            },
+            {
               "flighting_debug_button@general_section.flighting_debug_button": {
                 "ignored": "$is_publish",
                 "$toggle_group_forced_index": "$flighting_debug_forced_index",
@@ -247,13 +254,6 @@
               "automation_button@general_section.automation_button": {
                 "ignored": "($is_publish or $test_infrastructure_disabled)",
                 "$toggle_group_forced_index": "$automation_forced_index",
-                "$tts_section_header": "$general_section_header"
-              }
-            },
-            {
-              "broadcast_button@general_section.broadcast_button": {
-                "ignored": "(not $can_support_broadcast or $education_edition)",
-                "$toggle_group_forced_index": "$broadcast_forced_index",
                 "$tts_section_header": "$general_section_header"
               }
             }
@@ -348,7 +348,12 @@
               }
             },
             { "video_section@general_section.video_section": { "visible": false } },
-            { "view_subscriptions_section@general_section.view_subscriptions_section": { "ignored": "$education_edition", "visible": false } },
+            {
+              "view_subscriptions_section@general_section.view_subscriptions_section": {
+                "ignored": "$education_edition",
+                "visible": false
+              }
+            },
             {
               "vr_section@general_section.vr_section": {
                 "ignored": "(not $is_holographic)",
@@ -369,6 +374,12 @@
               }
             },
             {
+              "ui_debug_section@general_section.ui_debug_section": {
+                "ignored": "$is_publish",
+                "visible": false
+              }
+            },
+            {
               "flighting_debug_section@general_section.flighting_debug_section": {
                 "ignored": "$is_publish",
                 "visible": false
@@ -377,12 +388,6 @@
             {
               "automation_section@general_section.automation_section": {
                 "ignored": "($is_publish or $test_infrastructure_disabled)",
-                "visible": false
-              }
-            },
-            {
-              "broadcast_section@general_section.broadcast_section": {
-                "ignored": "(not $can_support_broadcast or $education_edition)",
                 "visible": false
               }
             },
