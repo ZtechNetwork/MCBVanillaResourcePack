@@ -377,6 +377,7 @@
           "anchor_to": "left_middle",
           "$is_inventory_screen|default": false,
           "$focus_id": "inventory_button",
+          "$focus_override_left": "back_button",
           "variables": [
             {
               "requires": "($is_inventory_screen or $is_on_3p_server)",
@@ -1112,7 +1113,8 @@
       {
         "back_button@common.back_title_button": {
           "offset": [ 0, -1 ],
-          "layer": 200 //This should always be on top, let's ensure that
+          "layer": 200, //This should always be on top, let's ensure that
+          "$focus_id": "back_button"
         }
       }
     ]

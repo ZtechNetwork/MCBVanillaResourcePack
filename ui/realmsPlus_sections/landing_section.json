@@ -68,6 +68,36 @@
         "title_space@realmsPlus_landing.title_space": {}
       },
       {
+        "gradient_panel": {
+          "type": "panel",
+          "size": [ "100%", "100%c" ],
+          "controls": [
+            {
+              "label_with_gradient@realmsPlus.gradient_content_panel": {
+                "size": [ "100% - 6px", 15 ],
+                "$gradient_content": "realmsPlus_landing.free_trial_text"
+              }
+            }
+          ],
+          "bindings": [
+            {
+              "binding_name": "#realms_plus_one_month_free_trial_visible",
+              "binding_name_override": "#visible"
+            }
+          ]
+        }
+      },
+      {
+        "vertical_space@realmsPlus_landing.vertical_small_spacer": {
+          "bindings": [
+            {
+              "binding_name": "#realms_plus_one_month_free_trial_visible",
+              "binding_name_override": "#visible"
+            }
+          ]
+        }
+      },
+      {
         "action_button@realmsPlus_buy.buy_button_panel": {
           "$pressed_button_name": "button.action_button",
           "bindings": [
@@ -81,18 +111,31 @@
         }
       },
       {
-        "vertical_space@realmsPlus_landing.vertical_small_spacer": {}
+        "vertical_space2@realmsPlus_landing.vertical_small_spacer": {
+          "bindings": [
+            {
+              "binding_name": "#realms_plus_one_month_free_trial_not_visible",
+              "binding_name_override": "#visible"
+            }
+          ]
+        }
       },
       {
-        "gradient_panel": {
+        "gradient_panel2": {
           "type": "panel",
           "size": [ "100%", "100%c" ],
           "controls": [
             {
-              "label_with_gradient@realmsPlus.gradient_content_panel": {
+              "label_with_gradient2@realmsPlus.gradient_content_panel": {
                 "size": [ "100% - 6px", 15 ],
                 "$gradient_content": "realmsPlus_landing.subscription_includes_text"
               }
+            }
+          ],
+          "bindings": [
+            {
+              "binding_name": "#realms_plus_one_month_free_trial_not_visible",
+              "binding_name_override": "#visible"
             }
           ]
         }
@@ -105,6 +148,18 @@
     "size": [ "100% - 6px", "default" ],
     "text": "store.realmsPlus.landing.header",    
     "color": "$store_white_text_color"
+  },
+
+  "free_trial_text": {
+    "type": "label",
+    "size": [ "100% - 6 px", "default" ],
+    "text": "#free_trial_header_text",
+    "color": "$store_white_text_color",
+    "bindings": [
+      {
+        "binding_name": "#free_trial_header_text"
+      }
+    ]
   },
 
   "title_space": {
@@ -252,23 +307,12 @@
         "vertical_small_spacer_1@realmsPlus_landing.vertical_small_spacer": {}
       },
       {
-        "info_text_bullet_3@realmsPlus_landing.info_text_bullet": {
-          "$info_text_line": "store.realmsPlus.landing.info2.line3"
-        }
-      },
-      {
-        "vertical_small_spacer_2@realmsPlus_landing.vertical_small_spacer": {}
-      },
-      {
         "info_text_bullet_4@realmsPlus_landing.info_text_bullet": {
-          "text": "#landing_info_line_4",
+          "text": "store.realmsPlus.landing.info2.line3",
           "bindings": [
             {
               "binding_name": "#realms_plus_one_month_free_trial_visible",
               "binding_name_override": "#visible"
-            },
-            {
-              "binding_name": "#landing_info_line_4"
             }
           ]
         }
@@ -278,14 +322,14 @@
       },
       {
         "info_text_bullet_5@realmsPlus_landing.info_text_bullet": {
-          "text": "#landing_info_line_5",
+          "text": "#landing_info_line_4",
           "bindings": [
             {
               "binding_name": "#realms_plus_one_month_free_trial_not_visible",
               "binding_name_override": "#visible"
             },
             {
-              "binding_name": "#landing_info_line_5"
+              "binding_name": "#landing_info_line_4"
             }
           ]
         }

@@ -9,7 +9,17 @@
         "sort_menu_toggle_panel": {
           "type": "panel",
           "size": [ "100%", "100%" ],
-          "$content_toggle_label": "#sort_toggle_label",
+          "$is_relevance_toggle|default": false,
+          "variables": [
+            {
+              "requires": "$is_relevance_toggle",
+              "$content_toggle_label": "store.search.sort_menu.Default"
+            },
+            {
+              "requires": "(not $is_relevance_toggle)",
+              "$content_toggle_label": "#sort_toggle_label"
+            }
+          ],
           "$checked_toggle_icon": "textures/ui/radio_on",
           "$checked_hover_toggle_icon": "textures/ui/radio_on_hover",
           "$unchecked_toggle_icon": "textures/ui/radio_off",
@@ -148,12 +158,8 @@
                 "size": [ "100% - 16px", 30 ],
                 "anchor_from": "right_middle",
                 "anchor_to": "right_middle",
-                "$filter_sort_prefix": "sort_relevance",
-                "$content_toggle_label": "store.search.sort_menu.Default",
-                "$checked_toggle_icon": "textures/ui/radio_on",
-                "$checked_hover_toggle_icon": "textures/ui/radio_on_hover",
-                "$unchecked_toggle_icon": "textures/ui/radio_off",
-                "$unchecked_hover_toggle_icon": "textures/ui/radio_off_hover"
+                "$is_relevance_toggle": true,
+                "$filter_sort_prefix": "sort_relevance"
               }
             }
           ],

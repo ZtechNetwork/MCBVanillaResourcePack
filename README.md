@@ -10,6 +10,11 @@ Specific changelogs for resource packs will now be included for every release on
 To prevent a long list of game changelogs, the list will only go back 2 major versions.
 
 ## Game Changelogs
+### v1.16.220
+#### Changes:
+- Dye can now be used to change the color of sign text.
+- Bug fixes, for more details [visit here](https://feedback.minecraft.net/hc/en-us/articles/360059426071).
+
 ### v1.16.210
 #### Parity Changes:
 - Players now experience ambient sounds in the Nether.

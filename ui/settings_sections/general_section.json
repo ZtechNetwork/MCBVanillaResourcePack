@@ -991,7 +991,9 @@
               "manage_invites_popup_button@settings_common.action_button": {
                 "ignored": "(not $is_holographic and not $fire_tv and not $thirdpartyconsole)",
                 "$pressed_button_name": "button.manage_invites_popup",
-                "$button_text": "options.xboxLive.privacyControl"
+                "$button_text": "options.xboxLive.privacyControl",
+                "anchor_from": "bottom_right",
+                "anchor_to": "bottom_right"
               }
             },
             {
@@ -2426,7 +2428,6 @@
     "type": "stack_panel",
     "orientation": "horizontal",
     "size": [ "100%", "100%cm" ],
-    "$realms_plus_name|default": false,
     "controls": [
       {
         "image_panel": {
@@ -2461,7 +2462,6 @@
                 "$name|default": "#realm_name",
                 "text": "$name",
                 "size": [ "100%", "default" ],
-                "visible": "(not $realms_plus_name)",
                 "$name_bindings|default": [
                   {
                     "binding_name": "#realm_name",
@@ -2804,15 +2804,10 @@
               "text@common.minecraftTenLabel": {
                 "text": "options.viewSubscriptions.noActiveSubscriptions",
                 "color": "$body_text_color",
+                "text_alignment": "center",
                 "anchor_to": "top_middle",
                 "anchor_from": "top_middle",
                 "size": [ "100%", 12 ]
-              }
-            },
-            {
-              "divider1@common.section_divider": {
-                "anchor_to": "bottom_middle",
-                "anchor_from": "bottom_middle"
               }
             }
           ],
@@ -2825,17 +2820,26 @@
         }
       },
       {
-        "realms_plus_header_label@common.minecraftTenLabel": {
-          "text": "options.viewSubscriptions.realmsPlus.header",
-          "text_alignment": "left",
-          "color": "$body_text_color",
-          "size": [ "100%", 12 ]
-        }
-      },
-      {
-        "pad_0": {
+        "realms_plus_header_my_subscriptions": {
           "type": "panel",
-          "size": [ "100%", 6 ]
+          "size": [ "100%", "100%c + 2px" ],
+          "controls": [
+            {
+              "text@common.minecraftTenLabel": {
+                "text": "options.viewSubscriptions.mySubscriptions",
+                "color": "$body_text_color",
+                "anchor_to": "top_middle",
+                "anchor_from": "top_middle",
+                "size": [ "100%", 12 ]
+              }
+            }
+          ],
+          "bindings": [
+            {
+              "binding_name": "#my_subscriptions_visible",
+              "binding_name_override": "#visible"
+            }
+          ]
         }
       },
       {
@@ -2858,6 +2862,50 @@
         }
       },
       {
+        "additional_realms_subscriptions_grid": {
+          "type": "stack_panel",
+          "orientation": "vertical",
+
+          "factory": {
+            "name": "realms_subscriptions_factory",
+            "control_name": "general_section.additional_subscription_panel"
+          },
+
+          "collection_name": "additional_realms_subscriptions_collection",
+          "bindings": [
+            {
+              "binding_name": "#additional_realms_subscriptions_dimensions",
+              "binding_name_override": "#collection_length"
+            }
+          ]
+        }
+      },
+      {
+        "active_available_divider@common.section_divider": {
+          "$top_padding_size": [ "100%", 0 ],
+          "$bottom_padding_size": [ "100%", 1 ]
+        }
+      },
+      {
+        "realms_plus_header_label@common.minecraftTenLabel": {
+          "text": "#available_or_additional_subscriptions_text",
+          "text_alignment": "left",
+          "color": "$body_text_color",
+          "size": [ "100%", 12 ],
+          "bindings": [
+            {
+              "binding_name": "#available_or_additional_subscriptions_text"
+            }
+          ]
+        }
+      },
+      {
+        "pad_0": {
+          "type": "panel",
+          "size": [ "100%", 2 ]
+        }
+      },
+      {
         "realms_plus_buy_offer@general_section.realms_subscription_main": {
           "$realm_collection_name": "realms_plus_subscriptions_collection",
           "$right_pressed_button_name": "button.realms_plus_right_button",
@@ -2871,8 +2919,7 @@
           ],
           "$left_button_visible_bindings": [],
           "$left_button_text": "#price_text",
-          "$realms_plus_name": true,
-          "$name": "",
+          "$name": "options.viewSubscriptions.tenPlayers",
           "$name_bindings": [],
           "$description": "#upsell_text",
           "$description_bindings": [
@@ -2896,42 +2943,6 @@
         "pad_1": {
           "type": "panel",
           "size": [ "100%", 6 ]
-        }
-      },
-      {
-        "divider2@common.section_divider": {}
-      },
-      {
-        "additional_subs_header_label@common.minecraftTenLabel": {
-          "text": "options.viewSubscriptions.realms.header",
-          "text_alignment": "left",
-          "color": "$body_text_color",
-          "size": [ "100%", 12 ]
-        }
-      },
-      {
-        "pad_2": {
-          "type": "panel",
-          "size": [ "100%", 6 ]
-        }
-      },
-      {
-        "additional_realms_subscriptions_grid": {
-          "type": "stack_panel",
-          "orientation": "vertical",
-
-          "factory": {
-            "name": "realms_subscriptions_factory",
-            "control_name": "general_section.additional_subscription_panel"
-          },
-
-          "collection_name": "additional_realms_subscriptions_collection",
-          "bindings": [
-            {
-              "binding_name": "#additional_realms_subscriptions_dimensions",
-              "binding_name_override": "#collection_length"
-            }
-          ]
         }
       },
       {
@@ -4639,6 +4650,117 @@
     ]
   },
 
+  "mock_http_panel": {
+    "type": "stack_panel",
+    "orientation": "vertical",
+    "size": [ "100%", "100%c" ],
+    "controls": [
+      {
+        "display_mock_http_panel_toggle@settings_common.option_toggle": {
+          "$option_label": "Display Mock HTTP Panel",
+          "$option_binding_name": "#dev_display_mock_http_panel",
+          "$option_enabled_binding_name": "#dev_display_mock_http_panel_enabled",
+          "$toggle_name": "dev_display_mock_http_panel",
+          "$enabled": "(not $is_console)"
+        }
+      },
+      {
+        "mock_http_panel_content@general_section.mock_http_panel_content": {}
+      }
+    ]
+  },
+
+  "mock_http_panel_content": {
+    "type": "panel",
+    "size": [ "100%", "100%c" ],
+    "controls": [
+      {
+        "mock_http_panel_background": {
+          "type": "stack_panel",
+          "size": [ "90%", "100%c" ],
+          "controls": [
+            {
+              "add_mock_rules_button@settings_common.action_button": {
+                "$pressed_button_name": "dev_add_mock_http_rules",
+                "$button_text": "Add rules from file"
+              }
+            },
+            {
+              "remove_all_mock_rules_button@settings_common.action_button": {
+                "$pressed_button_name": "dev_remove_all_mock_http_rules",
+                "$button_text": "Remove all rules"
+              }
+            },
+            {
+              "active_rules_label": {
+                "type": "label",
+                "size": [ "100%", "20px" ],
+                "text": "Active Rules:",
+                "color": "$body_text_color"
+              }
+            },
+            {
+              "rule_list@general_section.mock_http_rule_list": {}
+            },
+            {
+              "divider@common.section_divider": {}
+            }
+          ]
+        }
+      }
+    ],
+    "bindings": [
+      {
+        "binding_name": "#dev_display_mock_http_panel",
+        "binding_name_override": "#visible"
+      }
+    ]
+  },
+
+  "mock_http_rule_list": {
+    "type": "stack_panel",
+    "size": [ "100%", "100%c" ],
+    "factory": {
+      "name": "rule_list_factory",
+      "control_name": "general_section.mock_http_rule"
+    },
+    "collection_name": "mock_http_rules",
+    "bindings": [
+      {
+        "binding_name": "#mock_http_rule_count",
+        "binding_name_override": "#collection_length"
+      }
+    ]
+  },
+
+  "mock_http_rule": {
+    "type": "stack_panel",
+    "controls": [
+      {
+        "rule_details_label": {
+          "type": "label",
+          "size": [ "100%", "default" ],
+          "text": "#text",
+          "color": "$body_text_color",
+          "bindings": [
+            {
+              "binding_name": "#rule_details_label",
+              "binding_name_override": "#text",
+              "binding_type": "collection",
+              "binding_collection_name": "mock_http_rules"
+            }
+          ]
+        }
+      },
+      {
+        "rule_spacer": {
+          "type": "panel",
+          "size": [ "100%", 5 ]
+        }
+      }
+    ]
+  },
+
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   // Automation Tab
 
@@ -5358,6 +5480,9 @@
           "$option_enabled_binding_name": "#texture_hot_reloader_enabled",
           "$toggle_name": "enable_texture_hot_reloader"
         }
+      },
+      {
+        "mock_http_panel@general_section.mock_http_panel": {}
       },
       {
         "vsync_dropdown@settings_common.option_dropdown": {

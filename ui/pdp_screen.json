@@ -529,6 +529,94 @@
             }
           ]
         }
+      },
+      {
+        "interact_exit_world_filling_button@common_buttons.deactivated_light_content_button": {
+          "$pressed_button_name": "$button_action",
+          "$button_size_override": [ "100%", "100%c" ],
+          "$focus_border_size_override": [ "100%", "100%c + 2px" ],
+          "$button_image_size_override": [ "100% - 2px", "100%c + 2px" ],
+          "$button_content_size_override": [ "100% - 4px", "100%c + 6px" ],
+          "$button_state_panel": "common_buttons.new_ui_form_fitting_button_panel",
+          "$button_action": "button.must_exit_world_error_dialog",
+          "$focus_id": "$interact_button_id",
+          "$button_binding_condition": "visible",
+          "$button_content": "pdp.disabled_interact_label_formfitting",
+          "$button_type_panel": "common_buttons.height_fitting_button_content_panel",
+          "size": [ "100%", "100%c" ],
+          "$anchor": "top_left",
+          "bindings": [
+            {
+              "binding_name": "#exit_world_button_visible",
+              "binding_name_override": "#visible"
+            },
+            {
+              "binding_type": "view", 
+              "source_property_name": "#visible", 
+              "target_property_name": "#enabled"
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "disabled_interact_label_formfitting": {
+    "type": "stack_panel",
+    "orientation": "horizontal",
+    "size": [ "100%", "100%cm" ],
+    "use_priority": true,
+    "controls": [
+      {
+        "info_icon": {
+          "type": "image",
+          "texture": "textures/ui/infobulb",
+          "anchor_from": "top_left",
+          "anchor_to": "top_left",
+          "size": [ 9, 12 ],
+          "priority": 1
+        }
+      },
+      {
+        "info_icon_pad": {
+          "priority": 1,
+          "type": "panel",
+          "size": [ 2,0]
+        }
+      },
+      {
+        "interact_label_panel": {
+          "priority": 0,
+          "type": "panel",
+          "size": [ "fill", "100%c" ],
+          "controls": [
+            {
+              "interact_label_text_left@pdp.interact_label_text": {}
+            }
+          ]
+        }
+      },
+      {
+        "pad": {
+          "priority": 0,
+          "type": "panel",
+          "size": [ 2,0]
+        }
+      }
+    ]
+  },
+
+  "interact_label_text": {
+    "type": "label",
+    "size": [ "100%", "default" ],
+    "color": "$text_color",
+    "text_alignment": "left",
+    "text": "#interact_button_text",
+    "$purchase_price_font_type|default": "default",
+    "font_type": "$purchase_price_font_type",
+    "bindings": [
+      {
+        "binding_name": "#interact_button_text"
       }
     ]
   },

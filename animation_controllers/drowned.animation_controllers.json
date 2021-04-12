@@ -8,10 +8,7 @@
 					"animations" : [ "zombie_attack_bare_hand" ],
 					"transitions" : [
 						{
-							"one_hand_attack" : "query.is_item_equipped('off_hand')"
-						},
-						{
-							"spear_attack" : "variable.is_brandishing_spear && !query.is_item_equipped('off_hand')"
+							"one_hand_attack" : "query.is_item_equipped('off_hand') || variable.is_brandishing_spear"
 						}
 					]
 				},
@@ -19,21 +16,7 @@
 					"animations" : [ "attack_rotations" ],
 					"transitions" : [
 						{
-							"default" : "!query.is_item_equipped('off_hand')"
-						},
-						{
-							"spear_attack" : "variable.is_brandishing_spear && !query.is_item_equipped('off_hand')"
-						}
-					]
-				},
-				"spear_attack" : {
-					"animations" : [ "zombie_attack_bare_hand", "attack_rotations" ],
-					"transitions" : [
-						{
 							"default" : "!query.is_item_equipped('off_hand') && !variable.is_brandishing_spear"
-						},
-						{
-							"one_hand_attack" : "query.is_item_equipped('off_hand')"
 						}
 					]
 				}

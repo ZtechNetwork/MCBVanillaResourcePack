@@ -1093,24 +1093,12 @@
     "$store_offer_grid_item_size": [ "33.3333%", "56.25%x + 36px" ],
     "$store_offer_grid_bindings": [
       {
-        "binding_type": "collection",
-        "binding_collection_name": "$store_offer_grid_collection_name",
         "binding_name": "#max_grid_offers",
         "binding_name_override": "#maximum_grid_items"
       },
       {
-        "binding_type": "collection",
-        "binding_collection_name": "$store_offer_grid_collection_name",
         "binding_name": "#grid_list_visible",
         "binding_name_override": "#visible"
-      }
-    ],
-    "$search_label_panel_bindings": [
-      {
-        "binding_type": "collection",
-        "binding_collection_name": "$store_offer_grid_collection_name",
-        "binding_name": "#inventory_search_results_text",
-        "binding_name_override": "$search_label_text"
       }
     ]
   },
@@ -1166,8 +1154,6 @@
           "layer": 100,
           "bindings": [
             {
-              "binding_type": "collection",
-              "binding_collection_name": "$store_offer_grid_collection_name",
               "binding_name": "#page_loading_visible",
               "binding_name_override": "#visible"
             }
@@ -1186,22 +1172,10 @@
     ]
   },
 
-  "owned_content_section@store_inventory.list_panel": {
+  "items_content_section@store_inventory.list_panel": {
     "$toggle_binding": "owned_toggle",
-    "$store_offer_grid_collection_name": "owned_items_collection",
-    "$offer_collection_prefix": "owned_items"
-  },
-
-  "current_content_section@store_inventory.list_panel": {
-    "$toggle_binding": "current_toggle",
-    "$store_offer_grid_collection_name": "current_items_collection",
-    "$offer_collection_prefix": "current_items"
-  },
-
-  "removed_content_section@store_inventory.list_panel": {
-    "$toggle_binding": "removed_toggle",
-    "$store_offer_grid_collection_name": "removed_items_collection",
-    "$offer_collection_prefix": "removed_items"
+    "$store_offer_grid_collection_name": "items_collection",
+    "$offer_collection_prefix": "items"
   },
 
   "subscriptions_content_section": {
@@ -1236,9 +1210,7 @@
     "factory": {
       "name": "inventory_section_factory",
       "control_ids": {
-        "owned_tab": "@store_inventory.owned_content_section",
-        "current_tab": "@store_inventory.current_content_section",
-        "removed_tab": "@store_inventory.removed_content_section",
+        "items_collection_tab": "@store_inventory.items_content_section",
         "subscriptions_tab": "@store_inventory.subscriptions_content_section"
       },
       "factory_variables": [

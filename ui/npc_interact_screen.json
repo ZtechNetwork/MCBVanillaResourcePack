@@ -372,7 +372,28 @@
     "$text_edit_box_content_binding_name": "#action_text",
     "$text_box_name": "action_text_box",
     "$text_edit_box_binding_condition": "visible",
-    "enabled_newline": true
+    "enabled_newline": true,
+    "bindings": [
+      {
+        "binding_type": "collection",
+        "binding_name": "#command_identifier",
+        "binding_name_override": "#focus_identifier",
+        "binding_collection_name": "actions_collection",
+        "binding_condition": "once"
+      },
+      {
+        "binding_type": "collection",
+        "binding_name": "#add_command_focus_override_up",
+        "binding_name_override": "#focus_change_up",
+        "binding_collection_name": "actions_collection"
+      },
+      {
+        "binding_type": "collection",
+        "binding_name": "#command_focus_override_down",
+        "binding_name_override": "#focus_change_down",
+        "binding_collection_name": "actions_collection"
+      }
+    ]
   },
 
   "maximized_action_edit@npc_interact.multiline_text_edit_control": {
@@ -429,6 +450,20 @@
         "binding_name": "#button_name_edit_visible",
         "binding_name_override": "#visible",
         "binding_collection_name": "actions_collection"
+      },
+      {
+        "binding_type": "collection",
+        "binding_name": "#button_name_identifier",
+        "binding_name_override": "#focus_identifier",
+        "binding_collection_name": "actions_collection",
+        "binding_condition": "once"
+      },
+      {
+        "binding_type": "collection",
+        "binding_name": "#button_name_focus_override_up",
+        "binding_name_override": "#focus_change_up",
+        "binding_collection_name": "actions_collection",
+        "binding_condition": "once"
       }
     ]
   },
@@ -457,6 +492,20 @@
         "binding_collection_name": "$toggle_grid_collection_name",
         "binding_name": "$toggle_enabled_binding_name",
         "binding_name_override": "#enabled"
+      },
+      {
+        "binding_type": "collection",
+        "binding_name": "#button_mode_identifier",
+        "binding_name_override": "#focus_identifier",
+        "binding_collection_name": "actions_collection",
+        "binding_condition": "once"
+      },
+      {
+        "binding_type": "collection",
+        "binding_name": "#button_mode_focus_override_up",
+        "binding_name_override": "#focus_change_up",
+        "binding_collection_name": "actions_collection",
+        "binding_condition": "once"
       }
     ]
   },
@@ -714,6 +763,10 @@
             {
               "binding_name": "#commands_enabled",
               "binding_name_override": "#enabled"
+            },
+            {
+              "binding_name": "#add_command_focus_override_up",
+              "binding_name_override": "#focus_change_up"
             }
           ]
         }
