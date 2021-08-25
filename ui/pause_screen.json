@@ -324,15 +324,70 @@
     "$focus_override_right": "change_skin_button"
   },
 
-  "server_store_button@pause.pause_button_template": {
+  "store_button_panel": {
+    "type": "panel",
+    "size": [ "100%", 28 ],
+    "controls": [
+      { "store_button@pause.store_button": {} },
+      { "store_error_button@pause.store_error_button": {} }
+    ]
+  },
+
+  "store_button@pause.pause_button_template": {
     "ignored": "$is_secondary_client",
-    "$pressed_button_name": "button.menu_server_store",
-    "$button_text": "$server_store_button_text",
+    "$pressed_button_name": "button.menu_store",
+    "$button_text": "$store_button_text",
     "bindings": [
       {
-        "binding_name": "#server_store_button_visible",
+        "binding_name": "#store_button_visible",
         "binding_name_override": "#visible",
         "binding_type": "global"
+      }
+    ]
+  },
+
+  "store_error_button@common_buttons.dynamic_tooltip_notification_panel": {
+    "size": [ "100%", "100%" ],
+    "button_mappings": [
+      {
+        "from_button_id": "button.menu_select",
+        "to_button_id": "button.menu_store_error",
+        "mapping_type": "pressed"
+      },
+      {
+        "to_button_id": "button.is_hovered",
+        "mapping_type": "pressed"
+      }
+    ],
+    "consume_hover_events": false,
+    "focus_enabled": true,
+    "$dynamic_tooltip_button_visibility_binding_name": "(not #store_button_visible)",
+    "$tooltip_popup_visible_binding": "#store_error_tooltip_visible",
+    "$override_tooltip_popup_image": true,
+    "$tooltip_popup_override_image_panel": "start.store_error_image",
+    "$tooltip_text_binding_name": "#store_error_text",
+    "$tool_tip_text_max_size": [ "160px", "default" ],
+    "$tooltip_panel_content": "pause.store_error_button_content",
+    "bindings": [
+      {
+        "binding_name": "(not #store_button_visible)",
+        "binding_name_override": "#visible"
+      }
+    ]
+  },
+
+  "store_error_button_content": {
+    "type": "image",
+    "texture": "textures/ui/disabledButton",
+    "layer": 9,
+    "controls": [
+      {
+        "marketplace_button_label": {
+          "layer": 9,
+          "type": "label",
+          "text": "$store_button_text",
+          "color": "$light_button_locked_text_color"
+        }
       }
     ]
   },
@@ -350,7 +405,7 @@
     "$button_text": "menu.achievements",
     "anchor_to": "top_middle",
     "anchor_from": "top_middle",
-    "ignored": "$achievements_ignored",
+    "ignored": true,
     "bindings": [
       {
         "binding_name": "#achievements_visible",
@@ -638,18 +693,6 @@
           "controls": [
             { "return_to_game_button@pause.return_to_game_button": {} },
             { "return@pause.vertical_padding": {} },
-            { "server_store_button@pause.server_store_button": {} },
-            {
-              "server@pause.vertical_padding": {
-                "bindings": [
-                  {
-                    "binding_name": "#server_store_button_visible",
-                    "binding_name_override": "#visible",
-                    "binding_type": "global"
-                  }
-                ]
-              }
-            },
             {
               "feed_and_screenshot_buttons": {
                 "type": "stack_panel",
@@ -716,6 +759,18 @@
             },
             { "settings_button@pause.settings_button": {} },
             { "settings@pause.vertical_padding": {} },
+            { "store_button_panel@pause.store_button_panel": {} },
+            {
+              "server@pause.vertical_padding": {
+                "bindings": [
+                  {
+                    "binding_name": "#store_button_visible",
+                    "binding_name_override": "#visible",
+                    "binding_type": "global"
+                  }
+                ]
+              }
+            },
             { "achievements_button@pause.achievements_button": {} },
             {
               "achievements@pause.vertical_padding": {

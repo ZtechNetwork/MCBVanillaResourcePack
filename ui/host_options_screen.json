@@ -129,11 +129,11 @@
     "anchor_from": "bottom_left",
     "anchor_to": "bottom_left",
 
-    "$master_scrolling_content|default": "host_main_buttons",
-    "$master_offset_scrollable_panel|default": [ 0, -1 ],
-    "$master_offset_background|default": [ -2, 0 ],
-    "$master_size_scrollable_panel|default": [ "100% - 2px", "100% - 4px" ],
-    "$master_background_visible": true,
+    "$main_scrolling_content|default": "host_main_buttons",
+    "$main_offset_scrollable_panel|default": [ 0, -1 ],
+    "$main_offset_background|default": [ -2, 0 ],
+    "$main_size_scrollable_panel|default": [ "100% - 2px", "100% - 4px" ],
+    "$main_background_visible": true,
 
     "$scroll_bar_right_padding_size": [ 0, 0 ],
 
@@ -142,21 +142,21 @@
         "background": {
           "type": "image",
           "texture": "textures/ui/Banners",
-          "offset": "$master_offset_background",
+          "offset": "$main_offset_background",
           "size": [ "100% + 4px", "100%" ],
           "anchor_from": "bottom_left",
           "anchor_to": "bottom_left",
-          "visible": "$master_background_visible"
+          "visible": "$main_background_visible"
         }
       },
       {
         "scrollable_tab@host_options.scrollable_selector_area": {
           "layer": 2,
-          "$scrolling_content": "$master_scrolling_content",
+          "$scrolling_content": "$main_scrolling_content",
           "anchor_from": "bottom_middle",
           "anchor_to": "bottom_middle",
-          "$offset_scrollable_panel": "$master_offset_scrollable_panel",
-          "$size_scrollable_panel": "$master_size_scrollable_panel"
+          "$offset_scrollable_panel": "$main_offset_scrollable_panel",
+          "$size_scrollable_panel": "$main_size_scrollable_panel"
         }
       }
     ]
@@ -487,7 +487,7 @@
           "controls": [
             {
               "host_time_panel@scrolling_panel": {
-                "$master_scrolling_content": "host_options.host_friends_tab",
+                "$main_scrolling_content": "host_options.host_friends_tab",
                 "offset": "$offset_second_sub_tabs"
               }
             }
@@ -537,7 +537,7 @@
             {
               "scrolli_scrolli_ravioli@scrolling_panel": {
                 "offset": "$offset_sub_tabs",
-                "$master_scrolling_content": "host_options.host_grid",
+                "$main_scrolling_content": "host_options.host_grid",
                 "$grid_dimension_binding": "#host_time_grid_dimension",
                 "$grid_collection_name": "host_time_collection",
                 "$grid_item_template": "host_options.host_sub_command_grid_item"

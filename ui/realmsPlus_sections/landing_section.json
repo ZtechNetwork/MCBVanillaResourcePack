@@ -114,7 +114,7 @@
         "vertical_space2@realmsPlus_landing.vertical_small_spacer": {
           "bindings": [
             {
-              "binding_name": "#realms_plus_one_month_free_trial_not_visible",
+              "binding_name": "(not #realms_plus_one_month_free_trial_visible)",
               "binding_name_override": "#visible"
             }
           ]
@@ -134,7 +134,7 @@
           ],
           "bindings": [
             {
-              "binding_name": "#realms_plus_one_month_free_trial_not_visible",
+              "binding_name": "(not #realms_plus_one_month_free_trial_visible)",
               "binding_name_override": "#visible"
             }
           ]
@@ -190,7 +190,7 @@
       },
       {
         "info_description_stack@realmsPlus_landing.info_description_stack": {
-          "size": [ "fill", "100%sm" ]
+          "size": [ "fill", "100%c" ]
         }
       }
     ]
@@ -243,7 +243,7 @@
   "info_section_stack": {
     "type": "stack_panel",
     "orientation": "horizontal",
-    "size": [ "100%", "fill" ]
+    "size": [ "100%", "100%cm" ]
   },
 
   "info_section_image_with_border@common.focus_border_white": {
@@ -308,7 +308,7 @@
       },
       {
         "info_text_bullet_4@realmsPlus_landing.info_text_bullet": {
-          "text": "store.realmsPlus.landing.info2.line3",
+          "$info_text_line": "store.realmsPlus.landing.info2.line3",
           "bindings": [
             {
               "binding_name": "#realms_plus_one_month_free_trial_visible",
@@ -322,12 +322,14 @@
       },
       {
         "info_text_bullet_5@realmsPlus_landing.info_text_bullet": {
-          "text": "#landing_info_line_4",
+          "$info_text_line": "#landing_info_line_4",
           "bindings": [
             {
-              "binding_name": "#realms_plus_one_month_free_trial_not_visible",
+              "binding_name": "(not #realms_plus_one_month_free_trial_visible)",
               "binding_name_override": "#visible"
-            },
+            }
+          ],
+          "$text_bindings": [
             {
               "binding_name": "#landing_info_line_4"
             }
@@ -343,10 +345,30 @@
   },
 
   "info_text_bullet": {
-    "type": "label",
-    "text": "$info_text_line",
-    "size": [ "100%", "default" ],
-    "font_type": "smooth",
-    "color": "$store_white_text_color"
+    "type": "stack_panel",
+    "orientation": "horizontal",
+    "size": [ "100%", "100%cm" ],
+    "$text_bindings|default": [],
+    "controls": [
+      {
+        "info_text_bullet_bullet": {
+          "type": "label",
+          "text": "-",
+          "size": [ 4, "default" ],
+          "font_type": "smooth",
+          "color": "$store_white_text_color"
+        }
+      },
+      {
+        "info_text_bullet_body": {
+          "type": "label",
+          "text": "$info_text_line",
+          "size": [ "fill", "default" ],
+          "font_type": "smooth",
+          "color": "$store_white_text_color",
+          "bindings": "$text_bindings"
+        }
+      }
+    ]
   }
 }

@@ -11,7 +11,7 @@
 					"rotation" : [ "math.sin(math.sqrt(variable.attack_time) * 360) * 11.46", 0.0, 0.0 ]
 				},
 				"rightarm" : {
-					"rotation" : [ "math.sin(1.0 - math.pow(1.0 - variable.attack_time, 3.0) * 180.0) * (variable.is_brandishing_spear ? -1.0 : 1.0 )", "variable.is_brandishing_spear ? 0.0 : (math.sin(math.sqrt(variable.attack_time) * 360) * 11.46) * 2.0", 0.0 ]
+					"rotation" : [ "math.sin(1.0 - math.pow(1.0 - variable.attack_time, 3.0) * 180.0) * (variable.is_brandishing_spear || variable.is_holding_spyglass ? -1.0 : 1.0 )", "variable.is_brandishing_spear || variable.is_holding_spyglass ? 0.0 : (math.sin(math.sqrt(variable.attack_time) * 360) * 11.46) * 2.0", 0.0 ]
 				}
 			}
 		},
@@ -58,6 +58,14 @@
 			"bones" : {
 				"rightarm" : {
 					"rotation" : [ "this * -0.5 - 157.5 - 22.5 * variable.charge_amount", "-this", 0.0 ]
+				}
+			}
+		},
+		"animation.humanoid.holding_spyglass" : {
+			"loop" : true,
+			"bones" : {
+				"rightarm" : {
+					"rotation" : [ "math.clamp(query.target_x_rotation - 105 - (variable.is_sneaking ? 15 : 0), -170, 180)", "math.clamp(query.target_y_rotation - 15, -60, 90)", 5.0 ]
 				}
 			}
 		},
@@ -240,14 +248,6 @@
 			"bones" : {
 				"rightarm" : {
 					"rotation" : [ "variable.use_item_startup_progress * -60.0 + variable.use_item_interval_progress * 11.25", "variable.use_item_startup_progress * -22.5 + variable.use_item_interval_progress * 11.25", "variable.use_item_startup_progress * -5.625 + variable.use_item_interval_progress * 11.25" ]
-				}
-			}
-		},
-		"animation.humanoid.fishing_rod" : {
-			"loop" : true,
-			"bones" : {
-				"rightarm" : {
-					"rotation" : [ " -19.0 - this", "-this", "-this" ]
 				}
 			}
 		}

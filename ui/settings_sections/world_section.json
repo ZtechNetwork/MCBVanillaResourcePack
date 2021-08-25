@@ -142,7 +142,7 @@
 
   "launch_world_button_stack_def": {
     "type": "stack_panel",
-    "size": [ "100%", 30 ],
+    "size": [ "100%", 35 ],
     "orientation": "horizontal"
   },
 
@@ -151,7 +151,7 @@
     "controls": [
       {
         "create_or_play_button@settings_common.action_button": {
-          "size": [ "fill", 30 ],
+          "size": [ "fill", 35 ],
           "$button_text": "menu.play",
           "default_focus_precedence": 1,
           "$pressed_button_name": "play_world_button",
@@ -165,9 +165,9 @@
       },
       {
         "play_on_realm_button@settings_common.action_button": {
-          "size": [ "50%", 30 ],
+          "size": [ "50%", 35 ],
           "ignored": "(not $is_pregame or $education_edition)",
-          "$button_text_max_size": [ "100%", 20 ],
+          "$button_text_max_size": [ "100%", 25 ],
           "$button_text": "menu.playOnRealms",
           "$pressed_button_name": "play_world_on_realm_button",
           "$focus_override_up": "FOCUS_OVERRIDE_STOP",
@@ -196,7 +196,7 @@
   },
 
   "edu_play_host_button@settings_common.action_button": {
-    "size": [ "fill", 30 ],
+    "size": [ "fill", 35 ],
     "$pressed_button_name": "play_world_edu_button",
     "$focus_override_up": "FOCUS_OVERRIDE_STOP",
     "property_bag": {
@@ -345,7 +345,7 @@
     "size": [ "100%", "100%c" ],
     "anchor_from": "top_left",
     "anchor_to": "top_left",
-    "$education_ios": "($education_edition and $ios)",
+    "$education_ios": "($education_edition and $is_ios)",
     "bindings": [
       {
         "binding_type": "view",
@@ -707,8 +707,12 @@
         }
       },
       {
+        "experimental_toggles_label_info@settings_common.option_group_label": {
+          "$text": "createWorldScreen.experimentalgameplayinfo"
+        }
+      },
+      {
         "experimental_toggles": {
-          "ignored": "$education_edition",
           "type": "stack_panel",
           "orientation": "vertical",
           "size": [ "100%", "100%c" ],
@@ -1004,7 +1008,11 @@
           "controls": [
             {
               "export_button@settings_common.action_button": {
-                "ignored": "(($pocket_edition or $export_disabled or not $file_picking_supported) and not $education_ios",
+                // std pocket should not have export until bedrock wants it
+                // export is disabled in game
+                // Some platforms such as fireTV do not support file picking
+                // EDU supports file picking on all supported platforms except ios which is pocket
+                "ignored": "(($pocket_edition or $export_disabled or not $file_picking_supported) and not $education_edition)",
                 "size": [ "50%", 30 ],
                 "anchor_from": "top_left",
                 "anchor_to": "top_left",
@@ -1145,6 +1153,53 @@
         }
       },
       {
+        "upload_download_slot_panel": {
+          "ignored": "(not $is_realm_slot)",
+          "type": "panel",
+          "size": [ "100%", "100%c + 2px" ],
+          "controls": [
+            {
+              "upload_download_slot_button@settings_common.action_button": {
+                "size": [ "100%", 30 ],
+                "anchor_from": "bottom_left",
+                "anchor_to": "bottom_left",
+                "$button_text": "#lot_upload_or_download",
+                "$pressed_button_name": "upload_download_slot_button",
+                "bindings": [
+                  {
+                    "binding_name": "#slot_upload_or_download"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "replace_slot_panel": {
+          "ignored": "(not $is_realm_slot)",
+          "type": "panel",
+          "size": [ "100%", "100%c + 2px" ],
+          "controls": [
+            {
+              "replace_slot_button@settings_common.action_button": {
+                "size": [ "100%", 30 ],
+                "anchor_from": "bottom_left",
+                "anchor_to": "bottom_left",
+                "$button_text": "realmsSettingsScreen.uploadWorldButton",
+                "$pressed_button_name": "replace_slot_button",
+                "bindings": [
+                  {
+                    "binding_name": "(not #slot_new_world)",
+                    "binding_name_override": "#enabled"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
         "base_game_version_debug_text": {
           "ignored": "$is_publish",
           "type": "label",
@@ -1190,7 +1245,7 @@
     "$available_grid_dimensions": "#available_grid_dimensions_level",
     "$realms_grid_dimensions": "#realms_grid_dimensions_level",
     "$unowned_grid_dimensions": "#unowned_grid_dimensions_level",
-    "$unowned_visible": true,
+    "$unowned_visible": "#unowned_visible_level",
     "$button.selected_pack": "button.selected_pack_level",
     "$button.deselected_pack": "button.deselected_pack_level",
     "$button.available_pack": "button.available_pack_level",
@@ -1279,7 +1334,7 @@
     "$available_grid_dimensions": "#available_grid_dimensions_addon",
     "$realms_grid_dimensions": "#realms_grid_dimensions_addon",
     "$unowned_grid_dimensions": "#unowned_grid_dimensions_addon",
-    "$unowned_visible": false,
+    "$unowned_visible": "#unowned_visible_addon",
     "$default_item_texture": "#default_item_texture_addon",
     "$default_item_file_system": "#default_item_file_system_addon",
     "$default_item_zip": "#default_item_zip_addon",
@@ -1742,7 +1797,6 @@
     "$tts_section_header": "createWorldScreen.worldSettings",
     "$toggle_tts_header_binding_type": "collection",
     "$toggle_tts_header_binding_collection_name": "experimental_toggles",
-    "ignored": "$education_edition",
     "$option_label": "#text",
     "$option_binding_name": "#experimental_toggle_value",
     "$option_enabled_binding_name": "#experimental_toggle_enabled",

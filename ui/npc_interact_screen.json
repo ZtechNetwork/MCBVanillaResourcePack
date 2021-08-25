@@ -1,4 +1,4 @@
-/********************************************************
+ /********************************************************
 +*   (c) Mojang. All rights reserved                      *
 +*   (c) Microsoft. All rights reserved.                  *
 +*********************************************************/
@@ -116,8 +116,7 @@
     "type": "panel",
     "anchor_from": "top_left",
     "anchor_to": "top_left",
-    "size": [ "100%", "100% - 2px" ],
-    "offset": [ 0, 2 ],
+    "size": [ "100%", "100% - 1px" ],
     "clips_children": true
   },
 
@@ -468,9 +467,7 @@
     ]
   },
 
-  "button_mode_toggle@edu_common.slider_toggle": {
-    "$toggle_name": "button_mode_toggle",
-    "$toggle_state_binding_name": "#button_mode_enabled",
+  "command_toggle@edu_common.slider_toggle": {
     "$toggle_grid_collection_name": "actions_collection",
     "$toggle_binding_type": "collection",
     "bindings": [
@@ -510,24 +507,54 @@
     ]
   },
 
-  "button_mode": {
+  "command_toggle_panel@common.empty_panel": {
+    "size": [ "30% + 10px", "100%" ],
+    "controls": [
+      {
+        "command_toggle@npc_interact.command_toggle": {
+          "anchor_from": "left_middle",
+          "anchor_to": "left_middle",
+          "$toggle_name": "$toggle_name",
+          "$toggle_state_binding_name": "$toggle_state_binding_name"
+        }
+      },
+      {
+        // Can't use $option_label because the text has to be dark
+        "toggle_label@edu_common.dark_label": {
+          "anchor_from": "left_middle",
+          "anchor_to": "left_middle",
+          "max_size": [ "70%", "100%" ],
+          "text": "$toggle_label_text",
+          "offset": [ 32, 0 ]
+        }
+      }
+    ]
+  },
+
+  "action_mode": {
     "type": "stack_panel",
     "orientation": "horizontal",
-    "size": [ "100%", 16 ],
+    "size": [ "100%", 25 ],
     "controls": [
-      { "toggle@npc_interact.button_mode_toggle": {} },
-      // Can't use $option_label because the text has to be dark
       {
-        "offset_wrap@common.empty_panel": {
-          "size": [ "100%c", "100%c" ],
-          "controls": [
-            {
-              "label@edu_common.dark_label": {
-                "text": "npcscreen.action.buttonmode",
-                "offset": [ 2, 3 ]
-              }
-            }
-          ]
+        "button_mode_toggle_panel@npc_interact.command_toggle_panel": {
+          "$toggle_name": "button_mode_toggle",
+          "$toggle_state_binding_name": "#button_mode_enabled",
+          "$toggle_label_text": "npcscreen.action.buttonmode"
+        }
+      },
+      {
+        "on_enter_toggle_panel@npc_interact.command_toggle_panel": {
+          "$toggle_name": "on_enter_toggle",
+          "$toggle_state_binding_name": "#on_enter_enabled",
+          "$toggle_label_text": "npcscreen.action.onEnter"
+        }
+      },
+      {
+        "on_exit_toggle_panel@npc_interact.command_toggle_panel": {
+          "$toggle_name": "on_exit_toggle",
+          "$toggle_state_binding_name": "#on_exit_enabled",
+          "$toggle_label_text": "npcscreen.action.onExit"
         }
       }
     ],
@@ -567,7 +594,7 @@
       { "label_pad@common.empty_panel": { "size": [ "100%", 2 ] } },
       { "edit@npc_interact.action_edit": {} },
       { "edit_pad@common.empty_panel": { "size": [ "100%", 3 ] } },
-      { "button_mode@npc_interact.button_mode": {} },
+      { "action_mode@npc_interact.action_mode": {} },
       { "mode_pad@common.empty_panel": { "size": [ "100%", 3 ] } },
       { "button_name_label@npc_interact.button_name_label": {} },
       { "button_name@npc_interact.button_name_edit": {} }
@@ -808,7 +835,7 @@
   //---------------------------------------------------------------------------
   // Student Panel
   //---------------------------------------------------------------------------
-  "message_model" : {
+  "message_model": {
     "type": "panel",
     // This window has a zoomed in top portion of the paper doll, so offset down and oversize a bit to zoom in
     // Do this on a parent element since the async ui transition grabs parent size
@@ -841,16 +868,31 @@
     // Take up the rest of the space that the text doesn't take, with a gap
     "size": [ "100% - 222px - 2px", "100%" ],
     "controls": [
-      { "model@npc_interact.clipped_message_model": {} }
+      { "model@npc_interact.clipped_message_model": {} },
+      {
+        "immersive_reader_button@im_reader.reader_button": {
+          "anchor_from": "bottom_right",
+          "anchor_to": "bottom_right",
+          "offset": [ -2, -2 ],
+          "size": [ 18, 18 ],
+          "layer": 5,
+          "ignored": "($is_worldbuilder or not $education_edition)",
+          "bindings": [
+            {
+              "binding_name": "#im_reader_button_visible",
+              "binding_name_override": "#visible"
+            }
+          ]
+        }
+      }
     ]
   },
 
-  "edit_box_background@common.empty_panel": { },
+  "edit_box_background@common.empty_panel": {},
 
   "npc_message@npc_interact.multiline_text_edit_control": {
     "$enabled": true,
     "size": [ "100%", "100%cm" ],
-    "min_size": [ "100%", "90px" ],
     "enabled": "$enabled",
     "anchor_from": "top_left",
     "anchor_to": "top_left",
@@ -922,6 +964,41 @@
         }
       },
       { "background@common.empty_panel": { "size": [ "100%", "100%sm" ] } }
+    ],
+    "button_mappings": [
+      {
+        "from_button_id": "button.menu_select",
+        "to_button_id": "$text_edit_box_selected_to_button_id",
+        "handle_select": true,
+        "handle_deselect": true,
+        "mapping_type": "pressed"
+      },
+      {
+        "from_button_id": "button.menu_select",
+        "to_button_id": "$text_edit_box_selected_to_button_id",
+        "handle_select": false,
+        "handle_deselect": true,
+        "mapping_type": "global",
+        "consume_event": false
+      },
+      {
+        "from_button_id": "button.menu_cancel",
+        "to_button_id": "$text_edit_box_deselected_to_button_id",
+        "handle_select": false,
+        "handle_deselect": true,
+        "mapping_type": "global"
+      },
+      {
+        "to_button_id": "$text_edit_box_hovered_button_id",
+        "mapping_type": "pressed"
+      },
+      {
+        "from_button_id": "$text_edit_box_clear_from_button_id",
+        "to_button_id": "$text_edit_box_clear_to_button_id",
+        "handle_select": false,
+        "handle_deselect": false,
+        "mapping_type": "focused"
+      }
     ]
   },
 
@@ -931,20 +1008,28 @@
     "anchor_from": "right_middle",
     "anchor_to": "right_middle",
     "size": [ 222, "100%" ],
+    "$virtual_keyboard_buffer_control": "text_scroll",
     "controls": [
       {
         "text_scroll@common.scrolling_panel": {
-          "size": [ "100% - 7px", "100% - 6px" ],
+          "size": [ "100% - 10px", "100% - 11px" ],
           "$always_handle_scrolling": true,
+          "$jump_to_bottom_on_update": false,
           "$scrolling_content": "npc_interact.npc_message",
+          "$scroll_box_visible_touch": false,
           "$show_background": false,
           "$scroll_bar_left_padding_size": [ 0, 0 ],
           "$scroll_bar_right_padding_size": [ 0, 0 ],
-          "$scroll_size": [ 5, "100% - 4px" ],
+          "$scroll_size": [ 5, "100%" ],
           "$scroll_size_touch": "$scroll_size",
-          "anchor_from": "top_left",
-          "anchor_to": "top_left",
-          "offset": [ 3, 2 ]
+          "offset": [ 0, -1 ],
+          "variables": [
+            {
+              // Always jump to the bottom when it's in worldbuilder
+              "requires": "($is_worldbuilder)",
+              "$jump_to_bottom_on_update": true
+            }
+          ]
         }
       }
     ]
@@ -963,18 +1048,60 @@
   },
 
   "student_message_section@common.empty_panel": {
-    "size": [ "100%", 100 ],
+    "size": [ "100%", 97 ],
     "anchor_from": "center",
     "anchor_to": "center",
     "controls": [
       {
-        "model@npc_interact.message_model_window": { }
+        "model@npc_interact.message_model_window": {}
       },
       {
-        "point@npc_interact.bubble_point": { }
+        "point@npc_interact.bubble_point": {}
       },
       {
-        "message@npc_interact.student_message_bubble": { }
+        "message@npc_interact.student_message_bubble": {}
+      }
+    ]
+  },
+
+  "student_button_label": {
+    "type": "label",
+    "color": "$text_color",
+    "text": "#student_button_text",
+    "bindings": [
+      {
+        "binding_name": "#student_button_text",
+        "binding_type": "collection",
+        "binding_collection_name": "student_buttons_collection"
+      },
+      {
+        "binding_name": "$visible_binding",
+        "binding_type": "collection",
+        "binding_name_override": "#visible",
+        "binding_collection_name": "student_buttons_collection"
+      }
+    ]
+  },
+
+  "student_button_label_panel": {
+    "type": "panel",
+    "size": [ "100%", "100%" ],
+    "controls": [
+      {
+        "url@npc_interact.student_button_label": {
+          "variables": [
+            {
+              "requires": "$default_state",
+              "$text_color": "$npc_url_text_color"
+            }
+          ],
+          "$visible_binding": "#is_url_button"
+        }
+      },
+      {
+        "command@npc_interact.student_button_label": {
+          "$visible_binding": "#is_command_button"
+        }
       }
     ]
   },
@@ -986,6 +1113,7 @@
     "controls": [
       {
         "button@common_buttons.light_text_button": {
+          "$button_type_panel": "npc_interact.student_button_label_panel",
           "$pressed_button_name": "button.student_button",
           "layer": 4,
           "size": [ "100% - 2px", "100% - 2px" ],
@@ -994,52 +1122,6 @@
               "binding_type": "collection_details",
               "binding_collection_name": "student_buttons_collection",
               "binding_collection_prefix": "student_buttons"
-            }
-          ]
-        }
-      },
-      {
-        // Need to use my own label instead of button text so I can change the color
-        "url_label@edu_common.dark_label": {
-          "anchor_from": "center",
-          "anchor_to": "center",
-          "text": "#text",
-          "color": "$npc_url_text_color",
-          "layer": 50,
-          "bindings": [
-            {
-              "binding_name": "#student_button_text",
-              "binding_type": "collection",
-              "binding_name_override": "#text",
-              "binding_collection_name": "student_buttons_collection"
-            },
-            {
-              "binding_name": "#is_url_button",
-              "binding_type": "collection",
-              "binding_name_override": "#visible",
-              "binding_collection_name": "student_buttons_collection"
-            }
-          ]
-        }
-      },
-      {
-        "command_label@edu_common.dark_label": {
-          "anchor_from": "center",
-          "anchor_to": "center",
-          "text": "#text",
-          "layer": 50,
-          "bindings": [
-            {
-              "binding_name": "#student_button_text",
-              "binding_type": "collection",
-              "binding_name_override": "#text",
-              "binding_collection_name": "student_buttons_collection"
-            },
-            {
-              "binding_name": "#is_command_button",
-              "binding_type": "collection",
-              "binding_name_override": "#visible",
-              "binding_collection_name": "student_buttons_collection"
             }
           ]
         }
@@ -1075,31 +1157,6 @@
                 "bindings": [
                   {
                     "binding_name": "#student_button_grid_dimensions"
-                  }
-                ]
-              }
-            },
-            {
-              "immersive_reader_panel": {
-                "type": "panel",
-                // + 1px to size and offset to account for action button padding
-                "size": [ "100%c + 1px", "100%sm" ],
-                "min_size": [ "100%c + 1px", "100%c"],
-                "controls": [
-                  {
-                    "immersive_reader_button@im_reader.reader_button": {
-                      "anchor_from": "top_left",
-                      "anchor_to": "top_left",
-                      "size": [ 18, 18 ],
-                      "offset": [ 0, 1 ]
-                    }
-                  }
-                ],
-                "ignored": "($is_worldbuilder or not $education_edition)",
-                "bindings": [
-                  {
-                    "binding_name": "#im_reader_button_visible",
-                    "binding_name_override": "#visible"
                   }
                 ]
               }
@@ -1242,7 +1299,7 @@
     // Weird anchoring since this needs to be above the top right corner, outside the panel indent
     "anchor_from": "top_right",
     "anchor_to": "bottom_right",
-    "offset": [ 8, -2 ],
+    "offset": [ 8, -3 ],
     // Since there's a close button on every screen, the close button on a given screen handles the button mapping
     // for back/esc. This means for any screen the first back press will first deselect a text box if one is selected,
     // then the next press maps to one of these "close_button_to_button_id" values

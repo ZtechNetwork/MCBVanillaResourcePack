@@ -61,7 +61,7 @@
     "$tooltip_button_collection_name": "",
 
     "$tooltip_button_binding_type": "none",
-    "$tooltip_text_binding_name": "store.promo.holiday2020.tooltip",
+    "$tooltip_text_binding_name": "store.promo.tooltip",
     "$tooltip_text_font_type": "smooth",
     "$tooltip_text_font_scale": 0.8,
     "$tooltip_popup_override_image_panel": "gift_promo.timer_icon_tooltip_panel",
@@ -288,7 +288,7 @@
     "font_type": "smooth",
     "text": "storageManager.share.totalPercent",
     "color": "$store_sales_banner_text_color",
-    "layer": 1
+    "layer": 10
   },
 
   "promo_item_action_button": {
@@ -435,7 +435,7 @@
   "promotion_top_left_panel": {
     "type": "panel",
     "size": [ "50%", "100%" ],
-    "layer": 3,
+    "layer": 6,
     "controls": [
       {
         "promotion_top_left_stack": {
@@ -861,20 +861,22 @@
       {
         "left_corner_art": {
           "type": "image",
-          "size": [ 128, 96 ],
+          "size": [ 128, 124 ],
+          "offset": [ 1, 0 ],
           "anchor_from": "top_left",
           "anchor_to": "top_left",
-          "texture": "textures/ui/promo_corner_left",
+          "texture": "textures/ui/bubbles_left_corner",
           "layer": 1
         }
       },
       {
         "right_corner_art": {
           "type": "image",
-          "size": [ 128, 96 ],
+          "size": [ 128, 124 ],
+          "offset": [ -1, 0 ],
           "anchor_from": "top_right",
           "anchor_to": "top_right",
-          "texture": "textures/ui/promo_corner_right",
+          "texture": "textures/ui/bubbles_right_corner",
           "layer": 1
         }
       }
@@ -1018,7 +1020,7 @@
       {
         "header@common_store.store_header_with_coins": {
           "$child_control": "gift_promo.promotion_screen_panel",
-          "$button_text": "store.promo.holiday2020.title",
+          "$button_text": "store.promo.title",
           "$back_button_has_title": true,
           "$back_button_pressed_button_name": "button.exit_gift_screen"
         }
@@ -1081,13 +1083,7 @@
 
   "promotion_persona_and_world_panel": {
     "type": "panel",
-    "size": [ "31% - 7px", "100%c - 1px" ],
-    "bindings": [
-      {
-        "binding_name": "#end_of_week_offer_panel_visible",
-        "binding_name_override": "#visible"
-      }
-    ],
+    "size": [ "31% - 7px", "100%c" ],
     "controls": [
       {
         "promotion_persona_and_world_item": {
@@ -1114,13 +1110,13 @@
                           "day_label@common.minecraftTenLabel": {
                             "size": [ "default", "default" ],
                             "color": "$body_text_color",
-                            "text": "#promotion_last_week_day_text",
+                            "text": "#day_four_string",
                             "anchor_from": "top_middle",
                             "anchor_to": "top_middle",
                             "offset": [ 0, -2 ],
                             "bindings": [
                               {
-                                "binding_name": "#promotion_last_week_day_text"
+                                "binding_name": "#day_four_string"
                               }
                             ]
                           }
@@ -1138,21 +1134,46 @@
                     "item_buttons": {
                       "type": "stack_panel",
                       "orientation": "horizontal",
-                      "size": [ "100% - 2px", "40%x - 1px" ],
+                      "size": [ "100% - 2px", "40%x - 2px" ],
                       "collection_name": "gift_promotion_collection",
                       "controls": [
                         {
                           "persona_item@gift_promo.promotion_offer_grid_item": {
-                            "$item_size": [ "38%", "100% - 1px" ],
-                            "collection_index": 6
+                            "$item_size": [ "38%", "100%" ],
+                            "collection_index": 3,
+                            //Doesn't cover text above this control. This will be completely removed when porting to SDL
+                            "bindings": [
+                              {
+                                "binding_type": "collection_details",
+                                "binding_collection_name": "gift_promotion_collection"
+                              },
+                              {
+                                "binding_name": "#is_valid",
+                                "binding_name_override": "#visible",
+                                "binding_type": "collection",
+                                "binding_collection_name": "gift_promotion_collection"
+                              }
+                            ]
                           }
                         },
                         {
                           "world_item@gift_promo.promotion_offer_grid_item": {
-                            "$item_size": [ "62%", "100% - 2px" ],
-                            "collection_index": 7,
+                            "$item_size": [ "62%", "100%" ],
+                            "collection_index": 4,
                             "$is_world_item": true,
-                            "$focus_override_right": "FOCUS_OVERRIDE_STOP"
+                            //Doesn't cover text above this control. This will be completely removed when porting to SDL
+                            "bindings": [
+                              {
+                                "binding_type": "collection_details",
+                                "binding_collection_name": "gift_promotion_collection"
+                              },
+                              {
+                                "binding_name": "#is_valid",
+                                "binding_name_override": "#visible",
+                                "binding_type": "collection",
+                                "binding_collection_name": "gift_promotion_collection"
+                              }
+                            ]
                           }
                         }
                       ]
@@ -1296,8 +1317,8 @@
         }
       },
       {
-        "offer_item_4@gift_promo.promotion_offer_grid_panel": {
-          "collection_index": 3
+        "offer_item_4@gift_promo.promotion_persona_and_world_panel": {
+          //Collection indices 3 and 4 are in promotion_persona_and_world_panel
         }
       },
       {
@@ -1308,7 +1329,7 @@
       },
       {
         "offer_item_5@gift_promo.promotion_offer_grid_panel": {
-          "collection_index": 4
+          "collection_index": 5
         }
       },
       {
@@ -1319,7 +1340,7 @@
       },
       {
         "offer_item_6@gift_promo.promotion_offer_grid_panel": {
-          "collection_index": 5
+          "collection_index": 6
         }
       },
       {
@@ -1329,7 +1350,9 @@
         }
       },
       {
-        "offer_item_7@gift_promo.promotion_persona_and_world_panel": {
+        "offer_item_7@gift_promo.promotion_offer_grid_panel": {
+          "collection_index": 7,
+          "$focus_override_right": "FOCUS_OVERRIDE_STOP"
         }
       }
     ]

@@ -7,6 +7,7 @@
   "namespace": "realms_world_section",
 
   "realm_name_edit@settings_common.option_text_edit": {
+    "ignored": "$is_realm_slot",
     "$option_label": "realmsSettingsScreen.realmNameLabel",
     "$option_binding_name": "#realm_name",
     "$option_enabled_binding_name": "#realm_name_enabled",
@@ -16,8 +17,20 @@
     "$max_text_edit_length": 64
   },
 
+  "world_name_edit@settings_common.option_text_edit": {
+    "ignored": "$realm_no_world_edit",
+    "$option_label": "selectWorld.enterName",
+    "$option_binding_name": "#world_name",
+    "$option_enabled_binding_name": "#realm_name_enabled",
+    "$option_place_holder_text": "realmsSlotsScreen.new",
+    "$text_box_name": "world_name_text_box",
+    "$allow_data_binding": true,
+    "$max_text_edit_length": 64
+  },
+
   // This used to be based on the club, not the realm
   "realm_description_edit@settings_common.option_text_edit": {
+    "ignored": "$is_realm_slot",
     "$option_label": "feed.clubdescription", // this localization string was not updated, for simplicity
     "$option_binding_name": "#realm_description",
     "$option_enabled_binding_name": "#realm_name_enabled",
@@ -43,19 +56,25 @@
     "anchor_to": "left_middle",
     "$button_text": "realmsSettingsScreen.downloadWorldButton",
     "$pressed_button_name": "menu_download_world",
-    "ignored": "(not $is_pregame)"
+    "ignored": "($realm_no_world_edit or not $is_pregame)",
+    "bindings": [
+      {
+        "binding_name": "#download_button_visible",
+        "binding_name_override": "#visible"
+      }
+    ]
   },
 
   "upload_world_button@settings_common.action_button": {
     "anchor_from": "left_middle",
     "anchor_to": "left_middle",
-    "$button_text": "realmsSettingsScreen.uploadWorldButton",
+    "$button_text_binding_type": "global",
+    "$button_text": "#upload_button_text",
     "$pressed_button_name": "menu_upload_world",
-    "ignored": "(not $is_pregame)",
+    "ignored": "($realm_no_world_edit or not $is_pregame)",
     "bindings": [
       {
-        "binding_name": "#upload_button_enabled",
-        "binding_name_override": "#enabled"
+        "binding_name": "#upload_button_text"
       }
     ]
   },
@@ -65,19 +84,21 @@
     "anchor_to": "left_middle",
     "$button_text": "realmsSettingsScreen.resetWorldButton",
     "$pressed_button_name": "menu_reset_world",
+    "ignored": "$realm_no_world_edit",
     "bindings": [
-      {
-        "binding_name": "#reset_button_enabled",
-        "binding_name_override": "#enabled"
-      },
       {
         "binding_name": "#reset_button_visible",
         "binding_name_override": "#visible"
+      },
+      {
+        "binding_name": "#reset_button_enabled",
+        "binding_name_override": "#enabled"
       }
     ]
   },
 
   "manage_feed_button@settings_common.action_button": {
+    "ignored": "$is_realm_slot",
     "anchor_from": "left_middle",
     "anchor_to": "left_middle",
     "$button_text": "feed.manage_feed",
@@ -95,6 +116,7 @@
   },
 
   "club_info_label@settings_common.option_info_label": {
+    "ignored": "$is_realm_slot",
     "$container_text_binding_name": "#club_infotext",
     "$show_option_label": false,
     "bindings": [
@@ -107,6 +129,7 @@
 
 
   "difficulty_dropdown@settings_common.option_dropdown": {
+    "ignored": "$realm_no_world_edit",
     "$option_label": "options.difficulty",
     "$dropdown_content": "world_section.world_difficulty_dropdown_content",
     "$dropdown_area": "realms_world_section.panel_content",
@@ -117,6 +140,7 @@
   },
 
   "game_mode_dropdown@settings_common.option_dropdown": {
+    "ignored": "$realm_no_world_edit",
     "$option_label": "createWorldScreen.gameMode",
     "$dropdown_content": "world_section.world_game_mode_dropdown_content",
     "$dropdown_area": "realms_world_section.panel_content",
@@ -143,11 +167,13 @@
         }
       },
       { "realm_name_edit@realms_world_section.realm_name_edit": {} },
+      { "world_name_edit@realms_world_section.world_name_edit": {} },
       { "realm_description_edit@realms_world_section.realm_description_edit": {} },
       { "difficulty_dropdown@realms_world_section.difficulty_dropdown": {} },
       { "game_mode_dropdown@realms_world_section.game_mode_dropdown": {} },
       {
         "allow_cheats_toggle@settings_common.option_toggle": {
+          "ignored": "$realm_no_world_edit",
           "$option_label": "selectWorld.cheats",
           "$option_binding_name": "#allow_cheats",
           "$option_enabled_binding_name": "#allow_cheats_enabled",
@@ -164,6 +190,7 @@
       { "upload_world_button@realms_world_section.upload_world_button": {} },
       {
         "padding_1": {
+          "ignored": "$realm_no_world_edit",
           "type": "panel",
           "size": [ "100%", 4 ]
         }
@@ -171,6 +198,7 @@
       { "reset_world_button@realms_world_section.reset_world_button": {} },
       {
         "padding_2": {
+          "ignored": "$realm_no_world_edit",
           "type": "panel",
           "size": [ "100%", 16 ]
         }

@@ -274,6 +274,7 @@
               "dressing_room_button@common_buttons.light_text_button": {
                 "$pressed_button_name": "button.dressing_room",
                 "size": [ 120, 23 ],
+                "enabled": "(not $store_disabled)",
                 "$button_text": "emotes.change_emotes",
                 "$default_text_color": "$light_button_default_text_color",
                 "$font_type": "MinecraftTen",
@@ -342,14 +343,14 @@
           "type": "panel",
           "size": [ 42, 42 ],
           "property_bag": "$property_bag",
-          "bindings":[
+          "bindings": [
             {
               "binding_name": "#emote_is_valid",
               "binding_name_override": "#visible",
               "binding_condition": "always"
             }
           ],
-          "controls":[
+          "controls": [
             {
               "valid": {
                 "type": "image",
@@ -392,7 +393,7 @@
                     "binding_condition": "always"
                   }
                 ],
-                "controls":[
+                "controls": [
                   {
                     "valid_text": {
                       "type": "label",

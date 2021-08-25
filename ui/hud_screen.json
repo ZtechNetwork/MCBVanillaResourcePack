@@ -1109,7 +1109,21 @@
     ]
   },
 
-  "anim_item_name_text_alpha": {
+  "anim_item_name_text_alpha_in": {
+    "anim_type": "alpha",
+    "duration": 0,
+    "from": 0.0,
+    "to": 1.0,
+    "next": "@hud.anim_item_name_text_alpha_stay"
+  },
+
+  "anim_item_name_text_alpha_stay": {
+    "anim_type": "wait",
+    "duration": "$wait_duration",
+    "next": "@hud.anim_item_name_text_alpha_out"
+  },
+
+  "anim_item_name_text_alpha_out": {
     "anim_type": "alpha",
     "easing": "in_expo",
     "destroy_at_end": "item_text_label",
@@ -1118,10 +1132,24 @@
     "to": 0
   },
 
-  "anim_item_name_background_alpha": {
+  "anim_item_name_background_alpha_in": {
+    "anim_type": "alpha",
+    "duration": 0,
+    "from": 0,
+    "to": 0.6,
+    "next": "@hud.anim_item_name_background_alpha_stay"
+  },
+
+  "anim_item_name_background_alpha_stay": {
+    "anim_type": "wait",
+    "duration": "$wait_duration",
+    "next": "@hud.anim_item_name_background_alpha_out"
+  },
+
+  "anim_item_name_background_alpha_out": {
     "anim_type": "alpha",
     "easing": "in_expo",
-    "destroy_at_end": "item_text_label",
+    "destroy_at_end": "$destroy_id",
     "duration": 2,
     "from": 0.6,
     "to": 0
@@ -1131,9 +1159,11 @@
     "type": "image",
     "size": [ "100%c + 12px", "100%c + 5px" ],
     "texture": "textures/ui/hud_tip_text_background",
-    "alpha": "@hud.anim_item_name_background_alpha",
+    "alpha": "@hud.anim_item_name_background_alpha_in",
     "anchor_from": "bottom_middle",
     "anchor_to": "bottom_middle",
+    "$wait_duration|default": 1,
+    "$destroy_id|default": "item_name_text",
     "controls": [
       {
         "item_text_label": {
@@ -1145,7 +1175,7 @@
           "layer": 31,
           "color": "$tool_tip_text",
           "text": "#text",
-          "alpha": "@hud.anim_item_name_text_alpha",
+          "alpha": "@hud.anim_item_name_text_alpha_in",
           "bindings": [
             {
               "binding_name": "#item_text",
@@ -1171,7 +1201,7 @@
           "color": "$jukebox_text_color",
           "text": "#text",
           "shadow": true,
-          "alpha": "@hud.anim_item_name_text_alpha",
+          "alpha": "@hud.anim_item_name_text_alpha_out",
           "bindings": [
             {
               "binding_name": "#jukebox_text",
@@ -1227,7 +1257,7 @@
     "size": [ "100%c + 12px", "100%c + 5px" ],
     "offset": [ 0, -42 ],
     "texture": "textures/ui/hud_tip_text_background",
-    "alpha": "@hud.anim_item_name_background_alpha",
+    "alpha": "@hud.anim_item_name_background_alpha_out",
     "controls": [
       {
         "item_text_label": {
@@ -1236,7 +1266,7 @@
           "color": "$tool_tip_text",
           "text": "#text",
           "shadow": true,
-          "alpha": "@hud.anim_item_name_text_alpha",
+          "alpha": "@hud.anim_item_name_text_alpha_out",
           "bindings": [
             {
               "binding_name": "#tip_text",

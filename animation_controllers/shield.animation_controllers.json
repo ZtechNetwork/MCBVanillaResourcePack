@@ -13,7 +13,10 @@
 							"wield_off_hand_first_person": "c.item_slot != 'main_hand'"
 						},
 						{
-							"wield_first_person_block": "c.item_slot != 'main_hand' && query.blocking"
+							"wield_main_hand_first_person_block": "query.blocking && query.get_equipped_item_name('off_hand') != 'shield' && query.get_equipped_item_name == 'shield' && c.item_slot == 'main_hand'"
+						},
+						{
+							"wield_off_hand_first_person_block": "query.blocking && query.get_equipped_item_name('off_hand') == 'shield' && c.item_slot != 'main_hand'"
 						}
 					],
 					"transitions": [

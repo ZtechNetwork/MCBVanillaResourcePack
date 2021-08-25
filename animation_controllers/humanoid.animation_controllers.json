@@ -97,6 +97,26 @@
 				}
 			}
 		},
+		"controller.animation.humanoid.holding_spyglass" : {
+			"initial_state" : "default",
+			"states" : {
+				"holding_spyglass" : {
+					"animations" : [ "holding_spyglass" ],
+					"transitions" : [
+						{
+							"default" : "!variable.is_holding_spyglass"
+						}
+					]
+				},
+				"default" : {
+					"transitions" : [
+						{
+							"holding_spyglass" : "variable.is_holding_spyglass"
+						}
+					]
+				}
+			}
+		},
 		"controller.animation.humanoid.charging" : {
 			"initial_state" : "default",
 			"states" : {

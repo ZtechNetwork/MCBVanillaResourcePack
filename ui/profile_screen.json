@@ -107,7 +107,7 @@
       {
         "reload_label": {
           "type": "label",
-          "text": "Reload",
+          "text": "profileScreen.reload",
           "font_type": "MinecraftTen",
           "font_scale_factor": 1.0,
           "size": [ "100%", "100%" ],
@@ -295,7 +295,7 @@
           "property_bag": "$preset_appearance_property_bag",
 
           "$preset_model_gesture_rotation|default": "",
-          "$preset_model_gesteure_bindings|default": [
+          "$preset_model_gesture_bindings|default": [
             {
               "binding_type": "global",
               "binding_name": "$preset_appearance_binding_name",
@@ -311,7 +311,7 @@
             {
               "requires": "$is_preset_appearance_using_gestures",
               "$preset_model_gesture_rotation": "gesture_x",
-              "$preset_model_gesteure_bindings": [
+              "$preset_model_gesture_bindings": [
                 {
                   "binding_type": "global",
                   "binding_name": "$preset_appearance_binding_name",
@@ -339,7 +339,7 @@
           ],
 
           "rotation": "$preset_model_gesture_rotation",
-          "bindings": "$preset_model_gesteure_bindings"
+          "bindings": "$preset_model_gesture_bindings"
         }
       },
       {
@@ -706,9 +706,17 @@
   // --------------------------------------------------------------------------------------
   //////////////////////////////////
   //// manage appearacne button ////
-  "edit_appearance_button@common_buttons.light_text_button": {
+  "edit_appearance_button_panel": {
+    "type": "panel",
     "size": [ "36.5%", "100%" ],
-    "layer": "$always_show_layer",
+    "controls": [
+      { "edit_appearance_button@profile.edit_appearance_button": {} },
+      { "edit_appearance_error_button@profile.edit_appearance_error_button": {} }
+    ]
+  },
+
+  "edit_appearance_button@common_buttons.light_text_button": {
+    "size": [ "100%", "100%" ],
     "$pressed_button_name": "button.edit_appearance_preset",
     "$font_type": "MinecraftTen",
     "$button_font_scale_factor": 1.0,
@@ -727,6 +735,57 @@
       }
     ],
     "$focus_id": "edit_appearance_button"
+  },
+
+  "edit_appearance_error_button@common_buttons.dynamic_tooltip_notification_panel": {
+    "size": [ "100%", "100%" ],
+    "button_mappings": [
+      {
+        "from_button_id": "button.menu_select",
+        "to_button_id": "button.menu_store_error",
+        "mapping_type": "pressed"
+      },
+      {
+        "to_button_id": "button.is_hovered",
+        "mapping_type": "pressed"
+      }
+    ],
+    "consume_hover_events": false,
+    "focus_enabled": true,
+    "$dynamic_tooltip_button_visibility_binding_name": "#edit_appearance_disabled",
+    "$tooltip_popup_visible_binding": "#edit_appearance_error_tooltip_visible",
+    "$override_tooltip_popup_image": true,
+    "$tooltip_popup_override_image_panel": "start.store_error_image",
+    "$tooltip_text_binding_name": "#edit_appearance_error_text",
+    "$tool_tip_text_max_size": [ "160px", "default" ],
+    "$tooltip_panel_content": "profile.edit_appearance_error_button_content",
+    "bindings": [
+      {
+        "binding_name": "#edit_appearance_disabled",
+        "binding_name_override": "#visible"
+      }
+    ]
+  },
+
+  "edit_appearance_error_button_content": {
+    "type": "image",
+    "texture": "textures/ui/disabledButton",
+    "layer": 9,
+    "controls": [
+      {
+        "marketplace_button_label": {
+          "layer": 9,
+          "type": "label",
+          "text": "#edit_appearance_text",
+          "color": "$light_button_locked_text_color",
+          "bindings": [
+            {
+              "binding_name": "#edit_appearance_text"
+            }
+          ]
+        }
+      }
+    ]
   },
 
   ///////////////////////
@@ -830,7 +889,7 @@
     "layer": 250,
     "controls": [
       { "left_padding@profile.buttons_sides_padding_panel": {} },
-      { "edit_button@profile.edit_appearance_button": {} },
+      { "edit_button@profile.edit_appearance_button_panel": {} },
       { "delete_button@profile.delete_appearance_button": {} },
       // { "random_button@profile.random_appearance_button": {} },
       { "mid_padding@profile.horizontal_padding_8px": {} },
@@ -852,6 +911,7 @@
   ///////////////////////////////////////////////////////////////////////////////////////
   //// Bottom panel content
   "bottom_panel_framework": {
+    "ignored": "$store_disabled",
     "type": "panel",
     "size": [ "100%", "100%c + 4px" ],
     "$right_side_default_text_color": "$dressing_room_right_side_default_text_color",
@@ -1057,7 +1117,7 @@
     "$ignore_piece_selected": true,
     "$ignore_color_picker": true,
 
-    "$category_featured_offer_size": [ "20%", "100%x" ],
+    "$category_featured_offer_size": [ "20% - 2px", "100%x" ],
     "$featured_skin_grid_size": [ "100%", "100%c" ],
     "$featured_skin_pack_button_max_size": [ "33%", "56.25%x" ],
 
@@ -1128,7 +1188,14 @@
                 "focus_nagivation_mode_right": "stop"
               }
             },
-            { "featured_section@profile.bottom_panel_framework": {} }
+            { "featured_section@profile.bottom_panel_framework": {} },
+            {
+              "featured_section_disabled_padding": {
+                "ignored": "(not $store_disabled)",
+                "type": "panel",
+                "size": [ "100%", 70 ]
+              }
+            }
           ]
         }
       },
@@ -1165,7 +1232,9 @@
       {
         "main_panel@common_store.store_header_with_coins": {
           "$child_control": "profile.profile_screen_main_panel",
-          "$back_button_pressed_button_name": "button.try_exiting"
+          "$back_button_pressed_button_name": "button.try_exiting",
+          "$top_status_and_coins_visible_binding": "(not #edit_appearance_disabled)",
+          "$top_status_and_coins_visible_binding_type": "global"
         }
       },
       {
@@ -1222,6 +1291,7 @@
     "$is_full_screen_layout": true,
     "$ignore_home_button": true,
     "$ignore_search_button": true,
+    "$ignore_inventory_button": "#edit_appearance_disabled",
     "$screen_bg_content": "profile.profile_screen_background_content",
 
     "$always_show_layer": 200,

@@ -930,17 +930,37 @@
     "controls": [
       {
         "play_button@settings_common.action_button": {
-          "$button_text": "realmsSettingsScreen.playRealmButton",
-          "$pressed_button_name": "play_world_button",
+          "variables": {
+            "requires": "$realm_no_world_edit",
+            "ignored": "$is_realm_slot",
+            "$button_text": "realmsSettingsScreen.playRealmButton",
+            "$pressed_button_name": "play_world_button",
+            "$default_button_texture": "textures/ui/button_borderless_light",
+            "$hover_button_texture": "textures/ui/button_borderless_lighthover",
+            "$pressed_button_texture": "textures/ui/button_borderless_lightpressed",
+            "bindings": [
+              {
+                "binding_name": "#play_button_visible",
+                "binding_name_override": "#visible"
+              },
+              {
+                "binding_name": "#play_button_enabled",
+                "binding_name_override": "#enabled"
+              }
+            ]
+          },
           "size": [ "100%", "30px" ],
+          "default_focus_precedence": 1,
+          "$focus_override_up": "FOCUS_OVERRIDE_STOP",
+          "$button_text": "createWorldScreen.create",
+          "$pressed_button_name": "create_world_button",
+          "$default_button_texture": "textures/ui/realmsContent",
+          "$hover_button_texture": "textures/ui/realmsContentHover",
+          "$pressed_button_texture": "textures/ui/realmsContentPressed",
           "bindings": [
             {
-              "binding_name": "#play_button_visible",
+              "binding_name": "#create_button_visible",
               "binding_name_override": "#visible"
-            },
-            {
-              "binding_name": "#play_button_enabled",
-              "binding_name_override": "#enabled"
             }
           ]
         }
@@ -987,13 +1007,24 @@
       },
       {
         "selector_group_label@settings_common.selector_group_label": {
+          "$group_label_text|default": "realmsSettingsScreen.selectorSectionLabelRealm",
+          "variables": [
+            {
+              "requires": "$is_realm_slot",
+              "$group_label_text": "realmsSettingsScreen.worldSectionTitle"
+            }
+          ],
+          "text": "$group_label_text",
           "offset": [ 2, 0 ],
-          "text": "realmsSettingsScreen.selectorSectionLabelRealm",
           "layer": 2
         }
       },
       {
         "world_button@settings_common.section_toggle_base": {
+          "variables": {
+            "requires": "$is_realm_slot",
+            "$button_text": "realmsSlotsScreen.gamesettings"
+          },
           "$toggle_view_binding_name": "world_button_toggle",
           "$toggle_group_forced_index": "$world_toggle_index",
           "$glyph_texture": "textures/ui/world_glyph",
@@ -1008,6 +1039,7 @@
       },
       {
         "members_button@settings_common.section_toggle_base": {
+          "ignored": "$is_realm_slot",
           "$toggle_view_binding_name": "members_button_toggle",
           "$toggle_group_forced_index": "$members_toggle_index",
           "$glyph_texture": "textures/ui/multiplayer_glyph",
@@ -1022,6 +1054,7 @@
       },
       {
         "subscription_button@settings_common.section_toggle_base": {
+          "ignored": "$is_realm_slot",
           "$toggle_view_binding_name": "subscription_button_toggle",
           "$toggle_group_forced_index": "$subscription_toggle_index",
           "$glyph_texture": "textures/ui/subscription_glyph",
@@ -1036,6 +1069,7 @@
       },
       {
         "backup_button@settings_common.section_toggle_base": {
+          "ignored": "$realm_no_world_edit",
           "$toggle_view_binding_name": "backup_button_toggle",
           "$toggle_group_forced_index": "$backup_toggle_index",
           "$glyph_texture": "textures/ui/backup_outline",
@@ -1050,7 +1084,7 @@
       },
       {
         "dev_options_button@settings_common.section_toggle_base": {
-          "ignored": "$non_config_realms_env",
+          "ignored": "($non_config_realms_env or $is_realm_slot)",
           "$toggle_view_binding_name": "dev_options_button_toggle",
           "$toggle_group_forced_index": "$dev_options_toggle_index",
           "$glyph_texture": "textures/ui/dev_glyph",
@@ -1081,6 +1115,7 @@
       },
       {
         "players_section@realms_settings.generic_section_wrapper": {
+          "ignored": "$is_realm_slot",
           "$section_button_name|default": "members_button_toggle",
           "$section_content_name|default": "realms_allowlist.friends_containing_panel",
           "$friend_panel_size": [ "100%", "100%c" ]
@@ -1088,19 +1123,21 @@
       },
       {
         "subscription_section@realms_settings.generic_section_wrapper": {
+          "ignored": "$is_realm_slot",
           "$section_button_name|default": "subscription_button_toggle",
           "$section_content_name|default": "realms_settings.subscriptions_section"
         }
       },
       {
         "dev_options_section@realms_settings.generic_section_wrapper": {
-          "ignored": "$non_config_realms_env",
+          "ignored": "($non_config_realms_env or $is_realm_slot)",
           "$section_button_name|default": "dev_options_button_toggle",
           "$section_content_name|default": "branch_section"
         }
       },
       {
         "backup_section@realms_settings.generic_section_wrapper": {
+          "ignored": "$realm_no_world_edit",
           "$section_button_name|default": "backup_button_toggle",
           "$section_content_name|default": "backup_section"
         }
