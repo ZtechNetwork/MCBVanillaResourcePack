@@ -1,6 +1,13 @@
 ﻿{
   "namespace": "start",
 
+  "achievements_icon": {
+    "type": "image",
+    "texture": "textures/ui/achievements",
+    "layer": 3,
+    "size": [ 16, 16 ]
+  },
+
   "feedback_icon": {
     "type": "image",
     "texture": "textures/ui/Feedback",
@@ -157,7 +164,8 @@
     "$button_content": "start.change_skin_icon",
     "$pressed_alpha": 0.65,
     "$focus_id": "menu_skins_button",
-    "$button_tts_header": "accessibility.start.skinPicker"
+    "$button_tts_header": "accessibility.start.skinPicker",
+    "tts_index_order": 4
   },
 
   "profile_button@common_buttons.light_text_form_fitting_button": {
@@ -313,6 +321,21 @@
     ]
   },
 
+  "achievements_button@common_buttons.light_content_button": {
+    "size": [ 24, 24 ],
+    "$button_content": "start.achievements_icon",
+    "$pressed_button_name": "button.menu_achievements"
+  },
+
+  "achievements_icon_button": {
+    "ignored": "$achievements_ignored",
+    "type": "panel",
+    "$button_tts_header": "menu.achievements",
+    "controls": [
+      { "achievements_button@start.achievements_button": { "ignored": "$education_edition" } }
+    ]
+  },
+
   // Button will resize itself to length of the text
   "xbl_signin_button@common_buttons.light_text_form_fitting_button": {
     "size": [ "100%c", 25 ],
@@ -322,9 +345,10 @@
     "$button_text_max_size": [ 80, 10 ], // longest localized string length will fit in this
     "$button_text": "xbox.signin",
     "$focus_id": "menu_xbox_signin_button",
-    "tts_index_order": 10
+    "tts_index_order": 10,
+    "anchor_from": "left_middle",
+    "anchor_to": "left_middle"
   },
-
 
   "platform_signin_button@common_buttons.light_text_button": {
     "$pressed_button_name": "button.signin",
@@ -333,6 +357,8 @@
     "$button_text": "#platform_signin_text",
     "$button_text_binding_type": "global",
     "tts_index_order": 10,
+    "anchor_from": "left_middle",
+    "anchor_to": "left_middle",
     "bindings": [
       {
         "binding_name": "#platform_signin_text"
@@ -349,12 +375,12 @@
     "$button_text": "menu.educatorResources"
   },
 
-  "online_buttons_panel": {
+  "upper_online_buttons_panel": {
     "type": "stack_panel",
     "anchor_to": "bottom_left",
     "anchor_from": "bottom_left",
     "size": [ "50% - 75px", "100%c" ],
-    "offset": [ 0, "-10%" ],
+    "offset": [ 0, "-23%" ],
     "controls": [
       {
         "stacked_column": {
@@ -365,6 +391,52 @@
           "anchor_to": "top_left",
           "orientation": "horizontal",
           "controls": [
+            {
+              "xbl_btn_padding": {
+                "ignored": "($nx_os or $is_ps4)",
+                "type": "panel",
+                "size": [ 5, 0 ],
+                "bindings": [
+                  {
+                    "binding_name": "#sign_in_visible",
+                    "binding_name_override": "#visible"
+                  }
+                ]
+              }
+            },
+            {
+              "xbl_btn@start.column_frame": {
+                "ignored": "($nx_os or $is_ps4)",
+                "size": [ 94, 32 ],
+                "max_size": [ "95%", 32 ],
+                "controls": [
+                  { "xbl_signin_button@start.xbl_signin_button": {} }
+                ],
+                "bindings": [
+                  {
+                    "binding_name": "#sign_in_visible",
+                    "binding_name_override": "#visible"
+                  }
+                ]
+              }
+            },
+            {
+              "platform_signin_btn@start.column_frame": {
+                "ignored": "(not $nx_os and not $is_ps4)",
+                "size": [ "90% - 6px", 32 ],
+                "controls": [
+                  {
+                    "platform_signin_button@start.platform_signin_button": {}
+                  }
+                ],
+                "bindings": [
+                  {
+                    "binding_name": "#sign_in_visible",
+                    "binding_name_override": "#visible"
+                  }
+                ]
+              }
+            },
             {
               "gamertag_pic_and_label": {
                 "ignored": "(not $nx_os and not $is_ps4)",
@@ -441,9 +513,38 @@
                   }
                 ]
               }
-            },
+            }
+          ]
+        }
+      }
+    ],
+    "bindings": [
+      {
+        "binding_name": "#online_buttons_visible",
+        "binding_name_override": "#visible"
+      }
+    ]
+  },
+
+  "lower_online_buttons_panel": {
+    "type": "stack_panel",
+    "anchor_to": "bottom_left",
+    "anchor_from": "bottom_left",
+    "size": [ "50% - 75px", "100%c" ],
+    "offset": [ 0, "-10%" ],
+    "controls": [
+      {
+        "stacked_column": {
+          "type": "stack_panel",
+          "size": [ "100%", 32 ],
+          "offset": [ "5%", 0 ],
+          "anchor_from": "top_left",
+          "anchor_to": "top_left",
+          "orientation": "horizontal",
+          "controls": [
             {
               "feedback_padding": {
+                "ignored": "$feedback_ignored",
                 "type": "panel",
                 "size": [ "5%", 0 ],
                 "bindings": [
@@ -470,42 +571,9 @@
               }
             },
             {
-              "xbl_btn@start.column_frame": {
-                "ignored": "($nx_os or $is_ps4)",
-                "size": [ 94, 32 ],
-                "max_size": [ "95%", 32 ],
-                "controls": [
-                  { "xbl_signin_button@start.xbl_signin_button": {} }
-                ],
-                "bindings": [
-                  {
-                    "binding_name": "#sign_in_visible",
-                    "binding_name_override": "#visible"
-                  }
-                ]
-              }
-            },
-            {
-              "platform_signin_btn@start.column_frame": {
-                "ignored": "(not $nx_os and not $is_ps4)",
-                "size": [ "90% - 6px", 32 ],
-                "controls": [
-                  {
-                    "platform_signin_button@start.platform_signin_button": {}
-                  }
-                ],
-                "bindings": [
-                  {
-                    "binding_name": "#sign_in_visible",
-                    "binding_name_override": "#visible"
-                  }
-                ]
-              }
-            },
-            {
               "signingin": {
                 "size": [ "default", "100%" ],
-                "max_size": [ 150, "100%" ],
+                "max_size": [ 120, "100%" ],
                 "type": "label",
                 "color": "$main_header_text_color",
                 "text": "#signingin_text",
@@ -521,34 +589,52 @@
               }
             },
             {
+              "achievements_padding": {
+                "ignored": "$achievements_ignored",
+                "type": "panel",
+                "size": [ 3, 0 ],
+                "bindings": [
+                  {
+                    "binding_name": "#achievements_icon_visible",
+                    "binding_name_override": "#visible"
+                  }
+                ]
+              }
+            },
+            {
+              "achievements_btn@start.column_frame": {
+                "ignored": "$achievements_ignored",
+                "size": [ 28, 32 ],
+                "controls": [
+                  { "achievements_icon_button@start.achievements_icon_button": {} }
+                ],
+                "bindings": [
+                  {
+                    "binding_name": "#achievements_icon_visible",
+                    "binding_name_override": "#visible"
+                  }
+                ]
+              }
+            },
+            {
+              "invite_padding": {
+                "type": "panel",
+                "size": [ 3, 0 ],
+                "bindings": [
+                  {
+                    "binding_name": "#realms_notification_visible",
+                    "binding_name_override": "#visible"
+                  }
+                ]
+              }
+            },
+            {
               "invite_btn_other@start.column_frame": {
-                "ignored": "($nx_os or $is_ps4)",
                 "size": [ 28, 32 ],
                 "controls": [
                   { "invite_button@start.realms_pending_invite_panel": {} }
                 ]
               }
-            }
-          ]
-        }
-      },
-      {
-        "invite_btn_nx_ps4@start.column_frame": {
-          "ignored": "(not $nx_os and not $is_ps4)",
-          "size": [ 32, 32 ],
-          "controls": [
-            {
-              "invite_button@start.realms_pending_invite_panel": {
-                "anchor_from": "bottom_left",
-                "anchor_to": "bottom_left",
-                "offset": [ 8, -16 ]
-              }
-            }
-          ],
-          "bindings": [
-            {
-              "binding_name": "#realms_notification_visible",
-              "binding_name_override": "#visible"
             }
           ]
         }
@@ -577,7 +663,8 @@
   "play_button@start.main_button": {
     "$pressed_button_name": "$play_button_target",
     "$button_text": "menu.play",
-    "$focus_override_right": "profile_button"
+    "$focus_override_right": "profile_button",
+    "tts_index_order": 1
   },
 
   "toolbox_mode_button@start.main_button": {
@@ -597,25 +684,15 @@
   },
 
   "featured_world_button@start.main_button": {
-    "$pressed_button_name": "button.featured_world",
+    "$pressed_button_name": "button.featured_category",
     "$button_text": "start_screen.start_demo"
   },
 
   "switch_accounts_button@start.main_button": {
     "$pressed_button_name": "button.switch_accounts",
     "$button_text": "#switch_accounts_button_text",
-    "$button_text_binding_type": "global"
-  },
-
-  "achievements_button@start.main_button": {
-    "$pressed_button_name": "button.menu_achievements",
-    "$button_text": "menu.achievements",
-    "$focus_override_right": "menu_skins_button",
-    "bindings": [
-      {
-        "binding_name": "#focus_change_left"
-      }
-    ]
+    "$button_text_binding_type": "global",
+    "tts_index_order": 3
   },
 
   "launch_editions_button@start.main_button": {
@@ -943,20 +1020,6 @@
               }
             },
             {
-              "stacked_row_1@start.stacked_row": {
-                "ignored": "$achievements_ignored",
-                "controls": [
-                  { "achievements_button@start.achievements_button": {} }
-                ],
-                "bindings": [
-                  {
-                    "binding_name": "#achievements_visible",
-                    "binding_name_override": "#visible"
-                  }
-                ]
-              }
-            },
-            {
               "stacked_row_2@start.stacked_row": {
                 "ignored": "(not $trial or $use_single_column_for_buttons)",
                 "controls": [
@@ -1237,6 +1300,125 @@
   },
 
   //---------------------------------------------------------------------------
+  // Cloud Upload Popup
+  //---------------------------------------------------------------------------
+  "cloud_upload_prompt@common_dialogs.main_panel_three_buttons": {
+    "size": [ 300, 200 ],
+    "$fill_alpha": 1,
+
+    "layer": 101,
+    "$text_name": "cloud_upload.title",
+    "$description_text": "cloud_upload.prompt.description",
+    "$button_size": [ "100%", 30 ],
+    "$close_button_to_button_id": "button.close_cloud_upload_prompt",
+
+    "$child_control": "start.scrolling_child",
+    "$scrolling_content": "common.tts_label_focus_wrapper",
+
+    "$top_button_panel": "start.cloud_upload_do_not_show_checkbox",
+    "$middle_button_panel": "start.cloud_upload_worlds_button",
+    "$bottom_button_panel": "start.cloud_upload_learn_more_button",
+
+    "$tts_label_panel": "start.cloud_upload_description"
+  },
+
+  "scrolling_child": {
+    "type": "panel",
+    "controls": [
+      {
+        "scrolling_panel@common.scrolling_panel": {
+          "$scrolling_pane_size": [ "100% - 1px", "100% - 2px" ],
+          "$scroll_view_port_size": [ "100% - 4px", "100% - 4px" ],
+          "$scroll_view_port_offset": [ 3, 2 ],
+          "$scroll_size": [ 5, "100% - 2px" ],
+          "$show_background": false
+        }
+      }
+    ]
+  },
+
+  "cloud_upload_worlds_button@popup_dialog.popup_dialog_button": {
+    "size": "$button_size",
+    "$pressed_button_name": "button.worlds",
+    "$button_text": "cloud_upload.prompt.button.worlds"
+  },
+
+  "cloud_upload_learn_more_button@popup_dialog.popup_dialog_button": {
+    "size": "$button_size",
+    "$pressed_button_name": "button.learn_more",
+    "$button_text": "cloud_upload.prompt.button.learn_more"
+  },
+
+  "cloud_upload_description": {
+    "type": "label",
+    "size": [ "100% - 4px", "default" ],
+    "font_type": "smooth",
+    "line_padding": 1.5,
+    "color": "$body_text_color",
+    "text": "cloud_upload.prompt.description"
+  },
+
+  "cloud_upload_do_not_show_checkbox@common.checkbox": {
+    "size": [ "100%", 30 ],
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "$toggle_name": "cloud_upload_do_not_show_again",
+    "$toggle_state_binding_name": "#cloud_upload_do_not_show_again",
+    "$toggle_label_text|default": "cloud_upload.prompt.do_not_show_toggle",
+
+    "tts_control_type_order_priority": 100,
+    "tts_value_order_priority": 101,
+    "$toggle_enabled_binding_type": "global",
+
+    "controls": [
+      {
+        "header_description_stack_panel": {
+          "type": "stack_panel",
+          "orientation": "horizontal",
+          "size": [ "100%", "100%" ],
+          "anchor_from": "top_left",
+          "anchor_to": "top_left",
+
+          "controls": [
+            {
+              "checkbox_visuals@common.toggle_visuals": {
+                "size": [ 30, "100%" ],
+                "anchor_from": "left_middle",
+                "anchor_to": "left_middle"
+              }
+            },
+            {
+              "buffer_panel": {
+                "type": "panel",
+                "layer": 3,
+                "size": [ "fill", "100%" ],
+                "controls": [
+                  {
+                    "label": {
+                      "type": "label",
+                      "color": "$light_button_default_text_color",
+                      "text": "$toggle_label_text",
+                      "size": [ "default", "default" ],
+                      "anchor_from": "center",
+                      "anchor_to": "center"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "another_panel": {
+                "type": "panel",
+                "size": [ 30, "100%" ]
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  //---------------------------------------------------------------------------
   // Screens
   //---------------------------------------------------------------------------
 
@@ -1308,8 +1490,18 @@
         "$feedback_ignored": true
       },
       {
+        "requires": "$trial",
+        "$achievements_ignored": true
+      },
+      {
         "requires": "(not $is_desktop or $is_publish)",
         "$is_toolbox_ignored": true
+      }
+    ],
+    "bindings": [
+      {
+        "binding_name": "(not #screen_needs_rebuild)",
+        "binding_name_override": "#visible"
       }
     ],
     "controls": [
@@ -1320,10 +1512,21 @@
         "main_buttons_and_title_panel@start.main_buttons_stack_panel": {}
       },
       {
-        "online_buttons_panel@start.online_buttons_panel": {}
+        "upper_online_buttons_panel@start.upper_online_buttons_panel": {}
+      },
+      {
+        "lower_online_buttons_panel@start.lower_online_buttons_panel": {}
       },
       {
         "text_panel@start.text_panel": {}
+      },
+      {
+        "popup_dialog_factory": {
+          "type": "factory",
+          "control_ids": {
+            "cloud_upload_prompt": "@start.cloud_upload_prompt"
+          }
+        }
       }
     ]
   }

@@ -5,8 +5,8 @@
       "loop": true,
       "bones": {
         "shield": {
-          "position": [ 5.3, 26.0, 0.4 ],
-          "rotation": [ 91.0, 65.0, -43.0 ]
+          "position": [ "variable.main_hand_first_person_pos_x", "variable.main_hand_first_person_pos_y", "variable.main_hand_first_person_pos_z" ],
+          "rotation": [ "variable.main_hand_first_person_rot_x", "variable.main_hand_first_person_rot_y", "variable.main_hand_first_person_rot_z" ]
         }
       }
     },
@@ -14,27 +14,33 @@
       "loop": true,
       "bones": {
         "shield": {
-          "position": [ -13.5, -5.8, "(query.get_equipped_item_name == 'bow') && (query.main_hand_item_use_duration > 0.0f) ? -25.0 : 5.1" ],
-          "rotation": [ 1.0, 176.0, -2.5 ],
+          "position": [ "variable.off_hand_first_person_pos_x", "variable.off_hand_first_person_pos_y", "variable.is_using_bow ? variable.off_hand_first_person_with_bow_pos_z : variable.off_hand_first_person_pos_z" ],
+          "rotation": [ "variable.off_hand_first_person_rot_x", "variable.off_hand_first_person_rot_y", "variable.off_hand_first_person_rot_z" ],
           "scale": [ -1.0, 1.0, 1.0 ]
         }
       }
     },
     "animation.shield.wield_main_hand_first_person_blocking": {
-      "loop": true,
+      "loop": "hold_on_last_frame",
       "bones": {
         "shield": {
-          "position": [ -2, -3.0, -2 ],
-          "rotation": [ 0.0, -12.0, 0.0 ]
+          "position": {
+            "0": [ "variable.main_hand_first_person_pos_x - 2", "variable.main_hand_first_person_pos_y", "variable.main_hand_first_person_pos_z" ],
+            "0.1": [ "variable.main_hand_first_person_pos_x - 2", "variable.main_hand_first_person_pos_y - 3", "variable.main_hand_first_person_pos_z - 2" ]
+          },
+          "rotation": [ "variable.main_hand_first_person_rot_x", "variable.main_hand_first_person_rot_y - 12.0", "variable.main_hand_first_person_rot_z" ]
         }
       }
     },
     "animation.shield.wield_off_hand_first_person_blocking": {
-      "loop": true,
+      "loop": "hold_on_last_frame",
       "bones": {
         "shield": {
-          "position": [ 0.5, 4.2, 1.5 ],
-          "rotation": [ 0.0, 0.0, 10.0 ]
+          "position": {
+            "0": [ "variable.off_hand_first_person_pos_x + 0.5", "variable.off_hand_first_person_pos_y", "variable.is_using_bow ? variable.off_hand_first_person_with_bow_pos_z : variable.off_hand_first_person_pos_z" ],
+            "0.1": [ "variable.off_hand_first_person_pos_x + 0.5", "variable.off_hand_first_person_pos_y + 4.2", "variable.is_using_bow ? variable.off_hand_first_person_with_bow_pos_z : variable.off_hand_first_person_pos_z + 1.5" ]
+          },
+          "rotation": [ "variable.off_hand_first_person_rot_x", "variable.off_hand_first_person_rot_y", "variable.off_hand_first_person_rot_z + 10.0" ]
         }
       }
     },
@@ -42,7 +48,7 @@
       "loop": true,
       "bones": {
         "shield": {
-          "position": [ "c.item_slot == 'main_hand' ? -0.4 : -1.6", 9.0, "c.item_slot == 'main_hand' ? 9.3 : -15.3" ],
+          "position": [ "c.item_slot == 'main_hand' ? -0.4 : -1.6", 9.0, "c.item_slot == 'main_hand' ? 9.3 : -15.7" ],
           "rotation": [ -90.0, 0.0, 90.0 ],
           "scale": [ 1.0, "c.item_slot == 'main_hand' ? -1.0 : 1.0", "c.item_slot == 'main_hand' ? -1.0 : 1.0" ]
         }

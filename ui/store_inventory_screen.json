@@ -896,7 +896,7 @@
           "$category_icon": "textures/ui/glyph_mashup_pack",
           "$category_count": "#collection_count",
           "$category_pressed_button_name": "button.all",
-          "$icon_visible" : "#collections_icon_visible"
+          "$icon_visible": "#collections_icon_visible"
         }
       },
       {
@@ -910,7 +910,7 @@
           "$category_icon": "textures/ui/glyph_skin_pack",
           "$category_count": "#skins_count",
           "$category_pressed_button_name": "button.skins",
-          "$icon_visible" : "#category_skins_icon_visible"
+          "$icon_visible": "#category_skins_icon_visible"
         }
       },
       {
@@ -924,7 +924,7 @@
           "$category_icon": "textures/ui/glyph_world_template",
           "$category_count": "#worlds_count",
           "$category_pressed_button_name": "button.worlds",
-          "$icon_visible" : "#category_worlds_icon_visible"
+          "$icon_visible": "#category_worlds_icon_visible"
         }
       },
       {
@@ -938,7 +938,7 @@
           "$category_icon": "textures/ui/glyph_resource_pack",
           "$category_count": "#textures_count",
           "$category_pressed_button_name": "button.textures",
-          "$icon_visible" : "#category_textures_icon_visible"
+          "$icon_visible": "#category_textures_icon_visible"
         }
       },
       {
@@ -952,7 +952,7 @@
           "$category_icon": "textures/ui/glyph_mashup_pack",
           "$category_count": "#mashups_count",
           "$category_pressed_button_name": "button.mashups",
-          "$icon_visible" : "#category_mashups_icon_visible"
+          "$icon_visible": "#category_mashups_icon_visible"
         }
       },
       {
@@ -1026,7 +1026,7 @@
           "size": [ 10, 10 ],
           "texture": "$category_icon",
           "color": "$color",
-          "visible" : "$icon_visible",
+          "visible": "$icon_visible",
           "bindings": [
             {
               "binding_type": "collection",
@@ -1067,25 +1067,6 @@
   // Right Side
   //--------------------------------------------------------------------------------
 
-  "filter_sort_menu_panel": {
-    "type": "panel",
-    "visible": false,
-    "property_bag": {
-      "#visible": false
-    },
-    "controls": [
-      {
-        "filter_sort_menu@$menu_control": {}
-      }
-    ],
-    "bindings": [
-      {
-        "binding_name": "$menu_visible_binding",
-        "binding_name_override": "#visible"
-      }
-    ]
-  },
-
   "seach_object@common_store.search_object": {
     "$has_section_above_search_panel": true,
     "$upper_section_conent": "store_inventory.inventory_sign_in_panel",
@@ -1121,18 +1102,6 @@
             }
           ],
           "controls": [
-            {
-              "filter_menu_panel@store_inventory.filter_sort_menu_panel": {
-                "$menu_control": "filter_menu.filter_menu_screen_content",
-                "$menu_visible_binding": "#filter_screen_visible"
-              }
-            },
-            {
-              "sort_menu_panel@store_inventory.filter_sort_menu_panel": {
-                "$menu_control": "sort_menu.sort_menu_screen_content",
-                "$menu_visible_binding": "#sort_screen_visible"
-              }
-            },
             {
               "search_and_offers_grid_scroll_panel@common.scrolling_panel": {
                 "anchor_from": "top_left",
@@ -1266,6 +1235,7 @@
   "main_panel": {
     "type": "stack_panel",
     "orientation": "horizontal",
+    "size": [ "100%", "100%" ],
     "anchor_from": "top_left",
     "anchor_to": "top_left",
     "controls": [
@@ -1339,6 +1309,20 @@
     ]
   },
 
+  "store_inventory_screen_main_panel": {
+    "type": "panel",
+    "controls": [
+      {
+        "main_content_view@sidebar_navigation.sidebar_view": {
+          "$sidebar_main_view_content": "store_inventory.main_panel"
+        }
+      },
+      {
+        "sort_and_filter_modals@common_store.sort_and_filter_menu_modals": {}
+      }
+    ]
+  },
+
   "store_search_screen_content": {
     "type": "panel",
     "alpha": "@common_store.screen_fade_in_alpha_anim",
@@ -1348,7 +1332,7 @@
     "controls": [
       {
         "main_panel@common_store.store_header_with_coins": {
-          "$child_control": "store_inventory.main_panel",
+          "$child_control": "store_inventory.store_inventory_screen_main_panel",
           "$button_text": "store.title"
         }
       },
@@ -1389,7 +1373,22 @@
     "$header_safezone_control": "common_store.store_top_bar_filler",
     "$header_bar_control": "common_store.store_top_bar",
     "$screen_background_control": "common_store.store_background",
-    "$is_full_screen_layout": true
+    "$is_full_screen_layout": true,
+    "variables": [
+      {
+        "requires": "(not $use_animation)",
+        "$screen_animations": [],
+        "$background_animations": []
+      },
+      {
+        "requires": "($use_animation or (not $is_sidebar_navigation_enabled))",
+        "$screen_animations": [
+          "@common.screen_exit_animation_pop_offset",
+          "@common.screen_exit_animation_pop_fade"
+        ],
+        "$background_animations": []
+      }
+    ]
   }
 
 }

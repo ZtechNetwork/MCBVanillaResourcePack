@@ -125,7 +125,7 @@
                             "controls": [
                               {
                                 "hotbar@hotbar_chooser": {
-                                  "offset": [ 3, 16 ]
+                                  "offset": [ 4, 16 ]
                                 }
                               }
                             ]
@@ -155,7 +155,7 @@
       // For when we hide the XP bar in Creative Move we still want to display the HUD
       {
         "hotbar@hotbar_chooser": {
-          "offset": [ 3, 16 ],
+          "offset": [ 4, 16 ],
           "bindings": [
             {
               "binding_name": "#is_creative_mode",
@@ -169,15 +169,8 @@
           "size": [ 100, 10 ],
           "type": "factory",
           "control_ids": {
-            "survival_item_text": "@hud.survival_item_name_text",
-            "survival_item_text_above_interact_button": "@hud.survival_above_interact_button_item_text",
-            "survival_jukebox_text": "@hud.survival_jukebox_popup_text",
-            "survival_jukebox_text_above_interact_button": "@hud.survival_jukebox_above_interact_button_popup_text",
-            "creative_item_text": "@hud.creative_item_name_text",
-            "create_item_text_above_interact_button": "@hud.creative_above_interact_button_item_text",
-            "creative_jukebox_text": "@hud.creative_jukebox_popup_text",
-            "creative_jukebox_text_above_interact_button": "@hud.creative_jukebox_above_interact_button_popup_text"
-
+            "item_text": "@hud.item_name_text",
+            "jukebox_text": "@hud.jukebox_popup_text"
           }
         }
       }
@@ -1126,7 +1119,7 @@
   "anim_item_name_text_alpha_out": {
     "anim_type": "alpha",
     "easing": "in_expo",
-    "destroy_at_end": "item_text_label",
+    "destroy_at_end": "$destroy_id",
     "duration": 2,
     "from": 1.0,
     "to": 0
@@ -1149,37 +1142,97 @@
   "anim_item_name_background_alpha_out": {
     "anim_type": "alpha",
     "easing": "in_expo",
-    "destroy_at_end": "$destroy_id",
     "duration": 2,
     "from": 0.6,
     "to": 0
   },
 
-  "item_name_text": {
-    "type": "image",
-    "size": [ "100%c + 12px", "100%c + 5px" ],
-    "texture": "textures/ui/hud_tip_text_background",
-    "alpha": "@hud.anim_item_name_background_alpha_in",
+  "item_name_text_root": {
+    "type": "panel",
+    "size": [ "100%cm", "100%cm" ],
+    "$show_interact_padding|default": false,
+    "$show_survival_padding|default": false,
+
+    "$show_text_background|default": false,
+
+    "$text_color|default": "$tool_tip_text",
+    "$text_binding|default": "#item_text",
+
     "anchor_from": "bottom_middle",
     "anchor_to": "bottom_middle",
     "$wait_duration|default": 1,
     "$destroy_id|default": "item_name_text",
     "controls": [
       {
-        "item_text_label": {
-          "type": "label",
-          "max_size": [ 200, "default" ],
-          "anchor_from": "center",
-          "anchor_to": "center",
-          "text_alignment": "center",
-          "layer": 31,
-          "color": "$tool_tip_text",
-          "text": "#text",
-          "alpha": "@hud.anim_item_name_text_alpha_in",
-          "bindings": [
+        "item_text_aligner": {
+          "type": "stack_panel",
+          "size": [ "100%cm", "100%c" ],
+          "controls": [
             {
-              "binding_name": "#item_text",
-              "binding_name_override": "#text"
+              "item_text_control": {
+                "type": "panel",
+                "size": [ "100%cm", "100%cm" ],
+                "controls": [
+                  {
+                    "item_text_background": {
+                      "ignored": "(not $show_text_background)",
+
+                      "type": "image",
+                      "size": [ "100%sm + 12px", "100%sm + 5px" ],
+                      "texture": "textures/ui/hud_tip_text_background",
+                      "alpha": "@hud.anim_item_name_background_alpha_in"
+                    }
+                  },
+                  {
+                    "item_text_label": {
+                      "type": "label",
+                      "max_size": [ 200, "default" ],
+                      "text_alignment": "center",
+                      "layer": 31,
+                      "color": "$text_color",
+                      "text": "#text",
+                      "alpha": "@hud.anim_item_name_text_alpha_in",
+                      "bindings": [
+                        {
+                          "binding_name": "$text_binding",
+                          "binding_name_override": "#text"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "interact_padding@common.empty_panel": {
+                "visible": "$show_interact_padding",
+                // To not overlap with the interact button
+                // the text needs to move up by 18
+                "size": [ "100%sm", 18 ],
+                "bindings": [
+                  {
+                    "binding_name": "#interact_visible",
+                    "binding_name_override": "#visible",
+                    "binding_condition": "always"
+
+                  }
+                ]
+              }
+            },
+            {
+              "survival_buffer@common.empty_panel": {
+                "visible": "$show_survival_padding",
+                // Survival HUD has elements above the hot bar
+                // meaning the text needs to move up
+                "size": [ "100%sm", 17 ],
+                "bindings": [
+                  {
+                    "binding_name": "#is_not_creative_mode",
+                    "binding_name_override": "#visible"
+
+                  }
+                ]
+              }
             }
           ]
         }
@@ -1187,77 +1240,26 @@
     ]
   },
 
-  "jukebox_text": {
-    "type": "panel",
-    "size": [ 100, 10 ],
-    "controls": [
-      {
-        "item_text_label": {
-          "type": "label",
-          "anchor_from": "bottom_middle",
-          "anchor_to": "bottom_middle",
-          "text_alignment": "center",
-          "layer": 31,
-          "color": "$jukebox_text_color",
-          "text": "#text",
-          "shadow": true,
-          "alpha": "@hud.anim_item_name_text_alpha_out",
-          "bindings": [
-            {
-              "binding_name": "#jukebox_text",
-              "binding_name_override": "#text"
-            }
-          ]
-        }
-      }
-    ]
+  "item_name_text@hud.item_name_text_root": {
+    "offset": [ 0, -14 ]
   },
 
-  "creative_item_name_text@hud.item_name_text": {
-    "offset": [ 0, -20 ]
+  "jukebox_popup_text@hud.item_name_text_root": {
+    "$text_color": "$jukebox_text_color",
+    "$text_binding": "#jukebox_text",
+    "offset": [ 0, -34 ]
   },
 
-  "survival_item_name_text@hud.item_name_text": {
-    "$offset|default": [ 0, -40 ],
-    "variables": [
-      {
-        "requires": "$pocket_screen",
-        "$offset": [ 0, -18 ]
-      }
-    ],
-    "offset": "$offset"
-  },
-
-  "creative_above_interact_button_item_text@hud.item_name_text": {
-    "offset": [ 0, -30 ]
-  },
-
-  "survival_above_interact_button_item_text@hud.item_name_text": {
-    "offset": [ 0, -50 ]
-  },
-
-  "creative_jukebox_popup_text@hud.jukebox_text": {
-    "offset": [ 0, -32 ]
-  },
-
-  "survival_jukebox_popup_text@hud.jukebox_text": {
-    "offset": [ 0, -52 ]
-  },
-
-  "creative_jukebox_above_interact_button_popup_text@hud.jukebox_text": {
-    "offset": [ 0, -42 ]
-  },
-
-  "survival_jukebox_above_interact_button_popup_text@hud.jukebox_text": {
-    "offset": [ 0, -62 ]
-  },
-
-  "hud_tip_text@hud.item_name_text": {
+  "hud_tip_text": {
     "type": "image",
     "size": [ "100%c + 12px", "100%c + 5px" ],
     "offset": [ 0, -42 ],
     "texture": "textures/ui/hud_tip_text_background",
     "alpha": "@hud.anim_item_name_background_alpha_out",
+    "anchor_from": "bottom_middle",
+    "anchor_to": "bottom_middle",
+    "$wait_duration|default": 1,
+    "$destroy_id|default": "popup_tip_text",
     "controls": [
       {
         "item_text_label": {
@@ -1600,36 +1602,81 @@
     ]
   },
 
-  "tooltip_helper_icon_description@common.gamepad_helper_icon_description": {
-    "$tooltip_description_offset|default": [ 0, 7 ],
+  "tooltip_helper_icon_description": {
+    "type": "label",
+    "color": "$gamepad_description_text_color",
+
+    "$tooltip_helper_description_shadow|default": true,
+    "shadow": "$tooltip_helper_description_shadow",
+
+    "$tooltip_description_offset|default": [ 0, 0 ],
     "offset": "$tooltip_description_offset",
-    "text": "#text",
+
+    "$tooltip_anchor": "left_middle",
+    "anchor_from": "$tooltip_anchor",
+    "anchor_to": "$tooltip_anchor",
+
+    "$tip_description_font|default": "default",
+    "font_type": "$tip_description_font",
+
+    "text": "#helper_description",
+
+    "controls": [
+      {
+        "label_background": {
+          "$tip_description_background_offset|default": [ -1, 0.5 ],
+          "$tip_description_background_visible|default": false,
+
+          "type": "image",
+          "texture": "textures/ui/Black",
+          "alpha": 0.7,
+          "layer": -1,
+          "offset": "$tip_description_background_offset",
+          "size": [ "100% + 8px", "100% + 1px" ],
+          "visible": "$tip_description_background_visible"
+        }
+      }
+    ],
     "bindings": [
+      // Duplicate binding necessary when toggling visibility
+      // otherwise there is a delay when updating binds
+      //
+      // No condition has it update immediately when it
+      // becomes visible but won't update if the tooltip
+      // changes later.
+      //
+      // Always when visible condition lets it change but
+      // has a delay in binding timing when it first becomes
+      // visible.
       {
         "binding_name": "#helper_description",
-        "binding_name_override": "#text",
         "binding_type": "collection",
         "binding_collection_name": "$tooltip_collection_name",
         "binding_condition": "always_when_visible"
+      },
+      {
+        "binding_name": "#helper_description",
+        "binding_type": "collection",
+        "binding_collection_name": "$tooltip_collection_name"
       }
     ]
   },
 
-  "tooltip_helper@common.gamepad_helper": {
-    "$gamepad_description": "hud.tooltip_helper_icon_description",
+  "tooltip_helper": {
+    "type": "stack_panel",
+    "orientation": "horizontal",
+    "size": [ "100%c", "100%cm" ],
+    "layer": 100,
     "controls": [
-      {
-        "icon@$icon_image_ref": {}
-      },
+      { "icon@$icon_image_ref": { "layer": 2 } },
+      { "padding@common.empty_panel": { "size": [ 2, "100%sm" ] } },
       {
         "centerer": {
-          "ignored": "($hide_description)",
           "type": "panel",
-          "size": [ "100%c + 2px", 13 ],
-          "offset": [ 1, 0 ],
+          "size": [ "100%c", "100%sm" ],
           "layer": 1,
           "controls": [
-            { "desc@$gamepad_description": {} }
+            { "desc@hud.tooltip_helper_icon_description": {} }
           ]
         }
       }
@@ -1637,37 +1684,34 @@
   },
 
   "keyboard_tooltip_helper@hud.tooltip_helper": {
-    "size": [ "100%c", "100%cm" ],
-    "$icon_image_ref": "hud.base_keyboard_icon",
-    "$tooltip_description_offset": [ 0, 2 ]
+    "ignored": "(not $education_edition)",
+    "$keyboard_description_offset|default": [ 0, 1 ],
+    "$tooltip_description_offset": "$keyboard_description_offset"
   },
 
   // Wrap in panel so @mixed_tooltip_helper doesn't override binds
   "mixed_tooltip_helper": {
     "type": "panel",
-    "size": [ "100%c", "100%cm" ],
+    "size": [ "100%cm", "100%cm" ],
     "controls": [
       {
         "gamepad_tooltip@hud.tooltip_helper": {
           "$icon_image_ref": "hud.base_icon_image",
           "bindings": [
             {
-              "binding_name": "#gamepad_button_visible",
-              "binding_name_override": "#visible",
-              "binding_type": "collection",
-              "binding_collection_name": "$tooltip_collection_name"
+              "binding_name": "#is_gamepad_tip",
+              "binding_name_override": "#visible"
             }
           ]
         }
       },
       {
         "keyboard_tooltip@hud.keyboard_tooltip_helper": {
+          "$icon_image_ref": "hud.base_keyboard_icon",
           "bindings": [
             {
-              "binding_name": "#keyboard_key_visible",
-              "binding_name_override": "#visible",
-              "binding_type": "collection",
-              "binding_collection_name": "$tooltip_collection_name"
+              "binding_name": "(not #is_gamepad_tip)",
+              "binding_name_override": "#visible"
             }
           ]
         }
@@ -1676,26 +1720,73 @@
     "$tooltip_collection_name|default": "",
     "$tooltip_collection_prefix|default": "",
     "bindings": [
+      // Duplicate binding necessary when toggling visibility
+      // otherwise there is a delay when updating binds
+      //
+      // No condition has it update immediately when it
+      // becomes visible but won't update if the tooltip
+      // changes later.
+      //
+      // Always condition lets it change but has a delay in
+      // binding timing when it first becomes visible.
       {
         "binding_name": "#tooltip_visible",
         "binding_name_override": "#visible",
         "binding_type": "collection",
-        "binding_condition": "always",
+        "binding_collection_name": "$tooltip_collection_name",
+        "binding_condition": "always"
+      },
+      {
+        "binding_name": "#tooltip_visible",
+        "binding_name_override": "#visible",
+        "binding_type": "collection",
         "binding_collection_name": "$tooltip_collection_name"
       }
     ]
   },
 
   "base_icon_image": {
-    "type": "image",
-    "size": [ 26, 26 ],
-    "bindings": [
+    "type": "stack_panel",
+    "orientation": "horizontal",
+    "size": [ "100%c", "100%cm" ],
+    "controls": [
       {
-        "binding_name": "#gamepad_button_icon",
-        "binding_name_override": "#texture",
-        "binding_type": "collection",
-        "binding_collection_name": "$tooltip_collection_name",
-        "binding_condition": "visible"
+        "icon": {
+          "type": "image",
+          "size": [ 26, 26 ],
+          "bindings": [
+            {
+              "binding_name": "#gamepad_button_icon",
+              "binding_name_override": "#texture",
+              "binding_type": "collection",
+              "binding_collection_name": "$tooltip_collection_name"
+            }
+          ]
+        }
+      },
+      {
+        "postfix_label_wrapper": {
+          "type": "panel",
+          "size": [ "100%c", "100%sm" ],
+          "min_size": [ 9, "100%sm" ],
+          "controls": [
+            {
+              "label": {
+                "type": "label",
+                "font_type": "smooth",
+                "color": "$gamepad_description_text_color",
+                "text": "#gamepad_postfix_text",
+                "bindings": [
+                  {
+                    "binding_name": "#gamepad_postfix_text",
+                    "binding_type": "collection",
+                    "binding_collection_name": "$tooltip_collection_name"
+                  }
+                ]
+              }
+            }
+          ]
+        }
       }
     ]
   },
@@ -1707,41 +1798,146 @@
     "controls": [
       {
         "icon": {
-          "type": "image",
-          // Inner panel provides background with padding around label
-          "size": [ "100%cm + 4px", 16 ],
-          "texture": "textures/ui/keyboard_tooltip_background",
-
+          "type": "panel",
+          "size": [ "100%cm", 17 ],
+          "min_size": [ 17, 17 ],
           "controls": [
             {
-              "key_label": {
-                "type": "label",
-                "layer": 1,
-                "text": "#text",
-                "color": "$dark_body_text_color",
+              "key_backing": {
+                "type": "image",
+                "texture": "textures/ui/keyboard_tooltip_background",
+                "size": [ "100%cm + 10px", "100%" ],
+                "min_size": [ 17, "100%" ],
                 "bindings": [
                   {
-                    // Bind knows what to provide based on the override
-                    "binding_name": "#keyboard_key_text",
-                    "binding_name_override": "#text",
+                    "binding_name": "(not #is_mouse_button)",
+                    "binding_name_override": "#visible",
                     "binding_type": "collection",
-                    "binding_collection_name": "$tooltip_collection_name",
-                    "binding_condition": "always_when_visible"
+                    "binding_collection_name": "$tooltip_collection_name"
+                  }
+                ],
+                "controls": [
+                  {
+                    "key_label": {
+                      "type": "label",
+                      "layer": 1,
+                      "font_type": "smooth",
+                      "anchor_from": "top_middle",
+                      "anchor_to": "top_middle",
+                      "offset": [ 0, 1 ],
+                      "text": "#keyboard_key_text",
+                      "color": "$0_color_format",
+                      "bindings": [
+                        {
+                          "binding_name": "#keyboard_key_text",
+                          "binding_type": "collection",
+                          "binding_collection_name": "$tooltip_collection_name"
+                        }
+                      ]
+                    }
                   }
                 ]
               }
             },
-            { "min_size@common.empty_panel": { "size": [ 15, "100%" ] } }
+            {
+              "mouse_buttons": {
+                "type": "label",
+                "layer": 1,
+                "text": "#keyboard_key_text",
+                "color": "$dark_body_text_color",
+                "bindings": [
+                  {
+                    "binding_name": "#keyboard_key_text",
+                    "binding_type": "collection",
+                    "binding_collection_name": "$tooltip_collection_name"
+                  },
+                  {
+                    "binding_type": "view",
+                    "source_control_name": "key_backing",
+                    "source_property_name": "#visible",
+                    "target_property_name": "#visible",
+                    "resolve_sibling_scope": true
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "left_helpers_edu": {
+    "type": "stack_panel",
+    "anchor_from": "bottom_left",
+    "anchor_to": "bottom_left",
+    "offset": [ 5, 0 ],
+    "layer": 100,
+    "size": [ "100%cm", "100%c" ],
+    "$tooltip_helper_description_shadow": false,
+
+    "controls": [
+      {
+        "tip_window@common.tooltip_background": {
+          "$tooltip_background_texture": "#texture",
+          "$tip_description_font": "smooth",
+          "$keyboard_description_offset": [ 0, 0 ],
+
+          "size": [ "100%cm + 10px", "100%cm + 18px" ],
+          "alpha": 0.7,
+          "controls": [
+            {
+              "stack_panel": {
+                "type": "stack_panel",
+                "size": [ "100%cm", "100%c" ],
+                "offset": [ 0, -5 ],
+
+                "$tooltip_collection_name": "left_helper_collection",
+                "$tooltip_collection_prefix": "left_helpers",
+                "collection_name": "$tooltip_collection_name",
+                "factory": {
+                  "name": "left_tooltip_factory",
+                  "control_name": "hud.mixed_tooltip_helper"
+                },
+                "bindings": [
+                  {
+                    "binding_name": "#left_helper_count",
+                    "binding_name_override": "#collection_length"
+                  }
+                ]
+              }
+            }
           ],
           "bindings": [
             {
-              // Bind knows what to provide based on the override
-              "binding_name": "#keyboard_key_alpha",
-              "binding_name_override": "#alpha",
+              "binding_name": "#left_tips_visible",
+              "binding_name_override": "#visible",
               "binding_type": "collection",
-              "binding_collection_name": "$tooltip_collection_name",
-              "binding_condition": "always_when_visible"
+              "binding_collection_name": "controls_toggle",
+              "binding_condition": "always"
+            },
+            {
+              "binding_name": "#left_tip_background",
+              "binding_name_override": "#texture",
+              "binding_type": "collection",
+              "binding_collection_name": "controls_toggle"
             }
+          ]
+        }
+      },
+      { "tip_paddding@common.empty_panel": { "size": [ "100%sm", 4 ] } },
+      {
+        "controls_toggle_label": {
+          "type": "panel",
+          "size": [ "100%cm", "100%cm" ],
+
+          "$tooltip_collection_name": "controls_toggle",
+          "$gamepad_helper_visible_binding_type": "none",
+          "$tip_description_background_visible": true,
+          "$tip_description_background_offset": [ -1, 0 ],
+
+          "controls": [
+            { "tip@hud.mixed_tooltip_helper": {} }
           ]
         }
       }
@@ -1755,6 +1951,7 @@
     "offset": [ 10, 0 ],
     "size": [ "100%", "100%c" ],
     "max_size": [ "100%", "50%" ],
+    "$tooltip_description_offset": [ -10, 0.5 ],
 
     "controls": [
       {
@@ -1788,6 +1985,16 @@
     "anchor_to": "bottom_right",
     "size": [ "100%c", "100%c" ],
     "max_size": [ "100%", "50%" ],
+    "$tooltip_description_offset": [ -10, 0.5 ],
+
+    "variables": [
+      {
+        "requires": "$education_edition",
+        "$tip_description_background_visible": true,
+        "$tip_description_background_offset": [ -1, 0 ],
+        "$tooltip_helper_description_shadow": false
+      }
+    ],
 
     "controls": [
       {
@@ -1860,11 +2067,19 @@
       {
         "requires": "(not $desktop_screen)",
         "$xp_control_offset": [ 0, -11 ]
+      },
+      {
+        "requires": "$education_edition",
+        "$left_helpers": "hud.left_helpers_edu"
+      },
+      {
+        "requires": "(not $education_edition)",
+        "$left_helpers": "hud.left_helpers"
       }
     ],
     "controls": [
       {
-        "left_helpers@hud.left_helpers": {}
+        "left_helpers@$left_helpers": {}
       },
       {
         "right_helpers@hud.right_helpers": {}

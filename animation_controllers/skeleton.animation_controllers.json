@@ -4,8 +4,20 @@
 		"controller.animation.skeleton.attack" : {
 			"initial_state" : "default",
 			"states" : {
-				"default" : {
-					"animations" : [ "skeleton_attack" ]
+				"default" :  {
+					"transitions" : [
+						{
+							"attack" : "query.has_target && !query.facing_target_to_range_attack"
+						}
+					]
+				},
+				"attack" : {
+					"animations": [ "skeleton_attack" ],
+					"transitions" : [
+						{
+							"default" : "!query.has_target || query.facing_target_to_range_attack"
+						}
+					]
 				}
 			}
 		}

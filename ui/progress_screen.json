@@ -553,6 +553,30 @@
     ]
   },
 
+  "spinner_animation": {
+    "anim_type": "flip_book",
+    "initial_uv": [ 0, 0 ],
+    "frame_count": 10,
+    "frame_step": 7,
+    "fps": 10
+  },
+
+  "progress_loading_spinner": {
+    "type": "image",
+    "layer": 2,
+    "texture": "textures/ui/loading_spin",
+    "offset": [ 0, 24 ],
+    "uv_size": [ 7, 7 ],
+    "size": [ 14, 14 ],
+    "uv": "@progress.spinner_animation",
+    "bindings": [
+      {
+        "binding_name": "#spinner_animation_visible",
+        "binding_name_override": "#visible"
+      }
+    ]
+  },
+
   "fancy_progress_loading_bars": {
     "type": "panel",
     "anchor_from": "center",

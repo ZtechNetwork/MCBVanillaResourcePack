@@ -1937,9 +1937,43 @@
               "binding_name": "$option_label"
             }
           ],
+          "controls": [
+            { "render_distance_warning@general_section.render_distance_warning": {} },
+            { "option_generic_core@settings_common.option_generic_core": {} }
+          ],
           "bindings": [
             {
               "binding_name": "#show_render_distance",
+              "binding_name_override": "#visible"
+            }
+          ]
+        }
+      },
+      {
+        "render_distance_warning_text": {
+          "type": "panel",
+          "size": [ "100%", "100%cm + 16px" ],
+          "controls": [
+            {
+              "render_distance_popup@common.static_tooltip_popup_with_image_and_text": {
+                "size": [ "100% - 4px", "100%cm + 8px" ],
+                "anchor_from": "top_middle",
+                "anchor_to": "top_middle",
+                "$tooltip_panel_offset": [ 0, 6 ],
+                "$tooltip_popup_image": "textures/ui/WarningGlyph",
+                "$tooltip_button_binding_type": "global",
+                "$tooltip_button_collection_name": "",
+                "$tooltip_popup_visible_binding": "#render_distance_warning_visible",
+                "$tooltip_text_binding_name": "#render_distance_performance_tooltip_text",
+                "$tooltip_chevron_anchor": "top_right",
+                "$tooltip_popup_chevron_offset": [ "-30%x", "-10px" ],
+                "$tooltip_popup_chevron_texture": "textures/ui/tooltip_inverted_chevron"
+              }
+            }
+          ],
+          "bindings": [
+            {
+              "binding_name": "#render_distance_warning_visible",
               "binding_name_override": "#visible"
             }
           ]
@@ -2200,6 +2234,36 @@
     "bindings": [
       {
         "binding_name": "$rtx_disabled_option_upsell_visible",
+        "binding_name_override": "#visible"
+      }
+    ]
+  },
+
+  // Render distance warning notification
+
+  "render_distance_warning_image": {
+    "type": "image",
+    "size": [ 7, 11 ],
+    "texture": "textures/ui/WarningGlyph"
+  },
+
+  "render_distance_warning": {
+    "type": "panel",
+    "size": [ "100%", 0 ],
+    "anchor_from": "top_right",
+    "anchor_to": "top_right",
+    "controls": [
+      {
+        "render_distance_warning_image@general_section.render_distance_warning_image": {
+          "offset": [ -14, 0 ],
+          "anchor_from": "top_right",
+          "anchor_to": "top_right"
+        }
+      }
+    ],
+    "bindings": [
+      {
+        "binding_name": "#render_distance_warning_visible",
         "binding_name_override": "#visible"
       }
     ]
@@ -3609,6 +3673,15 @@
         }
       },
       {
+        "input_hint_toggle@settings_common.option_toggle": {
+          "ignored": "(not $education_edition)",
+          "$option_label": "options.showInputHints",
+          "$option_binding_name": "#show_input_hints",
+          "$option_enabled_binding_name": "#show_input_hints_enabled",
+          "$toggle_name": "show_input_hints"
+        }
+      },
+      {
         "reset_button@settings_common.action_button": {
           "ignored": "(not $is_pregame)",
           "$pressed_button_name": "button.reset_settings",
@@ -4349,7 +4422,7 @@
       {
         "patch_version_text_box@settings_common.option_text_edit": {
           "$option_label": "options.dev_overrideVersionPatch",
-          "$max_text_edit_length": 2,
+          "$max_text_edit_length": 3,
           "$text_box_name": "dev_version_patch_override_text_box",
           "$option_binding_name": "#dev_version_patch_override"
         }
@@ -4403,6 +4476,13 @@
                   }
                 ],
                 "controls": [
+                  {
+                    "apply_treatments_button@common_buttons.light_text_button": {
+                      "$pressed_button_name": "button.apply_treatments",
+                      "size": [ "100%", 30 ],
+                      "$button_text": "options.dev_applyTreatments"
+                    }
+                  },
                   {
                     "add_treatments_panel": {
                       "type": "stack_panel",
@@ -5189,6 +5269,14 @@
           "$option_enabled_binding_name": "#automation_functional_test_block_input_enabled",
           "$toggle_name": "automation_functional_test_block_input"
         }
+      },
+      {
+        "automation_server_test_assert_on_level_diff_toggle@settings_common.option_toggle": {
+            "$option_label": "Enable Assert on Level Diff While Running Server Tests",
+            "$option_binding_name": "#automation_server_test_assert_on_level_diff",
+            "$option_enabled_binding_name": "#automation_server_test_assert_on_level_diff_enabled",
+            "$toggle_name": "automation_server_test_assert_on_level_diff"
+        }
       }
     ]
   },
@@ -5332,6 +5420,17 @@
   }
 },*/
       {
+        "option_dropdown_transport_layer@settings_common.option_dropdown": {
+          "$option_label": "options.dev_transport_layer",
+          "$dropdown_content": "general_section.dev_transport_layer_dropdown_content",
+          "$dropdown_area": "content_area",
+          "$dropdown_name": "dev_transport_layer_dropdown",
+          "$options_dropdown_toggle_label_binding": "#dev_transport_layer_dropdown_toggle_label",
+          "$option_enabled_binding_name": "#dev_transport_layer_dropdown_enabled",
+          "$dropdown_scroll_content_size": [ "100%", "250%" ]
+        }
+      },
+      {
         "option_toggle_remote_imgui@settings_common.option_toggle": {
           "$option_label": "options.remote_imgui_toggle",
           "$option_binding_name": "#remote_imgui",
@@ -5430,7 +5529,17 @@
         }
       },
 
-
+      {
+        "option_dropdown_raytracing_mode@settings_common.option_dropdown": {
+          "$option_label": "options.dev_raytracing_mode",
+          "$dropdown_content": "general_section.dev_raytracing_mode_dropdown_content",
+          "$dropdown_area": "content_area",
+          "$dropdown_name": "raytracing_mode_dropdown",
+          "$options_dropdown_toggle_label_binding": "#dev_raytracing_mode_dropdown_toggle_label",
+          "$option_enabled_binding_name": "#dev_raytracing_mode_dropdown_enabled",
+          "$dropdown_scroll_content_size": [ "100%", "140%" ]
+        }
+      },
       {
         "option_toggle_disable_render_terrain@settings_common.option_toggle": {
           "$option_label": "options.dev_disableRenderTerrain",
@@ -5495,7 +5604,22 @@
           "$toggle_name": "dev_disable_render_item_in_hand"
         }
       },
-
+      {
+        "option_toggle_disable_render_main_menu_cubemap@settings_common.option_toggle": {
+          "$option_label": "options.dev_disableRenderMainMenuCubeMap",
+          "$option_binding_name": "#dev_disable_render_main_menu_cube_map",
+          "$option_enabled_binding_name": "#dev_disable_render_main_menu_cube_map_enabled",
+          "$toggle_name": "dev_disable_render_main_menu_cube_map"
+        }
+      },
+      {
+        "option_toggle_disable_render_main_menu_paperdoll_animation@settings_common.option_toggle": {
+          "$option_label": "options.dev_disableRenderMainMenuPaperdollAnimation",
+          "$option_binding_name": "#dev_disable_render_main_menu_paperdoll_animation",
+          "$option_enabled_binding_name": "#dev_disable_render_main_menu_paperdoll_animation_enabled",
+          "$toggle_name": "dev_disable_render_main_menu_paperdoll_animation"
+        }
+      },
       {
         "leak_memory@settings_common.option_text_edit_with_text_button": {
           "$option_label": "Leak Memory",
@@ -5526,6 +5650,17 @@
         }
       },
       {
+        "option_default_profiling_option@settings_common.option_dropdown": {
+          "$option_label": "Profiling Configuration",
+          "$dropdown_content": "general_section.default_profiling_group_dropdown_content",
+          "$dropdown_area": "content_area",
+          "$dropdown_name": "default_profiling_group",
+          "$options_dropdown_toggle_label_binding": "#default_profiling_group_toggle_label",
+          "$option_enabled_binding_name": "#default_profiling_group_enabled",
+          "$dropdown_scroll_content_size": [ "100%", "150%" ]
+        }
+      },
+      {
         "edu_demo@settings_common.option_toggle": {
           "ignored": "(not $education_edition)",
           "$option_label": "options.dev_eduDemo",
@@ -5552,6 +5687,21 @@
           "$slider_tts_text_value": "#ad_token_refresh_threshold_text_value",
           "$option_enabled_binding_name": "#ad_token_refresh_threshold_enabled",
           "$slider_steps_binding_name": "#ad_token_refresh_threshold_steps",
+          "$label_bindings": [
+            {
+              "binding_name": "$option_label"
+            }
+          ]
+        }
+      },
+      {
+        "playfab_token_refresh_threshold@settings_common.option_slider": {
+          "$option_label": "#playfab_token_refresh_threshold_slider_label",
+          "$slider_name": "playfab_token_refresh_threshold",
+          "$slider_value_binding_name": "#playfab_token_refresh_threshold",
+          "$slider_tts_text_value": "#playfab_token_refresh_threshold_text_value",
+          "$option_enabled_binding_name": "#playfab_token_refresh_threshold_enabled",
+          "$slider_steps_binding_name": "#playfab_token_refresh_threshold_steps",
           "$label_bindings": [
             {
               "binding_name": "$option_label"
@@ -5804,7 +5954,19 @@
           "$dropdown_scroll_content_size": [ "100%", "200%" ]
         }
       },
+      {
+        "education_env_dropdown@settings_common.option_dropdown": {
+          "ignored": "(not $education_edition)",
 
+          "$option_label": "options.dev_education_services_environment",
+          "$dropdown_content": "general_section.dev_education_environment_dropdown_content",
+          "$dropdown_area": "content_area",
+          "$dropdown_name": "dev_education_env_dropdown",
+          "$options_dropdown_toggle_label_binding": "#dev_education_env_dropdown_toggle_label",
+          "$option_enabled_binding_name": "#dev_education_env_dropdown_enabled",
+          "$dropdown_scroll_content_size": [ "100%", "200%" ]
+        }
+      },
       {
         "sunsetting_use_overrides_toggle@settings_common.option_toggle": {
           "$option_label": "options.dev_sunset_overrides",
@@ -5869,6 +6031,17 @@
         }
       },
       {
+        "education_azure_notebooks_env_dropdown@settings_common.option_dropdown": {
+          "$option_label": "options.dev_education_azure_notebooks_environment",
+          "$dropdown_content": "general_section.dev_education_azure_notebooks_environment_dropdown_content",
+          "$dropdown_area": "content_area",
+          "$dropdown_name": "dev_education_azure_notebooks_env_dropdown",
+          "$options_dropdown_toggle_label_binding": "#dev_education_azure_notebooks_env_dropdown_toggle_label",
+          "$option_enabled_binding_name": "#dev_education_azure_notebooks_env_dropdown_enabled",
+          "$dropdown_scroll_content_size": [ "100%", "200%" ]
+        }
+      },
+      {
         "option_clear_store_cache_button@settings_common.action_button": {
           "$pressed_button_name": "dev_clear_store_cache_button",
           "$button_text": "options.dev_clearStoreCache"
@@ -5926,9 +6099,17 @@
         }
       },
       {
-        "add_coins@settings_common.action_button": {
-          "$pressed_button_name": "button.add_coins",
-          "$button_text": "options.dev_addCoins"
+        "add_500_coins@settings_common.action_button": {
+          "$pressed_button_name": "button.add_500_coins",
+          "$button_text": "#add_500_text",
+          "$button_text_binding_type": "global"
+        }
+      },
+      {
+        "add_100000_coins@settings_common.action_button": {
+          "$pressed_button_name": "button.add_100000_coins",
+          "$button_text": "#add_100000_text",
+          "$button_text_binding_type": "global"
         }
       },
       {
@@ -6008,15 +6189,21 @@
           "$pressed_button_name": "button.dev_reset_online_safety_option",
           "$button_text": "Reset Online Safety Dialog Option"
         }
+      },
+      {
+        "reset_cloud_upload_option@settings_common.action_button": {
+          "$pressed_button_name": "button.dev_reset_cloud_upload_option",
+          "$button_text": "Reset Cloud Upload Dialog Option"
+        }
       }
     ]
   },
 
   "ui_debug_button@settings_common.section_toggle_base": {
     "$toggle_view_binding_name": "ui_debug_button_toggle",
-    "$glyph_texture": "textures/ui/focus_border_white",
-    "$glyph_color_texture": "textures/ui/right_split_panel_default",
-    "$glyph_size": [ 15, 15 ],
+    "$glyph_texture": "textures/ui/ui_debug_glyph",
+    "$glyph_color_texture": "textures/ui/ui_debug_glyph_color",
+    "$glyph_size": [ 16, 16 ],
     "$button_text": "UI Debug",
     "$toggle_property_bag": {
       "#panel_title": "UI Debug"
@@ -6074,6 +6261,31 @@
         "binding_type": "collection",
         "binding_condition": "visible",
         "binding_collection_name": "dev_new_achievements_screens_radio"
+      }
+    ]
+  },
+  "new_create_world_grid_item@settings_common.radio_with_label": {
+    "$toggle_state_binding_name": "#initial_selected",
+    "$radio_label_text": "#description",
+    "$radio_label_bindings": [
+      {
+        "binding_name": "#description",
+        "binding_type": "collection",
+        "binding_condition": "once",
+        "binding_collection_name": "dev_new_create_world_screen_radio"
+      }
+    ],
+    "$radio_toggle_group": true,
+    "$toggle_binding_type": "collection",
+    "$toggle_name": "dev_new_create_world_screen_radio",
+    "$toggle_grid_collection_name": "dev_new_create_world_screen_radio",
+    "$option_enabled_binding_name": "",
+    "bindings": [
+      {
+        "binding_name": "#default_focus_precedence",
+        "binding_type": "collection",
+        "binding_condition": "visible",
+        "binding_collection_name": "dev_new_create_world_screen_radio"
       }
     ]
   },
@@ -6199,6 +6411,66 @@
         }
       },
       {
+        "new_create_world_screen_radio_label": {
+          "type": "label",
+          "text": "New Create World Screen (requires the infrastructure)",
+          "size": [ "100%", "default" ],
+          "color": "$body_text_color",
+          "bindings": [
+            {
+              "binding_name": "#core_ui_enabled",
+              "binding_name_override": "#visible"
+            }
+          ]
+        }
+      },
+      {
+        "new_create_world_screen_radio_label_disabled": {
+          "type": "label",
+          "text": "New Create World Screen (requires the infrastructure)",
+          "size": [ "100%", "default" ],
+          "color": "$body_text_color",
+          "alpha": 0.5,
+          "bindings": [
+            {
+              "binding_name": "(not #core_ui_enabled)",
+              "binding_name_override": "#visible"
+            }
+          ]
+        }
+      },
+      {
+        "new_create_world_screen_radio_label_spacer": {
+          "type": "panel",
+          "size": [ "100%", 3 ]
+        }
+      },
+      {
+        "new_create_world_screen_radio_button": {
+          "type": "grid",
+          "size": [ "100%", "100%c" ],
+          "grid_item_template": "general_section.new_create_world_grid_item",
+          "grid_dimension_binding": "#dev_new_create_world_screen_radio_dimension",
+          "collection_name": "dev_new_create_world_screen_radio",
+          "bindings": [
+            {
+              "binding_name": "#dev_new_create_world_screen_radio_dimension",
+              "binding_condition": "visible"
+            },
+            {
+              "binding_name": "#core_ui_enabled",
+              "binding_name_override": "#enabled"
+            }
+          ]
+        }
+      },
+      {
+        "new_create_world_screen_radio_button_spacer": {
+          "type": "panel",
+          "size": [ "100%", 3 ]
+        }
+      },
+      {
         "option_toggle_default_font_override@settings_common.option_toggle": {
           "$option_label": "Enable Default Font Overrides (requires loading from font_metadata.json)",
           "$option_binding_name": "#dev_toggle_default_font_overrides",
@@ -6290,6 +6562,38 @@
               "binding_name_override": "#enabled"
             }
           ]
+        }
+      },
+      {
+        "open_core_ui_tests_spacer": {
+          "type": "panel",
+          "size": [ "100%", 7 ]
+        }
+      },
+      {
+        "reset_render_distance_warning_modal_label": {
+          "type": "label",
+          "text": "Render distance warning modal",
+          "size": [ "100%", "default" ],
+          "color": "$body_text_color"
+        }
+      },
+      {
+        "reset_render_distance_warning_modal_label_spacer": {
+          "type": "panel",
+          "size": [ "100%", 3 ]
+        }
+      },
+      {
+        "reset_render_distance_warning_modal@settings_common.action_button": {
+          "$pressed_button_name": "button.reset_render_distance_warning_modal",
+          "$button_text": "Reset modal"
+        }
+      },
+      {
+        "reset_render_distance_warning_modal_spacer": {
+          "type": "panel",
+          "size": [ "100%", 7 ]
         }
       }
     ]
@@ -6509,7 +6813,50 @@
       }
     ]
   },
-
+  "default_profiling_group_dropdown_content@settings_common.option_radio_dropdown_group": {
+    "$radio_buttons": [
+      {
+        "@settings_common.radio_with_label": {
+          "$toggle_state_binding_name": "#internal_profiling_bootstrap",
+          "$radio_label_text": "Internal Profiling Configuration"
+        }
+      },
+      {
+        "@settings_common.radio_with_label": {
+          "$toggle_state_binding_name": "#creator_profiling_bootstrap",
+          "$radio_label_text": "Creator Profiling Configuration"
+        }
+      }
+    ]
+  },
+  "dev_transport_layer_dropdown_content@settings_common.option_radio_dropdown_group": {
+    "$radio_buttons": [
+      {
+        "@settings_common.radio_with_label": {
+          "$toggle_state_binding_name": "#transport_layer_raknet",
+          "$radio_label_text": "options.dev_transport_layer.raknet"
+        }
+      },
+      {
+        "@settings_common.radio_with_label": {
+          "$toggle_state_binding_name": "#transport_layer_nethernet_xmpp",
+          "$radio_label_text": "options.dev_transport_layer.nethernet_xmpp"
+        }
+      },
+      {
+        "@settings_common.radio_with_label": {
+          "$toggle_state_binding_name": "#transport_layer_nethernet_mpsd",
+          "$radio_label_text": "options.dev_transport_layer.nethernet_mpsd"
+        }
+      },
+      {
+        "@settings_common.radio_with_label": {
+          "$toggle_state_binding_name": "#transport_layer_nethernet_websockets",
+          "$radio_label_text": "options.dev_transport_layer.nethernet_websockets"
+        }
+      }
+    ]
+  },
   "dev_debug_hud_dropdown_content@settings_common.option_radio_dropdown_group": {
     "$radio_buttons": [
       {
@@ -6622,6 +6969,22 @@
       }
     ]
   },
+  "dev_raytracing_mode_dropdown_content@settings_common.option_radio_dropdown_group": {
+    "$radio_buttons": [
+      {
+        "@settings_common.radio_with_label": {
+          "$toggle_state_binding_name": "#raytracing_mode_compatibility",
+          "$radio_label_text": "options.dev_raytracing_mode.compatibility"
+        }
+      },
+      {
+        "@settings_common.radio_with_label": {
+          "$toggle_state_binding_name": "#raytracing_mode_full",
+          "$radio_label_text": "options.dev_raytracing_mode.full"
+        }
+      }
+    ]
+  },
   "dev_quality_dropdown_content@settings_common.option_radio_dropdown_group": {
     "$radio_buttons": [
       {
@@ -6706,6 +7069,34 @@
       }
     ]
   },
+  "dev_education_environment_dropdown_content@settings_common.option_radio_dropdown_group": {
+    "$radio_buttons": [
+      {
+        "education_environment_dev@settings_common.radio_with_label": {
+          "$toggle_state_binding_name": "#education_environment_dev",
+          "$radio_label_text": "options.dev_education_environment.dev"
+        }
+      },
+      {
+        "education_environment_staging@settings_common.radio_with_label": {
+          "$toggle_state_binding_name": "#education_environment_staging",
+          "$radio_label_text": "options.dev_education_environment.staging"
+        }
+      },
+      {
+        "education_environment_prod@settings_common.radio_with_label": {
+          "$toggle_state_binding_name": "#education_environment_prod",
+          "$radio_label_text": "options.dev_education_environment.prod"
+        }
+      },
+      {
+        "education_environment_local@settings_common.radio_with_label": {
+          "$toggle_state_binding_name": "#education_environment_local",
+          "$radio_label_text": "options.dev_education_environment.local"
+        }
+      }
+    ]
+  },
   "dev_sunsetting_tier_dropdown_content@settings_common.option_radio_dropdown_group": {
     "$radio_buttons": [
       {
@@ -6730,6 +7121,34 @@
         "sunsetting_not_pending@settings_common.radio_with_label": {
           "$toggle_state_binding_name": "#sunsetting_not_pending",
           "$radio_label_text": "options.dev_sunsetting_tier.not_pending"
+        }
+      }
+    ]
+  },
+  "dev_education_azure_notebooks_environment_dropdown_content@settings_common.option_radio_dropdown_group": {
+    "$radio_buttons": [
+      {
+        "education_azure_notebooks_environment_dev@settings_common.radio_with_label": {
+          "$toggle_state_binding_name": "#education_azure_notebooks_environment_dev",
+          "$radio_label_text": "options.dev_education_environment.dev"
+        }
+      },
+      {
+        "education_azure_notebooks_environment_staging@settings_common.radio_with_label": {
+          "$toggle_state_binding_name": "#education_azure_notebooks_environment_staging",
+          "$radio_label_text": "options.dev_education_environment.staging"
+        }
+      },
+      {
+        "education_azure_notebooks_environment_prod@settings_common.radio_with_label": {
+          "$toggle_state_binding_name": "#education_azure_notebooks_environment_prod",
+          "$radio_label_text": "options.dev_education_environment.prod"
+        }
+      },
+      {
+        "education_azure_notebooks_environment_local@settings_common.radio_with_label": {
+          "$toggle_state_binding_name": "#education_azure_notebooks_environment_local",
+          "$radio_label_text": "options.dev_education_environment.local"
         }
       }
     ]

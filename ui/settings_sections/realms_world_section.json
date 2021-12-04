@@ -174,7 +174,16 @@
       {
         "allow_cheats_toggle@settings_common.option_toggle": {
           "ignored": "$realm_no_world_edit",
-          "$option_label": "selectWorld.cheats",
+          "variables": [
+            {
+              "requires": "($education_edition)",
+              "$option_label": "createWorldScreen.commands"
+            },
+            {
+              "requires": "(not $education_edition)",
+              "$option_label": "selectWorld.cheats"
+            }
+          ],
           "$option_binding_name": "#allow_cheats",
           "$option_enabled_binding_name": "#allow_cheats_enabled",
           "$toggle_name": "allow_cheats"

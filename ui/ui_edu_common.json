@@ -294,6 +294,70 @@
     ]
   },
 
+  "home_button_content": {
+    "type": "image",
+    "$texture": "textures/ui/library_home_icon",
+    "variables": [
+      {
+        "requires": "($hover_state or $pressed_state)",
+        "$texture": "textures/ui/library_home_icon_hover"
+      }
+    ],
+    "texture": "$texture",
+    "size": [ 12, 12 ]
+  },
+
+  "home_button@common_buttons.light_glyph_button": {
+    "anchor_from": "top_right",
+    "anchor_to": "top_right",
+    "offset": [ -3, 2 ],
+    "size": [ 18, 16 ],
+    "$pressed_button_name": "button.library_home",
+    "$button_content": "edu_common.home_button_content",
+    "$button_tts_header": "store.menu.home",
+    "$default_glyph_color": [ 1, 1, 1 ],
+    "$light_glyph_hover_color": [ 1, 1, 1 ],
+    "$light_glyph_pressed_color": [ 1, 1, 1 ],
+    "$light_glyph_locked_color": [ 1, 1, 1 ]
+  },
+
+  "underline_text": {
+    "type": "panel",
+    "size": [ "100%c", 10 ],
+    "$text_color|default": [ 0.215, 0.839, 0.118 ],
+    "controls": [
+      {
+        "label_hover@common.single_line_label": {
+          "$single_line_label_color": "$text_color",
+          "$underline_control": [
+            { "underline_hover@common.underline": {} }
+          ]
+        }
+      }
+    ]
+  },
+
+  "underline_button@common_buttons.underline_button": {
+    "pressed_control": "pressed",
+    "controls": [
+      {
+        "default@edu_common.underline_text": {
+          "$text_color": "$dark_button_default_text_color"
+        }
+      },
+      {
+        "hover@edu_common.underline_text": {
+          "$texture": "textures/ui/underline_focus"
+        }
+      },
+      {
+        "pressed@edu_common.underline_text": {
+          "$texture": "textures/ui/underline_focus"
+        }
+      }
+    ]
+  },
+
   // Requires
   // - $title_text
   // - (if image): $title_has_image: true and $title_texture
@@ -372,7 +436,7 @@
   "share_dialog_title": {
     "type": "label",
     "color": "$title_text_color",
-    "$popup_title_text|default": "library.item.sharepopup.title",
+    "$popup_title_text|default": "($share_source + '.item.sharepopup.title.simple')",
     "text": "$popup_title_text",
     "layer": 2
   },
@@ -384,6 +448,7 @@
     "offset": [ 7, 3 ],
     "anchor_from": "top_left",
     "anchor_to": "top_left",
+    "$close_button_id|default": "button.close_share_popup",
     "controls": [
       { "title@edu_common.share_dialog_title": {} },
       {
@@ -391,57 +456,579 @@
           "$close_button_offset": [ 5, 0 ],
           "anchor_from": "right_middle",
           "anchor_to": "right_middle",
-          "$close_button_to_button_id": "button.close_share_popup",
-          "$button_tts_name": "controllerLayoutScreen.button",
-          "$button_tts_header": "accessibility.button.close"
+          "$close_button_to_button_id": "$close_button_id"
         }
       }
     ]
   },
 
+  "teams_advanced_share_header_panel@edu_common.share_header_panel": {
+    "$popup_title_text": "$teams_advanced_share_header_text"
+  },
+
+  "add_resource_share_header_panel@edu_common.share_header_panel": {
+    "$close_button_id": "button.cancel_add_resource_button",
+    "$popup_title_text": "($share_source + '.item.sharepopup.title.addResource')"
+  },
+
   //body
   "body_panel": {
     "type": "panel",
-    "offset": [ 11, 23 ],
-    "size": [ "100% - 22px", "100%c + 8px"],
-    "anchor_from": "top_left",
-    "anchor_to": "top_left",
+    "size": [ 300, "100%cm" ],
     "layer": 1,
+
+    "$body_stack|default": "edu_common.body_content_stack",
     "controls": [
-      { "body_stack@edu_common.body_content_stack": {} }
+      { "body_stack@$body_stack": {} }
     ]
   },
-  
+
+  //teams_body
+  "teams_body_panel@edu_common.body_panel": {
+    "$body_stack": "edu_common.teams_body_content_stack"
+  },
+
+  "teams_body_resource_panel@edu_common.body_panel": {
+    "$body_stack": "edu_common.teams_body_resource_content_stack"
+  },
+
+  "teams_simple_body_resource_panel@edu_common.body_panel": {
+    "$body_stack": "edu_common.teams_simple_body_content_stack"
+  },
+
+  "manage_sharelink_body_panel@edu_common.body_panel": {
+    "$body_stack": "edu_common.manage_sharelink_body_content_stack"
+  },
+
+  "joincode_body_panel@edu_common.body_panel": {
+    "$body_stack": "edu_common.joincode_body_content_stack"
+  },
+
+  "add_resource_body_panel@edu_common.body_panel": {
+    "$body_stack": "edu_common.add_edit_resource_body_content_stack"
+  },
+
+  "icon_section": {
+    "type": "stack_panel",
+    "controls": [
+      { "icon_stack_panel@edu_common.icon_stack_panel": {} },
+      { "icon_padding@common.empty_panel": { "size": [ "100%", 18 ] } }
+    ]
+  },
+
+  // Panel for adding A url resources to an edu world's pause menu.
+  "add_resources_section": {
+    "type": "stack_panel",
+    "controls": [
+      { "divider@edu_common.horizontal_divider": { "size": [ "100%", 20 ] } },
+      {
+        "add_resource_label@edu_common.share_dialog_body_text": {
+          "text": "($share_source + '.item.sharepopup.secondaryText')"
+        }
+      },
+      { "teams_padding_middle@common.empty_panel": { "size": [ "100%", 8 ] } },
+      {
+        "resource_button@common_buttons.light_text_button": {
+          "$focus_override_up": "copy_button",
+          "$focus_override_right": "teams_button",
+          "size": [ "100%", 24 ],
+          "$pressed_button_name": "button.resource_button",
+          "$button_text": "($share_source + '.item.sharepopup.addResourceButton')",
+          "focus_identifier": "$pressed_button_name"
+        }
+      }
+    ]
+  },
+
+  "edit_resource_uri_glyph": {
+    "type": "image",
+    "layer": 2,
+    "$glyph_size|default": [ 22, 16 ],
+    "size": "$glyph_size",
+    "texture": "textures/ui/editIcon"
+  },
+
+  "edit_resources_section": {
+    "type": "stack_panel",
+    "controls": [
+      { "divider@edu_common.horizontal_divider": { "size": [ "100%", 20 ] } },
+      {
+        "resource_label_text@edu_common.share_dialog_body_text": {
+          "text": "($share_source + '.item.sharepopup.editResourceLabel')"
+        }
+      },
+      { "teams_padding_middle@common.empty_panel": { "size": [ "100%", 8 ] } },
+      {
+        "edit_resource_body_button_stack": {
+          "type": "stack_panel",
+          "orientation": "horizontal",
+          "layer": 5,
+          "size": [ "100%", "100%cm" ],
+          "controls": [
+            {
+              "resource_button@edu_pause.shared_resource_uri_button": {
+                "$focus_id": "resource_button",
+                "$focus_override_up": "copy_button",
+                "$focus_override_left": "copy_button",
+                "size": [ "fill", "100%sm" ]
+              }
+            },
+            { "padding_middle@common.empty_panel": { "size": [ 1, 4 ] } },
+            {
+              "edit_resource_uri_button@common_buttons.light_glyph_button": {
+                "$focus_id": "edit_resource_uri_button",
+                "$focus_override_up": "copy_button",
+                "$focus_override_right": "teams_button",
+                "size": [ 28, 24 ],
+                "layer": 1,
+                "$button_content": "edu_common.edit_resource_uri_glyph",
+                "$pressed_button_name": "button.resource_button",
+                "$button_tts_name": "($share_source + '.item.sharepopup.editResource.button.accessibility')",
+                "variables": [
+                  {
+                    "requires": "($apple_os and $supports_clipboard)",
+                    "$focus_override_right": "mail_button"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+
   "body_content_stack": {
+    "type": "stack_panel",
+    "orientation": "vertical",
+    "layer": 5,
+    "size": [ "100%", "100%c" ],
+
+    "$body_size|default": [ "100%", 10 ],
+    "$body_font_size|default": 1.0,
+    "$icons_ignored|default": true,
+    "$resource_uri_state|default": "",
+
+    "controls": [
+      {
+        "body_text_centering_panel@edu_common.vertical_stack_item": {
+          "controls": [
+            {
+              "body_text@edu_common.share_dialog_body_text": {
+                "font_scale_factor": "$body_font_size",
+                "size": "$body_size"
+              }
+            }
+          ]
+        }
+      },
+      { "padding_middle@common.empty_panel": { "size": [ "100%sm", 4 ] } },
+      {
+        "icons@edu_common.icon_section": {
+          "ignored": "$icons_ignored",
+          "$focus_down": "copy_button",
+          "variables": [
+            {
+              "requires": "($resource_uri_state = 'add_resource')",
+              "$wrap_focus_left": "button.resource_button"
+            },
+            {
+              "requires": "($resource_uri_state = 'edit_resource')",
+              "$wrap_focus_left": "edit_resource_uri_button"
+            }
+          ]
+        }
+      },
+      {
+        "copy_link_centering_panel@edu_common.vertical_stack_item": {
+          "controls": [
+            { "copy_link_panel@edu_common.copy_link_stack_panel": {} }
+          ]
+        }
+      },
+      { "add_resources@edu_common.add_resources_section": { "ignored": "(not ($resource_uri_state = 'add_resource'))" } },
+      { "edit_resources@edu_common.edit_resources_section": { "ignored": "(not ($resource_uri_state = 'edit_resource'))" } }
+    ]
+  },
+
+  "teams_simple_body_content_stack@edu_common.body_content_stack": {
+    "$popup_body_text": "($share_source + '.item.sharepopup.body')",
+    "$icons_ignored": false
+  },
+
+  "teams_body_content_stack@edu_common.body_content_stack": {
+    "$body_size": [ "100% - 5px", "default" ],
+    "$popup_body_text": "$teams_body_content_stack_text",
+    "$icons_ignored": false,
+    "$resource_uri_state": "add_resource"
+  },
+
+  "teams_body_resource_content_stack@edu_common.body_content_stack": {
+    "$body_size": [ "100% - 5px", "default" ],
+    "$popup_body_text": "$share_resource_added_text",
+    "$icons_ignored": false,
+    "$resource_uri_state": "edit_resource"
+  },
+
+  "joincode_body_content_stack@edu_common.body_content_stack": {
+    "$body_size": [ "100% - 4px", 40 ],
+    "$body_font_size": 1.1,
+    "$popup_body_text": "joincode.popup.body",
+    "$icons_ignored": false,
+    "$add_resources_ignored": true,
+    "$edit_resources_ignored": true
+  },
+
+  "add_resource_body_content_stack": {
+    "type": "stack_panel",
+    "orientation": "vertical",
+    "layer": 5,
+    "size": [ "100%", "default" ],
+    "controls": [
+      {
+        "label_one_centering_panel@edu_common.vertical_stack_item": {
+          "controls": [
+            {
+              "teams_share_label@edu_common.share_dialog_body_text": {
+                "text": "($share_source + '.item.sharepopup.addResource.labelOne')"
+              }
+            }
+          ]
+        }
+      },
+      { "label_padding_middle@common.empty_panel": { "size": [ "100%sm", 5 ] } },
+      {
+        "label_two_centering_panel@edu_common.vertical_stack_item": {
+          "controls": [
+            {
+              "teams_share_label@edu_common.share_dialog_body_text": {
+                "text": "($share_source + '.item.sharepopup.addResource.labelTwo')"
+              }
+            }
+          ]
+        }
+      },
+      { "learn_more_padding_middle@common.empty_panel": { "size": [ "100%sm", 5 ] } },
+      {
+        "link1@edu_common.underline_button": {
+          "$single_label_size": [ "default", "default" ],
+          "$single_line_font_scale_factor": 1,
+          "$pressed_button_name": "button.add_resource_learn_more",
+          "$single_line_label_text": "($share_source + '.item.sharepopup.addResource.learnMoreLinkText')",
+          "$focus_id": "button.add_resource_learn_more",
+          "$focus_override_left": "button.leave_add_resource",
+          "$focus_override_up": "button.leave_add_resource",
+          "$focus_override_right": "url_textbox",
+          "$focus_override_down": "url_textbox"
+        }
+      },
+      { "url_padding_middle@common.empty_panel": { "size": [ "100%sm", 10 ] } },
+      {
+        "url_label@edu_common.share_dialog_body_text": {
+          "text": "($share_source + '.item.sharepopup.addResource.urlLabel')",
+          "$focus_id": "url_textbox_label"
+        }
+      },
+      {
+        "url_textbox@common.text_edit_box": {
+          "layer": 2,
+          "size": [ "100%", 20 ],
+          "$text_box_name": "#textbox.url",
+          "$text_edit_box_content_binding_name": "#textbox.url.content",
+          "$place_holder_text": "($share_source + '.item.sharepopup.addResource.urlHintText')",
+          "$focus_id": "url_textbox",
+          "focus_change_left": "button.add_resource_learn_more",
+          "focus_change_up": "button.add_resource_learn_more",
+          "focus_change_right": "button_name",
+          "focus_change_down": "button_name",
+          "max_length": 512
+        }
+      },
+      {
+        "inline_notification@edu_common.inline_notification": {
+          "$state": "error",
+          "$warning_text": "($share_source + '.item.sharepopup.addResource.invalidSchema'",
+          "bindings": [
+            {
+              "binding_name": "#has_resource_uri_error",
+              "binding_name_override": "#visible"
+            }
+          ]
+        }
+      },
+      { "inline_notification_spacer@common.empty_panel": { "size": [ "100%sm", 5 ] } },
+      {
+        "button_name_label@edu_common.share_dialog_body_text": {
+          "text": "($share_source + '.item.sharepopup.addResource.buttonNameLabel')",
+          "$focus_id": "button_name"
+        }
+      },
+      { "button_middle_spacer@common.empty_panel": { "size": [ "100%sm", 2 ] } },
+      {
+        "button_name_textbox@common.text_edit_box": {
+          "layer": 2,
+          "size": [ "100%", 20 ],
+          "$text_box_name": "#textbox.buttonName",
+          "$text_edit_box_content_binding_name": "#textbox.buttonName.content",
+          "$place_holder_text": "($share_source + '.item.sharepopup.addResource.buttonNameHintText')",
+          "$focus_id": "button_name",
+          "max_length": 20,
+          "focus_change_up": "url_textbox",
+          "focus_change_left": "url_textbox",
+          "focus_change_right": "button.done_add_resource_button",
+          "focus_change_down": "button.done_add_resource_button",
+          "bindings": [
+            {
+              "binding_name": "#resource_uri_done_enabled",
+              "binding_name_override": "#visible"
+            }
+          ]
+        }
+      },
+      {
+        "button_name_textbox_next_disabled@common.text_edit_box": {
+          "layer": 2,
+          "size": [ "100%", 20 ],
+          "$text_box_name": "#textbox.buttonName",
+          "$text_edit_box_content_binding_name": "#textbox.buttonName.content",
+          "$place_holder_text": "($share_source + '.item.sharepopup.addResource.buttonNameHintText')",
+          "$focus_id": "button_name",
+          "max_length": 20,
+          "focus_change_up": "url_textbox",
+          "focus_change_left": "url_textbox",
+          "focus_change_right": "button.leave_add_resource",
+          "focus_change_down": "button.leave_add_resource",
+          "bindings": [
+            {
+              "binding_name": "(not #resource_uri_done_enabled)",
+              "binding_name_override": "#visible"
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "add_edit_resource_body_content_stack": {
+    "type": "panel",
+    "layer": 5,
+    "size": [ "100%", 128 ],
+    "controls": [
+      {
+        "scroll_content": {
+          "type": "panel",
+          "size": [ "100%", 128 ],
+          "anchor_to": "top_left",
+          "anchor_from": "top_left",
+          "controls": [
+            {
+              "scrolling_panel@common.scrolling_panel": {
+                "$scrolling_content": "edu_common.add_resource_body_content_stack",
+                "$show_background": false,
+                "$scroll_size": [ 5, "100%" ],
+                "$scroll_bar_left_padding_size": [ 1, 0 ]
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "resource_popup_buttons": {
+    "type": "stack_panel",
+    "size": [ "100%", "100%" ],
+    "orientation": "horizontal",
+    "controls": [
+      {
+        "done_button@common_buttons.light_text_button": {
+          "size": [ "fill", "100%" ],
+          "$pressed_button_name": "button.done_add_resource_button",
+          "$button_text": "($share_source + '.item.sharepopup.addResource.doneButton')",
+          "focus_identifier": "$pressed_button_name",
+          "focus_change_left": "button_name",
+          "bindings": [
+            {
+              "binding_name": "#resource_uri_done_enabled",
+              "binding_name_override": "#enabled"
+            }
+          ]
+        }
+      },
+      { "button_padding@common.empty_panel": { "size": [ 2, "100%" ] } },
+      {
+        "back_button_panel": {
+          "size": [ "fill", "100%" ],
+          "type": "panel",
+          "controls": [
+            {
+              "back_button_enabled@common_buttons.light_text_button": {
+                "size": [ "100%", "100%" ],
+                "$pressed_button_name": "$back_button_name",
+                "$button_text": "$back_button_text",
+                "focus_identifier": "button.leave_add_resource",
+                "focus_change_right": "button.add_resource_learn_more",
+                "focus_change_down": "button.add_resource_learn_more",
+                "bindings": [
+                  {
+                    "binding_name": "#resource_uri_done_enabled",
+                    "binding_name_override": "#visible"
+                  }
+                ]
+              }
+            },
+            {
+              "back_button_disabled@common_buttons.light_text_button": {
+                "size": [ "100%", "100%" ],
+                "$pressed_button_name": "$back_button_name",
+                "$button_text": "$back_button_text",
+                "focus_identifier": "button.leave_add_resource",
+                "focus_change_left": "button_name",
+                "focus_change_right": "button.add_resource_learn_more",
+                "focus_change_down": "button.add_resource_learn_more",
+                "bindings": [
+                  {
+                    "binding_name": "(not #resource_uri_done_enabled)",
+                    "binding_name_override": "#visible"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "add_resource_popup_lower_button_panel": {
+    "type": "panel",
+    "size": [ "100%", "100%" ],
+    "$back_button_text|default": "",
+    "$back_button_name|default": "",
+    "controls": [
+      {
+        "edit_resource_popup_buttons@edu_common.resource_popup_buttons": {
+          "$back_button_name": "button.delete_resource_button",
+          "$back_button_text": "($share_source + '.item.sharepopup.addResource.deleteButton')",
+          "bindings": [
+            {
+              "binding_name": "#has_edu_external_link",
+              "binding_name_override": "#visible"
+            }
+          ]
+        }
+      },
+      {
+        "add_resource_popup_buttons@edu_common.resource_popup_buttons": {
+          "$back_button_name": "button.cancel_add_resource_button",
+          "$back_button_text": "($share_source + '.item.sharepopup.addResource.cancelButton')",
+          "bindings": [
+            {
+              "binding_name": "#is_adding_resource",
+              "binding_name_override": "#visible"
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "manage_sharelink_body_content_stack": {
     "type": "stack_panel",
     "orientation": "vertical",
     "layer": 5,
     "size": [ "100%", "100%c" ],
     "controls": [
       {
-        "description@common.tts_label_focus_wrapper": {
-          "$tts_label_panel": "edu_common.share_dialog_body_text",
-          "$focus_border_size": [ "100%", "100%sm + 3px"]
+        "body_text_centering_panel1@edu_common.vertical_stack_item": {
+          "controls": [
+            {
+              "body_text1": {
+                "type": "label",
+                "font_type": "smooth",
+                "color": "$body_text_color",
+                "text": "manage.sharepopup.link.body.top",
+                "size": [ "100%", "default" ],
+                "layer": 1,
+                "anchor_from": "top_middle",
+                "anchor_to": "top_middle"
+              }
+            }
+          ]
         }
       },
-      { "padding_middle@common.empty_panel": { "size": [ "100%sm", 4 ] } },
-      { "copy_link_panel@edu_common.copy_link_stack_panel": {} }
+      { "padding1@common.empty_panel": { "size": [ "100%sm", 8 ] } },
+      {
+        "body_text_centering_panel2@edu_common.vertical_stack_item": {
+          "controls": [
+            {
+              "body_text2": {
+                "type": "label",
+                "font_type": "smooth",
+                "color": "$body_text_color",
+                "text": "manage.sharepopup.link.body.bottom",
+                "size": [ "100%", "default" ],
+                "layer": 1,
+                "anchor_from": "top_middle",
+                "anchor_to": "top_middle"
+              }
+            }
+          ]
+        }
+      },
+      { "padding2@common.empty_panel": { "size": [ "100%sm", 8 ] } },
+      { "icons@edu_common.icon_section": {} },
+      {
+        "copy_link_centering_panel@edu_common.vertical_stack_item": {
+          "controls": [
+            { "copy_link_panel@edu_common.copy_link_stack_panel": {} }
+          ]
+        }
+      },
+      { "padding3@common.empty_panel": { "size": [ "100%sm", 8 ] } },
+      {
+        "manage_access_button@edu_common.underline_button": {
+          "$single_label_size": [ "default", "default" ],
+          "$single_line_font_scale_factor": 1,
+          "$pressed_button_name": "button.manage_access",
+          "$single_line_label_text": "manage.sharepopup.link.manage",
+          "$font_type": "smooth"
+        }
+      },
+      { "padding4@common.empty_panel": { "size": [ "100%sm", 8 ] } },
+      {
+        "learn_more_button@edu_common.underline_button": {
+          "$single_label_size": [ "default", "default" ],
+          "$single_line_font_scale_factor": 1,
+          "$pressed_button_name": "button.learn_more",
+          "$single_line_label_text": "manage.sharepopup.copy.hyperlink",
+          "$font_type": "smooth"
+        }
+      },
+      { "padding5@common.empty_panel": { "size": [ "100%sm", 4 ] } },
+      {
+        "done_button@edu_worlds.world_entry_button_def": {
+          "$font_type": "default",
+          "size": [ "100%", 24 ],
+          "$button_text": "manage.sharepopup.link.done",
+          "$pressed_button_name": "button.close_share_popup"
+        }
+      }
     ]
   },
 
   "share_dialog_body_text": {
     "type": "label",
     "color": "$body_text_color",
-    "$popup_body_text|default": "library.item.sharepopup.body",
+    "$popup_body_text|default": "($share_source + '.item.sharepopup.body')",
+    "font_type": "smooth",
     "text": "$popup_body_text",
-    "size": [ "100%", 10 ],
+    "size": [ "100%", "default" ],
     "layer": 1,
-    "anchor_from": "top_left",
-    "anchor_to": "top_left",
-    "offset": [ 3, 2 ]
+    "anchor_from": "top_middle",
+    "anchor_to": "top_middle"
   },
 
-  
   "share_icon": {
     "type": "image",
     "layer": 2,
@@ -464,25 +1051,25 @@
             {
               "requires": "($apple_os and $supports_share)",
               "$share_icon_texture": "textures/ui/share_apple",
-              "$share_icon_offset": [ 2.5, -1.5 ],
+              "$share_icon_offset": [ 3.5, 0.5 ],
               "$share_icon_size": [ 11, 15 ]
             },
             {
               "requires": "(($microsoft_os or (not $apple_os and not $google_os)) and $supports_share)",
               "$share_icon_texture": "textures/ui/share_microsoft",
-              "$share_icon_offset": [ 2.5, -0.5 ],
+              "$share_icon_offset": [ 2.0, 2.0 ],
               "$share_icon_size": [ 15, 13 ]
             },
             {
               "requires": "($google_os and $supports_share)",
               "$share_icon_texture": "textures/ui/share_google",
-              "$share_icon_offset": [ 2.0, -0.5 ],
+              "$share_icon_offset": [ 2.0, 1.0 ],
               "$share_icon_size": [ 14, 13 ]
             },
             {
               "requires": "($supports_clipboard and not $supports_share)",
               "$share_icon_texture": "textures/ui/copy",
-              "$share_icon_offset": [ 1.5, -0.5 ],
+              "$share_icon_offset": [ 2.0, 1.0 ],
               "$share_icon_size": [ 13, 14 ]
             }
           ],
@@ -500,105 +1087,124 @@
   "copy_link_stack_panel": {
     "type": "stack_panel",
     "orientation": "horizontal",
-    "size": [ "100%", 22 ],
+    "size": [ "100%", "100%cm" ],
     "$placeholder_text": "#share_link",
+    "$focus_left|default": "classrooms_button",
+    "$focus_right|default": "resource_button",
     "controls": [
       {
         "link_box@common.text_edit_box": {
-          "size": [ "fill", 22 ],
+          "size": [ "fill", "100%sm" ],
           "enabled": false,
           "$text_edit_box_enabled_binding_type": "none",
-          "$place_holder_text": "$library_item_share_link",
+          "$text_edit_box_label_anchor_point": "left_middle",
+          "$text_edit_box_label_size": [ "100%", 10 ],
+          "$place_holder_text": "$placeholder_item_share_link",
           "$place_holder_text_color": "$body_text_color",
-          "$button_tts_name": "realmsInvitationScreen.shareDialogCopyButton",
-          "$button_tts_header": "controllerLayoutScreen.button",
           "$locked_text_alpha": 1.0
         }
       },
       {
         "copy_button@common_buttons.light_content_button": {
+          "$focus_id": "copy_button",
+          "$focus_override_left": "$focus_left",
+          "$focus_override_right": "$focus_right",
           "$button_content": "edu_common.share_label",
           "$pressed_button_name": "button.copy_share_link",
-          "$button_tts_name": "controllerLayoutScreen.button",
-          "$button_tts_header": "realmsInvitationScreen.shareDialogCopyButton",
-          "size": [ 22, 22 ]
+          "size": [ "100%y", 24 ]
         }
       }
     ]
   },
 
-  //Popup dialog and factory
-  "edu_share_text_popup@popup_dialog.popup_dialog": {
-    "size": [ 300, 75 ],
-    "$background_control|default": "common.dialog_background_hollow_3",
-    "$header_control|default": "edu_common.share_header_panel",
-    "$body_content_control|default": "edu_common.body_panel",
+  "icon_stack_panel": {
+    "type": "stack_panel",
+    "size": [ "100%", 10 ],
+    "offset": [ 0, 1 ],
+    "orientation": "horizontal",
+    "$focus_down|default": "copy_button",
+    "$wrap_focus_left|default": "copy_button",
+    "controls": [
+      { "padding_left@common.empty_panel": { "size": [ "fill", "100%" ] } },
+      {
+        "teams_button@edu_common.default_share_button": {
+          "$focus_id": "teams_button",
+          "$focus_override_down": "$focus_down",
+          "$focus_override_left": "$wrap_focus_left",
+          "$share_image": "textures/ui/teams_icon",
+          "$pressed_button_name": "button.teams_share",
+          "$image_size": [ "100%", "100%" ],
+          "ignored": "($apple_os and $supports_clipboard)"
+        }
+      },
+      {
+        "teams_mail_padding@common.empty_panel": {
+          "size": [ 12, "100%" ],
+          "ignored": "($apple_os and $supports_clipboard)"
+        }
+      },
+      {
+        "mail_button@edu_common.default_share_button": {
+          "$focus_id": "mail_button",
+          "$focus_override_down": "$focus_down",
+          "$share_image": "textures/ui/mail_icon",
+          "$pressed_button_name": "button.mail_share",
+          "$image_size": [ "100% - 6px", "100% - 4px" ]
+        }
+      },
+      {
+        "mail_classrooms_padding@common.empty_panel": {
+          "size": [ 12, "100%" ]
+        }
+      },
+      {
+        "classrooms_button@edu_common.default_share_button": {
+          "$focus_id": "classrooms_button",
+          "$focus_override_down": "$focus_down",
+          "$share_image": "textures/ui/classrooms_icon",
+          "$pressed_button_name": "button.classrooms_share",
+          "$image_size": [ "100% - 4px", "100% - 4px" ]
+        }
+      },
+      { "padding_right@common.empty_panel": { "size": [ "fill", "100%" ] } }
+    ]
+  },
+
+  "default_share_button_contents": {
+    "type": "panel",
+    "$background_ignored|default": false,
     "controls": [
       {
-        "background@$background_control": {
-          "$fill_alpha": 1.0
+        "background": {
+          "ignored": "$background_ignored",
+          "type": "image",
+          "texture": "textures/ui/White",
+          "color": [ 0.216, 0.216, 0.216 ],
+          "alpha": 0.8
         }
       },
       {
-        "header@$header_control": {}
-      },
-      {
-        "body_content@$body_content_control": {}
-      }
-    ],
-    "button_mappings": [
-      {
-        "from_button_id": "button.menu_select",
-        "to_button_id": "button.menu_select",
-        "mapping_type": "pressed"
-      },
-      {
-        "from_button_id": "button.menu_secondary_select",
-        "to_button_id": "button.menu_secondary_select",
-        "mapping_type": "pressed"
-      },
-      {
-        "from_button_id": "button.menu_ok",
-        "to_button_id": "button.menu_ok",
-        "mapping_type": "pressed"
-      },
-      {
-        "from_button_id": "button.menu_cancel",
-        "to_button_id": "button.close_share_popup",
-        "mapping_type": "global"
-      },
-      {
-        "from_button_id": "button.menu_up",
-        "to_button_id": "button.menu_up",
-        "mapping_type": "global",
-        "scope": "view"
-      },
-      {
-        "from_button_id": "button.menu_down",
-        "to_button_id": "button.menu_down",
-        "mapping_type": "global",
-        "scope": "view"
-      },
-      {
-        "from_button_id": "button.menu_left",
-        "to_button_id": "button.menu_left",
-        "mapping_type": "global",
-        "scope": "view"
-      },
-      {
-        "from_button_id": "button.menu_right",
-        "to_button_id": "button.menu_right",
-        "mapping_type": "global",
-        "scope": "view"
+        "image": {
+          "type": "image",
+          "layer": 1,
+          "size": "$image_size",
+          "texture": "$share_image"
+        }
       }
     ]
   },
 
-  "share_popup_dialog_factory": {
-    "type": "factory",
-    "control_ids": {
-      "share_link_popup": "@edu_common.edu_share_text_popup"
-    }
+  "default_share_button@common.button": {
+    "size": [ 22, 22 ],
+    "controls": [
+      {
+        "default@edu_common.default_share_button_contents": {
+          "$background_ignored": true
+        }
+      },
+      { "hover@edu_common.default_share_button_contents": {} },
+      { "pressed@edu_common.default_share_button_contents": {} }
+    ]
   },
 
   "vertical_divider": {
@@ -620,12 +1226,13 @@
   "horizontal_divider": {
     "type": "panel",
     "size": [ "100%", 8 ],
+    "$alpha|default": 0.1,
     "controls": [
       {
         "divider": {
           "type": "image",
           "texture": "textures/ui/horizontal_divider",
-          "alpha": 0.1,
+          "alpha": "$alpha",
           "keep_ratio": false,
           "size": [ "100%", 2 ]
         }
@@ -749,36 +1356,177 @@
     ]
   },
 
+  "border": {
+    "type": "image",
+    "texture": "textures/ui/black_border"
+  },
+
   // Requires
   // - $ignore_page_description
   // - $page_description
   "description_panel": {
     "type": "image",
-    "texture": "textures/ui/purpleBorder",
+    "texture": "textures/ui/Black",
+    "alpha": 0.7,
     "ignored": "$ignore_page_description",
-    "size": [ "100%", "100%cm + 10px" ],
+    "size": [ "100%", "100%cm" ],
     "controls": [
       {
-        "description_stack": {
+        "border@common.non_interact_focus_border_button": {
+          "tts_inherit_siblings": true,
+          "$default_focus_border_control": "edu_common.border",
+          "size": [ "100%", "100%sm + 10px" ],
+          "layer": 1,
+          "bindings": [
+            {
+              "binding_name": "#tts_enabled",
+              "binding_name_override": "#enabled"
+            }
+          ]
+        }
+      },
+      {
+        "description": {
+          "type": "label",
+          "color": "$body_text_color",
+          "font_type": "smooth",
+          "text": "$page_description",
+          "offset": [ 0, -0.5 ],
+          "size": [ "100% - 10px", "default" ],
+          "layer": 2
+        }
+      }
+    ]
+  },
+
+  // Popup dialog and factory
+  "edu_share_text_popup@popup_dialog.form_fit_modal_dialog_popup": {
+    "$modal_title": "($share_source + '.item.sharepopup.title.simple')",
+    "$modal_contents": "edu_common.body_panel",
+    "$modal_contents_padding": [ 6, 6 ],
+    "$popup_dialog_escape_button_name": "button.close_share_popup"
+  },
+
+  "teams_edu_share_text_popup@popup_dialog.form_fit_modal_dialog_popup": {
+    "$modal_title": "$teams_advanced_share_header_text",
+    "$modal_contents": "edu_common.teams_body_panel",
+    "$modal_contents_padding": [ 6, 6 ],
+    "$popup_dialog_escape_button_name": "button.close_share_popup"
+  },
+
+  "teams_edu_share_resource_popup@popup_dialog.form_fit_modal_dialog_popup": {
+    "$modal_title": "$teams_advanced_share_header_text",
+    "$modal_contents": "edu_common.teams_body_resource_panel",
+    "$modal_contents_padding": [ 6, 6 ],
+    "$popup_dialog_escape_button_name": "button.close_share_popup"
+  },
+
+  "teams_edu_simple_share_resource_popup@popup_dialog.form_fit_modal_dialog_popup": {
+    "$modal_title": "($share_source + '.item.sharepopup.title.simple')",
+    "$modal_contents": "edu_common.teams_simple_body_resource_panel",
+    "$modal_contents_padding": [ 6, 6 ],
+    "$popup_dialog_escape_button_name": "button.close_share_popup"
+  },
+
+  "joincode_edu_popup@popup_dialog.form_fit_modal_dialog_popup": {
+    "$modal_title": "($share_source + '.item.sharepopup.title.simple')",
+    "$modal_contents": "edu_common.joincode_body_panel",
+    "$modal_contents_padding": [ 6, 6 ],
+    "$popup_dialog_escape_button_name": "button.close_share_popup"
+  },
+
+  "manage_sharelink_edu_popup@popup_dialog.form_fit_modal_dialog_popup": {
+    "$modal_title": "($share_source + '.item.sharepopup.title.simple')",
+    "$modal_contents": "edu_common.manage_sharelink_body_panel",
+    "$modal_contents_padding": [ 6, 6 ],
+    "$popup_dialog_escape_button_name": "button.close_share_popup"
+  },
+
+  "add_resource_dialog@popup_dialog.form_fit_modal_dialog_popup": {
+    "$popup_dialog_escape_button_name": "button.cancel_add_resource_button",
+
+    "$modal_title": "($share_source + '.item.sharepopup.title.addResource')",
+    "$modal_contents": "edu_common.add_resource_body_panel",
+    "$modal_contents_padding": [ 6, 6 ],
+
+    "$popup_type": "popup_dialog.form_fit_screen_with_title_and_close_and_bottom_buttons",
+    "$lower_button_control": "edu_common.add_resource_popup_lower_button_panel"
+  },
+
+  "share_popup_dialog_factory": {
+    "type": "factory",
+    "control_ids": {
+      "share_link_popup": "@edu_common.edu_share_text_popup",
+      "teams_share_link_simple_popup": "@edu_common.teams_edu_simple_share_resource_popup",
+      "teams_share_link_popup": "@edu_common.teams_edu_share_text_popup",
+      "teams_share_link_resource_popup": "@edu_common.teams_edu_share_resource_popup",
+      "joincode_popup": "@edu_common.joincode_edu_popup",
+      "add_resource_dialog": "@edu_common.add_resource_dialog"
+    }
+  },
+
+  "inline_notification": {
+    "type": "image",
+    "texture": "textures/ui/background_indent_no_top",
+    "size": [ "100%", "100%cm" ],
+    "layer": 1,
+    "$state|default": "info",
+    "$icon|default": "textures/ui/WarningGlyph",
+    "$icon_size|default": [ 13, 20 ],
+    "variables": [
+      {
+        "requires": "($state = 'info')",
+        "$icon": "textures/ui/infobulb",
+        "$icon_size": [ 15, 19 ]
+      },
+      {
+        "requires": "($state = 'update')",
+        "$icon": "textures/ui/UpdateGlyph",
+        "$icon_size": [ 13, 20 ]
+      },
+      {
+        "requires": "($state = 'warning')",
+        "$icon": "textures/ui/WarningGlyph",
+        "$icon_size": [ 13, 20 ]
+      },
+      {
+        "requires": "($state = 'error')",
+        "$icon": "textures/ui/ErrorGlyph",
+        "$icon_size": [ 13, 20 ]
+      }
+    ],
+    "controls": [
+      {
+        "stack": {
           "type": "stack_panel",
           "orientation": "horizontal",
-          "size": [ "100% - 10px", "100%cm" ],
+          "size": [ "100% - 6px", "100%cm + 11px" ],
+          "offset": [ 3, 5 ],
+          "layer": 2,
           "controls": [
             {
               "icon": {
                 "type": "image",
-                "texture": "textures/ui/infobulb",
-                "anchor_from": "top_left",
-                "anchor_to": "top_left",
-                "size": [ 9, 12 ],
-                "layer": 1
+                "texture": "$icon",
+                "size": "$icon_size",
+                "layer": 3
               }
             },
-            { "icon_label_padding@common.empty_panel": { "size": [ 3, "100%sm" ] } },
             {
-              "label@library.base_label": {
-                "text": "$page_description",
-                "size": [ "fill", "default" ]
+              "spacer": {
+                "type": "panel",
+                "size": [ 4, "100%sm" ],
+                "layer": 3
+              }
+            },
+            {
+              "warning_text": {
+                "type": "label",
+                "color": "$body_text_color",
+                "size": [ "fill", "default" ],
+                "layer": 3,
+                "font_type": "smooth",
+                "text": "$warning_text"
               }
             }
           ]

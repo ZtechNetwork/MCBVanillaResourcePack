@@ -106,6 +106,8 @@
     "size": [ "100%", "100%c + 9px" ],
     "$text|default": "unset $text",
     "$text_bindings|default": [],
+    "$font_type|default": "default",
+    "$font_scale_factor|default": 1,
     "controls": [
       {
         "text": {
@@ -117,7 +119,9 @@
           "max_size": [ "100%", "default" ],
           "offset": [ 0, 4 ],
           "locked_alpha": 0.5,
-          "bindings": "$text_bindings"
+          "bindings": "$text_bindings",
+          "font_type": "$font_type",
+          "font_scale_factor": "$font_scale_factor"
         }
       }
     ]
@@ -854,12 +858,14 @@
                 "$options_dropdown_label_color_binding_type|default": "none",
                 "$options_dropdown_label_color_binding|default": "",
                 "$options_dropdown_toggle_label_font_type|default": "default",
+                "$options_dropdown_toggle_label_font_scale|default": 1.0,
                 "anchor_from": "left_middle",
                 "anchor_to": "left_middle",
                 "size": [ "100%", "default" ],
                 "max_size": [ "100%", "100%" ],
                 "text": "$options_dropdown_toggle_label_binding",
                 "font_type": "$options_dropdown_toggle_label_font_type",
+                "font_scale_factor": "$options_dropdown_toggle_label_font_scale",
                 "$options_dropdown_toggle_label_shadow|default": false,
                 "shadow": "$options_dropdown_toggle_label_shadow",
                 "alpha": "$content_alpha",

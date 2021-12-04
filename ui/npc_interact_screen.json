@@ -582,6 +582,42 @@
     ]
   },
 
+  "url_notifications": {
+    "type": "stack_panel",
+    "orientation": "vertical",
+    "size": ["100%", "100%c"],
+    "controls": [
+      {
+        "empty_uri_warning@edu_common.inline_notification": {
+          "$state": "warning",
+          "$warning_text": "npcscreen.action.url.warning.emptyUri",
+          "bindings": [
+            {
+              "binding_name": "(#action_error_status = 'EmptyUri')",
+              "binding_name_override": "#visible",
+              "binding_type": "collection",
+              "binding_collection_name": "actions_collection"
+            }
+          ]
+        }
+      },
+      {
+        "invalid_uri_warning@edu_common.inline_notification": {
+          "$state": "warning",
+          "$warning_text": "npcscreen.action.url.warning.invalidUri",
+          "bindings": [
+            {
+              "binding_name": "(#action_error_status = 'InvalidUri')",
+              "binding_name_override": "#visible",
+              "binding_type": "collection",
+              "binding_collection_name": "actions_collection"
+            }
+          ]
+        }
+      }
+    ]
+  },
+
   "action_template@npc_interact.main_stack_panel": {
     "size": [ "100% - 12px", "100%c" ],
     "offset": [ 0, 5 ],
@@ -593,7 +629,9 @@
       },
       { "label_pad@common.empty_panel": { "size": [ "100%", 2 ] } },
       { "edit@npc_interact.action_edit": {} },
-      { "edit_pad@common.empty_panel": { "size": [ "100%", 3 ] } },
+      { "edit_pad@common.empty_panel": { "size": [ "100%", 1 ] } },
+      { "url_warning@npc_interact.url_notifications": {} },
+      { "url_pad@common.empty_panel": { "size": [ "100%", 3 ] } },
       { "action_mode@npc_interact.action_mode": {} },
       { "mode_pad@common.empty_panel": { "size": [ "100%", 3 ] } },
       { "button_name_label@npc_interact.button_name_label": {} },
@@ -964,41 +1002,6 @@
         }
       },
       { "background@common.empty_panel": { "size": [ "100%", "100%sm" ] } }
-    ],
-    "button_mappings": [
-      {
-        "from_button_id": "button.menu_select",
-        "to_button_id": "$text_edit_box_selected_to_button_id",
-        "handle_select": true,
-        "handle_deselect": true,
-        "mapping_type": "pressed"
-      },
-      {
-        "from_button_id": "button.menu_select",
-        "to_button_id": "$text_edit_box_selected_to_button_id",
-        "handle_select": false,
-        "handle_deselect": true,
-        "mapping_type": "global",
-        "consume_event": false
-      },
-      {
-        "from_button_id": "button.menu_cancel",
-        "to_button_id": "$text_edit_box_deselected_to_button_id",
-        "handle_select": false,
-        "handle_deselect": true,
-        "mapping_type": "global"
-      },
-      {
-        "to_button_id": "$text_edit_box_hovered_button_id",
-        "mapping_type": "pressed"
-      },
-      {
-        "from_button_id": "$text_edit_box_clear_from_button_id",
-        "to_button_id": "$text_edit_box_clear_to_button_id",
-        "handle_select": false,
-        "handle_deselect": false,
-        "mapping_type": "focused"
-      }
     ]
   },
 

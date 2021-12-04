@@ -5,8 +5,8 @@
       "loop": true,
       "bones": {
         "pole": {
-          "position": [ -9.0, -1.0, -8.0 ],
-          "rotation": [ 159.0, -19.0, 32.0 ]
+          "position": [ -7.0, -3.0, -2.0 ],
+          "rotation": [ 152.0, -9.0, 25.0 ]
         }
       }
     },
@@ -14,8 +14,12 @@
       "loop": true,
       "bones": {
         "pole": {
-          "position": [ "math.lerp(8.0, -1.5, variable.charge_amount)", -9.5, "math.lerp(8.0, -1.0, variable.charge_amount)" ], 
-          "rotation": [ 35.0, -30.0, -65.0 ]
+          "position": [
+            "6.0 + (variable.charge_amount <= 0.25 ? math.lerp(0.0, -6.5, variable.charge_amount * 4.0) : -6.5) + (variable.charge_amount > 0.25 ? math.lerp(0.0, -4.0, (variable.charge_amount - 0.25) * 1.33) : 0.0)",
+            "-3.0 + (variable.charge_amount <= 0.25 ? math.lerp(0.0, -3.0, variable.charge_amount * 4.0) : -3.0) + (variable.charge_amount > 0.25 ? math.lerp(0.0, 3.0, (variable.charge_amount - 0.25) * 1.33) : 0.0)",
+            "8.0 + (variable.charge_amount <= 0.25 ? math.lerp(0.0, -16.5, variable.charge_amount * 4.0) : -16.5) + (variable.charge_amount > 0.25 ? math.lerp(0.0, 0.0, (variable.charge_amount - 0.25) * 1.33) : 0.0)"
+          ], 
+          "rotation": [ 30.0, -20.0, -65.0 ]
         }
       }
     },
@@ -23,7 +27,7 @@
       "loop": true,
       "bones": {
         "pole": {
-          "position": [ 0.0, "variable.charge_amount >= 1.0 ? math.sin(q.life_time * 900.0) * 0.05 : 0.0", 0.0 ],
+          "position": [ 0.0, "variable.charge_amount >= 1.0 ? math.sin(q.life_time * 1000.0 * 1.3) * 0.1 - math.sin(q.life_time * 45.0) * 0.5 : 0.0", 0.0 ],
           "rotation": [ 0.0, 0.0, 0.0 ]
         }
       }
@@ -42,7 +46,7 @@
     "loop": true,
     "bones": {
       "pole": {
-        "position": [ 0.75, -2.5, -10.5 ],
+        "position": [ 1.5, -2.5, -10.5 ],
         "rotation": [ 97.0, -1.5, -49.0 ]
       }
     }
@@ -51,8 +55,8 @@
     "loop": true,
     "bones": {
       "pole": {
-        "position": [ 2.0, 1.25, 20.0 ],
-        "rotation": [ -1.0, 195.0, 10.0 ]
+        "position": [ -0.7, 0, 17.5 ],
+        "rotation": [ -7, 180.0, -40.0 ]
       }
     }
   }

@@ -25,6 +25,9 @@
 			"bones": {
 				"body": {
 					"rotation": [ "query.target_x_rotation", "query.target_y_rotation", 0.0 ]
+				},
+				"head": {
+					"rotation": [ "query.target_x_rotation", "query.target_y_rotation + 180", 0.0 ]
 				}
 			}
 		},
@@ -38,9 +41,9 @@
 					"scale": [ 0.4, 0.4, 0.4 ]
 				},
 				"rightitem": {
-					"position": [ 0.0, 2.0, "1.0 + query.item_remaining_use_duration('main_hand', 1.0) * 1.5" ],
+					"position": [ 0.0, 2.0, "2.5 - query.item_remaining_use_duration('main_hand', 1.0) * 1.5" ],
 					"rotation": [ -20.0, -15.0, -30.0 ],
-					"scale": [ 1.0, "1.0 + query.item_remaining_use_duration('main_hand', 1.0) * 0.15", 1.0 ]
+					"scale": [ 1.0, "1.15 - query.item_remaining_use_duration('main_hand', 1.0) * 0.15", 1.0 ]
 				}
 			}
 		},

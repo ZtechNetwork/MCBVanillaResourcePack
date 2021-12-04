@@ -124,6 +124,7 @@
 
   "edit_appearance_preset_button@common_buttons.light_text_button": {
     "size": [ "100%", 23 ],
+    "$button_focus_precedence": 20,
     "$pressed_button_name": "button.edit_appearance_preset",
     "$button_text": "gui.edit",
     "bindings": [
@@ -393,6 +394,7 @@
       {
         "retry_button@profile.retry_appearance_button": {
           "offset": [ 0, "14%" ],
+          "visible": false,
           "$preset_appearance_property_bag|default": {},
           "property_bag": "$preset_appearance_property_bag",
           "bindings": [
@@ -624,11 +626,13 @@
           "focus_container": true,
           "use_last_focus": false,
           "focus_wrap_enabled": false,
-          "focus_nagivation_mode_left": "stop",
           "focus_nagivation_mode_right": "stop",
+          "focus_nagivation_mode_left": "$main_content_focus_container_left",
+          "focus_container_custom_left": "$main_content_focus_container_left_custom",
+          "$preset_arrow_button_layer": 228,
 
           "type": "stack_panel",
-          "orientation": "horizontal",
+          "orientation": "horizontal", 
           "size": [ "100%", "100%" ],
           "controls": [
             { "left_padding@profile.horizontal_fill_padding": {} },
@@ -638,6 +642,7 @@
               "preset_arrow_button_left_panel": {
                 "type": "panel",
                 "size": [ 24, "100%" ],
+                "layer": "$preset_arrow_button_layer",
                 "controls": [
                   {
                     "preset_arrow_button_left@profile.preset_arrow_button_panel": {
@@ -666,6 +671,7 @@
               "preset_arrow_button_right_panel": {
                 "type": "panel",
                 "size": [ 24, "100%" ],
+                "layer": "$preset_arrow_button_layer",
                 "controls": [
                   {
                     "preset_arrow_button_right@profile.preset_arrow_button_panel": {
@@ -717,6 +723,7 @@
 
   "edit_appearance_button@common_buttons.light_text_button": {
     "size": [ "100%", "100%" ],
+    "$button_focus_precedence": 20,
     "$pressed_button_name": "button.edit_appearance_preset",
     "$font_type": "MinecraftTen",
     "$button_font_scale_factor": 1.0,
@@ -738,6 +745,7 @@
   },
 
   "edit_appearance_error_button@common_buttons.dynamic_tooltip_notification_panel": {
+    "ignored": "(not $store_disabled)",
     "size": [ "100%", "100%" ],
     "button_mappings": [
       {
@@ -752,19 +760,12 @@
     ],
     "consume_hover_events": false,
     "focus_enabled": true,
-    "$dynamic_tooltip_button_visibility_binding_name": "#edit_appearance_disabled",
     "$tooltip_popup_visible_binding": "#edit_appearance_error_tooltip_visible",
     "$override_tooltip_popup_image": true,
     "$tooltip_popup_override_image_panel": "start.store_error_image",
-    "$tooltip_text_binding_name": "#edit_appearance_error_text",
     "$tool_tip_text_max_size": [ "160px", "default" ],
     "$tooltip_panel_content": "profile.edit_appearance_error_button_content",
-    "bindings": [
-      {
-        "binding_name": "#edit_appearance_disabled",
-        "binding_name_override": "#visible"
-      }
-    ]
+    "bindings": []
   },
 
   "edit_appearance_error_button_content": {
@@ -776,13 +777,8 @@
         "marketplace_button_label": {
           "layer": 9,
           "type": "label",
-          "text": "#edit_appearance_text",
-          "color": "$light_button_locked_text_color",
-          "bindings": [
-            {
-              "binding_name": "#edit_appearance_text"
-            }
-          ]
+          "text": "store.disabledOnBeta",
+          "color": "$light_button_locked_text_color"
         }
       }
     ]
@@ -823,29 +819,9 @@
   "retry_appearance_button@common_buttons.light_content_button": {
     "size": [ "130%y", "30%" ],
     "layer": "$always_show_layer",
+    "$button_focus_precedence": 20,
     "$pressed_button_name": "button.retry_appearance_preset",
     "$button_content": "profile.retry_button_image_content"
-  },
-
-  ////////////////////////////
-  //// achievement button ////
-  "achievements_button@common_buttons.light_text_button": {
-    "size": [ "fill", "100%" ],
-    "$pressed_button_name": "button.achievements",
-    "$button_text": "gui.achievements",
-    "$font_type": "MinecraftTen",
-    "$button_font_scale_factor": 1.0,
-    "$new_ui_label_offset": [ 0, 2 ],
-    "$button_text_size": [ "100%", "100%" ],
-    "$button_text_max_size": [ "100%", "100%" ],
-    "tts_play_on_unchanged_focus_control": true,
-    "bindings": [
-      {
-        "binding_name": "#enable_achievement_button",
-        "binding_name_override": "#enabled",
-        "binding_condition": "always"
-      }
-    ]
   },
 
   /////////////////////////
@@ -864,17 +840,7 @@
   //// sides padding panel ////
   "buttons_sides_padding_panel": {
     "type": "panel",
-    "variables": [
-      {
-        "requires": "$supports_xbl_achievements",
-        "$sides_padding_size": [ "5%", 0 ]
-      },
-      {
-        "requires": "(not $supports_xbl_achievements)",
-        "$sides_padding_size": [ "27%", 0 ]
-      }
-    ],
-    "size": "$sides_padding_size"
+    "size": [ "27%", 0 ]
   },
 
   "sides_padding_panel": {
@@ -891,18 +857,7 @@
       { "left_padding@profile.buttons_sides_padding_panel": {} },
       { "edit_button@profile.edit_appearance_button_panel": {} },
       { "delete_button@profile.delete_appearance_button": {} },
-      // { "random_button@profile.random_appearance_button": {} },
       { "mid_padding@profile.horizontal_padding_8px": {} },
-      {
-        "achievements_button@profile.achievements_button": {
-          "ignored": "(not $supports_xbl_achievements)"
-        }
-      },
-      {
-        "more_padding@profile.horizontal_padding_4px": {
-          "ignored": "(not $supports_xbl_achievements)"
-        }
-      },
       { "settings_button@profile.settings_button": {} },
       { "right_padding@profile.buttons_sides_padding_panel": {} }
     ]
@@ -1137,9 +1092,10 @@
           "focus_container": true,
           "use_last_focus": false,
           "focus_wrap_enabled": false,
-          "focus_nagivation_mode_left": "stop",
           "focus_nagivation_mode_right": "stop",
-          "focus_nagivation_mode_down": "stop"
+          "focus_nagivation_mode_down": "stop",
+          "focus_nagivation_mode_left": "$main_content_focus_container_left",
+          "focus_container_custom_left": "$main_content_focus_container_left_custom"
         }
       },
       { "right_padding@profile.sides_padding_panel": {} }
@@ -1149,7 +1105,7 @@
   // --------------------------------------------------------------------------------------
   // screen controls
   // --------------------------------------------------------------------------------------
-  "profile_screen_main_panel": {
+  "profile_screen_main_panel_content": {
     "type": "panel",
     "controls": [
       {
@@ -1184,8 +1140,9 @@
                 "focus_container": true,
                 "use_last_focus": false,
                 "focus_wrap_enabled": false,
-                "focus_nagivation_mode_left": "stop",
-                "focus_nagivation_mode_right": "stop"
+                "focus_nagivation_mode_right": "stop",
+                "focus_nagivation_mode_left": "$main_content_focus_container_left",
+                "focus_container_custom_left": "$main_content_focus_container_left_custom"
               }
             },
             { "featured_section@profile.bottom_panel_framework": {} },
@@ -1217,6 +1174,10 @@
     ]
   },
 
+  "profile_screen_main_panel@sidebar_navigation.sidebar_view": {
+    "$sidebar_main_view_content": "profile.profile_screen_main_panel_content"
+  },
+
   "profile_screen_background_content": {
     "type": "image",
     "fill": true,
@@ -1226,15 +1187,11 @@
   "profile_screen_content": {
     "type": "panel",
     "size": [ "100%", "100%" ],
-    "$ignore_home_button": true,
-    "$ignore_search": true,
     "controls": [
       {
         "main_panel@common_store.store_header_with_coins": {
           "$child_control": "profile.profile_screen_main_panel",
-          "$back_button_pressed_button_name": "button.try_exiting",
-          "$top_status_and_coins_visible_binding": "(not #edit_appearance_disabled)",
-          "$top_status_and_coins_visible_binding_type": "global"
+          "$back_button_pressed_button_name": "button.try_exiting"
         }
       },
       {
@@ -1277,6 +1234,7 @@
       }
     ],
     "$screen_animations": [
+      "@common.screen_exit_animation_pop_offset",
       "@common.screen_exit_animation_push_fade",
       "@common.screen_exit_animation_pop_fade",
       "@common.screen_entrance_animation_push_fade",
@@ -1290,8 +1248,8 @@
     "$header_bar_control": "common_store.store_top_bar",
     "$is_full_screen_layout": true,
     "$ignore_home_button": true,
-    "$ignore_search_button": true,
-    "$ignore_inventory_button": "#edit_appearance_disabled",
+    "$ignore_search": true,
+    "$sidebar_ignore_page_loading": true,
     "$screen_bg_content": "profile.profile_screen_background_content",
 
     "$always_show_layer": 200,
@@ -1300,13 +1258,13 @@
     "$preset_appearance_back_layer": 5
   },
 
-  "popup_toast@toast_screen.popup": {
+  "popup_toast@persona.popup": {
     "layer": 1000,
     "$display_time": 0.75,
     "$transition_in_time": 0.15,
     "$transition_out_time": 0.15,
-    "$popup_size": [ 148, 20 ],
-    "$toast_text_offset": [ 0, 4 ],
+    "$popup_size": [ 148, "100%cm" ],
+    "$toast_text_offset": [ 0, 0 ],
     "$toast_offset": [ 0, "10%" ],
     "$toast_text_alignment": "center",
     "$toast_anchor_from": "center",

@@ -17,7 +17,9 @@
     "layer": 1,
     "texture": "$new_ui_button_texture",
     "$button_alpha|default": "$content_alpha",
-    "alpha": "$button_alpha"
+    "alpha": "$button_alpha",
+    "$button_image_bindings|default": [],
+    "bindings": "$button_image_bindings"
   },
 
   "background_button_image": {
@@ -1034,7 +1036,7 @@
 
   "horizontal_form_fitting": {
     "type": "panel",
-    "size": [ "100%c", "100%" ],
+    "size": [ "100%c", "100%c" ],
     "offset": "$button_offset",
     "controls": [
       {
@@ -2012,6 +2014,8 @@
     // binding vars (should be same for all children)
     "$tooltip_button_binding_type|default": "global",
     "$tooltip_button_collection_name|default": "",
+    "$tooltip_button_visibility_binding_name|default": "#dynamic_tooltip_notification_visibility_binding_name",
+
 
     "locked_control": "locked",
 
@@ -2058,7 +2062,7 @@
     ],
     "bindings": [
       {
-        "binding_name": "$_tooltip_button_visibility_binding_name",
+        "binding_name": "$tooltip_button_visibility_binding_name",
         "binding_name_override": "#visible",
         "binding_collection_name": "$tooltip_button_collection_name",
         "binding_type": "$tooltip_button_binding_type"

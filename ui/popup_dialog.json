@@ -468,14 +468,46 @@
     ]
   },
 
+  "hollow_2_bottom_button_panel": {
+    "type": "panel",
+    "size": [ "100% + 2px", 28 ],
+    "offset": [ 0, -1 ],
+    "controls": [
+      { "lower_button_controls@$lower_button_control": {} }
+    ]
+  },
+
+  "form_fit_screen_with_title_and_close_and_bottom_buttons@popup_dialog.form_fit_screen_with_title_and_close": {
+    "$window_type": "common.dialog_background_hollow_2",
+    "$panel_size": [ "100%cm + 16px", "100%c + 23px" ],
+
+    "$title_offset": [ 0, 13 ],
+
+    "$content_offset": [ 0, 23 ],
+
+    "$lower_size": [ "100%sm", 42 ],
+    "$lower_contents": "popup_dialog.hollow_2_bottom_button_panel"
+  },
+
   "form_fit_screen_with_title_and_close": {
     "type": "panel",
-    "size": [ "100%c", "100%c" ],
+    "size": [ "100%cm", "100%cm" ],
     "layer": 1,
     "$no_close_button|default": false,
+
+    "$window_type|default": "common.dialog_background_hollow_3",
+    "$panel_size|default": [ "100%cm + 16px", "100%c + 31px" ],
+
+    "$title_offset|default": [ 0, 13 ],
+
+    "$content_offset|default": [ 0, 23 ],
+
+    "$lower_size|default": [ "100%sm", 0 ],
+    "$lower_contents|default": "common.empty_panel",
+
     "controls": [
       {
-        "panel_background@common.dialog_background_hollow_3": {
+        "panel_background@$window_type": {
           "size": [ "100%sm", "100%sm" ],
           "layer": -1
         }
@@ -483,7 +515,7 @@
       {
         "panel_content": {
           "type": "panel",
-          "size": [ "100%cm + 16px", "100%c + 31px" ],
+          "size": "$panel_size",
           "controls": [
             {
               "header": {
@@ -491,7 +523,7 @@
                 "size": [ "100%c + 15px", 0 ],
                 "anchor_from": "top_middle",
                 "anchor_to": "top_middle",
-                "offset": [ 0, 13 ],
+                "offset": "$title_offset",
                 "controls": [
                   {
                     "header_content": {
@@ -541,7 +573,7 @@
                 "size": [ "100%c", "100%c" ],
                 "anchor_from": "top_middle",
                 "anchor_to": "top_middle",
-                "offset": [ 0, 23 ],
+                "offset": "$content_offset",
                 "controls": [
                   { "contents@$modal_contents": {} },
                   {
@@ -550,6 +582,17 @@
                       "size": "$modal_contents_padding"
                     }
                   }
+                ]
+              }
+            },
+            {
+              "lower_contents": {
+                "type": "panel",
+                "size": "$lower_size",
+                "anchor_from": "bottom_middle",
+                "anchor_to": "bottom_middle",
+                "controls": [
+                  { "contents@$lower_contents": {} }
                 ]
               }
             }
@@ -566,6 +609,16 @@
   // $modal_contents: The contents displayed in the hollow part of the dialog and
   //                  the control that will determine the size of the popup
   //
+  // Optional Types:
+  //   Used to define new looks for the popup
+  // $popup_type (default: popup_dialog.form_fit_screen_with_title_and_close)
+  // 1) popup_dialog.form_fit_screen_with_title_and_close
+  //     Only has a title and the contents
+  // 2) popup_dialog.form_fit_screen_with_title_and_close_and_bottom_buttons
+  //     Similar to the default but has space at the bottom for buttons
+  //   Required:
+  //   $lower_button_control: Control containing lower buttons (parent size: [ "100%", 28 ])
+  //
   // Optional:
   // $popup_dialog_escape_button_name: The mapping for button.menu_cancel and the close button (default: popup_dialog.escape)
   // $modal_contents_padding: The padding around the contents
@@ -575,9 +628,10 @@
   "form_fit_modal_dialog_popup@popup_dialog.modal_input_panel": {
     "size": [ "100%", "100%" ],
     "$modal_background|default": "common.screen_background",
+    "$popup_type|default": "popup_dialog.form_fit_screen_with_title_and_close",
     "controls": [
       { "background@$modal_background": {} },
-      { "content@popup_dialog.form_fit_screen_with_title_and_close": {} }
+      { "content@$popup_type": {} }
     ]
   },
 

@@ -1,25 +1,40 @@
 {
-	"format_version" : "1.10.0",
-	"animation_controllers" : {
+	"format_version": "1.10.0",
+	"animation_controllers": {
 		"controller.animation.shield.wield": {
-			"initial_state": "first_person",
+			"initial_state": "default",
 			"states": {
-				"first_person": {
+				"default": {
 					"animations": [
 						{
 							"wield_main_hand_first_person": "c.item_slot == 'main_hand'"
 						},
 						{
 							"wield_off_hand_first_person": "c.item_slot != 'main_hand'"
-						},
-						{
-							"wield_main_hand_first_person_block": "query.blocking && query.get_equipped_item_name('off_hand') != 'shield' && query.get_equipped_item_name == 'shield' && c.item_slot == 'main_hand'"
-						},
-						{
-							"wield_off_hand_first_person_block": "query.blocking && query.get_equipped_item_name('off_hand') == 'shield' && c.item_slot != 'main_hand'"
 						}
 					],
 					"transitions": [
+						{
+							"blocking": "query.blocking"
+						},
+						{
+							"third_person": "!c.is_first_person"
+						}
+					]
+				},
+				"blocking": {
+					"animations": [
+						{
+							"wield_main_hand_first_person_block": "query.get_equipped_item_name('off_hand') != 'shield' && query.get_equipped_item_name == 'shield' && c.item_slot == 'main_hand'"
+						},
+						{
+							"wield_off_hand_first_person_block": "query.get_equipped_item_name('off_hand') == 'shield' && c.item_slot != 'main_hand'"
+						}
+					],
+					"transitions": [
+						{
+							"default": "!query.blocking"
+						},
 						{
 							"third_person": "!c.is_first_person"
 						}
@@ -29,7 +44,7 @@
 					"animations": [ "wield_third_person" ],
 					"transitions": [
 						{
-							"first_person": "c.is_first_person"
+							"default": "c.is_first_person"
 						}
 					]
 				}

@@ -37,11 +37,16 @@
     "controls": [
       {
         "main_panel@common_store.store_header_with_coins": {
-          "$child_control": "realmsPlus_packs.main_panel",
+          "$child_control": "realmsPlus_packs.realmsPlus_view_packs_screen_main_panel",
           "$button_text": "store.title"
         }
       }
     ]
+  },
+
+
+  "realmsPlus_view_packs_screen_main_panel@sidebar_navigation.sidebar_view": {
+    "$sidebar_main_view_content": "realmsPlus_packs.main_panel"
   },
 
   "main_panel": {
@@ -106,7 +111,7 @@
             {
               "view_all_packs_title@common.minecraftTenLabel": {
                 "size": [ "default", "default" ],
-                "max_size": [ "100%", "default" ],                
+                "max_size": [ "100%", "default" ],
                 "color": "$store_white_text_color",
                 "font_type": "MinecraftTenEmoticon",
                 "text": "store.realmsPlus.viewAllPacksTitle"
@@ -125,7 +130,7 @@
         "store_factory@common_store.store_section_factory": {
           "$is_realms_plus_screen": true,
           "$content_offer_panel_size": [ "100% - 40px", "100%" ],
-          "$realms_chevron_binding_name": "#view_packs_chevron"          
+          "$realms_chevron_binding_name": "#view_packs_chevron"
         }
       }
     ]

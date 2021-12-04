@@ -6,8 +6,24 @@
     "$header_safezone_control": "common_store.store_top_bar_filler",
     "$header_bar_control": "common_store.store_top_bar",
     "$screen_background_control": "realmsPlus.purple_background",
+    "variables": [
+      {
+        "requires": "(not $use_animation)",
+        "$screen_animations": [],
+        "$background_animations": []
+      },
+      {
+        "requires": "($use_animation or (not $is_sidebar_navigation_enabled))",
+        "$screen_animations": [
+          "@common.screen_exit_animation_pop_offset",
+          "@common.screen_exit_animation_pop_fade"
+        ],
+        "$background_animations": []
+      }
+    ],
     "$is_full_screen_layout": true,
     "$fill_alpha": 1,
+
     "button_mappings": [
       {
         "from_button_id": "button.menu_cancel",
@@ -137,6 +153,10 @@
     ]
   },
 
+  "realmsPlus_screen_main_panel@sidebar_navigation.sidebar_view": {
+    "$sidebar_main_view_content": "realmsPlus.dialog_content"
+  },
+
   "realmsPlus_main_panel": {
     "type": "panel",
     "controls": [
@@ -148,8 +168,9 @@
           "controls": [
             {
               "main_panel@common_store.store_header_with_coins": {
-                "$child_control": "realmsPlus.dialog_content",
+                "$child_control": "realmsPlus.realmsPlus_screen_main_panel",
                 "$back_button_has_title": true,
+                "$sidebar_ignore_page_loading": true,
                 "$button_text": "store.realmsPlus"
               }
             }
