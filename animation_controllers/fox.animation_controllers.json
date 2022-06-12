@@ -53,7 +53,8 @@
 							"walk" : "query.modified_move_speed"
 						}
 					],
-					"transitions" : [
+					"blend_transition": 2.0,
+					"transitions": [
 						{
 							"default" : "query.is_on_ground"
 						}
@@ -102,7 +103,7 @@
 					"blend_transition" : 0.2,
 					"transitions" : [
 						{
-							"default" : "query.is_on_ground && !query.is_interested && !query.is_stalking"
+							"default": "!query.has_target && query.is_on_ground"
 						},
 						{
 							"crouch" : "query.is_on_ground && !query.is_interested && query.is_stalking"

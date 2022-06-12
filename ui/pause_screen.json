@@ -39,10 +39,9 @@
   "dressing_room_controller_button_content": {
     "type": "panel",
     "size": [ "100%c", "100%cm" ],
-    "min_size": [ 82, 22 ],
     "controls": [
       {
-        "button_x@common.gamepad_helper_x": {
+        "button_x@common.gamepad_helper_x_14": {
           "$gamepad_helper_visible_binding_type": "none",
           "anchor_from": "left_middle",
           "anchor_to": "left_middle",
@@ -64,7 +63,7 @@
             {
               "button_label_text_left@pause.controller_button_label": {
                 "size": [ "default", "default" ],
-                "max_size": [ 75, 20 ]
+                "max_size": [ 80, 20 ]
               }
             }
           ]
@@ -87,7 +86,7 @@
   },
 
   "change_profile_button_gamepad@common_buttons.light_content_form_fitting_button": {
-    "size": [ "100%", "100%c" ],
+    "size": [ "100%c", "100%c" ],
     "$button_content_size_override": [ "100%c - 4px", "100%c - 4px" ],
     "$pressed_button_name": "button.to_profile_or_skins_screen",
     "anchor_from": "bottom_middle",
@@ -305,8 +304,7 @@
     "anchor_to": "top_middle",
     "anchor_from": "top_middle",
     "$button_focus_precedence": 1,
-    "focus_change_up": "button.menu_quit",
-    "$focus_override_right": "change_skin_button"
+    "$focus_override_up": "achievements_button_focus"
   },
 
   "store_button_panel": {
@@ -381,8 +379,7 @@
     "$pressed_button_name": "button.menu_settings",
     "$button_text": "menu.settings",
     "anchor_to": "top_middle",
-    "anchor_from": "top_middle",
-    "$focus_override_right": "change_skin_button"
+    "anchor_from": "top_middle"
   },
 
   "how_to_play_button@pause.pause_button_template": {
@@ -390,8 +387,7 @@
     "$button_text": "menu.howToPlay",
     "anchor_to": "top_middle",
     "anchor_from": "top_middle",
-    "ignored": "(not $education_edition or $education_edition_china)",
-    "$focus_override_right": "change_skin_button"
+    "ignored": "(not $education_edition or $education_edition_china)"
   },
 
   "invite_players_button@pause.grid_button_template": {
@@ -432,8 +428,7 @@
     "$button_text": "pauseScreen.quit",
     "anchor_to": "top_middle",
     "anchor_from": "top_middle",
-    "focus_change_down": "button.feedback",
-    "$focus_override_right": "change_skin_button",
+    "$focus_override_down": "achievements_button_focus",
     "variables": [
       {
         "requires": "$is_secondary_client",
@@ -455,7 +450,11 @@
     "$button_tts_header": "accessibility.start.feedback",
     "$pressed_button_name": "button.feedback",
     "controls": [
-      { "feedback_button@pause.feedback_button": { "ignored": "$education_edition" } }
+      { "feedback_button@pause.feedback_button": {
+        "ignored": "$education_edition",
+        "$focus_override_left": "FOCUS_OVERRIDE_STOP"
+        }
+      }
     ]
   },
 
@@ -470,7 +469,11 @@
     "type": "panel",
     "$button_tts_header": "menu.achievements",
     "controls": [
-      { "achievements_button@pause.achievements_button": { "ignored": "$education_edition" } }
+      { "achievements_button@pause.achievements_button": {
+        "ignored": "$education_edition",
+        "$focus_id": "achievements_button_focus"
+        }
+      }
     ]
   },
 
@@ -751,7 +754,7 @@
     "size": [ "50% + 10px", "100%" ],
     "focus_container": true,
     "use_last_focus": true,
-    "focus_nagivation_mode_left": "contained",
+    "focus_navigation_mode_left": "contained",
     "controls": [
       { "menu_button_control@pause.menu_button_control": {} }
     ]
@@ -862,7 +865,7 @@
     "size": [ "100%", "100%c" ],
     "focus_container": true,
     "use_last_focus": true,
-    "focus_nagivation_mode_right": "contained",
+    "focus_navigation_mode_right": "contained",
     "controls": [
       {
         "vertical_padding_0@pause.vertical_padding": {
@@ -1015,7 +1018,7 @@
 
   "invite_players_button_panel": {
     "type": "panel",
-    "size": [ "100%", "100%c" ],
+    "size": [ "100% - 1px", "100%c" ],
     "controls": [
       {
         "invite_players_button@pause.invite_players_button": {}
@@ -1119,6 +1122,7 @@
           "type": "panel",
           "anchor_to": "top_right",
           "anchor_from": "top_right",
+          "offset": [ "-1px", 0 ],
           "size": [ "100%c", "100% + 1px" ],
           "controls": [
             { "player_permission_button@pause.player_permission_button": {} }

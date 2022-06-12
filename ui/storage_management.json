@@ -14,7 +14,14 @@
   //---------------------------------------------------------------------------
   // Main Content
   //---------------------------------------------------------------------------
-  
+
+  "clear_cache_button@common_buttons.light_text_button": {
+    "size": [ "100%", 30 ],
+    "offset": [ -1, -2 ],
+    "$pressed_button_name": "button.clear_cache",
+    "$button_text": "options.dev_clearStoreCache"
+  },
+
   "storage_header_panel": {
     "type": "panel",
     "size": ["100%", "100%c"],
@@ -27,15 +34,25 @@
           "anchor_to": "top_left",
           "size": ["100% - 4px", "100%c + 4px"],
           "offset": [0, 2],
-          "controls":[
+          "controls": [
             {
-              "panel":{
+              "clear_cache_button_panel": {
+                "ignored": "(not $nx_os)",
                 "type": "panel",
-                "size": ["100%", 32],
-                "controls":[
+                "size": [ "100%", "100%c + 2px" ],
+                "controls": [
+                  { "clear_cache_button@storage_management.clear_cache_button": {} }
+                ]
+              }
+            },
+            {
+              "panel": {
+                "type": "panel",
+                "size": [ "100%", 32 ],
+                "controls": [
                   {
                     "multiselect_button@common_toggles.light_image_toggle": {
-                      "offset": [-1, 0],
+                      "offset": [ -1, 0 ],
                       "$toggle_name": "toggle.enableMultiselect",
                       "$button_content": "storage_management.generic_button",
                       "$button_texture": "textures/ui/multiselection",
@@ -45,7 +62,7 @@
                       "size": [ "100%", "100%" ]
                     }
                   }
-                  
+
                   //Uncomment this block when we have a meaningful way to sort packs
                   //{
                   //  "storage_grouping_dropdown@storage_management.sort_toggle": {
@@ -980,8 +997,6 @@
                     "binding_condition": "visible"
                   }
                 ]
-
-                
               }
             }
           ]

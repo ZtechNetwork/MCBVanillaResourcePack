@@ -61,13 +61,13 @@
     "$item_display_size": [ "100%y", "100% - 3px" ],
     "size": "$item_display_size",
     "$is_loading": false,
-    "$item_texture_file_system_binding_name": "#icon_file_system",
-    "$item_texture_path_binding_name": "#icon_path",
+    "$persona_piece_binding_type": "global",
+    "$persona_piece_collection_name": "",
     "$ignore_background": true,
     "$ignore_rarity_bar": true,
     "controls": [
       {
-        "item@persona_common.item_display": {
+        "item@persona_common.piece_item_display": {
           "anchor_from": "bottom_middle",
           "anchor_to": "bottom_middle"
         }
@@ -87,12 +87,12 @@
           "anchor_from": "left_middle",
           "anchor_to": "left_middle",
           "layer": 1,
-          "texture": "#icon_path",
+          "texture": "#thumbnail_texture_path",
           "zip_folder": "#icon_zip",
-          "texture_file_system": "#icon_file_system",
+          "texture_file_system": "#thumbnail_texture_file_system",
           "bindings": [
             {
-              "binding_name": "#icon_path",
+              "binding_name": "#thumbnail_texture_path",
               "binding_name_override": "#texture"
             },
             {
@@ -100,7 +100,7 @@
               "binding_name_override": "#zip_folder"
             },
             {
-              "binding_name": "#icon_file_system",
+              "binding_name": "#thumbnail_texture_file_system",
               "binding_name_override": "#texture_file_system"
             }
           ]
@@ -350,6 +350,65 @@
     ]
   },
 
+  "fade_anim_end": {
+    "anim_type": "alpha",
+    "easing": "linear",
+    "from": 1.0,
+    "to": 0.0,
+    "duration": "$transition_out_time",
+    "destroy_at_end": "$toast_control",
+    "end_event": "toast_end"
+  },
+
+  "fade_anim_wait": {
+    "anim_type": "wait",
+    "duration": "$display_time",
+    "next": "@toast_screen.fade_anim_end"
+  },
+
+  "formfitting_alpha_toast": {
+    "type": "panel",
+    "$display_time": 3.0,
+    "$transition_in_time": 0.15,
+    "$transition_out_time": 0.15,
+    "$toast_control": "formfitting_alpha_toast",
+    "$alpha_anims": [
+      "@toast_screen.fade_anim_wait"
+    ],
+
+    "controls": [
+      {
+        "bg": {
+          "type": "image",
+          "anchor_from": "top_middle",
+          "anchor_to": "top_middle",
+          "offset": [ 0, 10 ],
+          "size": [ "100%c + 6px", "100%c + 13px" ], // form fitting
+          "texture": "textures/ui/greyBorder",
+          "anims": "$alpha_anims",
+          "controls": [
+            {
+              "label@toast_screen.toast_label": {
+                "type": "label",
+                "size": [ 200, "default" ],
+                "offset": [ 0, 0 ],
+                "color": "$toast_text_color",
+                "text": "#toast_title",
+                "text_alignment": "center",
+                "$toast_font_type": "smooth",
+                "bindings": [
+                  {
+                    "binding_name": "#toast_title"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+
   "toast_screen@common.base_screen": {
     "send_telemetry": false,
     "screen_not_flushable": true,
@@ -372,7 +431,8 @@
       "name": "toast_factory",
       "control_ids": {
         "popup": "popup@toast_screen.popup",
-        "splitscreen_join_popup": "splitscreen_join_popup@toast_screen.splitscreen_join_popup"
+        "splitscreen_join_popup": "splitscreen_join_popup@toast_screen.splitscreen_join_popup",
+        "formfitting_alpha_toast": "formfitting_alpha_toast"
       }
     },
     "controls": [

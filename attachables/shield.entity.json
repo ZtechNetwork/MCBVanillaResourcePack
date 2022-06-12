@@ -40,6 +40,8 @@
           "variable.off_hand_first_person_rot_z = -2.5;"
         ],
         "pre_animation": [
+          "variable.is_blocking_main_hand = query.blocking && !query.is_item_name_any('slot.weapon.offhand', 'minecraft:shield') && query.is_item_name_any('slot.weapon.mainhand', 'minecraft:shield');",
+          "variable.is_blocking_off_hand = query.blocking && query.is_item_name_any('slot.weapon.offhand', 'minecraft:shield');",
           "variable.is_using_bow = (query.get_equipped_item_name == 'bow') && (query.main_hand_item_use_duration > 0.0f);"
         ],
         "animate": [

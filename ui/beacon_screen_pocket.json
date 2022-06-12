@@ -16,34 +16,6 @@
     "color": "$pocket_title_text_color"
   },
 
-  // Header //
-
-  "header_panel": {
-    "type": "panel",
-    "size": [ "100%", "27px" ],
-    "anchor_from": "top_middle",
-    "anchor_to": "top_middle",
-    "controls": [
-      {
-        "header_background": {
-          "type": "image",
-          "texture": "textures/ui/header_bar"
-        }
-      },
-      {
-        "title_label@beacon_pocket.generic_label": {
-          "text": "container.beacon",
-          "layer": 1
-        }
-      },
-      {
-        "x@common.legacy_pocket_close_button": {
-          "layer": 1
-        }
-      }
-    ]
-  },
-
   // Base images //
   "panel_outline": {
     "type": "image",
@@ -74,6 +46,7 @@
     "anchor_to": "left_middle",
     "anchor_from": "left_middle"
   },
+
   "usable_items_panel": {
     "type": "panel",
     "size": [ 104, 18 ],
@@ -221,9 +194,10 @@
 
   "inventory_content": {
     "type": "panel",
-    "size": [ "80%", "95%" ],
-    "anchor_to": "center",
-    "anchor_from": "center",
+    "size": [ "100%-5px", "100%-5px" ],
+    "offset": [ "5px", "2px" ],
+    "anchor_to": "top_left",
+    "anchor_from": "top_left",
     "controls": [
       {
         "scrolling_panel@common.scrolling_panel": {
@@ -550,6 +524,7 @@
     "controls": [
       {
         "label@beacon_pocket.generic_label": {
+          "font_scale_factor": 0.8,
           "anchor_from": "center",
           "anchor_to": "center",
           "text": "$text",
@@ -710,10 +685,12 @@
       }
     ]
   },
+
   "beacon_buttons_panel": {
     "type": "panel",
-    "anchor_from": "top_middle",
-    "anchor_to": "top_middle",
+    "anchor_from": "center",
+    "anchor_to": "bottom_middle",
+    "offset": [ 0, 0 ],
     "size": [ "100%", "50%" ],
     "min_size": [ "100%", "100px" ],
 
@@ -726,91 +703,185 @@
 
   // Beacon Payment Panel //
 
-  "beacon_payment_panel": {
+  "confirm_panel": {
     "type": "panel",
-    "size": [ "100%", "50%" ],
-    "max_size": [ "100%", "85%-76px" ],
-    "anchor_from": "bottom_left",
-    "anchor_to": "bottom_left",
+    "size": [ 128, 20 ],
     "controls": [
+      {
+        "ingredient_item@common.pocket_ui_container_item": {
+          "offset": [ 0, 0 ],
+          "size": [ 20, 20 ],
+          "$cell_image_size": [ 20, 20 ],
+          "$item_collection_name": "beacon_payment_items",
+          "anchor_from": "center",
+          "anchor_to": "center"
+        }
+      },
+      {
+        "confirm_panel@beacon_pocket.panel_template": {
+          "size": [ 20, 20 ],
+          "offset": [ 32, 0 ],
+          "$image_texture": "textures/ui/confirm",
+          "$image_size": [ 14, 12 ],
+          "$button_name": "confirm",
+          "anchor_from": "center",
+          "anchor_to": "center",
+          "$button_control": "beacon_pocket.button_template"
+
+        }
+      },
+      {
+        "cancel_panel@beacon_pocket.panel_template": {
+          "size": [ 20, 20 ],
+          "offset": [ 44, 0 ],
+          "$image_texture": "textures/ui/cancel",
+          "$image_size": [ 13, 13 ],
+          "$button_name": "cancel",
+          "anchor_from": "center",
+          "anchor_to": "left_middle",
+          "$button_control": "beacon_pocket.button_template"
+        }
+      }
+    ]
+  },
+
+
+  "beacon_payment_panel": {
+    "type": "stack_panel",
+    "orientation": "horizontal",
+    "size": [ "100%", 20 ],
+    "anchor_from": "center",
+    "anchor_to": "top_middle",
+    "controls": [
+      {
+        "usable_items_panel@beacon_pocket.usable_items_panel": {}
+      },
+      {
+        "pad": {
+          "type": "panel",
+          "size": [ "fill", 0 ]
+        }
+      },
+      {
+        "confirm_panel@beacon_pocket.confirm_panel": {}
+      }
+    ]
+  },
+
+  "beacon_contents_panel": {
+    "type": "stack_panel",
+    "size": [ "100% - 12px", "100% - 8px" ],
+    "offset": [ -1, -1 ],
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "controls": [
+      {
+        "fill1": {
+          "type": "panel",
+          "size": [ 0, "fill" ]
+        }
+      },
+      {
+        "beacon_buttons_panel@beacon_buttons_panel": {}
+
+      },
+      {
+        "pad1": {
+          "type": "panel",
+          "size": [ 0, 10 ]
+        }
+      },
+      {
+        "beacon_payment_panel@beacon_payment_panel": {}
+
+      },
+      {
+        "fill2": {
+          "type": "panel",
+          "size": [ 0, "fill" ]
+        }
+      }
+    ]
+  },
+
+
+  // Header //
+
+  "header": {
+    "type": "panel",
+    "size": [ "100%", 28 ],
+    "anchor_from": "top_middle",
+    "anchor_to": "top_middle",
+    "controls": [
+      {
+        "header_background": {
+          "type": "image",
+          "texture": "textures/ui/header_bar_2"
+        }
+      },
+      { "legacy_pocket_close_button@common.legacy_pocket_close_button": { "offset": [ -3, 3 ] } },
       {
         "panel": {
           "type": "panel",
-          "size": [ "100%", 24 ],
-          "offset": [ 0, 0 ],
           "anchor_from": "center",
           "anchor_to": "center",
           "controls": [
             {
-              "usable_items_panel@beacon_pocket.usable_items_panel": {
-                "offset": [ -20, 0 ],
-                "anchor_from": "center",
-                "anchor_to": "right_middle"
-              }
-            },
-            {
-              "ingredient_item@common.pocket_ui_container_item": {
-                "offset": [ 0, 0 ],
-                "size": [ 24, 24 ],
-                "$cell_image_size": [ 24, 24 ],
-                "$item_collection_name": "beacon_payment_items",
-                "anchor_from": "center",
-                "anchor_to": "center"
-              }
-            },
-            {
-              "confirm_panel@beacon_pocket.panel_template": {
-                "offset": [ 36, 0 ],
-                "$image_texture": "textures/ui/confirm",
-                "$image_size": [ 14, 12 ],
-                "$button_name": "confirm",
-                "anchor_from": "center",
-                "anchor_to": "center",
-                "$button_control": "beacon_pocket.button_template"
-
-              }
-            },
-            {
-              "cancel_panel@beacon_pocket.panel_template": {
-                "offset": [ 52, 0 ],
-                "$image_texture": "textures/ui/cancel",
-                "$image_size": [ 13, 13 ],
-                "$button_name": "cancel",
-                "anchor_from": "center",
-                "anchor_to": "left_middle",
-                "$button_control": "beacon_pocket.button_template"
+              "title_label@enchanting_pocket.generic_label": {
+                "text": "container.beacon",
+                "layer": 1
               }
             }
           ]
         }
       }
-
     ]
   },
 
-  // Half screens //
 
-  "half_screen": {
+  // Layout Content Panels //
+
+  "inventory_and_beacon_panel": {
     "type": "panel",
-    "size": [ "50%-4px", "100%" ],
-    "anchor_from": "top_left",
-    "anchor_to": "top_left"
-  },
-  "half_screen_inventory@beacon_pocket.half_screen": {
-    "size": [ "45%-4px", "100%" ],
-    "max_size": [ "100%-204px", "100%" ],
     "controls": [
-      { "inventory_content@beacon_pocket.inventory_content": {} }
+      {
+        "inventory_half_screen": {
+          "type": "panel",
+          "size": [ "40%", "100%" ],
+          "anchor_from": "left_middle",
+          "anchor_to": "left_middle",
+
+          "controls": [
+            { "inventory_content@beacon_pocket.inventory_content": {} }
+          ]
+        }
+      },
+      {
+        "beacon_half_screen": {
+          "type": "panel",
+          "size": [ "60%", "100%" ],
+          "anchor_from": "right_middle",
+          "anchor_to": "right_middle",
+
+          "controls": [
+            { "beacon_content@beacon_pocket.beacon_contents_panel": {} }
+          ]
+        }
+      }
     ]
   },
-  "half_screen_beacon@beacon_pocket.half_screen": {
-    "anchor_from": "top_right",
-    "anchor_to": "top_right",
-    "size": [ "55%-4px", "100%" ],
-    "min_size": [ 196, "100%" ],
+
+  "header_and_content_stack_panel": {
+    "type": "stack_panel",
+    "orientation": "vertical",
+    "size": [ "85%", "85%" ],
     "controls": [
-      { "beacon_buttons_panel@beacon_buttons_panel": {} },
-      { "beacon_payment_panel@beacon_payment_panel": {} }
+      { "header@beacon_pocket.header": { "layer": 2 } },
+      {
+        "inventory_and_beacon_panel@beacon_pocket.inventory_and_beacon_panel": {
+          "size": [ "100%", "fill" ]
+        }
+      }
     ]
   },
 
@@ -819,36 +890,9 @@
   "beacon_panel": {
     "type": "panel",
     "controls": [
-      { "bg@beacon_pocket.background_panel": {} },
-      {
-        "root_panel": {
-          "type": "panel",
-          "layer": 1,
-          "anchor_from": "center",
-          "anchor_to": "center",
-          "size": [ "100%", "100%" ],
-          "controls": [
-            { "header_panel@beacon_pocket.header_panel": { "layer": 2 } },
-            {
-              "below_header": {
-                "type": "panel",
-                "layer": 1,
-                "offset": [ 0, 31 ],
-                "size": [ "100%-16px", "100% - 39px" ],
-                "anchor_from": "top_middle",
-                "anchor_to": "top_middle",
-                "controls": [
-                  {
-                    "half_screen_inventory@beacon_pocket.half_screen_inventory": {
-                    }
-                  },
-                  { "half_screen_beacon@beacon_pocket.half_screen_beacon": {} }
-                ]
-              }
-            }
-          ]
-        }
-      },
+      { "bg@furnace_pocket.background_image": {} },
+      { "root_panel@common.root_panel": { "size": [ "85%", "85%" ] } },
+      { "header_and_content_stack_panel@beacon_pocket.header_and_content_stack_panel": {} },
 
       { "container_gamepad_helpers@common.container_gamepad_helpers": { "layer": 2 } },
       { "inventory_selected_icon_button@common.inventory_selected_icon_button": {} },

@@ -3,6 +3,7 @@
 
   "cloud_upload_screen@progress.progress_screen": {
     "$screen_content": "cloud_upload.screen_content",
+    "$cloud_upload_progress_screen_size": [ 290, 200 ],
     "force_render_below": false,
     "should_be_skipped_during_automation": true
   },
@@ -78,6 +79,7 @@
           "type": "factory",
           "control_ids": {
             "terms_and_conditions": "terms_and_conditions@cloud_upload.terms_and_conditions",
+            "upload_failed_retryable": "upload_failed_retryable@cloud_upload.upload_failed_retryable",
             "upload_failed": "upload_failed@cloud_upload.upload_failed",
             "upload_succeeded": "upload_succeeded@cloud_upload.upload_succeeded"
           }
@@ -140,7 +142,7 @@
   "retry_button@cloud_upload.button": {
     "size": "$button_size",
     "$pressed_button_name": "button.retry",
-    "$button_text": "gui.retry"
+    "$button_text": "gui.tryAgain"
   },
 
   "service_agreement_button@cloud_upload.button": {
@@ -245,23 +247,53 @@
   },
 
   "failed_description@cloud_upload.label": {
-    "text": "cloud_upload.failed.description"
+    "text": "#upload_failed_description",
+    "bindings": [
+      {
+        "binding_name": "#upload_failed_description"
+      }
+    ]
   },
 
-  "upload_failed@common_dialogs.main_panel_two_buttons": {
+  "failed_retryable_description@cloud_upload.label": {
+    "text": "#upload_failed_retryable_description",
+    "bindings": [
+      {
+        "binding_name": "#upload_failed_retryable_description"
+      }
+    ]
+  },
+
+  "upload_failed_retryable@common_dialogs.main_panel_two_buttons": {
     "size": [ 300, 200 ],
     "$fill_alpha": 1,
     "$show_close_button": false,
 
     "layer": 101,
     "$text_name": "cloud_upload.title",
-    "$description_text": "cloud_upload.failed.description",
+    "$description_text": "cloud_upload.failed_retryable_description",
     "$button_size": [ "100%", 30 ],
 
     "$child_control": "cloud_upload.scrolling_child",
     "$scrolling_content": "common.tts_label_focus_wrapper",
     "$top_button_panel": "cloud_upload.retry_button",
     "$bottom_button_panel": "cloud_upload.close_button",
+    "$tts_label_panel": "cloud_upload.failed_retryable_description"
+  },
+
+  "upload_failed@common_dialogs.main_panel_one_button": {
+    "size": [ 300, 200 ],
+    "$fill_alpha": 1,
+    "$show_close_button": false,
+
+    "layer": 101,
+    "$text_name": "cloud_upload.title",
+    "$description_text": "cloud_upload.failed_description",
+    "$button_size": [ "100%", 30 ],
+
+    "$child_control": "cloud_upload.scrolling_child",
+    "$scrolling_content": "common.tts_label_focus_wrapper",
+    "$button_panel": "cloud_upload.close_button",
     "$tts_label_panel": "cloud_upload.failed_description"
   },
 

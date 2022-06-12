@@ -523,7 +523,7 @@
       { "divider@edu_common.horizontal_divider": { "size": [ "100%", 20 ] } },
       {
         "add_resource_label@edu_common.share_dialog_body_text": {
-          "text": "($share_source + '.item.sharepopup.secondaryText')"
+          "$popup_body_text": "($share_source + '.item.sharepopup.secondaryText')"
         }
       },
       { "teams_padding_middle@common.empty_panel": { "size": [ "100%", 8 ] } },
@@ -554,7 +554,7 @@
       { "divider@edu_common.horizontal_divider": { "size": [ "100%", 20 ] } },
       {
         "resource_label_text@edu_common.share_dialog_body_text": {
-          "text": "($share_source + '.item.sharepopup.editResourceLabel')"
+          "$popup_body_text": "($share_source + '.item.sharepopup.editResourceLabel')"
         }
       },
       { "teams_padding_middle@common.empty_panel": { "size": [ "100%", 8 ] } },
@@ -586,7 +586,7 @@
                 "$button_tts_name": "($share_source + '.item.sharepopup.editResource.button.accessibility')",
                 "variables": [
                   {
-                    "requires": "($apple_os and $supports_clipboard)",
+                    "requires": "($apple_os and $supports_clipboard_set)",
                     "$focus_override_right": "mail_button"
                   }
                 ]
@@ -604,8 +604,6 @@
     "layer": 5,
     "size": [ "100%", "100%c" ],
 
-    "$body_size|default": [ "100%", 10 ],
-    "$body_font_size|default": 1.0,
     "$icons_ignored|default": true,
     "$resource_uri_state|default": "",
 
@@ -613,12 +611,7 @@
       {
         "body_text_centering_panel@edu_common.vertical_stack_item": {
           "controls": [
-            {
-              "body_text@edu_common.share_dialog_body_text": {
-                "font_scale_factor": "$body_font_size",
-                "size": "$body_size"
-              }
-            }
+            { "body_text@edu_common.share_dialog_body_text": {} }
           ]
         }
       },
@@ -671,7 +664,7 @@
   },
 
   "joincode_body_content_stack@edu_common.body_content_stack": {
-    "$body_size": [ "100% - 4px", 40 ],
+    "$body_size": [ "100% - 4px", "default" ],
     "$body_font_size": 1.1,
     "$popup_body_text": "joincode.popup.body",
     "$icons_ignored": false,
@@ -684,13 +677,17 @@
     "orientation": "vertical",
     "layer": 5,
     "size": [ "100%", "default" ],
+
+    "$set_resource_url_text": "($share_source + '.item.sharepopup.addResource.urlLabel')",
+    "$set_resource_button_text": "($share_source + '.item.sharepopup.addResource.buttonNameLabel')",
+
     "controls": [
       {
         "label_one_centering_panel@edu_common.vertical_stack_item": {
           "controls": [
             {
               "teams_share_label@edu_common.share_dialog_body_text": {
-                "text": "($share_source + '.item.sharepopup.addResource.labelOne')"
+                "$popup_body_text": "($share_source + '.item.sharepopup.addResource.labelOne')"
               }
             }
           ]
@@ -702,7 +699,7 @@
           "controls": [
             {
               "teams_share_label@edu_common.share_dialog_body_text": {
-                "text": "($share_source + '.item.sharepopup.addResource.labelTwo')"
+                "$popup_body_text": "($share_source + '.item.sharepopup.addResource.labelTwo')"
               }
             }
           ]
@@ -725,7 +722,7 @@
       { "url_padding_middle@common.empty_panel": { "size": [ "100%sm", 10 ] } },
       {
         "url_label@edu_common.share_dialog_body_text": {
-          "text": "($share_source + '.item.sharepopup.addResource.urlLabel')",
+          "$popup_body_text": "$set_resource_url_text",
           "$focus_id": "url_textbox_label"
         }
       },
@@ -734,6 +731,7 @@
           "layer": 2,
           "size": [ "100%", 20 ],
           "$text_box_name": "#textbox.url",
+          "$text_box_tts_header": "$set_resource_url_text",
           "$text_edit_box_content_binding_name": "#textbox.url.content",
           "$place_holder_text": "($share_source + '.item.sharepopup.addResource.urlHintText')",
           "$focus_id": "url_textbox",
@@ -759,7 +757,7 @@
       { "inline_notification_spacer@common.empty_panel": { "size": [ "100%sm", 5 ] } },
       {
         "button_name_label@edu_common.share_dialog_body_text": {
-          "text": "($share_source + '.item.sharepopup.addResource.buttonNameLabel')",
+          "$popup_body_text": "$set_resource_button_text",
           "$focus_id": "button_name"
         }
       },
@@ -769,6 +767,7 @@
           "layer": 2,
           "size": [ "100%", 20 ],
           "$text_box_name": "#textbox.buttonName",
+          "$text_box_tts_header": "$set_resource_button_text",
           "$text_edit_box_content_binding_name": "#textbox.buttonName.content",
           "$place_holder_text": "($share_source + '.item.sharepopup.addResource.buttonNameHintText')",
           "$focus_id": "button_name",
@@ -790,6 +789,7 @@
           "layer": 2,
           "size": [ "100%", 20 ],
           "$text_box_name": "#textbox.buttonName",
+          "$text_box_tts_header": "$set_resource_button_text",
           "$text_edit_box_content_binding_name": "#textbox.buttonName.content",
           "$place_holder_text": "($share_source + '.item.sharepopup.addResource.buttonNameHintText')",
           "$focus_id": "button_name",
@@ -1018,15 +1018,40 @@
   },
 
   "share_dialog_body_text": {
-    "type": "label",
-    "color": "$body_text_color",
+    "$body_font_size|default": 1.0,
+    "$body_size|default": [ "100%", "default" ],
     "$popup_body_text|default": "($share_source + '.item.sharepopup.body')",
-    "font_type": "smooth",
-    "text": "$popup_body_text",
-    "size": [ "100%", "default" ],
-    "layer": 1,
+
+    "type": "panel",
+    "size": [ "100%", "100%cm" ],
     "anchor_from": "top_middle",
-    "anchor_to": "top_middle"
+    "anchor_to": "top_middle",
+    "controls": [
+      {
+        "tts_border@common.non_interact_focus_border_button": {
+          "tts_inherit_siblings": true,
+          "size": [ "100%", "100%sm" ],
+          "layer": 1,
+          "bindings": [
+            {
+              "binding_name": "#tts_enabled",
+              "binding_name_override": "#enabled"
+            }
+          ]
+        }
+      },
+      {
+        "text": {
+          "type": "label",
+          "color": "$body_text_color",
+          "font_type": "smooth",
+          "text": "$popup_body_text",
+          "font_scale_factor": "$body_font_size",
+          "size": "$body_size",
+          "layer": 1
+        }
+      }
+    ]
   },
 
   "share_icon": {
@@ -1067,7 +1092,7 @@
               "$share_icon_size": [ 14, 13 ]
             },
             {
-              "requires": "($supports_clipboard and not $supports_share)",
+              "requires": "($supports_clipboard_set and not $supports_share)",
               "$share_icon_texture": "textures/ui/copy",
               "$share_icon_offset": [ 2.0, 1.0 ],
               "$share_icon_size": [ 13, 14 ]
@@ -1091,6 +1116,19 @@
     "$placeholder_text": "#share_link",
     "$focus_left|default": "classrooms_button",
     "$focus_right|default": "resource_button",
+
+    "$clipboard_share": "($supports_clipboard_set and not $supports_share)",
+    "variables": [
+      {
+        "requires": "$clipboard_share",
+        "$button_tts_header": "share.clipboard.tts"
+      },
+      {
+        "requires": "(not $clipboard_share)",
+        "$button_tts_header": "share.deviceShare.tts"
+      }
+    ],
+
     "controls": [
       {
         "link_box@common.text_edit_box": {
@@ -1132,15 +1170,16 @@
           "$focus_override_down": "$focus_down",
           "$focus_override_left": "$wrap_focus_left",
           "$share_image": "textures/ui/teams_icon",
+          "$button_tts_header": "share.teams.tts",
           "$pressed_button_name": "button.teams_share",
           "$image_size": [ "100%", "100%" ],
-          "ignored": "($apple_os and $supports_clipboard)"
+          "ignored": "($apple_os and $supports_clipboard_set)"
         }
       },
       {
         "teams_mail_padding@common.empty_panel": {
           "size": [ 12, "100%" ],
-          "ignored": "($apple_os and $supports_clipboard)"
+          "ignored": "($apple_os and $supports_clipboard_set)"
         }
       },
       {
@@ -1148,6 +1187,7 @@
           "$focus_id": "mail_button",
           "$focus_override_down": "$focus_down",
           "$share_image": "textures/ui/mail_icon",
+          "$button_tts_header": "share.mail.tts",
           "$pressed_button_name": "button.mail_share",
           "$image_size": [ "100% - 6px", "100% - 4px" ]
         }
@@ -1162,6 +1202,7 @@
           "$focus_id": "classrooms_button",
           "$focus_override_down": "$focus_down",
           "$share_image": "textures/ui/classrooms_icon",
+          "$button_tts_header": "share.classroom.tts",
           "$pressed_button_name": "button.classrooms_share",
           "$image_size": [ "100% - 4px", "100% - 4px" ]
         }

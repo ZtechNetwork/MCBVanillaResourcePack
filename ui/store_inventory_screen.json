@@ -470,10 +470,10 @@
     "use_last_focus": false,
     "$focus_id": "left_side",
     "$focus_override_right": "right_side",
-    "focus_nagivation_mode_left": "",
-    "focus_nagivation_mode_right": "",
-    "focus_nagivation_mode_down": "",
-    "focus_nagivation_mode_up": "",
+    "focus_navigation_mode_left": "",
+    "focus_navigation_mode_right": "",
+    "focus_navigation_mode_down": "",
+    "focus_navigation_mode_up": "",
     "controls": [
       {
         "top_pad": {
@@ -1176,6 +1176,7 @@
     "type": "stack_panel",
     "orientation": "vertical",
     "size": [ "100%", "100%" ],
+    "collection_name": "right_pane_factory_collection",
     "factory": {
       "name": "inventory_section_factory",
       "control_ids": {
@@ -1183,7 +1184,6 @@
         "subscriptions_tab": "@store_inventory.subscriptions_content_section"
       },
       "factory_variables": [
-        "$ratings_visible_after_x_reviews",
         "$store_factory_clipping_event",
         "$store_factory_collection_details",
         "$store_factory_binding_type",
@@ -1207,10 +1207,10 @@
     "focus_container": true,
     "use_last_focus": true,
     "$focus_id": "right_side",
-    "focus_nagivation_mode_left": "none",
-    "focus_nagivation_mode_right": "stop",
-    "focus_nagivation_mode_down": "contained",
-    "focus_nagivation_mode_up": "contained",
+    "focus_navigation_mode_left": "none",
+    "focus_navigation_mode_right": "stop",
+    "focus_navigation_mode_down": "contained",
+    "focus_navigation_mode_up": "contained",
     "controls": [
       {
         "control": {
@@ -1374,6 +1374,7 @@
     "$header_bar_control": "common_store.store_top_bar",
     "$screen_background_control": "common_store.store_background",
     "$is_full_screen_layout": true,
+    "$ignore_inventory_button": "$is_sidebar_navigation_enabled",
     "variables": [
       {
         "requires": "(not $use_animation)",

@@ -436,7 +436,8 @@
     "controls": [
       {
         "crafting_label@crafting.crafting_label": {
-          "size": [ "100%", 10 ],
+          "size": [ "200%", 10 ],
+          "offset": [ "-50%", 0 ],
           "text_alignment": "$grid_label_alignment"
         }
       },
@@ -1011,17 +1012,6 @@
         }
       },
       {
-        "help_button@crafting.help_button": {
-          "anchor_from": "top_right",
-          "anchor_to": "top_right",
-          "offset": [ "-3px", "3px" ],
-
-          "$default_texture": "textures/ui/how_to_play_button_default",
-          "$hover_texture": "textures/ui/how_to_play_button_hover",
-          "$pressed_texture": "textures/ui/how_to_play_button_pressed"
-        }
-      },
-      {
         "crafting_tab_content@crafting_pocket.right_tab_content": {
           "$right_tab_view_toggle_name": "crafting_tab_toggle",
           "$right_tab_content_control": "$top_half_variant"
@@ -1219,13 +1209,11 @@
     ]
   },
 
-
-
   "recipe_inventory_screen_content_pocket": {
     "type": "input_panel",
     "controls": [
       {
-        "container_gamepad_helpers@common.container_gamepad_helpers": {
+        "container_gamepad_helpers_pocket@common.container_gamepad_helpers": {
           "size": [ "100%", 40 ],
           "$gamepad_helper_size": [ "100%c", 15 ],
           "$a_b_stack_panel_orientation": "vertical",
@@ -1234,7 +1222,8 @@
           "$x_y_stack_panel_size": [ "100%cm", "100%" ],
           "$helper_x_control": "crafting.inventory_x_gamepad_helper",
           "$helper_y_control": "crafting.inventory_y_gamepad_helper",
-          "$helper_a_control": "crafting.inventory_a_gamepad_helper"
+          "$helper_a_control": "crafting.inventory_a_gamepad_helper",
+          "$helper_b_control": "crafting.inventory_b_gamepad_helper"
         }
       },
       {

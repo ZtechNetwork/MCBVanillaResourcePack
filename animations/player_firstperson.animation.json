@@ -129,10 +129,21 @@
 			"loop": true,
 			"bones": {
 				"leftarm": {
-					"position": [ 0.0, "(query.get_equipped_item_name('off_hand') == 'map' || query.get_equipped_item_name('off_hand') == 'shield') ? 0.0 : -10.0 * (1.0 - variable.player_arm_height)", 0.0 ]
+					"position": [ 0.0, "(query.get_equipped_item_name('off_hand') == 'map' || query.get_equipped_item_name('off_hand') == 'shield') ? 0.0 : -10.0 * (1.0 - context.player_offhand_arm_height)", 0.0 ]
 				},
 				"rightarm": {
 					"position": [ 0.0, "-10.0 * (1.0 - variable.player_arm_height)", 0.0 ]
+				}
+			}
+		},
+		"animation.player.first_person.shield_block": {
+			"loop": true,
+			"bones": {
+				"leftarm": {
+					"position": [ 0.0, "-10.0 * (1.0 - context.player_offhand_arm_height)", 0.0 ]
+				},
+				"rightarm": {
+					"position": [ 0.0, "query.get_equipped_item_name('off_hand') != 'shield' ? -10.0 * (1.0 - variable.player_arm_height) : 0.0", 0.0 ]
 				}
 			}
 		},

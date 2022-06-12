@@ -1005,33 +1005,41 @@
     ]
   },
 
+  "text_scroll@common.scrolling_panel": {
+    "size": [ "100% - 10px", "100% - 11px" ],
+    "$always_handle_scrolling": true,
+    "$jump_to_bottom_on_update": false,
+    "$scrolling_content": "npc_interact.npc_message",
+    "$scroll_box_visible_touch": false,
+    "$show_background": false,
+    "$scroll_bar_left_padding_size": [ 0, 0 ],
+    "$scroll_bar_right_padding_size": [ 0, 0 ],
+    "$scroll_size": [ 5, "100%" ],
+    "$scroll_size_touch": "$scroll_size",
+    "offset": [ 0, -1 ],
+    "variables": [
+      {
+        // Always jump to the bottom when it's in worldbuilder
+        "requires": "($is_worldbuilder)",
+        "$jump_to_bottom_on_update": true
+      }
+    ]
+  },
+
   "student_message_bubble": {
     "type": "image",
     "texture": "textures/ui/dialog_bubble",
     "anchor_from": "right_middle",
     "anchor_to": "right_middle",
     "size": [ 222, "100%" ],
-    "$virtual_keyboard_buffer_control": "text_scroll",
     "controls": [
       {
-        "text_scroll@common.scrolling_panel": {
-          "size": [ "100% - 10px", "100% - 11px" ],
-          "$always_handle_scrolling": true,
-          "$jump_to_bottom_on_update": false,
-          "$scrolling_content": "npc_interact.npc_message",
-          "$scroll_box_visible_touch": false,
-          "$show_background": false,
-          "$scroll_bar_left_padding_size": [ 0, 0 ],
-          "$scroll_bar_right_padding_size": [ 0, 0 ],
-          "$scroll_size": [ 5, "100%" ],
-          "$scroll_size_touch": "$scroll_size",
-          "offset": [ 0, -1 ],
-          "variables": [
-            {
-              // Always jump to the bottom when it's in worldbuilder
-              "requires": "($is_worldbuilder)",
-              "$jump_to_bottom_on_update": true
-            }
+        "dialog_panel": {
+          "type": "panel",
+          "size": [ "100%", "100%" ],
+          "$virtual_keyboard_buffer_control": "text_scroll",
+          "controls": [
+            { "text_scroll@npc_interact.text_scroll": {} }
           ]
         }
       }

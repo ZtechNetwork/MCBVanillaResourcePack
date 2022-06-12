@@ -117,8 +117,7 @@
     "size": [ "100%", "default" ],
     "layer": 1,
     "anchor_to": "top_left",
-    "anchor_from": "top_left",
-    "ttsSectionContainer": true
+    "anchor_from": "top_left"
   },
 
   //---------------------------------------------------------------------------
@@ -2560,7 +2559,7 @@
         }
       },
       {
-        "nagivation_panel": {
+        "navigation_panel": {
           "type": "stack_panel",
           "orientation": "horizontal",
           "size": [ "100%", 15 ],
@@ -4239,7 +4238,7 @@
   },
 
   "add_server_toggle_button@common_toggles.light_text_toggle": {
-    "visible": "(not $is_console)",
+    "visible": "(not $ignore_add_servers)",
     "size": [ "100%", 20 ],
     "anchor_from": "top_left",
     "anchor_to": "top_left",
@@ -4390,7 +4389,8 @@
   "sync_legacy_worlds_button@common_buttons.light_text_button": {
     "layer": 2,
     "$pressed_button_name": "button.menu_sync_legacy_worlds",
-    "$button_text": "playscreen.syncLegacyWorlds",
+    "$button_text": "#sync_legacy_button_text",
+    "$button_text_binding_type": "global",
 
     "bindings": [
       {
@@ -4463,7 +4463,7 @@
         "buttons": {
           "type": "stack_panel",
           "orientation": "horizontal",
-          "size": [ "100%", "100%" ],
+          "size": [ "100% - 1px", "100%" ],
           "$secondary_visible|default": true,
           "controls": [
             {
@@ -4473,7 +4473,7 @@
                 "controls": [
                   {
                     "primary@$primary_header_button": {
-                      "size": [ "100% + 1px", "100%" ],
+                      "size": [ "100% - 1px", "100%" ],
                       "anchor_from": "top_left",
                       "anchor_to": "top_left",
                       "layer": 1
@@ -5047,7 +5047,7 @@
       },
       {
         "upgrade_legacy_worlds_label@play.world_list_label_with_color_panel": {
-          "$label_text": "playscreen.upgradeLegacyWorlds",
+          "$label_text": "#upgrade_legacy_text",
           "$square_color": "$world_diskspace_editions_fill",
           "variables": [
             {
@@ -5065,7 +5065,7 @@
       },
       {
         "legacy_world_item_grid@play.legacy_world_item_grid": {
-          "$tts_section_header": "playscreen.upgradeLegacyWorlds",
+          "$tts_section_header": "#upgrade_legacy_text",
           "variables": [
             {
               "requires": "$pre_release",
@@ -5088,7 +5088,7 @@
       },
       {
         "beta_retail_legacy_worlds_label@play.world_list_label_panel": {
-          "$label_text": "playscreen.upgradeLegacyWorlds",
+          "$label_text": "#upgrade_legacy_text",
           "bindings": [
             {
               "binding_name": "#beta_retail_legacy_worlds_visible",
@@ -5099,7 +5099,7 @@
       },
       {
         "beta_retail_legacy_grid@play.beta_retail_legacy_world_item_grid": {
-          "$tts_section_header": "playscreen.upgradeLegacyWorlds"
+          "$tts_section_header": "#upgrade_legacy_text"
         }
       },
       {
@@ -5145,9 +5145,10 @@
                 "size": [ "100% - 6px", "100%c + 1px" ],
                 "offset": [ 0, 2 ],
                 "$label_offset": [ 1, 0 ],
-                "$label_content_label": "localWorld.no_local_worlds_present_external",
+                "$label_content_label": "#no_local_worlds_help_label",
+                "$label_content_label_binding_type": "global",
                 "$label_content_content": "play.no_local_worlds_launch_help",
-                "$information_panel_label_text": "localWorld.no_local_worlds_present_external",
+                "$information_panel_label_text": "#no_local_worlds_help_label",
                 "bindings": [
                   {
                     "binding_name": "#no_local_world_help_visible",
@@ -5167,10 +5168,11 @@
       }
     ]
   },
-  
+
   "no_local_worlds_launch_help@common_buttons.light_text_button": {
     "$pressed_button_name": "button.no_local_worlds_launch_help",
-	"$button_text": "localWorld.no_local_worlds_button_label",
+    "$button_text": "#no_local_worlds_launch_help_button_label",
+    "$button_text_binding_type": "global",
     "size": [ "100%", 29 ]
   },
 
@@ -5346,7 +5348,16 @@
           "color": "$main_header_text_color",
           "size": [ "fill", "100%" ],
           "offset": [ 1, 0 ],
-          "text": "$label_text"
+          "$label_text|default": "b",
+          "text": "$label_text",
+          "$label_binding_type|default": "none",
+          "bindings": [
+            {
+              "binding_type": "$label_binding_type",
+              "binding_name": "$label_text",
+              "binding_name_override": "$label_text"
+            }
+          ]
         }
       }
     ]
@@ -5989,10 +6000,10 @@
     "anchor_to": "top_left",
     "focus_container": true,
     "use_last_focus": true,
-    "focus_nagivation_mode_down": "contained",
-    "focus_nagivation_mode_up": "contained",
-    "focus_nagivation_mode_right": "contained",
-    "focus_nagivation_mode_left": "contained"
+    "focus_navigation_mode_down": "contained",
+    "focus_navigation_mode_up": "contained",
+    "focus_navigation_mode_right": "contained",
+    "focus_navigation_mode_left": "contained"
   },
 
   "scrolling_offsets@play.common_scrolling_panel": {
@@ -6178,7 +6189,7 @@
                   {
                     "label_panel_layout": {
                       "type": "panel",
-                      "size": [ "100%", "100%c + 8px" ],
+                      "size": [ "97%", "100%c + 8px" ],
                       "controls": [
                         {
                           "label": {
@@ -6187,7 +6198,6 @@
                             "font_type": "smooth",
                             "color": "$dark_button_default_text_color",
                             "size": [ "100%", "default" ],
-                            "text_alignment": "center",
                             "layer": 1,
                             "shadow": false,
                             "text": "#feature_server_message_text",
@@ -6589,7 +6599,7 @@
           "focus_change_right": "FOCUS_OVERRIDE_STOP",
           "bindings": [
             {
-              "binding_name": "(not #gamepad_helper_visible)",
+              "binding_name": "(not #exit_button_visible)",
               "binding_name_override": "#visible"
             }
           ]

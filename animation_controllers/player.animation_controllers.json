@@ -108,7 +108,12 @@
 			"states" : {
 				"first_person" : {
 					"animations" : [
-						"first_person_swap_item",
+						{
+							"first_person_swap_item": "!query.blocking"
+						},
+						{
+							"first_person_shield_block": "query.blocking"
+						},
 						{
 							"first_person_attack_controller" : "variable.attack_time > 0.0f && query.get_equipped_item_name != 'map'"
 						},
@@ -209,7 +214,7 @@
 							"swimming.legs" : "variable.swim_amount > 0.0"
 						},
 						{
-							"use_item_progress" : "( variable.use_item_interval_progress > 0.0 ) || ( variable.use_item_startup_progress > 0.0 ) && !variable.is_brandishing_spear && !variable.is_holding_spyglass"
+							"use_item_progress": "( variable.use_item_interval_progress > 0.0 ) || ( variable.use_item_startup_progress > 0.0 ) && !variable.is_brandishing_spear && !variable.is_holding_spyglass && !query.is_item_name_any('slot.weapon.mainhand', 'minecraft:bow')"
 						},
 						{
 							"sleeping" : "query.is_sleeping && query.is_alive"

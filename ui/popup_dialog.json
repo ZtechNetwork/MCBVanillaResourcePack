@@ -322,11 +322,22 @@
         }
       },
       { "title@popup_dialog.modal_title_text": {} },
+      // Replacing dialog_text_wrapper with modal_label_panel until the
+      // dialog text wrapper works with tts on focus
+      // the follow up work item is ADO: 690427
       {
-        "text_with_buttons@popup_dialog.dialog_text_wrapper": {
+        "text@popup_dialog.modal_label_panel": {
+          "anchor_from": "top_middle",
+          "anchor_to": "top_middle",
+          "offset": [ 0, 23 ],
           "size": "$modal_panel_label_size"
         }
       },
+      /*{
+        "text_with_buttons@popup_dialog.dialog_text_wrapper": {
+          "size": "$modal_panel_label_size"
+        }
+      },*/
       {
         "button_panel@$button_panel": {}
       }

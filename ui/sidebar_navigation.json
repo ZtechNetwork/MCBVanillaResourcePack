@@ -399,10 +399,10 @@
     "focus_container": true,
     "use_last_focus": true,
     "focus_wrap_enabled": false,
-    "focus_nagivation_mode_left": "none",
-    "focus_nagivation_mode_down": "contained",
-    "focus_nagivation_mode_up": "contained",
-    "focus_nagivation_mode_right": "custom",
+    "focus_navigation_mode_left": "none",
+    "focus_navigation_mode_down": "contained",
+    "focus_navigation_mode_up": "contained",
+    "focus_navigation_mode_right": "custom",
     "focus_container_custom_right": [
       {
         "other_focus_container_name": "scrolling_content",
@@ -501,6 +501,7 @@
 
   "sidebar_option_factory_panel": {
     "type": "input_panel",
+    "size": ["100%", "100%c"],
     "controls": [
       { "sidebar_option_factory@sidebar_navigation.sidebar_option_factory": {} }
     ],
@@ -643,6 +644,7 @@
   },
 
   "sidebar_screen_nav_option_factory_panel": {
+    "ignored": "$store_disabled",
     "type": "panel",
     "size": [ "100%", "35% - 26px" ],
     "controls": [
@@ -719,10 +721,10 @@
     "focus_container": true,
     "use_last_focus": true,
     "focus_wrap_enabled": false,
-    "focus_nagivation_mode_left": "contained",
-    "focus_nagivation_mode_down": "contained",
-    "focus_nagivation_mode_up": "contained",
-    "focus_nagivation_mode_right": "custom",
+    "focus_navigation_mode_left": "contained",
+    "focus_navigation_mode_down": "contained",
+    "focus_navigation_mode_up": "contained",
+    "focus_navigation_mode_right": "custom",
     "focus_container_custom_right": [
       {
         "other_focus_container_name": "scrolling_content",
@@ -778,10 +780,10 @@
           "focus_container": true,
           "use_last_focus": true,
           "focus_wrap_enabled": false,
-          "focus_nagivation_mode_left": "contained",
-          "focus_nagivation_mode_down": "contained",
-          "focus_nagivation_mode_up": "contained",
-          "focus_nagivation_mode_right": "none",
+          "focus_navigation_mode_left": "contained",
+          "focus_navigation_mode_down": "contained",
+          "focus_navigation_mode_up": "contained",
+          "focus_navigation_mode_right": "none",
 
           "$sidebar_section_collection_prefix": "sidebar_section",
           "$sidebar_section_collection_name": "sidebar_section_collection",
@@ -895,10 +897,12 @@
   },
 
   "sidebar_views": {
-    "ignored": true,
+    "ignored": "(not $is_sidebar_navigation_enabled)",
     "type": "panel",
     "size": [ "100%", "100%" ],
-    
+
+    "$ignore_inventory_button": "$is_sidebar_navigation_enabled",
+
     "visible": "$sidebar_ignore_page_loading",
     "property_bag": {
       "#visible": "$sidebar_ignore_page_loading"
@@ -965,8 +969,8 @@
   },
 
   "sidebar_empty_panel": {
-    "ignored": true,
     "type": "panel",
+    "ignored": "(not $is_sidebar_navigation_enabled)",
     "size": [ 32, "100%" ],
     "bindings": [
       {
@@ -984,9 +988,9 @@
     "focus_container": true,
     "use_last_focus": false,
     "focus_wrap_enabled": false,
-    "focus_nagivation_mode_down": "contained",
-    "focus_nagivation_mode_up": "contained",
-    "focus_nagivation_mode_right": "contained",
+    "focus_navigation_mode_down": "contained",
+    "focus_navigation_mode_up": "contained",
+    "focus_navigation_mode_right": "contained",
 
     "$main_content_focus_container_left": "custom",
     "$main_content_focus_container_left_custom": [
@@ -1071,9 +1075,9 @@
                 "focus_container": true,
                 "use_last_focus": true,
                 "focus_wrap_enabled": false,
-                "focus_nagivation_mode_down": "contained",
-                "focus_nagivation_mode_right": "contained",
-                "focus_nagivation_mode_left": "$main_content_focus_container_left",
+                "focus_navigation_mode_down": "contained",
+                "focus_navigation_mode_right": "contained",
+                "focus_navigation_mode_left": "$main_content_focus_container_left",
                 "focus_container_custom_left": "$main_content_focus_container_left_custom",
 
                 "default_focus_precedence": 20,

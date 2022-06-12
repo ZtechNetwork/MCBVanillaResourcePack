@@ -13,7 +13,7 @@
 
   "background_image": {
     "type": "image",
-    "size": [ "100%", "100%" ],
+    "size": [ "85%", "85%" ],
     "texture": "textures/ui/background_panel"
   },
 
@@ -57,7 +57,7 @@
     "size": [ 104, 110 ],
     "anchor_from": "center",
     "anchor_to": "center",
-    "offset": [ -10, 0 ],
+    "offset": [ -1, -2 ],
 
     "controls": [
       {
@@ -184,9 +184,10 @@
 
   "inventory_content": {
     "type": "panel",
-    "size": [ "80%", "95%" ],
-    "anchor_to": "center",
-    "anchor_from": "center",
+    "size": [ "100%-5px", "100%-5px" ],
+    "offset": [ "5px", "2px" ],
+    "anchor_to": "top_left",
+    "anchor_from": "top_left",
     "controls": [
       {
         "scrolling_panel@common.scrolling_panel": {
@@ -211,10 +212,12 @@
       {
         "header_background": {
           "type": "image",
-          "texture": "textures/ui/header_bar"
+          "texture": "textures/ui/header_bar_2"
         }
       },
-      { "close_button@common.legacy_pocket_close_button": {} },
+      {
+        "close_button@common.legacy_pocket_close_button": { "offset": [ -3, 3 ] }
+      },
       {
         "panel": {
           "type": "panel",
@@ -268,7 +271,7 @@
   "header_and_content_stack_panel": {
     "type": "stack_panel",
     "orientation": "vertical",
-    "size": [ "100%", "100%" ],
+    "size": [ "85%", "85%" ],
     "controls": [
       { "header@furnace_pocket.header": { "layer": 2 } },
       {
@@ -285,7 +288,7 @@
     "type": "panel",
     "controls": [
       { "bg@furnace_pocket.background_image": {} },
-      { "root_panel@common.root_panel": {} },
+      { "root_panel@common.root_panel": { "size": [ "85%", "85%" ] } },
       { "header_and_content_stack_panel@furnace_pocket.header_and_content_stack_panel": {} },
 
       { "container_gamepad_helpers@common.container_gamepad_helpers": { "layer": 2 } },

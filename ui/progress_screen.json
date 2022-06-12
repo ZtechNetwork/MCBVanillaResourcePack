@@ -601,7 +601,7 @@
         }
       },
       {
-        "progress_bar_nub@achievement.progress_bar_nub": {
+        "progress_bar_nub@progress.progress_bar_nub": {
           "size": [ "100% - 10px", 5 ],
           "layer": 4
         }
@@ -636,6 +636,12 @@
         "binding_name_override": "#progress_bar_current_amount"
       }
     ]
+  },
+
+  "progress_bar_nub": {
+    "type": "image",
+    "texture": "textures/ui/experiencenub",
+    "tiled": true
   },
 
   "thick_progress_bar_icon_base": {
@@ -686,7 +692,8 @@
 
   "cancel_button@common_buttons.light_text_button": {
     "$pressed_button_name": "button.menu_exit",
-    "$button_text": "gui.cancel",
+    "$button_text": "#cancel_button_text",
+    "$button_text_binding_type": "global",
     "size": [ 66, 26 ],
     "offset": [ 0, 55 ],
     "bindings": [

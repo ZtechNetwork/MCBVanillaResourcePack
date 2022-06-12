@@ -1,0 +1,37 @@
+{
+	"format_version": "1.8.0",
+	"minecraft:client_entity": {
+		"description": {
+			"identifier": "minecraft:allay",
+			"materials": {
+				"default": "allay"
+			},
+			"textures": {
+				"default": "textures/entity/allay/allay"
+			},
+			"geometry": {
+				"default": "geometry.allay"
+			},
+      "spawn_egg": {
+        "base_color": "#00daff",
+        "overlay_color": "#00adff"
+      },
+      "scripts": {
+        "pre_animation": [
+          "variable.holding_trident = query.is_item_name_any('slot.weapon.mainhand', 'minecraft:trident');"
+        ]
+      },
+			"animations": {
+				"idle": "animation.allay.idle",
+				"fly": "animation.allay.fly",
+				"hold_item": "animation.allay.hold_item"
+			},
+			"animation_controllers": [
+				{ "general": "controller.animation.allay.general" },
+				{ "holding": "controller.animation.allay.holding" }
+			],
+      "render_controllers": [ "controller.render.allay" ],
+      "enable_attachables":  true
+		}
+	}
+}

@@ -13,7 +13,7 @@
 
   "background_image": {
     "type": "image",
-    "size": [ "100%", "100%" ],
+    "size": [ "85%", "85%" ],
     "texture": "textures/ui/background_panel"
   },
 
@@ -33,9 +33,10 @@
 
   "inventory_content": {
     "type": "panel",
-    "size": [ "80%", "95%" ],
-    "anchor_to": "center",
-    "anchor_from": "center",
+    "size": [ "100%-5px", "100%-5px" ],
+    "offset": [ "5px", "2px" ],
+    "anchor_to": "top_left",
+    "anchor_from": "top_left",
     "controls": [
       {
         "scrolling_panel@common.scrolling_panel": {
@@ -60,7 +61,7 @@
 
   "enchanting_slots_panel": {
     "type": "panel",
-    "size": [ 32, 68 ],
+    "size": [ 32, 67 ],
     "anchor_to": "top_left",
     "anchor_from": "top_left",
     "controls": [
@@ -187,7 +188,7 @@
     "type": "panel",
     "anchor_from": "top_left",
     "anchor_to": "top_left",
-    "size": [ "100%", "33.3333333%-1px" ],
+    "size": [ "100%", "33% - 5px" ],
     "controls": [
       {
         "inactive_background@enchanting_pocket.inactive_background": {
@@ -229,8 +230,8 @@
 
   "enchant_selection_panel": {
     "type": "panel",
-    "size": [ "100%-34px", 60 ],
-    "offset": [ 34, 0 ],
+    "size": [ "100%-34px", 72 ],
+    "offset": [ 0, 0 ],
     "anchor_from": "top_left",
     "anchor_to": "top_left",
     "controls": [
@@ -271,6 +272,7 @@
     ]
   },
 
+
   // Enchanting Confirm Panel //
 
   "item_renderer": {
@@ -287,7 +289,7 @@
   },
 
   "enchanting_confirm_button@common.button": {
-    "size": [ 120, 30 ],
+    "size": [ "100%", 30 ],
     "focus_enabled": false,
     "$pressed_button_name": "button.enchant",
 
@@ -368,8 +370,8 @@
 
   "enchanting_confirm_panel": {
     "type": "panel",
-    "size": [ "100%-34px", 44 ],
-    "offset": [ 17, 0 ],
+    "size": [ "100%", 30 ],
+    "offset": [ 0, 0 ],
     "anchor_from": "bottom_middle",
     "anchor_to": "bottom_middle",
     "controls": [
@@ -397,18 +399,18 @@
 
   // Enchanting Book Panel //
 
-  "enchanting_book_panel": {
+  "enchanting_book_contents_panel": {
     "type": "panel",
     "size": [ 40, 40 ],
-    "anchor_from": "bottom_left",
-    "anchor_to": "bottom_left",
+    "anchor_from": "center",
+    "anchor_to": "center",
     "controls": [
       {
         "enchanting_book": {
           "type": "custom",
           "renderer": "enchanting_book_renderer",
           "animation_reset_name": "screen_animation_reset",
-          "layer": -1,
+          "layer": 0,
           "offset": [ 0, 0 ],
           "anims": [
             "@common.screen_exit_size_animation_push",
@@ -460,47 +462,73 @@
     ]
   },
 
+  "enchanting_book_panel": {
+    "type": "panel",
+    "size": [ "100%", 40 ],
+    "controls": [
+      { "enchanting_slots_panel@enchanting_pocket.enchanting_book_contents_panel": {} }
+    ]
+  },
+
+
+
+  "enchanting_slots_and_selection": {
+    "type": "stack_panel",
+    "orientation": "horizontal",
+    "size": [ "100%", 67 ],
+    "controls": [
+      { "enchanting_slots_panel@enchanting_pocket.enchanting_slots_panel": {} },
+      {
+        "pad1": {
+          "type": "panel",
+          "size": [ 2, 0 ]
+        }
+      },
+      { "enchant_selection_panel@enchanting_pocket.enchant_selection_panel": {} }
+    ]
+  },
+
 
   // Enchanting Panel //
 
   "enchanting_contents_panel": {
-    "type": "panel",
-    "size": [ "100%", 108 ],
-    "anchor_from": "top_left",
-    "anchor_to": "top_left",
+    "type": "stack_panel",
+    "size": [ "85%", "95%" ],
+    "offset": [ 0, 0 ],
+    "anchor_from": "top_middle",
+    "anchor_to": "top_middle",
     "controls": [
-      { "enchanting_slots_panel@enchanting_pocket.enchanting_slots_panel": {} },
-      { "enchant_selection_panel@enchanting_pocket.enchant_selection_panel": {} },
+      {
+        "fill1": {
+          "type": "panel",
+          "size": [ 0, "fill" ]
+        }
+      },
+      { "enchanting_book_panel@enchanting_pocket.enchanting_book_panel": {} },
+      {
+        "pad1": {
+          "type": "panel",
+          "size": [ 0, 4 ]
+        }
+      },
+      { "enchanting_slots_and_selection@enchanting_pocket.enchanting_slots_and_selection": {} },
+      {
+        "pad2": {
+          "type": "panel",
+          "size": [ 0, 4 ]
+        }
+      },
       { "enchanting_confirm_panel@enchanting_pocket.enchanting_confirm_panel": {} },
-      { "enchanting_book_panel@enchanting_pocket.enchanting_book_panel": {} }
+      {
+        "fill2": {
+          "type": "panel",
+          "size": [ 0, "fill" ]
+        }
+      }
     ]
   },
 
-  // Half Screens //
 
-  "half_screen": {
-    "type": "input_panel"
-  },
-
-  "inventory_half_screen@enchanting_pocket.half_screen": {
-    "offset": [ 8, 31 ],
-    "anchor_from": "top_left",
-    "anchor_to": "top_left",
-    "size": [ "45%-4px", "100%-35px" ],
-    "controls": [
-      { "inventory_content@enchanting_pocket.inventory_content": {} }
-    ]
-  },
-
-  "enchanting_half_screen@enchanting_pocket.half_screen": {
-    "offset": [ -4, 31 ],
-    "size": [ "55%-8px", "100%-35px" ],
-    "anchor_from": "top_right",
-    "anchor_to": "top_right",
-    "controls": [
-      { "enchanting_contents_panel@enchanting_pocket.enchanting_contents_panel": { "layer": 1 } }
-    ]
-  },
 
   // Header //
 
@@ -513,10 +541,10 @@
       {
         "header_background": {
           "type": "image",
-          "texture": "textures/ui/header_bar"
+          "texture": "textures/ui/header_bar_2"
         }
       },
-      { "legacy_pocket_close_button@common.legacy_pocket_close_button": {} },
+      { "legacy_pocket_close_button@common.legacy_pocket_close_button": { "offset": [ -3, 3 ] } },
       {
         "panel": {
           "type": "panel",
@@ -530,6 +558,52 @@
               }
             }
           ]
+        }
+      }
+    ]
+  },
+
+  // Layout Content Panels //
+
+  "inventory_and_enchanting_panel": {
+    "type": "panel",
+    "controls": [
+      {
+        "inventory_half_screen": {
+          "type": "panel",
+          "size": [ "50%", "100%" ],
+          "anchor_from": "left_middle",
+          "anchor_to": "left_middle",
+
+          "controls": [
+            { "inventory_content@enchanting_pocket.inventory_content": {} }
+          ]
+        }
+      },
+      {
+        "enchanting_half_screen": {
+          "type": "panel",
+          "size": [ "50%", "100%" ],
+          "anchor_from": "right_middle",
+          "anchor_to": "right_middle",
+
+          "controls": [
+            { "enchanting_content@enchanting_pocket.enchanting_contents_panel": {} }
+          ]
+        }
+      }
+    ]
+  },
+
+  "header_and_content_stack_panel": {
+    "type": "stack_panel",
+    "orientation": "vertical",
+    "size": [ "85%", "85%" ],
+    "controls": [
+      { "header@enchanting_pocket.header": { "layer": 2 } },
+      {
+        "inventory_and_enchanting_panel@enchanting_pocket.inventory_and_enchanting_panel": {
+          "size": [ "100%", "fill" ]
         }
       }
     ]
@@ -565,24 +639,9 @@
   "enchanting_panel": {
     "type": "panel",
     "controls": [
-      { "header@enchanting_pocket.header": { "layer": 2 } },
       { "bg@enchanting_pocket.background_image": {} },
-      { "root_panel@common.root_panel": {} },
-      {
-        "enchant_error_factory": {
-          "type": "factory",
-          "control_name": "@enchanting_pocket.error_text_panel",
-          "layer": 3
-        }
-      },
-      {
-        "inventory_half_screen@enchanting_pocket.inventory_half_screen": {
-          "layer": 1,
-          "$pane_collection": "combined_hotbar_and_inventory_items", // Only put in to not break Norse Mythology Resource Pack, check later if uneeded
-          "$container_size": 36 // Only put in to not break Norse Mythology Resource Pack, check later if uneeded
-        }
-      },
-      { "enchanting_half_screen@enchanting_pocket.enchanting_half_screen": { "layer": 2 } },
+      { "root_panel@common.root_panel": { "size": [ "85%", "85%" ] } },
+      { "header_and_content_stack_panel@enchanting_pocket.header_and_content_stack_panel": {} },
 
       { "container_gamepad_helpers@common.container_gamepad_helpers": { "layer": 2 } },
       { "inventory_selected_icon_button@common.inventory_selected_icon_button": {} },

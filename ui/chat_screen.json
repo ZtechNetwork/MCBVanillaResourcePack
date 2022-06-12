@@ -11,7 +11,8 @@
   "keyboard_image": {
     "type": "image",
     "size": [ 9, 7 ],
-    "texture": "textures/ui/chat_keyboard"
+    "$keyboard_image|default": "textures/ui/chat_keyboard",
+    "texture": "$keyboard_image"
   },
   "gear_image": {
     "type": "image",
@@ -75,6 +76,16 @@
 
   "keyboard_image_panel": {
     "type": "panel",
+    "variables": [
+      {
+        "requires": "$hover_state",
+        "$keyboard_image": "textures/ui/chat_keyboard_hover"
+      },
+      {
+        "requires": "$pressed_state",
+        "$keyboard_image": "textures/ui/chat_keyboard_hover"
+      }
+    ],
     "controls": [
       {
         "keyboard_image@chat.keyboard_image": {
@@ -157,25 +168,16 @@
   },
 
   // Messages Panel //
-
   "messages_text": {
-    "type": "panel",
-    "size": [ "100%", "100%c" ],
-    "controls": [
-      {
-        "text": {
-          "type": "label",
-          "color": "$chat_text_color",
-          "localize": false,
-          "size": [ "100%", "default" ],
-          "text": "#text",
-          "text_tts": "#text_tts",
-          "font_type": "$chat_font_type",
-          "font_scale_factor": "$chat_font_scale_factor",
-          "line_padding": "$chat_line_spacing"
-        }
-      }
-    ],
+    "type": "label",
+    "color": "$chat_text_color",
+    "localize": false,
+    "size": [ "100%", "default" ],
+    "text": "#text",
+    "text_tts": "#text_tts",
+    "font_type": "$chat_font_type",
+    "font_scale_factor": "$chat_font_scale_factor",
+    "line_padding": "$chat_line_spacing",
     "bindings": [
       {
         "binding_name": "#chat_visible",
@@ -231,7 +233,6 @@
     // This one thinks it's so important, it gets selected first
     "default_focus_precedence": 1,
     "$focus_id": "text_edit_box_focus_id",
-    "$focus_override_right": "keyboard_button_focus_id",
     "$focus_override_left": "chat_settings_button_focus_id",
     // focus override up and down are controlled with bindings
     "$text_box_tts_header": "accessibility.chat.tts.textboxTitle",
@@ -390,14 +391,17 @@
   },
 
   // Auto Complete //
-
+  "click_autocomplete_is_focused": {
+    "type": "image",
+    "texture": "textures/ui/square_image_border_white",
+    "color": "$non_interact_border_color"
+  },
   "auto_complete_panel_contents_with_item": {
     "type": "panel",
     "anchor_from": "top_left",
     "anchor_to": "top_left",
     // We have to manually put in the size because item renderer is weird.
     "size": [ "100%", 10 ],
-
     "controls": [
       {
         "auto_complete_item_renderer@common.item_renderer": {
@@ -429,6 +433,29 @@
               "binding_type": "collection",
               "binding_name": "#auto_complete_text",
               "binding_name_override": "#text",
+              "binding_collection_name": "auto_complete"
+            }
+          ]
+        }
+      },
+      {
+        "autocomplete_button@common.button": {
+          "$pressed_button_name": "button.click_autocomplete",
+          "tts_inherit_siblings": true,
+          "controls": [
+            { "default": { "type": "panel" } },
+            { "hover@chat.click_autocomplete_is_focused": {} },
+            { "pressed@chat.click_autocomplete_is_focused": {} }
+          ],
+          "bindings": [
+            {
+              "binding_type": "collection",
+              "binding_name": "#is_autocomplete_suggestion",
+              "binding_name_override": "#visible",
+              "binding_collection_name": "auto_complete"
+            },
+            {
+              "binding_type": "collection_details",
               "binding_collection_name": "auto_complete"
             }
           ]

@@ -290,18 +290,17 @@
   }, //down arrow image
 
   "up_arrow_image_hover": {
-    "offset": [ 1, 2 ],
+    "offset": [ 0, 2 ],
     "type": "image",
     "texture": "textures/ui/up_arrow",
-    "size": [ 15, 15 ],
+    "size": [ 14, 14 ],
     "color": "$main_header_text_color"
   },
 
   "down_arrow_image_hover": {
-    "offset": [ 1, 0 ],
     "type": "image",
     "texture": "textures/ui/down_arrow",
-    "size": [ 15, 15 ],
+    "size": [ 14, 14 ],
     "color": "$main_header_text_color"
   },
 
@@ -2295,6 +2294,7 @@
   }, //button to remove pack from active, edit text and size
 
   "selected_pack_up_button@resource_packs.selected_pack_transparent_movement_button": {
+    "$button_pressed_offset": [ 0, 0 ],
     "$pressed_button_name": "$button.sort_up",
     "$button_content": "resource_packs.up_arrow_wrapper",
     "$visible_binding_name": "#can_sort_up",
@@ -2302,6 +2302,7 @@
   }, //button with up arrow, remove outline
 
   "selected_pack_down_button@resource_packs.selected_pack_transparent_movement_button": {
+    "$button_pressed_offset": [ 0, 0 ],
     "$pressed_button_name": "$button.sort_down",
     "$button_content": "resource_packs.down_arrow_wrapper",
     "$visible_binding_name": "#can_sort_down",
@@ -3199,6 +3200,7 @@
             },
             {
               "empty_panel": {
+                "ignored": "$education_edition",
                 "type": "stack_panel",
                 "orientation": "vertical",
                 "size": [ "100%", "100%c" ],
@@ -3340,6 +3342,7 @@
       },
       {
         "unowned_packs_title_button@resource_packs.unowned_packs_title_button": {
+          "ignored": "$education_edition",
           "bindings": [
             {
               "binding_name": "$unowned_visible",
@@ -3350,6 +3353,7 @@
       },
       {
         "unowned_packs_section": {
+          "ignored": "$education_edition",
           "type": "stack_panel",
           "orientation": "vertical",
           "size": [ "100%", "100%c" ],

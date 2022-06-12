@@ -66,6 +66,12 @@
         }
       },
       {
+        "upload_world_panel@world_section.upload_world_stack_bedrock": {
+          "ignored": "(not $is_pregame or $education_edition)",
+          "$button_text_max_size": [ "100%", 20 ]
+        }
+      },
+      {
         "play_or_host_panel@world_section.play_or_host_stack_edu": {}
       },
       {
@@ -205,6 +211,25 @@
             }
           ]
         }
+      }
+    ]
+  },
+
+  "upload_world_stack_bedrock@world_section.launch_world_button_stack_def": {
+    "ignored": "(not $is_pregame or $education_edition)",
+    "controls": [
+      {
+        "upload_world_button@settings_common.action_button": {
+          "size": [ "fill", 35 ],
+          "$button_text": "createWorldScreen.upload",
+          "$pressed_button_name": "upload_world_button"
+        }
+      }
+    ],
+    "bindings": [
+      {
+        "binding_name": "#upload_world_visible",
+        "binding_name_override": "#visible"
       }
     ]
   },
@@ -359,6 +384,69 @@
       }
     ],
     "controls": [
+      {
+        // 2021-11-25 v-raskal, adding this button and dividier for the duration
+        // of the Ore UI Create New World screen opt-in beta testing. Once the
+        // beta phase is over this button and divider should be removed
+        "new_ui_switch_button_options_panel": {
+          "type": "stack_panel",
+          "ignored": "$education_edition",
+          "orientation": "vertical",
+          "size": [ "100%", "100%c + 4px" ],
+          "bindings": [
+            {
+              "binding_name": "#show_new_cnw_beta_opt_in",
+              "binding_name_override": "#visible"
+            }
+          ],
+          "controls": [
+            {
+              "option_info_label@settings_common.option_group_label": {
+                "$text": "options.newUiCreateNewWorld.title"
+              }
+            },
+            {
+              "option_text_label@settings_common.option_group_label": {
+                "$text": "options.newUiCreateNewWorld.info"
+              }
+            },
+            {
+              "unlock_template_options_button@settings_common.action_button": {
+                "size": [ "100%", 30 ],
+                "$button_text": "options.newUiCreateNewWorld.initiate",
+                "$pressed_button_name": "switch_to_new_ui_create_new_world",
+                "$focus_override_right": "FOCUS_OVERRIDE_STOP"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "dividerNewUiSwitchButton": {
+          "type": "panel",
+          "size": [ "100%", "100%c + 14px" ],
+          "bindings": [
+            {
+              "binding_name": "#show_new_cnw_beta_opt_in",
+              "binding_name_override": "#visible"
+            }
+          ],
+          "controls": [
+            {
+              "section_divider": {
+                "type": "image",
+                "size": [ "100% - 30px", 1 ],
+                "anchor_from": "center",
+                "anchor_to": "center",
+                "layer": 3,
+                "texture": "textures/ui/list_item_divider_line_light"
+              }
+            }
+          ]
+        }
+      },
+
+
       {
         "unlock_template_options_panel": {
           "type": "stack_panel",
@@ -735,14 +823,14 @@
         "experimental_toggles_label@settings_common.option_group_label": {
           "$text": "createWorldScreen.experimentalgameplay",
           // Ignore education toggle in education since education doesn't allow experiments presently
-          "ignored": "$education_edition"
+          "ignored": "($is_publish and $education_edition)"
         }
       },
       {
         "experimental_toggles_label_info@settings_common.option_group_label": {
           "$text": "createWorldScreen.experimentalgameplayinfo",
           // Ignore education toggle in education since education doesn't allow experiments presently
-          "ignored": "$education_edition"
+          "ignored": "($is_publish and $education_edition)"
         }
       },
       {
@@ -751,7 +839,7 @@
           "orientation": "vertical",
           "size": [ "100%", "100%c" ],
           // Ignore education toggle in education since education doesn't allow experiments presently
-          "ignored": "$education_edition",
+          "ignored": "($is_publish and $education_edition)",
           "factory": {
             "name": "experimental_toggle_factory",
             "control_name": "world_section.experimental_toggle"
@@ -1586,19 +1674,18 @@
       },
       {
         "platform_settings_dropdown@settings_common.option_dropdown": {
-          "ignored": "(not $nx_os and not $is_ps4)",
           "$show_option_label": true,
           "$option_label": "options.thirdPartyConsoleVisible",
           "$dropdown_content": "world_section.platform_broadcast_dropdown_content",
           "$dropdown_area": "content_area",
           "$dropdown_name": "platform_broadcast_dropdown",
           "$options_dropdown_toggle_label_binding": "#platform_broadcast_dropdown_toggle_label",
-          "$option_enabled_binding_name": "#platform_show_broadcast_dropdown",
+          "$option_enabled_binding_name": "#platform_broadcast_dropdown_enabled",
           "$dropdown_scroll_content_size": [ "100%", 60 ],
           "bindings": [
             {
-              "binding_name": "#can_be_platform_network_enabled",
-              "binding_name_override": "#enabled"
+              "binding_name": "#platform_settings_dropdown_visible",
+              "binding_name_override": "#visible"
             }
           ]
         }
@@ -1738,6 +1825,8 @@
     "$tts_section_header": "createWorldScreen.worldSettings",
     "$toggle_tts_header_binding_type": "collection",
     "$toggle_tts_header_binding_collection_name": "experimental_toggles",
+    "$toggle_tts_inherit_siblings": true,
+    "$toggle_tts_type_priority": 100,
     "$option_label": "#text",
     "$option_binding_name": "#experimental_toggle_value",
     "$option_enabled_binding_name": "#experimental_toggle_enabled",
@@ -1865,17 +1954,6 @@
           "$selection_highlight_offset": [ -2, 1 ],
           "$selection_highlight_size": [ "100%", "100% + 1px" ],
           "$focus_override_right": "FOCUS_OVERRIDE_STOP"
-        }
-      },
-      {
-        "option_dropdown_raytracing_mode@settings_common.option_dropdown": {
-          "$option_label": "options.dev_raytracing_mode",
-          "$dropdown_content": "general_section.dev_raytracing_mode_dropdown_content",
-          "$dropdown_area": "content_area",
-          "$dropdown_name": "raytracing_mode_dropdown",
-          "$options_dropdown_toggle_label_binding": "#dev_raytracing_mode_dropdown_toggle_label",
-          "$option_enabled_binding_name": "#dev_raytracing_mode_dropdown_enabled",
-          "$dropdown_scroll_content_size": [ "100%", "140%" ]
         }
       },
       {
@@ -2355,22 +2433,6 @@
         "@settings_common.radio_with_label": {
           "$toggle_state_binding_name": "#debug_spawn_in_plains",
           "$radio_label_text": "plains"
-        }
-      }
-    ]
-  },
-  "dev_raytracing_mode_dropdown_content@settings_common.option_radio_dropdown_group": {
-    "$radio_buttons": [
-      {
-        "@settings_common.radio_with_label": {
-          "$toggle_state_binding_name": "#raytracing_mode_compatibility",
-          "$radio_label_text": "options.dev_raytracing_mode.compatibility"
-        }
-      },
-      {
-        "@settings_common.radio_with_label": {
-          "$toggle_state_binding_name": "#raytracing_mode_full",
-          "$radio_label_text": "options.dev_raytracing_mode.full"
         }
       }
     ]
