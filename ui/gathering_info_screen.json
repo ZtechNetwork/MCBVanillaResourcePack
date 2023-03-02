@@ -44,11 +44,6 @@
                 "size": [ "100% - 18px", "100%" ],
                 "controls": [
                   {
-                    "pad_1@common.empty_panel": {
-                      "size": [ "100%", 4 ]
-                    }
-                  },
-                  {
                     "event_image": {
                       "type": "image",
                       "size": [ "100%", "77%x" ],
@@ -74,7 +69,7 @@
                           "caption@start.gathering_caption": {
                             "anchor_to": "top_left",
                             "anchor_from": "top_left",
-                            "offset": [ 8, -19 ],
+                            "offset": [ 8, -17 ],
                             "layer": 20
                           }
                         },
@@ -107,6 +102,48 @@
                       "$button_text": "#info_button_text",
                       "$button_text_binding_type": "global"
                     }
+                  },
+                  {
+                    "pad_4@common.empty_panel": {
+                      "size": [ "100%", 10 ]
+                    }
+                  },
+                  {
+                    "gamepad_helper_panel": {
+                      "type": "panel",
+                      "size": [ "100%", 26 ],
+                      "controls": [
+                        {
+                          "gamepad_helpers@gathering_info.gamepad_helpers": {}
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "pad_fill@common.empty_panel": {
+                      "size": [ "100%", "fill" ]
+                    }
+                  },
+                  {
+                    "gathering_id_label": {
+                      "type": "label",
+                      "text": "#gathering_id_label",
+                      "size": [ "100%", "default" ],
+                      "color": "$alert_label_background_color",
+                      "text_alignment": "center",
+                      "font_size": "small",
+                      "bindings": [
+                        {
+                          "binding_name": "#gathering_id_label",
+                          "binding_condition": "once"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "pad_5@common.empty_panel": {
+                      "size": [ "100%", "5px" ]
+                    }
                   }
                 ]
               }
@@ -127,7 +164,7 @@
           "controls": [
             {
               "scroll@common.scrolling_panel": {
-                "$scrolling_content": "gathering_info.right_panel_content",
+                "$scrolling_content": "gathering_info.tts_wrapper",
                 "$scrolling_content_anchor_from": "top_middle",
                 "$scrolling_content_anchor_to": "top_middle",
                 "$show_background": false
@@ -139,12 +176,200 @@
     ]
   },
 
+  "tts_wrapper@common.non_interact_focus_border_button": {
+    "size": [ "100% - 24px", "100%c" ],
+    "$hover_focus_border_control": "common.empty_panel",
+    "$pressed_focus_border_control": "common.empty_panel",
+    "$content_inside": "gathering_info.right_panel_content",
+    "$border_size": [ "100%", "100%c"],
+    "tts_inherit_siblings": true
+  },
+
   "right_panel_content": {
     "type": "stack_panel",
-    "size": [ "100% - 24px", "100%c" ],
+    "size": [ "100%", "100%c" ],
     "orientation": "vertical",
     "use_child_anchors": true,
     "controls": [
+      {
+        "pad": {
+          "type": "panel",
+          "size": [ "100%", 15 ]
+        }
+      },
+      {
+        "sign_in_panel": {
+          "type": "stack_panel",
+          "orientation": "horizontal",
+          "size": [ "100%", "100%cm" ],
+          "controls": [
+            {
+              "sign_in_image": {
+                "type": "image",
+                "texture": "textures/ui/promo_chicken",
+                "size": [ 37, 37 ]
+              }
+            },
+            {
+              "horizontal_pad": {
+                "type": "panel",
+                "size": [ 10, 0 ]
+              }
+            },
+            {
+              "text_stack": {
+                "type": "stack_panel",
+                "orientation": "vertical",
+                "size": [ "fill", "100%c" ],
+                "controls": [
+                  {
+                    "sign_in_title": {
+                      "type": "label",
+                      "text": "gathering.info.signIn.title",
+                      "font_type": "MinecraftTen",
+                      "color": "$body_text_color",
+                      "size": [ "100%", "default" ]
+                    }
+                  },
+                  {
+                    "text_pad": {
+                      "type": "panel",
+                      "size": [ "100%", 4 ]
+                    }
+                  },
+                  {
+                    "sign_in_body": {
+                      "type": "label",
+                      "text": "gathering.info.signIn.body",
+                      "size": [ "100%", "default" ],
+                      "color": "$body_text_color"
+                    }
+                  }
+                ]
+              }
+            }
+          ],
+          "bindings": [
+            {
+              "binding_name": "#sign_in_visible",
+              "binding_name_override": "#visible"
+            }
+          ]
+        }
+      },
+      {
+        "sign_in_pad@common.empty_panel": {
+          "size": [ "100%", 20 ],
+          "bindings": [
+            {
+              "binding_name": "#sign_in_visible",
+              "binding_name_override": "#visible"
+            }
+          ]
+        }
+      },
+      {
+        "qr_panel": {
+          "type": "stack_panel",
+          "orientation": "horizontal",
+          "size": [ "100%", "100%cm" ],
+          "visible": false,
+          "controls": [
+            {
+              "qr_background": {
+                "type": "image",
+                "texture": "textures/ui/white_background",
+                "size": [ 60, 60 ],
+                "controls": [
+                  {
+                    "qr_image": {
+                      "type": "image",
+                      "texture": "#qr_texture",
+                      "texture_file_system": "RawPath",
+                      "size": [ 56, 56 ],
+                      "layer": 2,
+                      "bindings": [
+                        {
+                          "binding_name": "#qr_texture",
+                          "binding_name_override": "#texture",
+                          "binding_condition": "visibility_changed"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "horizontal_pad": {
+                "type": "panel",
+                "size": [ 10, 0 ]
+              }
+            },
+            {
+              "text_stack": {
+                "type": "stack_panel",
+                "orientation": "vertical",
+                "size": [ "fill", "100%c" ],
+                "controls": [
+                  {
+                    "qr_title": {
+                      "type": "label",
+                      "text": "#qr_title_text",
+                      "font_type": "MinecraftTen",
+                      "color": "$body_text_color",
+                      "size": [ "100%", "default" ],
+                      "bindings": [
+                        {
+                          "binding_name": "#qr_title_text",
+                          "binding_condition": "visibility_changed"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "text_pad": {
+                      "type": "panel",
+                      "size": [ "100%", 4 ]
+                    }
+                  },
+                  {
+                    "qr_body": {
+                      "type": "label",
+                      "text": "#qr_body_text",
+                      "size": [ "100%", "default" ],
+                      "color": "$body_text_color",
+                      "bindings": [
+                        {
+                          "binding_name": "#qr_body_text",
+                          "binding_condition": "visibility_changed"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          ],
+          "bindings": [
+            {
+              "binding_name": "#qr_panel_visible",
+              "binding_name_override": "#visible"
+            }
+          ]
+        }
+      },
+      {
+        "qr_pad@common.empty_panel": {
+          "size": [ "100%", 20 ],
+          "bindings": [
+            {
+              "binding_name": "#qr_panel_visible",
+              "binding_name_override": "#visible"
+            }
+          ]
+        }
+      },
       {
         "title": {
           "type": "label",
@@ -189,7 +414,7 @@
         "body_image": {
           "type": "image",
           "texture": "#body_image",
-          "size": [ "100% - 40px", "77%x" ],
+          "size": [ "100%", "77%x" ],
           "anchor_to": "top_middle",
           "anchor_from": "top_middle",
           "bindings": [
@@ -211,5 +436,19 @@
     "anchor_to": "top_left",
     "layer": 3,
     "texture": "textures/ui/HowToPlayDivider"
+  },
+
+  "gamepad_helpers": {
+    "type": "stack_panel",
+    "orientation": "horizontal",
+    "size": [ "100%c", 26 ],
+    "controls": [
+      {
+        "gamepad_helper_a@common.gamepad_helper_a": {}
+      },
+      {
+        "gamepad_helper_b@common.gamepad_helper_b": {}
+      }
+    ]
   }
 }

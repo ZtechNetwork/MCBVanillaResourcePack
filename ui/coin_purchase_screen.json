@@ -31,6 +31,7 @@
                 "offset": [ 0, 1 ],
                 "text": "$coin_text_binding",
                 "color": "$store_white_text_color",
+                "tts_override_control_value": "$accesibility_binding",
                 "bindings": [
                   {
                     "binding_type": "$store_factory_collection_details",
@@ -41,6 +42,11 @@
                     "binding_type": "$offer_binding_type",
                     "binding_collection_name": "$offer_collection_name",
                     "binding_name": "$coin_text_binding"
+                  },
+                  {
+                    "binding_type": "$offer_binding_type",
+                    "binding_collection_name": "$offer_collection_name",
+                    "binding_name": "$accesibility_binding"
                   }
                 ]
               }
@@ -74,6 +80,7 @@
                 "offset": [ 0, 1 ],
                 "text": "#coins_without_bonus",
                 "color": "$store_white_text_color", // Sadly the unit test doesn't detect bindings so we have to put this here even through we will overwrite it or we won't pass the builds :'(
+                "tts_override_control_value": "#accessibility_coins_without_bonus",
                 "bindings": [
                   {
                     "binding_type": "$store_factory_collection_details",
@@ -82,6 +89,11 @@
                   },
                   {
                     "binding_name": "#coins_without_bonus",
+                    "binding_type": "collection",
+                    "binding_collection_name": "coin_purchase_grid"
+                  },
+                  {
+                    "binding_name": "#accessibility_coins_without_bonus",
                     "binding_type": "collection",
                     "binding_collection_name": "coin_purchase_grid"
                   },
@@ -337,6 +349,8 @@
             {
               "coins_stack_panel@coin_purchase.coins_stack_panel": {
                 "$coin_text_binding": "#coins_without_bonus",
+                "$accesibility_binding": "#accessibility_coins_without_bonus",
+
                 "layer": 3
               }
             }
@@ -450,6 +464,7 @@
             {
               "coins_stack_panel@coin_purchase.coins_stack_panel": {
                 "$coin_text_binding": "#bonus_coins",
+                "$accesibility_binding": "#accessibility_bonus_coins",
                 "layer": 3
               }
             }
@@ -723,6 +738,7 @@
                       "text": "#bonus_coins",
                       "size": [ "default", 10 ],
                       "color": "$store_white_text_color", // Sadly the unit test doesn't detect bindings so we have to put this here even through we will overwrite it or we won't pass the builds :'(
+                      "tts_override_control_value": "#accessibility_bonus_coins",
                       "bindings": [
                         {
                           "binding_type": "$store_factory_collection_details",
@@ -731,6 +747,11 @@
                         },
                         {
                           "binding_name": "#bonus_coins",
+                          "binding_type": "collection",
+                          "binding_collection_name": "coin_purchase_grid"
+                        },
+                        {
+                          "binding_name": "#accessibility_bonus_coins",
                           "binding_type": "collection",
                           "binding_collection_name": "coin_purchase_grid"
                         },
@@ -1256,6 +1277,7 @@
                       "size": [ "default", 10 ],
                       "text": "#coin_bundle_description_coin",
                       "color": "$store_white_text_color", // this will get overwritten by the binding, but we need to specify this to pass json unit tests
+                      "tts_override_control_value": "#tts_coin_bundle_description_coin",
                       "bindings": [
                         {
                           "binding_type": "$store_factory_collection_details",
@@ -1266,6 +1288,11 @@
                           "binding_type": "$offer_binding_type",
                           "binding_collection_name": "$offer_collection_name",
                           "binding_name": "#coin_bundle_description_coin"
+                        },
+                        {
+                          "binding_type": "$offer_binding_type",
+                          "binding_collection_name": "$offer_collection_name",
+                          "binding_name": "#tts_coin_bundle_description_coin"
                         },
                         {
                           "binding_type": "$offer_binding_type",
@@ -1449,7 +1476,7 @@
           "layer": -8,
           "anchor_from": "top_middle",
           "anchor_to": "top_middle",
-          "texture": "textures/ui/cointier_backdrop",
+          "texture": "textures/ui/bundle_wide_tile",
           "controls": [
             {
               "bevel": {

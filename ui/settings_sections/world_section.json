@@ -176,17 +176,23 @@
           "default_focus_precedence": 1,
           "$pressed_button_name": "play_world_button",
           "$focus_override_up": "FOCUS_OVERRIDE_STOP",
-          "variables": {
-            "requires": "(not $is_world_edit)",
-            "$button_text": "createWorldScreen.create",
-            "$pressed_button_name": "create_world_button"
-          }
+          "variables": [
+            {
+              "requires": "(not $is_world_edit)",
+              "$button_text": "createWorldScreen.create",
+              "$pressed_button_name": "create_world_button"
+            },
+            {
+              "requires": "($is_world_edit and $is_editor_mode_enabled)",
+              "$button_text": "menu.editor.play"
+            }
+          ]
         }
       },
       {
         "play_on_realm_button@settings_common.action_button": {
           "size": [ "50%", 35 ],
-          "ignored": "(not $is_pregame or $education_edition)",
+          "ignored": "(not $is_pregame or $education_edition or $is_editor_mode_enabled)",
           "$button_text_max_size": [ "100%", 25 ],
           "$button_text": "menu.playOnRealms",
           "$pressed_button_name": "play_world_on_realm_button",
@@ -369,12 +375,79 @@
     }
   },
 
+  "export_world_button@settings_common.action_button": {
+    // std pocket should not have export until bedrock wants it
+    // export is disabled in game
+    // Some platforms such as fireTV do not support file picking
+    // EDU supports file picking on all supported platforms except ios which is pocket
+    "ignored": "(($pocket_edition or $export_disabled or not $file_picking_supported) and not $education_edition)",
+    "size": [ "50%", 30 ],
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "$button_text": "gui.exportWorldLong",
+    "$pressed_button_name": "export_world_button",
+    "$focus_id": "export_world_button"
+  },
+
+  "delete_world_button@settings_common.action_button": {
+    "size": [ "fill", 30 ],
+    "anchor_from": "top_right",
+    "anchor_to": "top_right",
+    "$button_text": "createWorldScreen.deleteWorld",
+    "$pressed_button_name": "delete_world_button",
+    "$focus_id": "delete_world_button"
+  },
+
+  "export_template_button@settings_common.action_button": {
+    "size": [ "100%", 30 ],
+    "anchor_from": "bottom_left",
+    "anchor_to": "bottom_left",
+    "$button_text": "gui.exportTemplate",
+    "$pressed_button_name": "export_template_button"
+  },
+
+  "copy_world_button@settings_common.action_button": {
+    "size": [ "100%", 30 ],
+    "anchor_from": "bottom_left",
+    "anchor_to": "bottom_left",
+    "$button_text": "gui.copyWorld",
+    "$pressed_button_name": "copy_world_button"
+  },
+
+  "edit_world_manipulation_buttons": {
+    "type": "stack_panel",
+    "orientation": "horizontal",
+    "size": [ "100%", 30 ],
+    "controls": [
+      {
+        "export@world_section.export_world_button": {}
+      },
+      {
+        "padding": {
+          "type": "panel",
+          "size": [ 1, 0 ],
+          "ignored": "($pocket_edition or $education_ios or not $file_picking_supported)"
+        }
+      },
+      {
+        "delete@world_section.delete_world_button": {}
+      }
+    ]
+  },
+
   "game_section": {
     "type": "stack_panel",
     "size": [ "100%", "100%c" ],
     "anchor_from": "top_left",
     "anchor_to": "top_left",
     "$education_ios": "($education_edition and $is_ios)",
+    "$world_name_label|default": "selectWorld.enterName",
+    "variables": [
+      {
+        "requires": "$is_editor_mode_enabled",
+        "$world_name_label": "selectWorld.editor.enterName"
+      }
+    ],
     "bindings": [
       {
         "binding_type": "view",
@@ -385,36 +458,33 @@
     ],
     "controls": [
       {
-        // 2021-11-25 v-raskal, adding this button and dividier for the duration
-        // of the Ore UI Create New World screen opt-in beta testing. Once the
-        // beta phase is over this button and divider should be removed
-        "new_ui_switch_button_options_panel": {
+        "new_edit_world_opt_in_panel": {
           "type": "stack_panel",
           "ignored": "$education_edition",
           "orientation": "vertical",
           "size": [ "100%", "100%c + 4px" ],
           "bindings": [
             {
-              "binding_name": "#show_new_cnw_beta_opt_in",
+              "binding_name": "#show_new_edit_world_opt_in",
               "binding_name_override": "#visible"
             }
           ],
           "controls": [
             {
-              "option_info_label@settings_common.option_group_label": {
-                "$text": "options.newUiCreateNewWorld.title"
+              "panel_title@settings_common.option_group_label": {
+                "$text": "options.newUiEditWorld.title"
               }
             },
             {
-              "option_text_label@settings_common.option_group_label": {
-                "$text": "options.newUiCreateNewWorld.info"
+              "panel_text@settings_common.option_group_label": {
+                "$text": "options.newUiEditWorld.info"
               }
             },
             {
-              "unlock_template_options_button@settings_common.action_button": {
+              "opt_in_button@settings_common.action_button": {
                 "size": [ "100%", 30 ],
-                "$button_text": "options.newUiCreateNewWorld.initiate",
-                "$pressed_button_name": "switch_to_new_ui_create_new_world",
+                "$button_text": "options.newUiEditWorld.initiate",
+                "$pressed_button_name": "switch_to_new_edit_world",
                 "$focus_override_right": "FOCUS_OVERRIDE_STOP"
               }
             }
@@ -422,12 +492,12 @@
         }
       },
       {
-        "dividerNewUiSwitchButton": {
+        "new_edit_world_opt_in_divider": {
           "type": "panel",
           "size": [ "100%", "100%c + 14px" ],
           "bindings": [
             {
-              "binding_name": "#show_new_cnw_beta_opt_in",
+              "binding_name": "#show_new_edit_world_opt_in",
               "binding_name_override": "#visible"
             }
           ],
@@ -445,8 +515,6 @@
           ]
         }
       },
-
-
       {
         "unlock_template_options_panel": {
           "type": "stack_panel",
@@ -506,7 +574,7 @@
         // for world create
         "option_text_edit_0@settings_common.option_text_edit": {
           "ignored": "(not $is_world_create)",
-          "$option_label": "selectWorld.enterName",
+          "$option_label": "$world_name_label",
           "$option_place_holder_text": "createWorldScreen.defaultName",
           "$option_binding_name": "#world_name",
           "$option_enabled_binding_name": "#world_name_enabled",
@@ -515,12 +583,50 @@
           "$allow_data_binding": false
         }
       },
+
+      // Project tag header when in Editor
+      {
+        "project_section_divider_1": {
+          "ignored": "(not $is_editor_mode_enabled)",
+          "type": "image",
+          "size": [ "100%", 1 ],
+          "anchor_from": "center",
+          "anchor_to": "center",
+          "layer": 3,
+          "texture": "textures/ui/list_item_divider_line_light"
+        }
+      },
+      {
+        "project_header_label@settings_common.option_group_label": {
+          "ignored": "(not $is_editor_mode_enabled)",
+          "$text": "createWorldScreen.header.general.project"
+        }
+      },
+      {
+        "project_section_divider_2": {
+          "ignored": "(not $is_editor_mode_enabled)",
+          "type": "image",
+          "size": [ "100%", 1 ],
+          "anchor_from": "center",
+          "anchor_to": "center",
+          "layer": 3,
+          "texture": "textures/ui/list_item_divider_line_light"
+        }
+      },
+      {
+        "project_spacer": {
+          "ignored": "(not $is_editor_mode_enabled)",
+          "type": "panel",
+          "size": [ 0, 6 ]
+        }
+      },
+
       {
         // for world edit/show (databound)
         // edit is 'enabled', show is 'not enabled'
         "option_text_edit_1@settings_common.option_text_edit": {
           "ignored": "$is_world_create",
-          "$option_label": "selectWorld.enterName",
+          "$option_label": "$world_name_label",
           "$option_binding_name": "#world_name",
           "$option_enabled_binding_name": "#world_name_enabled",
           "$text_box_name": "world_name_text_box",
@@ -528,6 +634,50 @@
           "$tts_override_control_value": " "
         }
       },
+
+      // Export Settings tag header when in Editor
+      {
+        "export_settings_section_divider_1": {
+          "ignored": "(not $is_editor_mode_enabled)",
+          "type": "image",
+          "size": [ "100%", 1 ],
+          "anchor_from": "center",
+          "anchor_to": "center",
+          "layer": 3,
+          "texture": "textures/ui/list_item_divider_line_light"
+        }
+      },
+      {
+        "export_settings_header_label@settings_common.option_group_label": {
+          "ignored": "(not $is_editor_mode_enabled)",
+          "$text": "createWorldScreen.header.general.exportSettings"
+        }
+      },
+      {
+        "export_settings_header_description@settings_common.option_group_label": {
+          "ignored": "(not $is_editor_mode_enabled)",
+          "$text": "createWorldScreen.header.general.exportSettings.description"
+        }
+      },
+      {
+        "export_settings_section_divider_2": {
+          "ignored": "(not $is_editor_mode_enabled)",
+          "type": "image",
+          "size": [ "100%", 1 ],
+          "anchor_from": "center",
+          "anchor_to": "center",
+          "layer": 3,
+          "texture": "textures/ui/list_item_divider_line_light"
+        }
+      },
+      {
+        "export_settings_spacer": {
+          "ignored": "(not $is_editor_mode_enabled)",
+          "type": "panel",
+          "size": [ 0, 6 ]
+        }
+      },
+
       {
         "option_dropdown_0@settings_common.option_dropdown_no_scroll": {
           "$option_label": "createWorldScreen.gameMode.default",
@@ -1042,50 +1192,24 @@
         }
       },
       {
-        "button_panel": {
+        "button_panel@common.empty_panel": {
+          "size": [ "100%", "100%c" ],
           "ignored": "(not $is_world_edit or $is_mp_client or $trial or not $is_pregame)",
-          "type": "stack_panel",
-          "orientation": "horizontal",
-          "size": [ "100%", 30 ],
-          "controls": [
+          "$world_manipulation_controls|default": "world_section.edit_world_manipulation_buttons",
+          "variables": [
             {
-              "export_button@settings_common.action_button": {
-                // std pocket should not have export until bedrock wants it
-                // export is disabled in game
-                // Some platforms such as fireTV do not support file picking
-                // EDU supports file picking on all supported platforms except ios which is pocket
-                "ignored": "(($pocket_edition or $export_disabled or not $file_picking_supported) and not $education_edition)",
-                "size": [ "50%", 30 ],
-                "anchor_from": "top_left",
-                "anchor_to": "top_left",
-                "$button_text": "gui.exportWorldLong",
-                "$pressed_button_name": "export_world_button",
-                "$focus_id": "export_world_button"
-              }
-            },
-            {
-              "padding": {
-                "type": "panel",
-                "size": [ 1, 0 ],
-                "ignored": "($pocket_edition or $education_ios or not $file_picking_supported)"
-              }
-            },
-            {
-              "delete_button@settings_common.action_button": {
-                "size": [ "fill", 30 ],
-                "anchor_from": "top_right",
-                "anchor_to": "top_right",
-                "$button_text": "createWorldScreen.deleteWorld",
-                "$pressed_button_name": "delete_world_button",
-                "$focus_id": "delete_world_button"
-              }
+              "requires": "$is_editor_mode_enabled",
+              "$world_manipulation_controls": "world_section.editor_edit_world_manipulation_buttons"
             }
+          ],
+          "controls": [
+            { "manipulation_controls@$world_manipulation_controls": {} }
           ]
         }
       },
       {
         "export_template_panel": {
-          "ignored": "(not $is_world_edit or $is_mp_client or $trial or not $is_pregame or $export_template_disabled)",
+          "ignored": "(not $is_world_edit or $is_mp_client or $trial or not $is_pregame or $export_template_disabled or $is_editor_mode_enabled)",
           "type": "stack_panel",
           "controls": [
             {
@@ -1141,13 +1265,7 @@
               }
             },
             {
-              "export_template_button@settings_common.action_button": {
-                "size": [ "100%", 30 ],
-                "anchor_from": "bottom_left",
-                "anchor_to": "bottom_left",
-                "$button_text": "gui.exportTemplate",
-                "$pressed_button_name": "export_template_button"
-              }
+              "export_template@world_section.export_template_button": {}
             }
           ]
         }
@@ -1178,18 +1296,12 @@
       },
       {
         "copy_world_panel": {
-          "ignored": "(not $is_world_edit or $is_mp_client or $trial or not $is_pregame or $export_disabled)",
+          "ignored": "(not $is_world_edit or $is_mp_client or $trial or not $is_pregame or $export_disabled or $is_editor_mode_enabled)",
           "type": "panel",
           "size": [ "100%", "100%c + 2px" ],
           "controls": [
             {
-              "copy_world_button@settings_common.action_button": {
-                "size": [ "100%", 30 ],
-                "anchor_from": "bottom_left",
-                "anchor_to": "bottom_left",
-                "$button_text": "gui.copyWorld",
-                "$pressed_button_name": "copy_world_button"
-              }
+              "copy_world@world_section.copy_world_button": {}
             }
           ]
         }
@@ -1552,13 +1664,13 @@
           "$toggle_state_binding_name": "#player_game_mode_radio_adventure",
           "$radio_label_text": "createWorldScreen.gameMode.adventure"
         }
-      } /*,//Uncomment when Spectator, and Hardcore game modes are implemented
+      },
       {
         "player_spectator_mode_toggle@settings_common.radio_with_label": {
           "$toggle_state_binding_name": "#player_game_mode_radio_spectator",
           "$radio_label_text": "createWorldScreen.gameMode.spectator"
         }
-      },
+      }/*//Uncomment when Hardcore game mode is implemented,
       {
         "player_hardcore_mode_toggle@settings_common.radio_with_label": {
           "$toggle_state_binding_name": "#player_game_mode_radio_hardcore",
@@ -2884,5 +2996,93 @@
         }
       }
     ]
+  },
+
+  "editor_edit_world_manipulation_buttons_content": {
+    "type": "stack_panel",
+    "orientation": "vertical",
+    "size": [ "100%", "100%c" ],
+    "controls": [
+      {
+        "export_as_project@world_section.export_world_button": {
+          "size": [ "100%", 30 ],
+          "$button_text": "gui.editor.exportProject",
+          "$pressed_button_name": "export_project_button"
+        }
+      },
+      {
+        "padding": {
+          "type": "panel",
+          "size": [ "100%", 2 ]
+        }
+      },
+      {
+        "export_as_world_buttons": {
+          "type": "stack_panel",
+          "orientation": "horizontal",
+          "size": [ "100%", 30 ],
+          "controls": [
+            {
+              "export_as_world@world_section.export_world_button": {}
+            },
+            {
+              "padding": {
+                "type": "panel",
+                "size": [ 1, 0 ]
+              }
+            },
+            {
+              "export_as_template@world_section.export_template_button": {
+                "size": [ "50%", 30 ],
+                "anchor_from": "top_left",
+                "anchor_to": "top_left"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "padding_2": {
+          "type": "panel",
+          "size": [ "100%", 2 ]
+        }
+      },
+      {
+        "project_manipulations_buttons": {
+          "type": "stack_panel",
+          "orientation": "horizontal",
+          "size": [ "100%", 30 ],
+          "controls": [
+            {
+              "copy_project@world_section.copy_world_button": {
+                "size": [ "50%", 30 ],
+                "anchor_from": "top_left",
+                "anchor_to": "top_left",
+                "$button_text": "gui.editor.copyProject"
+              }
+            },
+            {
+              "padding": {
+                "type": "panel",
+                "size": [ 1, 0 ]
+              }
+            },
+            {
+              "delete_project@world_section.delete_world_button": {
+                "size": [ "50%", 30 ],
+                "anchor_from": "top_left",
+                "anchor_to": "top_left",
+                "$button_text": "createWorldScreen.editor.deleteProject"
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "editor_edit_world_manipulation_buttons@settings_common.option_generic": {
+    "$control_name": "world_section.editor_edit_world_manipulation_buttons_content",
+    "$option_label": "createWorldScreen.editor.projectOptionsLabel"
   }
 }

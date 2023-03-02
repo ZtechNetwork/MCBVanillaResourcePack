@@ -5,8 +5,9 @@
     "button_mappings": [
       {
         "from_button_id": "button.menu_cancel",
-        "to_button_id": "button.menu_exit",
-        "mapping_type": "global"
+        "to_button_id": "button.emote_wheel_exit_non_gamepad",
+        "mapping_type": "global",
+        "input_mode_condition": "not_gamepad"
       },
       {
         "from_button_id": "button.controller_start",
@@ -18,7 +19,6 @@
         "to_button_id": "button.menu_exit",
         "mapping_type": "global"
       }
-
     ],
     "$screen_animations": [
       "@common.screen_exit_animation_push_fade",
@@ -58,7 +58,9 @@
           "size": [ "100%", "55% + 35px" ],
           "controls": [
             {
-              "emotes_panel@persona_common.emote_wheel_panel": {}
+              "emotes_panel@common.squaring_panel": {
+                "$squaring_panel_content": "persona_common.emote_wheel_panel"
+              }
             }
           ]
         }
@@ -108,7 +110,7 @@
                                 "binding_condition": "always"
                               },
                               {
-                                "binding_name": "#is_using_gamepad",
+                                "binding_name": "#is_using_gamepad_override",
                                 "binding_name_override": "#visible"
                               }
                             ]
@@ -126,7 +128,9 @@
                                   "offset": [ 0, 2 ],
                                   "controls": [
                                     {
-                                      "gamepad_start@common.gamepad_helper_start": {}
+                                      "gamepad_start@common.gamepad_helper_start": {
+                                        "$gamepad_helper_visible_binding_name": "#is_using_gamepad_override"
+                                      }
                                     },
                                     {
                                       "gamepad_exit_panel@common.empty_panel": {
@@ -144,7 +148,7 @@
                                                   "binding_condition": "always"
                                                 },
                                                 {
-                                                  "binding_name": "#is_using_gamepad",
+                                                  "binding_name": "#is_using_gamepad_override",
                                                   "binding_name_override": "#visible"
                                                 }
                                               ]
@@ -180,6 +184,25 @@
                         }
                       ]
                     }
+                  },
+                  {
+                    "instruction_label_touch": {
+                      "type": "label",
+                      "size": [ "default", "default" ],
+                      "max_size": [ 300, 20 ],
+                      "layer": 2,
+                      "color": "$generic_button_text_color",
+                      "text_alignment": "center",
+                      "text": "emotes.instructions_touch",
+                      "line_padding": 5.0,
+                      "shadow": true,
+                      "bindings": [
+                        {
+                          "binding_name": "#is_touch_mode",
+                          "binding_name_override": "#visible"
+                        }
+                      ]
+                    }
                   }
                 ]
               }
@@ -193,7 +216,7 @@
           "size": [ "100%", 27 ],
           "bindings": [
             {
-              "binding_name": "(not #is_using_gamepad)",
+              "binding_name": "(not #is_using_gamepad_override)",
               "binding_name_override": "#visible"
             }
           ],

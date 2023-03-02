@@ -23,13 +23,30 @@
     "size": [ "100% - 38px", "100%" ],
     "layer": 2,
     "gesture_tracking_button": "button.scroll_map",
-    "focus_enabled":  true,
+    "focus_enabled": true,
     "button_mappings": [
       {
         "from_button_id": "button.menu_select",
         "to_button_id": "button.scroll_map",
         "mapping_type": "pressed",
         "button_up_right_of_first_refusal": true
+      },
+      {
+        "from_button_id": "button.menu_tab_left",
+        "to_button_id": "button.pan_left",
+        "mapping_type": "focused"
+      },
+      {
+        "from_button_id": "button.menu_tab_right",
+        "to_button_id": "button.pan_right",
+        "mapping_type": "focused"
+      }
+    ],
+    "bindings": [
+      {
+        "binding_type": "$store_factory_collection_details",
+        "binding_collection_name": "$store_factory_collection_name",
+        "binding_collection_prefix": "$store_factory_collection_prefix"
       }
     ],
     "controls": [
@@ -92,31 +109,14 @@
     "anchor_to": "top_left",
     "$chevron_image_name": "textures/ui/chevron_left",
     "$pressed_button_name": "button.pan_left",
+    "$cycle_pack_button_name_left": "button.pan_left",
+    "$cycle_pack_button_up_right_refusal": true,
+
     "$gamepad_helper_icon_size": [ 15, 15 ],
 
     "$cycle_pack_enabled_source_control_name": "panorama_key_art",
     "$cycle_pack_enabled_source_property_name": "#can_scroll_left",
-    "$cycle_pack_enabled_use_sibling_scope": true,
-
-    "button_mappings": [
-      {
-        "from_button_id": "button.menu_select",
-        "to_button_id": "$pressed_button_name",
-        "mapping_type": "pressed",
-        "button_up_right_of_first_refusal": true
-      },
-      {
-        "from_button_id": "button.menu_ok",
-        "to_button_id": "$pressed_button_name",
-        "mapping_type": "focused",
-        "button_up_right_of_first_refusal": true
-      },
-      {
-        "from_button_id": "button.menu_tab_left",
-        "to_button_id": "$pressed_button_name",
-        "mapping_type": "global"
-      }
-    ]
+    "$cycle_pack_enabled_use_sibling_scope": true
   },
 
   "pan_right_button@common_store.cycle_pack_right_button": {
@@ -126,30 +126,12 @@
     "anchor_to": "top_right",
     "$chevron_image_name": "textures/ui/chevron_right",
     "$pressed_button_name": "button.pan_right",
+    "$cycle_pack_button_name_right": "button.pan_right",
+    "$cycle_pack_button_up_right_refusal": true,
     "$gamepad_helper_icon_size": [ 15, 15 ],
 
     "$cycle_pack_enabled_source_control_name": "panorama_key_art",
     "$cycle_pack_enabled_source_property_name": "#can_scroll_right",
-    "$cycle_pack_enabled_use_sibling_scope": true,
-
-    "button_mappings": [
-      {
-        "from_button_id": "button.menu_select",
-        "to_button_id": "$pressed_button_name",
-        "mapping_type": "pressed",
-        "button_up_right_of_first_refusal": true
-      },
-      {
-        "from_button_id": "button.menu_ok",
-        "to_button_id": "$pressed_button_name",
-        "mapping_type": "focused",
-        "button_up_right_of_first_refusal": true
-      },
-      {
-        "from_button_id": "button.menu_tab_right",
-        "to_button_id": "$pressed_button_name",
-        "mapping_type": "global"
-      }
-    ]
+    "$cycle_pack_enabled_use_sibling_scope": true
   }
 }

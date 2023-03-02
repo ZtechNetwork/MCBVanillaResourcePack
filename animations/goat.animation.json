@@ -46,13 +46,21 @@
 				}
 			}
 		},
-		"animation.goat.ram_attack": {
-			"loop": true,
-			"bones": {
-				"head" : {
-					"rotation" : [ "variable.ram_head_rot", 0, 0 ]
-				}
-			}
-		}
+    "animation.goat.ram_attack": {
+      "loop": true,
+      "anim_time_update": "Math.max(query.anim_time + (variable.should_bow_head ? query.delta_time : -query.delta_time * 4), 0)",
+      "bones": {
+        "head": {
+          "rotation": {
+            "0.0": [ 0, 0, 0 ],
+            "2.0": [ 60, 0, 0 ]
+          },
+          "position": {
+            "0.0": [ 0, 0, 0 ],
+            "2.0": [ 0, -8, -3 ]
+          }
+        }
+      }
+    }
 	}
 }

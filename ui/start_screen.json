@@ -323,7 +323,7 @@
 
   "gathering_badge": {
     "type": "image",
-    "size": [ 30, 20 ],
+    "size": [ 30, 30 ],
     "anchor_to": "bottom_left",
     "anchor_from": "bottom_left",
     "layer": 20,
@@ -331,10 +331,6 @@
       {
         "binding_name": "#gathering_badge",
         "binding_name_override": "#texture"
-      },
-      {
-        "binding_name": "#gathering_badge_visible",
-        "binding_name_override": "#visible"
       }
     ]
   },
@@ -345,7 +341,7 @@
     "size": [ "100%", "100%c" ],
     "anchor_to": "bottom_middle",
     "anchor_from": "bottom_middle",
-    "offset": [ -4, -20 ],
+    "offset": [ -4, -30 ],
     "controls": [
       {
         "caption_and_padding": {
@@ -356,7 +352,7 @@
           "controls": [
             {
               "pad@common.empty_panel": {
-                "size": [ 4, -2 ]
+                "size": [ 5, -8 ]
               }
             },
             {
@@ -379,6 +375,12 @@
                 "size": [ "fill", "100%" ]
               }
             }
+          ],
+          "bindings": [
+            {
+              "binding_name": "#gathering_badge_visible",
+              "binding_name_override": "#visible"
+            }
           ]
         }
       }
@@ -387,14 +389,14 @@
 
   "gathering_caption": {
     "type": "image",
-    "size": [ "100%c", "100%c + 14px" ],
+    "size": [ "100%c + 6px", "100%c + 12px" ],
     "anchor_to": "bottom_middle",
     "anchor_from": "bottom_middle",
     "layer": 9,
     "$gathering_caption_foreground_color|default": "$0_color_format",
     "$gathering_caption_background_color|default": "$f_color_format",
     "color": "$gathering_caption_background_color",
-    "texture": "textures/ui/newOffersIcon",
+    "texture": "textures/ui/flyout",
     "keep_ratio": false,
     "controls": [
       {
@@ -405,6 +407,7 @@
           "offset": [ 0, -2 ],
           "size": [ 100, "default" ],
           "text_alignment": "center",
+          "layer": 10,
           "color": "$gathering_caption_foreground_color",
           "bindings": [
             {
@@ -435,7 +438,7 @@
     "controls": [
       {
         "pad@common.empty_panel": {
-          "size": [ "5% + 2px", "100%" ]
+          "size": [ 5, "100%" ]
         }
       },
       {
@@ -443,7 +446,7 @@
           "type": "panel",
           "anchor_to": "bottom_left",
           "anchor_from": "bottom_left",
-          "size": [ "100%", 60 ],
+          "size": [ "100% - 5px", 60 ],
           "controls": [
             {
               "badge_and_caption@start.badge_and_caption": {}
@@ -474,12 +477,12 @@
     "$pressed_button_name": "button.edu_feedback"
   },
 
-  "release_feedback_button@common_buttons.hyperlink_content_button": {
+
+  "release_feedback_button@common_buttons.light_content_button": {
     "size": [ 24, 24 ],
-    "property_bag": {
-      "#hyperlink": "https://aka.ms/minecraftfb"
-    },
-    "$button_content": "start.feedback_icon"
+    "$button_pressed_offset": [ 0, 0 ],
+    "$button_content": "start.feedback_icon",
+    "$pressed_button_name": "button.feedback_button_pressed"
   },
 
   "pre_release_feedback_button@start.release_feedback_button": {
@@ -553,10 +556,7 @@
 
   "upper_online_buttons_panel": {
     "type": "stack_panel",
-    "anchor_to": "bottom_left",
-    "anchor_from": "bottom_left",
-    "size": [ "50% - 75px", "100%c" ],
-    "offset": [ 0, "-23%" ],
+    "size": [ "100%", "100%c" ],
     "controls": [
       {
         "stacked_column": {
@@ -696,7 +696,7 @@
     ],
     "bindings": [
       {
-        "binding_name": "#online_buttons_visible",
+        "binding_name": "#upper_online_buttons_visible",
         "binding_name_override": "#visible"
       }
     ]
@@ -706,12 +706,8 @@
     "type": "stack_panel",
     "anchor_to": "bottom_left",
     "anchor_from": "bottom_left",
-    "size": [ "50% - 75px", "100%c" ],
-    "offset": [ 0, "-10%" ],
+    "size": [ "100%", "100%c" ],
     "controls": [
-      {
-        "gathering_panel@start.gathering_panel": {}
-      },
       {
         "stacked_column": {
           "type": "stack_panel",
@@ -725,7 +721,7 @@
               "feedback_padding": {
                 "ignored": "$feedback_ignored",
                 "type": "panel",
-                "size": [ "5%", 0 ],
+                "size": [ 3, "100%" ],
                 "bindings": [
                   {
                     "binding_name": "#feedback_visible",
@@ -771,7 +767,7 @@
               "achievements_padding": {
                 "ignored": "$achievements_ignored",
                 "type": "panel",
-                "size": [ 3, 0 ],
+                "size": [ 3, "100%" ],
                 "bindings": [
                   {
                     "binding_name": "#achievements_icon_visible",
@@ -798,7 +794,7 @@
             {
               "invite_padding": {
                 "type": "panel",
-                "size": [ 3, 0 ],
+                "size": [ 3, "100%" ],
                 "bindings": [
                   {
                     "binding_name": "#realms_notification_visible",
@@ -817,12 +813,6 @@
             }
           ]
         }
-      }
-    ],
-    "bindings": [
-      {
-        "binding_name": "#online_buttons_visible",
-        "binding_name_override": "#visible"
       }
     ]
   },
@@ -845,12 +835,6 @@
     "$focus_override_right": "profile_button"
   },
 
-  "toolbox_mode_button@start.main_button": {
-    "$pressed_button_name": "button.toolbox_mode",
-    "$button_text": "menu.toolboxMode",
-    "$focus_override_right": "profile_button"
-  },
-
   "course_button@start.main_button": {
     "$pressed_button_name": "button.menu_courses",
     "$button_text": "course.edu.courses"
@@ -867,8 +851,8 @@
   },
 
   "switch_accounts_button@start.main_button": {
-    "$pressed_button_name": "button.switch_accounts",
-    "$button_text": "#switch_accounts_button_text",
+    "$pressed_button_name": "button.manage_account",
+    "$button_text": "#manage_account_button_text",
     "$button_text_binding_type": "global"
   },
 
@@ -946,12 +930,7 @@
           "anchor_from": "top_left",
           "anchor_to": "top_left",
           "offset": [ -6, -8 ],
-          "bindings": [
-            {
-              "binding_name": "#sale_visible",
-              "binding_name_override": "#visible"
-            }
-          ]
+          "visible": false // leaving this here in case we override with a treatment pack during a sale
         }
       }
     ]
@@ -1078,7 +1057,7 @@
 
   "buy_game_button@start.main_button": {
     "$pressed_button_name": "button.menu_buy_game",
-    "$button_text": "trial.pauseScreen.buyGame"
+    "$button_text": "$unlock_full_game_button_text"
   },
 
   "stacked_row": {
@@ -1163,20 +1142,6 @@
                 "ignored": "(not $play_button_visible)",
                 "controls": [
                   { "play_button@start.play_button": {} }
-                ]
-              }
-            },
-            {
-              "stacked_row_toolbox@start.stacked_row": {
-                "ignored": "$is_toolbox_ignored",
-                "controls": [
-                  { "toolbox_mode_button@start.toolbox_mode_button": {} }
-                ],
-                "bindings": [
-                  {
-                    "binding_name": "#toolbox_button_visible",
-                    "binding_name_override": "#visible"
-                  }
                 ]
               }
             },
@@ -1648,7 +1613,6 @@
     "$achievements_ignored|default": false,
     "$feedback_ignored|default": false,
     "$store_ignored|default": false,
-    "$is_toolbox_ignored|default": false,
     "variables": [
       {
         "requires": "$education_edition",
@@ -1675,10 +1639,6 @@
       {
         "requires": "$trial",
         "$achievements_ignored": true
-      },
-      {
-        "requires": "(not $is_desktop or $is_publish)",
-        "$is_toolbox_ignored": true
       }
     ],
     "bindings": [
@@ -1692,10 +1652,25 @@
         "main_buttons_and_title_panel@start.main_buttons_stack_panel": {}
       },
       {
-        "upper_online_buttons_panel@start.upper_online_buttons_panel": {}
-      },
-      {
-        "lower_online_buttons_panel@start.lower_online_buttons_panel": {}
+        "online_button_stack": {
+          "type": "stack_panel",
+          "orientation": "vertical",
+          "anchor_to": "bottom_left",
+          "anchor_from": "bottom_left",
+          "size": [ "50% - 75px", "100%c" ],
+          "offset": [ 0, "-10%" ],
+          "controls": [
+            {
+              "gathering_panel@start.gathering_panel": {}
+            },
+            {
+              "upper_online_buttons_panel@start.upper_online_buttons_panel": {}
+            },
+            {
+              "lower_online_buttons_panel@start.lower_online_buttons_panel": {}
+            }
+          ]
+        }
       },
       {
         "skin_panel@start.skin_panel": { "layer": 1 }

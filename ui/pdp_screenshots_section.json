@@ -31,53 +31,28 @@
             {
               "cycle_pack_left_button@common_store.cycle_pack_left_button": {
                 "$pressed_button_name": "button.cycle_screenshots_left",
+                "$cycle_pack_button_name_left": "button.cycle_screenshots_left",
+                "$cycle_pack_button_up_right_refusal": true,
                 "$cycle_pack_button_enabled": "#cycle_screenshots_left_button_enabled",
                 "$gamepad_helper_icon_size": [ 15, 15 ],
                 "size": [ 20, "100%sm" ],
                 "anchor_from": "top_left",
-                "anchor_to": "top_left",
-                "button_mappings": [
-                  {
-                    "from_button_id": "button.menu_select",
-                    "to_button_id": "$pressed_button_name",
-                    "mapping_type": "pressed",
-                    "button_up_right_of_first_refusal": true
-                  },
-                  {
-                    "from_button_id": "button.menu_ok",
-                    "to_button_id": "$pressed_button_name",
-                    "mapping_type": "focused",
-                    "button_up_right_of_first_refusal": true
-                  }
-                ]
+                "anchor_to": "top_left"
               }
             },
             {
-              "screenshots_grid@pdp_screenshots.screenshots_grid": {
-              }
+              "screenshots_grid@pdp_screenshots.screenshots_grid": {}
             },
             {
               "cycle_pack_right_button@common_store.cycle_pack_right_button": {
                 "$pressed_button_name": "button.cycle_screenshots_right",
+                "$cycle_pack_button_name_right": "button.cycle_screenshots_right",
+                "$cycle_pack_button_up_right_refusal": true,
                 "$cycle_pack_button_enabled": "#cycle_screenshots_right_button_enabled",
                 "$gamepad_helper_icon_size": [ 15, 15 ],
                 "size": [ 20, "100%sm" ],
                 "anchor_from": "top_right",
-                "anchor_to": "top_right",
-                "button_mappings": [
-                  {
-                    "from_button_id": "button.menu_select",
-                    "to_button_id": "$pressed_button_name",
-                    "mapping_type": "pressed",
-                    "button_up_right_of_first_refusal": true
-                  },
-                  {
-                    "from_button_id": "button.menu_ok",
-                    "to_button_id": "$pressed_button_name",
-                    "mapping_type": "focused",
-                    "button_up_right_of_first_refusal": true
-                  }
-                ]
+                "anchor_to": "top_right"
               }
             }
           ]
@@ -136,6 +111,7 @@
                 "layer": 4,
                 "size": [ "100%", "100%" ],
                 "focus_enabled": true,
+                "focus_identifier": "screenshot_button_focus_id",
                 "$focus_override_left_binding_type": "none",
                 "$focus_override_left": "screenshot_interact_button",
                 "$focus_override_right_binding_type": "none",
@@ -160,6 +136,10 @@
                     "binding_type": "$store_factory_collection_details",
                     "binding_collection_name": "$store_factory_collection_name",
                     "binding_collection_prefix": "$store_factory_collection_prefix"
+                  },
+                  {
+                    "binding_name": "#screenshot_focus_override_right",
+                    "binding_name_override": "#focus_change_right"
                   }
                 ],
                 "controls": [

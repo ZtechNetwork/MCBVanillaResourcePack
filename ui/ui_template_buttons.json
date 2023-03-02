@@ -63,10 +63,11 @@
   },
 
   "focus_border": {
+    "$focus_border_texture|default": "textures/ui/focus_border_white",
     "$focus_border_size|default": [ "100%", "100%" ],
     "size": "$focus_border_size",
     "type": "image",
-    "texture": "textures/ui/focus_border_white"
+    "texture": "$focus_border_texture"
   },
 
   "new_ui_button_panel": {
@@ -228,6 +229,7 @@
     "$button_min_size_override|default": [ "100%", "100%c" ],
     "min_size": "$button_min_size_override",
     "$content_alpha|default": 1,
+    "$anchor|default": "center",
     "anchor_from": "$anchor",
     "anchor_to": "$anchor",
     "controls": [
@@ -243,9 +245,11 @@
             {
               "$button_image@$button_image": {
                 "size": [ "100% - 2px", "100%c + 2px" ],
-                "$button_image_min_size_override|default": [ "100%", "100%c + 2px" ],
+                "$button_image_min_size_override|default": [ "100% - 2px", "100%c + 2px" ],
                 "min_size": "$button_image_min_size_override",
                 "layer": 1,
+                "$button_image_color|default": [ 1.0, 1.0, 1.0 ],
+                "color": "$button_image_color",
                 "controls": [
                   {
                     "button_content": {

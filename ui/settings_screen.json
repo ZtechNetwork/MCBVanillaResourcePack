@@ -194,8 +194,14 @@
               }
             },
             {
-              "profile_button@general_section.profile_button": {
-                "$toggle_group_forced_index": "$profile_forced_index",
+              "general_button@general_section.general_button": {
+                "$toggle_group_forced_index": "$general_forced_index",
+                "$tts_section_header": "$general_section_header"
+              }
+            },
+            {
+              "account_button@general_section.account_button": {
+                "$toggle_group_forced_index": "$account_forced_index",
                 "$tts_section_header": "$general_section_header"
               }
             },
@@ -213,6 +219,7 @@
             },
             {
               "view_subscriptions_button@general_section.view_subscriptions_button": {
+                "ignored": "$is_editor_mode_enabled",
                 "$toggle_group_forced_index": "$view_subscriptions_forced_index",
                 "$tts_section_header": "$general_section_header",
                 "bindings": [
@@ -262,6 +269,13 @@
               "ui_debug_button@general_section.ui_debug_button": {
                 "ignored": "$is_publish",
                 "$toggle_group_forced_index": "$ui_debug_forced_index",
+                "$tts_section_header": "$general_section_header"
+              }
+            },
+            {
+              "marketplace_debug_button@general_section.marketplace_debug_button": {
+                "ignored": "$is_publish",
+                "$toggle_group_forced_index": "$marketplace_debug_forced_index",
                 "$tts_section_header": "$general_section_header"
               }
             },
@@ -366,7 +380,8 @@
                 "visible": false
               }
             },
-            { "profile_section@general_section.profile_section": { "visible": false } },
+            { "general_tab_section@general_section.general_tab_section": { "visible": false } },
+            { "account_section@general_section.account_section": { "visible": false } },
             {
               "global_texture_pack_section@general_section.global_texture_pack_section": {
                 "visible": false,
@@ -383,7 +398,7 @@
             { "video_section@general_section.video_section": { "visible": false } },
             {
               "view_subscriptions_section@general_section.view_subscriptions_section": {
-                "ignored": "$education_edition",
+                "ignored": "($education_edition or $is_editor_mode_enabled)",
                 "visible": false
               }
             },
@@ -408,6 +423,12 @@
             },
             {
               "ui_debug_section@general_section.ui_debug_section": {
+                "ignored": "$is_publish",
+                "visible": false
+              }
+            },
+            {
+              "marketplace_debug_section@general_section.marketplace_debug_section": {
                 "ignored": "$is_publish",
                 "visible": false
               }

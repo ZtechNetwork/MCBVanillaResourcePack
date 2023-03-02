@@ -9,7 +9,8 @@
   "content_toggle_image_panel": {
     "ignored": "$ignore_content_toggle_image",
     "type": "panel",
-    "size": [ "100%c", "100%" ],
+    "$content_toggle_image_size|default": [ "100%c", "100%" ],
+    "size": "$content_toggle_image_size",
     "$content_toggle_variables|default": [],
     "variables": "$content_toggle_variables",
     "controls": [
@@ -175,6 +176,57 @@
     ]
   },
 
+  "vertical_form_fitting_toggle_content": {
+    "type": "stack_panel",
+    "orientation": "horizontal",
+    "size": [ "100%", "100%c" ],
+
+    "$toggle_content_panel_size": [ "100% - 4px", "100% + 4px" ],
+    "$content_toggle_image_size": [ "100%c", "100%sm" ],
+    "$content_toggle_icon_panel_size": [ "100%c", "100%sm" ],
+
+    "$toggle_content_panel_offset|default": [ 0, 0 ],
+    "offset": "$toggle_content_panel_offset",
+    "$toggle_content_panel_anchor|default": "center",
+    "anchor_to": "$toggle_content_panel_anchor",
+    "anchor_from": "$toggle_content_panel_anchor",
+    "layer": 3,
+    "$ignore_content_toggle_icon|default": false,
+    "$ignore_content_toggle_image|default": false,
+    "$content_toggle_image_panel|default": "common_toggles.content_toggle_image_panel",
+    "controls": [
+      {
+        "toggle_image_panel@$content_toggle_image_panel": {
+          "ignored": "$ignore_content_toggle_image"
+        }
+      },
+      {
+        "toggle_image_padding_label": {
+          "ignored": "$ignore_content_toggle_image",
+          "type": "panel",
+          "size": [ 4, "100%sm" ]
+        }
+      },
+      {
+        "toggle_label_panel@common_toggles.content_toggle_label_panel": {
+          "size": [ "fill", "100%c" ],
+          "$content_toggle_label_max_size": [ "100%", 30 ]
+        }
+      },
+      {
+        "toggle_label_padding_toggle_icon": {
+          "type": "panel",
+          "size": [ 6, "100%sm" ]
+        }
+      },
+      {
+        "toggle_icon@common_toggles.content_toggle_icon_panel": {
+          "ignored": "$ignore_content_toggle_icon"
+        }
+      }
+    ]
+  },
+
   /////////////////////////////////
   //
   //  TOGGLE BUTTON NO COLLECTION
@@ -205,6 +257,10 @@
     "$button_offset|default": [ 0, 0 ]
   },
 
+  "dark_ui_toggle@common_toggles.light_ui_toggle": {
+    "$template_toggle": "common_toggles.dark_template_toggle"
+  },
+
   "dark_text_toggle@common_toggles.dark_ui_toggle": {
     "$button_type_panel": "common_buttons.new_ui_binding_button_label",
     "$button_offset|default": [ 0, 0 ],
@@ -224,13 +280,35 @@
   },
 
   "dark_content_toggle@common_toggles.dark_ui_toggle": {
+    "size": [ "100%", "100%" ],
     "$button_type_panel": "common_buttons.button_content_panel",
     "$button_content|default": "common_toggles.toggle_content_panel",
     "$button_offset|default": [ 0, 0 ]
   },
 
-  "dark_ui_toggle@common_toggles.light_ui_toggle": {
-    "$template_toggle": "common_toggles.dark_template_toggle"
+  "dark_vertical_template_toggle@common_toggles.dark_template_toggle": {
+    "size": [ "100%", "100%c" ]
+  },
+
+  "dark_vertical_form_fitting_content_toggle": {
+    "type": "panel",
+    "size": [ "100%", "100%c" ],
+
+    "$toggle_state_panel_size": [ "100%", "100%c" ],
+    "$toggle_button_type_panel|default": "common_buttons.height_fitting_button_content_panel",
+    "$button_type_panel": "$toggle_button_type_panel",
+    "$button_content|default": "common_toggles.vertical_form_fitting_toggle_content",
+    "$ui_button_panel": "common_buttons.new_ui_height_fitting_button_panel",
+    "$button_offset|default": [ 0, 0 ],
+
+    "controls": [
+      {
+        "dark_content_toggle@common_toggles.light_ui_toggle": {
+          "size": [ "100%", "100%c" ],
+          "$template_toggle": "common_toggles.dark_vertical_template_toggle"
+        }
+      }
+    ]
   },
 
   "dark_template_toggle@common_toggles.light_template_toggle": {
@@ -265,6 +343,9 @@
     "$pressed_texture|default": "textures/ui/button_borderless_lighthover",
     "$pressed_no_hover_texture|default": "textures/ui/button_borderless_lightpressed",
     "$locked_texture|default": "textures/ui/disabledButtonNoBorder",
+    "$default_chevron|default": "textures/ui/dropdown_chevron",
+    "$default_chevron_nohover|default": "textures/ui/dropdown_chevron",
+    "$default_chevron_hover|default": "textures/ui/chevron_white_down",
 
     "$default_texture_alpha|default": 1.0,
     "$default_checked_texture_alpha|default": 1.0,
@@ -348,6 +429,12 @@
         "from_button_id": "button.menu_ok",
         "to_button_id": "button.menu_ok",
         "mapping_type": "focused"
+      },
+      {
+        "from_button_id": "button.controller_back",
+        "to_button_id": "button.controller_back",
+        "mapping_type": "focused",
+        "ignored": "(not $allow_controller_back_button_mapping)"
       },
       {
         "ignored": "(not $enable_directional_toggling)",
@@ -708,7 +795,19 @@
     "$locked_alpha": 0.5
   },
 
-  "toggle_unchecked@common_buttons.new_ui_button_panel": {
+  "toggle_state_panel": {
+    "type": "panel",
+
+    "$toggle_state_panel_size|default": [ "100%", "100%" ],
+    "size": "$toggle_state_panel_size",
+
+    "$ui_button_panel|default": "common_buttons.new_ui_button_panel",
+    "controls": [
+      { "button_panel@$ui_button_panel": {} }
+    ]
+  },
+
+  "toggle_unchecked@common_toggles.toggle_state_panel": {
     "$new_ui_button_texture": "$default_texture",
     "$content_alpha": "$default_texture_alpha",
     "$button_image_color": "$default_texture_color",
@@ -723,7 +822,7 @@
     "layer": 1
   },
 
-  "toggle_checked@common_buttons.new_ui_button_panel": {
+  "toggle_checked@common_toggles.toggle_state_panel": {
     "$new_ui_button_texture": "$hover_texture",
     "$content_alpha": "$default_checked_texture_alpha",
     "$button_image_color": "$default_checked_texture_color",
@@ -738,7 +837,7 @@
     "layer": 2
   },
 
-  "toggle_unchecked_hover@common_buttons.new_ui_button_panel": {
+  "toggle_unchecked_hover@common_toggles.toggle_state_panel": {
     "$new_ui_button_texture": "$pressed_texture",
     "$content_alpha": "$hover_texture_alpha",
     "$button_image_color": "$hover_texture_color",
@@ -753,7 +852,7 @@
     "layer": 3
   },
 
-  "toggle_checked_hover@common_buttons.new_ui_button_panel": {
+  "toggle_checked_hover@common_toggles.toggle_state_panel": {
     "$new_ui_button_texture": "$pressed_no_hover_texture",
     "$content_alpha": "$hover_checked_texture_alpha",
     "$button_image_color": "$hover_checked_texture_color",
@@ -768,7 +867,7 @@
     "layer": 4
   },
 
-  "toggle_locked@common_buttons.new_ui_button_panel": {
+  "toggle_locked@common_toggles.toggle_state_panel": {
     "$new_ui_button_texture": "$locked_texture",
     "$content_alpha": "$locked_alpha",
     "$button_image_color": "$default_texture_color",
@@ -784,7 +883,7 @@
     "layer": 1
   },
 
-  "toggle_unchecked_locked@common_buttons.new_ui_button_panel": {
+  "toggle_unchecked_locked@common_toggles.toggle_state_panel": {
     "$new_ui_button_texture": "$unchecked_locked_texture",
     "$content_alpha": "$locked_alpha",
     "$button_image_color": "$default_texture_color",
@@ -799,7 +898,7 @@
     "layer": 1
   },
 
-  "toggle_checked_locked@common_buttons.new_ui_button_panel": {
+  "toggle_checked_locked@common_toggles.toggle_state_panel": {
     "$new_ui_button_texture": "$checked_locked_texture",
     "$content_alpha": "$locked_alpha",
     "$button_image_color": "$default_checked_texture_color",
@@ -812,6 +911,14 @@
     "$toggle_locked": true,
     "$pressed_state": true,
     "layer": 1
+  },
+
+  "toggle_unchecked_hover_with_chevron@toggle_unchecked_hover": {
+    "$default_chevron": "$default_chevron_hover"
+  },
+
+  "toggle_checked_hover_with_chevron@toggle_checked_hover": {
+    "$default_chevron": "$default_chevron_nohover"
   },
 
   "toggle_image": {

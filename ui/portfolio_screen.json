@@ -14,8 +14,6 @@
     "type": "image",
     "texture_file_system": "$screenshot_file_system",
     "layer": 1,
-    "anchor_from": "center",
-    "anchor_to": "center",
     "$screenshot_collection_name|default": "photos",
 
     "bindings": [
@@ -31,9 +29,7 @@
   "screenshot_frame": {
     "type": "image",
     "texture": "$screenshot_frame_texture",
-    "layer": 1,
-    "anchor_from": "center",
-    "anchor_to": "center"
+    "layer": 1
   },
 
   "trash_default": {
@@ -53,7 +49,8 @@
 
 
   "photo_trash_button_left@edu_common.photo_trash_button": {
-    "offset": [ "23%-50%x", "-90%y" ],
+    "offset": [ "22%-50%x", -11 ],
+    "size":  [18, 18],
     "anchor_from": "bottom_left",
     "anchor_to": "bottom_left",
     "bindings": [
@@ -75,16 +72,15 @@
       }
     ],
     "controls": [
-      { "default@trash_default": {} },
-      { "hover@trash_hover": {} },
-      { "pressed@trash_pressed": {} }
+      { "default@portfolio.trash_default": {} },
+      { "hover@portfolio.trash_hover": {} },
+      { "pressed@portfolio.trash_pressed": {} }
     ]
   },
 
   "photo_trash_button_right@edu_common.photo_trash_button": {
-
-    "offset": [ "-27%+50%x", "-90%y" ],
-
+    "offset": [ "-28%+50%x", -11 ],
+    "size": [ 18, 18 ],
     "anchor_from": "bottom_right",
     "anchor_to": "bottom_right",
 
@@ -108,9 +104,9 @@
       }
     ],
     "controls": [
-      { "default@trash_default": {} },
-      { "hover@trash_hover": {} },
-      { "pressed@trash_pressed": {} }
+      { "default@portfolio.trash_default": {} },
+      { "hover@portfolio.trash_hover": {} },
+      { "pressed@portfolio.trash_pressed": {} }
     ]
   },
 
@@ -126,8 +122,12 @@
     "shadow": false
   },
 
-  "photo_number_left@photo_number": {
-    "offset": [ "-22%", "5%" ],
+  "photo_number_left@portfolio.photo_number": {
+    "offset": [ "50%x", -88 ],
+    "size": [ "25%", "default" ],
+    "text_alignment": "center",
+    "anchor_from": "left_middle",
+    "anchor_to": "left_middle",
     "bindings": [
       {
         "binding_name": "#photo_page_item_name_left",
@@ -138,9 +138,12 @@
     ]
   },
 
-  "photo_number_right@photo_number": {
-
-    "offset": [ "28%", "5%" ],
+  "photo_number_right@portfolio.photo_number": {
+    "offset": [ "-50%x", -88 ],
+    "size": [ "25%", "default" ],
+    "text_alignment": "center",
+    "anchor_from": "right_middle",
+    "anchor_to": "right_middle",
     "bindings": [
       {
         "binding_name": "#photo_page_item_name_right",
@@ -194,21 +197,31 @@
   "page_photo": {
     "type": "panel",
     "layer": 1,
-    "anchor_from": "center",
-    "anchor_to": "center",
     // Photos are square, so use x for y size
     "size": [ "100%-32px", "100%x" ],
     "offset": [ 0, -2 ],
-    "bindings": [
-      {
-        "binding_name": "#photo_visibility",
-        "binding_name_override": "#visible",
-        "binding_type": "collection",
-        "binding_collection_name": "photos"
-      }
-    ],
     "controls": [
-      { "screenshot@portfolio.screenshot": {} },
+      {
+        "screenshot@portfolio.screenshot": {
+          "bindings": [
+            {
+              "binding_name": "#screenshot_path",
+              "binding_name_override": "#texture",
+              "binding_type": "global"
+            },
+            {
+              "binding_type": "collection_details",
+              "binding_collection_name": "screenshot_column_collection",
+              "binding_collection_prefix": "screenshot_column"
+            },
+            {
+              "binding_type": "collection_details",
+              "binding_collection_name": "screenshot_row_collection",
+              "binding_collection_prefix": "screenshot_row"
+            }
+          ]
+        }
+      },
       { "screenshot_frame@portfolio.screenshot_frame": { "layer": 4 } },
       { "photo_corner_bl@portfolio.photo_corner_bl": { "layer": 5 } },
       { "photo_corner_br@portfolio.photo_corner_br": { "layer": 5 } },
@@ -220,20 +233,12 @@
   "pick_item@common.empty_panel": {
     "type": "panel",
     "size": [ 100, 100 ],
-    "bindings": [
-      {
-        "binding_type": "collection",
-        "binding_name": "#pick_item_visible",
-        "binding_name_override": "#visible",
-        "binding_collection_name": "pick_collection"
-      }
-    ],
+    "$screenshot_collection_name": "screenshot",
     "controls": [
       {
         "photo@portfolio.page_photo": {
           "size": [ "100% - 8px", "100% - 8px" ],
           "bindings": [],
-          "$screenshot_collection_name": "pick_collection",
           "$caption_enabled": false
         }
       },
@@ -244,8 +249,13 @@
           "bindings": [
             {
               "binding_type": "collection_details",
-              "binding_collection_name": "pick_collection",
-              "binding_collection_prefix": "picking"
+              "binding_collection_name": "screenshot_column_collection",
+              "binding_collection_prefix": "screenshot_column"
+            },
+            {
+              "binding_type": "collection_details",
+              "binding_collection_name": "screenshot_row_collection",
+              "binding_collection_prefix": "screenshot_row"
             }
           ],
           "button_mappings": [
@@ -262,24 +272,14 @@
 
   "header": {
     "type": "label",
-    "offset": [ -11, 0 ],
     "max_size": [ "100%", "default" ],
-    "size": [ "default", "default" ],
     "color": "$book_page_number_color",
     "text": "$header_text"
   },
 
-  "screenshot_grid": {
-    "type": "grid",
-    "size": [ "default", "default" ],
-    "grid_item_template": "portfolio.pick_item",
-    "grid_dimension_binding": "#pick_grid_dimensions",
-    "collection_name": "pick_collection",
-    "bindings": [
-      {
-        "binding_name": "#pick_grid_dimensions"
-      }
-    ]
+  "screenshot_grid@edu_common.stack_panel_grid": {
+    "$grid_collection_prefix": "screenshot",
+    "$stack_grid_item": "portfolio.pick_item"
   },
 
   "text_centering_panel": {
@@ -293,20 +293,13 @@
       }
     ]
   },
-  
+
   "pick_scrolling_content": {
     "type": "stack_panel",
-    "size": [ 225, "default" ],
+    "size": [ "100%", "default" ],
     "controls": [
-      {
-        "header@portfolio.text_centering_panel": {
-        }
-      },
-      {
-        "portfolio_grid@portfolio.screenshot_grid": {
-          "$pick_grid_dimension_binding": "#pick_grid_dimensions"
-        }
-      }
+      { "header@portfolio.text_centering_panel": {} },
+      { "portfolio_grid@portfolio.screenshot_grid": {} }
     ]
   },
 
@@ -315,8 +308,6 @@
     "type": "label",
     "size": [ "50%", "default" ],
     "text_alignment": "center",
-    "anchor_from": "center",
-    "anchor_to": "center",
     "color": "$portfolio_body_text_color",
     "bindings": [
       {
@@ -324,26 +315,26 @@
         "binding_name_override": "#visible"
       }
     ],
-    "text": "You do not have any photos in your inventory. Try using the camera to take a picture."
+    "text": "portfolioScreen.noInventory"
   },
 
   "pick_panel": {
     "type": "image",
     "texture": "textures/ui/book_frame",
-    "size": [ "225px", "218px" ],
+    "size": [ 225, 231 ],
 
     "controls": [
       {
         "scroll@common.scrolling_panel": {
           "$show_background": false,
-          "$scrolling_pane_size": [ "100% - 16px", "100% - 28px" ],
-          "$scrolling_pane_offset": [ 8, 18 ],
+          "$scrolling_pane_size": [ "100% - 16px", "100% - 30px" ],
+          "$scrolling_pane_offset": [ 8, 21 ],
           "$scrolling_content": "portfolio.pick_scrolling_content"
         }
       },
       {
         "close_button@portfolio.close_button": {
-          "offset": [ -10, 10 ]
+          "offset": [ -7, 7 ]
         }
       },
       {
@@ -382,7 +373,7 @@
     },
     "max_length": 1000, // use the parent area
     "$panel_offset|default": [ 0, 0 ],
-    "size": [ "85%", 26 ],
+    "size": [ "85%", 22 ],
     "offset": "$panel_offset",
     "$place_holder_text": "portfolioScreen.caption",
     "$text_edit_box_content_binding_type": "collection",
@@ -401,8 +392,6 @@
         "clipper_panel": {
           "type": "panel",
           "size": [ "100% - 6px", "100% - 4px" ],
-          "anchor_from": "center",
-          "anchor_to": "center",
           "clips_children": true,
           "$disabled_color|default": "$color",
 
@@ -458,8 +447,6 @@
   "photo_item": {
     "type": "panel",
     "layer": 1,
-    "anchor_from": "center",
-    "anchor_to": "center",
     "size": [ "75%", "100%x" ],
     "offset": [ 0, -2 ],
     "bindings": [
@@ -471,20 +458,20 @@
       }
     ],
     "controls": [
-      { "screenshot@screenshot": {} },
-      { "screenshot_frame@screenshot_frame": { "layer": 2 } },
-      { "text_edit_control@text_edit_control": { "layer": 3 } },
-      { "photo_corner_bl@photo_corner_bl": { "layer": 4 } },
-      { "photo_corner_br@photo_corner_br": { "layer": 4 } },
-      { "photo_corner_tl@photo_corner_tl": { "layer": 4 } },
-      { "photo_corner_tr@photo_corner_tr": { "layer": 4 } }
+      { "screenshot@portfolio.screenshot": {} },
+      { "screenshot_frame@portfolio.screenshot_frame": { "layer": 2 } },
+      { "text_edit_control@portfolio.text_edit_control": { "layer": 3 } },
+      { "photo_corner_bl@portfolio.photo_corner_bl": { "layer": 4 } },
+      { "photo_corner_br@portfolio.photo_corner_br": { "layer": 4 } },
+      { "photo_corner_tl@portfolio.photo_corner_tl": { "layer": 4 } },
+      { "photo_corner_tr@portfolio.photo_corner_tr": { "layer": 4 } }
     ]
   },
 
   "photo_grid_item": {
     "type": "panel",
     "controls": [
-      { "photo_item@photo_item": {} }
+      { "photo_item@portfolio.photo_item": {} }
     ]
   },
 
@@ -493,9 +480,7 @@
     "grid_item_template": "photo_grid_item",
     "grid_dimensions": [ 2, 1 ],
     "collection_name": "photos",
-    "anchor_to": "center",
-    "anchor_from": "center",
-    "size": [ "100%", "100%" ]
+    "size": "$book_size"
   },
   // **************************************************
 
@@ -504,27 +489,27 @@
   // -----------------------------------------
   "prev_button_default": {
     "type": "image",
-    "texture": "textures/ui/arrow_l_default"
+    "texture": "textures/ui/portfolio_pageleft_default"
   },
 
   "prev_button_hover": {
     "type": "image",
-    "texture": "textures/ui/arrow_l_hover"
+    "texture": "textures/ui/portfolio_pageleft_hover"
   },
 
   "prev_button_pressed": {
     "type": "image",
-    "texture": "textures/ui/arrow_l_pressed"
+    "texture": "textures/ui/portfolio_pageleft_pressed"
   },
 
   "photo_page_prev_button@common.button": {
     "type": "button",
     "focus_enabled": true,
-    "size": [ 7, 9 ],
+    "size": [ 24, 24 ],
     "layer": 1,
-    "anchor_from": "left_middle",
-    "anchor_to": "left_middle",
-    "offset": [ "3.5%", "0%" ],
+    "anchor_from": "bottom_left",
+    "anchor_to": "bottom_left",
+    "offset": [ 6, -8 ],
     "default_control": "default",
     "hover_control": "hover",
     "pressed_control": "pressed",
@@ -548,9 +533,9 @@
       }
     ],
     "controls": [
-      { "default@prev_button_default": {} },
-      { "hover@prev_button_hover": {} },
-      { "pressed@prev_button_pressed": {} }
+      { "default@portfolio.prev_button_default": {} },
+      { "hover@portfolio.prev_button_hover": {} },
+      { "pressed@portfolio.prev_button_pressed": {} }
     ]
   },
 
@@ -560,27 +545,27 @@
   // -----------------------------------------
   "next_button_default": {
     "type": "image",
-    "texture": "textures/ui/arrow_r_default"
+    "texture": "textures/ui/portfolio_pageright_default"
   },
 
   "next_button_hover": {
     "type": "image",
-    "texture": "textures/ui/arrow_r_hover"
+    "texture": "textures/ui/portfolio_pageright_hover"
   },
 
   "next_button_pressed": {
     "type": "image",
-    "texture": "textures/ui/arrow_r_pressed"
+    "texture": "textures/ui/portfolio_pageright_pressed"
   },
 
   "photo_page_next_button@common.button": {
     "type": "button",
     "focus_enabled": true,
-    "size": [ 7, 9 ],
+    "size": [ 24, 24 ],
     "layer": 1,
-    "anchor_from": "right_middle",
-    "anchor_to": "right_middle",
-    "offset": [ "-3.5%", "0%" ],
+    "anchor_from": "bottom_right",
+    "anchor_to": "bottom_right",
+    "offset": [ -6, -8 ],
     "default_control": "default",
     "hover_control": "hover",
     "pressed_control": "pressed",
@@ -604,9 +589,9 @@
       }
     ],
     "controls": [
-      { "default@next_button_default": {} },
-      { "hover@next_button_hover": {} },
-      { "pressed@next_button_pressed": {} }
+      { "default@portfolio.next_button_default": {} },
+      { "hover@portfolio.next_button_hover": {} },
+      { "pressed@portfolio.next_button_pressed": {} }
     ]
   },
 
@@ -632,7 +617,7 @@
   "photo_convert_left_button@common.button": {
     "type": "button",
     "focus_enabled": true,
-    "size": [ 11, 11 ],
+    "size": [ 18, 18 ],
     "layer": 1,
     "anchor_from": "bottom_left",
     "anchor_to": "bottom_left",
@@ -642,13 +627,13 @@
         "binding_name_override": "#visible"
       }
     ],
-    "offset": [ "27%-50%x", "-98%y" ],
+    "offset": [ "28%-50%x", -9 ],
     "default_focus_precedence": 1,
     "$pressed_button_name": "button.portfolio_convert_left",
     "controls": [
-      { "default@convert_button_default": {} },
-      { "hover@convert_button_hover": {} },
-      { "pressed@convert_button_pressed": {} }
+      { "default@portfolio.convert_button_default": {} },
+      { "hover@portfolio.convert_button_hover": {} },
+      { "pressed@portfolio.convert_button_pressed": {} }
     ]
   },
 
@@ -658,7 +643,7 @@
   "photo_convert_right_button@common.button": {
     "type": "button",
     "focus_enabled": true,
-    "size": [ 11, 11 ],
+    "size": [ 18, 18 ],
     "layer": 1,
     "anchor_from": "bottom_right",
     "anchor_to": "bottom_right",
@@ -668,13 +653,13 @@
         "binding_name_override": "#visible"
       }
     ],
-    "offset": [ "-23%+50%x", "-98%y" ],
+    "offset": [ "-22%+50%x", -9 ],
     "default_focus_precedence": 1,
     "$pressed_button_name": "button.portfolio_convert_right",
     "controls": [
-      { "default@convert_button_default": {} },
-      { "hover@convert_button_hover": {} },
-      { "pressed@convert_button_pressed": {} }
+      { "default@portfolio.convert_button_default": {} },
+      { "hover@portfolio.convert_button_hover": {} },
+      { "pressed@portfolio.convert_button_pressed": {} }
     ]
   },
 
@@ -684,14 +669,20 @@
 
   "bottom_button_panel": {
     "type": "panel",
-    "size": [ "100%", "100%cm" ],
-    "offset": [ 0, 30 ],
+    "size": "$book_size",
     "anchor_from": "bottom_middle",
     "anchor_to": "bottom_middle",
     "controls": [
       { "export_button@portfolio.export_button": {} },
-      { "im_content_button@portfolio.im_content_button": {} }
-    ],
+      { "im_content_button@portfolio.im_content_button": {} },
+      { "add_photo_button@portfolio.add_photo_button": {} }
+    ]
+  },
+
+  "im_content_button@im_reader.reader_button": {
+    "size": [ "100%y", "100%sm" ],
+    "anchor_from": "bottom_right",
+    "anchor_to": "bottom_right",
     "bindings": [
       {
         "binding_name": "#export_visibility",
@@ -700,27 +691,27 @@
     ]
   },
 
-  "im_content_button@im_reader.reader_button": {
-    "size": [ "100%y", "100%sm" ],
-    "anchor_from": "bottom_right",
-    "anchor_to": "bottom_right"
-  },
-
   "export_button@common_buttons.light_text_button": {
     "type": "button",
-    "size": [ 120, 20 ],
-    "offset": [ "75%x", "0%y" ],
+    "size": [ 110, 20 ],
+    "offset": [ "65%x", "0%y" ],
     "$button_text": "portfolioScreen.export",
     "$pressed_button_name": "button.portfolio_export",
     "layer": 1,
     "anchor_from": "bottom_middle",
-    "anchor_to": "bottom_middle"
+    "anchor_to": "bottom_middle",
+    "bindings": [
+      {
+        "binding_name": "#export_visibility",
+        "binding_name_override": "#visible"
+      }
+    ]
   },
 
   "add_photo_button@common_buttons.light_text_button": {
     "type": "button",
-    "size": [ 120, 20 ],
-    "offset": [ "-75%x", 30 ],
+    "size": [ 110, 20 ],
+    "offset": [ "-65%x", "0%y" ],
     "$button_text": "portfolioScreen.addPhoto",
     "$pressed_button_name": "button.portfolio_add_photo",
     "layer": 1,
@@ -759,12 +750,10 @@
   "book_background": {
     "type": "image",
     "texture": "textures/ui/book_frame",
-    "anchor_from": "center",
-    "anchor_to": "center",
     "controls": [
-      { "book_binding@book_binding": {} },
+      { "book_binding@portfolio.book_binding": {} },
       {
-        "top_spine@book_spine": {
+        "top_spine@portfolio.book_spine": {
           "anchor_from": "top_middle",
           "anchor_to": "top_middle",
           "offset": [ 0, 1 ],
@@ -772,7 +761,7 @@
         }
       },
       {
-        "bottom_spine@book_spine": {
+        "bottom_spine@portfolio.book_spine": {
           "anchor_from": "bottom_middle",
           "anchor_to": "bottom_middle",
           "offset": [ 0, -1 ],
@@ -784,7 +773,7 @@
 
   "header_panel": {
     "type": "panel",
-    "size": [ "100%", "27px" ],
+    "size": [ "100%", 27 ],
     "anchor_from": "top_left",
     "anchor_to": "top_left",
     "controls": [
@@ -819,7 +808,6 @@
     "layer": 10,
     "anchor_from": "top_right",
     "anchor_to": "top_right",
-    "offset": [ -14, 14 ],
     "default_control": "default",
     "hover_control": "hover",
     "pressed_control": "pressed",
@@ -837,9 +825,9 @@
       }
     ],
     "controls": [
-      { "default@close_button_default": {} },
-      { "hover@close_button_hover": {} },
-      { "pressed@close_button_pressed": {} }
+      { "default@portfolio.close_button_default": {} },
+      { "hover@portfolio.close_button_hover": {} },
+      { "pressed@portfolio.close_button_pressed": {} }
     ]
   },
 
@@ -871,13 +859,72 @@
   //
   // -----------------------------------------------
 
+
+  "book_and_buttons_panel": {
+    "type": "panel",
+    "size": [ "100%cm", "100%" ],
+    "max_size": [ "100%", 231 ],
+
+    "controls": [
+      {
+        "book_panel": {
+          "type": "panel",
+          "size": "$book_size",
+          "max_size": [ 320, "100% - 20px" ],
+          "offset": [ 0, -10 ],
+          
+          "controls": [ 
+            {
+              "book_background@portfolio.book_background": {
+                "bindings": [
+                  {
+                    "binding_name": "#viewing",
+                    "binding_name_override": "#visible"
+                  }
+                ]
+              }
+            },
+            
+            {
+              "close_button@portfolio.close_button": {
+                "offset": [ -7, 7 ],
+                "bindings": [
+                  {
+                    "binding_name": "#viewing",
+                    "binding_name_override": "#visible"
+                  }
+                ]
+              }
+            },
+
+            { "photo_list_grid@portfolio.photo_list_grid": {} },
+
+            { "photo_number_left@portfolio.photo_number_left": {} },
+            { "photo_number_right@portfolio.photo_number_right": {} },
+
+            { "photo_trash_button_left@portfolio.photo_trash_button_left": {} },
+            { "photo_trash_button_right@portfolio.photo_trash_button_right": {} },
+
+            { "photo_page_prev_button@portfolio.photo_page_prev_button": {} },
+            { "photo_page_next_button@portfolio.photo_page_next_button": {} },
+
+            { "photo_convert_left_button@portfolio.photo_convert_left_button": {} },
+            { "photo_convert_right_button@portfolio.photo_convert_right_button": {} },
+            
+            { "no_photos_alert_label@portfolio.no_photos_alert_label": {} }
+          ]
+        }
+      },
+    
+      { "bottom_button_panel@portfolio.bottom_button_panel": {} }
+    ]
+  },
+
+
   // Root panel all others parented to
   "root_panel": {
     "type": "panel",
-    "size": [ "90%", "50%x" ],
-    "layer": 1,
-    "anchor_from": "center",
-    "anchor_to": "center"
+    "layer": 1
   },
 
   "portfolio_screen@common.base_screen": {
@@ -895,16 +942,15 @@
     "type": "panel",
     "controls": [
       {
-        "root_panel@root_panel": {
+        "root_panel@portfolio.root_panel": {
           "layer": 1,
-          "anchor_from": "center",
-          "anchor_to": "center",
-          "offset": [ 0, -11 ],
+          "$book_size": [ 320, 207 ],
+          "$page_size": [ 160, 207 ],
 
           "controls": [
 
             {
-              "book_background@book_background": {
+              "book_and_buttons_panel@portfolio.book_and_buttons_panel": {
                 "bindings": [
                   {
                     "binding_name": "#viewing",
@@ -913,36 +959,6 @@
                 ]
               }
             },
-
-            {
-              "close_button@close_button": {
-                "offset": [ -10, 10 ],
-                "bindings": [
-                  {
-                    "binding_name": "#viewing",
-                    "binding_name_override": "#visible"
-                  }
-                ]
-              }
-            },
-
-            { "photo_list_grid@photo_list_grid": {} },
-
-            { "photo_number_left@photo_number_left": {} },
-            { "photo_number_right@photo_number_right": {} },
-
-            { "photo_trash_button_left@photo_trash_button_left": {} },
-            { "photo_trash_button_right@photo_trash_button_right": {} },
-
-            { "photo_page_prev_button@photo_page_prev_button": {} },
-            { "photo_page_next_button@photo_page_next_button": {} },
-
-            { "photo_convert_left_button@photo_convert_left_button": {} },
-            { "photo_convert_right_button@photo_convert_right_button": {} },
-
-            { "add_photo_button@add_photo_button": {} },
-
-            { "bottom_button_panel@portfolio.bottom_button_panel": {} },
 
             {
               "pick_panel@portfolio.pick_panel": {
@@ -953,9 +969,7 @@
                   }
                 ]
               }
-            },
-
-            { "no_photos_alert_label@portfolio.no_photos_alert_label": {} }
+            }
           ]
         }
       }

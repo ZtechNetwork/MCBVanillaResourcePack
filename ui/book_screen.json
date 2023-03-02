@@ -14,26 +14,22 @@
     "type": "image",
     "texture_file_system": "$screenshot_file_system",
     "layer": 3,
-    "anchor_from": "center",
-    "anchor_to": "center",
-    "$screenshot_collection_name|default": "book_pages",
 
-    "bindings": [
+    "$screenshot_binding|default": [
       {
         "binding_name": "#screenshot_path",
         "binding_name_override": "#texture",
         "binding_type": "collection",
-        "binding_collection_name": "$screenshot_collection_name"
+        "binding_collection_name": "book_pages"
       }
-    ]
+    ],
+    "bindings": "$screenshot_binding"
   },
 
   "screenshot_frame": {
     "type": "image",
     "texture": "$screenshot_frame_texture",
     "layer": 1,
-    "anchor_from": "center",
-    "anchor_to": "center",
     "$caption_enabled|default": true,
 
     "controls": [
@@ -93,19 +89,9 @@
   "page_photo": {
     "type": "panel",
     "layer": 1,
-    "anchor_from": "center",
-    "anchor_to": "center",
     // Photos are square, so use x for y size
     "size": [ "100%-32px", "100%x" ],
     "offset": [ 0, -2 ],
-    "bindings": [
-      {
-        "binding_name": "#is_photo_page",
-        "binding_name_override": "#visible",
-        "binding_type": "collection",
-        "binding_collection_name": "book_pages"
-      }
-    ],
     "controls": [
       { "screenshot@book.screenshot": {} },
       { "screenshot_frame@book.screenshot_frame": { "layer": 4 } },
@@ -116,15 +102,25 @@
     ]
   },
 
+  // An individual photo in the From Portfolio grid on the add photo screen
   "pick_item@common.empty_panel": {
     "type": "panel",
     "size": [ 100, 100 ],
-    "bindings": [
+    "$screenshot_binding": [
       {
-        "binding_type": "collection",
-        "binding_name": "#pick_item_visible",
-        "binding_name_override": "#visible",
-        "binding_collection_name": "pick_collection"
+        "binding_name": "#item_screenshot_path",
+        "binding_name_override": "#texture",
+        "binding_type": "global"
+      },
+      {
+        "binding_type": "collection_details",
+        "binding_collection_name": "pick_item_column_collection",
+        "binding_collection_prefix": "pick_item_column"
+      },
+      {
+        "binding_type": "collection_details",
+        "binding_collection_name": "pick_item_row_collection",
+        "binding_collection_prefix": "pick_item_row"
       }
     ],
     "controls": [
@@ -132,7 +128,6 @@
         "photo@book.page_photo": {
           "size": [ "100% - 8px", "100% - 8px" ],
           "bindings": [],
-          "$screenshot_collection_name": "pick_collection",
           "$caption_enabled": false
         }
       },
@@ -143,8 +138,13 @@
           "bindings": [
             {
               "binding_type": "collection_details",
-              "binding_collection_name": "pick_collection",
-              "binding_collection_prefix": "picking"
+              "binding_collection_name": "pick_item_column_collection",
+              "binding_collection_prefix": "pick_item_column"
+            },
+            {
+              "binding_type": "collection_details",
+              "binding_collection_name": "pick_item_row_collection",
+              "binding_collection_prefix": "pick_item_row"
             }
           ],
           "button_mappings": [
@@ -159,15 +159,25 @@
     ]
   },
 
+  // An individual photo in the From Inventory grid on the add photo screen
   "pick_item_inventory": {
     "type": "panel",
     "size": [ 100, 100 ],
-    "bindings": [
+    "$screenshot_binding": [
       {
-        "binding_type": "collection",
-        "binding_name": "#pick_item_visible",
-        "binding_name_override": "#visible",
-        "binding_collection_name": "pick_collection_inventory"
+        "binding_name": "#inventory_screenshot_path",
+        "binding_name_override": "#texture",
+        "binding_type": "global"
+      },
+      {
+        "binding_type": "collection_details",
+        "binding_collection_name": "pick_inventory_column_collection",
+        "binding_collection_prefix": "pick_inventory_column"
+      },
+      {
+        "binding_type": "collection_details",
+        "binding_collection_name": "pick_inventory_row_collection",
+        "binding_collection_prefix": "pick_inventory_row"
       }
     ],
     "controls": [
@@ -175,7 +185,6 @@
         "photo@book.page_photo": {
           "size": [ "100% - 8px", "100% - 8px" ],
           "bindings": [],
-          "$screenshot_collection_name": "pick_collection_inventory",
           "$caption_enabled": false
         }
       },
@@ -186,8 +195,13 @@
           "bindings": [
             {
               "binding_type": "collection_details",
-              "binding_collection_name": "pick_collection_inventory",
-              "binding_collection_prefix": "picking"
+              "binding_collection_name": "pick_inventory_column_collection",
+              "binding_collection_prefix": "pick_inventory_column"
+            },
+            {
+              "binding_type": "collection_details",
+              "binding_collection_name": "pick_inventory_row_collection",
+              "binding_collection_prefix": "pick_inventory_row"
             }
           ],
           "button_mappings": [
@@ -209,26 +223,11 @@
 
   "header": {
     "type": "label",
-    "offset": [ -11, 0 ],
     "max_size": [ "100%", "default" ],
     "size": [ "default", "default" ],
     "color": "$book_page_number_color",
     "text": "$header_text"
   },
-
-  "screenshot_grid": {
-    "type": "grid",
-    "size": [ "default", "default" ],
-    "grid_item_template": "$pick_grid_template",
-    "collection_name": "$pick_grid_collection",
-    "grid_dimension_binding": "$pick_grid_dimension_binding",
-    "bindings": [
-      {
-        "binding_name": "$pick_grid_dimension_binding"
-      }
-    ]
-  },
-
 
   "text_centering_panel_inventory": {
     "type": "panel",
@@ -253,20 +252,19 @@
       }
     ]
   },
-  
+
+  // From Inventory and From Portfolio headers and photo grids on the add photo screen
   "pick_scrolling_content": {
     "type": "stack_panel",
-    "size": [ 225, "default" ],
     "controls": [
       {
         "inventory_header@book.text_centering_panel_inventory": {
         }
       },
       {
-        "inventory_grid@book.screenshot_grid": {
-          "$pick_grid_template": "book.pick_item_inventory",
-          "$pick_grid_collection": "pick_collection_inventory",
-          "$pick_grid_dimension_binding": "#pick_grid_dimensions_inventory"
+        "inventory_grid@edu_common.stack_panel_grid": {
+          "$grid_collection_prefix": "pick_inventory",
+          "$stack_grid_item": "book.pick_item_inventory"
         }
       },
       {
@@ -274,32 +272,32 @@
         }
       },
       {
-        "portfolio_grid@book.screenshot_grid": {
-          "$pick_grid_template": "book.pick_item",
-          "$pick_grid_collection": "pick_collection",
-          "$pick_grid_dimension_binding": "#pick_grid_dimensions"
+        "portfolio_grid@edu_common.stack_panel_grid": {
+          "$grid_collection_prefix": "pick_item",
+          "$stack_grid_item": "book.pick_item"
         }
       }
     ]
   },
 
+  // Background, scrollbar, and close button for the add photo screen
   "pick_panel": {
     "type": "image",
     "texture": "textures/ui/book_frame",
-    "size": [ "225px", "218px" ],
+    "size": [ 225, 231 ],
 
     "controls": [
       {
         "scroll@common.scrolling_panel": {
           "$show_background": false,
-          "$scrolling_pane_size": [ "100% - 16px", "100% - 28px" ],
-          "$scrolling_pane_offset": [ 8, 18 ],
+          "$scrolling_pane_size": [ "100% - 16px", "100% - 30px" ],
+          "$scrolling_pane_offset": [ 8, 21 ],
           "$scrolling_content": "book.pick_scrolling_content"
         }
       },
       {
         "close_button@book.close_button": {
-          "offset": [ -3, 5 ]
+          "offset": [ -7, 7 ]
         }
       }
     ]
@@ -499,17 +497,48 @@
     ]
   },
 
-  "close_button@common.compact_close_button": {
-    "layer": 2,
+  "close_button_default": {
+    "type": "image",
+    "texture": "textures/ui/close_button_default",
+    "color": "$portfolio_close_color"
+  },
+
+  "close_button_hover": {
+    "type": "image",
+    "texture": "textures/ui/close_button_hover"
+  },
+
+  "close_button_pressed": {
+    "type": "image",
+    "texture": "textures/ui/close_button_pressed"
+  },
+
+  "close_button": {
+    "type": "button",
+    "size": [ 14, 14 ],
+    "layer": 10,
     "anchor_from": "top_right",
     "anchor_to": "top_right",
-    "$close_button_to_button_id": "button.book_exit",
-
-    "bindings": [
+    "default_control": "default",
+    "hover_control": "hover",
+    "pressed_control": "pressed",
+    "focus_enabled": false,
+    "button_mappings": [
       {
-        "binding_name": "#close_button_visible",
-        "binding_name_override": "#visible"
+        "from_button_id": "button.menu_select",
+        "to_button_id": "button.book_exit",
+        "mapping_type": "pressed"
+      },
+      {
+        "from_button_id": "button.menu_cancel",
+        "to_button_id": "button.book_exit",
+        "mapping_type": "global"
       }
+    ],
+    "controls": [
+      { "default@book.close_button_default": {} },
+      { "hover@book.close_button_hover": {} },
+      { "pressed@book.close_button_pressed": {} }
     ]
   },
 
@@ -539,8 +568,8 @@
   },
 
   "page_text@book.page_text_edit": {
-    "size": [ "100%-32px", "100%-52px" ],
-    "offset": [ 0, "23px" ],
+    "size": [ "100%-32px", "100%-58px" ],
+    "offset": [ 0, 23 ],
     "anchor_from": "top_middle",
     "anchor_to": "top_middle",
     "$text_edit_box_focusable_binding_name": "#editable",
@@ -607,14 +636,14 @@
     "type": "stack_panel",
     "orientation": "horizontal",
     "size": [ "100%c", 12 ],
-    "offset": [ 0, -16 ],
+    "offset": [ 0, -22 ],
     "anchor_from": "bottom_middle",
     "anchor_to": "bottom_middle",
 
     "controls": [
       {
         "swap_page_left@book.padded_button": {
-          "$button_size": [ 18, 12 ],
+          "$button_size": [ 23, 16 ],
 
           "$pressed_button_name": "button.swap_page_left",
           "$button_active": "#swap_left_active",
@@ -626,7 +655,7 @@
       },
       {
         "insert_text_page@book.padded_button": {
-          "$button_size": [ 12, 12 ],
+          "$button_size": [ 16, 16 ],
 
           "$pressed_button_name": "button.insert_text_page",
           "$button_active": "#insert_page_active",
@@ -638,7 +667,7 @@
       },
       {
         "insert_photo_page@book.padded_button": {
-          "$button_size": [ 15, 12 ],
+          "$button_size": [ 20, 16 ],
           "ignored": "(not $education_edition)",
 
           "$pressed_button_name": "button.insert_photo_page",
@@ -651,7 +680,7 @@
       },
       {
         "delete_page@book.padded_button": {
-          "$button_size": [ 12, 12 ],
+          "$button_size": [ 16, 16 ],
 
           "$pressed_button_name": "button.delete_page",
           "$button_active": "#edit_controls_active",
@@ -662,7 +691,7 @@
       },
       {
         "swap_page_right@book.padded_button": {
-          "$button_size": [ 18, 12 ],
+          "$button_size": [ 23, 16 ],
 
           "$pressed_button_name": "button.swap_page_right",
           "$button_active": "#swap_right_active",
@@ -693,12 +722,23 @@
 
     "controls": [
       { "page_text@book.page_text": {} },
-      { "page_photo@book.page_photo": {} },
+      {
+        "page_photo@book.page_photo": {
+          "bindings": [
+            {
+              "binding_name": "#is_photo_page",
+              "binding_name_override": "#visible",
+              "binding_type": "collection",
+              "binding_collection_name": "book_pages"
+            }
+          ]
+        }
+      },
       { "page_number_label@book.page_number_label": {} },
       { "page_buttons_panel@book.page_buttons_panel": {} },
       {
         "edit_page@book.base_button": {
-          "size": [ 13, 12 ],
+          "size": [ 19, 18 ],
           "offset": [ 0, -16 ],
           "anchor_from": "bottom_middle",
           "anchor_to": "bottom_middle",
@@ -766,7 +806,7 @@
   "author_label": {
     "type": "label",
     "size": [ "default", 18 ],
-    "offset": [ 0, "4px" ],
+    "offset": [ 0, 4 ],
 
     "text": "book.byAuthor",
     "color": "$book_author_label_color"
@@ -774,7 +814,7 @@
 
   "author_text_box@common.text_edit_box": {
     "size": [ "100% - 1px", "100%" ],
-    "offset": [ "1px", 0 ],
+    "offset": [ 1, 0 ],
     "layer": 3,
 
     "constrain_to_rect": true,
@@ -863,14 +903,14 @@
   "cover_and_buttons_panel": {
     "type": "panel",
     "size": [ "100%", "100%" ],
-    "max_size": [ "100%", "228px" ],
+    "max_size": [ "100%", 231 ],
 
     "controls": [
       {
         "cover_panel": {
           "type": "panel",
           "size": "$page_size",
-
+          "max_size": [ 320, "100% - 20px" ],
           "anchor_from": "top_middle",
           "anchor_to": "top_middle",
 
@@ -886,7 +926,7 @@
             },
             {
               "close_button@book.close_button": {
-                "offset": [ -14, 12 ]
+                "offset": [ -5, 5 ]
               }
             }
           ]
@@ -904,6 +944,7 @@
   "page_panel": {
     "type": "panel",
     "size": "$page_size",
+    "max_size": [ "100%", "100%" ],
     "$page_content_offset|default": [ 0, 0 ],
     "$page_crease_image|default": "book.page_crease_left_image",
     "$page_edge_image|default": "book.page_edge_left_image",
@@ -914,7 +955,7 @@
       {
         "$page_crease_image@$page_crease_image": {
           "size": [ "100% - 40px", "100% - 14px" ],
-          "offset": [ 0, "-2px" ]
+          "offset": [ 0, -2 ]
         }
       },
       {
@@ -935,7 +976,7 @@
       {
         "page_panel_left@book.page_panel": {
           "grid_position": [ 0, 0 ],
-          "$page_content_offset": [ "5px", 0 ],
+          "$page_content_offset": [ 5, 0 ],
           "$page_crease_image": "book.page_crease_left_image",
           "$page_edge_image": "book.page_edge_left_image",
           "$page_edge_offset": [ 7, -1 ]
@@ -944,7 +985,7 @@
       {
         "page_panel_right@book.page_panel": {
           "grid_position": [ 1, 0 ],
-          "$page_content_offset": [ "-5px", 0 ],
+          "$page_content_offset": [ -5, 0 ],
           "$page_crease_image": "book.page_crease_right_image",
           "$page_edge_image": "book.page_edge_right_image",
           "$page_edge_offset": [ -7, -1 ]
@@ -956,14 +997,14 @@
   "book_and_buttons_panel": {
     "type": "panel",
     "size": [ "100%cm", "100%" ],
-    "max_size": [ "100%", "228px" ],
+    "max_size": [ "100%", 231 ],
 
     "controls": [
       {
         "book_panel": {
           "type": "panel",
           "size": "$book_size",
-
+          "max_size": [ 320, "100% - 20px" ],
           "anchor_from": "top_middle",
           "anchor_to": "top_middle",
 
@@ -972,20 +1013,20 @@
             { "book_background@book.book_background": {} },
             {
               "book_spine_image@book.book_spine_image": {
-                "size": [ "8px", "100% - 2px" ]
+                "size": [ 8, "100% - 2px" ]
               }
             },
             {
               "close_button@book.close_button": {
-                "offset": [ -14, 12 ]
+                "offset": [ -14, 7 ]
               }
             },
             {
               "prev_button@book.base_button": {
-                "size": [ 12, 12 ],
-                "offset": [ 11, 0 ],
-                "anchor_from": "left_middle",
-                "anchor_to": "left_middle",
+                "size": [ 24, 24 ],
+                "offset": [ 7, -9 ],
+                "anchor_from": "bottom_left",
+                "anchor_to": "bottom_left",
 
                 "sound_name": "item.book.page_turn",
                 "sound_volume": 4.0,
@@ -993,17 +1034,17 @@
 
                 "$pressed_button_name": "button.prev_page",
                 "$button_active": "#prev_page_button_active",
-                "$default_texture": "textures/ui/book_arrowleft_default",
-                "$hover_texture": "textures/ui/book_arrowleft_hover",
-                "$pressed_texture": "textures/ui/book_arrowleft_pressed"
+                "$default_texture": "textures/ui/book_pageleft_default",
+                "$hover_texture": "textures/ui/book_pageleft_hover",
+                "$pressed_texture": "textures/ui/book_pageleft_pressed"
               }
             },
             {
               "next_button@book.base_button": {
-                "size": [ 12, 12 ],
-                "offset": [ -11, 0 ],
-                "anchor_from": "right_middle",
-                "anchor_to": "right_middle",
+                "size": [ 24, 24 ],
+                "offset": [ -7, -9 ],
+                "anchor_from": "bottom_right",
+                "anchor_to": "bottom_right",
 
                 "sound_name": "item.book.page_turn",
                 "sound_volume": 4.0,
@@ -1011,9 +1052,9 @@
 
                 "$pressed_button_name": "button.next_page",
                 "$button_active": "#next_page_button_active",
-                "$default_texture": "textures/ui/book_arrowright_default",
-                "$hover_texture": "textures/ui/book_arrowright_hover",
-                "$pressed_texture": "textures/ui/book_arrowright_pressed"
+                "$default_texture": "textures/ui/book_pageright_default",
+                "$hover_texture": "textures/ui/book_pageright_hover",
+                "$pressed_texture": "textures/ui/book_pageright_pressed"
               }
             }
           ]
@@ -1032,9 +1073,7 @@
   // Root panel all others parented to
   "root_panel": {
     "type": "panel",
-    "layer": 1,
-    "anchor_from": "center",
-    "anchor_to": "center"
+    "layer": 1
   },
 
   "book_screen@common.base_screen": {
@@ -1070,11 +1109,8 @@
     "controls": [
       {
         "root_panel@book.root_panel": {
-          "$book_size": [ "320px", "200px" ],
-          "$page_size": [ "160px", "200px" ],
-
-          "anchor_from": "center",
-          "anchor_to": "center",
+          "$book_size": [ 320, 207 ],
+          "$page_size": [ 160, 207 ],
 
           "controls": [
             {

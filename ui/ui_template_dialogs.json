@@ -403,28 +403,7 @@
               }
             },
             {
-              "close_button_holder": {
-                "type": "stack_panel",
-                "visible": "$show_close_button",
-                "anchor_from": "top_right",
-                "anchor_to": "top_right",
-                "size": [ "100%c", "100%c" ],
-                "offset": "$close_button_offset",
-                "controls": [
-                  {
-                    "close@common.close_button": {
-                      "layer": 2,
-                      "ignored": "$use_compact_close_button"
-                    }
-                  },
-                  {
-                    "compact_close@common.compact_close_button": {
-                      "layer": 2,
-                      "visible": "$use_compact_close_button"
-                    }
-                  }
-                ]
-              }
+              "close_button_holder@common_dialogs.common_close_button_holder": {}
             },
             {
               "title_label@common_dialogs.title_label": {
@@ -434,6 +413,31 @@
               }
             }
           ]
+        }
+      }
+    ]
+  },
+
+  "common_close_button_holder": {
+    "type": "stack_panel",
+    "visible": "$show_close_button",
+    "anchor_from": "top_right",
+    "anchor_to": "top_right",
+    "size": [ "100%c", "100%c" ],
+    "$close_button_offset|default": [ 0, 0 ],
+    "offset": "$close_button_offset",
+    "controls": [
+      {
+        "close@common.close_button": {
+          "layer": 2,
+          "ignored": "$use_compact_close_button"
+        }
+      },
+      {
+        "compact_close@common.compact_close_button": {
+          "ignored": "(not $use_compact_close_button)",
+          "layer": 2,
+          "visible": "$use_compact_close_button"
         }
       }
     ]

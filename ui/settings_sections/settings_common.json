@@ -15,15 +15,6 @@
     "alpha": "$alpha"
   },
 
-  "dropdown_chevron_image": {
-    "$alpha|default": 1.0,
-    "type": "image",
-    "layer": 1,
-    "texture": "textures/ui/dropdown_chevron",
-    "size": [ 8, 8 ],
-    "alpha": "$alpha"
-  },
-
   "subsection_title": {
     "type": "stack_panel",
     "orientation": "vertical",
@@ -153,6 +144,8 @@
     "$show_option_label|default": true,
     "$label_bindings|default": [],
     "$one_line_layout|default": false,
+    "$has_option_description|default": false,
+    "$option_description|default": "",
     "$option_enabled_binding_type|default": "global",
     "$option_label_alignment|default": "left",
     "$label_offset|default": [ 0, 0 ],
@@ -211,6 +204,28 @@
               }
             },
             {
+              "option_descriptive_text_0": {
+                "ignored": "(not $has_option_description)",
+                "type": "label",
+                "text_alignment": "$option_label_alignment",
+                "size": [ "90%", "default" ],
+                "min_size": [ 0, 0 ],
+                "color": "$option_description_text_color",
+                "text": "$option_description",
+                "visible": "$show_option_label",
+                "anchor_from": "bottom_left",
+                "anchor_to": "bottom_left",
+                "locked_alpha": 0.5
+              }
+            },
+            {
+              "spacer2": {
+                "type": "panel",
+                "visible": "$show_option_label",
+                "size": [ 0, 1 ]
+              }
+            },
+            {
               "$control_name@$control_name": {
                 "anchor_from": "top_left",
                 "anchor_to": "top_left"
@@ -233,16 +248,17 @@
           // toggle itself) or 100%c-16px (the height of the label, which varies
           // due to line wrapping, and can only be obtained by subtracting the
           // known height of the toggle, 16px, from the sum of the heights of
-          // the toggle and label, 100%c).
+          // the toggle and label, 100%c.
+          // Add 2px for spacing between label and description).
           // If this layout is used for any other controls, then $line_size and
           // $min_line_size will need to be changed accordingly, just like
           // $label_size and $label_offset.
-          "$line_size|default": [ "100%", "100%c - 16px" ],
+          "$line_size|default": [ "100%", "100%c - 16px + 2px" ],
           "$line_min_size|default": [ "100%", "16px" ],
           "size": "$line_size",
           "min_size": "$line_min_size",
           "$label_size|default": [ "100% - 34px", "default" ],
-          "$label_offset|default": [ 34, 0 ],
+          "$label_offset|default": [ 34, 3 ],
           "controls": [
             {
               "$control_name@$control_name": {
@@ -258,11 +274,27 @@
                 "layer": 1,
                 "size": "$label_size",
                 "offset": "$label_offset",
-                "anchor_from": "left_middle",
-                "anchor_to": "left_middle",
+                "anchor_from": "top_left",
+                "anchor_to": "top_left",
                 "text": "$option_label",
                 "visible": "$show_option_label",
                 "bindings": "$label_bindings",
+                "locked_alpha": 0.5
+              }
+            },
+            {
+              "option_descriptive_text": {
+                "ignored": "(not $has_option_description)",
+                "type": "label",
+                "text_alignment": "$option_label_alignment",
+                "size": "$label_size",
+                "offset": "$label_offset",
+                "min_size": [ 0, 0 ],
+                "color": "$option_description_text_color",
+                "text": "$option_description",
+                "visible": "$show_option_label",
+                "anchor_from": "bottom_left",
+                "anchor_to": "bottom_left",
                 "locked_alpha": 0.5
               }
             }
@@ -433,6 +465,113 @@
         "$toggle_enabled_binding_type": "none"
       }
     ]
+  },
+
+  "checkbox_visuals_unchecked@checkbox_visuals": {
+    "$checkbox_texture": "textures/ui/checkbox_space"
+  },
+
+  "checkbox_visuals_checked@checkbox_visuals": {
+    "$checkbox_texture": "textures/ui/checkbox_check",
+    "$selected": true
+  },
+
+  "checkbox_visuals_unchecked_locked@checkbox_visuals": {
+    "$checkbox_texture": "textures/ui/checkbox_spaceDisabled",
+    "$alpha": 0.5
+  },
+
+  "checkbox_visuals_checked_locked@checkbox_visuals": {
+    "$checkbox_texture": "textures/ui/checkbox_checkDisabled",
+    "$alpha": 0.5,
+    "$selected": true
+  },
+
+  "checkbox_visuals_unchecked_hover@checkbox_visuals": {
+    "$checkbox_texture": "textures/ui/checkbox_spaceHover",
+    "$hovered": true
+  },
+
+  "checkbox_visuals_checked_hover@checkbox_visuals": {
+    "$checkbox_texture": "textures/ui/checkbox_checkHover",
+    "$hovered": true
+  },
+
+  "checkbox_visuals": {
+    "type": "panel",
+    "$alpha|default": 1.0,
+    "$checkbox_label_bindings|default": [],
+    "$checkbox_label_color|default": "$main_header_text_color",
+    "$checkbox_label_font_type|default": "default",
+    "$no_label|default": false,
+    "$selected|default": false,
+    "$hovered|default": false,
+    "variables": [
+      {
+        "requires": "$selected",
+        "$highlight_image": "textures/ui/dropDownSelectBG"
+      },
+      {
+        "requires": "$hovered",
+        "$highlight_image": "textures/ui/dropDownHoverBG"
+      }
+    ],
+    "controls": [
+      {
+        "checkbox_image": {
+          "type": "image",
+          "texture": "$checkbox_texture",
+          "alpha": "$alpha",
+          "anchor_from": "left_middle",
+          "anchor_to": "left_middle",
+          "size": [ 10, 10 ],
+          "offset": [ 5, 0 ],
+          "layer": 2
+        }
+      },
+      {
+        "checkbox_label": {
+          "ignored": "($no_label)",
+          "type": "label",
+          "anchor_from": "left_middle",
+          "anchor_to": "left_middle",
+          "text": "$checkbox_label_text",
+          "font_type": "$checkbox_label_font_type",
+          "color": "$checkbox_label_color",
+          "offset": [ 21, 0 ],
+          "size": [ "100% - 21px", "default" ],
+          "alpha": "$alpha",
+          "bindings": "$checkbox_label_bindings",
+          "layer": 2
+        }
+      },
+      {
+        "accessibility_selection_highlight": {
+          "type": "image",
+          "$selection_highlight_size|default": [ "100%-2px", "100%-2px" ],
+          "size": "$selection_highlight_size",
+          "$selection_highlight_offset|default": [ 0, 0 ],
+          "offset": "$selection_highlight_offset",
+          "ignored": "(not $selected and not $hovered)",
+          "$highlight_image|default": "",
+          "texture": "$highlight_image",
+          "tiled": true,
+          "layer": 1
+        }
+      }
+    ]
+  },
+
+  "checkbox_with_highlight_and_label@common.toggle": {
+    // don't forget to implement "$toggle_name" and "$checkbox_label_text" when extending this control
+    "$unchecked_control|default": "settings_common.checkbox_visuals_unchecked",
+    "$checked_control|default": "settings_common.checkbox_visuals_checked",
+    "$unchecked_hover_control|default": "settings_common.checkbox_visuals_unchecked_hover",
+    "$checked_hover_control|default": "settings_common.checkbox_visuals_checked_hover",
+    "$unchecked_locked_control|default": "settings_common.checkbox_visuals_unchecked_locked",
+    "$unchecked_locked_hover_control|default": "settings_common.checkbox_visuals_unchecked_locked",
+    "$checked_locked_control|default": "settings_common.checkbox_visuals_checked_locked",
+    "$checked_locked_hover_control|default": "settings_common.checkbox_visuals_checked_locked"
   },
 
   "radio_visuals_unchecked@radio_visuals": {
@@ -899,7 +1038,14 @@
           "size": [ "100%c", "100%" ],
           "controls": [
             {
-              "dropdown_chevron_image@dropdown_chevron_image": {}
+              "dropdown_chevron_image": {
+                "$alpha|default": 1.0,
+                "type": "image",
+                "layer": 1,
+                "texture": "$default_chevron",
+                "size": [ 8, 8 ],
+                "alpha": "$alpha"
+              }
             }
           ]
         }
@@ -915,6 +1061,8 @@
   "options_dropdown_toggle_control@common_toggles.light_template_toggle": {
     "size": [ "100%", "100%" ],
     "$button_type_panel|default": "settings_common.default_options_dropdown_toggle_button_state_content",
+    "$unchecked_hover_control": "common_toggles.toggle_unchecked_hover_with_chevron",
+    "$checked_hover_control": "common_toggles.toggle_checked_hover_with_chevron",
 
     "enabled": "$enabled",
     "$toggle_enabled_binding_name|default": "$option_enabled_binding_name",
@@ -932,6 +1080,8 @@
   "options_dropdown_dark_toggle_control@common_toggles.dark_template_toggle": {
     "size": [ "100%", "100%" ],
     "$button_type_panel|default": "settings_common.default_options_dropdown_toggle_button_state_content",
+    "$unchecked_hover_control": "common_toggles.toggle_unchecked_hover_with_chevron",
+    "$checked_hover_control": "common_toggles.toggle_checked_hover_with_chevron",
 
     "enabled": "$enabled",
     "$toggle_enabled_binding_name|default": "$option_enabled_binding_name",
@@ -1202,27 +1352,27 @@
   "settings_content": {
     "type": "panel",
     "controls": [
-		// Adding fill background color for all settings.
-		{
-      "background": {
-        "$layer|default": -1,
-        "variables": [
-          {
-            "requires": "($is_realm_slot or $realm_no_world_edit)",
-            "$layer": -2
-          }
-        ],
-        "type": "image",
-        "texture": "textures/ui/White",
-        "keep_ratio": false,
-        "size": [ "100%", "100%sm" ],
-        "color": [ 0.192, 0.196, 0.2 ], // First test: [0.239, 0.204, 0.204]
-        "offset": [ 0, 0 ],
-        "layer": "$layer",
-        "anchor_from": "top_left",
-        "anchor_to": "top_left"
-      }
-		},
+      // Adding fill background color for all settings.
+      {
+        "background": {
+          "$layer|default": -1,
+          "variables": [
+            {
+              "requires": "($is_realm_slot or $realm_no_world_edit)",
+              "$layer": -2
+            }
+          ],
+          "type": "image",
+          "texture": "textures/ui/White",
+          "keep_ratio": false,
+          "size": [ "100%", "100%sm" ],
+          "color": [ 0.192, 0.196, 0.2 ], // First test: [0.239, 0.204, 0.204]
+          "offset": [ 0, 0 ],
+          "layer": "$layer",
+          "anchor_from": "top_left",
+          "anchor_to": "top_left"
+        }
+      },
 
       {
         "stack_panel": {

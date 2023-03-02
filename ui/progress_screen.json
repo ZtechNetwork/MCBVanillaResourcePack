@@ -440,9 +440,15 @@
   },
 
   "texture_pack_optional@progress.simple_popup_dialog_base": {
-    "$title_text": "progressScreen.dialog.title.resourcePack",
-    "$description_text": "progressScreen.dialog.message.resourcePackOptional",
+    "$description_text|default": "progressScreen.dialog.message.resourcePackOptional",
+    "variables": [
+      {
+        "requires": "$is_editor_mode_enabled",
+        "$description_text": "progressScreen.editor.dialog.message.resourcePackOptional"
+      }
+    ],
 
+    "$title_text": "progressScreen.dialog.title.resourcePack",
     "$top_button_text": "#empty_binding",
     "$middle_button_press": "button.join_and_download_all",
     "$middle_button_text": "#join_and_download",
@@ -451,9 +457,16 @@
   },
 
   "texture_pack_required@progress.simple_popup_dialog_base": {
-    "$title_text": "progressScreen.dialog.title.resourcePack",
-    "$description_text": "progressScreen.dialog.message.resourcePackRequired",
+    "$description_text|default": "progressScreen.dialog.message.resourcePackRequired",
+    "variables": [
+      {
+        "requires": "$is_editor_mode_enabled",
+        "$title_text": "progressScreen.editor.dialog.title.resourcePack",
+        "$description_text": "progressScreen.editor.dialog.message.resourcePackRequired"
+      }
+    ],
 
+    "$title_text": "progressScreen.dialog.title.resourcePack",
     "$top_button_text": "#empty_binding",
     "$middle_button_press": "button.join_and_download_all",
     "$middle_button_text": "#join_and_download",
@@ -625,7 +638,7 @@
     "bindings": [
       {
         "binding_name": "#loading_bar_visible",
-        "binding_name_override": "#progress_bar_visible"
+        "binding_name_override": "#touch_progress_bar_visible"
       },
       {
         "binding_name": "#loading_bar_total_amount",
@@ -695,10 +708,36 @@
     "$button_text": "#cancel_button_text",
     "$button_text_binding_type": "global",
     "size": [ 66, 26 ],
-    "offset": [ 0, 55 ],
+    "offset": [ 0, 0 ],
     "bindings": [
       {
         "binding_name": "#cancel_visible",
+        "binding_name_override": "#visible"
+      }
+    ]
+  },
+
+  "retry_button@common_buttons.light_text_button": {
+    "$pressed_button_name": "button.menu_retry",
+    "$button_text": "gui.retry",
+    "size": [ 66, 26 ],
+    "offset": [ 50, 0 ],
+    "bindings": [
+      {
+        "binding_name": "#retry_and_abort_visible",
+        "binding_name_override": "#visible"
+      }
+    ]
+  },
+
+  "abort_button@common_buttons.light_text_button": {
+    "$pressed_button_name": "button.menu_exit",
+    "$button_text": "gui.cancel",
+    "size": [ 66, 26 ],
+    "offset": [ -50, 0 ],
+    "bindings": [
+      {
+        "binding_name": "#retry_and_abort_visible",
         "binding_name_override": "#visible"
       }
     ]
@@ -711,8 +750,7 @@
     "anchor_to": "center",
     "controls": [
       {
-        "progress_title_text@progress.progress_title_text": {
-        }
+        "progress_title_text@progress.progress_title_text": {}
       },
       {
         "progress_bar_text@progress.progress_bar_text": {}
@@ -731,7 +769,9 @@
     "layer": 2,
     "controls": [
       {
-        "cancel_button@progress.cancel_button": {}
+        "cancel_button@progress.cancel_button": {
+          "offset": [ 0, 55 ]
+        }
       }
     ]
   },
@@ -739,10 +779,21 @@
   "modal_button_panel@button_panel": {
     "controls": [
       {
-        "cancel_button@progress.cancel_button": {
-          // reset offset
-          "offset": [ 0, 0 ]
-        }
+        "cancel_button@progress.cancel_button": {}
+      }
+    ]
+  },
+
+  "modal_button_panel_with_retry@modal_button_panel": {
+    "controls": [
+      {
+        "abort_button@progress.abort_button": {}
+      },
+      {
+        "cancel_button@progress.cancel_button": {}
+      },
+      {
+        "retry_button@progress.retry_button": {}
       }
     ]
   },
@@ -1031,24 +1082,7 @@
     ],
     "controls": [
       {
-        "modal_progress_panel_with_cancel@progress.modal_progress_panel_with_cancel": {
-          "bindings": [
-            {
-              "binding_name": "#cancel_visible",
-              "binding_name_override": "#visible"
-            }
-          ]
-        }
-      },
-      {
-        "modal_progress_panel_no_cancel@progress.modal_progress_panel_no_cancel": {
-          "bindings": [
-            {
-              "binding_name": "#cancel_not_visible",
-              "binding_name_override": "#visible"
-            }
-          ]
-        }
+        "modal_progress_panel@progress.modal_progress_panel_with_cancel": {}
       }
     ]
   },
@@ -1136,16 +1170,10 @@
               }
             },
             {
-              "modal_button_panel@progress.modal_button_panel": {
+              "modal_button_panel@$modal_button_panel_type": {
                 "anchor_from": "bottom_middle",
                 "anchor_to": "bottom_middle",
-                "size": [ "100%", "100%c" ],
-                "bindings": [
-                  {
-                    "binding_name": "#cancel_visible",
-                    "binding_name_override": "#visible"
-                  }
-                ]
+                "size": [ "100%", "100%c" ]
               }
             },
             {
@@ -1166,6 +1194,7 @@
     "layer": 3,
 
     "controls": [
+      { "mobile_data_icon@progress.mobile_data_icon": {} },
       {
         "title_panel_content@common_art.title_panel_content": {
           "$splash_text_visible": false,
@@ -1173,7 +1202,9 @@
         }
       },
       {
-        "world_modal_progress_panel@progress.world_modal_progress_panel": {}
+        "world_modal_progress_panel@progress.world_modal_progress_panel": {
+          "$modal_button_panel_type": "progress.modal_button_panel"
+        }
       },
       { "popup_dialog_factory@progress.popup_dialog_factory": {} }
     ]
@@ -1188,7 +1219,9 @@
         }
       },
       {
-        "world_modal_progress_panel@progress.world_modal_progress_panel": {}
+        "world_modal_progress_panel@progress.world_modal_progress_panel": {
+          "$modal_button_panel_type": "progress.modal_button_panel_with_retry"
+        }
       },
       {
         "save_icon@progress.auto_save": {}
@@ -1224,5 +1257,66 @@
         "binding_name_override": "#visible"
       }
     ]
+  },
+
+  "mobile_data_ios_icon": {
+    "type": "image",
+    "texture": "textures/ui/mobile_data_icon_ios",
+    "size": [ 12, 13 ],
+    "offset": [ 0, -2 ]
+  },
+
+  "mobile_data_android_icon": {
+    "type": "image",
+    "texture": "textures/ui/mobile_data_icon_android",
+    "size": [ 16, 9 ],
+    "offset": [ 0, -2 ]
+  },
+
+  "mobile_data_icon_text": {
+    "type": "label",
+    "text": "progressScreen.label.mobileData",
+    "color": "$mobile_data_icon_text_color",
+    "size": [ "default", 35 ]
+  },
+
+  "mobile_data_icon": {
+    "type": "panel",
+    "ignored": "(not ($is_android or $is_ios))",
+    "layer": -5,
+    "anchor_from": "top_right",
+    "anchor_to": "top_right",
+    "offset": [ -3, 10 ],
+    "size": [ "100%c", "100%c" ],
+    "controls": [
+      {
+        "icon_android@mobile_data_android_icon": {
+          "ignored": "(not $is_android)",
+          "anchor_to": "top_middle",
+          "anchor_from": "top_middle"
+        }
+      },
+      {
+        "icon_ios@mobile_data_ios_icon": {
+          "ignored": "(not $is_ios)",
+          "anchor_to": "top_middle",
+          "anchor_from": "top_middle"
+        }
+      },
+      {
+        "text@mobile_data_icon_text": {
+          "anchor_to": "bottom_middle",
+          "anchor_from": "bottom_middle"
+        }
+      }
+    ],
+    "bindings": [
+      {
+        "binding_name": "#mobile_data_icon_visible",
+        "binding_name_override": "#visible",
+        "binding_condition": "once"
+      }
+    ]
   }
 }
+

@@ -192,6 +192,7 @@
     "$keymapping_grid_dimension": "#keyboard_full_grid_dimension",
     "$keymapping_collection": "keyboard_full_collection"
   },
+  
 
   // gamepad controls
   "gamepad_mapping_item": {
@@ -391,12 +392,22 @@
         }
       },
       {
-        "option_toggle_hide_keyboard_tooltips@settings_common.option_toggle": {
+        "option_toggle_show_keyboard_prompts@settings_common.option_toggle": {
           "ignored": "(not $education_edition)",
-          "$option_label": "options.hideKeyboardTooltips",
-          "$option_binding_name": "#hide_keyboard_tooltips",
+          "$option_label": "options.showKeyboardPrompts",
+          "$option_binding_name": "#show_keyboard_prompts",
           "$option_enabled_binding_name": "#hint_toggles_enabled",
-          "$toggle_name": "hide_keyboard_tooltips",
+          "$toggle_name": "show_keyboard_prompts",
+          "$focus_override_right": "FOCUS_OVERRIDE_STOP"
+        }
+      },
+      {
+        "option_toggle_show_learning_prompts@settings_common.option_toggle": {
+          "ignored": "(not $education_edition)",
+          "$option_label": "options.showLearningPrompts",
+          "$option_binding_name": "#show_learning_prompts",
+          "$option_enabled_binding_name": "#hint_toggles_enabled",
+          "$toggle_name": "show_learning_prompts",
           "$focus_override_right": "FOCUS_OVERRIDE_STOP"
         }
       },
@@ -420,6 +431,32 @@
             },
             {
               "keyboard_keymapping_grid@controls_section.keymapping_grid": {}
+            },
+            {
+              "control_alt_chords_standard_keyboard_section": {
+                "type": "stack_panel",
+                "size": [ "100%", "100%c" ],
+                "bindings": [
+                  {
+                    // Show full keyboard section when the full keyboard toggle is enabled
+                    "binding_name": "#show_standard_copy_coordinates_keys",
+                    "binding_name_override": "#visible"
+                  }
+                ],
+                "controls": [
+                  {
+                    "option_group_label@settings_common.option_group_label": {
+                      "$text": "options.control_alt_keybinds_section"
+                    }
+                  },
+                  {
+                    "control_alt_chord_keymapping_grid@controls_section.keymapping_grid": {
+                      "$keymapping_grid_dimension": "#keyboard_standard_control_alt_chord_grid_dimension",
+                      "$keymapping_collection": "keyboard_standard_control_alt_chord_collection"
+                    }
+                  }
+                ]
+              }
             }
           ]
         }
@@ -459,6 +496,32 @@
             },
             {
               "keyboard_full_keymapping_grid@controls_section.full_keymapping_grid": {}
+            },
+            {
+              "control_alt_chords_full_keyboard_section": {
+                "type": "stack_panel",
+                "size": [ "100%", "100%c" ],
+                "bindings": [
+                  {
+                    // Show full keyboard section when the full keyboard toggle is enabled
+                    "binding_name": "#show_full_copy_coordinates_keys",
+                    "binding_name_override": "#visible"
+                  }
+                ],
+                "controls": [
+                  {
+                    "option_group_label@settings_common.option_group_label": {
+                      "$text": "options.control_alt_keybinds_section"
+                    }
+                  },
+                  {
+                    "control_alt_chord_keymapping_grid@controls_section.keymapping_grid": {
+                      "$keymapping_grid_dimension": "#keyboard_full_control_alt_chord_grid_dimension",
+                      "$keymapping_collection": "keyboard_full_control_alt_chord_collection"
+                    }
+                  }
+                ]
+              }
             }
           ]
         }
@@ -683,9 +746,19 @@
         "option_toggle_4@settings_common.option_toggle": {
           "ignored": true, // TODO: Remove this line when we add in haptic feedback (User Story 41617)
           "$option_label": "options.destroyvibration",
-          "$option_binding_name": "#controller_vibration",
-          "$option_enabled_binding_name": "#controller_vibration_enabled",
-          "$toggle_name": "controller_vibration",
+          "$option_binding_name": "#controller_destroy_vibration",
+          "$option_enabled_binding_name": "#controller_destroy_vibration_enabled",
+          "$toggle_name": "controller_destroy_vibration",
+          "$focus_override_right": "FOCUS_OVERRIDE_STOP"
+        }
+      },
+      {
+        "option_toggle_5@settings_common.option_toggle": {
+          "ignored": true, // TODO: Remove this line when we add in haptic feedback (User Story 41617)
+          "$option_label": "options.splitvibration",
+          "$option_binding_name": "#controller_split_vibration",
+          "$option_enabled_binding_name": "#controller_split_vibration_enabled",
+          "$toggle_name": "controller_split_vibration",
           "$focus_override_right": "FOCUS_OVERRIDE_STOP"
         }
       },
@@ -706,29 +779,6 @@
           "$pressed_button_name": "button.reset_gamepad_bindings",
           "$button_text": "controllerLayoutScreen.resetAllBindings",
           "$focus_override_right": "FOCUS_OVERRIDE_STOP"
-        }
-      }
-    ]
-  },
-
-  "interaction_model_dropdown_content@settings_common.option_radio_dropdown_group": {
-    "$radio_buttons": [
-      {
-        "@settings_common.radio_with_label": {
-          "$toggle_state_binding_name": "#interactionmodel_radio_touch",
-          "$radio_label_text": "options.interactionmodel.touch"
-        }
-      },
-      {
-        "@settings_common.radio_with_label": {
-          "$toggle_state_binding_name": "#interactionmodel_radio_crosshair",
-          "$radio_label_text": "options.interactionmodel.crosshair"
-        }
-      },
-      {
-        "@settings_common.radio_with_label": {
-          "$toggle_state_binding_name": "#interactionmodel_radio_classic",
-          "$radio_label_text": "options.interactionmodel.classic"
         }
       }
     ]
@@ -762,7 +812,7 @@
     ],
     "controls": [
       {
-        "common_touch_settings":{
+        "common_touch_settings": {
           "type": "stack_panel",
           "size": [ "100%", "100%c" ],
           "controls": [
@@ -781,14 +831,145 @@
               }
             },
             {
-              "interaction_model_dropdown@settings_common.option_dropdown": {
-                "$option_label": "options.interactionmodel",
-                "$dropdown_content": "controls_section.interaction_model_dropdown_content",
-                "$dropdown_area": "content_area",
-                "$dropdown_name": "interaction_model_dropdown",
-                "$option_enabled_binding_name": "#intereaction_model_dropdown_enabled",
-                "$options_dropdown_toggle_label_binding": "#interaction_model_dropdown_toggle_label",
-                "$dropdown_scroll_content_size": [ "100%", "200%" ],
+              "control_scheme_section": {
+                "type": "stack_panel",
+                "size": [ "100%", "100%c" ],
+                "controls": [
+                  {
+                    "section_label": {
+                      "type": "label",
+                      "color": "$body_text_color",
+                      "text": "options.controlMode.title"
+                    }
+                  },
+                  {
+                    "padding_0": {
+                      "type": "panel",
+                      "size": [ "100%", "5px" ]
+                    }
+                  },
+                  {
+                    "image_and_button": {
+                      "type": "stack_panel",
+                      "orientation": "horizontal",
+                      "size": [ "100%", "100%cm" ],
+                      "controls": [
+                        {
+                          "images": {
+                            "type": "panel",
+                            "size": [ "49%", "50%x" ],
+                            "controls": [
+                              {
+                                "touch_image": {
+                                  "type": "image",
+                                  "texture": "textures/ui/thumbnail_touch",
+                                  "bindings": [
+                                    {
+                                      "binding_name": "#touch_selected",
+                                      "binding_name_override": "#visible"
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "crosshair_image": {
+                                  "type": "image",
+                                  "texture": "textures/ui/thumbnail_crosshair",
+                                  "bindings": [
+                                    {
+                                      "binding_name": "#crosshair_selected",
+                                      "binding_name_override": "#visible"
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "classic_image": {
+                                  "type": "image",
+                                  "texture": "textures/ui/thumbnail_classic",
+                                  "bindings": [
+                                    {
+                                      "binding_name": "#classic_selected",
+                                      "binding_name_override": "#visible"
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "padding": {
+                            "type": "panel",
+                            "size": [ "1%", "1px" ]
+                          }
+                        },
+                        {
+                          "scheme_button_section": {
+                            "type": "panel",
+                            "size": [ "50%", "100%sm" ],
+                            "controls": [
+                              {
+                                "caption": {
+                                  "type": "stack_panel",
+                                  "anchor_to": "top_middle",
+                                  "anchor_from": "top_middle",
+                                  "size": [ "100%", "100%" ],
+                                  "controls": [
+                                    {
+                                      "selected_label": {
+                                        "type": "label",
+                                        "font_scale_factor": 0.9,
+                                        "color": "$body_text_color",
+                                        "text": "options.controlMode.Selected"
+                                      }
+                                    },
+                                    {
+                                      "selected_control": {
+                                        "type": "label",
+                                        "font_scale_factor": 0.9,
+                                        "size": [ "100%", "fill" ],
+                                        "color": "$body_text_color",
+                                        "text": "#selected_control_scheme",
+                                        "bindings": [
+                                          {
+                                            "binding_name": "#selected_control_scheme_name",
+                                            "binding_name_override": "#selected_control_scheme"
+                                          }
+                                        ]
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "padding_1": {
+                      "type": "panel",
+                      "size": [ "100%", "3px" ]
+                    }
+                  },
+                  {
+                    "select_control_mode@settings_common.action_button": {
+                      "$pressed_button_name": "button.select_control_mode",
+                      "$button_text": "options.controlMode.selectControlMode",
+                      "size": [ "100%", 20 ],
+                      "anchor_to": "bottom_middle",
+                      "anchor_from": "bottom_middle"
+                    }
+                  },
+                  {
+                    "padding_2": {
+                      "type": "panel",
+                      "size": [ "100%", "5px" ]
+                    }
+                  }
+                ],
                 "bindings": [
                   {
                     "binding_name": "#new_touch_control_schemes_settings",
@@ -835,6 +1016,20 @@
                   {
                     "binding_name": "#touch_controls_v2_crosshair_mode",
                     "binding_name_override": "#visible"
+                  }
+                ]
+              }
+            },
+            {
+              "modify_control_layout_button@settings_common.action_button": {
+                "$pressed_button_name": "button.modify_control_layout",
+                "$button_text": "Modify Control Layout",
+                "$focus_override_down": "FOCUS_OVERRIDE_STOP",
+                "bindings": [
+                  {
+                    "binding_name": "#resizable_ui",
+                    "binding_name_override": "#visible",
+                    "binding_type": "global"
                   }
                 ]
               }
@@ -940,6 +1135,20 @@
               }
             },
             {
+              "option_creative_delayed_block_breaking@settings_common.option_toggle": {
+                "$option_label": "options.creativeDelayedBlockBreaking",
+                "$option_binding_name": "#creative_delayed_block_breaking",
+                "$option_enabled_binding_name": "#creative_delayed_block_breaking_enabled",
+                "$toggle_name": "creative_delayed_block_breaking",
+                "bindings": [
+                  {
+                    "binding_name": "(not #crosshair_action_button_on)",
+                    "binding_name_override": "#visible"
+                  }
+                ]
+              }
+            },
+            {
               "option_slider_thumbstick_opacity@settings_common.option_slider": {
                 "$option_label": "#thumbstick_opacity_slider_label",
                 "$slider_name": "thumbstick_opacity",
@@ -962,9 +1171,17 @@
             {
               "option_toggle_destroy_vibration@settings_common.option_toggle": {
                 "$option_label": "options.destroyvibration",
-                "$option_binding_name": "#touch_vibration",
-                "$option_enabled_binding_name": "#touch_vibration_enabled",
-                "$toggle_name": "touch_vibration"
+                "$option_binding_name": "#touch_destroy_vibration",
+                "$option_enabled_binding_name": "#touch_destroy_vibration_enabled",
+                "$toggle_name": "touch_destroy_vibration"
+              }
+            },
+            {
+              "option_toggle_split_vibration@settings_common.option_toggle": {
+                "$option_label": "options.splitvibration",
+                "$option_binding_name": "#touch_split_vibration",
+                "$option_enabled_binding_name": "#touch_split_vibration_enabled",
+                "$toggle_name": "touch_split_vibration"
               }
             },
             {
@@ -1021,6 +1238,26 @@
                 "$label_bindings": [
                   {
                     "binding_name": "$option_label"
+                  }
+                ]
+              }
+            },
+            {
+              "hotbar_scale@settings_common.option_slider": {
+                "$option_label": "#hotbar_scale_slider_label",
+                "$slider_name": "hotbar_scale",
+                "$slider_value_binding_name": "#hotbar_scale",
+                "$slider_tts_text_value": "#hotbar_scale_text_value",
+                "$option_enabled_binding_name": "#hotbar_scale_enabled",
+                "$label_bindings": [
+                  {
+                    "binding_name": "$option_label"
+                  }
+                ],
+                "bindings": [
+                  {
+                    "binding_name": "#resizable_ui_active",
+                    "binding_name_override": "#visible"
                   }
                 ]
               }

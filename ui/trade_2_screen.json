@@ -599,6 +599,12 @@
         "mapping_type": "focused"
       },
       {
+        "from_button_id": "button.controller_back",
+        "to_button_id": "button.trade_select",
+        "mapping_type": "focused",
+        "ignored": "(not $is_ps4)"
+      },
+      {
         "to_button_id": "button.trade_toggle_hovered",
         "mapping_type": "pressed"
       }
@@ -780,6 +786,8 @@
   "scroll_inner_input_panel@common.root_panel": {
     "type": "input_panel",
     "size": [ "100%", "100%c + 2px" ],
+    "focus_container": true,
+    "focus_navigation_mode_down": "stop",
     "controls": [
       { "trade_selector_stack_panel@trade2.trade_selector_stack_panel": {} }
     ]
@@ -999,6 +1007,12 @@
         "from_button_id": "button.menu_ok",
         "to_button_id": "button.trade_take_all_place_all",
         "mapping_type": "pressed"
+      },
+      {
+        "from_button_id": "button.controller_back",
+        "to_button_id": "button.trade_take_all_place_all",
+        "mapping_type": "pressed",
+        "ignored": "(not $is_ps4)"
       },
       {
         "from_button_id": "button.menu_secondary_select",
@@ -1555,6 +1569,12 @@
             "mapping_type": "pressed"
           },
           {
+            "from_button_id": "button.controller_back",
+            "to_button_id": "button.cursor_drop_all",
+            "mapping_type": "pressed",
+            "ignored": "(not $is_ps4)"
+          },
+          {
             "from_button_id": "button.controller_select",
             "to_button_id": "button.cursor_drop_one",
             "mapping_type": "pressed"
@@ -1647,6 +1667,12 @@
         "from_button_id": "button.menu_ok",
         "to_button_id": "button.cursor_drop_all",
         "mapping_type": "pressed"
+      },
+      {
+        "from_button_id": "button.controller_back",
+        "to_button_id": "button.cursor_drop_all",
+        "mapping_type": "pressed",
+        "ignored": "(not $is_ps4)"
       },
       {
         "from_button_id": "button.controller_select",

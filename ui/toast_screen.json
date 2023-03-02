@@ -26,6 +26,32 @@
     "end_event": "toast_end"
   },
 
+  "chat_popup_anim_wait": {
+    "anim_type": "wait",
+    "duration": "$display_time",
+    "next": "@toast_screen.chat_popup_anim_end"
+  },
+
+  "chat_popup_anim_start": {
+    "anim_type": "offset",
+    "easing": "spring",
+    "from": [ 0, 0 ],
+    "to": [ 0, 48 ],
+    "duration": "$transition_in_time",
+    "next": "@toast_screen.chat_popup_anim_wait"
+  },
+
+  "chat_popup_anim_end": {
+    "anim_type": "offset",
+    "easing": "in_sine",
+    "to": [ 0, 0 ],
+    "from": [ 0, 48 ],
+    "duration": "$transition_out_time",
+    "destroy_at_end": "popup",
+    "end_event": "toast_end"
+  },
+
+
   "toast_image": {
     "type": "image",
     "size": [ 13, 13 ],
@@ -319,6 +345,13 @@
     ]
   },
 
+  "chat_popup@toast_screen.popup": {
+    "size": [ "60%", 26 ],
+    "$offset_anims|default": [
+      "@toast_screen.chat_popup_anim_start"
+    ]
+  },
+
   "splitscreen_join_popup": {
     "type": "stack_panel",
     "orientation": "horizontal",
@@ -431,6 +464,7 @@
       "name": "toast_factory",
       "control_ids": {
         "popup": "popup@toast_screen.popup",
+        "chat_popup": "chat_popup@toast_screen.chat_popup",
         "splitscreen_join_popup": "splitscreen_join_popup@toast_screen.splitscreen_join_popup",
         "formfitting_alpha_toast": "formfitting_alpha_toast"
       }

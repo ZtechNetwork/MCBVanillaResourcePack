@@ -64,7 +64,7 @@
           "type": "stack_panel",
           "orientation": "vertical",
           "size": [ "100% - 10px", "100%sm - 10px" ],
-          "offset": [ 5, 5 ],
+          "offset": [ 2, 2 ],
           "anchor_from": "top_left",
           "anchor_to": "top_left",
           "layer": 2,
@@ -109,7 +109,7 @@
           "type": "stack_panel",
           "orientation": "horizontal",
           "size": [ "100% - 10px", "100%cm" ],
-          "offset": [ 5, -7 ],
+          "offset": [ 2, -6 ],
           "anchor_from": "bottom_left",
           "anchor_to": "bottom_left",
 
@@ -317,7 +317,7 @@
               }
             },
             {
-              "row_image@promo_timeline.store_row_image": {}
+              "row_image@promo_timeline.promo_image_panel": {}
             }
           ]
         }
@@ -341,30 +341,102 @@
     ]
   },
 
-  "store_row_image": {
+  "promo_image_panel": {
     "type": "image",
     "layer": 3,
-    "visible": false,
-    "size": [ 194, 80 ],
-    "bindings": [
+    "size": [ 194, "100%c" ],
+    "controls": [
       {
-        "binding_name": "#image_is_ready",
-        "binding_name_override": "#visible"
+        "button_image_panel@promo_timeline.promo_button_image_panel": {
+          "bindings": [
+            {
+              "binding_type": "$store_factory_collection_details",
+              "binding_collection_name": "$store_factory_collection_name",
+              "binding_collection_prefix": "$store_factory_collection_prefix"
+            },
+            {
+              "binding_name": "(#store_row_image_animation_name = '')", // static image is visible if no animation is available
+              "binding_name_override": "#visible"
+            }
+          ]
+        }
       },
       {
-        "binding_name": "#store_row_image_texture_name",
-        "binding_name_override": "#texture"
-      },
-      {
-        "binding_name": "#store_row_image_texture_filepath",
-        "binding_name_override": "#texture_file_system"
-      },
-      {
-        "binding_type": "$store_factory_collection_details",
-        "binding_collection_name": "$store_factory_collection_name",
-        "binding_collection_prefix": "$store_factory_collection_prefix"
+        "button_animated_panel@promo_timeline.promo_button_image_panel": {
+          "$promo_button_image_content": "promo_timeline.promo_button_animation",
+          "$promo_texture_binding_name": "#store_row_image_animation_name",
+          "bindings": [
+            {
+              "binding_type": "$store_factory_collection_details",
+              "binding_collection_name": "$store_factory_collection_name",
+              "binding_collection_prefix": "$store_factory_collection_prefix"
+            },
+            {
+              "binding_name": "(not (#store_row_image_animation_name = ''))", // animation is visible if service response contains animation field
+              "binding_name_override": "#visible"
+            }
+          ]
+        }
       }
     ]
+  },
+
+  "promo_button_image_panel": {
+    "type": "panel",
+    "size": [ "100%", "100%c" ],
+    "$promo_button_image_content|default": "promo_timeline.promo_button_image",
+    "$promo_texture_binding_name|default": "#store_row_image_texture_name",
+    "controls": [
+      {
+        "button_image@$promo_button_image_content": {
+          "bindings": [
+            {
+              "binding_type": "$store_factory_collection_details",
+              "binding_collection_name": "$store_factory_collection_name",
+              "binding_collection_prefix": "$store_factory_collection_prefix"
+            },
+            {
+              "binding_name": "#image_is_ready",
+              "binding_name_override": "#visible"
+            },
+            {
+              "binding_name": "$promo_texture_binding_name",
+              "binding_name_override": "#texture"
+            },
+            {
+              "binding_name": "#store_row_image_texture_filepath",
+              "binding_name_override": "#texture_file_system"
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "promo_button_image": {
+    "type": "image",
+    "size": [ 194, 80 ],
+    "texture": "$promo_texture_binding_name",
+    "allow_debug_missing_texture": false,
+    "layer": 1
+  },
+
+  "promo_button_animation": {
+    "type": "image",
+    "texture": "$promo_texture_binding_name",
+    "size": [ 194, 120 ],
+    "anchor_from": "bottom_left",
+    "anchor_to": "bottom_left",
+    "offset": [ 0, 0 ],
+    "layer": 50,
+    "uv_size": [ 194, 120 ],
+    "uv": "@promo_timeline.wishlist_rabbit_ui_animation",
+    "disable_anim_fast_forward": true
+  },
+
+  "wishlist_rabbit_ui_animation": {
+    "anim_type": "aseprite_flip_book",
+    "initial_uv": [ 0, 0 ]
   },
 
   "banner_button@common_buttons.new_ui_width_fitting_button_panel": {
@@ -496,10 +568,89 @@
   // Reusable Promotion Landing
   //--------------------------------------------------------------------------------
 
-  "promo_landing_panel": {
+  "colored_direction_button_panel": {
     "type": "panel",
+    "$direction_gamepad_button_helper|default": "gamepad_helper@common.gamepad_helper_right_bumper",
+    "controls": [
+      {
+        "chevron_image@common.chevron_image": {
+          "color": "$text_color",
+          "bindings": [
+            {
+              "binding_name": "(not #is_using_gamepad)",
+              "binding_name_override": "#visible"
+            }
+          ]
+        }
+      },
+      {
+        "$direction_gamepad_button_helper": {
+          "offset": [ 0, 4 ],
+          "anchor_from": "center",
+          "anchor_to": "center",
+          "$hide_description|default": true,
+          "$gamepad_helper_icon_size|default": [ 18, 18 ]
+        }
+      }
+    ]
+  },
+
+  "left_corner_art": {
+    "type": "image",
+    "size": [ 55, 96 ],
+    "offset": [ -3, -5 ],
+    "bilinear": true,
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "layer": 0,
+    "bindings": [
+      {
+        "binding_name": "#left_corner_image_texture_path",
+        "binding_name_override": "#texture"
+      },
+      {
+        "binding_name": "#left_corner_image_texture_file_system",
+        "binding_name_override": "#texture_file_system"
+      }
+    ]
+  },
+
+  "right_corner_art": {
+    "type": "image",
+    "size": [ 55, 96 ],
+    "offset": [ 0, -5 ],
+    "bilinear": true,
+    "anchor_to": "top_right",
+    "anchor_from": "top_right",
+    "layer": 0,
+    "bindings": [
+      {
+        "binding_name": "#right_corner_image_texture_path",
+        "binding_name_override": "#texture"
+      },
+      {
+        "binding_name": "#right_corner_image_texture_file_system",
+        "binding_name_override": "#texture_file_system"
+      }
+    ]
+  },
+
+  "promo_landing_panel": {
+    "type": "input_panel",
     "size": [ "100%", "100%cm" ],
     "$use_transparent_background": false,
+    "button_mappings": [
+      {
+        "from_button_id": "button.menu_tab_right",
+        "to_button_id": "button.cycle_promotions_right",
+        "mapping_type": "global"
+      },
+      {
+        "from_button_id": "button.menu_tab_left",
+        "to_button_id": "button.cycle_promotions_left",
+        "mapping_type": "global"
+      }
+    ],
     "controls": [
       {
         "promo_landing_panel_content": {
@@ -551,16 +702,12 @@
                                     {
                                       "left_button@common_store.cycle_pack_left_button": {
                                         "$pressed_button_name": "button.cycle_promotions_left",
-                                        "$button_content": "gift_promo.colored_direction_button_panel",
+                                        "$button_content": "promo_timeline.colored_direction_button_panel",
                                         "size": [ 20, "100%" ],
                                         "bindings": [
                                           {
                                             "binding_name": "#cycle_promotions_left_button_enabled",
                                             "binding_name_override": "#enabled"
-                                          },
-                                          {
-                                            "binding_name": "(not #is_using_gamepad)",
-                                            "binding_name_override": "#focus_enabled"
                                           }
                                         ]
                                       }
@@ -582,16 +729,12 @@
                                     {
                                       "right_button@common_store.cycle_pack_right_button": {
                                         "$pressed_button_name": "button.cycle_promotions_right",
-                                        "$button_content": "gift_promo.colored_direction_button_panel",
+                                        "$button_content": "promo_timeline.colored_direction_button_panel",
                                         "size": [ 20, "100%" ],
                                         "bindings": [
                                           {
                                             "binding_name": "#cycle_promotions_right_button_enabled",
                                             "binding_name_override": "#enabled"
-                                          },
-                                          {
-                                            "binding_name": "(not #is_using_gamepad)",
-                                            "binding_name_override": "#focus_enabled"
                                           }
                                         ]
                                       }
@@ -618,46 +761,10 @@
         }
       },
       {
-        "left_corner_art": {
-          "type": "image",
-          "size": [ "35%", "90%x" ],
-          "offset": [ -6, 0 ],
-          "bilinear": true,
-          "anchor_from": "top_left",
-          "anchor_to": "top_left",
-          "layer": 20,
-          "bindings": [
-            {
-              "binding_name": "#left_corner_image_texture_path",
-              "binding_name_override": "#texture"
-            },
-            {
-              "binding_name": "#left_corner_image_texture_file_system",
-              "binding_name_override": "#texture_file_system"
-            }
-          ]
-        }
+        "left_corner_art@promo_timeline.left_corner_art": {}
       },
       {
-        "right_corner_art": {
-          "type": "image",
-          "size": [ "35%", "90%x" ],
-          "offset": [ 4, 0 ],
-          "bilinear": true,
-          "anchor_to": "top_right",
-          "anchor_from": "top_right",
-          "layer": 20,
-          "bindings": [
-            {
-              "binding_name": "#right_corner_image_texture_path",
-              "binding_name_override": "#texture"
-            },
-            {
-              "binding_name": "#right_corner_image_texture_file_system",
-              "binding_name_override": "#texture_file_system"
-            }
-          ]
-        }
+        "right_corner_art@promo_timeline.right_corner_art": {}
       }
     ]
   },
@@ -675,7 +782,7 @@
 
   "promotion_top_main_panel": {
     "type": "image",
-    "size": [ "95%", "100%c + 8px" ],
+    "size": [ "90%", "100%c + 8px" ],
     "texture": "textures/ui/promo_background",
     "layer": 4,
     "controls": [
@@ -692,18 +799,6 @@
               "promo_single_top": {
                 "type": "input_panel",
                 "size": [ "100%", "100%c + 6px" ],
-                "button_mappings": [
-                  {
-                    "from_button_id": "button.menu_tab_right",
-                    "to_button_id": "button.navigate_screenshots_right",
-                    "mapping_type": "global"
-                  },
-                  {
-                    "from_button_id": "button.menu_tab_left",
-                    "to_button_id": "button.navigate_screenshots_left",
-                    "mapping_type": "global"
-                  }
-                ],
                 "controls": [
                   {
                     "single_item_view@promo_timeline.promo_detail_panel": {
@@ -782,6 +877,7 @@
                       "$button_content": "common.back_title_button_content",
                       "$button_tts_header": "accessibility.button.back",
                       "$default_text_color": "$store_white_text_color",
+                      "$focus_override_right": "claim_day_button",
                       "$focus_id": "multi_promo_back_button",
                       "bindings": [
                         {
@@ -798,7 +894,7 @@
                         {
                           "from_button_id": "button.menu_ok",
                           "to_button_id": "$back_button_pressed_button_name",
-                          "mapping_type": "focused"
+                          "mapping_type": "pressed"
                         },
                         {
                           "from_button_id": "button.menu_cancel",
@@ -860,6 +956,7 @@
                       "$button_font_scale_factor": 0.7,
                       "$button_text_max_size": [ "default", 6 ],
                       "$locked_text_color": "$0_color_format",
+                      "$focus_id": "claim_day_button",
                       "bindings": [
                         {
                           "binding_name": "#is_claim_all_enabled",
@@ -932,10 +1029,14 @@
     "layer": 11,
     "$pressed_button_name": "button.select_promotion_item",
     "tts_inherit_siblings": true,
+    "$focus_override_up": "claim_day_button",
+    "$focus_override_down": "period_carousel_panel",
     "bindings": [
       {
         "binding_type": "collection_details",
-        "binding_collection_name": "gift_promotion_collection_items"
+        "binding_collection_name": "gift_promotion_collection_items",
+        "binding_name": "(not #platform_restricted)",
+        "binding_name_override": "#enabled"
       }
     ],
     "controls": [
@@ -951,7 +1052,7 @@
                 "controls": [
                   {
                     "key_art_frame@common.focus_border_black": {
-                      "size": [ "100%c + 1.1249px", "100%" ], // additive px based on aspect up the tree
+                      "size": [ "100%cm + 1.1249px", "100%" ], // additive px based on aspect up the tree
                       "anchor_from": "top_left",
                       "anchor_to": "top_left",
                       "layer": 2,
@@ -960,6 +1061,22 @@
                           "sizing_panel": {
                             "type": "panel",
                             "size": [ "177.78%y", "100% - 2px" ] //rounded width based on height
+                          }
+                        },
+                        {
+                          "platform_restricted_warning_image": {
+                            "type": "image",
+                            "size": [ 10, 20 ],
+                            "layer": 5,
+                            "texture": "textures/ui/WarningGlyph",
+                            "bindings": [
+                              {
+                                "binding_type": "collection",
+                                "binding_collection_name": "gift_promotion_collection_items",
+                                "binding_name": "(#platform_restricted)",
+                                "binding_name_override": "#visible"
+                              }
+                            ]
                           }
                         }
                       ]
@@ -1068,6 +1185,56 @@
         "promo_button@promo_timeline.promo_button": {
           "size": [ "100% - 4px", "100% - 4px" ]
         }
+      },
+      {
+        "platform_restricted_error_multi_item@promo_timeline.platform_restricted_error": {}
+      }
+    ]
+  },
+
+  "platform_restricted_error": {
+    "type": "panel",
+    "size": [ "100% - 4px", "100% - 4px" ],
+    "layer": 18,
+    "controls": [
+      {
+        "platform_restricted_error_button@common.button": {
+          "$pressed_button_name": "button.platform_restricted",
+          "controls": [
+            {
+              "default": {
+                "type": "panel",
+                "size": [ "100%", "100%" ],
+                "layer": 5
+              }
+            },
+            {
+              "hover@common.square_image_border_white": {}
+            },
+            {
+              "pressed": {
+                "type": "panel",
+                "size": [ "100%, 100%" ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "white_overlay_to_gray_out": {
+          "type": "image",
+          "size": [ "100%", "100%" ],
+          "texture": "textures/ui/button_borderless_light",
+          "alpha": 0.5
+        }
+      }
+    ],
+    "bindings": [
+      {
+        "binding_type": "collection",
+        "binding_collection_name": "gift_promotion_collection_items",
+        "binding_name": "#platform_restricted",
+        "binding_name_override": "#visible"
       }
     ]
   },
@@ -1566,18 +1733,6 @@
                           "from_button_id": "button.menu_ok",
                           "to_button_id": "button.menu_ok",
                           "mapping_type": "focused"
-                        },
-                        {
-                          "from_button_id": "button.menu_tab_right",
-                          "to_button_id": "button.cycle_promotions_right",
-                          "mapping_type": "focused",
-                          "button_up_right_of_first_refusal": true
-                        },
-                        {
-                          "from_button_id": "button.menu_tab_left",
-                          "to_button_id": "button.cycle_promotions_left",
-                          "mapping_type": "focused",
-                          "button_up_right_of_first_refusal": true
                         },
                         {
                           "ignored": "(not $enable_directional_toggling)",
@@ -2361,18 +2516,56 @@
         }
       },
       {
-        "promo_item_action_text@common.minecraftTenLabel": {
-          "size": [ "default", "default" ],
-          "offset": [ 0, -1 ],
-          "text": "#promo_item_action_button_text",
-          "color": "$text_color",
-          "bindings": [
+        "promo_item_action_text_panel": {
+          "type": "stack_panel",
+          "orientation": "horizontal",
+          "size": [ "100%c", "100%" ],
+          "controls": [
             {
-              "binding_name": "(not #world_download_info_visible)",
-              "binding_name_override": "#visible"
+              "warning_image_panel": {
+                "type": "panel",
+                "size": [ "100%c", "100%" ],
+                "bindings": [
+                  {
+                    "binding_name": "#platform_restricted_item",
+                    "binding_name_override": "#visible"
+                  }
+                ],
+                "controls": [
+                  {
+                    "platform_restricted_warning_image": {
+                      "type": "image",
+                      "size": [ 7, 11 ],
+                      "offset": [ 0, -1 ],
+                      "layer": 20,
+                      "texture": "textures/ui/WarningGlyph"
+                    }
+                  },
+                  {
+                    "padding": {
+                      "type": "panel",
+                      "size": [ 4, "100%" ]
+                    }
+                  }
+                ]
+              }
             },
             {
-              "binding_name": "#promo_item_action_button_text"
+              "promo_item_action_text@common.minecraftTenLabel": {
+                "size": [ "default", "default" ],
+                "offset": [ 0, -1 ],
+                "text": "#promo_item_action_button_text",
+                "color": "$text_color",
+                "bindings": [
+                  {
+                    "binding_name": "(not #world_download_info_visible)",
+                    "binding_name_override": "#visible"
+                  },
+                  {
+                    "binding_name": "#promo_item_action_button_text"
+                  }
+                ]
+              }
             }
           ]
         }
@@ -2527,6 +2720,22 @@
                   {
                     "binding_name": "#promo_action_button_visible",
                     "binding_name_override": "#visible"
+                  },
+                  {
+                    "binding_name": "(not #platform_restricted_item)",
+                    "binding_name_override": "#enabled"
+                  }
+                ]
+              }
+            },
+            {
+              "platform_restricted_error_single_item@promo_timeline.platform_restricted_error": {
+                "size": [ "100%", 22 ],
+                "layer": 25,
+                "bindings": [
+                  {
+                    "binding_name": "#platform_restricted_item",
+                    "binding_name_override": "#visible"
                   }
                 ]
               }
@@ -2548,7 +2757,7 @@
           "$pressed_button_name": "button.item_pdp",
           "bindings": [
             {
-              "binding_name": "#promo_lower_button_visible",
+              "binding_name": "(not #platform_restricted_item)",
               "binding_name_override": "#visible"
             },
             {
@@ -2590,7 +2799,7 @@
       {
         "image": {
           "type": "panel",
-          "size": [ "177.78%y", "100%" ],
+          "size": [ "177.78%y", "100% - 1px" ],
           "controls": [
             {
               "key_image": {
@@ -2602,7 +2811,6 @@
                     "border@common.focus_border_white": {
                       "size": [ "100% + 2px", "100% + 2px" ],
                       "color": "$light_border_default_color",
-                      "offset": [ -1, -1 ],
                       "layer": 1
                     }
                   }
@@ -2684,23 +2892,22 @@
       {
         "pan_left_button@common_store.cycle_pack_left_button": {
           "size": [ 20, 20 ],
-          "anchor_from": "bottom_left",
-          "anchor_to": "bottom_left",
-          "$chevron_image_name": "textures/ui/chevron_left",
+          "anchor_from": "left_middle",
+          "anchor_to": "left_middle",
+          "$button_content": "promo_timeline.colored_direction_button_panel",
           "$pressed_button_name": "button.navigate_screenshots_left",
-          "$gamepad_helper_icon_size": [ 15, 15 ]
+          "$direction_gamepad_button_helper": "@common.empty_panel"
         }
       },
       {
         "navigation_bar": {
           "type": "panel",
-          "size": [ "fill", 5 ],
+          "size": [ "fill", "100%" ],
           "controls": [
             {
               "grey_bar": {
                 "type": "image",
-                "size": [ "100%", "100%" ],
-                "offset": [ 0, 5 ],
+                "size": [ "100%", 5 ],
                 "texture": "textures/ui/Black",
                 "layer": 1,
                 "controls": [
@@ -2734,11 +2941,11 @@
       {
         "pan_right_button@common_store.cycle_pack_right_button": {
           "size": [ 20, 20 ],
-          "anchor_from": "top_right",
-          "anchor_to": "top_right",
-          "$chevron_image_name": "textures/ui/chevron_right",
+          "anchor_from": "right_middle",
+          "anchor_to": "right_middle",
+          "$button_content": "promo_timeline.colored_direction_button_panel",
           "$pressed_button_name": "button.navigate_screenshots_right",
-          "$gamepad_helper_icon_size": [ 15, 15 ]
+          "$direction_gamepad_button_helper": "@common.empty_panel"
         }
       }
     ]
@@ -2835,13 +3042,6 @@
                             "use_selected_skin": false,
                             "use_skin_gui_scale": true,
                             "enable_scissor_test": true,
-                            "animation_reset_name": "screen_animation_reset",
-                            "anims": [
-                              "@common.screen_exit_size_animation_push",
-                              "@common.screen_exit_size_animation_pop",
-                              "@common.screen_entrance_size_animation_push",
-                              "@common.screen_entrance_size_animation_pop"
-                            ],
                             "bindings": [
                               {
                                 "binding_name": "#classic_skin_index",

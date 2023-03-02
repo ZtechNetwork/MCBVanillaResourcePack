@@ -156,6 +156,12 @@
         "mapping_type": "pressed"
       },
       {
+        "from_button_id": "button.controller_back",
+        "to_button_id": "button.destroy_selection",
+        "mapping_type": "pressed",
+        "ignored": "(not $is_ps4)"
+      },
+      {
         "from_button_id": "button.controller_select",
         "to_button_id": "button.clear_hotbar_or_remove_one",
         "mapping_type": "pressed"
@@ -185,6 +191,12 @@
         "from_button_id": "button.menu_ok",
         "to_button_id": "button.cursor_drop_all",
         "mapping_type": "pressed"
+      },
+      {
+        "from_button_id": "button.controller_back",
+        "to_button_id": "button.cursor_drop_all",
+        "mapping_type": "pressed",
+        "ignored": "(not $is_ps4)"
       },
       {
         "from_button_id": "button.controller_select",
@@ -224,6 +236,12 @@
         "from_button_id": "button.menu_ok",
         "to_button_id": "$button_take_all_place_all",
         "mapping_type": "pressed"
+      },
+      {
+        "from_button_id": "button.controller_back",
+        "to_button_id": "$button_take_all_place_all",
+        "mapping_type": "pressed",
+        "ignored": "(not $is_ps4)"
       },
       {
         "from_button_id": "button.menu_secondary_select",
@@ -296,6 +314,12 @@
         "from_button_id": "button.menu_ok",
         "to_button_id": "$button_take_all_place_all",
         "mapping_type": "pressed"
+      },
+      {
+        "from_button_id": "button.controller_back",
+        "to_button_id": "$button_take_all_place_all",
+        "mapping_type": "pressed",
+        "ignored": "(not $is_ps4)"
       },
       {
         "from_button_id": "button.menu_secondary_select",
@@ -436,7 +460,8 @@
     "$toggle_focus_enabled": false,
     "$toggle_name": "navigation_tab",
     "$toggle_group_default_selected": "$construction_index", //Construction tab
-    "$tab_content": "crafting.empty_tab_panel"
+    "$tab_content": "crafting.empty_tab_panel",
+    "$allow_controller_back_button_mapping": "$is_ps4"
   },
 
   "search_tab@crafting.top_tab": {
@@ -799,6 +824,21 @@
               "scroll_pane@$scrolling_pane_control": {
                 "size": [ "100%", "fill" ]
               }
+            }
+          ]
+        }
+      },
+      {
+        "nodrop_zone@common.root_panel": {
+          "anchor_from": "center",
+          "anchor_to": "center",
+          "size": [ "100%", "100%" ],
+          "layer": 2,
+          "bindings": [
+            {
+              "binding_type": "global",
+              "binding_name": "#is_left_tab_inventory",
+              "binding_name_override": "#visible"
             }
           ]
         }
@@ -1557,7 +1597,7 @@
       { "cell_red@crafting.cell_image_red": {} },
       { "cell_selected@crafting.cell_image_selected": {} },
       { "cell_hint@game_tip.cell_image_classic_hint": {} },
-      { "cell_darkgrey@crafting.cell_image_darkgrey": {}}
+      { "cell_darkgrey@crafting.cell_image_darkgrey": {} }
     ],
     "bindings": [
       {
@@ -1766,6 +1806,11 @@
               }
             },
             {
+              "storage_bar@common.storage_bar": {
+                "layer": 8
+              }
+            },
+            {
               "$overlay_image_control_name@$overlay_images": {
                 "layer": 9
               }
@@ -1804,6 +1849,15 @@
         "item_lock_cell_image@common.item_lock_cell_image": {
           "layer": 2
         }
+      },
+      {
+        "item_container_transfer_mode_overlay@common.item_container_transfer_mode_overlay": {
+          "size": "$item_renderer_size",
+          "offset": [ 1, 1 ],
+          "anchor_to": "top_left",
+          "anchor_from": "top_left",
+          "layer": 10
+        }
       }
     ]
   },
@@ -1811,6 +1865,7 @@
   "grid_item_for_recipe_book@crafting.inventory_container_item": {
     "$stack_count_required": true,
     "$durability_bar_required": false,
+    "$storage_bar_required": false,
     "$item_renderer_binding_condition": "visible",
     "$button_ref": "crafting.creative_no_coalesce_container_slot_button",
     "$background_images": "crafting.recipe_container_cell_images",
@@ -1840,7 +1895,6 @@
   "scroll_grid": {
     "type": "grid",
     "size": [ "100%", "default" ],
-    "layer": 1,
     "anchor_to": "top_left",
     "anchor_from": "top_left",
 
@@ -1878,6 +1932,12 @@
         "from_button_id": "button.menu_ok",
         "to_button_id": "button.destroy_selection",
         "mapping_type": "pressed"
+      },
+      {
+        "from_button_id": "button.controller_back",
+        "to_button_id": "button.destroy_selection",
+        "mapping_type": "pressed",
+        "ignored": "(not $is_ps4)"
       },
       {
         "from_button_id": "button.controller_select",
@@ -1949,6 +2009,12 @@
         "mapping_type": "focused"
       },
       {
+        "from_button_id": "button.controller_back",
+        "to_button_id": "button.controller_back",
+        "mapping_type": "focused",
+        "ignored": "(not $is_ps4)"
+      },
+      {
         "ignored": "(not $enable_directional_toggling)",
         "from_button_id": "button.menu_left",
         "to_button_id": "$toggle_off_button",
@@ -2004,7 +2070,8 @@
     "$button_content": "crafting.layout_toggle_content",
     "$toggle_name": "layout_toggle",
 
-    "$template_toggle": "crafting.layout_template_toggle"
+    "$template_toggle": "crafting.layout_template_toggle",
+    "$allow_controller_back_button_mapping": "$is_ps4"
   },
 
   "creative_layout_toggle@crafting.layout_toggle": {
@@ -2110,8 +2177,8 @@
     ]
   },
 
-  "recipe_book@crafting.crafting_root_panel": {
-    "layer": 2,
+  "recipe_book@common.root_panel": {
+    "layer": 1,
     "controls": [
       {
         "bg@common.common_panel": {
@@ -2195,7 +2262,7 @@
     ]
   },
 
-  "center_fold@crafting.crafting_root_panel": {
+  "center_fold@common.root_panel": {
     "controls": [
       {
         "center_bg": {
@@ -2468,6 +2535,12 @@
         "from_button_id": "button.menu_ok",
         "to_button_id": "button.cursor_drop_all",
         "mapping_type": "pressed"
+      },
+      {
+        "from_button_id": "button.controller_back",
+        "to_button_id": "button.cursor_drop_all",
+        "mapping_type": "pressed",
+        "ignored": "(not $is_ps4)"
       },
       {
         "from_button_id": "button.controller_select",

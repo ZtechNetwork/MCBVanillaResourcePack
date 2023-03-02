@@ -13,11 +13,32 @@
     "size": [ 11, 11 ]
   },
 
+  "paste_icon": {
+    "type": "image",
+    "layer": 2,
+    "texture": "textures/ui/paste",
+    "size": [ 12, 12 ]
+  },
+
   "plus_button@common_buttons.light_glyph_button": {
     "size": [ 30, 30 ],
     "layer": 1,
     "$button_content": "command_block.plus_icon",
     "$pressed_button_name": "command_block.input_maximize",
+    "bindings": [
+      {
+        "binding_name": "(not #maximized_input_visible)",
+        "binding_name_override": "#enabled"
+      }
+    ]
+  },
+
+  "paste_button@common_buttons.light_glyph_button": {
+    "size": [ 30, 30 ],
+    "layer": 1,
+    "$button_content": "command_block.paste_icon",
+    "$pressed_button_name": "command_block.paste",
+    "$default_glyph_color": "$light_glyph_hover_color",
     "bindings": [
       {
         "binding_name": "(not #maximized_input_visible)",
@@ -595,7 +616,7 @@
                         {
                           "offset": {
                             "type": "panel",
-                            "size": [ "85%", "100%c" ],
+                            "size": [ "fill", "100%c" ],
                             "controls": [
                               {
                                 "command_block_commands_text@command_block.command_block_text_edit_box": {
@@ -612,6 +633,12 @@
                                 }
                               }
                             ]
+                          }
+                        },
+                        {
+                          "paste_button@command_block.paste_button": {
+                            //This layer needs to be inconsistent with the text box which is default to 1 for selection
+                            "layer": 2
                           }
                         },
                         {
@@ -882,15 +909,25 @@
               }
             },
             {
-              "close_button_holder": {
-                "type": "panel",
+              "header_buttons_stack_panel": {
+                "type": "stack_panel",
+                "anchor_from": "top_right",
+                "anchor_to": "top_right",
+                "orientation": "horizontal",
+                "size": [ "100%c", 18 ],
+                "offset": [ -4, 4 ],
+                "layer": 3,
                 "controls": [
                   {
-                    "close@common.close_button": {
+                    "paste_button@command_block.paste_button": {
+                      //This layer needs to be inconsistent with the text box which is default to 1 for selection
                       "layer": 2,
+                      "anchor_from": "top_right",
+                      "anchor_to": "top_right",
+                      "size": [ 16, 16 ],
                       "bindings": [
                         {
-                          "binding_name": "#close_button_visible_binding_name",
+                          "binding_name": "#minimize_button_visible_binding_name",
                           "binding_name_override": "#visible",
                           "binding_type": "global"
                         }
@@ -898,41 +935,67 @@
                     }
                   },
                   {
-                    "minimze@common.close_button": {
-                      "button_mappings": [
-                        {
-                          "from_button_id": "button.menu_select",
-                          "to_button_id": "command_block.input_minimize",
-                          "mapping_type": "pressed"
-                        },
-                        {
-                          "from_button_id": "button.menu_ok",
-                          "to_button_id": "command_block.input_minimize",
-                          "mapping_type": "focused"
-                        }
-                      ],
+                    "close_button_holder": {
+                      "type": "panel",
+                      "size": [ 18, 16 ],
                       "controls": [
                         {
-                          "default@close_button_panel": {
-                            "$close_button_texture": "textures/ui/minimize"
+                          "close@common.close_button": {
+                            "layer": 2,
+                            "anchor_to": "center",
+                            "anchor_from": "center",
+                            "$close_button_offset": [ 0, 0 ],
+                            "bindings": [
+                              {
+                                "binding_name": "#close_button_visible_binding_name",
+                                "binding_name_override": "#visible",
+                                "binding_type": "global"
+                              }
+                            ]
                           }
                         },
                         {
-                          "hover@close_button_panel": {
-                            "$close_button_texture": "textures/ui/minimizeHover"
+                          "minimize@common.close_button": {
+                            "anchor_to": "center",
+                            "anchor_from": "center",
+                            "$close_button_offset": [ 0, 0 ],
+                            "button_mappings": [
+                              {
+                                "from_button_id": "button.menu_select",
+                                "to_button_id": "command_block.input_minimize",
+                                "mapping_type": "pressed"
+                              },
+                              {
+                                "from_button_id": "button.menu_ok",
+                                "to_button_id": "command_block.input_minimize",
+                                "mapping_type": "focused"
+                              }
+                            ],
+                            "controls": [
+                              {
+                                "default@close_button_panel": {
+                                  "$close_button_texture": "textures/ui/minimize"
+                                }
+                              },
+                              {
+                                "hover@close_button_panel": {
+                                  "$close_button_texture": "textures/ui/minimizeHover"
+                                }
+                              },
+                              {
+                                "pressed@close_button_panel": {
+                                  "$close_button_texture": "textures/ui/minimizePress"
+                                }
+                              }
+                            ],
+                            "bindings": [
+                              {
+                                "binding_name": "#minimize_button_visible_binding_name",
+                                "binding_name_override": "#visible",
+                                "binding_type": "global"
+                              }
+                            ]
                           }
-                        },
-                        {
-                          "pressed@close_button_panel": {
-                            "$close_button_texture": "textures/ui/minimizePress"
-                          }
-                        }
-                      ],
-                      "bindings": [
-                        {
-                          "binding_name": "#minimize_button_visible_binding_name",
-                          "binding_name_override": "#visible",
-                          "binding_type": "global"
                         }
                       ]
                     }
