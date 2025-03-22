@@ -34,7 +34,7 @@
     "property_bag": {
       "#item_id_aux": -12910592,
       "#collection_name": "stonecutter_tab",
-      "#collection_index": 0
+      "#collection_index": 1
     }
   },
 
@@ -122,7 +122,37 @@
     "anchor_from": "top_left",
     "anchor_to": "top_left",
     "controls": [
-      { "pocket_tab_close_and_help_button@common_tabs.pocket_tab_close_and_help_button": {} },
+      {
+        "close": {
+          "type": "image",
+          "texture": "textures/ui/TabRightBackTopMost",
+          "size": [ "100%", 29 ],
+
+          "controls": [
+            {
+              "nodrop_zone@common.root_panel": {
+                "anchor_from": "center",
+                "anchor_to": "center",
+                "size": [ "100%", "100%" ]
+              }
+            },
+            {
+              "close_button@common.light_close_button": {
+                "anchor_from": "center",
+                "anchor_to": "center",
+                "offset": [ 0, 0 ],
+                "layer": 2
+              }
+            }
+          ],
+          "bindings": [
+            {
+              "binding_name": "#close_button_visible",
+              "binding_name_override": "#visible"
+            }
+          ]
+        }
+      },
       {
         "fill": {
           "type": "panel",
@@ -374,20 +404,17 @@
   "left_tab_stones@common_tabs.pocket_tab_left": {
     "$is_top_most_tab": true,
     "$tab_view_binding_name": "stones_tab_toggle",
-    "$toggle_group_forced_index": "$left_tab_index_stones",
-
     "$tab_content": "stonecutter_pocket.stonecutter_item_renderer",
-
+    "$toggle_group_forced_index": "$left_tab_index_stones",
     "$toggle_binding_type": "global",
     "$toggle_state_binding_name": "#is_left_tab_stones"
   },
 
   "left_tab_inventory@common_tabs.pocket_tab_left": {
+    "$is_bottom_most_tab": true,
     "$tab_view_binding_name": "inventory_tab_toggle",
-    "$toggle_group_forced_index": "$left_tab_index_inventory",
-
     "$tab_content": "stonecutter_pocket.chest_item_renderer",
-
+    "$toggle_group_forced_index": "$left_tab_index_inventory",
     "$toggle_binding_type": "global",
     "$toggle_state_binding_name": "#is_left_tab_inventory"
   },
@@ -407,11 +434,7 @@
           "size": [ 0, "fill" ]
         }
       },
-      {
-        "left_tab_inventory@stonecutter_pocket.left_tab_inventory": {
-          "$is_bottom_most_tab": true
-        }
-      }
+      { "left_tab_inventory@stonecutter_pocket.left_tab_inventory": {} }
     ]
   },
 
@@ -450,11 +473,7 @@
       },
       { "inventory_selected_icon_button@common.inventory_selected_icon_button": {} },
       { "inventory_take_progress_icon_button@common.inventory_take_progress_icon_button": {} },
-      {
-        "flying_item_renderer@common.flying_item_renderer": {
-          "layer": 8
-        }
-      }
+      { "flying_item_renderer@common.flying_item_renderer": { "layer": 15 } }
     ]
   }
 }

@@ -320,7 +320,20 @@
                             "type": "label",
                             "size": [ "100%", "default" ],
                             "color": "$body_text_color",
-                            "text": "$description_text"
+                            "text": "$description_text",
+                            "bindings": [
+                              {
+                                "binding_name": "$description_text"
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "padding_2": {
+                            "type": "panel",
+                            "size": [ 0, 8 ],
+                            "visible": "$has_second_line",
+                            "enabled": "$has_second_line"
                           }
                         },
                         {
@@ -330,11 +343,16 @@
                             "size": [ "100%", "default" ],
                             "color": "$body_text_color",
                             "text": "$description_text2",
-                            "ignored": "(not $has_second_line)"
+                            "ignored": "(not $has_second_line)",
+                            "bindings": [
+                              {
+                                "binding_name": "$description_text2"
+                              }
+                            ]
                           }
                         },
                         {
-                          "padding_2": {
+                          "padding_3": {
                             "type": "panel",
                             "size": [ 0, 8 ]
                           }
@@ -351,7 +369,7 @@
                           }
                         },
                         {
-                          "padding_3": {
+                          "padding_4": {
                             "type": "panel",
                             "size": [ 0, 2 ],
                             "visible": "$use_top_button",
@@ -368,7 +386,7 @@
                           }
                         },
                         {
-                          "padding_4": {
+                          "padding_5": {
                             "type": "panel",
                             "size": [ 0, 2 ]
                           }
@@ -392,110 +410,62 @@
     ]
   },
 
-  "add_on_only@progress.simple_popup_dialog_base": {
-    "$title_text": "progressScreen.dialog.title.onlyBehavior",
-    "$description_text": "progressScreen.dialog.message.onlyBehavior",
+  "resource_pack_download_popup_base@progress.simple_popup_dialog_base": {
+    "$title_text": "progressScreen.dialog.title.resourcePack",
+    "$has_second_line": "#show_ray_tracing_warning",
+    "$description_text": "#pack_download_type_message",
+    "$description_text2": "#ray_tracing_warning_message",
+    "bindings": [
+      {
+        "binding_name": "#show_ray_tracing_warning"
+      },
+      {
+        "binding_name": "#pack_download_type_message"
+      },
+      {
+        "binding_name": "#ray_tracing_warning_message"
+      }
+    ]
+  },
 
+  "resource_pack_download_server_required@progress.resource_pack_download_popup_base": {
     "$top_button_text": "#empty_binding",
-    "$middle_button_press": "button.join_and_download_all",
-    "$middle_button_text": "#join_and_download",
+
+    "$middle_button_press": "button.join_and_download_everything",
+    "$middle_button_text": "#join_and_download_everything",
+
     "$bottom_button_press": "button.leave",
     "$bottom_button_text": "progressScreen.dialog.button.leave"
   },
 
-  "add_on_with_optional_texture_pack@progress.simple_popup_dialog_base": {
-    "$title_text": "progressScreen.dialog.title.behaviorAndResourcePack",
-    "$description_text": "progressScreen.dialog.message.behaviorAndResourcePack",
-
+  "resource_pack_download_optional_and_required@progress.resource_pack_download_popup_base": {
     "$use_top_button": true,
-
-    "$top_button_press": "button.join_and_download_all",
+    "$top_button_press": "button.join_and_download_everything",
     "$top_button_text": "#join_and_download_everything",
-    "$middle_button_press": "button.join_and_download_needed",
-    "$middle_button_text": "#join_and_download_only_add_on",
+
+    "$middle_button_press": "button.join_and_download_required",
+    "$middle_button_text": "#join_and_download_required",
+
     "$bottom_button_press": "button.leave",
     "$bottom_button_text": "progressScreen.dialog.button.leave"
   },
 
-  "add_on_with_texture_pack@progress.simple_popup_dialog_base": {
-    "$title_text": "progressScreen.dialog.title.behaviorAndResourcePack",
-    "$description_text": "progressScreen.dialog.message.behaviorAndResourcePack",
-
+  "resource_pack_download_optional@progress.resource_pack_download_popup_base": {
     "$top_button_text": "#empty_binding",
-    "$middle_button_press": "button.join_and_download_all",
-    "$middle_button_text": "#join_and_download",
-    "$bottom_button_press": "button.leave",
-    "$bottom_button_text": "progressScreen.dialog.button.leave"
-  },
 
-  "add_on_confirmation@progress.simple_popup_dialog_base": {
-    "$title_text": "progressScreen.dialog.title.scriptConfirm",
-    "$description_text": "progressScreen.dialog.message.scriptConfirm",
+    "$middle_button_press": "button.join_and_download_everything",
+    "$middle_button_text": "#join_and_download_everything",
 
-    "$top_button_text": "#empty_binding",
-    "$middle_button_press": "button.join",
-    "$middle_button_text": "#join_and_download",
-    "$bottom_button_press": "button.leave",
-    "$bottom_button_text": "progressScreen.dialog.button.leave"
-  },
-
-  "texture_pack_optional@progress.simple_popup_dialog_base": {
-    "$description_text|default": "progressScreen.dialog.message.resourcePackOptional",
-    "variables": [
-      {
-        "requires": "$is_editor_mode_enabled",
-        "$description_text": "progressScreen.editor.dialog.message.resourcePackOptional"
-      }
-    ],
-
-    "$title_text": "progressScreen.dialog.title.resourcePack",
-    "$top_button_text": "#empty_binding",
-    "$middle_button_press": "button.join_and_download_all",
-    "$middle_button_text": "#join_and_download",
     "$bottom_button_press": "button.join",
     "$bottom_button_text": "progressScreen.dialog.button.join"
   },
 
-  "texture_pack_required@progress.simple_popup_dialog_base": {
-    "$description_text|default": "progressScreen.dialog.message.resourcePackRequired",
-    "variables": [
-      {
-        "requires": "$is_editor_mode_enabled",
-        "$title_text": "progressScreen.editor.dialog.title.resourcePack",
-        "$description_text": "progressScreen.editor.dialog.message.resourcePackRequired"
-      }
-    ],
-
-    "$title_text": "progressScreen.dialog.title.resourcePack",
+  "resource_pack_download_required@progress.resource_pack_download_popup_base": {
     "$top_button_text": "#empty_binding",
-    "$middle_button_press": "button.join_and_download_all",
-    "$middle_button_text": "#join_and_download",
-    "$bottom_button_press": "button.leave",
-    "$bottom_button_text": "progressScreen.dialog.button.leave"
-  },
 
-  "texture_pack_raytracing_optional@progress.simple_popup_dialog_base": {
-    "$title_text": "progressScreen.dialog.title.resourcePack",
-    "$description_text": "progressScreen.dialog.message.resourcePackOptional.rayTracing.line1",
-    "$description_text2": "progressScreen.dialog.message.resourcePackOptional.rayTracing.line2",
-    "$has_second_line": true,
+    "$middle_button_press": "button.join_and_download_required",
+    "$middle_button_text": "#join_and_download_required",
 
-    "$top_button_text": "#empty_binding",
-    "$middle_button_press": "button.join_and_download_all",
-    "$middle_button_text": "#join_and_download",
-    "$bottom_button_press": "button.join",
-    "$bottom_button_text": "progressScreen.dialog.button.join"
-  },
-
-  "texture_pack_raytracing_required@progress.simple_popup_dialog_base": {
-    "$title_text": "progressScreen.dialog.title.resourcePack",
-    "$description_text": "progressScreen.dialog.message.resourcePackRequired.rayTracing.line1",
-    "$description_text2": "progressScreen.dialog.message.resourcePackRequired.rayTracing.line2",
-    "$has_second_line": true,
-
-    "$top_button_text": "#empty_binding",
-    "$middle_button_press": "button.join_and_download_all",
-    "$middle_button_text": "#join_and_download",
     "$bottom_button_press": "button.leave",
     "$bottom_button_text": "progressScreen.dialog.button.leave"
   },
@@ -534,6 +504,25 @@
     "text": "#progress_text",
     "bindings": [
       { "binding_name": "#progress_text" }
+    ]
+  },
+
+  "code_text@progress.progress_screen_text": {
+    "size": [ "default", 20 ],
+    "max_size": [ "100% - 8px", 20 ],
+    "text": "#code_text",
+    "bindings": [
+      { "binding_name": "#code_text" }
+    ]
+  },
+
+  "code_number@progress.progress_screen_text": {
+    "size": [ "default", 20 ],
+    "max_size": [ "100% - 8px", 20 ],
+    "text": "#code_number",
+    "color": "$e_color_format",
+    "bindings": [
+      { "binding_name": "#code_number" }
     ]
   },
 
@@ -703,6 +692,40 @@
     ]
   },
 
+  "edu_cloud_upload_progress_bar": {
+    "type": "panel",
+    "size": [ "100%" , "100%c" ],
+    "controls": [
+      {
+        "waveform_loading_bar@progress.progress_loading_bars": {
+          "bindings": [
+            {
+              "binding_name": "(not #use_determinate_animation)",
+              "binding_name_override": "#visible"
+            }
+          ]
+        }
+      },
+      {
+        "determinate_loading_bar@progress.fancy_progress_loading_bars": {
+          "offset": [ 0, 25 ],
+          "bindings": [
+            {
+              "binding_name": "#use_determinate_animation",
+              "binding_name_override": "#visible"
+            }
+          ]
+        }
+      }
+    ],
+    "bindings": [
+      {
+        "binding_name": "#progress_animation_visible",
+        "binding_name_override": "#visible"
+      }
+    ]
+  },
+
   "cancel_button@common_buttons.light_text_button": {
     "$pressed_button_name": "button.menu_exit",
     "$button_text": "#cancel_button_text",
@@ -738,6 +761,19 @@
     "bindings": [
       {
         "binding_name": "#retry_and_abort_visible",
+        "binding_name_override": "#visible"
+      }
+    ]
+  },
+
+  "ok_button@common_buttons.light_text_button": {
+    "$pressed_button_name": "button.menu_exit",
+    "$button_text": "gui.ok",
+    "size": [ 66, 26 ],
+    "offset": [ 0, 0 ],
+    "bindings": [
+      {
+        "binding_name": "#ok_visible",
         "binding_name_override": "#visible"
       }
     ]
@@ -798,6 +834,14 @@
     ]
   },
 
+  "modal_ok_button_panel@button_panel": {
+    "controls": [
+      {
+        "ok_button@progress.ok_button": {}
+      }
+    ]
+  },
+
   "gamepad_helpers": {
     "type": "panel",
     "size": [ 100, 10 ],
@@ -807,6 +851,150 @@
         "gamepad_helper_a@common.gamepad_helper_a": {
           "anchor_from": "center",
           "anchor_to": "center"
+        }
+      }
+    ]
+  },
+
+  "world_image": {
+    "type": "image",
+    "texture": "textures/ui/worldsIcon",
+    "size": [ 16, 16 ]
+  },
+
+  "cloud_image": {
+    "type": "image",
+    "texture": "textures/ui/cloud_only_storage",
+    "size": [ 14, 10 ]
+  },
+
+  "edu_cloud_upload_image": {
+    "type": "stack_panel",
+    "size": [ "100%c", 20 ],
+    "orientation": "horizontal",
+    "controls": [
+      {
+        "world_image_wrapper": {
+          "type": "panel",
+          "size": [ "100%c", "100%c" ],
+          "controls": [
+            { "fetch_world_image@progress.world_image": { "offset": [ -6, 0 ] } }
+          ]
+        }
+      },
+      {
+        "arrow_image_wrapper": {
+          "type": "panel",
+          "size": [ "100%c", "100%c" ],
+          "controls": [
+            {
+              "arrow_image": {
+                "type": "image",
+                "texture": "textures/ui/arrow",
+                "size": [ 16, 16 ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "cloud_image_wrapper": {
+          "type": "panel",
+          "size": [ "100%c", "100%c" ],
+          "controls": [
+            { "upload_cloud_image@progress.cloud_image": { "offset": [ 6, 3 ] } }
+          ]
+        }
+      }
+    ],
+    "bindings": [
+      {
+        "binding_name": "#edu_cloud_upload_images_visible",
+        "binding_name_override": "#visible"
+      }
+    ]
+  },
+
+  "edu_cloud_fetch_image": {
+    "type": "stack_panel",
+    "size": [ "100%c", 16 ],
+    "orientation": "horizontal",
+    "controls": [
+      {
+        "cloud_image_wrapper": {
+          "type": "panel",
+          "size": [ "100%c", "100%c" ],
+          "controls": [
+            { "fetch_cloud_image@progress.cloud_image": { "offset": [ -6, 3 ] } }
+          ]
+        }
+      },
+      {
+        "spyglass_image_wrapper": {
+          "type": "panel",
+          "size": [ "100%c", "100%c" ],
+          "controls": [
+            {
+              "spyglass_image": {
+                "type": "image",
+                "texture": "textures/ui/spyglass_flat",
+                "size": [ 16, 16 ],
+                "offset": [ 0, 0 ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "world_image_wrapper": {
+          "type": "panel",
+          "size": [ "100%c", "100%c" ],
+          "controls": [
+            { "fetch_world_image@progress.world_image": { "offset": [ 6, 0 ] } }
+          ]
+        }
+      }
+    ]
+  },
+
+  "edu_cloud_download_image": {
+    "type": "stack_panel",
+    "size": [ "100%c", 16 ],
+    "orientation": "horizontal",
+    "offset": [ 0, 5 ],
+    "controls": [
+      {
+        "cloud_image_wrapper": {
+          "type": "panel",
+          "size": [ "100%c", "100%c" ],
+          "controls": [
+            { "download_cloud_image@progress.cloud_image": { "offset": [ -6, 5 ] } }
+          ]
+        }
+      },
+      {
+        "arrow_image_wrapper": {
+          "type": "panel",
+          "size": [ "100%c", "100%c" ],
+          "controls": [
+            {
+              "arrow_image": {
+                "type": "image",
+                "texture": "textures/ui/arrow",
+                "size": [ 18, 15 ],
+                "offset": [ 0, 2 ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "world_image_wrapper": {
+          "type": "panel",
+          "size": [ "100%c", "100%c" ],
+          "controls": [
+            { "download_world_image@progress.world_image": { "offset": [ 6, 1 ] } }
+          ]
         }
       }
     ]
@@ -944,12 +1132,7 @@
     ]
   },
 
-  "realms_loading_progress_screen@progress_screen": {
-    "$screen_content": "progress.progress_screen_content",
-    "$screen_bg_content": "common.portal_background"
-  },
-
-  "realms_stories_enabled_loading_progress_screen@progress_screen": {
+  "realms_stories_loading_progress_screen@progress_screen": {
     "$screen_content": "progress.realms_loading_world_modal_progress_screen_content",
     "$screen_bg_content": "progress.realms_loading_background"
   },
@@ -1020,11 +1203,35 @@
     "$screen_bg_content": "progress.theend_loading_background"
   },
 
-
   "world_saving_progress_screen@progress_screen": {
-    "$screen_content": "progress.world_save_modal_progress_screen_content"
+    "variables": [
+      {
+        "requires": "($education_edition and $edu_save_to_cloud_on)",
+        "$screen_content": "progress.cloud_upload_screen_content"
+      },
+      {
+        "requires": "(not $education_edition or not $edu_save_to_cloud_on)",
+        "$screen_content": "progress.world_save_modal_progress_screen_content"
+      }
+    ]
   },
 
+  "fetching_edu_cloud_worlds@progress_screen": {
+    "variables": [
+      {
+        "requires": "($education_edition and $edu_save_to_cloud_on)",
+        "$screen_content": "progress.edu_cloud_fetch_screen_content"
+      }
+    ]
+  },
+  "edu_cloud_download_progress_screen@progress_screen": {
+    "variables": [
+      {
+        "requires": "($education_edition and $edu_save_to_cloud_on)",
+        "$screen_content": "progress.cloud_download_screen_content"
+      }
+    ]
+  },
 
   "world_convert_modal_progress_screen@progress.progress_screen": {
     "$screen_content": "progress.world_convert_modal_progress_screen_content"
@@ -1050,14 +1257,10 @@
     "type": "factory",
     "control_ids": {
       "test": "dialog@progress.popup_dialog_base",
-      "add_on_only": "add_on_only@progress.add_on_only",
-      "add_on_confirmation": "add_on_only@progress.add_on_confirmation",
-      "add_on_with_optional_texture_pack": "add_on_only@progress.add_on_with_optional_texture_pack",
-      "add_on_with_texture_pack": "add_on_only@progress.add_on_with_texture_pack",
-      "texture_pack_optional": "add_on_only@progress.texture_pack_optional",
-      "texture_pack_required": "add_on_only@progress.texture_pack_required",
-      "texture_pack_raytracing_optional": "add_on_only@progress.texture_pack_raytracing_optional",
-      "texture_pack_raytracing_required": "add_on_only@progress.texture_pack_raytracing_required"
+      "resource_pack_download_server_required": "resource_pack_download_server_required@progress.resource_pack_download_server_required",
+      "resource_pack_download_optional_and_required": "resource_pack_download_optional_and_required@progress.resource_pack_download_optional_and_required",
+      "resource_pack_download_optional": "resource_pack_download_optional@progress.resource_pack_download_optional",
+      "resource_pack_download_required": "resource_pack_download_required@progress.resource_pack_download_required"
     }
   },
 
@@ -1219,6 +1422,428 @@
     ]
   },
 
+  "cloud_upload_panel": {
+    "type": "panel",
+    "size": [ 270, 84 ],
+    "controls": [
+      {
+        "common_panel@common.common_panel": {
+          "$dialog_background": "dialog_background_hollow_3",
+          "$show_close_button": false
+        }
+      },
+      {
+        "base_content": {
+          "type": "panel",
+          "anchor_from": "top_left",
+          "anchor_to": "top_left",
+          // magic offset to make the scroll clipping perfect
+          "size": [ "100%-12px", "100%-12px" ],
+          "offset": [ 6, 6 ],
+          "controls": [
+            {
+              "progress_title_text@progress.progress_title_text": {
+                "color": "$title_text_color",
+                "anchor_from": "top_middle",
+                "anchor_to": "top_middle",
+                "offset": [ 0, 3 ]
+              }
+            },
+            {
+              "progress_text": {
+                "type": "label",
+                "size": [ "default", 60 ],
+                "max_size": [ "100% - 8px", 60 ],
+                "offset": [ 0, 15 ],
+                "color": "$loading_text_color",
+                "layer": 2,
+                "anchor_from": "center",
+                "anchor_to": "center",
+                "text": "#progress_text",
+                "bindings": [
+                  { "binding_name": "#progress_text" }
+                ]
+              }
+            },
+            {
+              "edu_cloud_upload_image@progress.edu_cloud_upload_image": { "offset": [ 0, 10 ] }
+            },
+            {
+              "loading_bar_panel": {
+                "type": "panel",
+                "size": [ "100%", "100%c" ],
+                "controls": [
+                  { "progress_loading_bars@progress.edu_cloud_upload_progress_bar": {} }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "cloud_error_panel": {
+    "type": "panel",
+    "size": [ 300, "100%" ],
+    "variables": [
+      {
+        "requires": "$desktop_screen",
+        "$button_state_default_base": "common.button_state_default",
+        "$button_state_hover_base": "common.button_state_hover",
+        "$button_state_pressed_base": "common.button_state_pressed"
+      },
+      {
+        "requires": "$pocket_screen",
+        "$button_state_default_base": "common-classic.button_state_default",
+        "$button_state_hover_base": "common-classic.button_state_hover",
+        "$button_state_pressed_base": "common-classic.button_state_pressed"
+      }
+    ],
+    "controls": [
+      {
+        "common_panel@common.common_panel": {
+          "size": [ "100%", "100%sm" ],
+          "$dialog_background": "dialog_background_hollow_3",
+          "$show_close_button": false
+        }
+      },
+      {
+        "content_wrapper": {
+          "type": "panel",
+          "size": [ "100%", "100%c" ],
+          "controls": [
+            {
+              "title_wrapper": {
+                "type": "panel",
+                "anchor_from": "top_left",
+                "anchor_to": "top_left",
+                // magic offset to make the scroll clipping perfect
+                "size": [ "100%-12px", "100%c" ],
+                "offset": [ 6, 6 ],
+                "controls": [
+                  {
+                    "progress_title_text@progress.progress_title_text": {
+                      "color": "$title_text_color",
+                      "anchor_from": "top_middle",
+                      "anchor_to": "top_middle",
+                      "offset": [ 0, 3 ]
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "error_text_tts_wrapper": {
+                "type": "panel",
+                "size": [ "100%", "100%cm" ],
+                "controls": [
+                  {
+                    "tts_border@common.non_interact_focus_border_button": {
+                      "tts_inherit_siblings": true,
+                      "size": [ "100%sm + 5px", "100%sm" ],
+                      "offset": [ 0, -8 ],
+                      "bindings": [
+                        {
+                          "binding_name": "#tts_enabled",
+                          "binding_name_override": "#enabled"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "edu_cloud_error_text_wrapper": {
+                      "type": "stack_panel",
+                      // magic offset to make the text wrapping perfect
+                      "size": [ "100%-24px", "100%c" ],
+                      "offset": [ 0, -8 ],
+                      "controls": [
+                        {
+                          "edu_cloud_error_text": {
+                            "type": "label",
+                            "size": [ "default", "default" ],
+                            "max_size": [ "100% - 8px", 60 ],
+                            "color": "$loading_text_color",
+                            "layer": 2,
+                            "anchor_from": "top_left",
+                            "anchor_to": "top_left",
+                            "text": "#progress_text",
+                            "font_type": "smooth",
+                            "bindings": [
+                              { "binding_name": "#progress_text" }
+                            ]
+                          }
+                        },
+                        {
+                          "vertical_padding": {
+                            "type": "panel",
+                            "size": [ 0, 5 ]
+                          }
+                        },
+                        {
+                          "error_code": {
+                            "type": "stack_panel",
+                            "size": [ "100% - 8px", 15 ],
+                            "orientation": "horizontal",
+                            "controls": [
+                              {
+                                "code_text@progress.code_text": {
+                                  "size": [ "default", "default" ],
+                                  "font_type": "smooth",
+                                  "anchor_from": "top_left",
+                                  "anchor_to": "top_left"
+                                }
+                              },
+                              {
+                                "code_number@progress.code_number": {
+                                  "size": [ "default", "default" ],
+                                  "font_type": "smooth",
+                                  "anchor_from": "top_left",
+                                  "anchor_to": "top_left"
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "vertical_padding_2": {
+                            "type": "panel",
+                            "size": [ 0, 5 ],
+                            "bindings": [
+                              {
+                                "binding_name": "#cloud_link_visible",
+                                "binding_name_override": "#visible"
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "cloud_support_link": {
+                            "type": "stack_panel",
+                            "orientation": "horizontal",
+                            "size": [ "100%c", "100%c" ],
+                            "bindings": [
+                              {
+                                "binding_name": "#cloud_link_visible",
+                                "binding_name_override": "#visible"
+                              }
+                            ],
+                            "controls": [
+                              {
+                                "cloud_support_hypertext@edu_common.underline_button": {
+                                  "size": [ "98%c", "100%c" ],
+                                  "$single_label_size": [ "default", "default" ],
+                                  "$single_line_font_scale_factor": 1,
+                                  "$pressed_button_name": "button.edu_cloud_hyperlink",
+                                  "$single_line_label_text": "#edu_cloud_error_hyperlink_label",
+                                  "$font_type": "smooth",
+                                  "anchor_from": "top_left",
+                                  "anchor_to": "top_left",
+                                  "$label_text_bindings": [
+                                    {
+                                      "binding_name": "#edu_cloud_error_hyperlink_label"
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "padded_icon@common.empty_panel": {
+                                  "size": [ "100%c", "100%c" ],
+                                  "controls": [
+                                    {
+                                      "icon": {
+                                        "type": "image",
+                                        "texture": "textures/ui/icon_external_link",
+                                        "size": [ 9, 9 ],
+                                        "offset": [ 7, 0.6 ]
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "button_content": {
+                "type": "stack_panel",
+                "anchor_from": "bottom_middle",
+                "anchor_to": "bottom_middle",
+                "size": [ "100%", 52 ],
+                "bindings": [
+                  {
+                    "binding_name": "#one_button_panel",
+                    "binding_name_override": "#visible"
+                  }
+                ],
+                "controls": [
+                  {
+                    "modal_button_panel@$modal_button_panel_type": {}
+                  }
+                ]
+              }
+            },
+            {
+              "error_button_content": {
+                "type": "stack_panel",
+                "orientation": "horizontal",
+                "anchor_from": "bottom_middle",
+                "anchor_to": "bottom_middle",
+                "size": [ "100%", 52 ],
+                "offset": [ 80, 13 ],
+                "bindings": [
+                  {
+                    "binding_name": "(not #one_button_panel)",
+                    "binding_name_override": "#visible"
+                  }
+                ],
+                "controls": [
+                  {
+                    "download_ok_button@common_buttons.light_text_button": {
+                      "$pressed_button_name": "button.download_failed_open",
+                      "$button_text": "edu.cloudError.local.download.open",
+                      "size": [ 70, 26 ]
+                    }
+                  },
+                  {
+                    "download_cancel_button@common_buttons.light_text_button": {
+                      "$pressed_button_name": "button.download_failed_cancel",
+                      "$button_text": "#cancel_button_text",
+                      "$button_text_binding_type": "global",
+                      "size": [ 70, 26 ]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "cloud_fetch_panel": {
+    "type": "panel",
+    "size": [ 270, 84 ],
+    "controls": [
+      {
+        "common_panel@common.common_panel": {
+          "$dialog_background": "dialog_background_hollow_3",
+          "$show_close_button": false
+        }
+      },
+      {
+        "base_content": {
+          "type": "panel",
+          "anchor_from": "top_left",
+          "anchor_to": "top_left",
+          // magic offset to make the scroll clipping perfect
+          "size": [ "100%-12px", "100%-12px" ],
+          "offset": [ 6, 6 ],
+          "controls": [
+            {
+              "progress_title_text@progress.progress_title_text": {
+                "color": "$title_text_color",
+                "anchor_from": "top_middle",
+                "anchor_to": "top_middle",
+                "offset": [ 0, 3 ]
+              }
+            },
+            {
+              "progress_text": {
+                "type": "label",
+                "size": [ "default", 60 ],
+                "max_size": [ "100% - 8px", 60 ],
+                "offset": [ 0, 15 ],
+                "color": "$loading_text_color",
+                "layer": 2,
+                "anchor_from": "center",
+                "anchor_to": "center",
+                "text": "#progress_text",
+                "bindings": [
+                  { "binding_name": "#progress_text" }
+                ]
+              }
+            },
+            {
+              "edu_cloud_fetch_image@progress.edu_cloud_fetch_image": { "offset": [ 0, 10 ] }
+            },
+            {
+              "loading_bar_panel": {
+                "type": "panel",
+                "size": [ "100%", "100%c" ],
+                "controls": [
+                  {
+                    "progress_loading_bars@progress.progress_loading_bars": { "offset": [ 0, 25 ] }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "cloud_download_panel": {
+    "type": "panel",
+    "size": [ 270, 84 ],
+    "controls": [
+      {
+        "common_panel@common.common_panel": {
+          "$dialog_background": "dialog_background_hollow_3",
+          "$show_close_button": false
+        }
+      },
+      {
+        "base_content": {
+          "type": "panel",
+          "anchor_from": "top_left",
+          "anchor_to": "top_left",
+          // magic offset to make the scroll clipping perfect
+          "size": [ "100%-12px", "100%-12px" ],
+          "offset": [ 6, 6 ],
+          "controls": [
+            {
+              "progress_title_text@progress.progress_title_text": {
+                "color": "$title_text_color",
+                "anchor_from": "top_middle",
+                "anchor_to": "top_middle",
+                "offset": [ 0, 3 ]
+              }
+            },
+            {
+              "progress_bar_text@progress.progress_bar_text": {
+                "localize": false,
+                "size": [ "default", 40 ],
+                "max_size": [ "100% - 8px", 40 ],
+                "offset": [ 0, 5 ]
+              }
+            },
+            {
+              "edu_cloud_download_image@progress.edu_cloud_download_image": {}
+            }
+          ]
+        }
+      },
+      {
+        "loading_bar_panel": {
+          "type": "panel",
+          "size": [ "100%", "100%c" ],
+          "controls": [
+            { "progress_loading_bars@progress.progress_loading_bars": {} }
+          ]
+        }
+      }
+    ]
+  },
+
   "world_convert_modal_progress_screen_content": {
     "type": "panel",
 
@@ -1250,7 +1875,7 @@
           "anchor_from": "top_middle",
           "anchor_to": "top_middle",
           "type": "image",
-          "offset": [0, -7],
+          "offset": [ 0, -7 ],
           "size": [ 220, "38%x" ],
           "texture": "textures/ui/realms_title"
         }
@@ -1279,6 +1904,83 @@
       },
       {
         "save_icon@progress.auto_save": {}
+      },
+      { "popup_dialog_factory@progress.popup_dialog_factory": {} }
+    ]
+  },
+
+  "cloud_upload_screen_content": {
+    "type": "panel",
+    "layer": 3,
+    "controls": [
+      {
+        "title_panel_content@common_art.title_panel_content": {
+          "$splash_text_visible": false,
+          "layer": -2
+        }
+      },
+      {
+        "cloud_upload_panel@progress.cloud_upload_panel": {
+          "bindings": [
+            { "binding_name": "#progress_text" },
+            {
+              "binding_name": "(not #edu_cloud_upload_error)",
+              "binding_name_override": "#visible"
+            }
+          ]
+        }
+      },
+      {
+        "cloud_upload_error_panel@progress.cloud_error_panel": {
+          "$modal_button_panel_type": "progress.modal_ok_button_panel",
+          "bindings": [
+            { "binding_name": "#progress_text" },
+            {
+              "binding_name": "#edu_cloud_upload_error",
+              "binding_name_override": "#visible"
+            }
+          ]
+        }
+      },
+      { "popup_dialog_factory@progress.popup_dialog_factory": {} },
+      { "cloud_conflict_resolution_popup_factory@edu_common.edu_cloud_conflict_resolution_popup_dialog_factory": {} }
+    ]
+  },
+
+  "edu_cloud_fetch_screen_content": {
+    "type": "panel",
+    "controls": [
+      { "cloud_fetch_panel@progress.cloud_fetch_panel": {} },
+      { "popup_dialog_factory@progress.popup_dialog_factory": {} }
+    ]
+  },
+
+  "cloud_download_screen_content": {
+    "type": "panel",
+    "controls": [
+      { "background@common.screen_background": {} },
+      {
+        "cloud_download_panel@progress.cloud_download_panel": {
+          "bindings": [
+            { "binding_name": "#progress_text" },
+            {
+              "binding_name": "(not #edu_cloud_download_error)",
+              "binding_name_override": "#visible"
+            }
+          ]
+        }
+      },
+      {
+        "cloud_download_error_panel@progress.cloud_error_panel": {
+          "$modal_button_panel_type": "progress.modal_ok_button_panel",
+          "bindings": [
+            { "binding_name": "#progress_text" },
+            {
+              "binding_name": "#edu_cloud_download_error",
+              "binding_name_override": "#visible"
+            }
+          ]
+        }
       },
       { "popup_dialog_factory@progress.popup_dialog_factory": {} }
     ]

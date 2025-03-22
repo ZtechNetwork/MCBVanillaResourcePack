@@ -273,12 +273,13 @@
           "use_skin_gui_scale": true,
           "rotation": "gesture_x",
           "animation_reset_name": "screen_animation_reset",
-          "anims": [
+          "$skin_model_anims|default": [
             "@common.screen_exit_size_animation_push",
             "@common.screen_exit_size_animation_pop",
             "@common.screen_entrance_size_animation_push",
             "@common.screen_entrance_size_animation_pop"
           ],
+          "anims": "$skin_model_anims",
           "bindings": [
             {
               "binding_type": "global",
@@ -345,23 +346,37 @@
           ],
           "controls": [
             {
-              "skin_color_picker_button@persona.skin_color_picker": {
-                "size": [ 23, 22 ],
+              "skin_color_picker_button_container": {
+                "type": "panel",
+                "size": [ "100%c", "100%c" ],
                 "anchor_to": "bottom_left",
                 "anchor_from": "bottom_left",
-                "$focus_id": "skin_color_picker_button",
                 "bindings": [
                   {
-                    "binding_name": "#skin_color_option_on",
+                    "binding_name": "#left_skin_color_option_on",
                     "binding_name_override": "#visible"
-                  },
+                  }
+                ],
+                "controls": [
                   {
-                    "binding_name": "#skin_color_option_enabled",
-                    "binding_name_override": "#enabled"
-                  },
-                  {
-                    "binding_name": "#skin_color_option_enabled",
-                    "binding_name_override": "#focus_enabled"
+                    "skin_color_picker_button@persona.skin_color_picker": {
+                      "size": [ 23, 22 ],
+                      "$focus_id": "skin_color_picker_button",
+                      "bindings": [
+                        {
+                          "binding_name": "(not #expanded_appearance_visible)",
+                          "binding_name_override": "#visible"
+                        },
+                        {
+                          "binding_name": "#skin_color_option_enabled",
+                          "binding_name_override": "#enabled"
+                        },
+                        {
+                          "binding_name": "#skin_color_option_enabled",
+                          "binding_name_override": "#focus_enabled"
+                        }
+                      ]
+                    }
                   }
                 ]
               }
@@ -370,11 +385,14 @@
               "play_highlighted_emote_panel": {
                 "type": "panel",
                 "size": [ "100%", "default" ],
+                "visible": false,
+                "property_bag": {
+                  "#visible": false
+                },
                 "bindings": [
                   {
                     "binding_name": "#play_highlighted_emote_helper_visible",
-                    "binding_name_override": "#visible",
-                    "binding_condition": "always"
+                    "binding_name_override": "#visible"
                   }
                 ],
                 "controls": [
@@ -410,6 +428,42 @@
                 "anchor_to": "bottom_right",
                 "anchor_from": "bottom_right",
                 "controls": [
+                  {
+                    "skin_color_picker_button_container": {
+                      "type": "panel",
+                      "size": [ "100%c", "100%c" ],
+                      "anchor_to": "bottom_left",
+                      "anchor_from": "bottom_left",
+                      "bindings": [
+                        {
+                          "binding_name": "#right_skin_color_option_on",
+                          "binding_name_override": "#visible"
+                        }
+                      ],
+                      "controls": [
+                        {
+                          "skin_color_picker_button@persona.skin_color_picker": {
+                            "size": [ 23, 22 ],
+                            "$focus_id": "skin_color_picker_button",
+                            "bindings": [
+                              {
+                                "binding_name": "(not #expanded_appearance_visible)",
+                                "binding_name_override": "#visible"
+                              },
+                              {
+                                "binding_name": "#skin_color_option_enabled",
+                                "binding_name_override": "#enabled"
+                              },
+                              {
+                                "binding_name": "#skin_color_option_enabled",
+                                "binding_name_override": "#focus_enabled"
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  },
                   {
                     "info_button@persona.info_button": {
                       "size": [ 22, 22 ],
@@ -528,7 +582,7 @@
 
   /////////////////////////////////////////////
   //// Realms button controls ////
-  "realms_timer_banner@pdp.realms_plus_expiration": {
+  "csb_timer_banner@common_csb.csb_expiration_banner": {
     "size": [ "100%", 16 ]
   },
 
@@ -538,7 +592,7 @@
     "size": [ "50%", 24 ],
     "font_size": "small",
     "font_scale_factor": 1.2,
-    "color": "$e_color_format", //yellow
+    "color": "$store_csb_gold_text_color",
     "bindings": [
       {
         "binding_name": "#realms_redeem_button_visible",
@@ -556,11 +610,11 @@
 
     "controls": [
       {
-        "realms_plus_icon@realmsPlus.markdown_background": {
-          "size": [ "100% + 4px", "100%  + 4px" ],
-          "$pack_icon_size": [ "100%", "100% - 2px" ],
-          "$banner_size": [ 14, "100%" ],
-          "offset": [ "-2px", "2px" ]
+        "csb_icon@common_csb.csb_icon_large": {
+          "anchor_from": "left_middle",
+          "anchor_to": "left_middle",
+          "$pack_icon_size": [ "100%y", "100% + 10px" ],
+          "offset": [ "-2px", "0px" ]
         }
       },
       {
@@ -570,8 +624,9 @@
           "size": [ "100%", 10 ],
           "max_size": [ "100%", "100%" ],
           "text_alignment": "center",
-          "text": "$realms_button_text",
+          "text": "persona.csb.see.subscription",
           "color": "$text_color",
+          "$realms_button_text_offset|default": [ 0, 0 ],
           "offset": "$realms_button_text_offset"
         }
       }
@@ -581,7 +636,7 @@
   "realms_redeem_button@common_buttons.light_content_button": {
     "max_size": [ "50%", "100%" ],
     "size": [ "fill", "100%" ],
-    "$realms_button_text_offset|default": [ 0, 0 ],
+    "$realms_button_text_offset": [ 8, 0 ],
     "$pressed_button_name": "button.redeem_realms_item",
     "$button_content": "persona.realms_redeem_button_content",
     "$realms_button_text": "persona.realms.redeem",
@@ -595,10 +650,10 @@
 
   "realms_subscription_button@common_buttons.light_content_button": {
     "size": [ "50%", "100%" ],
-    "$realms_button_text_offset|default": [ 8, 0 ],
+    "$realms_button_text_offset": [ 8, 0 ],
     "$pressed_button_name": "button.see_realms_subscription",
     "$button_content": "persona.realms_redeem_button_content",
-    "$realms_button_text": "persona.realms.see.subscription",
+    "$realms_button_text": "persona.csb.see.subscription",
     "bindings": [
       {
         "binding_name": "#realms_subscription_button_visible",
@@ -618,7 +673,7 @@
     "$is_purchase_button": true,
     "$interact_button_id": "button.purchase_with_coins",
     "$markdown_size": [ "100% + 2px", "100% + 4px" ],
-    "$strike_thru_offset": [ 0, 2 ],
+    "$strike_thru_offset": [ 0, -1 ],
     "$markdown_offset": [ -1, 0 ],
     "$focus_id": "offer_coin_purchase_button",
 
@@ -659,6 +714,8 @@
 
   "a_button_helper_center@common.empty_panel": {
     "size": [ "90%y", "100%" ],
+    "anchor_from": "left_middle",
+    "anchor_to": "left_middle",
     "controls": [
       { "a_button_helper@persona.a_button_helper": {} }
     ],
@@ -679,15 +736,14 @@
   },
 
   "equip_piece_text_wrapper@common.empty_panel": {
-    "size": [ "fill", "100%" ],
+    "size": [ "100%", "100%" ],
     "controls": [
       { "text@persona.equip_piece_text": {} }
     ]
   },
 
-  "equip_button_content@common.horizontal_stack_panel": {
+  "equip_button_content@common.empty_panel": {
     "size": [ "100%", "100%" ],
-    "offset": [ 0, 3 ],
     "anchor_from": "left_middle",
     "anchor_to": "left_middle",
     "controls": [
@@ -701,15 +757,7 @@
     "$persona_focus_precedence": 3,
     "$focus_override_down": "FOCUS_OVERRIDE_STOP",
     "$pressed_button_name": "$equip_button_name",
-    "$button_content": "persona.equip_button_content",
-
-    "variables": [
-      {
-        "requires": "(not $is_low_memory_device)",
-        "$button_offset": [ 0, -3 ],
-        "$button_pressed_offset": [ 3, 0 ]
-      }
-    ]
+    "$button_content": "persona.equip_button_content"
   },
 
   "equip_button_panel": {
@@ -727,13 +775,14 @@
   },
 
   "subcategory_equip_button_panel@persona.equip_button_panel": {
-    "size": [ "40%", "100%" ],
+    "size": [ "fill", "100%" ],
+    "max_size": [ "50%", "100%" ],
     "$equip_button_name": "button.equip_piece",
-    "$show_equip_button": "#is_offer_owned"
+    "$show_equip_button": "#is_subcategory_equip_button_visible"
   },
 
   "classic_skin_equip_button_panel@persona.equip_button_panel": {
-    "size": [ "100%", "100%" ],
+    "size": [ "50%", "100%" ],
     "$equip_button_name": "button.equip_skin",
     "$show_equip_button": "#is_skin_equip_visible"
   },
@@ -769,21 +818,22 @@
 
   "coin_purchase_panel@persona.purchase_button_panel": {
     "size": [ "fill", "100%" ],
-    "max_size": [ "40%", "100%" ],
-    "$purchase_panel_visible_binding": "#is_purchasable_item",
+    "max_size": [ "50%", "100%" ],
+    "$purchase_panel_visible_binding": "#is_coin_purchase_visible",
     "$purchase_button_control": "persona.offer_coin_purchase_button"
   },
 
   "real_money_purchase@persona.purchase_button_panel": {
     "size": [ "fill", "100%" ],
-    "max_size": [ "40%", "100%" ],
+    "max_size": [ "50%", "100%" ],
     "$purchase_panel_visible_binding": "#is_currency_purchase_visible",
     "$purchase_button_control": "persona.offer_real_money_purchase_button"
   },
 
   "achievement_button@persona.view_achievement": {
     "ignored": "(not $supports_xbl_achievements)",
-    "size": [ "60%", "100%" ],
+    "size": [ "fill", "100%" ],
+    "max_size": [ "50%", "100%" ],
     "$focus_override_down": "FOCUS_OVERRIDE_STOP",
     "bindings": [
       {
@@ -794,11 +844,27 @@
   },
 
   "collect_achievement_button@persona.collect_achievement": {
-    "size": [ "40%", "100%" ],
+    "size": [ "fill", "100%" ],
+    "max_size": [ "50%", "100%" ],
     "$focus_override_down": "FOCUS_OVERRIDE_STOP",
     "bindings": [
       {
         "binding_name": "#can_collect_achievement_award",
+        "binding_name_override": "#visible"
+      }
+    ]
+  },
+
+  "see_skin_pack_in_store@common_buttons.light_text_button": {
+    "size": [ "50%", "100%" ],
+    "anchor_from": "bottom_right",
+    "anchor_to": "bottom_right",
+    "$pressed_button_name": "button.see_pack_in_store",
+    "$button_text": "dr.classic_skins.see_in_store",
+    "$focus_id": "see_pack_in_store_button",
+    "bindings": [
+      {
+        "binding_name": "#is_see_in_store_button_visible",
         "binding_name_override": "#visible"
       }
     ]
@@ -822,13 +888,15 @@
         }
       },
       { "classic_skin_equip@persona.classic_skin_equip_button_panel": {} },
-      { "size_equip@persona.size_equip_button_panel": {} },
+      { "size_equip@persona.size_equip_button_panel": { "ignored": "$is_persona_sdl_enabled" } },
       { "collect_achievement_button@persona.collect_achievement_button": {} },
       { "real_money_purchase_panel@persona.real_money_purchase": {} },
-      { "realms_subscription_button_panel@persona.realms_subscription_button": {} },
       { "realms_redeem_button_panel@persona.realms_redeem_button": {} },
       { "padding_2@persona.horizontal_1_padding": {} },
-      { "realms_savings_text_label@persona.realms_savings_text": {} }
+      { "realms_subscription_button_panel@persona.realms_subscription_button": {} },
+      { "see_skin_pack_in_store@persona.see_skin_pack_in_store": {} },
+      { "realms_savings_text_label@persona.realms_savings_text": {} },
+      { "emote_play_again_button@persona.emote_play_again_button": {} }
     ]
   },
 
@@ -849,6 +917,7 @@
   "common_title_text": {
     "type": "label",
     "color": "$dressing_room_right_side_default_text_color",
+    "layer": 2,
     "size": [ "100%", "100%" ],
     "text": "#right_panel_title",
     "font_type": "MinecraftTen",
@@ -961,7 +1030,7 @@
     "color": "$title_bar_color",
     "alpha": "$title_bar_alpha",
     "size": [ "100%", 14 ],
-    "$ignore_title_bar_visibility|default": false,
+    "$ignore_title_bar_visibility|default": true,
     "controls": [
       { "dressing_room_title@$info_title_control": {} }
     ],
@@ -1008,9 +1077,9 @@
     "ignored": "$ignore_special_banner",
     "type": "image",
     "size": [ "100%c + 15px", 15 ], // 15px = 3 for left side of banner + 6 for right side of banner + 6 for padding
-    "$special_offer_banner_offset|default": [ -8, "-60%y" ],
+    "$special_offer_banner_offset|default": [ -3, "-60%y" ],
     "offset": "$special_offer_banner_offset",
-    "layer": 8,
+    "layer": 15,
     "anchor_to": "top_left",
     "anchor_from": "top_left",
     "texture": "textures/ui/saleribbon",
@@ -1018,7 +1087,7 @@
       {
         "banner_info@common.horizontal_stack_panel": {
           "size": [ "100%c", 8 ],
-          "offset": [ -1, -1.5 ], // x: one extra pixel on right.  y: lower left of banner is 3px high
+          "offset": [ -1, -2.5 ],
           "controls": [
             {
               "limited_time_icon": {
@@ -1038,8 +1107,6 @@
             {
               "special_banner_text": {
                 "type": "label",
-                "size": [ "default", "100%" ],
-                "max_size": [ 100, "100%" ],
                 "layer": 3,
                 "font_type": "smooth",
                 "color": "$dressing_room_sale_banner_text_color",
@@ -1207,6 +1274,45 @@
     ]
   },
 
+  "size_button_panel": {
+    "type": "panel",
+    "size": [ "100%", 20 ],
+    "anchor_to": "bottom_left",
+    "anchor_from": "bottom_left",
+    "controls": [
+      {
+        "size_equip@persona.size_equip_button_panel": {
+          "offset": [ 2, -2 ],
+          "anchor_to": "bottom_left",
+          "anchor_from": "bottom_left"
+        }
+      }
+    ]
+  },
+
+  "size_right_side_info_section@persona.right_side_dialog_panel": {
+    "ignored": "(not $is_persona_sdl_enabled)",
+    "type": "input_panel",
+    "size": [ "100%", 65 ],
+
+    "$title_rarity_stack_size": [ "100% - 4px", 10 ],
+    "$info_title_control": "persona_common.generic_title_panel",
+    "$persona_dialog_content": "persona.offer_info_section_content",
+    "$info_content_control": "persona.right_info_panel",
+    "$dialog_bg_size": [ "100% - 2px", "100% - 2px" ],
+    "$right_side_dialog_size": [ "100%", "100% - 12px" ],
+    "$right_info_content_control": "common.empty_panel",
+    "$right_side_bottom_buttons": "persona.size_button_panel",
+    "$ignore_color_picker": true,
+    "$ignore_special_banner": true,
+    "$ignore_title_bar_visibility": true,
+
+    "$info_panel_prefix": "size",
+    "controls": [
+      { "right_info_panel@persona.right_info_panel_dialog_object": {} }
+    ]
+  },
+
   "right_side_stack_debug_control@common.vertical_stack_panel": {
     "size": [ "100%", "fill" ],
     "bindings": [
@@ -1304,7 +1410,13 @@
     "font_type": "MinecraftTen",
     "text": "dr.character_creator_getting_started_title",
     "color": "$dressing_room_right_side_default_text_color",
-    "text_alignment": "left"
+    "text_alignment": "left",
+    "bindings": [
+      {
+        "binding_name": "#is_getting_started_visible",
+        "binding_name_override": "#visible"
+      }
+    ]
   },
 
   "persona_getting_started_description": {
@@ -1313,7 +1425,13 @@
     "font_type": "smooth",
     "font_scale_factor": 0.7,
     "color": "$dressing_room_right_side_default_text_color",
-    "text": "dr.character_creator_getting_started_detail"
+    "text": "dr.character_creator_getting_started_detail",
+    "bindings": [
+      {
+        "binding_name": "#is_getting_started_visible",
+        "binding_name_override": "#visible"
+      }
+    ]
   },
 
   "persona_getting_started_description_area@common.empty_panel": {
@@ -1469,6 +1587,7 @@
   "right_side_stack@common.vertical_stack_panel": {
     "size": [ "fill", "100%" ],
     "$right_side_default_text_color": "$dressing_room_right_side_default_text_color",
+    "$left_focus_container_override|default": "left_main_panel",
     "focus_container": true,
     "use_last_focus": false,
     "focus_wrap_enabled": false,
@@ -1483,7 +1602,7 @@
     ],
     "focus_container_custom_left": [
       {
-        "other_focus_container_name": "persona_left_panels"
+        "other_focus_container_name": "$left_focus_container_override"
       }
     ],
 
@@ -1491,7 +1610,7 @@
       { "debug_information@persona.right_side_stack_debug_control": {} },
       { "dressing_room_skin_model@persona.dressing_room_right_side_model": {} },
       { "padding@persona.vertical_2_padding": {} },
-      { "realms_banner@persona.realms_timer_banner": {} },
+      { "csb_banner@persona.csb_timer_banner": {} },
 
       // below are the sub sections which dis/re-appear depending on context.
       {
@@ -1501,6 +1620,7 @@
           "controls": [
             { "getting_started@persona.persona_getting_started_panel": {} },
             { "piece_offer_info_panel@persona.piece_list_right_side_section": {} },
+            { "size_info_panel@persona.size_right_side_info_section": {} },
             { "offer_info_panel_skins@persona.right_side_offer_info_skins": {} },
             { "emote_info_panel@persona.right_side_emotes_info_panel": {} }
           ],
@@ -1995,80 +2115,6 @@
     ]
   },
 
-  "realms_plus_skin_pack_timer": {
-    "type": "image",
-    "layer": 6,
-    "texture": "textures/ui/background_with_border",
-    "anchor_from": "bottom_middle",
-    "anchor_to": "bottom_middle",
-    "size": [ "33%", "33% + 2px" ],
-    "bindings": [
-      {
-        "binding_name": "#has_realms_plus_timer",
-        "binding_name_override": "#visible"
-      }
-    ],
-    "controls": [
-      {
-        "content_sizer@common.empty_panel": {
-          "size": [ "100% - 2px", "100% - 2px" ],
-          "controls": [
-            {
-              "gradient_background@realmsPlus.gradient_image_stack": {
-                "layer": 2
-              }
-            },
-            {
-              "realms_plus_timer@common.horizontal_stack_panel": {
-                "layer": 3,
-                "size": [ "100%", "100%" ],
-                "controls": [
-                  {
-                    "realms_logo_container@common.empty_panel": {
-                      "size": [ 10, "100%" ],
-                      "controls": [
-                        {
-                          "realms_logo@persona.realms_small_icon": {
-                            "anchor_from": "left_middle",
-                            "anchor_to": "left_middle",
-                            "offset": [ 2, 0 ]
-                          }
-                        }
-                      ]
-                    }
-                  },
-                  { "padding_timer@persona.horizontal_2_padding": {} },
-                  {
-                    "timer_container@common.empty_panel": {
-                      "size": [ "fill", "100%" ],
-                      "controls": [
-                        {
-                          "timer_string": {
-                            "type": "label",
-                            "color": "$dressing_room_right_side_default_text_color",
-                            "text": "#realms_plus_skin_pack_timer",
-                            "anchor_from": "left_middle",
-                            "anchor_to": "left_middle",
-                            "font_size": "small",
-                            "bindings": [
-                              {
-                                "binding_name": "#realms_plus_skin_pack_timer"
-                              }
-                            ]
-                          }
-                        }
-                      ]
-                    }
-                  }
-                ]
-              }
-            }
-          ]
-        }
-      }
-    ]
-  },
-
   "popup_dialog_close_button@common_buttons.light_text_button": {
     "layer": 2,
     "$pressed_button_name": "button.close_dialog",
@@ -2245,7 +2291,7 @@
     ],
     "bindings": [
       {
-        "binding_name": "(not #currency_purchase_visible)",
+        "binding_name": "(not #is_currency_purchase_visible)",
         "binding_name_override": "#visible"
       }
     ]
@@ -2259,7 +2305,7 @@
     ],
     "bindings": [
       {
-        "binding_name": "#currency_purchase_visible",
+        "binding_name": "#is_currency_purchase_visible",
         "binding_name_override": "#visible"
       }
     ]
@@ -2454,47 +2500,7 @@
     "offset": [ 0, -1 ],
     "size": [ "100% - 1px", 20 ],
     "controls": [
-      { "purchase_buttons_panel@persona.purchase_buttons": {} },
-      { "padding@persona.horizontal_2_padding": {} },
-      {
-        "ending_button@common.empty_panel": {
-          "size": [ "50%", "100%" ],
-          "controls": [
-            {
-              "see_pack_in_store@common_buttons.light_text_button": {
-                "size": [ "100%", "100%" ],
-                "anchor_from": "bottom_right",
-                "anchor_to": "bottom_right",
-                "$pressed_button_name": "button.see_pack_in_store",
-                "$button_text": "dr.classic_skins.see_in_store",
-                "$focus_id": "see_pack_in_store_button",
-                "bindings": [
-                  {
-                    "binding_name": "#is_see_in_store_button_visible",
-                    "binding_name_override": "#visible"
-                  }
-                ]
-              }
-            },
-            {
-              "to_realms_plus@common_buttons.light_content_button": {
-                "size": [ "100%", "100%" ],
-                "anchor_from": "bottom_right",
-                "anchor_to": "bottom_right",
-                "$button_content": "persona.to_realms_plus_buy_screen_content",
-                "$pressed_button_name": "button.to_realms_plus",
-                "$focus_id": "see_pack_in_store_button",
-                "bindings": [
-                  {
-                    "binding_name": "#show_realms_plus_button",
-                    "binding_name_override": "#visible"
-                  }
-                ]
-              }
-            }
-          ]
-        }
-      }
+      { "purchase_buttons_panel@persona.purchase_buttons": {} }
     ]
   },
 
@@ -2591,7 +2597,13 @@
     "anchor_from": "bottom_left",
     "anchor_to": "bottom_left",
     "$pressed_button_name": "button.choose_custom_skin",
-    "$button_text": "dr.classic_skins.choose_custom_skin"
+    "$button_text": "dr.classic_skins.choose_custom_skin",
+    "bindings": [
+      {
+        "binding_name": "#custom_skin_button_enabled",
+        "binding_name_override": "#enabled"
+      }
+    ]
   },
 
   "info_popup_button@common_buttons.light_content_button": {
@@ -2662,17 +2674,9 @@
     ]
   },
 
-  "trimer_positioning@persona.realms_plus_skin_pack_timer": {
-    "anchor_to": "top_left",
-    "anchor_from": "top_left",
-
-    "offset": [ -1, -32 ]
-  },
-
   "right_panel_classic_skin_content": {
     "type": "panel",
     "controls": [
-      { "timer@persona.trimer_positioning": {} },
       { "skin_pack_info@persona.right_panel_classic_skin_pack_info": {} },
       { "built_in_skin_pack@right_panel_classic_skin_pack_built_in": {} }
     ]
@@ -2680,12 +2684,6 @@
 
   "right_panel_classic_skins_title@common.horizontal_stack_panel": {
     "size": [ "100%", "100%cm" ],
-    "bindings": [
-      {
-        "binding_name": "#is_right_panel_classic_skin_pack_title_visible",
-        "binding_name_override": "#visible"
-      }
-    ],
     "controls": [
       {
         "padding_start@common.empty_panel": {
@@ -2705,15 +2703,11 @@
                 "color": "$dressing_room_right_side_default_text_color",
                 "font_type": "MinecraftTen",
                 "offset": [ 0, -2 ],
-                "text": "#right_panel_title",
+                "text": "#skin_pack_title",
                 "text_alignment": "left",
                 "bindings": [
                   {
-                    "binding_name": "#right_panel_title"
-                  },
-                  {
-                    "binding_name": "#is_right_panel_classic_skin_pack_title_visible",
-                    "binding_name_override": "#visible"
+                    "binding_name": "#skin_pack_title"
                   }
                 ]
               }
@@ -4040,6 +4034,28 @@
               }
             },
             {
+              "new_offer_icon@common_store.status_new_offer_icon": {
+                "bindings": [
+                  {
+                    "binding_type": "$skin_binding_type",
+                    "binding_collection_name": "$skin_collection_name",
+                    "binding_name": "#is_skin_new",
+                    "binding_name_override": "#visible"
+                  },
+                  {
+                    "binding_type": "$skin_pack_collection_details",
+                    "binding_collection_name": "$skin_pack_collection_name",
+                    "binding_collection_prefix": "$skin_pack_collection_prefix"
+                  },
+                  {
+                    "binding_type": "$section_collection_details",
+                    "binding_collection_name": "$section_collection_name",
+                    "binding_collection_prefix": "$section_collection_prefix"
+                  }
+                ]
+              }
+            },
+            {
               "locked_icon@persona.lock_icon": {
                 "anchor_from": "bottom_right",
                 "anchor_to": "bottom_right",
@@ -4092,19 +4108,12 @@
                 "ignored": "$ignore_skin_realms_plus_icon",
                 "controls": [
                   {
-                    "realms_banner_small@persona.realms_banner_small": {
+                    "csb_icon@common_csb.csb_icon_large": {
                       "layer": 3,
-                      "anchor_to": "bottom_left",
+                      "$pack_icon_size": [ 8, 10 ],
+                      "offset": [ 1, 1 ],
                       "anchor_from": "bottom_left",
-                      "offset": [ 0, -1 ]
-                    }
-                  },
-                  {
-                    "realms_plus_icon@persona.realms_small_icon": {
-                      "layer": 4,
-                      "anchor_to": "bottom_left",
-                      "anchor_from": "bottom_left",
-                      "offset": [ 1, -2 ]
+                      "anchor_to": "bottom_left"
                     }
                   }
                 ],
@@ -4365,11 +4374,6 @@
 
     "button_mappings": [
       {
-        "from_button_id": "button.controller_select", // controller_X
-        "to_button_id": "button.coin_wallet_or_emote_preview",
-        "mapping_type": "focused"
-      },
-      {
         "from_button_id": "button.menu_select",
         "to_button_id": "$pressed_button_name",
         "mapping_type": "pressed"
@@ -4430,11 +4434,10 @@
               }
             },
             {
-              "realms_plus_icon@realmsPlus.markdown_background": {
+              "csb_icon@common_csb.csb_icon_large": {
                 "layer": 10,
-                "size": [ 10, 10 ],
-                "$pack_icon_size": [ "100%", "100% - 1px" ],
-                "$banner_size": [ 9, "100%" ],
+                "$pack_icon_size": [ 8, 10 ],
+                "offset": [ "0px", "2px" ],
                 "anchor_from": "bottom_left",
                 "anchor_to": "bottom_left",
 
@@ -4447,7 +4450,7 @@
                   {
                     "binding_type": "collection",
                     "binding_collection_name": "$persona_piece_collection_name",
-                    "binding_name": "#is_piece_realms_plus",
+                    "binding_name": "#is_piece_csb",
                     "binding_name_override": "#visible"
                   }
                 ]
@@ -5445,7 +5448,8 @@
   },
 
   "persona_category_main_realms_info_panel@persona.featured_info_panel": {
-    "$title_binding": "#realms_title",
+    "$title_binding_type": "none",
+    "$title_binding": "store.csb",
 
     "ignored": "(not #is_right_info_main_realms_panel_visible)"
   },
@@ -5619,8 +5623,8 @@
   },
 
   "popup_dialog_choose_skin_type_content@common.empty_panel": {
-    "size": "$section_content_size",
-    "offset": "$section_content_offset",
+    "size": "$choose_skin_type_content_size",
+    "offset": "$choose_skin_type_content_offset",
     "controls": [
       {
         "popup_dialog_message@popup_dialog.popup_dialog_message": {
@@ -5765,8 +5769,10 @@
 
   "popup_dialog__choose_skin_type@popup_dialog.popup_dialog": {
     "$message_text": "dr.classic_skins.select_skin",
-    "$section_content_size": [ "100% - 16px", "91.5% - 16px" ],
-    "$section_content_offset": [ 0, "4.5%" ],
+    "$choose_skin_type_content_size": [ "100% - 16px", "91.5% - 16px" ],
+    "$choose_skin_type_content_offset": [ 0, "4.5%" ],
+    "$section_content_size": [ "100% - 16px", "100%" ],
+    "$section_content_offset": [ 0, 0 ],
     "size": [ "40%", "75%" ],
     "controls": [
       {
@@ -6409,13 +6415,15 @@
   },
 
   "persona_realms_purchasable_skin_pack_grid_panel@common.vertical_stack_panel": {
-    "$persona_skin_pack_label_text": "sidebar.realmsPlus",
-
     "$skin_pack_collection_prefix": "realms_skin_pack",
     "$skin_collection_name": "realms_skin_collection",
 
     "controls": [
-      { "pack_label@persona.persona_skin_pack_label": {} },
+      {
+        "csb_pack_label@persona.persona_skin_pack_label": {
+          "$persona_skin_pack_label_text": "store.csb"
+        }
+      },
       { "purchasable_packs_grid@persona.persona_skin_pack_grid": {} }
     ]
   },
@@ -6912,26 +6920,25 @@
 
   "emotes_right_side_bottom_buttons@persona.right_side_bottom_buttons": {
     "controls": [
-      { "purchase_buttons_panel@persona.purchase_buttons": {} },
-      { "padding@persona.horizontal_2_padding": {} },
+      { "purchase_buttons_panel@persona.purchase_buttons": {} }
+    ]
+  },
+
+  "emote_play_again_button@common_buttons.light_text_button": {
+    "size": [ "fill", "100%" ],
+    "max_size": [ "50%", "100%" ],
+    "anchor_from": "bottom_right",
+    "anchor_to": "bottom_right",
+    "$pressed_button_name": "button.play_emote_again",
+    "$font_type": "default",
+    "$button_text": "dr.emotes.play_again",
+    "$focus_id": "play_again_button", //see_pack_in_store_button
+    "$focus_override_left": "offer_real_money_purchase_button",
+    "$persona_focus_precedence": 3,
+    "bindings": [
       {
-        "play_again@common_buttons.light_text_button": {
-          "size": [ "30%", "100%" ],
-          "anchor_from": "bottom_right",
-          "anchor_to": "bottom_right",
-          "$pressed_button_name": "button.play_emote_again",
-          "$font_type": "default",
-          "$button_text": "dr.emotes.play_again",
-          "$focus_id": "play_again_button", //see_pack_in_store_button
-          "$focus_override_left": "offer_real_money_purchase_button",
-          "$persona_focus_precedence": 3,
-          "bindings": [
-            {
-              "binding_name": "#is_play_again_button_enabled",
-              "binding_name_override": "#visible"
-            }
-          ]
-        }
+        "binding_name": "#is_play_again_button_visible",
+        "binding_name_override": "#visible"
       }
     ]
   },
@@ -7231,6 +7238,7 @@
         "persona_offer_panel_content@common.vertical_stack_panel": {
           "size": [ "100%", "100%" ],
           "layer": 2,
+          "$left_focus_container_override": "left_main_panel",
           "controls": [
             { "space@persona.vertical_2_padding": {} },
             { "persona_left_panels@persona.persona_section_panels": {} },
@@ -7286,6 +7294,7 @@
       {
         "stack_panel@common.horizontal_stack_panel": {
           "size": [ "100%", "100%" ],
+          "$left_focus_container_override": "left_main_panel",
           "controls": [
             { "left_main_panel_padding@persona.horizontal_2_padding": {} },
             { "left_main_panel@persona.persona_left_panel": {} },
@@ -7379,6 +7388,11 @@
     ],
 
     "button_mappings": [
+      {
+        "from_button_id": "button.controller_select", // controller_X
+        "to_button_id": "button.coin_wallet_or_emote_preview",
+        "mapping_type": "focused"
+      },
       {
         "from_button_id": "button.menu_cancel",
         "to_button_id": "button.try_exiting",

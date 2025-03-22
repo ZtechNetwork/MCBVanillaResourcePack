@@ -63,10 +63,9 @@
     "size": [ "100%", "100%c" ],
     "controls": [
       {
-        "text_description@realmsPlus_buy.content_description": {}
-      },
-      {
-        "toggle_section_divider@common.section_divider": {}
+        "text_description_wrapper@common.tts_label_focus_wrapper": {
+          "$tts_label_panel": "realmsPlus_buy.content_description"
+        }
       },
       {
         "padding": {
@@ -87,7 +86,7 @@
           "size": [ "100%", "default" ],
           "text": "#platform_terms_text",
           "color": "$body_text_color",
-          "font_type": "smooth",          
+          "font_type": "smooth",
           "bindings": [
             {
               "binding_name": "#platform_terms_text",
@@ -106,19 +105,10 @@
     "size": [ "100%", "100%cm" ],
     "controls": [
       {
-        "image_border@common.focus_border_white": {
-          "size": [ "25%", "100%c + 2px" ],
-          "color": [ 0, 0, 0 ],
-          "layer": 2,
-          "controls": [
-            {
-              "realms_image@common.service_repo_image_panel": {
-                "size": [ "100% - 2px", "133.33%x" ],
-                "$repo_image_texture": "realms_plus_logo_tall",
-                "layer": -1
-              }
-            }
-          ]
+        "realms_image": {
+          "type": "image",
+          "size": [ "25%", "133.4%x" ],
+          "texture": "textures/ui/realms_poster_art_with_logo"
         }
       },
       {
@@ -128,18 +118,23 @@
         }
       },
       {
-        "description_text": {
-          "type": "label",
-          "text": "#trial_desciption_text",
-          "color": "$store_white_text_color",
-          "size": [ "fill", "default" ],
-          "font_type": "smooth",
-          "bindings": [
-            {
-              "binding_name": "#trial_desciption_text"
-            }
-          ]
+        "description_text_wrapper@common.tts_label_focus_wrapper": {
+          "size": [ "fill", "100%cm" ],
+          "$tts_label_panel": "realmsPlus_buy.description_text"
         }
+      }
+    ]
+  },
+
+  "description_text": {
+    "type": "label",
+    "text": "#trial_desciption_text",
+    "color": "$store_white_text_color",
+    "font_type": "smooth",
+    "size": [ "100%", "default" ],
+    "bindings": [
+      {
+        "binding_name": "#trial_desciption_text"
       }
     ]
   },
@@ -156,21 +151,25 @@
     ]
   },
 
+  "title_with_gradient@realmsPlus.gradient_content_panel": {
+    "$gradient_content": "realmsPlus_buy.title_text"
+  },
+
   "description_stack": {
     "type": "stack_panel",
     "orientation": "vertical",
     "size": [ "100%", "100%c" ],
     "controls": [
       {
-        "title_with_gradient@realmsPlus.gradient_content_panel": {
+        "title_with_gradient_wrapper@common.tts_label_focus_wrapper": {
           "size": [ "100%", 15 ],
-          "$gradient_content": "realmsPlus_buy.title_text"
+          "$tts_label_panel": "realmsPlus_buy.title_with_gradient"
         }
       },
       {
         "padding": {
           "type": "panel",
-          "size": [ 0, 2 ]
+          "size": [ 0, 4 ]
         }
       },
       { "image_and_description@realmsPlus_buy.trial_image_and_description": {} }
@@ -247,16 +246,12 @@
           "variables": [
             {
               // Stop-gap measure until we can get hyperlinks to work from VR and FireTV
-              // $xbox_one should be removed when xbox stops being UWP, it's only here now
-              // because otherwise the link opens in the browser, which closes minecraft
-              "requires": "($is_holographic or $fire_tv or $xbox_one)",
+              "requires": "($is_holographic or $fire_tv)",
               "$pressed_button_name_terms_conditions": "button.tos_popup"
             },
             {
               // Stop-gap measure until we can get hyperlinks to work from VR and FireTV
-              // $xbox_one should be removed when xbox stops being UWP, it's only here now
-              // because otherwise the link opens in the browser, which closes minecraft
-              "requires": "($is_holographic or $fire_tv or $xbox_one)",
+              "requires": "($is_holographic or $fire_tv)",
               "$pressed_button_name_privacy_policy": "button.privpol_popup"
             }
           ],

@@ -1,6 +1,36 @@
 {
   "namespace": "promo_timeline",
 
+  "promo_banner_factory": {
+    "type": "stack_panel",
+    "orientation": "vertical",
+    "size": [ "100%", "100%c" ],
+
+    "factory": {
+      "name": "promo_banner_factory",
+      "control_ids": {
+        "mpass_banner": "@csb_banner.csb_banner",
+        "promo_banner": "@promo_timeline.promo_banner_holiday_panel"
+      },
+      "factory_variables": [
+        "$store_factory_collection_details",
+        "$store_factory_collection_prefix",
+        "$store_factory_collection_name"
+      ]
+    },
+    "bindings": [
+      {
+        "binding_name": "#section_content",
+        "binding_name_override": "#collection_length"
+      },
+      {
+        "binding_type": "$store_factory_collection_details",
+        "binding_collection_name": "$store_factory_collection_name",
+        "binding_collection_prefix": "$store_factory_collection_prefix"
+      }
+    ]
+  },
+
   "promo_banner_button_content": {
     "type": "panel",
     "size": [ "100%c", "100%" ],
@@ -84,6 +114,12 @@
           "anchor_to": "top_left",
           "layer": 2,
           "controls": [
+            {
+              "padding_0": {
+                "type": "panel",
+                "size": [ "100%", 2 ]
+              }
+            },
             {
               "title_stack_panel": {
                 "type": "stack_panel",
@@ -182,7 +218,7 @@
     ]
   },
 
-  "promo_banner_panel": {
+  "promo_banner_holiday_panel": {
     "type": "panel",
     "size": [ "100%", "100%c" ],
     "controls": [
@@ -1552,29 +1588,29 @@
   "promotion_period_grid_panel": {
     "type": "panel",
     "size": [ "fill", "100%c" ],
-    "bindings": [
-      {
-        "binding_type": "$store_factory_collection_details",
-        "binding_collection_name": "$store_factory_collection_name",
-        "binding_collection_prefix": "$store_factory_collection_prefix"
-      },
-      {
-        "binding_type": "collection_details",
-        "binding_collection_name": "gift_promotion_collection"
-      },
-      {
-        "binding_name": "#is_valid",
-        "binding_name_override": "#visible",
-        "binding_type": "collection",
-        "binding_collection_name": "gift_promotion_collection"
-      }
-    ],
     "controls": [
       {
         "promotion_offer_grid_image": {
           "type": "panel",
           "size": [ "100%", "100%cm" ],
           "layer": 1,
+          "bindings": [
+            {
+              "binding_type": "$store_factory_collection_details",
+              "binding_collection_name": "$store_factory_collection_name",
+              "binding_collection_prefix": "$store_factory_collection_prefix"
+            },
+            {
+              "binding_type": "collection_details",
+              "binding_collection_name": "gift_promotion_collection"
+            },
+            {
+              "binding_name": "#is_valid",
+              "binding_name_override": "#visible",
+              "binding_type": "collection",
+              "binding_collection_name": "gift_promotion_collection"
+            }
+          ],
           "controls": [
             {
               "item_selected_bg": {
@@ -2781,7 +2817,8 @@
     "controls": [
       {
         "promo_banner_button@common.minecraftTenLabel": {
-          "size": [ "default", "default" ],
+          "size": [ "100%", "12px" ],
+          "text_alignment": "center",
           "offset": [ 0, -1 ],
           "color": "$text_color",
           "text": "#promo_button_text",

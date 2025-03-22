@@ -162,7 +162,7 @@
                 "type": "image",
                 "layer": 2,
                 "size": [32, 32],
-                "offset": [-2, 0],
+                "offset": [0, 0],
                 "bindings":[
                   {
                     "binding_name": "#form_button_texture",
@@ -291,8 +291,10 @@
           "$pressed_button_name": "button.submit_custom_form",
           "anchor_from": "top_left",
           "anchor_to": "top_left",
-          "size": ["100%", 32],
-          "$button_text": "gui.submit",
+          "size": [ "100%", 32 ],
+          "$button_text": "#submit_text",
+          "$button_text_binding_type": "global",
+          "$button_binding_condition": "once",
 
           "bindings": [
             {
@@ -371,12 +373,13 @@
   "custom_dropdown": {
     "type": "panel",
     "size": ["100%", "100%c"],
+    "layer": 2,
     "controls": [
       {
         "dropdown@settings_common.option_dropdown": {
           "$option_label": "#custom_text",
           "$dropdown_content": "server_form.custom_dropdown_content",
-          "$dropdown_area": "generated_form",
+          "$dropdown_area": "inside_header_panel",
           "$dropdown_name": "custom_dropdown",
           "$toggle_binding_type": "collection",
           "$toggle_grid_collection_name": "custom_form",

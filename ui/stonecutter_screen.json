@@ -71,6 +71,20 @@
     "type": "panel",
     "controls": [
       {
+        "hover_text@common.hover_text": {
+          "layer": 100,
+          "$hover_text_binding_name|default": "#hover_text",
+          "bindings": [
+            {
+              "binding_name": "#hover_text",
+              "binding_condition": "visible",
+              "binding_type": "collection",
+              "binding_collection_name": "$collection_name"
+            }
+          ]
+        }
+      },
+      {
         "highlight@common.highlight_slot": {
           "layer": 1,
           "bindings": [
@@ -463,14 +477,7 @@
           "inherit_max_sibling_height": true,
           "controls": [
             {
-              "arrow_icon@stonecutter.arrow_icon": {
-                "bindings": [
-                  {
-                    "binding_name": "#has_input_item",
-                    "binding_name_override": "#visible"
-                  }
-                ]
-              }
+              "arrow_icon@stonecutter.arrow_icon": {}
             }
           ]
         }
@@ -538,12 +545,6 @@
   // #region screen
   //---------------------------------------------------------------------------
 
-  "help_button@common.help_button": {
-    "layer": 5,
-    "$focus_id": "help_button",
-    "$focus_override_up": "FOCUS_OVERRIDE_STOP"
-  },
-
   "toolbar_panel@common.root_panel": {
     "size": [ "100%c", 20 ],
     "controls": [
@@ -573,24 +574,9 @@
                     }
                   },
                   {
-                    "help_button_panel": {
-                      "type": "panel",
-                      "size": [ "100%c", "100%" ],
-                      "controls": [
-                        { "help_button@stonecutter.help_button": {} }
-                      ]
-                    }
-                  },
-                  {
                     "close_button_panel": {
                       "type": "panel",
                       "size": [ "100%c", "100%" ],
-                      "bindings": [
-                        {
-                          "binding_name": "#close_button_visible",
-                          "binding_name_override": "#visible"
-                        }
-                      ],
                       "controls": [
                         {
                           "close_button@common.light_close_button": {
@@ -608,6 +594,12 @@
                       "type": "panel",
                       "size": [ 6, 0 ]
                     }
+                  }
+                ],
+                "bindings": [
+                  {
+                    "binding_name": "#close_button_visible",
+                    "binding_name_override": "#visible"
                   }
                 ]
               }
@@ -673,18 +665,14 @@
       { "item_lock_notification_factory@common.item_lock_notification_factory": {} },
       { "inventory_selected_icon_button@common.inventory_selected_icon_button": {} },
       { "inventory_take_progress_icon_button@common.inventory_take_progress_icon_button": {} },
-      {
-        "flying_item_renderer@common.flying_item_renderer": {
-          "layer": 8
-        }
-      }
+      { "flying_item_renderer@common.flying_item_renderer": { "layer": 15 } }
     ]
   },
 
   "stonecutter_screen@common.inventory_screen_common": {
     "close_on_player_hurt": true,
     "$screen_bg_content": "common.screen_background",
-
+    "$screen_background_alpha": 0.4,
     "button_mappings": "$button_mappings",
 
     "variables": [

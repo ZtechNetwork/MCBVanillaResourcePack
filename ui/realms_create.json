@@ -1,8 +1,3 @@
-/********************************************************
-*   (c) Mojang. All rights reserved                     *
-*   (c) Microsoft. All rights reserved.                 *
-*********************************************************/
-
 // The screen used to purchase (or trial use) a realm; pops up and gives
 // the player a chance to ... name and decide purchase options.  Next
 // screen is screen for Invite Players To Your Realm.
@@ -186,20 +181,7 @@
                 "$selected_option_binding_name": "#player_count_2",
                 "$pressed_button_name": "button.realms_player_count_2",
                 "$toggle_name": "#player_count_2",
-                "$button_text": "realmsCreateScreen.twoUsers"                
-              }
-            },
-            {
-              "player_count_10@realms_create.realms_option_button": {
-                "layer": 2,
-                "anchor_from": "top_right",
-                "anchor_to": "top_right",
-                "size": [ "50%", "100%" ],
-                "$selected_option_binding_name": "#player_count_10",
-                "$pressed_button_name": "button.realms_player_count_10",
-                "$toggle_name": "#player_count_10",
-                "$button_text": "realmsCreateScreen.tenUsers",
-                "visible": "(not $realms_plus_on)"
+                "$button_text": "realmsCreateScreen.twoUsers"
               }
             }
           ]
@@ -252,16 +234,12 @@
           "variables": [
             {
               // Stop-gap measure until we can get hyperlinks to work from VR and FireTV
-              // $xbox_one should be removed when xbox stops being UWP, it's only here now
-              // because otherwise the link opens in the browser, which closes minecraft
-              "requires": "($is_holographic or $fire_tv or $xbox_one)",
+              "requires": "($is_holographic or $fire_tv)",
               "$pressed_button_name_terms_conditions": "button.tos_popup"
             },
             {
               // Stop-gap measure until we can get hyperlinks to work from VR and FireTV
-              // $xbox_one should be removed when xbox stops being UWP, it's only here now
-              // because otherwise the link opens in the browser, which closes minecraft
-              "requires": "($is_holographic or $fire_tv or $xbox_one)",
+              "requires": "($is_holographic or $fire_tv)",
               "$pressed_button_name_privacy_policy": "button.privpol_popup"
             }
           ],
@@ -344,32 +322,13 @@
     "size": [ "100%c", "100%" ],
     "controls": [
       {
-        "create_realms_text_panel@realms_create.create_realms_text_panel": {}
-      },
-      {
         "padding_0": {
           "type": "panel",
-          "size": [ 1, 0 ]
+          "size": [ 1, "100%" ]
         }
       },
       {
-        "coin_panel": {
-          "type": "panel",
-          "size": [ "100%c", "100%" ],
-          "controls": [
-            {
-              "coin@common_store.coin_icon": {
-                "offset": [ 0, -0.5 ],
-                "bindings": [
-                  {
-                    "binding_name": "#is_coin_visible",
-                    "binding_name_override": "#visible"
-                  }
-                ]
-              }
-            }
-          ]
-        }
+        "create_realms_text_panel@realms_create.create_realms_text_panel": {}
       }
     ]
   },
@@ -480,26 +439,46 @@
         }
       },
       {
-        "realms_terms_info@settings_common.option_info_label": {
-          "$container_text_binding_name": "#realms_terms_info",
-          "$used_fontsize": "normal",
-          "$used_fonttype": "smooth",
-          "$show_option_label": false,
-          "$show_for_ios|default": false,
-          "layer": 3,
-          "size": [ "100% - 4px", "100%c" ]
-        }
-      },
-      {
-        "realms_external_subscription_terms_info@settings_common.option_info_label": {
-          "$container_text_binding_name": "#realms_purchase_info",
-          "$used_fontsize": "normal",
-          "$used_fonttype": "smooth",
-          "$show_option_label": false,
-          "$show_for_ios|default": false,
-          "ignored": "(not $xbox_one or $hide_external_subscription_purchase_info)",
-          "layer": 3,
-          "size": [ "100% - 4px", "100%c" ]
+        "realms_terms_info": {
+          "type": "image",
+          "texture": "textures/ui/text_label_box",
+          "size": [ "100%", "100%c" ],
+          "$used_fontsize|default": "normal",
+          "$used_fonttype|default": "smooth",
+          "controls": [
+            {
+              "label_panel": {
+                "type": "stack_panel",
+                "size": [ "100%", "100%c" ],
+                "orientation": "vertical",
+                "controls": [
+                  {
+                    "padding_1": {
+                      "type": "panel",
+                      "size": [ 0, 4 ]
+                    }
+                  },
+                  {
+                    "text_description_wrapper@common.tts_label_focus_wrapper": {
+                      "$tts_label_panel": "realms_create.terms_section"
+                    }
+                  },
+                  {
+                    "text_description_wrapper_extra@common.tts_label_focus_wrapper": {
+                      "$tts_label_panel": "realms_create.terms_section_extra",
+                      "ignored": "(not $is_ps4)"
+                    }
+                  },
+                  {
+                    "padding_2": {
+                      "type": "panel",
+                      "size": [ 0, 4 ]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
         }
       },
       {
@@ -512,6 +491,50 @@
           "ignored": "(not $nx_os)",
           "layer": 3,
           "size": [ "100% - 4px", "100%c" ]
+        }
+      }
+    ]
+  },
+
+  "terms_section": {
+    "type": "panel",
+    "size": [ "100%", "100%c" ],
+    "controls": [
+      {
+        "terms_section_label": {
+          "type": "label",
+          "size": [ "100% - 8px", "default" ],
+          "anchor_to": "center",
+          "text": "#realms_terms_info",
+          "color": "$body_text_color",
+          "font_type": "smooth",
+          "bindings": [
+            {
+              "binding_name": "#realms_terms_info"
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "terms_section_extra": {
+    "type": "panel",
+    "size": [ "100%", "100%c" ],
+    "controls": [
+      {
+        "terms_section_label": {
+          "type": "label",
+          "size": [ "100% - 8px", "default" ],
+          "anchor_to": "center",
+          "text": "#realms_terms_info_extra",
+          "color": "$body_text_color",
+          "font_type": "smooth",
+          "bindings": [
+            {
+              "binding_name": "#realms_terms_info_extra"
+            }
+          ]
         }
       }
     ]
@@ -566,20 +589,6 @@
     "controls": [
       {
         "main_panel@main_panel": {}
-      },
-      {
-        "purchase_coins_panel@common_store.purchase_coins_panel": {
-          "offset": [ "1px", "-22.5px" ],
-          "anchor_from": "top_right",
-          "anchor_to": "top_right",
-          "size": [ "100%c", "24px" ],
-          "bindings": [
-            {
-              "binding_name": "#is_coin_visible",
-              "binding_name_override": "#visible"
-            }
-          ]
-        }
       }
     ]
   },
@@ -590,12 +599,6 @@
         "from_button_id": "button.menu_cancel",
         "to_button_id": "button.menu_exit",
         "mapping_type": "global"
-      },
-      {
-        "from_button_id": "button.controller_select",
-        "to_button_id": "button.coin_wallet",
-        "mapping_type": "global",
-        "ignored": "(not $allow_coin_purchase)"
       }
     ],
     "$screen_content": "realms_create.realms_create_content_and_factory",

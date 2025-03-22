@@ -27,11 +27,20 @@
   // Labels //
 
   "cost_label@anvil_pocket.generic_label": {
-    "shadow": false,
+    "shadow": true,
     "text": "#text",
     "anchor_from": "left_middle",
-    "anchor_to": "left_middle"
-
+    "anchor_to": "left_middle",
+    "layer": 2,
+    "controls": [
+      {
+        "gray@resource_packs.gray_image": {
+          "layer": -1,
+          "size": [ "105%", "105%" ],
+          "alpha": 0.3
+        }
+      }
+    ]
   },
   "title_label@anvil_pocket.generic_label": {
     "anchor_from": "left_middle", // the parent
@@ -320,13 +329,13 @@
       { "container_gamepad_helpers@common.container_gamepad_helpers": { "layer": 2 } },
       { "inventory_selected_icon_button@common.inventory_selected_icon_button": {} },
       { "hold_icon@common.inventory_take_progress_icon_button": {} },
-      { "flying_item_renderer@common.flying_item_renderer": {} },
       { "selected_item_details_factory@common.selected_item_details_factory": {} },
       {
         "item_lock_notification_factory@common.item_lock_notification_factory": {
           "$offset": [ 0, "85%" ]
         }
-      }
+      },
+      { "flying_item_renderer@common.flying_item_renderer": { "layer": 12 } }
     ]
   }
 }

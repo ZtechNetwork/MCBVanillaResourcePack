@@ -4,32 +4,39 @@
   "csb_content_section@csb.section_base": {
     "controls": [
       {
-        "content_section_top_padding@csb.content_section_top_padding": {}
+        "content_section_vertical_padding_1@csb.vertical_padding_4px": {}
       },
       {
-        "content_sections": {
-          "type": "stack_panel",
+        "popular_packs_label_panel": {
+          "type": "panel",
           "size": [ "100%", "100%c" ],
-          "collection_name": "content_sections",
-
-          "factory": {
-            "name": "content_section_factory",
-            "control_ids": {
-              "icons": "@csb_content.content_pack_types_section",
-              "packs": "@csb_content.content_packs_included_section",
-              "text": "@csb_content.content_text_section"
-            }
-          },
-          "bindings": [
+          "controls": [
             {
-              "binding_name": "#content_tab_sections",
-              "binding_name_override": "#collection_length"
+              "label_with_gradient@csb.gradient_content_panel": {
+                "size": [ "100%", 15 ],
+                "$gradient_content": "csb_content.popular_packs_label"
+              }
+            },
+            {
+              "tts_border@common.tts_activate_sibling": {
+                "size": [ "100%sm", "100%sm + 2px" ],
+                "offset": [ 0, -2 ]
+              }
             }
           ]
         }
       },
       {
-        "content_section_bottom_padding@csb.content_section_top_padding": {}
+        "content_section_vertical_padding_2@csb.vertical_padding_4px": {}
+      },
+      {
+        "content_pack_types@csb_content.content_pack_types_section": {}
+      },
+      {
+        "content_packs_included@csb_content.content_packs_included_section": {}
+      },
+      {
+        "content_section_vertical_padding_3@csb.vertical_padding_4px": {}
       }
     ]
   },
@@ -40,12 +47,6 @@
     "controls": [
       {
         "pack_types@csb_content.pack_types": {}
-      },
-      {
-        "section_divider@csb.full_width_section_divider": {}
-      },
-      {
-        "friends_get_access@csb_content.friends_get_access": {}
       },
       {
         "padding@common.empty_panel": {
@@ -68,80 +69,130 @@
     ]
   },
 
-  "content_text_section": {
+  "pack_types": {
     "type": "stack_panel",
+    "orientation": "vertical",
     "size": [ "100%", "100%c" ],
     "controls": [
       {
-        "content_description@csb_content.content_description": {}
+        "padding_01": {
+          "type": "panel",
+          "size": [ "100%", 4 ]
+        }
       },
       {
-        "section_divider@csb.full_width_section_divider": {}
+        "pack_types_1@csb_content.pack_types_1": {}
+      },
+      {
+        "padding_02": {
+          "type": "panel",
+          "size": [ "100%", 4 ]
+        }
+      },
+      {
+        "pack_types_2@csb_content.pack_types_2": {}
+      },
+      {
+        "padding_03": {
+          "type": "panel",
+          "size": [ "100%", 4 ]
+        }
       }
     ]
   },
 
-  "pack_types": {
-    "type": "panel",
-    "size": [ "100%", 40 ],
+  "pack_types_1": {
+    "type": "stack_panel",
+    "orientation": "horizontal",
+    "size": [ "100%", "100%cm" ],
     "$icon_color": "$body_text_color",
     "controls": [
       {
-        "skins@csb_content.pack_type_description": {
-          "$pack_type_texture": "common_store.skinpack_icon",
-          "$pack_type_description_text": "store.csb.content.skinDescription",
-          "anchor_from": "top_left",
-          "anchor_to": "top_left"
+        "worlds@csb_content.pack_type_description": {
+          "$pack_type_texture": "common_store.world_small_icon",
+          "$pack_type_description_text": "store.csb.contentPacks.worldDescription"
+        }
+      },
+      {
+        "padding_01": {
+          "type": "panel",
+          "size": [ 2, "100%sm" ]
         }
       },
       {
         "textures@csb_content.pack_type_description": {
-          "$pack_type_texture": "common_store.resource_pack_icon",
-          "$pack_type_description_text": "store.csb.content.textureDescription",
-          "anchor_from": "top_right",
-          "anchor_to": "top_right"
+          "$pack_type_texture": "common_store.resource_pack_small_icon",
+          "$pack_type_description_text": "store.csb.contentPacks.textureDescription"
         }
       },
       {
-        "worlds@csb_content.pack_type_description": {
-          "$pack_type_texture": "common_store.world_icon",
-          "$pack_type_description_text": "store.csb.content.worldDescription",
-          "anchor_from": "bottom_left",
-          "anchor_to": "bottom_left"
+        "padding_02": {
+          "type": "panel",
+          "size": [ 2, "100%sm" ]
         }
       },
       {
-        "mashups@csb_content.pack_type_description": {
-          "$pack_type_texture": "common_store.mashup_icon",
-          "$pack_type_description_text": "store.csb.content.mashupDescription",
-          "anchor_from": "bottom_right",
-          "anchor_to": "bottom_right"
+        "persona@csb_content.pack_type_description": {
+          "$pack_type_texture": "common_store.persona_small_icon",
+          "$pack_type_description_text": "store.csb.contentPacks.personaDescription"
         }
       }
     ]
   },
 
-  "friends_get_access": {
-    "type": "label",
-    "size": [ "100%", "default" ],
-    "text": "store.csb.content.friendsGetAccess",
-    "font_type": "smooth",
-    "color": "$store_white_text_color"
+  "pack_types_2": {
+    "type": "stack_panel",
+    "orientation": "horizontal",
+    "size": [ "100%", "100%cm" ],
+    "$icon_color": "$body_text_color",
+    "controls": [
+      {
+        "padding_1@common.empty_panel": {
+          "size": [ "17%", "100%sm" ]
+        }
+      },
+      {
+        "skins@csb_content.pack_type_description": {
+          "$pack_type_texture": "common_store.skinpack_small_icon",
+          "$pack_type_description_text": "store.csb.contentPacks.skinDescription"
+        }
+      },
+      {
+        "padding_2@common.empty_panel": {
+          "size": [ 4, "100%sm" ]
+        }
+      },
+      {
+        "mashups@csb_content.pack_type_description": {
+          "$pack_type_texture": "common_store.mashup_small_icon",
+          "$pack_type_description_text": "store.csb.contentPacks.mashupDescription"
+        }
+      },
+      {
+        "padding_3@common.empty_panel": {
+          "size": [ "17%", "100%sm" ]
+        }
+      }
+    ]
   },
 
   "pack_type_description": {
     "type": "stack_panel",
     "orientation": "horizontal",
-    "size": [ "50% - 4px", 20 ],
+    "size": [ "33% - 2px", "100%cm" ],
     "controls": [
       {
         "image_nesting_panel": {
           "type": "panel",
-          "size": [ "100%c", "100%" ],
+          "size": [ "100%c", "100%sm" ],
+          "min_size": [ "100%c", "100%c" ],
           "controls": [
             {
               "texture@$pack_type_texture": {
-                "size": [ 14, 14 ]
+                "size": [ 8, 8 ],
+                "anchor_from": "left_middle",
+                "anchor_to": "left_middle",
+                "layer": 1
               }
             }
           ]
@@ -149,13 +200,14 @@
       },
       {
         "padding_0@common.empty_panel": {
-          "size": [ 4, "100%" ]
+          "size": [ 4, "100%sm" ]
         }
       },
       {
         "description_nesting_panel": {
           "type": "panel",
-          "size": [ "fill", "100%" ],
+          "size": [ "fill", "100%cm - 2px" ],
+          "min_size": [ "fill", 14 ],
           "controls": [
             {
               "description_label": {
@@ -163,10 +215,23 @@
                 "size": [ "100%", "default" ],
                 "color": "$body_text_color",
                 "text": "$pack_type_description_text",
-                "font_type": "smooth"
+                "font_scale_factor": 0.75,
+                "font_type": "smooth",
+                "layer": 2
+              }
+            },
+            {
+              "tts_border@common.tts_activate_sibling": {
+                "size": [ "100%sm + 2px", "100%sm + 2px" ],
+                "offset": [ -1, -2 ]
               }
             }
           ]
+        }
+      },
+      {
+        "padding_1@common.empty_panel": {
+          "size": [ 4, "100%sm" ]
         }
       }
     ]
@@ -178,20 +243,6 @@
     "size": [ "100%", "100%c" ],
     "controls": [
       {
-        "popular_packs_label_panel": {
-          "type": "panel",
-          "size": [ "100%", "100%c" ],
-          "controls": [
-            {
-              "label_with_gradient@csb.gradient_content_panel": {
-                "size": [ "100%", 15 ],
-                "$gradient_content": "csb_content.popular_packs_label"
-              }
-            }
-          ]
-        }
-      },
-      {
         "padding_0@common.empty_panel": {
           "size": [ "100%", 2 ]
         }
@@ -201,7 +252,8 @@
       },
       {
         "view_all_packs_panel": {
-          "type": "panel",
+          "type": "stack_panel",
+          "orientation": "vertical",
           "size": [ "100%", "100%c" ],
           "controls": [
             {
@@ -212,6 +264,23 @@
                 "$button_text_size": [ "default", "default" ],
                 "$button_text_max_size": [ "100% - 10px", 18 ],
                 "size": [ "100%", 20 ]
+              }
+            },
+            {
+              "padding": {
+                "type": "panel",
+                "size": [ "100%", 4 ]
+              }
+            },
+            {
+              "view_character_creator_items@common_buttons.light_content_button": {
+                "$pressed_button_name": "button.view_character_creator_items",
+                "$button_content": "csb_buy.button_text",
+                "$button_text": "store.csb.content.viewCharacterCreatorItems",
+                "$button_text_size": [ "default", "default" ],
+                "$button_text_max_size": [ "100% - 10px", 18 ],
+                "size": [ "100%", 20 ],
+                "visible": "$view_character_creator_items_visible"
               }
             }
           ]
@@ -228,13 +297,8 @@
   "popular_packs_label": {
     "type": "label",
     "size": [ "100% - 4%", "default" ],
-    "text": "#packs_label",
-    "color": "$body_text_color",    
-    "bindings": [
-      {
-        "binding_name": "#packs_label"
-      }
-    ]
+    "text": "store.csb.content.popularPacks",
+    "color": "$light_button_default_text_color"
   },
 
   "packs_collection": {
@@ -256,7 +320,7 @@
             {
               "padding": {
                 "type": "panel",
-                "size": [ 4, 0 ]
+                "size": [ 4, "100%c" ]
               }
             },
             {
@@ -288,7 +352,7 @@
             {
               "padding": {
                 "type": "panel",
-                "size": [ 4, 0 ]
+                "size": [ 4, "100%c" ]
               }
             },
             {
@@ -367,6 +431,7 @@
           "layer": 7,
           "default_control": "",
           "$pressed_button_name": "button.select_offer",
+          "tts_control_header": "#title_label",
           "bindings": [
             {
               "binding_type": "collection_details",
@@ -378,6 +443,11 @@
               "binding_name": "#right_most_grid_item_focus_override_right",
               "binding_name_override": "#focus_change_right",
               "binding_condition": "visible"
+            },
+            {
+              "binding_type": "collection",
+              "binding_collection_name": "popular_packs_collection",
+              "binding_name": "#title_label"
             }
           ],
           "controls": [
@@ -398,32 +468,10 @@
     ]
   },
 
-  "csb_content_chevron@csb.markdown_background": {
-    "size": [ "100%c", 12 ],
+  "csb_content_chevron": {
+    "size": [ 25, 19 ],
+    "type": "image",
+    "texture": "textures/ui/csbChevronArrowLarge",
     "layer": 1
-  },
-
-  "content_description": {
-    "type": "panel",
-    "size": [ "100%", "100%c" ],
-    "controls": [
-      {
-        "content_description_label": {
-          "type": "label",
-          "size": [ "100%", "default" ],
-          "text": "#content_section_text",
-          "color": "$body_text_color",
-          "font_type": "smooth",
-          "bindings": [
-            {
-              "binding_name": "#content_section_text",
-              "binding_type": "collection",
-              "binding_collection_name": "content_sections"
-            }
-          ]
-        }
-      }
-    ]
   }
-
 }

@@ -13,11 +13,6 @@
     "controls": [
       { "container_gamepad_helpers@common.container_gamepad_helpers": {} },
       {
-        "flying_item_renderer@common.flying_item_renderer": {
-          "layer": 7
-        }
-      },
-      {
         "selected_item_details_factory@common.selected_item_details_factory": {
           "control_name": "@beacon.selected_item_details"
         }
@@ -63,7 +58,8 @@
             }
           ]
         }
-      }
+      },
+      { "flying_item_renderer@common.flying_item_renderer": { "layer": 12 } }
     ]
   },
 
@@ -668,11 +664,14 @@
       {
         "requires": "$desktop_screen",
         "$screen_content": "beacon.beacon_panel",
-        "$screen_bg_content": "common.screen_background"
+        "$screen_bg_content": "common.screen_background",
+        "$screen_background_alpha": 0.4
       },
       {
         "requires": "$pocket_screen",
-        "$screen_content": "beacon_pocket.beacon_panel"
+        "$screen_content": "beacon_pocket.beacon_panel",
+        "$screen_bg_content": "common.screen_background",
+        "$screen_background_alpha": 0.4
       }
     ]
   }

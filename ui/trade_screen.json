@@ -508,7 +508,6 @@
     "type": "panel",
     "controls": [
       { "gamepad_helpers@common.container_gamepad_helpers": {} },
-      { "flying_item_renderer@common.flying_item_renderer": {} },
       { "selected_item_details_factory@common.selected_item_details_factory": {} },
       { "item_lock_notification_factory@common.item_lock_notification_factory": {} },
       {
@@ -530,12 +529,14 @@
             }
           ]
         }
-      }
+      },
+      { "flying_item_renderer@common.flying_item_renderer": { "layer": 21 } }
     ]
   },
 
   "trade_screen@common.inventory_screen_common": {
     "$screen_bg_content": "common.screen_background",
+    "$screen_background_alpha": 0.4,
     "$close_on_player_hurt|default": true,
     "close_on_player_hurt": "$close_on_player_hurt",
     "variables": [

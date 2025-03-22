@@ -166,11 +166,34 @@
           ]
         }
       },
+      {
+        "hardcore_info_label@settings_common.option_info_label": {
+          "$container_text_binding_name": "#hardcore_warning_text",
+          "$show_option_label": false,
+          "bindings": [
+            {
+              "binding_name": "#hardcore_warning_visible",
+              "binding_name_override": "#visible"
+            }
+          ]
+        }
+      },
       { "realm_name_edit@realms_world_section.realm_name_edit": {} },
       { "world_name_edit@realms_world_section.world_name_edit": {} },
       { "realm_description_edit@realms_world_section.realm_description_edit": {} },
       { "difficulty_dropdown@realms_world_section.difficulty_dropdown": {} },
       { "game_mode_dropdown@realms_world_section.game_mode_dropdown": {} },
+      {
+        "is_hardcore_toggle@settings_common.option_toggle": {
+          "ignored": "$realm_no_world_edit",
+          "$option_label": "createWorldScreen.isHardcore",
+          "$option_binding_name": "#is_hardcore",
+          "$option_enabled_binding_name": "#is_hardcore_enabled",
+          "$toggle_name": "is_hardcore",
+          "$focus_override_right": "FOCUS_OVERRIDE_STOP",
+          "$enabled": "$is_pregame"
+        }
+      },
       {
         "world_options_label@settings_common.option_group_label": {
           "$text": "createWorldScreen.worldOptions",
@@ -197,6 +220,18 @@
           "$option_binding_name": "#show_coordinates",
           "$option_enabled_binding_name": "#show_coordinates_enabled",
           "$toggle_name": "show_coordinates",
+          "$focus_override_right": "FOCUS_OVERRIDE_STOP",
+          "$toggle_binding_condition": "always_when_visible"
+        }
+      },
+      {
+        "show_days_played_toggle@settings_common.option_toggle": {
+          "$tts_section_header": "createWorldScreen.worldSettings",
+          "ignored": "$realm_no_world_edit",
+          "$option_label": "createWorldScreen.showDaysPlayed",
+          "$option_binding_name": "#show_days_played",
+          "$option_enabled_binding_name": "#show_days_played_enabled",
+          "$toggle_name": "show_days_played",
           "$focus_override_right": "FOCUS_OVERRIDE_STOP",
           "$toggle_binding_condition": "always_when_visible"
         }
@@ -282,6 +317,37 @@
           "$toggle_name": "tile_drops",
           "$focus_override_right": "FOCUS_OVERRIDE_STOP",
           "$toggle_binding_condition": "always_when_visible"
+        }
+      },
+      {
+        "player_sleep_toggle@settings_common.option_toggle": {
+          "$tts_section_header": "createWorldScreen.worldSettings",
+          "ignored": "$realm_no_world_edit",
+          "$option_label": "createWorldScreen.playerSleep",
+          "$option_binding_name": "#player_sleep",
+          "$option_enabled_binding_name": "#player_sleep_enabled",
+          "$toggle_name": "player_sleep",
+          "$focus_override_right": "FOCUS_OVERRIDE_STOP",
+          "$toggle_binding_condition": "always_when_visible"
+        }
+      },
+      {
+        "player_sleep_percentage_slider@settings_common.option_slider": {
+          "$tts_section_header": "createWorldScreen.worldSettings",
+          "ignored": "$realm_no_world_edit",
+          "$option_label": "#player_sleep_percentage_slider_label",
+          "$slider_name": "player_sleep_percentage",
+          "$has_option_description": true,
+          "$option_description": "createWorldScreen.playerSleepPercentageDescription",
+          "$slider_value_binding_name": "#player_sleep_percentage",
+          "$option_enabled_binding_name": "#player_sleep_percentage_enabled",
+          "$slider_tts_text_value": "#player_sleep_percentage_text_value",
+          "$slider_steps_binding_name": "#player_sleep_percentage_steps",
+          "$label_bindings": [
+            {
+              "binding_name": "$option_label"
+            }
+          ]
         }
       },
       {

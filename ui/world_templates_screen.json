@@ -192,7 +192,14 @@
                       "anchor_to": "top_left",
                       "layer": 1,
                       "shadow": false,
-                      "text": "$label_content_label"
+                      "text": "$label_content_label",
+                      "$label_text_binding_type|default": "none",
+                      "bindings": [
+                        {
+                          "binding_name": "$label_content_label",
+                          "binding_type": "$label_text_binding_type"
+                        }
+                      ]
                     }
                   }
                 ]
@@ -274,7 +281,7 @@
           "force_texture_reload": true,
           "$screenshot_texture_name|default": "#screenshot_texture",
           "$screenshot_zip_folder|default": "#screenshot_zip_folder",
-          "$screenshot_zip_folder_binding_type|default": "none",
+          "$screenshot_zip_folder_binding_type|default": "collection",
           "$screenshot_file_system|default": "#screenshot_file_system",
           "texture": "$screenshot_texture_name",
           "texture_file_system": "$screenshot_file_system",
@@ -412,9 +419,17 @@
                 "offset": [ -2, 1 ],
                 "controls": [
                   {
-                    "realms_plus_icon@world_templates.realms_plus_banner": {
+                    "csb_icon@world_templates.csb_banner": {
                       "size": [ "100%c", 12 ],
-                      "layer": 1
+                      "layer": 1,
+                      "bindings": [
+                        {
+                          "binding_type": "collection",
+                          "binding_collection_name": "$collection_name",
+                          "binding_name": "#csb_chevron_visibility",
+                          "binding_name_override": "#visible"
+                        }
+                      ]
                     }
                   },
                   {
@@ -444,26 +459,27 @@
     ]
   },
 
-  "realms_plus_banner": {
+  "csb_banner": {
     "type": "panel",
-    "size": [ "100%c", "100% + 4px" ],
+    "size": [ "100%c", "100%" ],
     "anchor_from": "left_middle",
     "anchor_to": "left_middle",
     "$is_realms_plus|default": false,
     "visible": "$is_realms_plus",
     "controls": [
       {
-        "realms_banner@realmsPlus.markdown_background": {
-          "size": [ "100%c", "100%" ],
-          "$triangle_offset": [ 0, 0 ],
-          "$banner_size": [ "100%c - 4px", "100% - 2px" ],
+        "banner": {
+          "type": "image",
+          "$banner_size|default": [ "139%y", 12 ],
+          "size": "$banner_size",
+          "texture": "textures/ui/csbChevronArrowLarge",
           "layer": 9
         }
       }
     ],
     "$banner_content": [
       {
-        "realms_icon@common_store.realms_banner_icon": {}
+        "csb_icon@common_store.csb_banner_icon": {}
       },
       {
         "pad": {
@@ -476,19 +492,19 @@
           "type": "label",
           "size": [ "default", "100%" ],
           "max_size": [ 60, "100%" ],
-          "color": "$dark_button_default_text_color",
+          "color": "$store_csb_expiration_text_color",
           "font_type": "smooth",
-          "text": "#realms_expiration_label",
+          "text": "#csb_expiration_label",
           "bindings": [
             {
               "binding_type": "collection",
               "binding_collection_name": "$collection_name",
-              "binding_name": "#realms_expiration_label"
+              "binding_name": "#csb_expiration_label"
             },
             {
               "binding_type": "collection",
               "binding_collection_name": "$collection_name",
-              "binding_name": "#realms_expiration_visible",
+              "binding_name": "#csb_expiration_visible",
               "binding_name_override": "#visible"
             }
           ]
@@ -975,7 +991,8 @@
                       "type": "stack_panel",
                       "orientation": "vertical",
                       "size": [ "100%", "100%c" ],
-                      "$section_header": "selectTemplate.realmsPlus",
+                      "$label_text_binding_type": "global",
+                      "$section_header": "#subscription_world_template_text",
                       "controls": [
                         {
                           "realms_plus_label_panel@world_templates.realms_plus_templates_label": {

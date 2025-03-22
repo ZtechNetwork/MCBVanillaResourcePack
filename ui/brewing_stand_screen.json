@@ -281,11 +281,6 @@
     "type": "panel",
     "controls": [
       { "container_gamepad_helpers@common.container_gamepad_helpers": {} },
-      {
-        "flying_item_renderer@common.flying_item_renderer": {
-          "layer": 11
-        }
-      },
       { "selected_item_details_factory@common.selected_item_details_factory": {} },
       { "item_lock_notification_factory@common.item_lock_notification_factory": {} },
       {
@@ -309,7 +304,8 @@
             { "gamepad_cursor@common.gamepad_cursor_button": {} }
           ]
         }
-      }
+      },
+      { "flying_item_renderer@common.flying_item_renderer": { "layer": 15 } }
     ]
   },
   "brewing_stand_screen@common.inventory_screen_common": {
@@ -324,7 +320,9 @@
       },
       {
         "requires": "$pocket_screen",
-        "$screen_content": "brewing_stand_pocket.brewing_stand_panel"
+        "$screen_content": "brewing_stand_pocket.brewing_stand_panel",
+        "$screen_bg_content": "common.screen_background",
+        "$screen_background_alpha": 0.4
       }
     ]
   }

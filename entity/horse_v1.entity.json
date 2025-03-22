@@ -47,7 +47,7 @@
           "variable.head_rotation = query.bone_rotation('head');"
         ],
         "pre_animation": [
-          "variable.armor_texture_slot = query.armor_texture_slot(1);",
+          "variable.armor_texture_slot = query.armor_texture_slot(4);",
           "variable.eat_anim = math.clamp(variable.eat_anim + (query.is_grazing ? ((1.0 - variable.eat_anim) * 0.4 + 0.05) : -variable.eat_anim * 0.4 - 0.05) * query.delta_time * 20.0, 0.0, 1.0);",
           "variable.mouth_anim = math.clamp(variable.mouth_anim + (variable.open_mouth ? ((1.0 - variable.mouth_anim) * 0.7 + 0.05) : -variable.mouth_anim * 0.7 - 0.05) * query.delta_time * 20.0, 0.0, 1.0);",
           "variable.walk_tail_angle = math.clamp(query.modified_move_speed * 50.0, 0.0, 90.0) * (1.0 - variable.stand_anim);",
@@ -61,16 +61,28 @@
         ],
         "animate": [
           "setup",
-          { "baby_transform": "query.is_baby" },
-          { "walk": "variable.stand_anim < 0.5" },
-          { "stand": "variable.stand_anim > 0.0" },
-          { "eat": "!query.is_standing" },
-          { "shake_tail": "variable.shake_tail" },
+          {
+            "baby_transform": "query.is_baby"
+          },
+          {
+            "walk": "variable.stand_anim < 0.5"
+          },
+          {
+            "stand": "variable.stand_anim > 0.0"
+          },
+          {
+            "eat": "!query.is_standing"
+          },
+          {
+            "shake_tail": "variable.shake_tail"
+          },
           "mouth",
           "look_at_player"
         ]
       },
-      "render_controllers": [ "controller.render.horse.v1.and.v2" ],
+      "render_controllers": [
+        "controller.render.horse.v1.and.v2"
+      ],
       "spawn_egg": {
         "texture": "spawn_egg",
         "texture_index": 23
