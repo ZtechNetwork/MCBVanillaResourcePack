@@ -221,6 +221,79 @@
           ]
         }
       },
+      // For when we are showing the Locator Bar instead of the XP bar
+      {
+        "resizing_hotbar_locator_bar": {
+          "type": "panel",
+          "size": [ "100%c", 5 ],
+          "controls": [
+            {
+              "size_owner": {
+                "type": "panel",
+                "size": [ "100%c", "100%c" ],
+                "controls": [
+                  {
+                    "hotbar@hotbar_chooser": {
+                      "offset": [ 4, 16 ],
+                      "bindings": [
+                        {
+                          "binding_name": "(not #is_spectator_mode)",
+                          "binding_name_override": "#visible"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "size_without_hotbar": {
+                      "type": "panel",
+                      "size": [ 180, 5 ],
+                      "bindings": [
+                        {
+                          "binding_name": "#is_spectator_mode",
+                          "binding_name_override": "#visible"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "horse_jump_rend@horse_jump_renderer": {
+                "anchor_from": "bottom_middle",
+                "anchor_to": "bottom_middle",
+                "size": [ "100%sm", 5 ],
+                "replaced_while_inactive": true
+              }
+            },
+            {
+              "dash_rend@dash_renderer": {
+                "anchor_from": "bottom_middle",
+                "anchor_to": "bottom_middle",
+                "size": [ "100%sm", 5 ],
+                "replaced_while_inactive": true
+              }
+            },
+            {
+              "locator_bar@locator_bar": {
+                "size": [ "100%sm", 5 ],
+                "anchor_from": "bottom_middle",
+                "anchor_to": "bottom_middle",
+                "layer": 10
+              }
+            },
+            {
+              "progress_text_label@progress_text_label": {}
+            }
+          ],
+          "bindings": [
+            {
+              "binding_name": "#hotbar_with_locator_bar",
+              "binding_name_override": "#visible"
+            }
+          ]
+        }
+      },
       {
         "item_text_factory": {
           "size": [ 100, 10 ],
@@ -287,6 +360,44 @@
           "bindings": [
             {
               "binding_name": "#hotbar_with_xp_bar",
+              "binding_name_override": "#visible"
+            },
+            {
+              "binding_name": "#exp_bar_and_text_offset_y",
+              "binding_name_override": "#anchored_offset_value_y"
+            },
+            {
+              "binding_name": "#exp_bar_size_x",
+              "binding_name_override": "#size_binding_x"
+            },
+            {
+              "binding_name": "#exp_bar_size_y",
+              "binding_name_override": "#size_binding_y"
+            }
+          ]
+        }
+      },
+      // For when we are showing the Locator Bar instead of the XP bar
+      {
+        "resizing_locator_bar": {
+          "type": "panel",
+          "size": [ "100%", 5 ],
+          "controls": [
+            {
+              "locator_bar@locator_bar": {
+                "size": [ "100%", 5 ],
+                "anchor_from": "bottom_middle",
+                "anchor_to": "bottom_middle",
+                "layer": 10
+              }
+            },
+            {
+              "progress_text_label@progress_text_label": {}
+            }
+          ],
+          "bindings": [
+            {
+              "binding_name": "#hotbar_with_locator_bar",
               "binding_name_override": "#visible"
             },
             {
@@ -449,6 +560,11 @@
   "dash_renderer": {
     "type": "custom",
     "renderer": "dash_renderer"
+  },
+
+  "locator_bar": {
+    "type": "custom",
+    "renderer": "locator_bar"
   },
 
   "hunger_renderer": {
@@ -741,7 +857,6 @@
           "anchor_to": "bottom_middle",
           "layer": 1,
 
-          "enable_profanity_filter": false,
           "color": "$chat_text_color",
           "text": "#text",
           "shadow": true,
@@ -763,6 +878,10 @@
         "binding_name_override": "#visible",
         "binding_condition": "always",
         "binding_type": "global"
+      },
+      {
+        "binding_name": "#hud_text_background_alpha",
+        "binding_name_override": "#alpha"
       }
     ]
   },
@@ -781,7 +900,6 @@
           "anchor_to": "bottom_middle",
           "layer": 1,
 
-          "enable_profanity_filter": false,
           "color": "$chat_text_color",
           "text": "#text",
           "shadow": true,
@@ -803,6 +921,10 @@
         "binding_name_override": "#visible",
         "binding_condition": "always",
         "binding_type": "global"
+      },
+      {
+        "binding_name": "#hud_text_background_alpha",
+        "binding_name_override": "#alpha"
       }
     ]
   },
@@ -826,7 +948,7 @@
     "easing": "in_quart",
     "destroy_at_end": "chat_grid_item",
     "duration": 1,
-    "from": 0.7,
+    "from": "$chat_background_opacity",
     "to": 0
   },
 
@@ -844,6 +966,7 @@
     "shadow": true,
     "localize": false,
     "color": "$chat_text_color",
+    "enable_profanity_filter": true,
     "font_type": "$chat_font_type",
     "font_scale_factor": "$chat_font_scale_factor",
     "line_padding": "$chat_line_spacing",
@@ -878,7 +1001,7 @@
         "chat_background": {
           "type": "image",
           "texture": "textures/ui/Black",
-          "alpha": 0.7,
+          "alpha": "$chat_background_opacity",
           "size": [ "100%", "100%c" ],
           "anims": [
             "@hud.anim_chat_bg_wait"
@@ -1662,7 +1785,7 @@
     "anim_type": "alpha",
     "duration": 0,
     "from": 0,
-    "to": 0.6,
+    "to": "$item_text_background_alpha",
     "next": "@hud.anim_item_name_background_alpha_stay"
   },
 
@@ -1676,7 +1799,7 @@
     "anim_type": "alpha",
     "easing": "in_expo",
     "duration": 2,
-    "from": 0.6,
+    "from": "$item_text_background_alpha",
     "to": 0
   },
 
@@ -1725,9 +1848,9 @@
                       "color": "$text_color",
                       "text": "#text",
                       "alpha": "@hud.anim_item_name_text_alpha_in",
+                      "shadow": true,
                       // Disable profanity filter for this control so that
                       // we can enable it on the fly only for items with custom names
-                      "enable_profanity_filter": false,
                       "bindings": [
                         {
                           "binding_name": "$text_binding",
@@ -1795,6 +1918,7 @@
     "size": [ "100%c + 12px", "100%c + 5px" ],
     "offset": [ 0, -42 ],
     "texture": "textures/ui/hud_tip_text_background",
+    "$item_text_background_alpha": 0.6,
     "alpha": "@hud.anim_item_name_background_alpha_out",
     "anchor_from": "bottom_middle",
     "anchor_to": "bottom_middle",
@@ -1882,6 +2006,7 @@
           "anchor_from": "center",
           "anchor_to": "center",
           "color": "$tool_tip_text",
+          "enable_profanity_filter": true,
           "layer": 31,
           "text": "$actionbar_text",
           "localize": false,
@@ -2018,6 +2143,7 @@
                 "anchor_from": "top_middle",
                 "anchor_to": "top_middle",
                 "color": "$title_command_text_color",
+                "enable_profanity_filter": true,
                 "text": "#text",
                 "layer": 31,
                 "localize": false,
@@ -2077,6 +2203,7 @@
                 "anchor_from": "top_middle",
                 "anchor_to": "top_middle",
                 "color": "$title_command_text_color",
+                "enable_profanity_filter": true,
                 "text": "#text",
                 "layer": 31,
                 "localize": false,
@@ -2128,6 +2255,7 @@
         "boss_name": {
           "type": "label",
           "color": "$boss_name_text_color",
+          "enable_profanity_filter": true,
           "text": "#bossName",
           "anchor_from": "top_middle",
           "anchor_to": "top_middle",
@@ -3166,18 +3294,7 @@
         "curor_rend@cursor_renderer": {
           "bindings": [
             {
-              "binding_name": "(not #on_new_death_screen)",
-              "binding_name_override": "#visible"
-            }
-          ]
-        }
-      },
-      {
-        "editor_volume_highlight_rend@editor_volume_highlight_renderer": {
-          "ignored": "(not $is_editor_mode_enabled)",
-          "bindings": [
-            {
-              "binding_name": "#is_editor_mode_paste_preview_visible",
+              "binding_name": "#show_cursor",
               "binding_name_override": "#visible"
             }
           ]
@@ -3502,6 +3619,11 @@
       },
       {
         "editor_compass_renderer@editor_compass_renderer": {
+          "ignored": "(not $is_editor_mode_enabled)"
+        }
+      },
+      {
+        "editor_volume_highlight_renderer@editor_volume_highlight_renderer": {
           "ignored": "(not $is_editor_mode_enabled)"
         }
       },

@@ -409,6 +409,10 @@
     "$toggle_enabled_binding_type|default": "none",
     "$toggle_enabled_binding_condition|default": "visible",
     "$toggle_enabled_binding_name|default": "#toggle_enabled",
+    "$toggle_focus_id_binding_type|default": "none",
+    "$toggle_focus_id_binding_condition|default": "visible",
+    "$toggle_focus_id_binding_name|default": "#toggle_focus_id",
+    "$toggle_focus_id_collection_name|default": "",
     "$toggle_grid_collection_name|default": "",
     "$toggle_collection_details_type|default": "none",
     "$toggle_collection_detail_name|default": "",
@@ -458,7 +462,7 @@
     "tts_control_type_order_priority": "$toggle_tts_type_priority",
     "tts_index_priority": "$toggle_tts_index_priority",
     "tts_inherit_siblings": "$toggle_tts_inherit_siblings",
-	  "tts_ignore_count": false,
+    "tts_ignore_count": false,
 
     "button_mappings": [
       {
@@ -541,6 +545,13 @@
         "binding_type": "global",
         "binding_name": "$toggle_focus_bind",
         "binding_name_override": "#focus_enabled"
+      },
+      {
+        "binding_type": "$toggle_focus_id_binding_type",
+        "binding_condition": "$toggle_focus_id_binding_condition",
+        "binding_collection_name": "$toggle_focus_id_collection_name",
+        "binding_name": "$toggle_focus_id_binding_name",
+        "binding_name_override": "#focus_identifier"
       }
     ]
   },
@@ -921,6 +932,9 @@
     "$slider_enabled_binding_type|default": "none",
     "$slider_enabled_binding_condition|default": "visible",
     "$slider_enabled_binding_name|default": "#slider_enabled",
+    "$slider_timeout_binding_type|default": "none",
+    "$slider_timeout_binding_condition|default": "once",
+    "$slider_timeout_binding_name|default": "#slider_timeout",
 
     "$slider_tts_binding_type|default": "global",
     "$slider_tts_binding_condition|default": "visible",
@@ -1039,7 +1053,8 @@
     ],
     "property_bag": {
       "#slider_steps": 1,
-      "#slider_value": 0
+      "#slider_value": 0,
+      "#slider_timeout": 0.25
     },
     "bindings": [
       {
@@ -1074,8 +1089,14 @@
         "binding_condition": "$slider_tts_header_binding_condition",
         "binding_collection_name": "$slider_header_collection_name",
         "binding_name": "$slider_tts_header"
+      },
+      {
+        "binding_type": "$slider_timeout_binding_type",
+        "binding_condition": "$slider_timeout_binding_condition",
+        "binding_collection_name": "$slider_collection_name",
+        "binding_name": "$slider_timeout_binding_name",
+        "binding_name_override": "#slider_timeout"
       }
-
     ]
   },
 
@@ -2169,6 +2190,7 @@
     "layer": 1,
     "tiled": true
   },
+
   "empty_progress_bar": {
     "type": "image",
     "texture": "textures/ui/empty_progress_bar",
@@ -2183,6 +2205,25 @@
     "bindings": [
       {
         "binding_name": "#progress_percentage",
+        "binding_name_override": "#clip_ratio"
+      }
+    ]
+  },
+
+  "empty_progress_bar_beveled": {
+    "type": "image",
+    "texture": "textures/ui/progress_bar_beveled_empty",
+    "color": "#color"
+  },
+
+  "progress_bar_beveled_overlay": {
+    "type": "image",
+    "texture": "textures/ui/progress_bar_beveled_overlay",
+    "clip_direction": "left",
+    "color": "#color",
+    "bindings": [
+      {
+        "binding_name": "$progress_percentage_binding_name",
         "binding_name_override": "#clip_ratio"
       }
     ]
@@ -2310,7 +2351,6 @@
           "layer": 2,
           "font_type": "$font_type",
           "font_size": "$font_size",
-          "enable_profanity_filter": false,
 
           "font_scale_factor": "$single_line_font_scale_factor",
 
@@ -3886,10 +3926,9 @@
     "color": "$item_hover_text_color",
     // Hover texts get formatted and localized before they make it to the UI.
     // Localizing them twice risks breaking the formatted text.
-    "localize": false,
+    "localize": false
     // Disable profanity filter for this control so that
     // we can enable it on the fly only for items with custom names
-    "enable_profanity_filter": false
   },
 
   "selected_item_details_factory": {
@@ -6160,6 +6199,10 @@
     ]
   },
 
+  "render_below_base_screen@common.base_screen": {
+    "force_render_below": true
+  },
+
   "safezone_buffer": {
     "type": "panel",
     "bindings": [
@@ -6323,7 +6366,7 @@
     "type": "panel",
     "size": [ "100%", "100%" ],
     "controls": [
-      { "bundle_cursor_tooltip@gameplay.bundle_cursor_tooltip": {} },
+      { "bundle_tooltip_factory_wrapper@gameplay.bundle_tooltip_factory_wrapper": {} },
       { "bundle_touch_tooltip@gameplay.bundle_touch_tooltip": {} }
     ],
     "bindings": [
