@@ -1,0 +1,114 @@
+name: Create Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version number (e.g., 26.10.0)'
+        required: true
+        type: string
+      release_notes_url:
+        description: 'URL to the release notes (via minecraft.net or feedback.minecraft.net)'
+        required: true
+        type: string
+
+# Only allow dispatching from main or preview branches
+run-name: "Release ${{ github.ref_name == 'preview' && format('v{0}-preview', inputs.version) || format('v{0}', inputs.version) }}"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      # ── Validate inputs ───────────────────────────────────────────────
+      - name: Validate version format
+        run: |
+          VERSION="${{ inputs.version }}"
+          if [[ ! "$VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "::error::Version must be three dot-separated numbers (e.g., 26.10.0). Got: $VERSION"
+            exit 1
+          fi
+
+      # ── Compute tag and release metadata ──────────────────────────────
+      - name: Set release variables
+        id: vars
+        run: |
+          VERSION="${{ inputs.version }}"
+          BRANCH="${{ github.ref_name }}"
+          TAG="v${VERSION}"
+          PRERELEASE=false
+          MAKE_LATEST=true
+          
+
+          echo "tag=$TAG"                 >> "$GITHUB_OUTPUT"
+          echo "prerelease=$PRERELEASE"   >> "$GITHUB_OUTPUT"
+          echo "make_latest=$MAKE_LATEST" >> "$GITHUB_OUTPUT"
+
+          echo "### Release info" >> "$GITHUB_STEP_SUMMARY"
+          echo "- **Tag:** $TAG"  >> "$GITHUB_STEP_SUMMARY"
+          echo "- **Branch:** $BRANCH" >> "$GITHUB_STEP_SUMMARY"
+          echo "- **Pre-release:** $PRERELEASE" >> "$GITHUB_STEP_SUMMARY"
+
+      # ── Get previous tag ──────────────────────────────────────────────
+      - name: Get previous tag
+        id: previoustag
+        run: |
+          # Use git describe to find the previous tag
+          # This command finds the tag before the current HEAD
+          PREVIOUS_TAG=$(git describe --tags --abbrev=0 HEAD~1)
+          echo "Previous tag: $PREVIOUS_TAG"
+          echo "previous_tag=$PREVIOUS_TAG" >> $GITHUB_OUTPUT
+
+      # ── Checkout ──────────────────────────────────────────────────────
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+
+      # ── Build zip ─────────────────────────────────────────────────────
+      - name: Build resource pack
+        run: |
+          ZIP_NAME="ResourcePack_${{ steps.vars.outputs.tag }}.zip"
+
+          zip -r "$ZIP_NAME" \
+            animation_controllers/ \
+            animations/ \
+            attachables/ \
+            biomes/ \
+            cameras/ \
+            entity/ \
+            fogs/ \
+            font/ \
+            models/ \
+            particles/ \
+            render_controllers/ \
+            sounds/ \
+            texts/ \
+            textures/ \
+            ui/ \
+            biomes_client.json \
+            blocks.json \
+            bug_pack_icon.png \
+            pack_icon.png \
+            manifest.json \
+            sounds.json \
+            splashes.json
+
+      # ── Create GitHub Release ─────────────────────────────────────────
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.vars.outputs.tag }}
+          target_commitish: ${{ github.ref_name }}
+          name: ${{ steps.vars.outputs.tag }}
+          body: |
+            - Updated for **${{ steps.vars.outputs.tag }}**.
+            - View the game changelog [here](${{ inputs.release_notes_url }}).
+            - View changes [here](https://github.com/ZtechNetwork/MCBVanillaResourcePack/compare/${{ steps.previoustag.outputs.previous_tag }}...${{ steps.vars.outputs.tag }}).
+          prerelease: ${{ steps.vars.outputs.prerelease == 'false' }}
+          make_latest: ${{ steps.vars.outputs.make_latest == 'true' }}
+          files: |
+            ResourcePack_${{ steps.vars.outputs.tag }}.zip
