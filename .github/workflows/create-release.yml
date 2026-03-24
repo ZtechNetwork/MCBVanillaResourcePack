@@ -54,7 +54,7 @@ jobs:
 
       # ── Checkout ──────────────────────────────────────────────────────
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           ref: ${{ github.ref_name }}
 
@@ -103,7 +103,7 @@ jobs:
             - Updated for **${{ steps.vars.outputs.tag }}**.
             - View the game changelog [here](${{ inputs.release_notes_url }}).
             - View changes [here](https://github.com/ZtechNetwork/MCBVanillaResourcePack/compare/${{ steps.previoustag.outputs.tag }}...${{ steps.vars.outputs.tag }}).
-          prerelease: ${{ steps.vars.outputs.prerelease == 'false' }}
+          prerelease: ${{ steps.vars.outputs.prerelease == 'true' }}
           make_latest: ${{ steps.vars.outputs.make_latest == 'true' }}
           files: |
             ResourcePack_${{ steps.vars.outputs.tag }}.zip
