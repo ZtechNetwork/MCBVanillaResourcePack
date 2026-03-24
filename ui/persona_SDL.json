@@ -433,6 +433,14 @@
   },
 
   "color_picker_content_panel@common.vertical_stack_panel": {
+    "$section_name": "rows",
+    "property_bag": {
+      "#section_name": "$section_name"
+    },
+    "property_bag_for_children": {
+      "#section_name": "$section_name"
+    },
+
     "size": [ "100%", "100%" ],
     "controls": [
       { "top_pad@persona_sdl.vertical_padding_2px": {} },
@@ -450,7 +458,7 @@
                       "layer": 2,
                       "offset": [ 5, 0 ],
                       "tts_name": "#tts_color_picker_left",
-                        "bindings": [
+                      "bindings": [
                         {
                           "binding_type": "$store_factory_collection_details",
                           "binding_collection_name": "$store_factory_collection_name",
@@ -2307,9 +2315,10 @@
   "expanded_appearance_panel": {
     "type": "panel",
     "size": [ "100%", "100%" ],
+
     "controls": [
-        {
-          "expanded_appearance@persona_sdl.appearance_section": {
+      {
+        "expanded_appearance@persona_sdl.appearance_section": {
           "size": [ "100% - 10px", "100% - 10px" ],
           "$model_offset": [ 0, "-10%" ],
           "$appearance_viewer_model_size": [ "51%y", "100%" ],
@@ -3213,7 +3222,7 @@
     "$ignore_color_picker": false,
 
     "$info_panel_prefix": "piece_offer",
-    "$section_name": "rows",
+
     "controls": [
       {
         "right_info_panel_dialog_object@persona_sdl.right_info_panel_dialog_object": {}
@@ -4912,6 +4921,11 @@
           "bindings": [
             {
               "binding_name": "$skin_dimension_binding"
+            },
+            {
+               "binding_type": "$store_factory_collection_details",
+               "binding_collection_name": "$store_factory_collection_name",
+               "binding_collection_prefix": "$store_factory_collection_prefix"
             }
           ]
         }
@@ -5819,9 +5833,10 @@
     "$persona_dialog_content": "persona_sdl.offer_info_section_content"
   },
 
-   "sdl_default_right_side_stack_panel": {
+  "sdl_default_right_side_stack_panel": {
     "type": "panel",
     "size": [ "100%", "100%" ],
+
     "controls": [
       { "default_right_side_stack@persona_sdl.default_right_side_stack": {} }
     ]

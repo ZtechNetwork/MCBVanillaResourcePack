@@ -7,10 +7,12 @@
         "default": "goat"
       },
       "textures": {
-        "default": "textures/entity/goat/goat"
+        "default": "textures/entity/goat/goat",
+        "baby": "textures/entity/goat/goat_baby"
       },
       "geometry": {
-        "default": "geometry.goat"
+        "default": "geometry.goat",
+        "baby": "geometry.goat.baby"
       },
       "spawn_egg": {
         "texture": "spawn_egg_goat"
@@ -29,7 +31,8 @@
             "attack": "variable.has_target && variable.attack_time >= 0.0"
           },
           "ram_attack"
-        ]
+        ],
+        "scale": "query.is_baby ? 2.0 : 1.0"
       },
       "animations": {
         "walk": "animation.goat.walk",
@@ -38,7 +41,7 @@
         "ram_attack": "animation.goat.ram_attack"
       },
       "render_controllers": [
-        "controller.render.goat"
+        "controller.render.goat.v2"
       ]
     }
   }
