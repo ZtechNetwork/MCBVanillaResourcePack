@@ -52,21 +52,19 @@ jobs:
           echo "- **Branch:** $BRANCH" >> "$GITHUB_STEP_SUMMARY"
           echo "- **Pre-release:** $PRERELEASE" >> "$GITHUB_STEP_SUMMARY"
 
-      # ── Get previous tag ──────────────────────────────────────────────
-      - name: Get previous tag
-        id: previoustag
-        run: |
-          # Use git describe to find the previous tag
-          # This command finds the tag before the current HEAD
-          PREVIOUS_TAG=$(git describe --tags --abbrev=0 HEAD~1)
-          echo "Previous tag: $PREVIOUS_TAG"
-          echo "previous_tag=$PREVIOUS_TAG" >> $GITHUB_OUTPUT
-
       # ── Checkout ──────────────────────────────────────────────────────
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           ref: ${{ github.ref_name }}
+
+      # ── Get previous tag ──────────────────────────────────────────────
+      - name: Get previous tag
+        id: previoustag
+        run: |
+          PREVIOUS_TAG=$(git describe --tags --abbrev=0 HEAD~1)
+          echo "Previous tag: $PREVIOUS_TAG"
+          echo "previous_tag=$PREVIOUS_TAG" >> $GITHUB_OUTPUT
 
       # ── Build zip ─────────────────────────────────────────────────────
       - name: Build resource pack
