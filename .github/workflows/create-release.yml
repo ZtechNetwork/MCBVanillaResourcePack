@@ -61,11 +61,7 @@ jobs:
       # ── Get previous tag ──────────────────────────────────────────────
       - name: Get previous tag
         id: previoustag
-        run: |
-          git fetch --tags
-          PREVIOUS_TAG=$(git describe --tags --abbrev=0)
-          echo "Previous tag: $PREVIOUS_TAG"
-          echo "previous_tag=$PREVIOUS_TAG" >> $GITHUB_OUTPUT
+        uses: "actions-ecosystem/action-get-latest-tag@v1"
 
       # ── Build zip ─────────────────────────────────────────────────────
       - name: Build resource pack
@@ -106,7 +102,7 @@ jobs:
           body: |
             - Updated for **${{ steps.vars.outputs.tag }}**.
             - View the game changelog [here](${{ inputs.release_notes_url }}).
-            - View changes [here](https://github.com/ZtechNetwork/MCBVanillaResourcePack/compare/${{ steps.previoustag.outputs.previous_tag }}...${{ steps.vars.outputs.tag }}).
+            - View changes [here](https://github.com/ZtechNetwork/MCBVanillaResourcePack/compare/${{ steps.previoustag.outputs.tag }}...${{ steps.vars.outputs.tag }}).
           prerelease: ${{ steps.vars.outputs.prerelease == 'false' }}
           make_latest: ${{ steps.vars.outputs.make_latest == 'true' }}
           files: |
